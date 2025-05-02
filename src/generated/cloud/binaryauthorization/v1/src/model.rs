@@ -227,62 +227,138 @@ pub mod policy {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GlobalPolicyEvaluationMode(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GlobalPolicyEvaluationMode {
+        /// Not specified: DISABLE is assumed.
+        Unspecified,
+        /// Enables system policy evaluation.
+        Enable,
+        /// Disables system policy evaluation.
+        Disable,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GlobalPolicyEvaluationMode::value] or
+        /// [GlobalPolicyEvaluationMode::name].
+        UnknownValue(global_policy_evaluation_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod global_policy_evaluation_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl GlobalPolicyEvaluationMode {
-        /// Not specified: DISABLE is assumed.
-        pub const GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED: GlobalPolicyEvaluationMode =
-            GlobalPolicyEvaluationMode::new(0);
-
-        /// Enables system policy evaluation.
-        pub const ENABLE: GlobalPolicyEvaluationMode = GlobalPolicyEvaluationMode::new(1);
-
-        /// Disables system policy evaluation.
-        pub const DISABLE: GlobalPolicyEvaluationMode = GlobalPolicyEvaluationMode::new(2);
-
-        /// Creates a new GlobalPolicyEvaluationMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enable => std::option::Option::Some(1),
+                Self::Disable => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLE"),
-                2 => std::borrow::Cow::Borrowed("DISABLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED")
                 }
-                "ENABLE" => std::option::Option::Some(Self::ENABLE),
-                "DISABLE" => std::option::Option::Some(Self::DISABLE),
-                _ => std::option::Option::None,
+                Self::Enable => std::option::Option::Some("ENABLE"),
+                Self::Disable => std::option::Option::Some("DISABLE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for GlobalPolicyEvaluationMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for GlobalPolicyEvaluationMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for GlobalPolicyEvaluationMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for GlobalPolicyEvaluationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enable,
+                2 => Self::Disable,
+                _ => Self::UnknownValue(global_policy_evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for GlobalPolicyEvaluationMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLE" => Self::Enable,
+                "DISABLE" => Self::Disable,
+                _ => Self::UnknownValue(global_policy_evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for GlobalPolicyEvaluationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enable => serializer.serialize_i32(1),
+                Self::Disable => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GlobalPolicyEvaluationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<GlobalPolicyEvaluationMode>::new(
+                    ".google.cloud.binaryauthorization.v1.Policy.GlobalPolicyEvaluationMode",
+                ),
+            )
         }
     }
 }
@@ -413,131 +489,279 @@ pub mod admission_rule {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EvaluationMode(i32);
-
-    impl EvaluationMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EvaluationMode {
         /// Do not use.
-        pub const EVALUATION_MODE_UNSPECIFIED: EvaluationMode = EvaluationMode::new(0);
-
+        Unspecified,
         /// This rule allows all all pod creations.
-        pub const ALWAYS_ALLOW: EvaluationMode = EvaluationMode::new(1);
-
+        AlwaysAllow,
         /// This rule allows a pod creation if all the attestors listed in
         /// 'require_attestations_by' have valid attestations for all of the
         /// images in the pod spec.
-        pub const REQUIRE_ATTESTATION: EvaluationMode = EvaluationMode::new(2);
-
+        RequireAttestation,
         /// This rule denies all pod creations.
-        pub const ALWAYS_DENY: EvaluationMode = EvaluationMode::new(3);
+        AlwaysDeny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EvaluationMode::value] or
+        /// [EvaluationMode::name].
+        UnknownValue(evaluation_mode::UnknownValue),
+    }
 
-        /// Creates a new EvaluationMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod evaluation_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl EvaluationMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AlwaysAllow => std::option::Option::Some(1),
+                Self::RequireAttestation => std::option::Option::Some(2),
+                Self::AlwaysDeny => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EVALUATION_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALWAYS_ALLOW"),
-                2 => std::borrow::Cow::Borrowed("REQUIRE_ATTESTATION"),
-                3 => std::borrow::Cow::Borrowed("ALWAYS_DENY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVALUATION_MODE_UNSPECIFIED"),
+                Self::AlwaysAllow => std::option::Option::Some("ALWAYS_ALLOW"),
+                Self::RequireAttestation => std::option::Option::Some("REQUIRE_ATTESTATION"),
+                Self::AlwaysDeny => std::option::Option::Some("ALWAYS_DENY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EVALUATION_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::EVALUATION_MODE_UNSPECIFIED)
-                }
-                "ALWAYS_ALLOW" => std::option::Option::Some(Self::ALWAYS_ALLOW),
-                "REQUIRE_ATTESTATION" => std::option::Option::Some(Self::REQUIRE_ATTESTATION),
-                "ALWAYS_DENY" => std::option::Option::Some(Self::ALWAYS_DENY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for EvaluationMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for EvaluationMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EvaluationMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EvaluationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AlwaysAllow,
+                2 => Self::RequireAttestation,
+                3 => Self::AlwaysDeny,
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EvaluationMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVALUATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ALWAYS_ALLOW" => Self::AlwaysAllow,
+                "REQUIRE_ATTESTATION" => Self::RequireAttestation,
+                "ALWAYS_DENY" => Self::AlwaysDeny,
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EvaluationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AlwaysAllow => serializer.serialize_i32(1),
+                Self::RequireAttestation => serializer.serialize_i32(2),
+                Self::AlwaysDeny => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EvaluationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationMode>::new(
+                ".google.cloud.binaryauthorization.v1.AdmissionRule.EvaluationMode",
+            ))
         }
     }
 
     /// Defines the possible actions when a pod creation is denied by an admission
     /// rule.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EnforcementMode(i32);
-
-    impl EnforcementMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EnforcementMode {
         /// Do not use.
-        pub const ENFORCEMENT_MODE_UNSPECIFIED: EnforcementMode = EnforcementMode::new(0);
-
+        Unspecified,
         /// Enforce the admission rule by blocking the pod creation.
-        pub const ENFORCED_BLOCK_AND_AUDIT_LOG: EnforcementMode = EnforcementMode::new(1);
-
+        EnforcedBlockAndAuditLog,
         /// Dryrun mode: Audit logging only.  This will allow the pod creation as if
         /// the admission request had specified break-glass.
-        pub const DRYRUN_AUDIT_LOG_ONLY: EnforcementMode = EnforcementMode::new(2);
+        DryrunAuditLogOnly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EnforcementMode::value] or
+        /// [EnforcementMode::name].
+        UnknownValue(enforcement_mode::UnknownValue),
+    }
 
-        /// Creates a new EnforcementMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod enforcement_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl EnforcementMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::EnforcedBlockAndAuditLog => std::option::Option::Some(1),
+                Self::DryrunAuditLogOnly => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ENFORCEMENT_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENFORCED_BLOCK_AND_AUDIT_LOG"),
-                2 => std::borrow::Cow::Borrowed("DRYRUN_AUDIT_LOG_ONLY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ENFORCEMENT_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ENFORCEMENT_MODE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ENFORCEMENT_MODE_UNSPECIFIED"),
+                Self::EnforcedBlockAndAuditLog => {
+                    std::option::Option::Some("ENFORCED_BLOCK_AND_AUDIT_LOG")
                 }
-                "ENFORCED_BLOCK_AND_AUDIT_LOG" => {
-                    std::option::Option::Some(Self::ENFORCED_BLOCK_AND_AUDIT_LOG)
-                }
-                "DRYRUN_AUDIT_LOG_ONLY" => std::option::Option::Some(Self::DRYRUN_AUDIT_LOG_ONLY),
-                _ => std::option::Option::None,
+                Self::DryrunAuditLogOnly => std::option::Option::Some("DRYRUN_AUDIT_LOG_ONLY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for EnforcementMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for EnforcementMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EnforcementMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EnforcementMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::EnforcedBlockAndAuditLog,
+                2 => Self::DryrunAuditLogOnly,
+                _ => Self::UnknownValue(enforcement_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EnforcementMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENFORCEMENT_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ENFORCED_BLOCK_AND_AUDIT_LOG" => Self::EnforcedBlockAndAuditLog,
+                "DRYRUN_AUDIT_LOG_ONLY" => Self::DryrunAuditLogOnly,
+                _ => Self::UnknownValue(enforcement_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EnforcementMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::EnforcedBlockAndAuditLog => serializer.serialize_i32(1),
+                Self::DryrunAuditLogOnly => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EnforcementMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnforcementMode>::new(
+                ".google.cloud.binaryauthorization.v1.AdmissionRule.EnforcementMode",
+            ))
         }
     }
 }
@@ -817,126 +1041,223 @@ pub mod pkix_public_key {
     /// PemKeyType, which is in turn based on KMS's supported signing algorithms.
     /// See <https://cloud.google.com/kms/docs/algorithms>. In the future, BinAuthz
     /// might support additional public key types independently of Tink and/or KMS.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SignatureAlgorithm(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SignatureAlgorithm {
+        /// Not specified.
+        Unspecified,
+        /// RSASSA-PSS 2048 bit key with a SHA256 digest.
+        RsaPss2048Sha256,
+        /// RSASSA-PSS 3072 bit key with a SHA256 digest.
+        RsaPss3072Sha256,
+        /// RSASSA-PSS 4096 bit key with a SHA256 digest.
+        RsaPss4096Sha256,
+        /// RSASSA-PSS 4096 bit key with a SHA512 digest.
+        RsaPss4096Sha512,
+        /// RSASSA-PKCS1-v1_5 with a 2048 bit key and a SHA256 digest.
+        RsaSignPkcs12048Sha256,
+        /// RSASSA-PKCS1-v1_5 with a 3072 bit key and a SHA256 digest.
+        RsaSignPkcs13072Sha256,
+        /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA256 digest.
+        RsaSignPkcs14096Sha256,
+        /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA512 digest.
+        RsaSignPkcs14096Sha512,
+        /// ECDSA on the NIST P-256 curve with a SHA256 digest.
+        EcdsaP256Sha256,
+        /// ECDSA on the NIST P-256 curve with a SHA256 digest.
+        EcSignP256Sha256,
+        /// ECDSA on the NIST P-384 curve with a SHA384 digest.
+        EcdsaP384Sha384,
+        /// ECDSA on the NIST P-384 curve with a SHA384 digest.
+        EcSignP384Sha384,
+        /// ECDSA on the NIST P-521 curve with a SHA512 digest.
+        EcdsaP521Sha512,
+        /// ECDSA on the NIST P-521 curve with a SHA512 digest.
+        EcSignP521Sha512,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SignatureAlgorithm::value] or
+        /// [SignatureAlgorithm::name].
+        UnknownValue(signature_algorithm::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod signature_algorithm {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl SignatureAlgorithm {
-        /// Not specified.
-        pub const SIGNATURE_ALGORITHM_UNSPECIFIED: SignatureAlgorithm = SignatureAlgorithm::new(0);
-
-        /// RSASSA-PSS 2048 bit key with a SHA256 digest.
-        pub const RSA_PSS_2048_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(1);
-
-        /// RSASSA-PSS 3072 bit key with a SHA256 digest.
-        pub const RSA_PSS_3072_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(2);
-
-        /// RSASSA-PSS 4096 bit key with a SHA256 digest.
-        pub const RSA_PSS_4096_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(3);
-
-        /// RSASSA-PSS 4096 bit key with a SHA512 digest.
-        pub const RSA_PSS_4096_SHA512: SignatureAlgorithm = SignatureAlgorithm::new(4);
-
-        /// RSASSA-PKCS1-v1_5 with a 2048 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_2048_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(5);
-
-        /// RSASSA-PKCS1-v1_5 with a 3072 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_3072_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(6);
-
-        /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_4096_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(7);
-
-        /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA512 digest.
-        pub const RSA_SIGN_PKCS1_4096_SHA512: SignatureAlgorithm = SignatureAlgorithm::new(8);
-
-        /// ECDSA on the NIST P-256 curve with a SHA256 digest.
-        pub const ECDSA_P256_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(9);
-
-        /// ECDSA on the NIST P-256 curve with a SHA256 digest.
-        pub const EC_SIGN_P256_SHA256: SignatureAlgorithm = SignatureAlgorithm::new(9);
-
-        /// ECDSA on the NIST P-384 curve with a SHA384 digest.
-        pub const ECDSA_P384_SHA384: SignatureAlgorithm = SignatureAlgorithm::new(10);
-
-        /// ECDSA on the NIST P-384 curve with a SHA384 digest.
-        pub const EC_SIGN_P384_SHA384: SignatureAlgorithm = SignatureAlgorithm::new(10);
-
-        /// ECDSA on the NIST P-521 curve with a SHA512 digest.
-        pub const ECDSA_P521_SHA512: SignatureAlgorithm = SignatureAlgorithm::new(11);
-
-        /// ECDSA on the NIST P-521 curve with a SHA512 digest.
-        pub const EC_SIGN_P521_SHA512: SignatureAlgorithm = SignatureAlgorithm::new(11);
-
-        /// Creates a new SignatureAlgorithm instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RsaPss2048Sha256 => std::option::Option::Some(1),
+                Self::RsaPss3072Sha256 => std::option::Option::Some(2),
+                Self::RsaPss4096Sha256 => std::option::Option::Some(3),
+                Self::RsaPss4096Sha512 => std::option::Option::Some(4),
+                Self::RsaSignPkcs12048Sha256 => std::option::Option::Some(5),
+                Self::RsaSignPkcs13072Sha256 => std::option::Option::Some(6),
+                Self::RsaSignPkcs14096Sha256 => std::option::Option::Some(7),
+                Self::RsaSignPkcs14096Sha512 => std::option::Option::Some(8),
+                Self::EcdsaP256Sha256 => std::option::Option::Some(9),
+                Self::EcSignP256Sha256 => std::option::Option::Some(9),
+                Self::EcdsaP384Sha384 => std::option::Option::Some(10),
+                Self::EcSignP384Sha384 => std::option::Option::Some(10),
+                Self::EcdsaP521Sha512 => std::option::Option::Some(11),
+                Self::EcSignP521Sha512 => std::option::Option::Some(11),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SIGNATURE_ALGORITHM_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RSA_PSS_2048_SHA256"),
-                2 => std::borrow::Cow::Borrowed("RSA_PSS_3072_SHA256"),
-                3 => std::borrow::Cow::Borrowed("RSA_PSS_4096_SHA256"),
-                4 => std::borrow::Cow::Borrowed("RSA_PSS_4096_SHA512"),
-                5 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_2048_SHA256"),
-                6 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_3072_SHA256"),
-                7 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_4096_SHA256"),
-                8 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_4096_SHA512"),
-                9 => std::borrow::Cow::Borrowed("ECDSA_P256_SHA256"),
-                10 => std::borrow::Cow::Borrowed("ECDSA_P384_SHA384"),
-                11 => std::borrow::Cow::Borrowed("ECDSA_P521_SHA512"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SIGNATURE_ALGORITHM_UNSPECIFIED"),
+                Self::RsaPss2048Sha256 => std::option::Option::Some("RSA_PSS_2048_SHA256"),
+                Self::RsaPss3072Sha256 => std::option::Option::Some("RSA_PSS_3072_SHA256"),
+                Self::RsaPss4096Sha256 => std::option::Option::Some("RSA_PSS_4096_SHA256"),
+                Self::RsaPss4096Sha512 => std::option::Option::Some("RSA_PSS_4096_SHA512"),
+                Self::RsaSignPkcs12048Sha256 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256")
+                }
+                Self::RsaSignPkcs13072Sha256 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_3072_SHA256")
+                }
+                Self::RsaSignPkcs14096Sha256 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA256")
+                }
+                Self::RsaSignPkcs14096Sha512 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA512")
+                }
+                Self::EcdsaP256Sha256 => std::option::Option::Some("ECDSA_P256_SHA256"),
+                Self::EcSignP256Sha256 => std::option::Option::Some("EC_SIGN_P256_SHA256"),
+                Self::EcdsaP384Sha384 => std::option::Option::Some("ECDSA_P384_SHA384"),
+                Self::EcSignP384Sha384 => std::option::Option::Some("EC_SIGN_P384_SHA384"),
+                Self::EcdsaP521Sha512 => std::option::Option::Some("ECDSA_P521_SHA512"),
+                Self::EcSignP521Sha512 => std::option::Option::Some("EC_SIGN_P521_SHA512"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SIGNATURE_ALGORITHM_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::SIGNATURE_ALGORITHM_UNSPECIFIED)
-                }
-                "RSA_PSS_2048_SHA256" => std::option::Option::Some(Self::RSA_PSS_2048_SHA256),
-                "RSA_PSS_3072_SHA256" => std::option::Option::Some(Self::RSA_PSS_3072_SHA256),
-                "RSA_PSS_4096_SHA256" => std::option::Option::Some(Self::RSA_PSS_4096_SHA256),
-                "RSA_PSS_4096_SHA512" => std::option::Option::Some(Self::RSA_PSS_4096_SHA512),
-                "RSA_SIGN_PKCS1_2048_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_2048_SHA256)
-                }
-                "RSA_SIGN_PKCS1_3072_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_3072_SHA256)
-                }
-                "RSA_SIGN_PKCS1_4096_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_4096_SHA256)
-                }
-                "RSA_SIGN_PKCS1_4096_SHA512" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_4096_SHA512)
-                }
-                "ECDSA_P256_SHA256" => std::option::Option::Some(Self::ECDSA_P256_SHA256),
-                "EC_SIGN_P256_SHA256" => std::option::Option::Some(Self::EC_SIGN_P256_SHA256),
-                "ECDSA_P384_SHA384" => std::option::Option::Some(Self::ECDSA_P384_SHA384),
-                "EC_SIGN_P384_SHA384" => std::option::Option::Some(Self::EC_SIGN_P384_SHA384),
-                "ECDSA_P521_SHA512" => std::option::Option::Some(Self::ECDSA_P521_SHA512),
-                "EC_SIGN_P521_SHA512" => std::option::Option::Some(Self::EC_SIGN_P521_SHA512),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SignatureAlgorithm {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SignatureAlgorithm {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SignatureAlgorithm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SignatureAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RsaPss2048Sha256,
+                2 => Self::RsaPss3072Sha256,
+                3 => Self::RsaPss4096Sha256,
+                4 => Self::RsaPss4096Sha512,
+                5 => Self::RsaSignPkcs12048Sha256,
+                6 => Self::RsaSignPkcs13072Sha256,
+                7 => Self::RsaSignPkcs14096Sha256,
+                8 => Self::RsaSignPkcs14096Sha512,
+                9 => Self::EcdsaP256Sha256,
+                10 => Self::EcdsaP384Sha384,
+                11 => Self::EcdsaP521Sha512,
+                _ => Self::UnknownValue(signature_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SignatureAlgorithm {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SIGNATURE_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                "RSA_PSS_2048_SHA256" => Self::RsaPss2048Sha256,
+                "RSA_PSS_3072_SHA256" => Self::RsaPss3072Sha256,
+                "RSA_PSS_4096_SHA256" => Self::RsaPss4096Sha256,
+                "RSA_PSS_4096_SHA512" => Self::RsaPss4096Sha512,
+                "RSA_SIGN_PKCS1_2048_SHA256" => Self::RsaSignPkcs12048Sha256,
+                "RSA_SIGN_PKCS1_3072_SHA256" => Self::RsaSignPkcs13072Sha256,
+                "RSA_SIGN_PKCS1_4096_SHA256" => Self::RsaSignPkcs14096Sha256,
+                "RSA_SIGN_PKCS1_4096_SHA512" => Self::RsaSignPkcs14096Sha512,
+                "ECDSA_P256_SHA256" => Self::EcdsaP256Sha256,
+                "EC_SIGN_P256_SHA256" => Self::EcSignP256Sha256,
+                "ECDSA_P384_SHA384" => Self::EcdsaP384Sha384,
+                "EC_SIGN_P384_SHA384" => Self::EcSignP384Sha384,
+                "ECDSA_P521_SHA512" => Self::EcdsaP521Sha512,
+                "EC_SIGN_P521_SHA512" => Self::EcSignP521Sha512,
+                _ => Self::UnknownValue(signature_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SignatureAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RsaPss2048Sha256 => serializer.serialize_i32(1),
+                Self::RsaPss3072Sha256 => serializer.serialize_i32(2),
+                Self::RsaPss4096Sha256 => serializer.serialize_i32(3),
+                Self::RsaPss4096Sha512 => serializer.serialize_i32(4),
+                Self::RsaSignPkcs12048Sha256 => serializer.serialize_i32(5),
+                Self::RsaSignPkcs13072Sha256 => serializer.serialize_i32(6),
+                Self::RsaSignPkcs14096Sha256 => serializer.serialize_i32(7),
+                Self::RsaSignPkcs14096Sha512 => serializer.serialize_i32(8),
+                Self::EcdsaP256Sha256 => serializer.serialize_i32(9),
+                Self::EcSignP256Sha256 => serializer.serialize_i32(9),
+                Self::EcdsaP384Sha384 => serializer.serialize_i32(10),
+                Self::EcSignP384Sha384 => serializer.serialize_i32(10),
+                Self::EcdsaP521Sha512 => serializer.serialize_i32(11),
+                Self::EcSignP521Sha512 => serializer.serialize_i32(11),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SignatureAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SignatureAlgorithm>::new(
+                ".google.cloud.binaryauthorization.v1.PkixPublicKey.SignatureAlgorithm",
+            ))
         }
     }
 }
@@ -1645,61 +1966,136 @@ pub mod validate_attestation_occurrence_response {
     use super::*;
 
     /// The enum returned in the "result" field.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// Unspecified.
+        Unspecified,
+        /// The Attestation was able to verified by the Attestor.
+        Verified,
+        /// The Attestation was not able to verified by the Attestor.
+        AttestationNotVerifiable,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Result::value] or
+        /// [Result::name].
+        UnknownValue(result::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod result {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Result {
-        /// Unspecified.
-        pub const RESULT_UNSPECIFIED: Result = Result::new(0);
-
-        /// The Attestation was able to verified by the Attestor.
-        pub const VERIFIED: Result = Result::new(1);
-
-        /// The Attestation was not able to verified by the Attestor.
-        pub const ATTESTATION_NOT_VERIFIABLE: Result = Result::new(2);
-
-        /// Creates a new Result instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Verified => std::option::Option::Some(1),
+                Self::AttestationNotVerifiable => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESULT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("VERIFIED"),
-                2 => std::borrow::Cow::Borrowed("ATTESTATION_NOT_VERIFIABLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESULT_UNSPECIFIED" => std::option::Option::Some(Self::RESULT_UNSPECIFIED),
-                "VERIFIED" => std::option::Option::Some(Self::VERIFIED),
-                "ATTESTATION_NOT_VERIFIABLE" => {
-                    std::option::Option::Some(Self::ATTESTATION_NOT_VERIFIABLE)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESULT_UNSPECIFIED"),
+                Self::Verified => std::option::Option::Some("VERIFIED"),
+                Self::AttestationNotVerifiable => {
+                    std::option::Option::Some("ATTESTATION_NOT_VERIFIABLE")
                 }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for Result {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Result {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Verified,
+                2 => Self::AttestationNotVerifiable,
+                _ => Self::UnknownValue(result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Result {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESULT_UNSPECIFIED" => Self::Unspecified,
+                "VERIFIED" => Self::Verified,
+                "ATTESTATION_NOT_VERIFIABLE" => Self::AttestationNotVerifiable,
+                _ => Self::UnknownValue(result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Result {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Verified => serializer.serialize_i32(1),
+                Self::AttestationNotVerifiable => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Result {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Result>::new(
+                ".google.cloud.binaryauthorization.v1.ValidateAttestationOccurrenceResponse.Result",
+            ))
         }
     }
 }

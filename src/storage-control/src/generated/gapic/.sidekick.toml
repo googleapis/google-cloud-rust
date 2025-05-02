@@ -15,9 +15,9 @@
 [general]
 language             = 'rust'
 specification-source = 'google/storage/v2'
+service-config       = 'google/storage/v2/storage_v2.yaml'
 
 [source]
-title-override = 'Cloud Storage'
 # TODO(#1813) - handle IAM mixin for gRPC-based clients
 skipped-ids = """\
     .google.storage.v2.BidiReadHandle,\

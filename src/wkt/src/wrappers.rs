@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use base64::{Engine, engine::general_purpose::STANDARD};
+use serde_with::{DeserializeAs, SerializeAs};
 
 /// Implements the `google.cloud.DoubleValue` well-known type.
 ///
@@ -129,13 +130,12 @@ macro_rules! impl_message {
 }
 
 impl_message!(DoubleValue);
-impl_message!(FloatValue);
 impl_message!(Int32Value);
 impl_message!(UInt32Value);
 impl_message!(BoolValue);
 impl_message!(StringValue);
 
-fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
+fn encode_value<T>(value: serde_json::Value) -> Result<crate::message::Map, crate::AnyError>
 where
     T: crate::message::Message,
 {
@@ -144,12 +144,19 @@ where
             "@type",
             serde_json::Value::String(T::typename().to_string()),
         ),
-        ("value", serde_json::Value::String(value)),
+        ("value", value),
     ]
     .into_iter()
     .map(|(k, v)| (k.to_string(), v))
     .collect();
     Ok(map)
+}
+
+fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
+where
+    T: crate::message::Message,
+{
+    encode_value::<T>(serde_json::Value::String(value))
 }
 
 impl crate::message::Message for UInt64Value {
@@ -220,6 +227,43 @@ impl crate::message::MessageSerializer<Int64Value> for Int64ValueSerializer {
             .ok_or_else(expected_string_value)?
             .parse::<Int64Value>()
             .map_err(crate::AnyError::deser)
+    }
+}
+
+impl crate::message::Message for FloatValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FloatValue"
+    }
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self>
+    where
+        Self: Sized + serde::ser::Serialize,
+    {
+        FloatValueSerializer
+    }
+}
+
+struct FloatValueSerializer;
+
+impl crate::message::MessageSerializer<FloatValue> for FloatValueSerializer {
+    fn serialize_to_map(
+        &self,
+        message: &FloatValue,
+    ) -> Result<crate::message::Map, crate::AnyError> {
+        let value = crate::internal::F32::serialize_as(message, serde_json::value::Serializer)
+            .map_err(crate::AnyError::ser)?;
+        encode_value::<FloatValue>(value)
+    }
+
+    fn deserialize_from_map(
+        &self,
+        map: &crate::message::Map,
+    ) -> Result<FloatValue, crate::AnyError> {
+        let value = map
+            .get("value")
+            .ok_or_else(crate::message::missing_value_field)?;
+        crate::internal::F32::deserialize_as(value).map_err(crate::AnyError::deser)
     }
 }
 
@@ -302,6 +346,31 @@ mod test {
         assert_eq!(got, want);
         let output = any.try_into_message::<I>()?;
         assert_eq!(output, input);
+        Ok(())
+    }
+
+    #[test_case(f32::INFINITY as FloatValue, "Infinity")]
+    #[test_case(f32::NEG_INFINITY as FloatValue, "-Infinity")]
+    #[test_case(f32::NAN as FloatValue, "NaN")]
+    #[test_case(9876.5 as FloatValue, 9876.5)]
+    fn test_wrapper_float<V>(input: FloatValue, value: V) -> Result
+    where
+        V: serde::ser::Serialize,
+    {
+        let any = Any::try_from(&input)?;
+        let got = serde_json::to_value(&any)?;
+        let want = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.FloatValue",
+            "value": value,
+        });
+        assert_eq!(got, want);
+        let output = any.try_into_message::<FloatValue>()?;
+        // Using assert_eq does not work with NaN, as they are not considered equal,
+        // use total_cmp instead.
+        assert!(
+            output.total_cmp(&input) == std::cmp::Ordering::Equal,
+            "expected: {input}, got: {output}"
+        );
         Ok(())
     }
 

@@ -126,60 +126,129 @@ pub mod generate_credentials_request {
     use super::*;
 
     /// Operating systems requiring specialized kubeconfigs.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OperatingSystem(i32);
-
-    impl OperatingSystem {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OperatingSystem {
         /// Generates a kubeconfig that works for all operating systems not defined
         /// below.
-        pub const OPERATING_SYSTEM_UNSPECIFIED: OperatingSystem = OperatingSystem::new(0);
-
+        Unspecified,
         /// Generates a kubeconfig that is specifically designed to work with
         /// Windows.
-        pub const OPERATING_SYSTEM_WINDOWS: OperatingSystem = OperatingSystem::new(1);
+        Windows,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OperatingSystem::value] or
+        /// [OperatingSystem::name].
+        UnknownValue(operating_system::UnknownValue),
+    }
 
-        /// Creates a new OperatingSystem instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod operating_system {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl OperatingSystem {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Windows => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("OPERATING_SYSTEM_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("OPERATING_SYSTEM_WINDOWS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPERATING_SYSTEM_UNSPECIFIED"),
+                Self::Windows => std::option::Option::Some("OPERATING_SYSTEM_WINDOWS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "OPERATING_SYSTEM_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::OPERATING_SYSTEM_UNSPECIFIED)
-                }
-                "OPERATING_SYSTEM_WINDOWS" => {
-                    std::option::Option::Some(Self::OPERATING_SYSTEM_WINDOWS)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for OperatingSystem {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for OperatingSystem {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OperatingSystem {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OperatingSystem {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Windows,
+                _ => Self::UnknownValue(operating_system::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OperatingSystem {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPERATING_SYSTEM_UNSPECIFIED" => Self::Unspecified,
+                "OPERATING_SYSTEM_WINDOWS" => Self::Windows,
+                _ => Self::UnknownValue(operating_system::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OperatingSystem {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Windows => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OperatingSystem {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperatingSystem>::new(
+                ".google.cloud.gkeconnect.gateway.v1.GenerateCredentialsRequest.OperatingSystem",
+            ))
         }
     }
 }

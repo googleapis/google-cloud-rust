@@ -17,7 +17,7 @@
 impl gaxi::prost::ToProto<Code> for rpc::model::Code {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("rpc::model::Code"))
     }
 }
 

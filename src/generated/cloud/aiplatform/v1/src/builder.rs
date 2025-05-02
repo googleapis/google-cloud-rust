@@ -1268,6 +1268,7 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [saved_query][crate::model::SearchDataItemsRequest::saved_query].
+        #[deprecated]
         pub fn set_saved_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.saved_query = v.into();
             self
@@ -1286,6 +1287,7 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [annotations_filter][crate::model::SearchDataItemsRequest::annotations_filter].
+        #[deprecated]
         pub fn set_annotations_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.annotations_filter = v.into();
             self
@@ -1313,6 +1315,7 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [order_by][crate::model::SearchDataItemsRequest::order_by].
+        #[deprecated]
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -22942,6 +22945,7 @@ pub mod metadata_service {
         }
 
         /// Sets the value of [force][crate::model::DeleteMetadataStoreRequest::force].
+        #[deprecated]
         pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.force = v.into();
             self

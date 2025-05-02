@@ -105,7 +105,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("callerAccessType", &req.caller_access_type.value())]);
+        let builder = builder.query(&[("callerAccessType", &req.caller_access_type)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -252,7 +252,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("callerRelationship", &req.caller_relationship.value())]);
+        let builder = builder.query(&[("callerRelationship", &req.caller_relationship)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);

@@ -1155,135 +1155,287 @@ impl wkt::message::Message for ContainerImageSignature {
 }
 
 /// SigningAlgorithm enumerates all the supported signing algorithms.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SigningAlgorithm(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SigningAlgorithm {
+    /// Unspecified signing algorithm.
+    Unspecified,
+    /// RSASSA-PSS with a SHA256 digest.
+    RsassaPssSha256,
+    /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
+    RsassaPkcs1V15Sha256,
+    /// ECDSA on the P-256 Curve with a SHA256 digest.
+    EcdsaP256Sha256,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SigningAlgorithm::value] or
+    /// [SigningAlgorithm::name].
+    UnknownValue(signing_algorithm::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod signing_algorithm {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl SigningAlgorithm {
-    /// Unspecified signing algorithm.
-    pub const SIGNING_ALGORITHM_UNSPECIFIED: SigningAlgorithm = SigningAlgorithm::new(0);
-
-    /// RSASSA-PSS with a SHA256 digest.
-    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::new(1);
-
-    /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
-    pub const RSASSA_PKCS1V15_SHA256: SigningAlgorithm = SigningAlgorithm::new(2);
-
-    /// ECDSA on the P-256 Curve with a SHA256 digest.
-    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::new(3);
-
-    /// Creates a new SigningAlgorithm instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::RsassaPssSha256 => std::option::Option::Some(1),
+            Self::RsassaPkcs1V15Sha256 => std::option::Option::Some(2),
+            Self::EcdsaP256Sha256 => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SIGNING_ALGORITHM_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("RSASSA_PSS_SHA256"),
-            2 => std::borrow::Cow::Borrowed("RSASSA_PKCS1V15_SHA256"),
-            3 => std::borrow::Cow::Borrowed("ECDSA_P256_SHA256"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SIGNING_ALGORITHM_UNSPECIFIED"),
+            Self::RsassaPssSha256 => std::option::Option::Some("RSASSA_PSS_SHA256"),
+            Self::RsassaPkcs1V15Sha256 => std::option::Option::Some("RSASSA_PKCS1V15_SHA256"),
+            Self::EcdsaP256Sha256 => std::option::Option::Some("ECDSA_P256_SHA256"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SIGNING_ALGORITHM_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SIGNING_ALGORITHM_UNSPECIFIED)
-            }
-            "RSASSA_PSS_SHA256" => std::option::Option::Some(Self::RSASSA_PSS_SHA256),
-            "RSASSA_PKCS1V15_SHA256" => std::option::Option::Some(Self::RSASSA_PKCS1V15_SHA256),
-            "ECDSA_P256_SHA256" => std::option::Option::Some(Self::ECDSA_P256_SHA256),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SigningAlgorithm {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SigningAlgorithm {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SigningAlgorithm {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SigningAlgorithm {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::RsassaPssSha256,
+            2 => Self::RsassaPkcs1V15Sha256,
+            3 => Self::EcdsaP256Sha256,
+            _ => Self::UnknownValue(signing_algorithm::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SigningAlgorithm {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SIGNING_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+            "RSASSA_PSS_SHA256" => Self::RsassaPssSha256,
+            "RSASSA_PKCS1V15_SHA256" => Self::RsassaPkcs1V15Sha256,
+            "ECDSA_P256_SHA256" => Self::EcdsaP256Sha256,
+            _ => Self::UnknownValue(signing_algorithm::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SigningAlgorithm {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::RsassaPssSha256 => serializer.serialize_i32(1),
+            Self::RsassaPkcs1V15Sha256 => serializer.serialize_i32(2),
+            Self::EcdsaP256Sha256 => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SigningAlgorithm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SigningAlgorithm>::new(
+            ".google.cloud.confidentialcomputing.v1.SigningAlgorithm",
+        ))
     }
 }
 
 /// Token type enum contains the different types of token responses Confidential
 /// Space supports
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TokenType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TokenType {
+    /// Unspecified token type
+    Unspecified,
+    /// OpenID Connect (OIDC) token type
+    Oidc,
+    /// Public Key Infrastructure (PKI) token type
+    Pki,
+    /// Limited claim token type for AWS integration
+    LimitedAws,
+    /// Principal-tag-based token for AWS integration
+    AwsPrincipaltags,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TokenType::value] or
+    /// [TokenType::name].
+    UnknownValue(token_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod token_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl TokenType {
-    /// Unspecified token type
-    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::new(0);
-
-    /// OpenID Connect (OIDC) token type
-    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::new(1);
-
-    /// Public Key Infrastructure (PKI) token type
-    pub const TOKEN_TYPE_PKI: TokenType = TokenType::new(2);
-
-    /// Limited claim token type for AWS integration
-    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::new(3);
-
-    /// Principal-tag-based token for AWS integration
-    pub const TOKEN_TYPE_AWS_PRINCIPALTAGS: TokenType = TokenType::new(4);
-
-    /// Creates a new TokenType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Oidc => std::option::Option::Some(1),
+            Self::Pki => std::option::Option::Some(2),
+            Self::LimitedAws => std::option::Option::Some(3),
+            Self::AwsPrincipaltags => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("TOKEN_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("TOKEN_TYPE_OIDC"),
-            2 => std::borrow::Cow::Borrowed("TOKEN_TYPE_PKI"),
-            3 => std::borrow::Cow::Borrowed("TOKEN_TYPE_LIMITED_AWS"),
-            4 => std::borrow::Cow::Borrowed("TOKEN_TYPE_AWS_PRINCIPALTAGS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TOKEN_TYPE_UNSPECIFIED"),
+            Self::Oidc => std::option::Option::Some("TOKEN_TYPE_OIDC"),
+            Self::Pki => std::option::Option::Some("TOKEN_TYPE_PKI"),
+            Self::LimitedAws => std::option::Option::Some("TOKEN_TYPE_LIMITED_AWS"),
+            Self::AwsPrincipaltags => std::option::Option::Some("TOKEN_TYPE_AWS_PRINCIPALTAGS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "TOKEN_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TOKEN_TYPE_UNSPECIFIED),
-            "TOKEN_TYPE_OIDC" => std::option::Option::Some(Self::TOKEN_TYPE_OIDC),
-            "TOKEN_TYPE_PKI" => std::option::Option::Some(Self::TOKEN_TYPE_PKI),
-            "TOKEN_TYPE_LIMITED_AWS" => std::option::Option::Some(Self::TOKEN_TYPE_LIMITED_AWS),
-            "TOKEN_TYPE_AWS_PRINCIPALTAGS" => {
-                std::option::Option::Some(Self::TOKEN_TYPE_AWS_PRINCIPALTAGS)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for TokenType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for TokenType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TokenType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TokenType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Oidc,
+            2 => Self::Pki,
+            3 => Self::LimitedAws,
+            4 => Self::AwsPrincipaltags,
+            _ => Self::UnknownValue(token_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TokenType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TOKEN_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "TOKEN_TYPE_OIDC" => Self::Oidc,
+            "TOKEN_TYPE_PKI" => Self::Pki,
+            "TOKEN_TYPE_LIMITED_AWS" => Self::LimitedAws,
+            "TOKEN_TYPE_AWS_PRINCIPALTAGS" => Self::AwsPrincipaltags,
+            _ => Self::UnknownValue(token_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TokenType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Oidc => serializer.serialize_i32(1),
+            Self::Pki => serializer.serialize_i32(2),
+            Self::LimitedAws => serializer.serialize_i32(3),
+            Self::AwsPrincipaltags => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TokenType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TokenType>::new(
+            ".google.cloud.confidentialcomputing.v1.TokenType",
+        ))
     }
 }

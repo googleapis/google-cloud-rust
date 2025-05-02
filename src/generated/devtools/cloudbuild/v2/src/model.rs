@@ -630,70 +630,149 @@ pub mod installation_state {
     use super::*;
 
     /// Stage of the installation process.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Stage(i32);
-
-    impl Stage {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Stage {
         /// No stage specified.
-        pub const STAGE_UNSPECIFIED: Stage = Stage::new(0);
-
+        Unspecified,
         /// Only for GitHub Enterprise. An App creation has been requested.
         /// The user needs to confirm the creation in their GitHub enterprise host.
-        pub const PENDING_CREATE_APP: Stage = Stage::new(1);
-
+        PendingCreateApp,
         /// User needs to authorize the GitHub (or Enterprise) App via OAuth.
-        pub const PENDING_USER_OAUTH: Stage = Stage::new(2);
-
+        PendingUserOauth,
         /// User needs to follow the link to install the GitHub (or Enterprise) App.
-        pub const PENDING_INSTALL_APP: Stage = Stage::new(3);
-
+        PendingInstallApp,
         /// Installation process has been completed.
-        pub const COMPLETE: Stage = Stage::new(10);
+        Complete,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Stage::value] or
+        /// [Stage::name].
+        UnknownValue(stage::UnknownValue),
+    }
 
-        /// Creates a new Stage instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod stage {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Stage {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingCreateApp => std::option::Option::Some(1),
+                Self::PendingUserOauth => std::option::Option::Some(2),
+                Self::PendingInstallApp => std::option::Option::Some(3),
+                Self::Complete => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STAGE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING_CREATE_APP"),
-                2 => std::borrow::Cow::Borrowed("PENDING_USER_OAUTH"),
-                3 => std::borrow::Cow::Borrowed("PENDING_INSTALL_APP"),
-                10 => std::borrow::Cow::Borrowed("COMPLETE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STAGE_UNSPECIFIED"),
+                Self::PendingCreateApp => std::option::Option::Some("PENDING_CREATE_APP"),
+                Self::PendingUserOauth => std::option::Option::Some("PENDING_USER_OAUTH"),
+                Self::PendingInstallApp => std::option::Option::Some("PENDING_INSTALL_APP"),
+                Self::Complete => std::option::Option::Some("COMPLETE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STAGE_UNSPECIFIED" => std::option::Option::Some(Self::STAGE_UNSPECIFIED),
-                "PENDING_CREATE_APP" => std::option::Option::Some(Self::PENDING_CREATE_APP),
-                "PENDING_USER_OAUTH" => std::option::Option::Some(Self::PENDING_USER_OAUTH),
-                "PENDING_INSTALL_APP" => std::option::Option::Some(Self::PENDING_INSTALL_APP),
-                "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Stage {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Stage {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Stage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Stage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PendingCreateApp,
+                2 => Self::PendingUserOauth,
+                3 => Self::PendingInstallApp,
+                10 => Self::Complete,
+                _ => Self::UnknownValue(stage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Stage {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STAGE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_CREATE_APP" => Self::PendingCreateApp,
+                "PENDING_USER_OAUTH" => Self::PendingUserOauth,
+                "PENDING_INSTALL_APP" => Self::PendingInstallApp,
+                "COMPLETE" => Self::Complete,
+                _ => Self::UnknownValue(stage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Stage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingCreateApp => serializer.serialize_i32(1),
+                Self::PendingUserOauth => serializer.serialize_i32(2),
+                Self::PendingInstallApp => serializer.serialize_i32(3),
+                Self::Complete => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Stage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Stage>::new(
+                ".google.devtools.cloudbuild.v2.InstallationState.Stage",
+            ))
         }
     }
 }
@@ -2521,59 +2600,134 @@ pub mod fetch_git_refs_request {
     use super::*;
 
     /// Type of refs
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RefType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RefType {
+        /// No type specified.
+        Unspecified,
+        /// To fetch tags.
+        Tag,
+        /// To fetch branches.
+        Branch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RefType::value] or
+        /// [RefType::name].
+        UnknownValue(ref_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod ref_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RefType {
-        /// No type specified.
-        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new(0);
-
-        /// To fetch tags.
-        pub const TAG: RefType = RefType::new(1);
-
-        /// To fetch branches.
-        pub const BRANCH: RefType = RefType::new(2);
-
-        /// Creates a new RefType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Tag => std::option::Option::Some(1),
+                Self::Branch => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("REF_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("TAG"),
-                2 => std::borrow::Cow::Borrowed("BRANCH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REF_TYPE_UNSPECIFIED"),
+                Self::Tag => std::option::Option::Some("TAG"),
+                Self::Branch => std::option::Option::Some("BRANCH"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "REF_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::REF_TYPE_UNSPECIFIED),
-                "TAG" => std::option::Option::Some(Self::TAG),
-                "BRANCH" => std::option::Option::Some(Self::BRANCH),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RefType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RefType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RefType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RefType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Tag,
+                2 => Self::Branch,
+                _ => Self::UnknownValue(ref_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RefType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REF_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "TAG" => Self::Tag,
+                "BRANCH" => Self::Branch,
+                _ => Self::UnknownValue(ref_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RefType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Tag => serializer.serialize_i32(1),
+                Self::Branch => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RefType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RefType>::new(
+                ".google.devtools.cloudbuild.v2.FetchGitRefsRequest.RefType",
+            ))
         }
     }
 }

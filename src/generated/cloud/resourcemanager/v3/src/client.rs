@@ -279,8 +279,8 @@ impl Folders {
     /// The caller must have `resourcemanager.folders.delete` permission on the
     /// identified folder.
     ///
-    /// [google.cloud.resourcemanager.v3.Folder.State.ACTIVE]: crate::model::folder::state::ACTIVE
-    /// [google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]: crate::model::folder::state::DELETE_REQUESTED
+    /// [google.cloud.resourcemanager.v3.Folder.State.ACTIVE]: crate::model::folder::State::Active
+    /// [google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]: crate::model::folder::State::DeleteRequested
     ///
     /// # Long running operations
     ///
@@ -310,7 +310,7 @@ impl Folders {
     /// documentation. The caller must have `resourcemanager.folders.undelete`
     /// permission on the identified folder.
     ///
-    /// [google.cloud.resourcemanager.v3.Folder.State.ACTIVE]: crate::model::folder::state::ACTIVE
+    /// [google.cloud.resourcemanager.v3.Folder.State.ACTIVE]: crate::model::folder::State::Active
     /// [google.cloud.resourcemanager.v3.Folders.CreateFolder]: crate::client::Folders::create_folder
     ///
     /// # Long running operations
@@ -794,8 +794,8 @@ impl Projects {
     /// The caller must have `resourcemanager.projects.delete` permissions for this
     /// project.
     ///
-    /// [google.cloud.resourcemanager.v3.Project.State.ACTIVE]: crate::model::project::state::ACTIVE
-    /// [google.cloud.resourcemanager.v3.Project.State.DELETE_REQUESTED]: crate::model::project::state::DELETE_REQUESTED
+    /// [google.cloud.resourcemanager.v3.Project.State.ACTIVE]: crate::model::project::State::Active
+    /// [google.cloud.resourcemanager.v3.Project.State.DELETE_REQUESTED]: crate::model::project::State::DeleteRequested
     /// [google.cloud.resourcemanager.v3.Projects.SearchProjects]: crate::client::Projects::search_projects
     ///
     /// # Long running operations

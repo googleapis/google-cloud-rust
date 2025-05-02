@@ -324,63 +324,136 @@ pub mod compute_threat_list_diff_response {
     }
 
     /// The type of response sent to the client.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseType(i32);
-
-    impl ResponseType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResponseType {
         /// Unknown.
-        pub const RESPONSE_TYPE_UNSPECIFIED: ResponseType = ResponseType::new(0);
-
+        Unspecified,
         /// Partial updates are applied to the client's existing local database.
-        pub const DIFF: ResponseType = ResponseType::new(1);
-
+        Diff,
         /// Full updates resets the client's entire local database. This means
         /// that either the client had no state, was seriously out-of-date,
         /// or the client is believed to be corrupt.
-        pub const RESET: ResponseType = ResponseType::new(2);
+        Reset,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ResponseType::value] or
+        /// [ResponseType::name].
+        UnknownValue(response_type::UnknownValue),
+    }
 
-        /// Creates a new ResponseType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod response_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ResponseType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Diff => std::option::Option::Some(1),
+                Self::Reset => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESPONSE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DIFF"),
-                2 => std::borrow::Cow::Borrowed("RESET"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESPONSE_TYPE_UNSPECIFIED"),
+                Self::Diff => std::option::Option::Some("DIFF"),
+                Self::Reset => std::option::Option::Some("RESET"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESPONSE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::RESPONSE_TYPE_UNSPECIFIED)
-                }
-                "DIFF" => std::option::Option::Some(Self::DIFF),
-                "RESET" => std::option::Option::Some(Self::RESET),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ResponseType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ResponseType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ResponseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ResponseType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Diff,
+                2 => Self::Reset,
+                _ => Self::UnknownValue(response_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ResponseType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESPONSE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DIFF" => Self::Diff,
+                "RESET" => Self::Reset,
+                _ => Self::UnknownValue(response_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ResponseType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Diff => serializer.serialize_i32(1),
+                Self::Reset => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResponseType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResponseType>::new(
+                ".google.cloud.webrisk.v1.ComputeThreatListDiffResponse.ResponseType",
+            ))
         }
     }
 }
@@ -1191,66 +1264,144 @@ pub mod threat_info {
         use super::*;
 
         /// Enum representation of confidence.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ConfidenceLevel(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ConfidenceLevel {
+            /// Default.
+            Unspecified,
+            /// Less than 60% confidence that the URI is unsafe.
+            Low,
+            /// Between 60% and 80% confidence that the URI is unsafe.
+            Medium,
+            /// Greater than 80% confidence that the URI is unsafe.
+            High,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ConfidenceLevel::value] or
+            /// [ConfidenceLevel::name].
+            UnknownValue(confidence_level::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod confidence_level {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl ConfidenceLevel {
-            /// Default.
-            pub const CONFIDENCE_LEVEL_UNSPECIFIED: ConfidenceLevel = ConfidenceLevel::new(0);
-
-            /// Less than 60% confidence that the URI is unsafe.
-            pub const LOW: ConfidenceLevel = ConfidenceLevel::new(1);
-
-            /// Between 60% and 80% confidence that the URI is unsafe.
-            pub const MEDIUM: ConfidenceLevel = ConfidenceLevel::new(2);
-
-            /// Greater than 80% confidence that the URI is unsafe.
-            pub const HIGH: ConfidenceLevel = ConfidenceLevel::new(3);
-
-            /// Creates a new ConfidenceLevel instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Low => std::option::Option::Some(1),
+                    Self::Medium => std::option::Option::Some(2),
+                    Self::High => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("CONFIDENCE_LEVEL_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("LOW"),
-                    2 => std::borrow::Cow::Borrowed("MEDIUM"),
-                    3 => std::borrow::Cow::Borrowed("HIGH"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("CONFIDENCE_LEVEL_UNSPECIFIED"),
+                    Self::Low => std::option::Option::Some("LOW"),
+                    Self::Medium => std::option::Option::Some("MEDIUM"),
+                    Self::High => std::option::Option::Some("HIGH"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "CONFIDENCE_LEVEL_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::CONFIDENCE_LEVEL_UNSPECIFIED)
-                    }
-                    "LOW" => std::option::Option::Some(Self::LOW),
-                    "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
-                    "HIGH" => std::option::Option::Some(Self::HIGH),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for ConfidenceLevel {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for ConfidenceLevel {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ConfidenceLevel {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ConfidenceLevel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Low,
+                    2 => Self::Medium,
+                    3 => Self::High,
+                    _ => Self::UnknownValue(confidence_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ConfidenceLevel {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CONFIDENCE_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                    "LOW" => Self::Low,
+                    "MEDIUM" => Self::Medium,
+                    "HIGH" => Self::High,
+                    _ => Self::UnknownValue(confidence_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ConfidenceLevel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Low => serializer.serialize_i32(1),
+                    Self::Medium => serializer.serialize_i32(2),
+                    Self::High => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ConfidenceLevel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConfidenceLevel>::new(
+                    ".google.cloud.webrisk.v1.ThreatInfo.Confidence.ConfidenceLevel",
+                ))
             }
         }
 
@@ -1328,130 +1479,286 @@ pub mod threat_info {
         use super::*;
 
         /// Labels that explain how the URI was classified.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct JustificationLabel(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum JustificationLabel {
+            /// Default.
+            Unspecified,
+            /// The submitter manually verified that the submission is unsafe.
+            ManualVerification,
+            /// The submitter received the submission from an end user.
+            UserReport,
+            /// The submitter received the submission from an automated system.
+            AutomatedReport,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [JustificationLabel::value] or
+            /// [JustificationLabel::name].
+            UnknownValue(justification_label::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod justification_label {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl JustificationLabel {
-            /// Default.
-            pub const JUSTIFICATION_LABEL_UNSPECIFIED: JustificationLabel =
-                JustificationLabel::new(0);
-
-            /// The submitter manually verified that the submission is unsafe.
-            pub const MANUAL_VERIFICATION: JustificationLabel = JustificationLabel::new(1);
-
-            /// The submitter received the submission from an end user.
-            pub const USER_REPORT: JustificationLabel = JustificationLabel::new(2);
-
-            /// The submitter received the submission from an automated system.
-            pub const AUTOMATED_REPORT: JustificationLabel = JustificationLabel::new(3);
-
-            /// Creates a new JustificationLabel instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::ManualVerification => std::option::Option::Some(1),
+                    Self::UserReport => std::option::Option::Some(2),
+                    Self::AutomatedReport => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("JUSTIFICATION_LABEL_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("MANUAL_VERIFICATION"),
-                    2 => std::borrow::Cow::Borrowed("USER_REPORT"),
-                    3 => std::borrow::Cow::Borrowed("AUTOMATED_REPORT"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "JUSTIFICATION_LABEL_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::JUSTIFICATION_LABEL_UNSPECIFIED)
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("JUSTIFICATION_LABEL_UNSPECIFIED")
                     }
-                    "MANUAL_VERIFICATION" => std::option::Option::Some(Self::MANUAL_VERIFICATION),
-                    "USER_REPORT" => std::option::Option::Some(Self::USER_REPORT),
-                    "AUTOMATED_REPORT" => std::option::Option::Some(Self::AUTOMATED_REPORT),
-                    _ => std::option::Option::None,
+                    Self::ManualVerification => std::option::Option::Some("MANUAL_VERIFICATION"),
+                    Self::UserReport => std::option::Option::Some("USER_REPORT"),
+                    Self::AutomatedReport => std::option::Option::Some("AUTOMATED_REPORT"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-        }
-
-        impl std::convert::From<i32> for JustificationLabel {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for JustificationLabel {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for JustificationLabel {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for JustificationLabel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::ManualVerification,
+                    2 => Self::UserReport,
+                    3 => Self::AutomatedReport,
+                    _ => Self::UnknownValue(justification_label::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for JustificationLabel {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "JUSTIFICATION_LABEL_UNSPECIFIED" => Self::Unspecified,
+                    "MANUAL_VERIFICATION" => Self::ManualVerification,
+                    "USER_REPORT" => Self::UserReport,
+                    "AUTOMATED_REPORT" => Self::AutomatedReport,
+                    _ => Self::UnknownValue(justification_label::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for JustificationLabel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::ManualVerification => serializer.serialize_i32(1),
+                    Self::UserReport => serializer.serialize_i32(2),
+                    Self::AutomatedReport => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for JustificationLabel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<JustificationLabel>::new(
+                    ".google.cloud.webrisk.v1.ThreatInfo.ThreatJustification.JustificationLabel",
+                ))
             }
         }
     }
 
     /// The abuse type found on the URI.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AbuseType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AbuseType {
+        /// Default.
+        Unspecified,
+        /// The URI contains malware.
+        Malware,
+        /// The URI contains social engineering.
+        SocialEngineering,
+        /// The URI contains unwanted software.
+        UnwantedSoftware,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AbuseType::value] or
+        /// [AbuseType::name].
+        UnknownValue(abuse_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod abuse_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl AbuseType {
-        /// Default.
-        pub const ABUSE_TYPE_UNSPECIFIED: AbuseType = AbuseType::new(0);
-
-        /// The URI contains malware.
-        pub const MALWARE: AbuseType = AbuseType::new(1);
-
-        /// The URI contains social engineering.
-        pub const SOCIAL_ENGINEERING: AbuseType = AbuseType::new(2);
-
-        /// The URI contains unwanted software.
-        pub const UNWANTED_SOFTWARE: AbuseType = AbuseType::new(3);
-
-        /// Creates a new AbuseType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Malware => std::option::Option::Some(1),
+                Self::SocialEngineering => std::option::Option::Some(2),
+                Self::UnwantedSoftware => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ABUSE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MALWARE"),
-                2 => std::borrow::Cow::Borrowed("SOCIAL_ENGINEERING"),
-                3 => std::borrow::Cow::Borrowed("UNWANTED_SOFTWARE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ABUSE_TYPE_UNSPECIFIED"),
+                Self::Malware => std::option::Option::Some("MALWARE"),
+                Self::SocialEngineering => std::option::Option::Some("SOCIAL_ENGINEERING"),
+                Self::UnwantedSoftware => std::option::Option::Some("UNWANTED_SOFTWARE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ABUSE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::ABUSE_TYPE_UNSPECIFIED),
-                "MALWARE" => std::option::Option::Some(Self::MALWARE),
-                "SOCIAL_ENGINEERING" => std::option::Option::Some(Self::SOCIAL_ENGINEERING),
-                "UNWANTED_SOFTWARE" => std::option::Option::Some(Self::UNWANTED_SOFTWARE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AbuseType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AbuseType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AbuseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AbuseType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Malware,
+                2 => Self::SocialEngineering,
+                3 => Self::UnwantedSoftware,
+                _ => Self::UnknownValue(abuse_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AbuseType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ABUSE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "MALWARE" => Self::Malware,
+                "SOCIAL_ENGINEERING" => Self::SocialEngineering,
+                "UNWANTED_SOFTWARE" => Self::UnwantedSoftware,
+                _ => Self::UnknownValue(abuse_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AbuseType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Malware => serializer.serialize_i32(1),
+                Self::SocialEngineering => serializer.serialize_i32(2),
+                Self::UnwantedSoftware => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AbuseType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AbuseType>::new(
+                ".google.cloud.webrisk.v1.ThreatInfo.AbuseType",
+            ))
         }
     }
 }
@@ -1512,69 +1819,148 @@ pub mod threat_discovery {
     use super::*;
 
     /// Platform types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Platform(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Platform {
+        /// Default.
+        Unspecified,
+        /// General Android platform.
+        Android,
+        /// General iOS platform.
+        Ios,
+        /// General macOS platform.
+        Macos,
+        /// General Windows platform.
+        Windows,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Platform::value] or
+        /// [Platform::name].
+        UnknownValue(platform::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod platform {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Platform {
-        /// Default.
-        pub const PLATFORM_UNSPECIFIED: Platform = Platform::new(0);
-
-        /// General Android platform.
-        pub const ANDROID: Platform = Platform::new(1);
-
-        /// General iOS platform.
-        pub const IOS: Platform = Platform::new(2);
-
-        /// General macOS platform.
-        pub const MACOS: Platform = Platform::new(3);
-
-        /// General Windows platform.
-        pub const WINDOWS: Platform = Platform::new(4);
-
-        /// Creates a new Platform instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Android => std::option::Option::Some(1),
+                Self::Ios => std::option::Option::Some(2),
+                Self::Macos => std::option::Option::Some(3),
+                Self::Windows => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PLATFORM_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ANDROID"),
-                2 => std::borrow::Cow::Borrowed("IOS"),
-                3 => std::borrow::Cow::Borrowed("MACOS"),
-                4 => std::borrow::Cow::Borrowed("WINDOWS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PLATFORM_UNSPECIFIED"),
+                Self::Android => std::option::Option::Some("ANDROID"),
+                Self::Ios => std::option::Option::Some("IOS"),
+                Self::Macos => std::option::Option::Some("MACOS"),
+                Self::Windows => std::option::Option::Some("WINDOWS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PLATFORM_UNSPECIFIED" => std::option::Option::Some(Self::PLATFORM_UNSPECIFIED),
-                "ANDROID" => std::option::Option::Some(Self::ANDROID),
-                "IOS" => std::option::Option::Some(Self::IOS),
-                "MACOS" => std::option::Option::Some(Self::MACOS),
-                "WINDOWS" => std::option::Option::Some(Self::WINDOWS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Platform {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Platform {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Platform {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Platform {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Android,
+                2 => Self::Ios,
+                3 => Self::Macos,
+                4 => Self::Windows,
+                _ => Self::UnknownValue(platform::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Platform {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PLATFORM_UNSPECIFIED" => Self::Unspecified,
+                "ANDROID" => Self::Android,
+                "IOS" => Self::Ios,
+                "MACOS" => Self::Macos,
+                "WINDOWS" => Self::Windows,
+                _ => Self::UnknownValue(platform::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Platform {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Android => serializer.serialize_i32(1),
+                Self::Ios => serializer.serialize_i32(2),
+                Self::Macos => serializer.serialize_i32(3),
+                Self::Windows => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Platform {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Platform>::new(
+                ".google.cloud.webrisk.v1.ThreatDiscovery.Platform",
+            ))
         }
     }
 }
@@ -1765,204 +2151,437 @@ pub mod submit_uri_metadata {
     use super::*;
 
     /// Enum that represents the state of the long-running operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default unspecified state.
+        Unspecified,
+        /// The operation is currently running.
+        Running,
+        /// The operation finished with a success status.
+        Succeeded,
+        /// The operation was cancelled.
+        Cancelled,
+        /// The operation finished with a failure status.
+        Failed,
+        /// The operation was closed with no action taken.
+        Closed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Default unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The operation is currently running.
-        pub const RUNNING: State = State::new(1);
-
-        /// The operation finished with a success status.
-        pub const SUCCEEDED: State = State::new(2);
-
-        /// The operation was cancelled.
-        pub const CANCELLED: State = State::new(3);
-
-        /// The operation finished with a failure status.
-        pub const FAILED: State = State::new(4);
-
-        /// The operation was closed with no action taken.
-        pub const CLOSED: State = State::new(5);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Cancelled => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Closed => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNING"),
-                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                3 => std::borrow::Cow::Borrowed("CANCELLED"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("CLOSED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CLOSED" => std::option::Option::Some(Self::CLOSED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Cancelled,
+                4 => Self::Failed,
+                5 => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "CANCELLED" => Self::Cancelled,
+                "FAILED" => Self::Failed,
+                "CLOSED" => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Cancelled => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Closed => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.webrisk.v1.SubmitUriMetadata.State",
+            ))
         }
     }
 }
 
 /// The type of threat. This maps directly to the threat list a threat may
 /// belong to.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ThreatType(i32);
-
-impl ThreatType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ThreatType {
     /// No entries should match this threat type. This threat type is unused.
-    pub const THREAT_TYPE_UNSPECIFIED: ThreatType = ThreatType::new(0);
-
+    Unspecified,
     /// Malware targeting any platform.
-    pub const MALWARE: ThreatType = ThreatType::new(1);
-
+    Malware,
     /// Social engineering targeting any platform.
-    pub const SOCIAL_ENGINEERING: ThreatType = ThreatType::new(2);
-
+    SocialEngineering,
     /// Unwanted software targeting any platform.
-    pub const UNWANTED_SOFTWARE: ThreatType = ThreatType::new(3);
-
+    UnwantedSoftware,
     /// A list of extended coverage social engineering URIs targeting any
     /// platform.
-    pub const SOCIAL_ENGINEERING_EXTENDED_COVERAGE: ThreatType = ThreatType::new(4);
+    SocialEngineeringExtendedCoverage,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ThreatType::value] or
+    /// [ThreatType::name].
+    UnknownValue(threat_type::UnknownValue),
+}
 
-    /// Creates a new ThreatType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod threat_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl ThreatType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Malware => std::option::Option::Some(1),
+            Self::SocialEngineering => std::option::Option::Some(2),
+            Self::UnwantedSoftware => std::option::Option::Some(3),
+            Self::SocialEngineeringExtendedCoverage => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("THREAT_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("MALWARE"),
-            2 => std::borrow::Cow::Borrowed("SOCIAL_ENGINEERING"),
-            3 => std::borrow::Cow::Borrowed("UNWANTED_SOFTWARE"),
-            4 => std::borrow::Cow::Borrowed("SOCIAL_ENGINEERING_EXTENDED_COVERAGE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "THREAT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::THREAT_TYPE_UNSPECIFIED),
-            "MALWARE" => std::option::Option::Some(Self::MALWARE),
-            "SOCIAL_ENGINEERING" => std::option::Option::Some(Self::SOCIAL_ENGINEERING),
-            "UNWANTED_SOFTWARE" => std::option::Option::Some(Self::UNWANTED_SOFTWARE),
-            "SOCIAL_ENGINEERING_EXTENDED_COVERAGE" => {
-                std::option::Option::Some(Self::SOCIAL_ENGINEERING_EXTENDED_COVERAGE)
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("THREAT_TYPE_UNSPECIFIED"),
+            Self::Malware => std::option::Option::Some("MALWARE"),
+            Self::SocialEngineering => std::option::Option::Some("SOCIAL_ENGINEERING"),
+            Self::UnwantedSoftware => std::option::Option::Some("UNWANTED_SOFTWARE"),
+            Self::SocialEngineeringExtendedCoverage => {
+                std::option::Option::Some("SOCIAL_ENGINEERING_EXTENDED_COVERAGE")
             }
-            _ => std::option::Option::None,
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-}
-
-impl std::convert::From<i32> for ThreatType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ThreatType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ThreatType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ThreatType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Malware,
+            2 => Self::SocialEngineering,
+            3 => Self::UnwantedSoftware,
+            4 => Self::SocialEngineeringExtendedCoverage,
+            _ => Self::UnknownValue(threat_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ThreatType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "THREAT_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "MALWARE" => Self::Malware,
+            "SOCIAL_ENGINEERING" => Self::SocialEngineering,
+            "UNWANTED_SOFTWARE" => Self::UnwantedSoftware,
+            "SOCIAL_ENGINEERING_EXTENDED_COVERAGE" => Self::SocialEngineeringExtendedCoverage,
+            _ => Self::UnknownValue(threat_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ThreatType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Malware => serializer.serialize_i32(1),
+            Self::SocialEngineering => serializer.serialize_i32(2),
+            Self::UnwantedSoftware => serializer.serialize_i32(3),
+            Self::SocialEngineeringExtendedCoverage => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ThreatType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ThreatType>::new(
+            ".google.cloud.webrisk.v1.ThreatType",
+        ))
     }
 }
 
 /// The ways in which threat entry sets can be compressed.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CompressionType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum CompressionType {
+    /// Unknown.
+    Unspecified,
+    /// Raw, uncompressed data.
+    Raw,
+    /// Rice-Golomb encoded data.
+    Rice,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [CompressionType::value] or
+    /// [CompressionType::name].
+    UnknownValue(compression_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod compression_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl CompressionType {
-    /// Unknown.
-    pub const COMPRESSION_TYPE_UNSPECIFIED: CompressionType = CompressionType::new(0);
-
-    /// Raw, uncompressed data.
-    pub const RAW: CompressionType = CompressionType::new(1);
-
-    /// Rice-Golomb encoded data.
-    pub const RICE: CompressionType = CompressionType::new(2);
-
-    /// Creates a new CompressionType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Raw => std::option::Option::Some(1),
+            Self::Rice => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("COMPRESSION_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("RAW"),
-            2 => std::borrow::Cow::Borrowed("RICE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("COMPRESSION_TYPE_UNSPECIFIED"),
+            Self::Raw => std::option::Option::Some("RAW"),
+            Self::Rice => std::option::Option::Some("RICE"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "COMPRESSION_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::COMPRESSION_TYPE_UNSPECIFIED)
-            }
-            "RAW" => std::option::Option::Some(Self::RAW),
-            "RICE" => std::option::Option::Some(Self::RICE),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for CompressionType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for CompressionType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for CompressionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for CompressionType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Raw,
+            2 => Self::Rice,
+            _ => Self::UnknownValue(compression_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for CompressionType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "COMPRESSION_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "RAW" => Self::Raw,
+            "RICE" => Self::Rice,
+            _ => Self::UnknownValue(compression_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for CompressionType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Raw => serializer.serialize_i32(1),
+            Self::Rice => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for CompressionType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompressionType>::new(
+            ".google.cloud.webrisk.v1.CompressionType",
+        ))
     }
 }

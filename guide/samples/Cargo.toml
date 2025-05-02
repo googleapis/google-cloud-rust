@@ -34,14 +34,22 @@ google-cloud-longrunning = { version = "0.24", path = "../../src/generated/longr
 # ANCHOR: speech
 google-cloud-speech-v2 = { version = "0.3", path = "../../src/generated/cloud/speech/v2" }
 # ANCHOR_END: speech
-# ANCHOR: secretmanager
-google-cloud-secretmanager-v1 = { version = "0.3", path = "../../src/generated/cloud/secretmanager/v1" }
-# ANCHOR_END: secretmanager
 # ANCHOR: language
 google-cloud-language-v2 = { version = "0.3", path = "../../src/generated/cloud/language/v2" }
 # ANCHOR_END: language
 google-cloud-rpc = { version = "0.3", path = "../../src/generated/rpc/types" }
 google-cloud-wkt = { version = "0.4", path = "../../src/wkt" }
+
+# ANCHOR: serde_json
+[dependencies.serde_json]
+workspace = true
+# ANCHOR_END: serde_json
+
+# ANCHOR: secretmanager
+[dependencies.google-cloud-secretmanager-v1]
+version = "0.3"
+# ANCHOR_END: secretmanager
+path = "../../src/generated/cloud/secretmanager/v1"
 
 # ANCHOR: aiplatform
 [dependencies.google-cloud-aiplatform-v1]
@@ -74,7 +82,8 @@ path = "../../src/gax"
 [dev-dependencies]
 mockall = "0.13"
 # ANCHOR_END: mockall
-rand = "0.9"
+rand                = "0.9"
+test-case.workspace = true
 
 # ANCHOR: tokio
 [dependencies.tokio]

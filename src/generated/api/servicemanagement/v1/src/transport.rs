@@ -192,7 +192,7 @@ impl super::stub::ServiceManager for ServiceManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

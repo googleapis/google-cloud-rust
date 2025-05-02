@@ -1515,6 +1515,7 @@ pub mod job_service {
         }
 
         /// Sets the value of [disable_keyword_match][crate::model::SearchJobsRequest::disable_keyword_match].
+        #[deprecated]
         pub fn set_disable_keyword_match<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.disable_keyword_match = v.into();
             self
@@ -1686,6 +1687,7 @@ pub mod job_service {
         }
 
         /// Sets the value of [disable_keyword_match][crate::model::SearchJobsRequest::disable_keyword_match].
+        #[deprecated]
         pub fn set_disable_keyword_match<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.disable_keyword_match = v.into();
             self

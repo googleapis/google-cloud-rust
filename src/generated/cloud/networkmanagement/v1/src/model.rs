@@ -647,136 +647,287 @@ pub mod endpoint {
 
     /// The type definition of an endpoint's network. Use one of the
     /// following choices:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NetworkType(i32);
-
-    impl NetworkType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NetworkType {
         /// Default type if unspecified.
-        pub const NETWORK_TYPE_UNSPECIFIED: NetworkType = NetworkType::new(0);
-
+        Unspecified,
         /// A network hosted within Google Cloud.
         /// To receive more detailed output, specify the URI for the source or
         /// destination network.
-        pub const GCP_NETWORK: NetworkType = NetworkType::new(1);
-
+        GcpNetwork,
         /// A network hosted outside of Google Cloud.
         /// This can be an on-premises network, an internet resource or a network
         /// hosted by another cloud provider.
-        pub const NON_GCP_NETWORK: NetworkType = NetworkType::new(2);
+        NonGcpNetwork,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [NetworkType::value] or
+        /// [NetworkType::name].
+        UnknownValue(network_type::UnknownValue),
+    }
 
-        /// Creates a new NetworkType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod network_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl NetworkType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GcpNetwork => std::option::Option::Some(1),
+                Self::NonGcpNetwork => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("NETWORK_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GCP_NETWORK"),
-                2 => std::borrow::Cow::Borrowed("NON_GCP_NETWORK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("NETWORK_TYPE_UNSPECIFIED"),
+                Self::GcpNetwork => std::option::Option::Some("GCP_NETWORK"),
+                Self::NonGcpNetwork => std::option::Option::Some("NON_GCP_NETWORK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "NETWORK_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::NETWORK_TYPE_UNSPECIFIED)
-                }
-                "GCP_NETWORK" => std::option::Option::Some(Self::GCP_NETWORK),
-                "NON_GCP_NETWORK" => std::option::Option::Some(Self::NON_GCP_NETWORK),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for NetworkType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for NetworkType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for NetworkType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for NetworkType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GcpNetwork,
+                2 => Self::NonGcpNetwork,
+                _ => Self::UnknownValue(network_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for NetworkType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "NETWORK_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GCP_NETWORK" => Self::GcpNetwork,
+                "NON_GCP_NETWORK" => Self::NonGcpNetwork,
+                _ => Self::UnknownValue(network_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for NetworkType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GcpNetwork => serializer.serialize_i32(1),
+                Self::NonGcpNetwork => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NetworkType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NetworkType>::new(
+                ".google.cloud.networkmanagement.v1.Endpoint.NetworkType",
+            ))
         }
     }
 
     /// Type of the target of a forwarding rule.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ForwardingRuleTarget(i32);
-
-    impl ForwardingRuleTarget {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ForwardingRuleTarget {
         /// Forwarding rule target is unknown.
-        pub const FORWARDING_RULE_TARGET_UNSPECIFIED: ForwardingRuleTarget =
-            ForwardingRuleTarget::new(0);
-
+        Unspecified,
         /// Compute Engine instance for protocol forwarding.
-        pub const INSTANCE: ForwardingRuleTarget = ForwardingRuleTarget::new(1);
-
+        Instance,
         /// Load Balancer. The specific type can be found from [load_balancer_type]
         /// [google.cloud.networkmanagement.v1.Endpoint.load_balancer_type].
-        pub const LOAD_BALANCER: ForwardingRuleTarget = ForwardingRuleTarget::new(2);
-
+        LoadBalancer,
         /// Classic Cloud VPN Gateway.
-        pub const VPN_GATEWAY: ForwardingRuleTarget = ForwardingRuleTarget::new(3);
-
+        VpnGateway,
         /// Forwarding Rule is a Private Service Connect endpoint.
-        pub const PSC: ForwardingRuleTarget = ForwardingRuleTarget::new(4);
+        Psc,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ForwardingRuleTarget::value] or
+        /// [ForwardingRuleTarget::name].
+        UnknownValue(forwarding_rule_target::UnknownValue),
+    }
 
-        /// Creates a new ForwardingRuleTarget instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod forwarding_rule_target {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ForwardingRuleTarget {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Instance => std::option::Option::Some(1),
+                Self::LoadBalancer => std::option::Option::Some(2),
+                Self::VpnGateway => std::option::Option::Some(3),
+                Self::Psc => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FORWARDING_RULE_TARGET_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INSTANCE"),
-                2 => std::borrow::Cow::Borrowed("LOAD_BALANCER"),
-                3 => std::borrow::Cow::Borrowed("VPN_GATEWAY"),
-                4 => std::borrow::Cow::Borrowed("PSC"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FORWARDING_RULE_TARGET_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::FORWARDING_RULE_TARGET_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("FORWARDING_RULE_TARGET_UNSPECIFIED")
                 }
-                "INSTANCE" => std::option::Option::Some(Self::INSTANCE),
-                "LOAD_BALANCER" => std::option::Option::Some(Self::LOAD_BALANCER),
-                "VPN_GATEWAY" => std::option::Option::Some(Self::VPN_GATEWAY),
-                "PSC" => std::option::Option::Some(Self::PSC),
-                _ => std::option::Option::None,
+                Self::Instance => std::option::Option::Some("INSTANCE"),
+                Self::LoadBalancer => std::option::Option::Some("LOAD_BALANCER"),
+                Self::VpnGateway => std::option::Option::Some("VPN_GATEWAY"),
+                Self::Psc => std::option::Option::Some("PSC"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ForwardingRuleTarget {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ForwardingRuleTarget {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ForwardingRuleTarget {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ForwardingRuleTarget {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Instance,
+                2 => Self::LoadBalancer,
+                3 => Self::VpnGateway,
+                4 => Self::Psc,
+                _ => Self::UnknownValue(forwarding_rule_target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ForwardingRuleTarget {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FORWARDING_RULE_TARGET_UNSPECIFIED" => Self::Unspecified,
+                "INSTANCE" => Self::Instance,
+                "LOAD_BALANCER" => Self::LoadBalancer,
+                "VPN_GATEWAY" => Self::VpnGateway,
+                "PSC" => Self::Psc,
+                _ => Self::UnknownValue(forwarding_rule_target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ForwardingRuleTarget {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Instance => serializer.serialize_i32(1),
+                Self::LoadBalancer => serializer.serialize_i32(2),
+                Self::VpnGateway => serializer.serialize_i32(3),
+                Self::Psc => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ForwardingRuleTarget {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ForwardingRuleTarget>::new(
+                ".google.cloud.networkmanagement.v1.Endpoint.ForwardingRuleTarget",
+            ))
         }
     }
 }
@@ -864,13 +1015,25 @@ pub mod reachability_details {
     use super::*;
 
     /// The overall result of the test's configuration analysis.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(i32);
-
-    impl Result {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
         /// No result was specified.
-        pub const RESULT_UNSPECIFIED: Result = Result::new(0);
-
+        Unspecified,
         /// Possible scenarios are:
         ///
         /// * The configuration analysis determined that a packet originating from
@@ -878,20 +1041,17 @@ pub mod reachability_details {
         /// * The analysis didn't complete because the user lacks permission for
         ///   some of the resources in the trace. However, at the time the user's
         ///   permission became insufficient, the trace had been successful so far.
-        pub const REACHABLE: Result = Result::new(1);
-
+        Reachable,
         /// A packet originating from the source is expected to be dropped before
         /// reaching the destination.
-        pub const UNREACHABLE: Result = Result::new(2);
-
+        Unreachable,
         /// The source and destination endpoints do not uniquely identify
         /// the test location in the network, and the reachability result contains
         /// multiple traces. For some traces, a packet could be delivered, and for
         /// others, it would not be. This result is also assigned to
         /// configuration analysis of return path if on its own it should be
         /// REACHABLE, but configuration analysis of forward path is AMBIGUOUS.
-        pub const AMBIGUOUS: Result = Result::new(4);
-
+        Ambiguous,
         /// The configuration analysis did not complete. Possible reasons are:
         ///
         /// * A permissions error occurred--for example, the user might not have
@@ -899,52 +1059,122 @@ pub mod reachability_details {
         /// * An internal error occurred.
         /// * The analyzer received an invalid or unsupported argument or was unable
         ///   to identify a known endpoint.
-        pub const UNDETERMINED: Result = Result::new(5);
+        Undetermined,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Result::value] or
+        /// [Result::name].
+        UnknownValue(result::UnknownValue),
+    }
 
-        /// Creates a new Result instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod result {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Result {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Reachable => std::option::Option::Some(1),
+                Self::Unreachable => std::option::Option::Some(2),
+                Self::Ambiguous => std::option::Option::Some(4),
+                Self::Undetermined => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESULT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("REACHABLE"),
-                2 => std::borrow::Cow::Borrowed("UNREACHABLE"),
-                4 => std::borrow::Cow::Borrowed("AMBIGUOUS"),
-                5 => std::borrow::Cow::Borrowed("UNDETERMINED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESULT_UNSPECIFIED"),
+                Self::Reachable => std::option::Option::Some("REACHABLE"),
+                Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                Self::Ambiguous => std::option::Option::Some("AMBIGUOUS"),
+                Self::Undetermined => std::option::Option::Some("UNDETERMINED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESULT_UNSPECIFIED" => std::option::Option::Some(Self::RESULT_UNSPECIFIED),
-                "REACHABLE" => std::option::Option::Some(Self::REACHABLE),
-                "UNREACHABLE" => std::option::Option::Some(Self::UNREACHABLE),
-                "AMBIGUOUS" => std::option::Option::Some(Self::AMBIGUOUS),
-                "UNDETERMINED" => std::option::Option::Some(Self::UNDETERMINED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Result {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Result {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Reachable,
+                2 => Self::Unreachable,
+                4 => Self::Ambiguous,
+                5 => Self::Undetermined,
+                _ => Self::UnknownValue(result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Result {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESULT_UNSPECIFIED" => Self::Unspecified,
+                "REACHABLE" => Self::Reachable,
+                "UNREACHABLE" => Self::Unreachable,
+                "AMBIGUOUS" => Self::Ambiguous,
+                "UNDETERMINED" => Self::Undetermined,
+                _ => Self::UnknownValue(result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Result {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Reachable => serializer.serialize_i32(1),
+                Self::Unreachable => serializer.serialize_i32(2),
+                Self::Ambiguous => serializer.serialize_i32(4),
+                Self::Undetermined => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Result {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Result>::new(
+                ".google.cloud.networkmanagement.v1.ReachabilityDetails.Result",
+            ))
         }
     }
 }
@@ -1220,138 +1450,288 @@ pub mod probing_details {
     }
 
     /// Overall probing result of the test.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProbingResult(i32);
-
-    impl ProbingResult {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProbingResult {
         /// No result was specified.
-        pub const PROBING_RESULT_UNSPECIFIED: ProbingResult = ProbingResult::new(0);
-
+        Unspecified,
         /// At least 95% of packets reached the destination.
-        pub const REACHABLE: ProbingResult = ProbingResult::new(1);
-
+        Reachable,
         /// No packets reached the destination.
-        pub const UNREACHABLE: ProbingResult = ProbingResult::new(2);
-
+        Unreachable,
         /// Less than 95% of packets reached the destination.
-        pub const REACHABILITY_INCONSISTENT: ProbingResult = ProbingResult::new(3);
-
+        ReachabilityInconsistent,
         /// Reachability could not be determined. Possible reasons are:
         ///
         /// * The user lacks permission to access some of the network resources
         ///   required to run the test.
         /// * No valid source endpoint could be derived from the request.
         /// * An internal error occurred.
-        pub const UNDETERMINED: ProbingResult = ProbingResult::new(4);
+        Undetermined,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProbingResult::value] or
+        /// [ProbingResult::name].
+        UnknownValue(probing_result::UnknownValue),
+    }
 
-        /// Creates a new ProbingResult instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod probing_result {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ProbingResult {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Reachable => std::option::Option::Some(1),
+                Self::Unreachable => std::option::Option::Some(2),
+                Self::ReachabilityInconsistent => std::option::Option::Some(3),
+                Self::Undetermined => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PROBING_RESULT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("REACHABLE"),
-                2 => std::borrow::Cow::Borrowed("UNREACHABLE"),
-                3 => std::borrow::Cow::Borrowed("REACHABILITY_INCONSISTENT"),
-                4 => std::borrow::Cow::Borrowed("UNDETERMINED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PROBING_RESULT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PROBING_RESULT_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROBING_RESULT_UNSPECIFIED"),
+                Self::Reachable => std::option::Option::Some("REACHABLE"),
+                Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                Self::ReachabilityInconsistent => {
+                    std::option::Option::Some("REACHABILITY_INCONSISTENT")
                 }
-                "REACHABLE" => std::option::Option::Some(Self::REACHABLE),
-                "UNREACHABLE" => std::option::Option::Some(Self::UNREACHABLE),
-                "REACHABILITY_INCONSISTENT" => {
-                    std::option::Option::Some(Self::REACHABILITY_INCONSISTENT)
-                }
-                "UNDETERMINED" => std::option::Option::Some(Self::UNDETERMINED),
-                _ => std::option::Option::None,
+                Self::Undetermined => std::option::Option::Some("UNDETERMINED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ProbingResult {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ProbingResult {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProbingResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProbingResult {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Reachable,
+                2 => Self::Unreachable,
+                3 => Self::ReachabilityInconsistent,
+                4 => Self::Undetermined,
+                _ => Self::UnknownValue(probing_result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProbingResult {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROBING_RESULT_UNSPECIFIED" => Self::Unspecified,
+                "REACHABLE" => Self::Reachable,
+                "UNREACHABLE" => Self::Unreachable,
+                "REACHABILITY_INCONSISTENT" => Self::ReachabilityInconsistent,
+                "UNDETERMINED" => Self::Undetermined,
+                _ => Self::UnknownValue(probing_result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProbingResult {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Reachable => serializer.serialize_i32(1),
+                Self::Unreachable => serializer.serialize_i32(2),
+                Self::ReachabilityInconsistent => serializer.serialize_i32(3),
+                Self::Undetermined => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProbingResult {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProbingResult>::new(
+                ".google.cloud.networkmanagement.v1.ProbingDetails.ProbingResult",
+            ))
         }
     }
 
     /// Abort cause types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProbingAbortCause(i32);
-
-    impl ProbingAbortCause {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProbingAbortCause {
         /// No reason was specified.
-        pub const PROBING_ABORT_CAUSE_UNSPECIFIED: ProbingAbortCause = ProbingAbortCause::new(0);
-
+        Unspecified,
         /// The user lacks permission to access some of the
         /// network resources required to run the test.
-        pub const PERMISSION_DENIED: ProbingAbortCause = ProbingAbortCause::new(1);
-
+        PermissionDenied,
         /// No valid source endpoint could be derived from the request.
-        pub const NO_SOURCE_LOCATION: ProbingAbortCause = ProbingAbortCause::new(2);
+        NoSourceLocation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProbingAbortCause::value] or
+        /// [ProbingAbortCause::name].
+        UnknownValue(probing_abort_cause::UnknownValue),
+    }
 
-        /// Creates a new ProbingAbortCause instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod probing_abort_cause {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ProbingAbortCause {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PermissionDenied => std::option::Option::Some(1),
+                Self::NoSourceLocation => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PROBING_ABORT_CAUSE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
-                2 => std::borrow::Cow::Borrowed("NO_SOURCE_LOCATION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROBING_ABORT_CAUSE_UNSPECIFIED"),
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+                Self::NoSourceLocation => std::option::Option::Some("NO_SOURCE_LOCATION"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PROBING_ABORT_CAUSE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PROBING_ABORT_CAUSE_UNSPECIFIED)
-                }
-                "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
-                "NO_SOURCE_LOCATION" => std::option::Option::Some(Self::NO_SOURCE_LOCATION),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ProbingAbortCause {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ProbingAbortCause {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProbingAbortCause {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProbingAbortCause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PermissionDenied,
+                2 => Self::NoSourceLocation,
+                _ => Self::UnknownValue(probing_abort_cause::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProbingAbortCause {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROBING_ABORT_CAUSE_UNSPECIFIED" => Self::Unspecified,
+                "PERMISSION_DENIED" => Self::PermissionDenied,
+                "NO_SOURCE_LOCATION" => Self::NoSourceLocation,
+                _ => Self::UnknownValue(probing_abort_cause::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProbingAbortCause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PermissionDenied => serializer.serialize_i32(1),
+                Self::NoSourceLocation => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProbingAbortCause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProbingAbortCause>::new(
+                ".google.cloud.networkmanagement.v1.ProbingDetails.ProbingAbortCause",
+            ))
         }
     }
 }
@@ -2184,6 +2564,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `LoadBalancer`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn load_balancer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::LoadBalancerInfo>> {
@@ -2581,6 +2962,7 @@ impl Step {
     ///
     /// Note that all the setters affecting `step_info` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_load_balancer<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerInfo>>,
     >(
@@ -2807,292 +3189,433 @@ pub mod step {
 
     /// Type of states that are defined in the network state machine.
     /// Each step in the packet trace is in a specific state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Initial state: packet originating from a Compute Engine instance.
         /// An InstanceInfo is populated with starting instance information.
-        pub const START_FROM_INSTANCE: State = State::new(1);
-
+        StartFromInstance,
         /// Initial state: packet originating from the internet.
         /// The endpoint information is populated.
-        pub const START_FROM_INTERNET: State = State::new(2);
-
+        StartFromInternet,
         /// Initial state: packet originating from a Google service.
         /// The google_service information is populated.
-        pub const START_FROM_GOOGLE_SERVICE: State = State::new(27);
-
+        StartFromGoogleService,
         /// Initial state: packet originating from a VPC or on-premises network
         /// with internal source IP.
         /// If the source is a VPC network visible to the user, a NetworkInfo
         /// is populated with details of the network.
-        pub const START_FROM_PRIVATE_NETWORK: State = State::new(3);
-
+        StartFromPrivateNetwork,
         /// Initial state: packet originating from a Google Kubernetes Engine cluster
         /// master. A GKEMasterInfo is populated with starting instance information.
-        pub const START_FROM_GKE_MASTER: State = State::new(21);
-
+        StartFromGkeMaster,
         /// Initial state: packet originating from a Cloud SQL instance.
         /// A CloudSQLInstanceInfo is populated with starting instance information.
-        pub const START_FROM_CLOUD_SQL_INSTANCE: State = State::new(22);
-
+        StartFromCloudSqlInstance,
         /// Initial state: packet originating from a Redis instance.
         /// A RedisInstanceInfo is populated with starting instance information.
-        pub const START_FROM_REDIS_INSTANCE: State = State::new(32);
-
+        StartFromRedisInstance,
         /// Initial state: packet originating from a Redis Cluster.
         /// A RedisClusterInfo is populated with starting Cluster information.
-        pub const START_FROM_REDIS_CLUSTER: State = State::new(33);
-
+        StartFromRedisCluster,
         /// Initial state: packet originating from a Cloud Function.
         /// A CloudFunctionInfo is populated with starting function information.
-        pub const START_FROM_CLOUD_FUNCTION: State = State::new(23);
-
+        StartFromCloudFunction,
         /// Initial state: packet originating from an App Engine service version.
         /// An AppEngineVersionInfo is populated with starting version information.
-        pub const START_FROM_APP_ENGINE_VERSION: State = State::new(25);
-
+        StartFromAppEngineVersion,
         /// Initial state: packet originating from a Cloud Run revision.
         /// A CloudRunRevisionInfo is populated with starting revision information.
-        pub const START_FROM_CLOUD_RUN_REVISION: State = State::new(26);
-
+        StartFromCloudRunRevision,
         /// Initial state: packet originating from a Storage Bucket. Used only for
         /// return traces.
         /// The storage_bucket information is populated.
-        pub const START_FROM_STORAGE_BUCKET: State = State::new(29);
-
+        StartFromStorageBucket,
         /// Initial state: packet originating from a published service that uses
         /// Private Service Connect. Used only for return traces.
-        pub const START_FROM_PSC_PUBLISHED_SERVICE: State = State::new(30);
-
+        StartFromPscPublishedService,
         /// Initial state: packet originating from a serverless network endpoint
         /// group backend. Used only for return traces.
         /// The serverless_neg information is populated.
-        pub const START_FROM_SERVERLESS_NEG: State = State::new(31);
-
+        StartFromServerlessNeg,
         /// Config checking state: verify ingress firewall rule.
-        pub const APPLY_INGRESS_FIREWALL_RULE: State = State::new(4);
-
+        ApplyIngressFirewallRule,
         /// Config checking state: verify egress firewall rule.
-        pub const APPLY_EGRESS_FIREWALL_RULE: State = State::new(5);
-
+        ApplyEgressFirewallRule,
         /// Config checking state: verify route.
-        pub const APPLY_ROUTE: State = State::new(6);
-
+        ApplyRoute,
         /// Config checking state: match forwarding rule.
-        pub const APPLY_FORWARDING_RULE: State = State::new(7);
-
+        ApplyForwardingRule,
         /// Config checking state: verify load balancer backend configuration.
-        pub const ANALYZE_LOAD_BALANCER_BACKEND: State = State::new(28);
-
+        AnalyzeLoadBalancerBackend,
         /// Config checking state: packet sent or received under foreign IP
         /// address and allowed.
-        pub const SPOOFING_APPROVED: State = State::new(8);
-
+        SpoofingApproved,
         /// Forwarding state: arriving at a Compute Engine instance.
-        pub const ARRIVE_AT_INSTANCE: State = State::new(9);
-
+        ArriveAtInstance,
         /// Forwarding state: arriving at a Compute Engine internal load balancer.
         /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
         /// used in new tests.
-        pub const ARRIVE_AT_INTERNAL_LOAD_BALANCER: State = State::new(10);
-
+        #[deprecated]
+        ArriveAtInternalLoadBalancer,
         /// Forwarding state: arriving at a Compute Engine external load balancer.
         /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
         /// used in new tests.
-        pub const ARRIVE_AT_EXTERNAL_LOAD_BALANCER: State = State::new(11);
-
+        #[deprecated]
+        ArriveAtExternalLoadBalancer,
         /// Forwarding state: arriving at a Cloud VPN gateway.
-        pub const ARRIVE_AT_VPN_GATEWAY: State = State::new(12);
-
+        ArriveAtVpnGateway,
         /// Forwarding state: arriving at a Cloud VPN tunnel.
-        pub const ARRIVE_AT_VPN_TUNNEL: State = State::new(13);
-
+        ArriveAtVpnTunnel,
         /// Forwarding state: arriving at a VPC connector.
-        pub const ARRIVE_AT_VPC_CONNECTOR: State = State::new(24);
-
+        ArriveAtVpcConnector,
         /// Forwarding state: for packets originating from a serverless endpoint
         /// forwarded through Direct VPC egress.
-        pub const DIRECT_VPC_EGRESS_CONNECTION: State = State::new(35);
-
+        DirectVpcEgressConnection,
         /// Forwarding state: for packets originating from a serverless endpoint
         /// forwarded through public (external) connectivity.
-        pub const SERVERLESS_EXTERNAL_CONNECTION: State = State::new(36);
-
+        ServerlessExternalConnection,
         /// Transition state: packet header translated.
-        pub const NAT: State = State::new(14);
-
+        Nat,
         /// Transition state: original connection is terminated and a new proxied
         /// connection is initiated.
-        pub const PROXY_CONNECTION: State = State::new(15);
-
+        ProxyConnection,
         /// Final state: packet could be delivered.
-        pub const DELIVER: State = State::new(16);
-
+        Deliver,
         /// Final state: packet could be dropped.
-        pub const DROP: State = State::new(17);
-
+        Drop,
         /// Final state: packet could be forwarded to a network with an unknown
         /// configuration.
-        pub const FORWARD: State = State::new(18);
-
+        Forward,
         /// Final state: analysis is aborted.
-        pub const ABORT: State = State::new(19);
-
+        Abort,
         /// Special state: viewer of the test result does not have permission to
         /// see the configuration in this step.
-        pub const VIEWER_PERMISSION_MISSING: State = State::new(20);
+        ViewerPermissionMissing,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::StartFromInstance => std::option::Option::Some(1),
+                Self::StartFromInternet => std::option::Option::Some(2),
+                Self::StartFromGoogleService => std::option::Option::Some(27),
+                Self::StartFromPrivateNetwork => std::option::Option::Some(3),
+                Self::StartFromGkeMaster => std::option::Option::Some(21),
+                Self::StartFromCloudSqlInstance => std::option::Option::Some(22),
+                Self::StartFromRedisInstance => std::option::Option::Some(32),
+                Self::StartFromRedisCluster => std::option::Option::Some(33),
+                Self::StartFromCloudFunction => std::option::Option::Some(23),
+                Self::StartFromAppEngineVersion => std::option::Option::Some(25),
+                Self::StartFromCloudRunRevision => std::option::Option::Some(26),
+                Self::StartFromStorageBucket => std::option::Option::Some(29),
+                Self::StartFromPscPublishedService => std::option::Option::Some(30),
+                Self::StartFromServerlessNeg => std::option::Option::Some(31),
+                Self::ApplyIngressFirewallRule => std::option::Option::Some(4),
+                Self::ApplyEgressFirewallRule => std::option::Option::Some(5),
+                Self::ApplyRoute => std::option::Option::Some(6),
+                Self::ApplyForwardingRule => std::option::Option::Some(7),
+                Self::AnalyzeLoadBalancerBackend => std::option::Option::Some(28),
+                Self::SpoofingApproved => std::option::Option::Some(8),
+                Self::ArriveAtInstance => std::option::Option::Some(9),
+                Self::ArriveAtInternalLoadBalancer => std::option::Option::Some(10),
+                Self::ArriveAtExternalLoadBalancer => std::option::Option::Some(11),
+                Self::ArriveAtVpnGateway => std::option::Option::Some(12),
+                Self::ArriveAtVpnTunnel => std::option::Option::Some(13),
+                Self::ArriveAtVpcConnector => std::option::Option::Some(24),
+                Self::DirectVpcEgressConnection => std::option::Option::Some(35),
+                Self::ServerlessExternalConnection => std::option::Option::Some(36),
+                Self::Nat => std::option::Option::Some(14),
+                Self::ProxyConnection => std::option::Option::Some(15),
+                Self::Deliver => std::option::Option::Some(16),
+                Self::Drop => std::option::Option::Some(17),
+                Self::Forward => std::option::Option::Some(18),
+                Self::Abort => std::option::Option::Some(19),
+                Self::ViewerPermissionMissing => std::option::Option::Some(20),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("START_FROM_INSTANCE"),
-                2 => std::borrow::Cow::Borrowed("START_FROM_INTERNET"),
-                3 => std::borrow::Cow::Borrowed("START_FROM_PRIVATE_NETWORK"),
-                4 => std::borrow::Cow::Borrowed("APPLY_INGRESS_FIREWALL_RULE"),
-                5 => std::borrow::Cow::Borrowed("APPLY_EGRESS_FIREWALL_RULE"),
-                6 => std::borrow::Cow::Borrowed("APPLY_ROUTE"),
-                7 => std::borrow::Cow::Borrowed("APPLY_FORWARDING_RULE"),
-                8 => std::borrow::Cow::Borrowed("SPOOFING_APPROVED"),
-                9 => std::borrow::Cow::Borrowed("ARRIVE_AT_INSTANCE"),
-                10 => std::borrow::Cow::Borrowed("ARRIVE_AT_INTERNAL_LOAD_BALANCER"),
-                11 => std::borrow::Cow::Borrowed("ARRIVE_AT_EXTERNAL_LOAD_BALANCER"),
-                12 => std::borrow::Cow::Borrowed("ARRIVE_AT_VPN_GATEWAY"),
-                13 => std::borrow::Cow::Borrowed("ARRIVE_AT_VPN_TUNNEL"),
-                14 => std::borrow::Cow::Borrowed("NAT"),
-                15 => std::borrow::Cow::Borrowed("PROXY_CONNECTION"),
-                16 => std::borrow::Cow::Borrowed("DELIVER"),
-                17 => std::borrow::Cow::Borrowed("DROP"),
-                18 => std::borrow::Cow::Borrowed("FORWARD"),
-                19 => std::borrow::Cow::Borrowed("ABORT"),
-                20 => std::borrow::Cow::Borrowed("VIEWER_PERMISSION_MISSING"),
-                21 => std::borrow::Cow::Borrowed("START_FROM_GKE_MASTER"),
-                22 => std::borrow::Cow::Borrowed("START_FROM_CLOUD_SQL_INSTANCE"),
-                23 => std::borrow::Cow::Borrowed("START_FROM_CLOUD_FUNCTION"),
-                24 => std::borrow::Cow::Borrowed("ARRIVE_AT_VPC_CONNECTOR"),
-                25 => std::borrow::Cow::Borrowed("START_FROM_APP_ENGINE_VERSION"),
-                26 => std::borrow::Cow::Borrowed("START_FROM_CLOUD_RUN_REVISION"),
-                27 => std::borrow::Cow::Borrowed("START_FROM_GOOGLE_SERVICE"),
-                28 => std::borrow::Cow::Borrowed("ANALYZE_LOAD_BALANCER_BACKEND"),
-                29 => std::borrow::Cow::Borrowed("START_FROM_STORAGE_BUCKET"),
-                30 => std::borrow::Cow::Borrowed("START_FROM_PSC_PUBLISHED_SERVICE"),
-                31 => std::borrow::Cow::Borrowed("START_FROM_SERVERLESS_NEG"),
-                32 => std::borrow::Cow::Borrowed("START_FROM_REDIS_INSTANCE"),
-                33 => std::borrow::Cow::Borrowed("START_FROM_REDIS_CLUSTER"),
-                35 => std::borrow::Cow::Borrowed("DIRECT_VPC_EGRESS_CONNECTION"),
-                36 => std::borrow::Cow::Borrowed("SERVERLESS_EXTERNAL_CONNECTION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::StartFromInstance => std::option::Option::Some("START_FROM_INSTANCE"),
+                Self::StartFromInternet => std::option::Option::Some("START_FROM_INTERNET"),
+                Self::StartFromGoogleService => {
+                    std::option::Option::Some("START_FROM_GOOGLE_SERVICE")
+                }
+                Self::StartFromPrivateNetwork => {
+                    std::option::Option::Some("START_FROM_PRIVATE_NETWORK")
+                }
+                Self::StartFromGkeMaster => std::option::Option::Some("START_FROM_GKE_MASTER"),
+                Self::StartFromCloudSqlInstance => {
+                    std::option::Option::Some("START_FROM_CLOUD_SQL_INSTANCE")
+                }
+                Self::StartFromRedisInstance => {
+                    std::option::Option::Some("START_FROM_REDIS_INSTANCE")
+                }
+                Self::StartFromRedisCluster => {
+                    std::option::Option::Some("START_FROM_REDIS_CLUSTER")
+                }
+                Self::StartFromCloudFunction => {
+                    std::option::Option::Some("START_FROM_CLOUD_FUNCTION")
+                }
+                Self::StartFromAppEngineVersion => {
+                    std::option::Option::Some("START_FROM_APP_ENGINE_VERSION")
+                }
+                Self::StartFromCloudRunRevision => {
+                    std::option::Option::Some("START_FROM_CLOUD_RUN_REVISION")
+                }
+                Self::StartFromStorageBucket => {
+                    std::option::Option::Some("START_FROM_STORAGE_BUCKET")
+                }
+                Self::StartFromPscPublishedService => {
+                    std::option::Option::Some("START_FROM_PSC_PUBLISHED_SERVICE")
+                }
+                Self::StartFromServerlessNeg => {
+                    std::option::Option::Some("START_FROM_SERVERLESS_NEG")
+                }
+                Self::ApplyIngressFirewallRule => {
+                    std::option::Option::Some("APPLY_INGRESS_FIREWALL_RULE")
+                }
+                Self::ApplyEgressFirewallRule => {
+                    std::option::Option::Some("APPLY_EGRESS_FIREWALL_RULE")
+                }
+                Self::ApplyRoute => std::option::Option::Some("APPLY_ROUTE"),
+                Self::ApplyForwardingRule => std::option::Option::Some("APPLY_FORWARDING_RULE"),
+                Self::AnalyzeLoadBalancerBackend => {
+                    std::option::Option::Some("ANALYZE_LOAD_BALANCER_BACKEND")
+                }
+                Self::SpoofingApproved => std::option::Option::Some("SPOOFING_APPROVED"),
+                Self::ArriveAtInstance => std::option::Option::Some("ARRIVE_AT_INSTANCE"),
+                Self::ArriveAtInternalLoadBalancer => {
+                    std::option::Option::Some("ARRIVE_AT_INTERNAL_LOAD_BALANCER")
+                }
+                Self::ArriveAtExternalLoadBalancer => {
+                    std::option::Option::Some("ARRIVE_AT_EXTERNAL_LOAD_BALANCER")
+                }
+                Self::ArriveAtVpnGateway => std::option::Option::Some("ARRIVE_AT_VPN_GATEWAY"),
+                Self::ArriveAtVpnTunnel => std::option::Option::Some("ARRIVE_AT_VPN_TUNNEL"),
+                Self::ArriveAtVpcConnector => std::option::Option::Some("ARRIVE_AT_VPC_CONNECTOR"),
+                Self::DirectVpcEgressConnection => {
+                    std::option::Option::Some("DIRECT_VPC_EGRESS_CONNECTION")
+                }
+                Self::ServerlessExternalConnection => {
+                    std::option::Option::Some("SERVERLESS_EXTERNAL_CONNECTION")
+                }
+                Self::Nat => std::option::Option::Some("NAT"),
+                Self::ProxyConnection => std::option::Option::Some("PROXY_CONNECTION"),
+                Self::Deliver => std::option::Option::Some("DELIVER"),
+                Self::Drop => std::option::Option::Some("DROP"),
+                Self::Forward => std::option::Option::Some("FORWARD"),
+                Self::Abort => std::option::Option::Some("ABORT"),
+                Self::ViewerPermissionMissing => {
+                    std::option::Option::Some("VIEWER_PERMISSION_MISSING")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "START_FROM_INSTANCE" => std::option::Option::Some(Self::START_FROM_INSTANCE),
-                "START_FROM_INTERNET" => std::option::Option::Some(Self::START_FROM_INTERNET),
-                "START_FROM_GOOGLE_SERVICE" => {
-                    std::option::Option::Some(Self::START_FROM_GOOGLE_SERVICE)
-                }
-                "START_FROM_PRIVATE_NETWORK" => {
-                    std::option::Option::Some(Self::START_FROM_PRIVATE_NETWORK)
-                }
-                "START_FROM_GKE_MASTER" => std::option::Option::Some(Self::START_FROM_GKE_MASTER),
-                "START_FROM_CLOUD_SQL_INSTANCE" => {
-                    std::option::Option::Some(Self::START_FROM_CLOUD_SQL_INSTANCE)
-                }
-                "START_FROM_REDIS_INSTANCE" => {
-                    std::option::Option::Some(Self::START_FROM_REDIS_INSTANCE)
-                }
-                "START_FROM_REDIS_CLUSTER" => {
-                    std::option::Option::Some(Self::START_FROM_REDIS_CLUSTER)
-                }
-                "START_FROM_CLOUD_FUNCTION" => {
-                    std::option::Option::Some(Self::START_FROM_CLOUD_FUNCTION)
-                }
-                "START_FROM_APP_ENGINE_VERSION" => {
-                    std::option::Option::Some(Self::START_FROM_APP_ENGINE_VERSION)
-                }
-                "START_FROM_CLOUD_RUN_REVISION" => {
-                    std::option::Option::Some(Self::START_FROM_CLOUD_RUN_REVISION)
-                }
-                "START_FROM_STORAGE_BUCKET" => {
-                    std::option::Option::Some(Self::START_FROM_STORAGE_BUCKET)
-                }
-                "START_FROM_PSC_PUBLISHED_SERVICE" => {
-                    std::option::Option::Some(Self::START_FROM_PSC_PUBLISHED_SERVICE)
-                }
-                "START_FROM_SERVERLESS_NEG" => {
-                    std::option::Option::Some(Self::START_FROM_SERVERLESS_NEG)
-                }
-                "APPLY_INGRESS_FIREWALL_RULE" => {
-                    std::option::Option::Some(Self::APPLY_INGRESS_FIREWALL_RULE)
-                }
-                "APPLY_EGRESS_FIREWALL_RULE" => {
-                    std::option::Option::Some(Self::APPLY_EGRESS_FIREWALL_RULE)
-                }
-                "APPLY_ROUTE" => std::option::Option::Some(Self::APPLY_ROUTE),
-                "APPLY_FORWARDING_RULE" => std::option::Option::Some(Self::APPLY_FORWARDING_RULE),
-                "ANALYZE_LOAD_BALANCER_BACKEND" => {
-                    std::option::Option::Some(Self::ANALYZE_LOAD_BALANCER_BACKEND)
-                }
-                "SPOOFING_APPROVED" => std::option::Option::Some(Self::SPOOFING_APPROVED),
-                "ARRIVE_AT_INSTANCE" => std::option::Option::Some(Self::ARRIVE_AT_INSTANCE),
-                "ARRIVE_AT_INTERNAL_LOAD_BALANCER" => {
-                    std::option::Option::Some(Self::ARRIVE_AT_INTERNAL_LOAD_BALANCER)
-                }
-                "ARRIVE_AT_EXTERNAL_LOAD_BALANCER" => {
-                    std::option::Option::Some(Self::ARRIVE_AT_EXTERNAL_LOAD_BALANCER)
-                }
-                "ARRIVE_AT_VPN_GATEWAY" => std::option::Option::Some(Self::ARRIVE_AT_VPN_GATEWAY),
-                "ARRIVE_AT_VPN_TUNNEL" => std::option::Option::Some(Self::ARRIVE_AT_VPN_TUNNEL),
-                "ARRIVE_AT_VPC_CONNECTOR" => {
-                    std::option::Option::Some(Self::ARRIVE_AT_VPC_CONNECTOR)
-                }
-                "DIRECT_VPC_EGRESS_CONNECTION" => {
-                    std::option::Option::Some(Self::DIRECT_VPC_EGRESS_CONNECTION)
-                }
-                "SERVERLESS_EXTERNAL_CONNECTION" => {
-                    std::option::Option::Some(Self::SERVERLESS_EXTERNAL_CONNECTION)
-                }
-                "NAT" => std::option::Option::Some(Self::NAT),
-                "PROXY_CONNECTION" => std::option::Option::Some(Self::PROXY_CONNECTION),
-                "DELIVER" => std::option::Option::Some(Self::DELIVER),
-                "DROP" => std::option::Option::Some(Self::DROP),
-                "FORWARD" => std::option::Option::Some(Self::FORWARD),
-                "ABORT" => std::option::Option::Some(Self::ABORT),
-                "VIEWER_PERMISSION_MISSING" => {
-                    std::option::Option::Some(Self::VIEWER_PERMISSION_MISSING)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::StartFromInstance,
+                2 => Self::StartFromInternet,
+                3 => Self::StartFromPrivateNetwork,
+                4 => Self::ApplyIngressFirewallRule,
+                5 => Self::ApplyEgressFirewallRule,
+                6 => Self::ApplyRoute,
+                7 => Self::ApplyForwardingRule,
+                8 => Self::SpoofingApproved,
+                9 => Self::ArriveAtInstance,
+                10 => Self::ArriveAtInternalLoadBalancer,
+                11 => Self::ArriveAtExternalLoadBalancer,
+                12 => Self::ArriveAtVpnGateway,
+                13 => Self::ArriveAtVpnTunnel,
+                14 => Self::Nat,
+                15 => Self::ProxyConnection,
+                16 => Self::Deliver,
+                17 => Self::Drop,
+                18 => Self::Forward,
+                19 => Self::Abort,
+                20 => Self::ViewerPermissionMissing,
+                21 => Self::StartFromGkeMaster,
+                22 => Self::StartFromCloudSqlInstance,
+                23 => Self::StartFromCloudFunction,
+                24 => Self::ArriveAtVpcConnector,
+                25 => Self::StartFromAppEngineVersion,
+                26 => Self::StartFromCloudRunRevision,
+                27 => Self::StartFromGoogleService,
+                28 => Self::AnalyzeLoadBalancerBackend,
+                29 => Self::StartFromStorageBucket,
+                30 => Self::StartFromPscPublishedService,
+                31 => Self::StartFromServerlessNeg,
+                32 => Self::StartFromRedisInstance,
+                33 => Self::StartFromRedisCluster,
+                35 => Self::DirectVpcEgressConnection,
+                36 => Self::ServerlessExternalConnection,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "START_FROM_INSTANCE" => Self::StartFromInstance,
+                "START_FROM_INTERNET" => Self::StartFromInternet,
+                "START_FROM_GOOGLE_SERVICE" => Self::StartFromGoogleService,
+                "START_FROM_PRIVATE_NETWORK" => Self::StartFromPrivateNetwork,
+                "START_FROM_GKE_MASTER" => Self::StartFromGkeMaster,
+                "START_FROM_CLOUD_SQL_INSTANCE" => Self::StartFromCloudSqlInstance,
+                "START_FROM_REDIS_INSTANCE" => Self::StartFromRedisInstance,
+                "START_FROM_REDIS_CLUSTER" => Self::StartFromRedisCluster,
+                "START_FROM_CLOUD_FUNCTION" => Self::StartFromCloudFunction,
+                "START_FROM_APP_ENGINE_VERSION" => Self::StartFromAppEngineVersion,
+                "START_FROM_CLOUD_RUN_REVISION" => Self::StartFromCloudRunRevision,
+                "START_FROM_STORAGE_BUCKET" => Self::StartFromStorageBucket,
+                "START_FROM_PSC_PUBLISHED_SERVICE" => Self::StartFromPscPublishedService,
+                "START_FROM_SERVERLESS_NEG" => Self::StartFromServerlessNeg,
+                "APPLY_INGRESS_FIREWALL_RULE" => Self::ApplyIngressFirewallRule,
+                "APPLY_EGRESS_FIREWALL_RULE" => Self::ApplyEgressFirewallRule,
+                "APPLY_ROUTE" => Self::ApplyRoute,
+                "APPLY_FORWARDING_RULE" => Self::ApplyForwardingRule,
+                "ANALYZE_LOAD_BALANCER_BACKEND" => Self::AnalyzeLoadBalancerBackend,
+                "SPOOFING_APPROVED" => Self::SpoofingApproved,
+                "ARRIVE_AT_INSTANCE" => Self::ArriveAtInstance,
+                "ARRIVE_AT_INTERNAL_LOAD_BALANCER" => Self::ArriveAtInternalLoadBalancer,
+                "ARRIVE_AT_EXTERNAL_LOAD_BALANCER" => Self::ArriveAtExternalLoadBalancer,
+                "ARRIVE_AT_VPN_GATEWAY" => Self::ArriveAtVpnGateway,
+                "ARRIVE_AT_VPN_TUNNEL" => Self::ArriveAtVpnTunnel,
+                "ARRIVE_AT_VPC_CONNECTOR" => Self::ArriveAtVpcConnector,
+                "DIRECT_VPC_EGRESS_CONNECTION" => Self::DirectVpcEgressConnection,
+                "SERVERLESS_EXTERNAL_CONNECTION" => Self::ServerlessExternalConnection,
+                "NAT" => Self::Nat,
+                "PROXY_CONNECTION" => Self::ProxyConnection,
+                "DELIVER" => Self::Deliver,
+                "DROP" => Self::Drop,
+                "FORWARD" => Self::Forward,
+                "ABORT" => Self::Abort,
+                "VIEWER_PERMISSION_MISSING" => Self::ViewerPermissionMissing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::StartFromInstance => serializer.serialize_i32(1),
+                Self::StartFromInternet => serializer.serialize_i32(2),
+                Self::StartFromGoogleService => serializer.serialize_i32(27),
+                Self::StartFromPrivateNetwork => serializer.serialize_i32(3),
+                Self::StartFromGkeMaster => serializer.serialize_i32(21),
+                Self::StartFromCloudSqlInstance => serializer.serialize_i32(22),
+                Self::StartFromRedisInstance => serializer.serialize_i32(32),
+                Self::StartFromRedisCluster => serializer.serialize_i32(33),
+                Self::StartFromCloudFunction => serializer.serialize_i32(23),
+                Self::StartFromAppEngineVersion => serializer.serialize_i32(25),
+                Self::StartFromCloudRunRevision => serializer.serialize_i32(26),
+                Self::StartFromStorageBucket => serializer.serialize_i32(29),
+                Self::StartFromPscPublishedService => serializer.serialize_i32(30),
+                Self::StartFromServerlessNeg => serializer.serialize_i32(31),
+                Self::ApplyIngressFirewallRule => serializer.serialize_i32(4),
+                Self::ApplyEgressFirewallRule => serializer.serialize_i32(5),
+                Self::ApplyRoute => serializer.serialize_i32(6),
+                Self::ApplyForwardingRule => serializer.serialize_i32(7),
+                Self::AnalyzeLoadBalancerBackend => serializer.serialize_i32(28),
+                Self::SpoofingApproved => serializer.serialize_i32(8),
+                Self::ArriveAtInstance => serializer.serialize_i32(9),
+                Self::ArriveAtInternalLoadBalancer => serializer.serialize_i32(10),
+                Self::ArriveAtExternalLoadBalancer => serializer.serialize_i32(11),
+                Self::ArriveAtVpnGateway => serializer.serialize_i32(12),
+                Self::ArriveAtVpnTunnel => serializer.serialize_i32(13),
+                Self::ArriveAtVpcConnector => serializer.serialize_i32(24),
+                Self::DirectVpcEgressConnection => serializer.serialize_i32(35),
+                Self::ServerlessExternalConnection => serializer.serialize_i32(36),
+                Self::Nat => serializer.serialize_i32(14),
+                Self::ProxyConnection => serializer.serialize_i32(15),
+                Self::Deliver => serializer.serialize_i32(16),
+                Self::Drop => serializer.serialize_i32(17),
+                Self::Forward => serializer.serialize_i32(18),
+                Self::Abort => serializer.serialize_i32(19),
+                Self::ViewerPermissionMissing => serializer.serialize_i32(20),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networkmanagement.v1.Step.State",
+            ))
         }
     }
 
@@ -3142,6 +3665,7 @@ pub mod step {
         Drop(std::boxed::Box<crate::model::DropInfo>),
         /// Display information of the load balancers. Deprecated in favor of the
         /// `load_balancer_backend_info` field, not used in new tests.
+        #[deprecated]
         LoadBalancer(std::boxed::Box<crate::model::LoadBalancerInfo>),
         /// Display information of a Google Cloud network.
         Network(std::boxed::Box<crate::model::NetworkInfo>),
@@ -3209,6 +3733,7 @@ pub struct InstanceInfo {
 
     /// Service account authorized for the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub service_account: std::string::String,
 
     /// URI of the PSC network attachment the NIC is attached to (if relevant).
@@ -3261,6 +3786,7 @@ impl InstanceInfo {
     }
 
     /// Sets the value of [service_account][crate::model::InstanceInfo::service_account].
+    #[deprecated]
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -3533,130 +4059,217 @@ pub mod firewall_info {
     use super::*;
 
     /// The firewall rule's type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FirewallRuleType(i32);
-
-    impl FirewallRuleType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FirewallRuleType {
         /// Unspecified type.
-        pub const FIREWALL_RULE_TYPE_UNSPECIFIED: FirewallRuleType = FirewallRuleType::new(0);
-
+        Unspecified,
         /// Hierarchical firewall policy rule. For details, see
         /// [Hierarchical firewall policies
         /// overview](https://cloud.google.com/vpc/docs/firewall-policies).
-        pub const HIERARCHICAL_FIREWALL_POLICY_RULE: FirewallRuleType = FirewallRuleType::new(1);
-
+        HierarchicalFirewallPolicyRule,
         /// VPC firewall rule. For details, see
         /// [VPC firewall rules
         /// overview](https://cloud.google.com/vpc/docs/firewalls).
-        pub const VPC_FIREWALL_RULE: FirewallRuleType = FirewallRuleType::new(2);
-
+        VpcFirewallRule,
         /// Implied VPC firewall rule. For details, see
         /// [Implied
         /// rules](https://cloud.google.com/vpc/docs/firewalls#default_firewall_rules).
-        pub const IMPLIED_VPC_FIREWALL_RULE: FirewallRuleType = FirewallRuleType::new(3);
-
+        ImpliedVpcFirewallRule,
         /// Implicit firewall rules that are managed by serverless VPC access to
         /// allow ingress access. They are not visible in the Google Cloud console.
         /// For details, see [VPC connector's implicit
         /// rules](https://cloud.google.com/functions/docs/networking/connecting-vpc#restrict-access).
-        pub const SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE: FirewallRuleType =
-            FirewallRuleType::new(4);
-
+        ServerlessVpcAccessManagedFirewallRule,
         /// Global network firewall policy rule.
         /// For details, see [Network firewall
         /// policies](https://cloud.google.com/vpc/docs/network-firewall-policies).
-        pub const NETWORK_FIREWALL_POLICY_RULE: FirewallRuleType = FirewallRuleType::new(5);
-
+        NetworkFirewallPolicyRule,
         /// Regional network firewall policy rule.
         /// For details, see [Regional network firewall
         /// policies](https://cloud.google.com/firewall/docs/regional-firewall-policies).
-        pub const NETWORK_REGIONAL_FIREWALL_POLICY_RULE: FirewallRuleType =
-            FirewallRuleType::new(6);
-
+        NetworkRegionalFirewallPolicyRule,
         /// Firewall policy rule containing attributes not yet supported in
         /// Connectivity tests. Firewall analysis is skipped if such a rule can
         /// potentially be matched. Please see the [list of unsupported
         /// configurations](https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview#unsupported-configs).
-        pub const UNSUPPORTED_FIREWALL_POLICY_RULE: FirewallRuleType = FirewallRuleType::new(100);
-
+        UnsupportedFirewallPolicyRule,
         /// Tracking state for response traffic created when request traffic goes
         /// through allow firewall rule.
         /// For details, see [firewall rules
         /// specifications](https://cloud.google.com/firewall/docs/firewalls#specifications)
-        pub const TRACKING_STATE: FirewallRuleType = FirewallRuleType::new(101);
-
+        TrackingState,
         /// Firewall analysis was skipped due to executing Connectivity Test in the
         /// BypassFirewallChecks mode
-        pub const ANALYSIS_SKIPPED: FirewallRuleType = FirewallRuleType::new(102);
+        AnalysisSkipped,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FirewallRuleType::value] or
+        /// [FirewallRuleType::name].
+        UnknownValue(firewall_rule_type::UnknownValue),
+    }
 
-        /// Creates a new FirewallRuleType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod firewall_rule_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl FirewallRuleType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::HierarchicalFirewallPolicyRule => std::option::Option::Some(1),
+                Self::VpcFirewallRule => std::option::Option::Some(2),
+                Self::ImpliedVpcFirewallRule => std::option::Option::Some(3),
+                Self::ServerlessVpcAccessManagedFirewallRule => std::option::Option::Some(4),
+                Self::NetworkFirewallPolicyRule => std::option::Option::Some(5),
+                Self::NetworkRegionalFirewallPolicyRule => std::option::Option::Some(6),
+                Self::UnsupportedFirewallPolicyRule => std::option::Option::Some(100),
+                Self::TrackingState => std::option::Option::Some(101),
+                Self::AnalysisSkipped => std::option::Option::Some(102),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FIREWALL_RULE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("HIERARCHICAL_FIREWALL_POLICY_RULE"),
-                2 => std::borrow::Cow::Borrowed("VPC_FIREWALL_RULE"),
-                3 => std::borrow::Cow::Borrowed("IMPLIED_VPC_FIREWALL_RULE"),
-                4 => std::borrow::Cow::Borrowed("SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE"),
-                5 => std::borrow::Cow::Borrowed("NETWORK_FIREWALL_POLICY_RULE"),
-                6 => std::borrow::Cow::Borrowed("NETWORK_REGIONAL_FIREWALL_POLICY_RULE"),
-                100 => std::borrow::Cow::Borrowed("UNSUPPORTED_FIREWALL_POLICY_RULE"),
-                101 => std::borrow::Cow::Borrowed("TRACKING_STATE"),
-                102 => std::borrow::Cow::Borrowed("ANALYSIS_SKIPPED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FIREWALL_RULE_TYPE_UNSPECIFIED"),
+                Self::HierarchicalFirewallPolicyRule => {
+                    std::option::Option::Some("HIERARCHICAL_FIREWALL_POLICY_RULE")
+                }
+                Self::VpcFirewallRule => std::option::Option::Some("VPC_FIREWALL_RULE"),
+                Self::ImpliedVpcFirewallRule => {
+                    std::option::Option::Some("IMPLIED_VPC_FIREWALL_RULE")
+                }
+                Self::ServerlessVpcAccessManagedFirewallRule => {
+                    std::option::Option::Some("SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE")
+                }
+                Self::NetworkFirewallPolicyRule => {
+                    std::option::Option::Some("NETWORK_FIREWALL_POLICY_RULE")
+                }
+                Self::NetworkRegionalFirewallPolicyRule => {
+                    std::option::Option::Some("NETWORK_REGIONAL_FIREWALL_POLICY_RULE")
+                }
+                Self::UnsupportedFirewallPolicyRule => {
+                    std::option::Option::Some("UNSUPPORTED_FIREWALL_POLICY_RULE")
+                }
+                Self::TrackingState => std::option::Option::Some("TRACKING_STATE"),
+                Self::AnalysisSkipped => std::option::Option::Some("ANALYSIS_SKIPPED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FIREWALL_RULE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::FIREWALL_RULE_TYPE_UNSPECIFIED)
-                }
-                "HIERARCHICAL_FIREWALL_POLICY_RULE" => {
-                    std::option::Option::Some(Self::HIERARCHICAL_FIREWALL_POLICY_RULE)
-                }
-                "VPC_FIREWALL_RULE" => std::option::Option::Some(Self::VPC_FIREWALL_RULE),
-                "IMPLIED_VPC_FIREWALL_RULE" => {
-                    std::option::Option::Some(Self::IMPLIED_VPC_FIREWALL_RULE)
-                }
-                "SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE" => {
-                    std::option::Option::Some(Self::SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE)
-                }
-                "NETWORK_FIREWALL_POLICY_RULE" => {
-                    std::option::Option::Some(Self::NETWORK_FIREWALL_POLICY_RULE)
-                }
-                "NETWORK_REGIONAL_FIREWALL_POLICY_RULE" => {
-                    std::option::Option::Some(Self::NETWORK_REGIONAL_FIREWALL_POLICY_RULE)
-                }
-                "UNSUPPORTED_FIREWALL_POLICY_RULE" => {
-                    std::option::Option::Some(Self::UNSUPPORTED_FIREWALL_POLICY_RULE)
-                }
-                "TRACKING_STATE" => std::option::Option::Some(Self::TRACKING_STATE),
-                "ANALYSIS_SKIPPED" => std::option::Option::Some(Self::ANALYSIS_SKIPPED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for FirewallRuleType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for FirewallRuleType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FirewallRuleType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FirewallRuleType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::HierarchicalFirewallPolicyRule,
+                2 => Self::VpcFirewallRule,
+                3 => Self::ImpliedVpcFirewallRule,
+                4 => Self::ServerlessVpcAccessManagedFirewallRule,
+                5 => Self::NetworkFirewallPolicyRule,
+                6 => Self::NetworkRegionalFirewallPolicyRule,
+                100 => Self::UnsupportedFirewallPolicyRule,
+                101 => Self::TrackingState,
+                102 => Self::AnalysisSkipped,
+                _ => Self::UnknownValue(firewall_rule_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FirewallRuleType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FIREWALL_RULE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "HIERARCHICAL_FIREWALL_POLICY_RULE" => Self::HierarchicalFirewallPolicyRule,
+                "VPC_FIREWALL_RULE" => Self::VpcFirewallRule,
+                "IMPLIED_VPC_FIREWALL_RULE" => Self::ImpliedVpcFirewallRule,
+                "SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE" => {
+                    Self::ServerlessVpcAccessManagedFirewallRule
+                }
+                "NETWORK_FIREWALL_POLICY_RULE" => Self::NetworkFirewallPolicyRule,
+                "NETWORK_REGIONAL_FIREWALL_POLICY_RULE" => Self::NetworkRegionalFirewallPolicyRule,
+                "UNSUPPORTED_FIREWALL_POLICY_RULE" => Self::UnsupportedFirewallPolicyRule,
+                "TRACKING_STATE" => Self::TrackingState,
+                "ANALYSIS_SKIPPED" => Self::AnalysisSkipped,
+                _ => Self::UnknownValue(firewall_rule_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FirewallRuleType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::HierarchicalFirewallPolicyRule => serializer.serialize_i32(1),
+                Self::VpcFirewallRule => serializer.serialize_i32(2),
+                Self::ImpliedVpcFirewallRule => serializer.serialize_i32(3),
+                Self::ServerlessVpcAccessManagedFirewallRule => serializer.serialize_i32(4),
+                Self::NetworkFirewallPolicyRule => serializer.serialize_i32(5),
+                Self::NetworkRegionalFirewallPolicyRule => serializer.serialize_i32(6),
+                Self::UnsupportedFirewallPolicyRule => serializer.serialize_i32(100),
+                Self::TrackingState => serializer.serialize_i32(101),
+                Self::AnalysisSkipped => serializer.serialize_i32(102),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FirewallRuleType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FirewallRuleType>::new(
+                ".google.cloud.networkmanagement.v1.FirewallInfo.FirewallRuleType",
+            ))
         }
     }
 }
@@ -3675,6 +4288,7 @@ pub struct RouteInfo {
 
     /// Indicates where route is applicable. Deprecated, routes with NCC_HUB scope
     /// are not included in the trace in new tests.
+    #[deprecated]
     pub route_scope: crate::model::route_info::RouteScope,
 
     /// Name of a route.
@@ -3700,6 +4314,7 @@ pub struct RouteInfo {
     /// Deprecated in favor of the next_hop_type and next_hop_uri fields, not used
     /// in new tests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub next_hop: std::string::String,
 
     /// URI of a VPC network where route is located.
@@ -3751,6 +4366,7 @@ pub struct RouteInfo {
     /// network. Deprecated in favor of the next_hop_uri field, not used in new
     /// tests.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub advertised_route_next_hop_uri: std::option::Option<std::string::String>,
 
     /// URI of the next hop resource.
@@ -3804,6 +4420,7 @@ impl RouteInfo {
     }
 
     /// Sets the value of [route_scope][crate::model::RouteInfo::route_scope].
+    #[deprecated]
     pub fn set_route_scope<T: std::convert::Into<crate::model::route_info::RouteScope>>(
         mut self,
         v: T,
@@ -3837,6 +4454,7 @@ impl RouteInfo {
     }
 
     /// Sets the value of [next_hop][crate::model::RouteInfo::next_hop].
+    #[deprecated]
     pub fn set_next_hop<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_hop = v.into();
         self
@@ -3890,6 +4508,7 @@ impl RouteInfo {
     }
 
     /// Sets the value of [advertised_route_next_hop_uri][crate::model::RouteInfo::advertised_route_next_hop_uri].
+    #[deprecated]
     pub fn set_advertised_route_next_hop_uri<
         T: std::convert::Into<std::option::Option<std::string::String>>,
     >(
@@ -3999,272 +4618,525 @@ pub mod route_info {
     use super::*;
 
     /// Type of route:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RouteType(i32);
-
-    impl RouteType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RouteType {
         /// Unspecified type. Default value.
-        pub const ROUTE_TYPE_UNSPECIFIED: RouteType = RouteType::new(0);
-
+        Unspecified,
         /// Route is a subnet route automatically created by the system.
-        pub const SUBNET: RouteType = RouteType::new(1);
-
+        Subnet,
         /// Static route created by the user, including the default route to the
         /// internet.
-        pub const STATIC: RouteType = RouteType::new(2);
-
+        Static,
         /// Dynamic route exchanged between BGP peers.
-        pub const DYNAMIC: RouteType = RouteType::new(3);
-
+        Dynamic,
         /// A subnet route received from peering network or NCC Hub.
-        pub const PEERING_SUBNET: RouteType = RouteType::new(4);
-
+        PeeringSubnet,
         /// A static route received from peering network.
-        pub const PEERING_STATIC: RouteType = RouteType::new(5);
-
+        PeeringStatic,
         /// A dynamic route received from peering network or NCC Hub.
-        pub const PEERING_DYNAMIC: RouteType = RouteType::new(6);
-
+        PeeringDynamic,
         /// Policy based route.
-        pub const POLICY_BASED: RouteType = RouteType::new(7);
-
+        PolicyBased,
         /// Advertised route. Synthetic route which is used to transition from the
         /// StartFromPrivateNetwork state in Connectivity tests.
-        pub const ADVERTISED: RouteType = RouteType::new(101);
+        Advertised,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RouteType::value] or
+        /// [RouteType::name].
+        UnknownValue(route_type::UnknownValue),
+    }
 
-        /// Creates a new RouteType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod route_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl RouteType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Subnet => std::option::Option::Some(1),
+                Self::Static => std::option::Option::Some(2),
+                Self::Dynamic => std::option::Option::Some(3),
+                Self::PeeringSubnet => std::option::Option::Some(4),
+                Self::PeeringStatic => std::option::Option::Some(5),
+                Self::PeeringDynamic => std::option::Option::Some(6),
+                Self::PolicyBased => std::option::Option::Some(7),
+                Self::Advertised => std::option::Option::Some(101),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ROUTE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SUBNET"),
-                2 => std::borrow::Cow::Borrowed("STATIC"),
-                3 => std::borrow::Cow::Borrowed("DYNAMIC"),
-                4 => std::borrow::Cow::Borrowed("PEERING_SUBNET"),
-                5 => std::borrow::Cow::Borrowed("PEERING_STATIC"),
-                6 => std::borrow::Cow::Borrowed("PEERING_DYNAMIC"),
-                7 => std::borrow::Cow::Borrowed("POLICY_BASED"),
-                101 => std::borrow::Cow::Borrowed("ADVERTISED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROUTE_TYPE_UNSPECIFIED"),
+                Self::Subnet => std::option::Option::Some("SUBNET"),
+                Self::Static => std::option::Option::Some("STATIC"),
+                Self::Dynamic => std::option::Option::Some("DYNAMIC"),
+                Self::PeeringSubnet => std::option::Option::Some("PEERING_SUBNET"),
+                Self::PeeringStatic => std::option::Option::Some("PEERING_STATIC"),
+                Self::PeeringDynamic => std::option::Option::Some("PEERING_DYNAMIC"),
+                Self::PolicyBased => std::option::Option::Some("POLICY_BASED"),
+                Self::Advertised => std::option::Option::Some("ADVERTISED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ROUTE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::ROUTE_TYPE_UNSPECIFIED),
-                "SUBNET" => std::option::Option::Some(Self::SUBNET),
-                "STATIC" => std::option::Option::Some(Self::STATIC),
-                "DYNAMIC" => std::option::Option::Some(Self::DYNAMIC),
-                "PEERING_SUBNET" => std::option::Option::Some(Self::PEERING_SUBNET),
-                "PEERING_STATIC" => std::option::Option::Some(Self::PEERING_STATIC),
-                "PEERING_DYNAMIC" => std::option::Option::Some(Self::PEERING_DYNAMIC),
-                "POLICY_BASED" => std::option::Option::Some(Self::POLICY_BASED),
-                "ADVERTISED" => std::option::Option::Some(Self::ADVERTISED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RouteType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RouteType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RouteType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RouteType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Subnet,
+                2 => Self::Static,
+                3 => Self::Dynamic,
+                4 => Self::PeeringSubnet,
+                5 => Self::PeeringStatic,
+                6 => Self::PeeringDynamic,
+                7 => Self::PolicyBased,
+                101 => Self::Advertised,
+                _ => Self::UnknownValue(route_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RouteType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROUTE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SUBNET" => Self::Subnet,
+                "STATIC" => Self::Static,
+                "DYNAMIC" => Self::Dynamic,
+                "PEERING_SUBNET" => Self::PeeringSubnet,
+                "PEERING_STATIC" => Self::PeeringStatic,
+                "PEERING_DYNAMIC" => Self::PeeringDynamic,
+                "POLICY_BASED" => Self::PolicyBased,
+                "ADVERTISED" => Self::Advertised,
+                _ => Self::UnknownValue(route_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RouteType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Subnet => serializer.serialize_i32(1),
+                Self::Static => serializer.serialize_i32(2),
+                Self::Dynamic => serializer.serialize_i32(3),
+                Self::PeeringSubnet => serializer.serialize_i32(4),
+                Self::PeeringStatic => serializer.serialize_i32(5),
+                Self::PeeringDynamic => serializer.serialize_i32(6),
+                Self::PolicyBased => serializer.serialize_i32(7),
+                Self::Advertised => serializer.serialize_i32(101),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RouteType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RouteType>::new(
+                ".google.cloud.networkmanagement.v1.RouteInfo.RouteType",
+            ))
         }
     }
 
     /// Type of next hop:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NextHopType(i32);
-
-    impl NextHopType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NextHopType {
         /// Unspecified type. Default value.
-        pub const NEXT_HOP_TYPE_UNSPECIFIED: NextHopType = NextHopType::new(0);
-
+        Unspecified,
         /// Next hop is an IP address.
-        pub const NEXT_HOP_IP: NextHopType = NextHopType::new(1);
-
+        NextHopIp,
         /// Next hop is a Compute Engine instance.
-        pub const NEXT_HOP_INSTANCE: NextHopType = NextHopType::new(2);
-
+        NextHopInstance,
         /// Next hop is a VPC network gateway.
-        pub const NEXT_HOP_NETWORK: NextHopType = NextHopType::new(3);
-
+        NextHopNetwork,
         /// Next hop is a peering VPC. This scenario only happens when the user
         /// doesn't have permissions to the project where the next hop resource is
         /// located.
-        pub const NEXT_HOP_PEERING: NextHopType = NextHopType::new(4);
-
+        NextHopPeering,
         /// Next hop is an interconnect.
-        pub const NEXT_HOP_INTERCONNECT: NextHopType = NextHopType::new(5);
-
+        NextHopInterconnect,
         /// Next hop is a VPN tunnel.
-        pub const NEXT_HOP_VPN_TUNNEL: NextHopType = NextHopType::new(6);
-
+        NextHopVpnTunnel,
         /// Next hop is a VPN gateway. This scenario only happens when tracing
         /// connectivity from an on-premises network to Google Cloud through a VPN.
         /// The analysis simulates a packet departing from the on-premises network
         /// through a VPN tunnel and arriving at a Cloud VPN gateway.
-        pub const NEXT_HOP_VPN_GATEWAY: NextHopType = NextHopType::new(7);
-
+        NextHopVpnGateway,
         /// Next hop is an internet gateway.
-        pub const NEXT_HOP_INTERNET_GATEWAY: NextHopType = NextHopType::new(8);
-
+        NextHopInternetGateway,
         /// Next hop is blackhole; that is, the next hop either does not exist or is
         /// unusable.
-        pub const NEXT_HOP_BLACKHOLE: NextHopType = NextHopType::new(9);
-
+        NextHopBlackhole,
         /// Next hop is the forwarding rule of an Internal Load Balancer.
-        pub const NEXT_HOP_ILB: NextHopType = NextHopType::new(10);
-
+        NextHopIlb,
         /// Next hop is a
         /// [router appliance
         /// instance](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/ra-overview).
-        pub const NEXT_HOP_ROUTER_APPLIANCE: NextHopType = NextHopType::new(11);
-
+        NextHopRouterAppliance,
         /// Next hop is an NCC hub. This scenario only happens when the user doesn't
         /// have permissions to the project where the next hop resource is located.
-        pub const NEXT_HOP_NCC_HUB: NextHopType = NextHopType::new(12);
+        NextHopNccHub,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [NextHopType::value] or
+        /// [NextHopType::name].
+        UnknownValue(next_hop_type::UnknownValue),
+    }
 
-        /// Creates a new NextHopType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod next_hop_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl NextHopType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NextHopIp => std::option::Option::Some(1),
+                Self::NextHopInstance => std::option::Option::Some(2),
+                Self::NextHopNetwork => std::option::Option::Some(3),
+                Self::NextHopPeering => std::option::Option::Some(4),
+                Self::NextHopInterconnect => std::option::Option::Some(5),
+                Self::NextHopVpnTunnel => std::option::Option::Some(6),
+                Self::NextHopVpnGateway => std::option::Option::Some(7),
+                Self::NextHopInternetGateway => std::option::Option::Some(8),
+                Self::NextHopBlackhole => std::option::Option::Some(9),
+                Self::NextHopIlb => std::option::Option::Some(10),
+                Self::NextHopRouterAppliance => std::option::Option::Some(11),
+                Self::NextHopNccHub => std::option::Option::Some(12),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("NEXT_HOP_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NEXT_HOP_IP"),
-                2 => std::borrow::Cow::Borrowed("NEXT_HOP_INSTANCE"),
-                3 => std::borrow::Cow::Borrowed("NEXT_HOP_NETWORK"),
-                4 => std::borrow::Cow::Borrowed("NEXT_HOP_PEERING"),
-                5 => std::borrow::Cow::Borrowed("NEXT_HOP_INTERCONNECT"),
-                6 => std::borrow::Cow::Borrowed("NEXT_HOP_VPN_TUNNEL"),
-                7 => std::borrow::Cow::Borrowed("NEXT_HOP_VPN_GATEWAY"),
-                8 => std::borrow::Cow::Borrowed("NEXT_HOP_INTERNET_GATEWAY"),
-                9 => std::borrow::Cow::Borrowed("NEXT_HOP_BLACKHOLE"),
-                10 => std::borrow::Cow::Borrowed("NEXT_HOP_ILB"),
-                11 => std::borrow::Cow::Borrowed("NEXT_HOP_ROUTER_APPLIANCE"),
-                12 => std::borrow::Cow::Borrowed("NEXT_HOP_NCC_HUB"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("NEXT_HOP_TYPE_UNSPECIFIED"),
+                Self::NextHopIp => std::option::Option::Some("NEXT_HOP_IP"),
+                Self::NextHopInstance => std::option::Option::Some("NEXT_HOP_INSTANCE"),
+                Self::NextHopNetwork => std::option::Option::Some("NEXT_HOP_NETWORK"),
+                Self::NextHopPeering => std::option::Option::Some("NEXT_HOP_PEERING"),
+                Self::NextHopInterconnect => std::option::Option::Some("NEXT_HOP_INTERCONNECT"),
+                Self::NextHopVpnTunnel => std::option::Option::Some("NEXT_HOP_VPN_TUNNEL"),
+                Self::NextHopVpnGateway => std::option::Option::Some("NEXT_HOP_VPN_GATEWAY"),
+                Self::NextHopInternetGateway => {
+                    std::option::Option::Some("NEXT_HOP_INTERNET_GATEWAY")
+                }
+                Self::NextHopBlackhole => std::option::Option::Some("NEXT_HOP_BLACKHOLE"),
+                Self::NextHopIlb => std::option::Option::Some("NEXT_HOP_ILB"),
+                Self::NextHopRouterAppliance => {
+                    std::option::Option::Some("NEXT_HOP_ROUTER_APPLIANCE")
+                }
+                Self::NextHopNccHub => std::option::Option::Some("NEXT_HOP_NCC_HUB"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "NEXT_HOP_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::NEXT_HOP_TYPE_UNSPECIFIED)
-                }
-                "NEXT_HOP_IP" => std::option::Option::Some(Self::NEXT_HOP_IP),
-                "NEXT_HOP_INSTANCE" => std::option::Option::Some(Self::NEXT_HOP_INSTANCE),
-                "NEXT_HOP_NETWORK" => std::option::Option::Some(Self::NEXT_HOP_NETWORK),
-                "NEXT_HOP_PEERING" => std::option::Option::Some(Self::NEXT_HOP_PEERING),
-                "NEXT_HOP_INTERCONNECT" => std::option::Option::Some(Self::NEXT_HOP_INTERCONNECT),
-                "NEXT_HOP_VPN_TUNNEL" => std::option::Option::Some(Self::NEXT_HOP_VPN_TUNNEL),
-                "NEXT_HOP_VPN_GATEWAY" => std::option::Option::Some(Self::NEXT_HOP_VPN_GATEWAY),
-                "NEXT_HOP_INTERNET_GATEWAY" => {
-                    std::option::Option::Some(Self::NEXT_HOP_INTERNET_GATEWAY)
-                }
-                "NEXT_HOP_BLACKHOLE" => std::option::Option::Some(Self::NEXT_HOP_BLACKHOLE),
-                "NEXT_HOP_ILB" => std::option::Option::Some(Self::NEXT_HOP_ILB),
-                "NEXT_HOP_ROUTER_APPLIANCE" => {
-                    std::option::Option::Some(Self::NEXT_HOP_ROUTER_APPLIANCE)
-                }
-                "NEXT_HOP_NCC_HUB" => std::option::Option::Some(Self::NEXT_HOP_NCC_HUB),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for NextHopType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for NextHopType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for NextHopType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for NextHopType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NextHopIp,
+                2 => Self::NextHopInstance,
+                3 => Self::NextHopNetwork,
+                4 => Self::NextHopPeering,
+                5 => Self::NextHopInterconnect,
+                6 => Self::NextHopVpnTunnel,
+                7 => Self::NextHopVpnGateway,
+                8 => Self::NextHopInternetGateway,
+                9 => Self::NextHopBlackhole,
+                10 => Self::NextHopIlb,
+                11 => Self::NextHopRouterAppliance,
+                12 => Self::NextHopNccHub,
+                _ => Self::UnknownValue(next_hop_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for NextHopType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "NEXT_HOP_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "NEXT_HOP_IP" => Self::NextHopIp,
+                "NEXT_HOP_INSTANCE" => Self::NextHopInstance,
+                "NEXT_HOP_NETWORK" => Self::NextHopNetwork,
+                "NEXT_HOP_PEERING" => Self::NextHopPeering,
+                "NEXT_HOP_INTERCONNECT" => Self::NextHopInterconnect,
+                "NEXT_HOP_VPN_TUNNEL" => Self::NextHopVpnTunnel,
+                "NEXT_HOP_VPN_GATEWAY" => Self::NextHopVpnGateway,
+                "NEXT_HOP_INTERNET_GATEWAY" => Self::NextHopInternetGateway,
+                "NEXT_HOP_BLACKHOLE" => Self::NextHopBlackhole,
+                "NEXT_HOP_ILB" => Self::NextHopIlb,
+                "NEXT_HOP_ROUTER_APPLIANCE" => Self::NextHopRouterAppliance,
+                "NEXT_HOP_NCC_HUB" => Self::NextHopNccHub,
+                _ => Self::UnknownValue(next_hop_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for NextHopType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NextHopIp => serializer.serialize_i32(1),
+                Self::NextHopInstance => serializer.serialize_i32(2),
+                Self::NextHopNetwork => serializer.serialize_i32(3),
+                Self::NextHopPeering => serializer.serialize_i32(4),
+                Self::NextHopInterconnect => serializer.serialize_i32(5),
+                Self::NextHopVpnTunnel => serializer.serialize_i32(6),
+                Self::NextHopVpnGateway => serializer.serialize_i32(7),
+                Self::NextHopInternetGateway => serializer.serialize_i32(8),
+                Self::NextHopBlackhole => serializer.serialize_i32(9),
+                Self::NextHopIlb => serializer.serialize_i32(10),
+                Self::NextHopRouterAppliance => serializer.serialize_i32(11),
+                Self::NextHopNccHub => serializer.serialize_i32(12),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NextHopType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NextHopType>::new(
+                ".google.cloud.networkmanagement.v1.RouteInfo.NextHopType",
+            ))
         }
     }
 
     /// Indicates where routes are applicable.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RouteScope(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RouteScope {
+        /// Unspecified scope. Default value.
+        Unspecified,
+        /// Route is applicable to packets in Network.
+        Network,
+        /// Route is applicable to packets using NCC Hub's routing table.
+        NccHub,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RouteScope::value] or
+        /// [RouteScope::name].
+        UnknownValue(route_scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod route_scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RouteScope {
-        /// Unspecified scope. Default value.
-        pub const ROUTE_SCOPE_UNSPECIFIED: RouteScope = RouteScope::new(0);
-
-        /// Route is applicable to packets in Network.
-        pub const NETWORK: RouteScope = RouteScope::new(1);
-
-        /// Route is applicable to packets using NCC Hub's routing table.
-        pub const NCC_HUB: RouteScope = RouteScope::new(2);
-
-        /// Creates a new RouteScope instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Network => std::option::Option::Some(1),
+                Self::NccHub => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ROUTE_SCOPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NETWORK"),
-                2 => std::borrow::Cow::Borrowed("NCC_HUB"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROUTE_SCOPE_UNSPECIFIED"),
+                Self::Network => std::option::Option::Some("NETWORK"),
+                Self::NccHub => std::option::Option::Some("NCC_HUB"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ROUTE_SCOPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ROUTE_SCOPE_UNSPECIFIED)
-                }
-                "NETWORK" => std::option::Option::Some(Self::NETWORK),
-                "NCC_HUB" => std::option::Option::Some(Self::NCC_HUB),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RouteScope {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RouteScope {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RouteScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RouteScope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Network,
+                2 => Self::NccHub,
+                _ => Self::UnknownValue(route_scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RouteScope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROUTE_SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "NETWORK" => Self::Network,
+                "NCC_HUB" => Self::NccHub,
+                _ => Self::UnknownValue(route_scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RouteScope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Network => serializer.serialize_i32(1),
+                Self::NccHub => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RouteScope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RouteScope>::new(
+                ".google.cloud.networkmanagement.v1.RouteInfo.RouteScope",
+            ))
         }
     }
 }
@@ -4325,99 +5197,182 @@ pub mod google_service_info {
     use super::*;
 
     /// Recognized type of a Google Service.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GoogleServiceType(i32);
-
-    impl GoogleServiceType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GoogleServiceType {
         /// Unspecified Google Service.
-        pub const GOOGLE_SERVICE_TYPE_UNSPECIFIED: GoogleServiceType = GoogleServiceType::new(0);
-
+        Unspecified,
         /// Identity aware proxy.
         /// <https://cloud.google.com/iap/docs/using-tcp-forwarding>
-        pub const IAP: GoogleServiceType = GoogleServiceType::new(1);
-
+        Iap,
         /// One of two services sharing IP ranges:
         ///
         /// * Load Balancer proxy
         /// * Centralized Health Check prober
         ///   <https://cloud.google.com/load-balancing/docs/firewall-rules>
-        pub const GFE_PROXY_OR_HEALTH_CHECK_PROBER: GoogleServiceType = GoogleServiceType::new(2);
-
+        GfeProxyOrHealthCheckProber,
         /// Connectivity from Cloud DNS to forwarding targets or alternate name
         /// servers that use private routing.
         /// <https://cloud.google.com/dns/docs/zones/forwarding-zones#firewall-rules>
         /// <https://cloud.google.com/dns/docs/policies#firewall-rules>
-        pub const CLOUD_DNS: GoogleServiceType = GoogleServiceType::new(3);
-
+        CloudDns,
         /// private.googleapis.com and restricted.googleapis.com
-        pub const GOOGLE_API: GoogleServiceType = GoogleServiceType::new(4);
-
+        GoogleApi,
         /// Google API via Private Service Connect.
         /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-apis>
-        pub const GOOGLE_API_PSC: GoogleServiceType = GoogleServiceType::new(5);
-
+        GoogleApiPsc,
         /// Google API via VPC Service Controls.
         /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-apis>
-        pub const GOOGLE_API_VPC_SC: GoogleServiceType = GoogleServiceType::new(6);
-
+        GoogleApiVpcSc,
         /// Google API via Serverless VPC Access.
         /// <https://cloud.google.com/vpc/docs/serverless-vpc-access>
-        pub const SERVERLESS_VPC_ACCESS: GoogleServiceType = GoogleServiceType::new(7);
+        ServerlessVpcAccess,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GoogleServiceType::value] or
+        /// [GoogleServiceType::name].
+        UnknownValue(google_service_type::UnknownValue),
+    }
 
-        /// Creates a new GoogleServiceType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod google_service_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl GoogleServiceType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Iap => std::option::Option::Some(1),
+                Self::GfeProxyOrHealthCheckProber => std::option::Option::Some(2),
+                Self::CloudDns => std::option::Option::Some(3),
+                Self::GoogleApi => std::option::Option::Some(4),
+                Self::GoogleApiPsc => std::option::Option::Some(5),
+                Self::GoogleApiVpcSc => std::option::Option::Some(6),
+                Self::ServerlessVpcAccess => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("GOOGLE_SERVICE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("IAP"),
-                2 => std::borrow::Cow::Borrowed("GFE_PROXY_OR_HEALTH_CHECK_PROBER"),
-                3 => std::borrow::Cow::Borrowed("CLOUD_DNS"),
-                4 => std::borrow::Cow::Borrowed("GOOGLE_API"),
-                5 => std::borrow::Cow::Borrowed("GOOGLE_API_PSC"),
-                6 => std::borrow::Cow::Borrowed("GOOGLE_API_VPC_SC"),
-                7 => std::borrow::Cow::Borrowed("SERVERLESS_VPC_ACCESS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "GOOGLE_SERVICE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::GOOGLE_SERVICE_TYPE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("GOOGLE_SERVICE_TYPE_UNSPECIFIED"),
+                Self::Iap => std::option::Option::Some("IAP"),
+                Self::GfeProxyOrHealthCheckProber => {
+                    std::option::Option::Some("GFE_PROXY_OR_HEALTH_CHECK_PROBER")
                 }
-                "IAP" => std::option::Option::Some(Self::IAP),
-                "GFE_PROXY_OR_HEALTH_CHECK_PROBER" => {
-                    std::option::Option::Some(Self::GFE_PROXY_OR_HEALTH_CHECK_PROBER)
-                }
-                "CLOUD_DNS" => std::option::Option::Some(Self::CLOUD_DNS),
-                "GOOGLE_API" => std::option::Option::Some(Self::GOOGLE_API),
-                "GOOGLE_API_PSC" => std::option::Option::Some(Self::GOOGLE_API_PSC),
-                "GOOGLE_API_VPC_SC" => std::option::Option::Some(Self::GOOGLE_API_VPC_SC),
-                "SERVERLESS_VPC_ACCESS" => std::option::Option::Some(Self::SERVERLESS_VPC_ACCESS),
-                _ => std::option::Option::None,
+                Self::CloudDns => std::option::Option::Some("CLOUD_DNS"),
+                Self::GoogleApi => std::option::Option::Some("GOOGLE_API"),
+                Self::GoogleApiPsc => std::option::Option::Some("GOOGLE_API_PSC"),
+                Self::GoogleApiVpcSc => std::option::Option::Some("GOOGLE_API_VPC_SC"),
+                Self::ServerlessVpcAccess => std::option::Option::Some("SERVERLESS_VPC_ACCESS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for GoogleServiceType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for GoogleServiceType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for GoogleServiceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for GoogleServiceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Iap,
+                2 => Self::GfeProxyOrHealthCheckProber,
+                3 => Self::CloudDns,
+                4 => Self::GoogleApi,
+                5 => Self::GoogleApiPsc,
+                6 => Self::GoogleApiVpcSc,
+                7 => Self::ServerlessVpcAccess,
+                _ => Self::UnknownValue(google_service_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for GoogleServiceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GOOGLE_SERVICE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IAP" => Self::Iap,
+                "GFE_PROXY_OR_HEALTH_CHECK_PROBER" => Self::GfeProxyOrHealthCheckProber,
+                "CLOUD_DNS" => Self::CloudDns,
+                "GOOGLE_API" => Self::GoogleApi,
+                "GOOGLE_API_PSC" => Self::GoogleApiPsc,
+                "GOOGLE_API_VPC_SC" => Self::GoogleApiVpcSc,
+                "SERVERLESS_VPC_ACCESS" => Self::ServerlessVpcAccess,
+                _ => Self::UnknownValue(google_service_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for GoogleServiceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Iap => serializer.serialize_i32(1),
+                Self::GfeProxyOrHealthCheckProber => serializer.serialize_i32(2),
+                Self::CloudDns => serializer.serialize_i32(3),
+                Self::GoogleApi => serializer.serialize_i32(4),
+                Self::GoogleApiPsc => serializer.serialize_i32(5),
+                Self::GoogleApiVpcSc => serializer.serialize_i32(6),
+                Self::ServerlessVpcAccess => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GoogleServiceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GoogleServiceType>::new(
+                ".google.cloud.networkmanagement.v1.GoogleServiceInfo.GoogleServiceType",
+            ))
         }
     }
 }
@@ -4584,6 +5539,7 @@ pub struct LoadBalancerInfo {
     /// populated as different load balancer backends might have different health
     /// checks.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub health_check_uri: std::string::String,
 
     /// Information for the loadbalancer backends.
@@ -4618,6 +5574,7 @@ impl LoadBalancerInfo {
     }
 
     /// Sets the value of [health_check_uri][crate::model::LoadBalancerInfo::health_check_uri].
+    #[deprecated]
     pub fn set_health_check_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4667,140 +5624,294 @@ pub mod load_balancer_info {
     use super::*;
 
     /// The type definition for a load balancer:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LoadBalancerType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LoadBalancerType {
+        /// Type is unspecified.
+        Unspecified,
+        /// Internal TCP/UDP load balancer.
+        InternalTcpUdp,
+        /// Network TCP/UDP load balancer.
+        NetworkTcpUdp,
+        /// HTTP(S) proxy load balancer.
+        HttpProxy,
+        /// TCP proxy load balancer.
+        TcpProxy,
+        /// SSL proxy load balancer.
+        SslProxy,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LoadBalancerType::value] or
+        /// [LoadBalancerType::name].
+        UnknownValue(load_balancer_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod load_balancer_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl LoadBalancerType {
-        /// Type is unspecified.
-        pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType = LoadBalancerType::new(0);
-
-        /// Internal TCP/UDP load balancer.
-        pub const INTERNAL_TCP_UDP: LoadBalancerType = LoadBalancerType::new(1);
-
-        /// Network TCP/UDP load balancer.
-        pub const NETWORK_TCP_UDP: LoadBalancerType = LoadBalancerType::new(2);
-
-        /// HTTP(S) proxy load balancer.
-        pub const HTTP_PROXY: LoadBalancerType = LoadBalancerType::new(3);
-
-        /// TCP proxy load balancer.
-        pub const TCP_PROXY: LoadBalancerType = LoadBalancerType::new(4);
-
-        /// SSL proxy load balancer.
-        pub const SSL_PROXY: LoadBalancerType = LoadBalancerType::new(5);
-
-        /// Creates a new LoadBalancerType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InternalTcpUdp => std::option::Option::Some(1),
+                Self::NetworkTcpUdp => std::option::Option::Some(2),
+                Self::HttpProxy => std::option::Option::Some(3),
+                Self::TcpProxy => std::option::Option::Some(4),
+                Self::SslProxy => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("LOAD_BALANCER_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INTERNAL_TCP_UDP"),
-                2 => std::borrow::Cow::Borrowed("NETWORK_TCP_UDP"),
-                3 => std::borrow::Cow::Borrowed("HTTP_PROXY"),
-                4 => std::borrow::Cow::Borrowed("TCP_PROXY"),
-                5 => std::borrow::Cow::Borrowed("SSL_PROXY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("LOAD_BALANCER_TYPE_UNSPECIFIED"),
+                Self::InternalTcpUdp => std::option::Option::Some("INTERNAL_TCP_UDP"),
+                Self::NetworkTcpUdp => std::option::Option::Some("NETWORK_TCP_UDP"),
+                Self::HttpProxy => std::option::Option::Some("HTTP_PROXY"),
+                Self::TcpProxy => std::option::Option::Some("TCP_PROXY"),
+                Self::SslProxy => std::option::Option::Some("SSL_PROXY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "LOAD_BALANCER_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::LOAD_BALANCER_TYPE_UNSPECIFIED)
-                }
-                "INTERNAL_TCP_UDP" => std::option::Option::Some(Self::INTERNAL_TCP_UDP),
-                "NETWORK_TCP_UDP" => std::option::Option::Some(Self::NETWORK_TCP_UDP),
-                "HTTP_PROXY" => std::option::Option::Some(Self::HTTP_PROXY),
-                "TCP_PROXY" => std::option::Option::Some(Self::TCP_PROXY),
-                "SSL_PROXY" => std::option::Option::Some(Self::SSL_PROXY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for LoadBalancerType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for LoadBalancerType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LoadBalancerType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LoadBalancerType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InternalTcpUdp,
+                2 => Self::NetworkTcpUdp,
+                3 => Self::HttpProxy,
+                4 => Self::TcpProxy,
+                5 => Self::SslProxy,
+                _ => Self::UnknownValue(load_balancer_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LoadBalancerType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOAD_BALANCER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL_TCP_UDP" => Self::InternalTcpUdp,
+                "NETWORK_TCP_UDP" => Self::NetworkTcpUdp,
+                "HTTP_PROXY" => Self::HttpProxy,
+                "TCP_PROXY" => Self::TcpProxy,
+                "SSL_PROXY" => Self::SslProxy,
+                _ => Self::UnknownValue(load_balancer_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LoadBalancerType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InternalTcpUdp => serializer.serialize_i32(1),
+                Self::NetworkTcpUdp => serializer.serialize_i32(2),
+                Self::HttpProxy => serializer.serialize_i32(3),
+                Self::TcpProxy => serializer.serialize_i32(4),
+                Self::SslProxy => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LoadBalancerType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancerType>::new(
+                ".google.cloud.networkmanagement.v1.LoadBalancerInfo.LoadBalancerType",
+            ))
         }
     }
 
     /// The type definition for a load balancer backend configuration:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackendType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BackendType {
+        /// Type is unspecified.
+        Unspecified,
+        /// Backend Service as the load balancer's backend.
+        BackendService,
+        /// Target Pool as the load balancer's backend.
+        TargetPool,
+        /// Target Instance as the load balancer's backend.
+        TargetInstance,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BackendType::value] or
+        /// [BackendType::name].
+        UnknownValue(backend_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod backend_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl BackendType {
-        /// Type is unspecified.
-        pub const BACKEND_TYPE_UNSPECIFIED: BackendType = BackendType::new(0);
-
-        /// Backend Service as the load balancer's backend.
-        pub const BACKEND_SERVICE: BackendType = BackendType::new(1);
-
-        /// Target Pool as the load balancer's backend.
-        pub const TARGET_POOL: BackendType = BackendType::new(2);
-
-        /// Target Instance as the load balancer's backend.
-        pub const TARGET_INSTANCE: BackendType = BackendType::new(3);
-
-        /// Creates a new BackendType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::BackendService => std::option::Option::Some(1),
+                Self::TargetPool => std::option::Option::Some(2),
+                Self::TargetInstance => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("BACKEND_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("BACKEND_SERVICE"),
-                2 => std::borrow::Cow::Borrowed("TARGET_POOL"),
-                3 => std::borrow::Cow::Borrowed("TARGET_INSTANCE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BACKEND_TYPE_UNSPECIFIED"),
+                Self::BackendService => std::option::Option::Some("BACKEND_SERVICE"),
+                Self::TargetPool => std::option::Option::Some("TARGET_POOL"),
+                Self::TargetInstance => std::option::Option::Some("TARGET_INSTANCE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "BACKEND_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::BACKEND_TYPE_UNSPECIFIED)
-                }
-                "BACKEND_SERVICE" => std::option::Option::Some(Self::BACKEND_SERVICE),
-                "TARGET_POOL" => std::option::Option::Some(Self::TARGET_POOL),
-                "TARGET_INSTANCE" => std::option::Option::Some(Self::TARGET_INSTANCE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for BackendType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for BackendType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BackendType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BackendType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::BackendService,
+                2 => Self::TargetPool,
+                3 => Self::TargetInstance,
+                _ => Self::UnknownValue(backend_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BackendType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BACKEND_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "BACKEND_SERVICE" => Self::BackendService,
+                "TARGET_POOL" => Self::TargetPool,
+                "TARGET_INSTANCE" => Self::TargetInstance,
+                _ => Self::UnknownValue(backend_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BackendType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::BackendService => serializer.serialize_i32(1),
+                Self::TargetPool => serializer.serialize_i32(2),
+                Self::TargetInstance => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BackendType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackendType>::new(
+                ".google.cloud.networkmanagement.v1.LoadBalancerInfo.BackendType",
+            ))
         }
     }
 }
@@ -4897,67 +6008,140 @@ pub mod load_balancer_backend {
     use super::*;
 
     /// State of a health check firewall configuration:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HealthCheckFirewallState(i32);
-
-    impl HealthCheckFirewallState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HealthCheckFirewallState {
         /// State is unspecified. Default state if not populated.
-        pub const HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED: HealthCheckFirewallState =
-            HealthCheckFirewallState::new(0);
-
+        Unspecified,
         /// There are configured firewall rules to allow health check probes to the
         /// backend.
-        pub const CONFIGURED: HealthCheckFirewallState = HealthCheckFirewallState::new(1);
-
+        Configured,
         /// There are firewall rules configured to allow partial health check ranges
         /// or block all health check ranges.
         /// If a health check probe is sent from denied IP ranges,
         /// the health check to the backend will fail. Then, the backend will be
         /// marked unhealthy and will not receive traffic sent to the load balancer.
-        pub const MISCONFIGURED: HealthCheckFirewallState = HealthCheckFirewallState::new(2);
+        Misconfigured,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HealthCheckFirewallState::value] or
+        /// [HealthCheckFirewallState::name].
+        UnknownValue(health_check_firewall_state::UnknownValue),
+    }
 
-        /// Creates a new HealthCheckFirewallState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod health_check_firewall_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl HealthCheckFirewallState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Configured => std::option::Option::Some(1),
+                Self::Misconfigured => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CONFIGURED"),
-                2 => std::borrow::Cow::Borrowed("MISCONFIGURED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED")
                 }
-                "CONFIGURED" => std::option::Option::Some(Self::CONFIGURED),
-                "MISCONFIGURED" => std::option::Option::Some(Self::MISCONFIGURED),
-                _ => std::option::Option::None,
+                Self::Configured => std::option::Option::Some("CONFIGURED"),
+                Self::Misconfigured => std::option::Option::Some("MISCONFIGURED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for HealthCheckFirewallState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for HealthCheckFirewallState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HealthCheckFirewallState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HealthCheckFirewallState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Configured,
+                2 => Self::Misconfigured,
+                _ => Self::UnknownValue(health_check_firewall_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HealthCheckFirewallState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED" => Self::Unspecified,
+                "CONFIGURED" => Self::Configured,
+                "MISCONFIGURED" => Self::Misconfigured,
+                _ => Self::UnknownValue(health_check_firewall_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HealthCheckFirewallState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Configured => serializer.serialize_i32(1),
+                Self::Misconfigured => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HealthCheckFirewallState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HealthCheckFirewallState>::new(
+                ".google.cloud.networkmanagement.v1.LoadBalancerBackend.HealthCheckFirewallState"))
         }
     }
 }
@@ -5173,66 +6357,141 @@ pub mod vpn_tunnel_info {
 
     /// Types of VPN routing policy. For details, refer to [Networks and Tunnel
     /// routing](https://cloud.google.com/network-connectivity/docs/vpn/concepts/choosing-networks-routing/).
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoutingType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RoutingType {
+        /// Unspecified type. Default value.
+        Unspecified,
+        /// Route based VPN.
+        RouteBased,
+        /// Policy based routing.
+        PolicyBased,
+        /// Dynamic (BGP) routing.
+        Dynamic,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RoutingType::value] or
+        /// [RoutingType::name].
+        UnknownValue(routing_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod routing_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RoutingType {
-        /// Unspecified type. Default value.
-        pub const ROUTING_TYPE_UNSPECIFIED: RoutingType = RoutingType::new(0);
-
-        /// Route based VPN.
-        pub const ROUTE_BASED: RoutingType = RoutingType::new(1);
-
-        /// Policy based routing.
-        pub const POLICY_BASED: RoutingType = RoutingType::new(2);
-
-        /// Dynamic (BGP) routing.
-        pub const DYNAMIC: RoutingType = RoutingType::new(3);
-
-        /// Creates a new RoutingType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RouteBased => std::option::Option::Some(1),
+                Self::PolicyBased => std::option::Option::Some(2),
+                Self::Dynamic => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ROUTING_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ROUTE_BASED"),
-                2 => std::borrow::Cow::Borrowed("POLICY_BASED"),
-                3 => std::borrow::Cow::Borrowed("DYNAMIC"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROUTING_TYPE_UNSPECIFIED"),
+                Self::RouteBased => std::option::Option::Some("ROUTE_BASED"),
+                Self::PolicyBased => std::option::Option::Some("POLICY_BASED"),
+                Self::Dynamic => std::option::Option::Some("DYNAMIC"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ROUTING_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ROUTING_TYPE_UNSPECIFIED)
-                }
-                "ROUTE_BASED" => std::option::Option::Some(Self::ROUTE_BASED),
-                "POLICY_BASED" => std::option::Option::Some(Self::POLICY_BASED),
-                "DYNAMIC" => std::option::Option::Some(Self::DYNAMIC),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RoutingType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RoutingType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RoutingType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RoutingType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RouteBased,
+                2 => Self::PolicyBased,
+                3 => Self::Dynamic,
+                _ => Self::UnknownValue(routing_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RoutingType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROUTING_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ROUTE_BASED" => Self::RouteBased,
+                "POLICY_BASED" => Self::PolicyBased,
+                "DYNAMIC" => Self::Dynamic,
+                _ => Self::UnknownValue(routing_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RoutingType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RouteBased => serializer.serialize_i32(1),
+                Self::PolicyBased => serializer.serialize_i32(2),
+                Self::Dynamic => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RoutingType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoutingType>::new(
+                ".google.cloud.networkmanagement.v1.VpnTunnelInfo.RoutingType",
+            ))
         }
     }
 }
@@ -5434,137 +6693,242 @@ pub mod deliver_info {
     use super::*;
 
     /// Deliver target types:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Target(i32);
-
-    impl Target {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Target {
         /// Target not specified.
-        pub const TARGET_UNSPECIFIED: Target = Target::new(0);
-
+        Unspecified,
         /// Target is a Compute Engine instance.
-        pub const INSTANCE: Target = Target::new(1);
-
+        Instance,
         /// Target is the internet.
-        pub const INTERNET: Target = Target::new(2);
-
+        Internet,
         /// Target is a Google API.
-        pub const GOOGLE_API: Target = Target::new(3);
-
+        GoogleApi,
         /// Target is a Google Kubernetes Engine cluster master.
-        pub const GKE_MASTER: Target = Target::new(4);
-
+        GkeMaster,
         /// Target is a Cloud SQL instance.
-        pub const CLOUD_SQL_INSTANCE: Target = Target::new(5);
-
+        CloudSqlInstance,
         /// Target is a published service that uses [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-services).
-        pub const PSC_PUBLISHED_SERVICE: Target = Target::new(6);
-
+        PscPublishedService,
         /// Target is Google APIs that use [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-apis).
-        pub const PSC_GOOGLE_API: Target = Target::new(7);
-
+        PscGoogleApi,
         /// Target is a VPC-SC that uses [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-apis).
-        pub const PSC_VPC_SC: Target = Target::new(8);
-
+        PscVpcSc,
         /// Target is a serverless network endpoint group.
-        pub const SERVERLESS_NEG: Target = Target::new(9);
-
+        ServerlessNeg,
         /// Target is a Cloud Storage bucket.
-        pub const STORAGE_BUCKET: Target = Target::new(10);
-
+        StorageBucket,
         /// Target is a private network. Used only for return traces.
-        pub const PRIVATE_NETWORK: Target = Target::new(11);
-
+        PrivateNetwork,
         /// Target is a Cloud Function. Used only for return traces.
-        pub const CLOUD_FUNCTION: Target = Target::new(12);
-
+        CloudFunction,
         /// Target is a App Engine service version. Used only for return traces.
-        pub const APP_ENGINE_VERSION: Target = Target::new(13);
-
+        AppEngineVersion,
         /// Target is a Cloud Run revision. Used only for return traces.
-        pub const CLOUD_RUN_REVISION: Target = Target::new(14);
-
+        CloudRunRevision,
         /// Target is a Google-managed service. Used only for return traces.
-        pub const GOOGLE_MANAGED_SERVICE: Target = Target::new(15);
-
+        GoogleManagedService,
         /// Target is a Redis Instance.
-        pub const REDIS_INSTANCE: Target = Target::new(16);
-
+        RedisInstance,
         /// Target is a Redis Cluster.
-        pub const REDIS_CLUSTER: Target = Target::new(17);
+        RedisCluster,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Target::value] or
+        /// [Target::name].
+        UnknownValue(target::UnknownValue),
+    }
 
-        /// Creates a new Target instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod target {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Target {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Instance => std::option::Option::Some(1),
+                Self::Internet => std::option::Option::Some(2),
+                Self::GoogleApi => std::option::Option::Some(3),
+                Self::GkeMaster => std::option::Option::Some(4),
+                Self::CloudSqlInstance => std::option::Option::Some(5),
+                Self::PscPublishedService => std::option::Option::Some(6),
+                Self::PscGoogleApi => std::option::Option::Some(7),
+                Self::PscVpcSc => std::option::Option::Some(8),
+                Self::ServerlessNeg => std::option::Option::Some(9),
+                Self::StorageBucket => std::option::Option::Some(10),
+                Self::PrivateNetwork => std::option::Option::Some(11),
+                Self::CloudFunction => std::option::Option::Some(12),
+                Self::AppEngineVersion => std::option::Option::Some(13),
+                Self::CloudRunRevision => std::option::Option::Some(14),
+                Self::GoogleManagedService => std::option::Option::Some(15),
+                Self::RedisInstance => std::option::Option::Some(16),
+                Self::RedisCluster => std::option::Option::Some(17),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TARGET_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INSTANCE"),
-                2 => std::borrow::Cow::Borrowed("INTERNET"),
-                3 => std::borrow::Cow::Borrowed("GOOGLE_API"),
-                4 => std::borrow::Cow::Borrowed("GKE_MASTER"),
-                5 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE"),
-                6 => std::borrow::Cow::Borrowed("PSC_PUBLISHED_SERVICE"),
-                7 => std::borrow::Cow::Borrowed("PSC_GOOGLE_API"),
-                8 => std::borrow::Cow::Borrowed("PSC_VPC_SC"),
-                9 => std::borrow::Cow::Borrowed("SERVERLESS_NEG"),
-                10 => std::borrow::Cow::Borrowed("STORAGE_BUCKET"),
-                11 => std::borrow::Cow::Borrowed("PRIVATE_NETWORK"),
-                12 => std::borrow::Cow::Borrowed("CLOUD_FUNCTION"),
-                13 => std::borrow::Cow::Borrowed("APP_ENGINE_VERSION"),
-                14 => std::borrow::Cow::Borrowed("CLOUD_RUN_REVISION"),
-                15 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE"),
-                16 => std::borrow::Cow::Borrowed("REDIS_INSTANCE"),
-                17 => std::borrow::Cow::Borrowed("REDIS_CLUSTER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TARGET_UNSPECIFIED"),
+                Self::Instance => std::option::Option::Some("INSTANCE"),
+                Self::Internet => std::option::Option::Some("INTERNET"),
+                Self::GoogleApi => std::option::Option::Some("GOOGLE_API"),
+                Self::GkeMaster => std::option::Option::Some("GKE_MASTER"),
+                Self::CloudSqlInstance => std::option::Option::Some("CLOUD_SQL_INSTANCE"),
+                Self::PscPublishedService => std::option::Option::Some("PSC_PUBLISHED_SERVICE"),
+                Self::PscGoogleApi => std::option::Option::Some("PSC_GOOGLE_API"),
+                Self::PscVpcSc => std::option::Option::Some("PSC_VPC_SC"),
+                Self::ServerlessNeg => std::option::Option::Some("SERVERLESS_NEG"),
+                Self::StorageBucket => std::option::Option::Some("STORAGE_BUCKET"),
+                Self::PrivateNetwork => std::option::Option::Some("PRIVATE_NETWORK"),
+                Self::CloudFunction => std::option::Option::Some("CLOUD_FUNCTION"),
+                Self::AppEngineVersion => std::option::Option::Some("APP_ENGINE_VERSION"),
+                Self::CloudRunRevision => std::option::Option::Some("CLOUD_RUN_REVISION"),
+                Self::GoogleManagedService => std::option::Option::Some("GOOGLE_MANAGED_SERVICE"),
+                Self::RedisInstance => std::option::Option::Some("REDIS_INSTANCE"),
+                Self::RedisCluster => std::option::Option::Some("REDIS_CLUSTER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TARGET_UNSPECIFIED" => std::option::Option::Some(Self::TARGET_UNSPECIFIED),
-                "INSTANCE" => std::option::Option::Some(Self::INSTANCE),
-                "INTERNET" => std::option::Option::Some(Self::INTERNET),
-                "GOOGLE_API" => std::option::Option::Some(Self::GOOGLE_API),
-                "GKE_MASTER" => std::option::Option::Some(Self::GKE_MASTER),
-                "CLOUD_SQL_INSTANCE" => std::option::Option::Some(Self::CLOUD_SQL_INSTANCE),
-                "PSC_PUBLISHED_SERVICE" => std::option::Option::Some(Self::PSC_PUBLISHED_SERVICE),
-                "PSC_GOOGLE_API" => std::option::Option::Some(Self::PSC_GOOGLE_API),
-                "PSC_VPC_SC" => std::option::Option::Some(Self::PSC_VPC_SC),
-                "SERVERLESS_NEG" => std::option::Option::Some(Self::SERVERLESS_NEG),
-                "STORAGE_BUCKET" => std::option::Option::Some(Self::STORAGE_BUCKET),
-                "PRIVATE_NETWORK" => std::option::Option::Some(Self::PRIVATE_NETWORK),
-                "CLOUD_FUNCTION" => std::option::Option::Some(Self::CLOUD_FUNCTION),
-                "APP_ENGINE_VERSION" => std::option::Option::Some(Self::APP_ENGINE_VERSION),
-                "CLOUD_RUN_REVISION" => std::option::Option::Some(Self::CLOUD_RUN_REVISION),
-                "GOOGLE_MANAGED_SERVICE" => std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE),
-                "REDIS_INSTANCE" => std::option::Option::Some(Self::REDIS_INSTANCE),
-                "REDIS_CLUSTER" => std::option::Option::Some(Self::REDIS_CLUSTER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Target {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Target {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Target {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Target {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Instance,
+                2 => Self::Internet,
+                3 => Self::GoogleApi,
+                4 => Self::GkeMaster,
+                5 => Self::CloudSqlInstance,
+                6 => Self::PscPublishedService,
+                7 => Self::PscGoogleApi,
+                8 => Self::PscVpcSc,
+                9 => Self::ServerlessNeg,
+                10 => Self::StorageBucket,
+                11 => Self::PrivateNetwork,
+                12 => Self::CloudFunction,
+                13 => Self::AppEngineVersion,
+                14 => Self::CloudRunRevision,
+                15 => Self::GoogleManagedService,
+                16 => Self::RedisInstance,
+                17 => Self::RedisCluster,
+                _ => Self::UnknownValue(target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Target {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TARGET_UNSPECIFIED" => Self::Unspecified,
+                "INSTANCE" => Self::Instance,
+                "INTERNET" => Self::Internet,
+                "GOOGLE_API" => Self::GoogleApi,
+                "GKE_MASTER" => Self::GkeMaster,
+                "CLOUD_SQL_INSTANCE" => Self::CloudSqlInstance,
+                "PSC_PUBLISHED_SERVICE" => Self::PscPublishedService,
+                "PSC_GOOGLE_API" => Self::PscGoogleApi,
+                "PSC_VPC_SC" => Self::PscVpcSc,
+                "SERVERLESS_NEG" => Self::ServerlessNeg,
+                "STORAGE_BUCKET" => Self::StorageBucket,
+                "PRIVATE_NETWORK" => Self::PrivateNetwork,
+                "CLOUD_FUNCTION" => Self::CloudFunction,
+                "APP_ENGINE_VERSION" => Self::AppEngineVersion,
+                "CLOUD_RUN_REVISION" => Self::CloudRunRevision,
+                "GOOGLE_MANAGED_SERVICE" => Self::GoogleManagedService,
+                "REDIS_INSTANCE" => Self::RedisInstance,
+                "REDIS_CLUSTER" => Self::RedisCluster,
+                _ => Self::UnknownValue(target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Target {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Instance => serializer.serialize_i32(1),
+                Self::Internet => serializer.serialize_i32(2),
+                Self::GoogleApi => serializer.serialize_i32(3),
+                Self::GkeMaster => serializer.serialize_i32(4),
+                Self::CloudSqlInstance => serializer.serialize_i32(5),
+                Self::PscPublishedService => serializer.serialize_i32(6),
+                Self::PscGoogleApi => serializer.serialize_i32(7),
+                Self::PscVpcSc => serializer.serialize_i32(8),
+                Self::ServerlessNeg => serializer.serialize_i32(9),
+                Self::StorageBucket => serializer.serialize_i32(10),
+                Self::PrivateNetwork => serializer.serialize_i32(11),
+                Self::CloudFunction => serializer.serialize_i32(12),
+                Self::AppEngineVersion => serializer.serialize_i32(13),
+                Self::CloudRunRevision => serializer.serialize_i32(14),
+                Self::GoogleManagedService => serializer.serialize_i32(15),
+                Self::RedisInstance => serializer.serialize_i32(16),
+                Self::RedisCluster => serializer.serialize_i32(17),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Target {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Target>::new(
+                ".google.cloud.networkmanagement.v1.DeliverInfo.Target",
+            ))
         }
     }
 }
@@ -5629,96 +6993,187 @@ pub mod forward_info {
     use super::*;
 
     /// Forward target types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Target(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Target {
+        /// Target not specified.
+        Unspecified,
+        /// Forwarded to a VPC peering network.
+        PeeringVpc,
+        /// Forwarded to a Cloud VPN gateway.
+        VpnGateway,
+        /// Forwarded to a Cloud Interconnect connection.
+        Interconnect,
+        /// Forwarded to a Google Kubernetes Engine Container cluster master.
+        #[deprecated]
+        GkeMaster,
+        /// Forwarded to the next hop of a custom route imported from a peering VPC.
+        ImportedCustomRouteNextHop,
+        /// Forwarded to a Cloud SQL instance.
+        #[deprecated]
+        CloudSqlInstance,
+        /// Forwarded to a VPC network in another project.
+        AnotherProject,
+        /// Forwarded to an NCC Hub.
+        NccHub,
+        /// Forwarded to a router appliance.
+        RouterAppliance,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Target::value] or
+        /// [Target::name].
+        UnknownValue(target::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod target {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Target {
-        /// Target not specified.
-        pub const TARGET_UNSPECIFIED: Target = Target::new(0);
-
-        /// Forwarded to a VPC peering network.
-        pub const PEERING_VPC: Target = Target::new(1);
-
-        /// Forwarded to a Cloud VPN gateway.
-        pub const VPN_GATEWAY: Target = Target::new(2);
-
-        /// Forwarded to a Cloud Interconnect connection.
-        pub const INTERCONNECT: Target = Target::new(3);
-
-        /// Forwarded to a Google Kubernetes Engine Container cluster master.
-        pub const GKE_MASTER: Target = Target::new(4);
-
-        /// Forwarded to the next hop of a custom route imported from a peering VPC.
-        pub const IMPORTED_CUSTOM_ROUTE_NEXT_HOP: Target = Target::new(5);
-
-        /// Forwarded to a Cloud SQL instance.
-        pub const CLOUD_SQL_INSTANCE: Target = Target::new(6);
-
-        /// Forwarded to a VPC network in another project.
-        pub const ANOTHER_PROJECT: Target = Target::new(7);
-
-        /// Forwarded to an NCC Hub.
-        pub const NCC_HUB: Target = Target::new(8);
-
-        /// Forwarded to a router appliance.
-        pub const ROUTER_APPLIANCE: Target = Target::new(9);
-
-        /// Creates a new Target instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PeeringVpc => std::option::Option::Some(1),
+                Self::VpnGateway => std::option::Option::Some(2),
+                Self::Interconnect => std::option::Option::Some(3),
+                Self::GkeMaster => std::option::Option::Some(4),
+                Self::ImportedCustomRouteNextHop => std::option::Option::Some(5),
+                Self::CloudSqlInstance => std::option::Option::Some(6),
+                Self::AnotherProject => std::option::Option::Some(7),
+                Self::NccHub => std::option::Option::Some(8),
+                Self::RouterAppliance => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TARGET_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PEERING_VPC"),
-                2 => std::borrow::Cow::Borrowed("VPN_GATEWAY"),
-                3 => std::borrow::Cow::Borrowed("INTERCONNECT"),
-                4 => std::borrow::Cow::Borrowed("GKE_MASTER"),
-                5 => std::borrow::Cow::Borrowed("IMPORTED_CUSTOM_ROUTE_NEXT_HOP"),
-                6 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE"),
-                7 => std::borrow::Cow::Borrowed("ANOTHER_PROJECT"),
-                8 => std::borrow::Cow::Borrowed("NCC_HUB"),
-                9 => std::borrow::Cow::Borrowed("ROUTER_APPLIANCE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TARGET_UNSPECIFIED" => std::option::Option::Some(Self::TARGET_UNSPECIFIED),
-                "PEERING_VPC" => std::option::Option::Some(Self::PEERING_VPC),
-                "VPN_GATEWAY" => std::option::Option::Some(Self::VPN_GATEWAY),
-                "INTERCONNECT" => std::option::Option::Some(Self::INTERCONNECT),
-                "GKE_MASTER" => std::option::Option::Some(Self::GKE_MASTER),
-                "IMPORTED_CUSTOM_ROUTE_NEXT_HOP" => {
-                    std::option::Option::Some(Self::IMPORTED_CUSTOM_ROUTE_NEXT_HOP)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TARGET_UNSPECIFIED"),
+                Self::PeeringVpc => std::option::Option::Some("PEERING_VPC"),
+                Self::VpnGateway => std::option::Option::Some("VPN_GATEWAY"),
+                Self::Interconnect => std::option::Option::Some("INTERCONNECT"),
+                Self::GkeMaster => std::option::Option::Some("GKE_MASTER"),
+                Self::ImportedCustomRouteNextHop => {
+                    std::option::Option::Some("IMPORTED_CUSTOM_ROUTE_NEXT_HOP")
                 }
-                "CLOUD_SQL_INSTANCE" => std::option::Option::Some(Self::CLOUD_SQL_INSTANCE),
-                "ANOTHER_PROJECT" => std::option::Option::Some(Self::ANOTHER_PROJECT),
-                "NCC_HUB" => std::option::Option::Some(Self::NCC_HUB),
-                "ROUTER_APPLIANCE" => std::option::Option::Some(Self::ROUTER_APPLIANCE),
-                _ => std::option::Option::None,
+                Self::CloudSqlInstance => std::option::Option::Some("CLOUD_SQL_INSTANCE"),
+                Self::AnotherProject => std::option::Option::Some("ANOTHER_PROJECT"),
+                Self::NccHub => std::option::Option::Some("NCC_HUB"),
+                Self::RouterAppliance => std::option::Option::Some("ROUTER_APPLIANCE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for Target {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Target {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Target {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Target {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PeeringVpc,
+                2 => Self::VpnGateway,
+                3 => Self::Interconnect,
+                4 => Self::GkeMaster,
+                5 => Self::ImportedCustomRouteNextHop,
+                6 => Self::CloudSqlInstance,
+                7 => Self::AnotherProject,
+                8 => Self::NccHub,
+                9 => Self::RouterAppliance,
+                _ => Self::UnknownValue(target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Target {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TARGET_UNSPECIFIED" => Self::Unspecified,
+                "PEERING_VPC" => Self::PeeringVpc,
+                "VPN_GATEWAY" => Self::VpnGateway,
+                "INTERCONNECT" => Self::Interconnect,
+                "GKE_MASTER" => Self::GkeMaster,
+                "IMPORTED_CUSTOM_ROUTE_NEXT_HOP" => Self::ImportedCustomRouteNextHop,
+                "CLOUD_SQL_INSTANCE" => Self::CloudSqlInstance,
+                "ANOTHER_PROJECT" => Self::AnotherProject,
+                "NCC_HUB" => Self::NccHub,
+                "ROUTER_APPLIANCE" => Self::RouterAppliance,
+                _ => Self::UnknownValue(target::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Target {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PeeringVpc => serializer.serialize_i32(1),
+                Self::VpnGateway => serializer.serialize_i32(2),
+                Self::Interconnect => serializer.serialize_i32(3),
+                Self::GkeMaster => serializer.serialize_i32(4),
+                Self::ImportedCustomRouteNextHop => serializer.serialize_i32(5),
+                Self::CloudSqlInstance => serializer.serialize_i32(6),
+                Self::AnotherProject => serializer.serialize_i32(7),
+                Self::NccHub => serializer.serialize_i32(8),
+                Self::RouterAppliance => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Target {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Target>::new(
+                ".google.cloud.networkmanagement.v1.ForwardInfo.Target",
+            ))
         }
     }
 }
@@ -5799,77 +7254,81 @@ pub mod abort_info {
     use super::*;
 
     /// Abort cause types:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cause(i32);
-
-    impl Cause {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Cause {
         /// Cause is unspecified.
-        pub const CAUSE_UNSPECIFIED: Cause = Cause::new(0);
-
+        Unspecified,
         /// Aborted due to unknown network. Deprecated, not used in the new tests.
-        pub const UNKNOWN_NETWORK: Cause = Cause::new(1);
-
+        #[deprecated]
+        UnknownNetwork,
         /// Aborted because no project information can be derived from the test
         /// input. Deprecated, not used in the new tests.
-        pub const UNKNOWN_PROJECT: Cause = Cause::new(3);
-
+        #[deprecated]
+        UnknownProject,
         /// Aborted because traffic is sent from a public IP to an instance without
         /// an external IP. Deprecated, not used in the new tests.
-        pub const NO_EXTERNAL_IP: Cause = Cause::new(7);
-
+        #[deprecated]
+        NoExternalIp,
         /// Aborted because none of the traces matches destination information
         /// specified in the input test request. Deprecated, not used in the new
         /// tests.
-        pub const UNINTENDED_DESTINATION: Cause = Cause::new(8);
-
+        #[deprecated]
+        UnintendedDestination,
         /// Aborted because the source endpoint could not be found. Deprecated, not
         /// used in the new tests.
-        pub const SOURCE_ENDPOINT_NOT_FOUND: Cause = Cause::new(11);
-
+        #[deprecated]
+        SourceEndpointNotFound,
         /// Aborted because the source network does not match the source endpoint.
         /// Deprecated, not used in the new tests.
-        pub const MISMATCHED_SOURCE_NETWORK: Cause = Cause::new(12);
-
+        #[deprecated]
+        MismatchedSourceNetwork,
         /// Aborted because the destination endpoint could not be found. Deprecated,
         /// not used in the new tests.
-        pub const DESTINATION_ENDPOINT_NOT_FOUND: Cause = Cause::new(13);
-
+        #[deprecated]
+        DestinationEndpointNotFound,
         /// Aborted because the destination network does not match the destination
         /// endpoint. Deprecated, not used in the new tests.
-        pub const MISMATCHED_DESTINATION_NETWORK: Cause = Cause::new(14);
-
+        #[deprecated]
+        MismatchedDestinationNetwork,
         /// Aborted because no endpoint with the packet's destination IP address is
         /// found.
-        pub const UNKNOWN_IP: Cause = Cause::new(2);
-
+        UnknownIp,
         /// Aborted because no endpoint with the packet's destination IP is found in
         /// the Google-managed project.
-        pub const GOOGLE_MANAGED_SERVICE_UNKNOWN_IP: Cause = Cause::new(32);
-
+        GoogleManagedServiceUnknownIp,
         /// Aborted because the source IP address doesn't belong to any of the
         /// subnets of the source VPC network.
-        pub const SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK: Cause = Cause::new(23);
-
+        SourceIpAddressNotInSourceNetwork,
         /// Aborted because user lacks permission to access all or part of the
         /// network configurations required to run the test.
-        pub const PERMISSION_DENIED: Cause = Cause::new(4);
-
+        PermissionDenied,
         /// Aborted because user lacks permission to access Cloud NAT configs
         /// required to run the test.
-        pub const PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS: Cause = Cause::new(28);
-
+        PermissionDeniedNoCloudNatConfigs,
         /// Aborted because user lacks permission to access Network endpoint group
         /// endpoint configs required to run the test.
-        pub const PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS: Cause = Cause::new(29);
-
+        PermissionDeniedNoNegEndpointConfigs,
         /// Aborted because user lacks permission to access Cloud Router configs
         /// required to run the test.
-        pub const PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS: Cause = Cause::new(36);
-
+        PermissionDeniedNoCloudRouterConfigs,
         /// Aborted because no valid source or destination endpoint is derived from
         /// the input test request.
-        pub const NO_SOURCE_LOCATION: Cause = Cause::new(5);
-
+        NoSourceLocation,
         /// Aborted because the source or destination endpoint specified in
         /// the request is invalid. Some examples:
         ///
@@ -5878,230 +7337,385 @@ pub mod abort_info {
         /// - The request might contain inconsistent information (for example, the
         ///   request might include both the instance and the network, but the instance
         ///   might not have a NIC in that network).
-        pub const INVALID_ARGUMENT: Cause = Cause::new(6);
-
+        InvalidArgument,
         /// Aborted because the number of steps in the trace exceeds a certain
         /// limit. It might be caused by a routing loop.
-        pub const TRACE_TOO_LONG: Cause = Cause::new(9);
-
+        TraceTooLong,
         /// Aborted due to internal server error.
-        pub const INTERNAL_ERROR: Cause = Cause::new(10);
-
+        InternalError,
         /// Aborted because the test scenario is not supported.
-        pub const UNSUPPORTED: Cause = Cause::new(15);
-
+        Unsupported,
         /// Aborted because the source and destination resources have no common IP
         /// version.
-        pub const MISMATCHED_IP_VERSION: Cause = Cause::new(16);
-
+        MismatchedIpVersion,
         /// Aborted because the connection between the control plane and the node of
         /// the source cluster is initiated by the node and managed by the
         /// Konnectivity proxy.
-        pub const GKE_KONNECTIVITY_PROXY_UNSUPPORTED: Cause = Cause::new(17);
-
+        GkeKonnectivityProxyUnsupported,
         /// Aborted because expected resource configuration was missing.
-        pub const RESOURCE_CONFIG_NOT_FOUND: Cause = Cause::new(18);
-
+        ResourceConfigNotFound,
         /// Aborted because expected VM instance configuration was missing.
-        pub const VM_INSTANCE_CONFIG_NOT_FOUND: Cause = Cause::new(24);
-
+        VmInstanceConfigNotFound,
         /// Aborted because expected network configuration was missing.
-        pub const NETWORK_CONFIG_NOT_FOUND: Cause = Cause::new(25);
-
+        NetworkConfigNotFound,
         /// Aborted because expected firewall configuration was missing.
-        pub const FIREWALL_CONFIG_NOT_FOUND: Cause = Cause::new(26);
-
+        FirewallConfigNotFound,
         /// Aborted because expected route configuration was missing.
-        pub const ROUTE_CONFIG_NOT_FOUND: Cause = Cause::new(27);
-
+        RouteConfigNotFound,
         /// Aborted because a PSC endpoint selection for the Google-managed service
         /// is ambiguous (several PSC endpoints satisfy test input).
-        pub const GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT: Cause = Cause::new(19);
-
+        GoogleManagedServiceAmbiguousPscEndpoint,
         /// Aborted because tests with a PSC-based Cloud SQL instance as a source are
         /// not supported.
-        pub const SOURCE_PSC_CLOUD_SQL_UNSUPPORTED: Cause = Cause::new(20);
-
+        SourcePscCloudSqlUnsupported,
         /// Aborted because tests with a Redis Cluster as a source are not supported.
-        pub const SOURCE_REDIS_CLUSTER_UNSUPPORTED: Cause = Cause::new(34);
-
+        SourceRedisClusterUnsupported,
         /// Aborted because tests with a Redis Instance as a source are not
         /// supported.
-        pub const SOURCE_REDIS_INSTANCE_UNSUPPORTED: Cause = Cause::new(35);
-
+        SourceRedisInstanceUnsupported,
         /// Aborted because tests with a forwarding rule as a source are not
         /// supported.
-        pub const SOURCE_FORWARDING_RULE_UNSUPPORTED: Cause = Cause::new(21);
-
+        SourceForwardingRuleUnsupported,
         /// Aborted because one of the endpoints is a non-routable IP address
         /// (loopback, link-local, etc).
-        pub const NON_ROUTABLE_IP_ADDRESS: Cause = Cause::new(22);
-
+        NonRoutableIpAddress,
         /// Aborted due to an unknown issue in the Google-managed project.
-        pub const UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT: Cause = Cause::new(30);
-
+        UnknownIssueInGoogleManagedProject,
         /// Aborted due to an unsupported configuration of the Google-managed
         /// project.
-        pub const UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG: Cause = Cause::new(31);
-
+        UnsupportedGoogleManagedProjectConfig,
         /// Aborted because the source endpoint is a Cloud Run revision with direct
         /// VPC access enabled, but there are no reserved serverless IP ranges.
-        pub const NO_SERVERLESS_IP_RANGES: Cause = Cause::new(37);
+        NoServerlessIpRanges,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Cause::value] or
+        /// [Cause::name].
+        UnknownValue(cause::UnknownValue),
+    }
 
-        /// Creates a new Cause instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod cause {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Cause {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::UnknownNetwork => std::option::Option::Some(1),
+                Self::UnknownProject => std::option::Option::Some(3),
+                Self::NoExternalIp => std::option::Option::Some(7),
+                Self::UnintendedDestination => std::option::Option::Some(8),
+                Self::SourceEndpointNotFound => std::option::Option::Some(11),
+                Self::MismatchedSourceNetwork => std::option::Option::Some(12),
+                Self::DestinationEndpointNotFound => std::option::Option::Some(13),
+                Self::MismatchedDestinationNetwork => std::option::Option::Some(14),
+                Self::UnknownIp => std::option::Option::Some(2),
+                Self::GoogleManagedServiceUnknownIp => std::option::Option::Some(32),
+                Self::SourceIpAddressNotInSourceNetwork => std::option::Option::Some(23),
+                Self::PermissionDenied => std::option::Option::Some(4),
+                Self::PermissionDeniedNoCloudNatConfigs => std::option::Option::Some(28),
+                Self::PermissionDeniedNoNegEndpointConfigs => std::option::Option::Some(29),
+                Self::PermissionDeniedNoCloudRouterConfigs => std::option::Option::Some(36),
+                Self::NoSourceLocation => std::option::Option::Some(5),
+                Self::InvalidArgument => std::option::Option::Some(6),
+                Self::TraceTooLong => std::option::Option::Some(9),
+                Self::InternalError => std::option::Option::Some(10),
+                Self::Unsupported => std::option::Option::Some(15),
+                Self::MismatchedIpVersion => std::option::Option::Some(16),
+                Self::GkeKonnectivityProxyUnsupported => std::option::Option::Some(17),
+                Self::ResourceConfigNotFound => std::option::Option::Some(18),
+                Self::VmInstanceConfigNotFound => std::option::Option::Some(24),
+                Self::NetworkConfigNotFound => std::option::Option::Some(25),
+                Self::FirewallConfigNotFound => std::option::Option::Some(26),
+                Self::RouteConfigNotFound => std::option::Option::Some(27),
+                Self::GoogleManagedServiceAmbiguousPscEndpoint => std::option::Option::Some(19),
+                Self::SourcePscCloudSqlUnsupported => std::option::Option::Some(20),
+                Self::SourceRedisClusterUnsupported => std::option::Option::Some(34),
+                Self::SourceRedisInstanceUnsupported => std::option::Option::Some(35),
+                Self::SourceForwardingRuleUnsupported => std::option::Option::Some(21),
+                Self::NonRoutableIpAddress => std::option::Option::Some(22),
+                Self::UnknownIssueInGoogleManagedProject => std::option::Option::Some(30),
+                Self::UnsupportedGoogleManagedProjectConfig => std::option::Option::Some(31),
+                Self::NoServerlessIpRanges => std::option::Option::Some(37),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CAUSE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("UNKNOWN_NETWORK"),
-                2 => std::borrow::Cow::Borrowed("UNKNOWN_IP"),
-                3 => std::borrow::Cow::Borrowed("UNKNOWN_PROJECT"),
-                4 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
-                5 => std::borrow::Cow::Borrowed("NO_SOURCE_LOCATION"),
-                6 => std::borrow::Cow::Borrowed("INVALID_ARGUMENT"),
-                7 => std::borrow::Cow::Borrowed("NO_EXTERNAL_IP"),
-                8 => std::borrow::Cow::Borrowed("UNINTENDED_DESTINATION"),
-                9 => std::borrow::Cow::Borrowed("TRACE_TOO_LONG"),
-                10 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
-                11 => std::borrow::Cow::Borrowed("SOURCE_ENDPOINT_NOT_FOUND"),
-                12 => std::borrow::Cow::Borrowed("MISMATCHED_SOURCE_NETWORK"),
-                13 => std::borrow::Cow::Borrowed("DESTINATION_ENDPOINT_NOT_FOUND"),
-                14 => std::borrow::Cow::Borrowed("MISMATCHED_DESTINATION_NETWORK"),
-                15 => std::borrow::Cow::Borrowed("UNSUPPORTED"),
-                16 => std::borrow::Cow::Borrowed("MISMATCHED_IP_VERSION"),
-                17 => std::borrow::Cow::Borrowed("GKE_KONNECTIVITY_PROXY_UNSUPPORTED"),
-                18 => std::borrow::Cow::Borrowed("RESOURCE_CONFIG_NOT_FOUND"),
-                19 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT"),
-                20 => std::borrow::Cow::Borrowed("SOURCE_PSC_CLOUD_SQL_UNSUPPORTED"),
-                21 => std::borrow::Cow::Borrowed("SOURCE_FORWARDING_RULE_UNSUPPORTED"),
-                22 => std::borrow::Cow::Borrowed("NON_ROUTABLE_IP_ADDRESS"),
-                23 => std::borrow::Cow::Borrowed("SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK"),
-                24 => std::borrow::Cow::Borrowed("VM_INSTANCE_CONFIG_NOT_FOUND"),
-                25 => std::borrow::Cow::Borrowed("NETWORK_CONFIG_NOT_FOUND"),
-                26 => std::borrow::Cow::Borrowed("FIREWALL_CONFIG_NOT_FOUND"),
-                27 => std::borrow::Cow::Borrowed("ROUTE_CONFIG_NOT_FOUND"),
-                28 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS"),
-                29 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS"),
-                30 => std::borrow::Cow::Borrowed("UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT"),
-                31 => std::borrow::Cow::Borrowed("UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG"),
-                32 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_UNKNOWN_IP"),
-                34 => std::borrow::Cow::Borrowed("SOURCE_REDIS_CLUSTER_UNSUPPORTED"),
-                35 => std::borrow::Cow::Borrowed("SOURCE_REDIS_INSTANCE_UNSUPPORTED"),
-                36 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS"),
-                37 => std::borrow::Cow::Borrowed("NO_SERVERLESS_IP_RANGES"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CAUSE_UNSPECIFIED"),
+                Self::UnknownNetwork => std::option::Option::Some("UNKNOWN_NETWORK"),
+                Self::UnknownProject => std::option::Option::Some("UNKNOWN_PROJECT"),
+                Self::NoExternalIp => std::option::Option::Some("NO_EXTERNAL_IP"),
+                Self::UnintendedDestination => std::option::Option::Some("UNINTENDED_DESTINATION"),
+                Self::SourceEndpointNotFound => {
+                    std::option::Option::Some("SOURCE_ENDPOINT_NOT_FOUND")
+                }
+                Self::MismatchedSourceNetwork => {
+                    std::option::Option::Some("MISMATCHED_SOURCE_NETWORK")
+                }
+                Self::DestinationEndpointNotFound => {
+                    std::option::Option::Some("DESTINATION_ENDPOINT_NOT_FOUND")
+                }
+                Self::MismatchedDestinationNetwork => {
+                    std::option::Option::Some("MISMATCHED_DESTINATION_NETWORK")
+                }
+                Self::UnknownIp => std::option::Option::Some("UNKNOWN_IP"),
+                Self::GoogleManagedServiceUnknownIp => {
+                    std::option::Option::Some("GOOGLE_MANAGED_SERVICE_UNKNOWN_IP")
+                }
+                Self::SourceIpAddressNotInSourceNetwork => {
+                    std::option::Option::Some("SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK")
+                }
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+                Self::PermissionDeniedNoCloudNatConfigs => {
+                    std::option::Option::Some("PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS")
+                }
+                Self::PermissionDeniedNoNegEndpointConfigs => {
+                    std::option::Option::Some("PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS")
+                }
+                Self::PermissionDeniedNoCloudRouterConfigs => {
+                    std::option::Option::Some("PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS")
+                }
+                Self::NoSourceLocation => std::option::Option::Some("NO_SOURCE_LOCATION"),
+                Self::InvalidArgument => std::option::Option::Some("INVALID_ARGUMENT"),
+                Self::TraceTooLong => std::option::Option::Some("TRACE_TOO_LONG"),
+                Self::InternalError => std::option::Option::Some("INTERNAL_ERROR"),
+                Self::Unsupported => std::option::Option::Some("UNSUPPORTED"),
+                Self::MismatchedIpVersion => std::option::Option::Some("MISMATCHED_IP_VERSION"),
+                Self::GkeKonnectivityProxyUnsupported => {
+                    std::option::Option::Some("GKE_KONNECTIVITY_PROXY_UNSUPPORTED")
+                }
+                Self::ResourceConfigNotFound => {
+                    std::option::Option::Some("RESOURCE_CONFIG_NOT_FOUND")
+                }
+                Self::VmInstanceConfigNotFound => {
+                    std::option::Option::Some("VM_INSTANCE_CONFIG_NOT_FOUND")
+                }
+                Self::NetworkConfigNotFound => {
+                    std::option::Option::Some("NETWORK_CONFIG_NOT_FOUND")
+                }
+                Self::FirewallConfigNotFound => {
+                    std::option::Option::Some("FIREWALL_CONFIG_NOT_FOUND")
+                }
+                Self::RouteConfigNotFound => std::option::Option::Some("ROUTE_CONFIG_NOT_FOUND"),
+                Self::GoogleManagedServiceAmbiguousPscEndpoint => {
+                    std::option::Option::Some("GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT")
+                }
+                Self::SourcePscCloudSqlUnsupported => {
+                    std::option::Option::Some("SOURCE_PSC_CLOUD_SQL_UNSUPPORTED")
+                }
+                Self::SourceRedisClusterUnsupported => {
+                    std::option::Option::Some("SOURCE_REDIS_CLUSTER_UNSUPPORTED")
+                }
+                Self::SourceRedisInstanceUnsupported => {
+                    std::option::Option::Some("SOURCE_REDIS_INSTANCE_UNSUPPORTED")
+                }
+                Self::SourceForwardingRuleUnsupported => {
+                    std::option::Option::Some("SOURCE_FORWARDING_RULE_UNSUPPORTED")
+                }
+                Self::NonRoutableIpAddress => std::option::Option::Some("NON_ROUTABLE_IP_ADDRESS"),
+                Self::UnknownIssueInGoogleManagedProject => {
+                    std::option::Option::Some("UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT")
+                }
+                Self::UnsupportedGoogleManagedProjectConfig => {
+                    std::option::Option::Some("UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG")
+                }
+                Self::NoServerlessIpRanges => std::option::Option::Some("NO_SERVERLESS_IP_RANGES"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CAUSE_UNSPECIFIED" => std::option::Option::Some(Self::CAUSE_UNSPECIFIED),
-                "UNKNOWN_NETWORK" => std::option::Option::Some(Self::UNKNOWN_NETWORK),
-                "UNKNOWN_PROJECT" => std::option::Option::Some(Self::UNKNOWN_PROJECT),
-                "NO_EXTERNAL_IP" => std::option::Option::Some(Self::NO_EXTERNAL_IP),
-                "UNINTENDED_DESTINATION" => std::option::Option::Some(Self::UNINTENDED_DESTINATION),
-                "SOURCE_ENDPOINT_NOT_FOUND" => {
-                    std::option::Option::Some(Self::SOURCE_ENDPOINT_NOT_FOUND)
-                }
-                "MISMATCHED_SOURCE_NETWORK" => {
-                    std::option::Option::Some(Self::MISMATCHED_SOURCE_NETWORK)
-                }
-                "DESTINATION_ENDPOINT_NOT_FOUND" => {
-                    std::option::Option::Some(Self::DESTINATION_ENDPOINT_NOT_FOUND)
-                }
-                "MISMATCHED_DESTINATION_NETWORK" => {
-                    std::option::Option::Some(Self::MISMATCHED_DESTINATION_NETWORK)
-                }
-                "UNKNOWN_IP" => std::option::Option::Some(Self::UNKNOWN_IP),
-                "GOOGLE_MANAGED_SERVICE_UNKNOWN_IP" => {
-                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_UNKNOWN_IP)
-                }
-                "SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK" => {
-                    std::option::Option::Some(Self::SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK)
-                }
-                "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
-                "PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS" => {
-                    std::option::Option::Some(Self::PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS)
-                }
-                "PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS" => {
-                    std::option::Option::Some(Self::PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS)
-                }
-                "PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS" => {
-                    std::option::Option::Some(Self::PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS)
-                }
-                "NO_SOURCE_LOCATION" => std::option::Option::Some(Self::NO_SOURCE_LOCATION),
-                "INVALID_ARGUMENT" => std::option::Option::Some(Self::INVALID_ARGUMENT),
-                "TRACE_TOO_LONG" => std::option::Option::Some(Self::TRACE_TOO_LONG),
-                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
-                "UNSUPPORTED" => std::option::Option::Some(Self::UNSUPPORTED),
-                "MISMATCHED_IP_VERSION" => std::option::Option::Some(Self::MISMATCHED_IP_VERSION),
-                "GKE_KONNECTIVITY_PROXY_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::GKE_KONNECTIVITY_PROXY_UNSUPPORTED)
-                }
-                "RESOURCE_CONFIG_NOT_FOUND" => {
-                    std::option::Option::Some(Self::RESOURCE_CONFIG_NOT_FOUND)
-                }
-                "VM_INSTANCE_CONFIG_NOT_FOUND" => {
-                    std::option::Option::Some(Self::VM_INSTANCE_CONFIG_NOT_FOUND)
-                }
-                "NETWORK_CONFIG_NOT_FOUND" => {
-                    std::option::Option::Some(Self::NETWORK_CONFIG_NOT_FOUND)
-                }
-                "FIREWALL_CONFIG_NOT_FOUND" => {
-                    std::option::Option::Some(Self::FIREWALL_CONFIG_NOT_FOUND)
-                }
-                "ROUTE_CONFIG_NOT_FOUND" => std::option::Option::Some(Self::ROUTE_CONFIG_NOT_FOUND),
-                "GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT" => {
-                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT)
-                }
-                "SOURCE_PSC_CLOUD_SQL_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::SOURCE_PSC_CLOUD_SQL_UNSUPPORTED)
-                }
-                "SOURCE_REDIS_CLUSTER_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::SOURCE_REDIS_CLUSTER_UNSUPPORTED)
-                }
-                "SOURCE_REDIS_INSTANCE_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::SOURCE_REDIS_INSTANCE_UNSUPPORTED)
-                }
-                "SOURCE_FORWARDING_RULE_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::SOURCE_FORWARDING_RULE_UNSUPPORTED)
-                }
-                "NON_ROUTABLE_IP_ADDRESS" => {
-                    std::option::Option::Some(Self::NON_ROUTABLE_IP_ADDRESS)
-                }
-                "UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT" => {
-                    std::option::Option::Some(Self::UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT)
-                }
-                "UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG" => {
-                    std::option::Option::Some(Self::UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG)
-                }
-                "NO_SERVERLESS_IP_RANGES" => {
-                    std::option::Option::Some(Self::NO_SERVERLESS_IP_RANGES)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Cause {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Cause {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Cause {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Cause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::UnknownNetwork,
+                2 => Self::UnknownIp,
+                3 => Self::UnknownProject,
+                4 => Self::PermissionDenied,
+                5 => Self::NoSourceLocation,
+                6 => Self::InvalidArgument,
+                7 => Self::NoExternalIp,
+                8 => Self::UnintendedDestination,
+                9 => Self::TraceTooLong,
+                10 => Self::InternalError,
+                11 => Self::SourceEndpointNotFound,
+                12 => Self::MismatchedSourceNetwork,
+                13 => Self::DestinationEndpointNotFound,
+                14 => Self::MismatchedDestinationNetwork,
+                15 => Self::Unsupported,
+                16 => Self::MismatchedIpVersion,
+                17 => Self::GkeKonnectivityProxyUnsupported,
+                18 => Self::ResourceConfigNotFound,
+                19 => Self::GoogleManagedServiceAmbiguousPscEndpoint,
+                20 => Self::SourcePscCloudSqlUnsupported,
+                21 => Self::SourceForwardingRuleUnsupported,
+                22 => Self::NonRoutableIpAddress,
+                23 => Self::SourceIpAddressNotInSourceNetwork,
+                24 => Self::VmInstanceConfigNotFound,
+                25 => Self::NetworkConfigNotFound,
+                26 => Self::FirewallConfigNotFound,
+                27 => Self::RouteConfigNotFound,
+                28 => Self::PermissionDeniedNoCloudNatConfigs,
+                29 => Self::PermissionDeniedNoNegEndpointConfigs,
+                30 => Self::UnknownIssueInGoogleManagedProject,
+                31 => Self::UnsupportedGoogleManagedProjectConfig,
+                32 => Self::GoogleManagedServiceUnknownIp,
+                34 => Self::SourceRedisClusterUnsupported,
+                35 => Self::SourceRedisInstanceUnsupported,
+                36 => Self::PermissionDeniedNoCloudRouterConfigs,
+                37 => Self::NoServerlessIpRanges,
+                _ => Self::UnknownValue(cause::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Cause {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CAUSE_UNSPECIFIED" => Self::Unspecified,
+                "UNKNOWN_NETWORK" => Self::UnknownNetwork,
+                "UNKNOWN_PROJECT" => Self::UnknownProject,
+                "NO_EXTERNAL_IP" => Self::NoExternalIp,
+                "UNINTENDED_DESTINATION" => Self::UnintendedDestination,
+                "SOURCE_ENDPOINT_NOT_FOUND" => Self::SourceEndpointNotFound,
+                "MISMATCHED_SOURCE_NETWORK" => Self::MismatchedSourceNetwork,
+                "DESTINATION_ENDPOINT_NOT_FOUND" => Self::DestinationEndpointNotFound,
+                "MISMATCHED_DESTINATION_NETWORK" => Self::MismatchedDestinationNetwork,
+                "UNKNOWN_IP" => Self::UnknownIp,
+                "GOOGLE_MANAGED_SERVICE_UNKNOWN_IP" => Self::GoogleManagedServiceUnknownIp,
+                "SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK" => {
+                    Self::SourceIpAddressNotInSourceNetwork
+                }
+                "PERMISSION_DENIED" => Self::PermissionDenied,
+                "PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS" => Self::PermissionDeniedNoCloudNatConfigs,
+                "PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS" => {
+                    Self::PermissionDeniedNoNegEndpointConfigs
+                }
+                "PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS" => {
+                    Self::PermissionDeniedNoCloudRouterConfigs
+                }
+                "NO_SOURCE_LOCATION" => Self::NoSourceLocation,
+                "INVALID_ARGUMENT" => Self::InvalidArgument,
+                "TRACE_TOO_LONG" => Self::TraceTooLong,
+                "INTERNAL_ERROR" => Self::InternalError,
+                "UNSUPPORTED" => Self::Unsupported,
+                "MISMATCHED_IP_VERSION" => Self::MismatchedIpVersion,
+                "GKE_KONNECTIVITY_PROXY_UNSUPPORTED" => Self::GkeKonnectivityProxyUnsupported,
+                "RESOURCE_CONFIG_NOT_FOUND" => Self::ResourceConfigNotFound,
+                "VM_INSTANCE_CONFIG_NOT_FOUND" => Self::VmInstanceConfigNotFound,
+                "NETWORK_CONFIG_NOT_FOUND" => Self::NetworkConfigNotFound,
+                "FIREWALL_CONFIG_NOT_FOUND" => Self::FirewallConfigNotFound,
+                "ROUTE_CONFIG_NOT_FOUND" => Self::RouteConfigNotFound,
+                "GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT" => {
+                    Self::GoogleManagedServiceAmbiguousPscEndpoint
+                }
+                "SOURCE_PSC_CLOUD_SQL_UNSUPPORTED" => Self::SourcePscCloudSqlUnsupported,
+                "SOURCE_REDIS_CLUSTER_UNSUPPORTED" => Self::SourceRedisClusterUnsupported,
+                "SOURCE_REDIS_INSTANCE_UNSUPPORTED" => Self::SourceRedisInstanceUnsupported,
+                "SOURCE_FORWARDING_RULE_UNSUPPORTED" => Self::SourceForwardingRuleUnsupported,
+                "NON_ROUTABLE_IP_ADDRESS" => Self::NonRoutableIpAddress,
+                "UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT" => {
+                    Self::UnknownIssueInGoogleManagedProject
+                }
+                "UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG" => {
+                    Self::UnsupportedGoogleManagedProjectConfig
+                }
+                "NO_SERVERLESS_IP_RANGES" => Self::NoServerlessIpRanges,
+                _ => Self::UnknownValue(cause::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Cause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::UnknownNetwork => serializer.serialize_i32(1),
+                Self::UnknownProject => serializer.serialize_i32(3),
+                Self::NoExternalIp => serializer.serialize_i32(7),
+                Self::UnintendedDestination => serializer.serialize_i32(8),
+                Self::SourceEndpointNotFound => serializer.serialize_i32(11),
+                Self::MismatchedSourceNetwork => serializer.serialize_i32(12),
+                Self::DestinationEndpointNotFound => serializer.serialize_i32(13),
+                Self::MismatchedDestinationNetwork => serializer.serialize_i32(14),
+                Self::UnknownIp => serializer.serialize_i32(2),
+                Self::GoogleManagedServiceUnknownIp => serializer.serialize_i32(32),
+                Self::SourceIpAddressNotInSourceNetwork => serializer.serialize_i32(23),
+                Self::PermissionDenied => serializer.serialize_i32(4),
+                Self::PermissionDeniedNoCloudNatConfigs => serializer.serialize_i32(28),
+                Self::PermissionDeniedNoNegEndpointConfigs => serializer.serialize_i32(29),
+                Self::PermissionDeniedNoCloudRouterConfigs => serializer.serialize_i32(36),
+                Self::NoSourceLocation => serializer.serialize_i32(5),
+                Self::InvalidArgument => serializer.serialize_i32(6),
+                Self::TraceTooLong => serializer.serialize_i32(9),
+                Self::InternalError => serializer.serialize_i32(10),
+                Self::Unsupported => serializer.serialize_i32(15),
+                Self::MismatchedIpVersion => serializer.serialize_i32(16),
+                Self::GkeKonnectivityProxyUnsupported => serializer.serialize_i32(17),
+                Self::ResourceConfigNotFound => serializer.serialize_i32(18),
+                Self::VmInstanceConfigNotFound => serializer.serialize_i32(24),
+                Self::NetworkConfigNotFound => serializer.serialize_i32(25),
+                Self::FirewallConfigNotFound => serializer.serialize_i32(26),
+                Self::RouteConfigNotFound => serializer.serialize_i32(27),
+                Self::GoogleManagedServiceAmbiguousPscEndpoint => serializer.serialize_i32(19),
+                Self::SourcePscCloudSqlUnsupported => serializer.serialize_i32(20),
+                Self::SourceRedisClusterUnsupported => serializer.serialize_i32(34),
+                Self::SourceRedisInstanceUnsupported => serializer.serialize_i32(35),
+                Self::SourceForwardingRuleUnsupported => serializer.serialize_i32(21),
+                Self::NonRoutableIpAddress => serializer.serialize_i32(22),
+                Self::UnknownIssueInGoogleManagedProject => serializer.serialize_i32(30),
+                Self::UnsupportedGoogleManagedProjectConfig => serializer.serialize_i32(31),
+                Self::NoServerlessIpRanges => serializer.serialize_i32(37),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Cause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Cause>::new(
+                ".google.cloud.networkmanagement.v1.AbortInfo.Cause",
+            ))
         }
     }
 }
@@ -6186,741 +7800,1026 @@ pub mod drop_info {
     use super::*;
 
     /// Drop cause types:
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cause(i32);
-
-    impl Cause {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Cause {
         /// Cause is unspecified.
-        pub const CAUSE_UNSPECIFIED: Cause = Cause::new(0);
-
+        Unspecified,
         /// Destination external address cannot be resolved to a known target. If
         /// the address is used in a Google Cloud project, provide the project ID
         /// as test input.
-        pub const UNKNOWN_EXTERNAL_ADDRESS: Cause = Cause::new(1);
-
+        UnknownExternalAddress,
         /// A Compute Engine instance can only send or receive a packet with a
         /// foreign IP address if ip_forward is enabled.
-        pub const FOREIGN_IP_DISALLOWED: Cause = Cause::new(2);
-
+        ForeignIpDisallowed,
         /// Dropped due to a firewall rule, unless allowed due to connection
         /// tracking.
-        pub const FIREWALL_RULE: Cause = Cause::new(3);
-
+        FirewallRule,
         /// Dropped due to no matching routes.
-        pub const NO_ROUTE: Cause = Cause::new(4);
-
+        NoRoute,
         /// Dropped due to invalid route. Route's next hop is a blackhole.
-        pub const ROUTE_BLACKHOLE: Cause = Cause::new(5);
-
+        RouteBlackhole,
         /// Packet is sent to a wrong (unintended) network. Example: you trace a
         /// packet from VM1:Network1 to VM2:Network2, however, the route configured
         /// in Network1 sends the packet destined for VM2's IP address to Network3.
-        pub const ROUTE_WRONG_NETWORK: Cause = Cause::new(6);
-
+        RouteWrongNetwork,
         /// Route's next hop IP address cannot be resolved to a GCP resource.
-        pub const ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED: Cause = Cause::new(42);
-
+        RouteNextHopIpAddressNotResolved,
         /// Route's next hop resource is not found.
-        pub const ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND: Cause = Cause::new(43);
-
+        RouteNextHopResourceNotFound,
         /// Route's next hop instance doesn't have a NIC in the route's network.
-        pub const ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK: Cause = Cause::new(49);
-
+        RouteNextHopInstanceWrongNetwork,
         /// Route's next hop IP address is not a primary IP address of the next hop
         /// instance.
-        pub const ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP: Cause = Cause::new(50);
-
+        RouteNextHopInstanceNonPrimaryIp,
         /// Route's next hop forwarding rule doesn't match next hop IP address.
-        pub const ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH: Cause = Cause::new(51);
-
+        RouteNextHopForwardingRuleIpMismatch,
         /// Route's next hop VPN tunnel is down (does not have valid IKE SAs).
-        pub const ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED: Cause = Cause::new(52);
-
+        RouteNextHopVpnTunnelNotEstablished,
         /// Route's next hop forwarding rule type is invalid (it's not a forwarding
         /// rule of the internal passthrough load balancer).
-        pub const ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID: Cause = Cause::new(53);
-
+        RouteNextHopForwardingRuleTypeInvalid,
         /// Packet is sent from the Internet to the private IPv6 address.
-        pub const NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS: Cause = Cause::new(44);
-
+        NoRouteFromInternetToPrivateIpv6Address,
         /// The packet does not match a policy-based VPN tunnel local selector.
-        pub const VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH: Cause = Cause::new(45);
-
+        VpnTunnelLocalSelectorMismatch,
         /// The packet does not match a policy-based VPN tunnel remote selector.
-        pub const VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH: Cause = Cause::new(46);
-
+        VpnTunnelRemoteSelectorMismatch,
         /// Packet with internal destination address sent to the internet gateway.
-        pub const PRIVATE_TRAFFIC_TO_INTERNET: Cause = Cause::new(7);
-
+        PrivateTrafficToInternet,
         /// Instance with only an internal IP address tries to access Google API and
         /// services, but private Google access is not enabled in the subnet.
-        pub const PRIVATE_GOOGLE_ACCESS_DISALLOWED: Cause = Cause::new(8);
-
+        PrivateGoogleAccessDisallowed,
         /// Source endpoint tries to access Google API and services through the VPN
         /// tunnel to another network, but Private Google Access needs to be enabled
         /// in the source endpoint network.
-        pub const PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED: Cause = Cause::new(47);
-
+        PrivateGoogleAccessViaVpnTunnelUnsupported,
         /// Instance with only an internal IP address tries to access external hosts,
         /// but Cloud NAT is not enabled in the subnet, unless special configurations
         /// on a VM allow this connection.
-        pub const NO_EXTERNAL_ADDRESS: Cause = Cause::new(9);
-
+        NoExternalAddress,
         /// Destination internal address cannot be resolved to a known target. If
         /// this is a shared VPC scenario, verify if the service project ID is
         /// provided as test input. Otherwise, verify if the IP address is being
         /// used in the project.
-        pub const UNKNOWN_INTERNAL_ADDRESS: Cause = Cause::new(10);
-
+        UnknownInternalAddress,
         /// Forwarding rule's protocol and ports do not match the packet header.
-        pub const FORWARDING_RULE_MISMATCH: Cause = Cause::new(11);
-
+        ForwardingRuleMismatch,
         /// Forwarding rule does not have backends configured.
-        pub const FORWARDING_RULE_NO_INSTANCES: Cause = Cause::new(12);
-
+        ForwardingRuleNoInstances,
         /// Firewalls block the health check probes to the backends and cause
         /// the backends to be unavailable for traffic from the load balancer.
         /// For more details, see [Health check firewall
         /// rules](https://cloud.google.com/load-balancing/docs/health-checks#firewall_rules).
-        pub const FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK: Cause = Cause::new(13);
-
+        FirewallBlockingLoadBalancerBackendHealthCheck,
         /// Matching ingress firewall rules by network tags for packets sent via
         /// serverless VPC direct egress is unsupported. Behavior is undefined.
         /// <https://cloud.google.com/run/docs/configuring/vpc-direct-vpc#limitations>
-        pub const INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS: Cause = Cause::new(85);
-
+        IngressFirewallTagsUnsupportedByDirectVpcEgress,
         /// Packet is sent from or to a Compute Engine instance that is not in a
         /// running state.
-        pub const INSTANCE_NOT_RUNNING: Cause = Cause::new(14);
-
+        InstanceNotRunning,
         /// Packet sent from or to a GKE cluster that is not in running state.
-        pub const GKE_CLUSTER_NOT_RUNNING: Cause = Cause::new(27);
-
+        GkeClusterNotRunning,
         /// Packet sent from or to a Cloud SQL instance that is not in running state.
-        pub const CLOUD_SQL_INSTANCE_NOT_RUNNING: Cause = Cause::new(28);
-
+        CloudSqlInstanceNotRunning,
         /// Packet sent from or to a Redis Instance that is not in running state.
-        pub const REDIS_INSTANCE_NOT_RUNNING: Cause = Cause::new(68);
-
+        RedisInstanceNotRunning,
         /// Packet sent from or to a Redis Cluster that is not in running state.
-        pub const REDIS_CLUSTER_NOT_RUNNING: Cause = Cause::new(69);
-
+        RedisClusterNotRunning,
         /// The type of traffic is blocked and the user cannot configure a firewall
         /// rule to enable it. See [Always blocked
         /// traffic](https://cloud.google.com/vpc/docs/firewalls#blockedtraffic) for
         /// more details.
-        pub const TRAFFIC_TYPE_BLOCKED: Cause = Cause::new(15);
-
+        TrafficTypeBlocked,
         /// Access to Google Kubernetes Engine cluster master's endpoint is not
         /// authorized. See [Access to the cluster
         /// endpoints](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters#access_to_the_cluster_endpoints)
         /// for more details.
-        pub const GKE_MASTER_UNAUTHORIZED_ACCESS: Cause = Cause::new(16);
-
+        GkeMasterUnauthorizedAccess,
         /// Access to the Cloud SQL instance endpoint is not authorized.
         /// See [Authorizing with authorized
         /// networks](https://cloud.google.com/sql/docs/mysql/authorize-networks) for
         /// more details.
-        pub const CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS: Cause = Cause::new(17);
-
+        CloudSqlInstanceUnauthorizedAccess,
         /// Packet was dropped inside Google Kubernetes Engine Service.
-        pub const DROPPED_INSIDE_GKE_SERVICE: Cause = Cause::new(18);
-
+        DroppedInsideGkeService,
         /// Packet was dropped inside Cloud SQL Service.
-        pub const DROPPED_INSIDE_CLOUD_SQL_SERVICE: Cause = Cause::new(19);
-
+        DroppedInsideCloudSqlService,
         /// Packet was dropped because there is no peering between the originating
         /// network and the Google Managed Services Network.
-        pub const GOOGLE_MANAGED_SERVICE_NO_PEERING: Cause = Cause::new(20);
-
+        GoogleManagedServiceNoPeering,
         /// Packet was dropped because the Google-managed service uses Private
         /// Service Connect (PSC), but the PSC endpoint is not found in the project.
-        pub const GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT: Cause = Cause::new(38);
-
+        GoogleManagedServiceNoPscEndpoint,
         /// Packet was dropped because the GKE cluster uses Private Service Connect
         /// (PSC), but the PSC endpoint is not found in the project.
-        pub const GKE_PSC_ENDPOINT_MISSING: Cause = Cause::new(36);
-
+        GkePscEndpointMissing,
         /// Packet was dropped because the Cloud SQL instance has neither a private
         /// nor a public IP address.
-        pub const CLOUD_SQL_INSTANCE_NO_IP_ADDRESS: Cause = Cause::new(21);
-
+        CloudSqlInstanceNoIpAddress,
         /// Packet was dropped because a GKE cluster private endpoint is
         /// unreachable from a region different from the cluster's region.
-        pub const GKE_CONTROL_PLANE_REGION_MISMATCH: Cause = Cause::new(30);
-
+        GkeControlPlaneRegionMismatch,
         /// Packet sent from a public GKE cluster control plane to a private
         /// IP address.
-        pub const PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION: Cause = Cause::new(31);
-
+        PublicGkeControlPlaneToPrivateDestination,
         /// Packet was dropped because there is no route from a GKE cluster
         /// control plane to a destination network.
-        pub const GKE_CONTROL_PLANE_NO_ROUTE: Cause = Cause::new(32);
-
+        GkeControlPlaneNoRoute,
         /// Packet sent from a Cloud SQL instance to an external IP address is not
         /// allowed. The Cloud SQL instance is not configured to send packets to
         /// external IP addresses.
-        pub const CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC: Cause = Cause::new(33);
-
+        CloudSqlInstanceNotConfiguredForExternalTraffic,
         /// Packet sent from a Cloud SQL instance with only a public IP address to a
         /// private IP address.
-        pub const PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION: Cause = Cause::new(34);
-
+        PublicCloudSqlInstanceToPrivateDestination,
         /// Packet was dropped because there is no route from a Cloud SQL
         /// instance to a destination network.
-        pub const CLOUD_SQL_INSTANCE_NO_ROUTE: Cause = Cause::new(35);
-
+        CloudSqlInstanceNoRoute,
         /// Packet was dropped because the Cloud SQL instance requires all
         /// connections to use Cloud SQL connectors and to target the Cloud SQL proxy
         /// port (3307).
-        pub const CLOUD_SQL_CONNECTOR_REQUIRED: Cause = Cause::new(63);
-
+        CloudSqlConnectorRequired,
         /// Packet could be dropped because the Cloud Function is not in an active
         /// status.
-        pub const CLOUD_FUNCTION_NOT_ACTIVE: Cause = Cause::new(22);
-
+        CloudFunctionNotActive,
         /// Packet could be dropped because no VPC connector is set.
-        pub const VPC_CONNECTOR_NOT_SET: Cause = Cause::new(23);
-
+        VpcConnectorNotSet,
         /// Packet could be dropped because the VPC connector is not in a running
         /// state.
-        pub const VPC_CONNECTOR_NOT_RUNNING: Cause = Cause::new(24);
-
+        VpcConnectorNotRunning,
         /// Packet could be dropped because the traffic from the serverless service
         /// to the VPC connector is not allowed.
-        pub const VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED: Cause = Cause::new(60);
-
+        VpcConnectorServerlessTrafficBlocked,
         /// Packet could be dropped because the health check traffic to the VPC
         /// connector is not allowed.
-        pub const VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED: Cause = Cause::new(61);
-
+        VpcConnectorHealthCheckTrafficBlocked,
         /// Packet could be dropped because it was sent from a different region
         /// to a regional forwarding without global access.
-        pub const FORWARDING_RULE_REGION_MISMATCH: Cause = Cause::new(25);
-
+        ForwardingRuleRegionMismatch,
         /// The Private Service Connect endpoint is in a project that is not approved
         /// to connect to the service.
-        pub const PSC_CONNECTION_NOT_ACCEPTED: Cause = Cause::new(26);
-
+        PscConnectionNotAccepted,
         /// The packet is sent to the Private Service Connect endpoint over the
         /// peering, but [it's not
         /// supported](https://cloud.google.com/vpc/docs/configure-private-service-connect-services#on-premises).
-        pub const PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK: Cause = Cause::new(41);
-
+        PscEndpointAccessedFromPeeredNetwork,
         /// The packet is sent to the Private Service Connect backend (network
         /// endpoint group), but the producer PSC forwarding rule does not have
         /// global access enabled.
-        pub const PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS: Cause = Cause::new(48);
-
+        PscNegProducerEndpointNoGlobalAccess,
         /// The packet is sent to the Private Service Connect backend (network
         /// endpoint group), but the producer PSC forwarding rule has multiple ports
         /// specified.
-        pub const PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS: Cause = Cause::new(54);
-
+        PscNegProducerForwardingRuleMultiplePorts,
         /// The packet is sent to the Private Service Connect backend (network
         /// endpoint group) targeting a Cloud SQL service attachment, but this
         /// configuration is not supported.
-        pub const CLOUD_SQL_PSC_NEG_UNSUPPORTED: Cause = Cause::new(58);
-
+        CloudSqlPscNegUnsupported,
         /// No NAT subnets are defined for the PSC service attachment.
-        pub const NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT: Cause = Cause::new(57);
-
+        NoNatSubnetsForPscServiceAttachment,
         /// PSC endpoint is accessed via NCC, but PSC transitivity configuration is
         /// not yet propagated.
-        pub const PSC_TRANSITIVITY_NOT_PROPAGATED: Cause = Cause::new(64);
-
+        PscTransitivityNotPropagated,
         /// The packet sent from the hybrid NEG proxy matches a non-dynamic route,
         /// but such a configuration is not supported.
-        pub const HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED: Cause = Cause::new(55);
-
+        HybridNegNonDynamicRouteMatched,
         /// The packet sent from the hybrid NEG proxy matches a dynamic route with a
         /// next hop in a different region, but such a configuration is not
         /// supported.
-        pub const HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED: Cause = Cause::new(56);
-
+        HybridNegNonLocalDynamicRouteMatched,
         /// Packet sent from a Cloud Run revision that is not ready.
-        pub const CLOUD_RUN_REVISION_NOT_READY: Cause = Cause::new(29);
-
+        CloudRunRevisionNotReady,
         /// Packet was dropped inside Private Service Connect service producer.
-        pub const DROPPED_INSIDE_PSC_SERVICE_PRODUCER: Cause = Cause::new(37);
-
+        DroppedInsidePscServiceProducer,
         /// Packet sent to a load balancer, which requires a proxy-only subnet and
         /// the subnet is not found.
-        pub const LOAD_BALANCER_HAS_NO_PROXY_SUBNET: Cause = Cause::new(39);
-
+        LoadBalancerHasNoProxySubnet,
         /// Packet sent to Cloud Nat without active NAT IPs.
-        pub const CLOUD_NAT_NO_ADDRESSES: Cause = Cause::new(40);
-
+        CloudNatNoAddresses,
         /// Packet is stuck in a routing loop.
-        pub const ROUTING_LOOP: Cause = Cause::new(59);
-
+        RoutingLoop,
         /// Packet is dropped inside a Google-managed service due to being delivered
         /// in return trace to an endpoint that doesn't match the endpoint the packet
         /// was sent from in forward trace. Used only for return traces.
-        pub const DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE: Cause = Cause::new(62);
-
+        DroppedInsideGoogleManagedService,
         /// Packet is dropped due to a load balancer backend instance not having a
         /// network interface in the network expected by the load balancer.
-        pub const LOAD_BALANCER_BACKEND_INVALID_NETWORK: Cause = Cause::new(65);
-
+        LoadBalancerBackendInvalidNetwork,
         /// Packet is dropped due to a backend service named port not being defined
         /// on the instance group level.
-        pub const BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED: Cause = Cause::new(66);
-
+        BackendServiceNamedPortNotDefined,
         /// Packet is dropped due to a destination IP range being part of a Private
         /// NAT IP range.
-        pub const DESTINATION_IS_PRIVATE_NAT_IP_RANGE: Cause = Cause::new(67);
-
+        DestinationIsPrivateNatIpRange,
         /// Generic drop cause for a packet being dropped inside a Redis Instance
         /// service project.
-        pub const DROPPED_INSIDE_REDIS_INSTANCE_SERVICE: Cause = Cause::new(70);
-
+        DroppedInsideRedisInstanceService,
         /// Packet is dropped due to an unsupported port being used to connect to a
         /// Redis Instance. Port 6379 should be used to connect to a Redis Instance.
-        pub const REDIS_INSTANCE_UNSUPPORTED_PORT: Cause = Cause::new(71);
-
+        RedisInstanceUnsupportedPort,
         /// Packet is dropped due to connecting from PUPI address to a PSA based
         /// Redis Instance.
-        pub const REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS: Cause = Cause::new(72);
-
+        RedisInstanceConnectingFromPupiAddress,
         /// Packet is dropped due to no route to the destination network.
-        pub const REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK: Cause = Cause::new(73);
-
+        RedisInstanceNoRouteToDestinationNetwork,
         /// Redis Instance does not have an external IP address.
-        pub const REDIS_INSTANCE_NO_EXTERNAL_IP: Cause = Cause::new(74);
-
+        RedisInstanceNoExternalIp,
         /// Packet is dropped due to an unsupported protocol being used to connect to
         /// a Redis Instance. Only TCP connections are accepted by a Redis Instance.
-        pub const REDIS_INSTANCE_UNSUPPORTED_PROTOCOL: Cause = Cause::new(78);
-
+        RedisInstanceUnsupportedProtocol,
         /// Generic drop cause for a packet being dropped inside a Redis Cluster
         /// service project.
-        pub const DROPPED_INSIDE_REDIS_CLUSTER_SERVICE: Cause = Cause::new(75);
-
+        DroppedInsideRedisClusterService,
         /// Packet is dropped due to an unsupported port being used to connect to a
         /// Redis Cluster. Ports 6379 and 11000 to 13047 should be used to connect to
         /// a Redis Cluster.
-        pub const REDIS_CLUSTER_UNSUPPORTED_PORT: Cause = Cause::new(76);
-
+        RedisClusterUnsupportedPort,
         /// Redis Cluster does not have an external IP address.
-        pub const REDIS_CLUSTER_NO_EXTERNAL_IP: Cause = Cause::new(77);
-
+        RedisClusterNoExternalIp,
         /// Packet is dropped due to an unsupported protocol being used to connect to
         /// a Redis Cluster. Only TCP connections are accepted by a Redis Cluster.
-        pub const REDIS_CLUSTER_UNSUPPORTED_PROTOCOL: Cause = Cause::new(79);
-
+        RedisClusterUnsupportedProtocol,
         /// Packet from the non-GCP (on-prem) or unknown GCP network is dropped due
         /// to the destination IP address not belonging to any IP prefix advertised
         /// via BGP by the Cloud Router.
-        pub const NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION: Cause = Cause::new(80);
-
+        NoAdvertisedRouteToGcpDestination,
         /// Packet from the non-GCP (on-prem) or unknown GCP network is dropped due
         /// to the destination IP address not belonging to any IP prefix included to
         /// the local traffic selector of the VPN tunnel.
-        pub const NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION: Cause = Cause::new(81);
-
+        NoTrafficSelectorToGcpDestination,
         /// Packet from the unknown peered network is dropped due to no known route
         /// from the source network to the destination IP address.
-        pub const NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION: Cause = Cause::new(82);
-
+        NoKnownRouteFromPeeredNetworkToDestination,
         /// Sending packets processed by the Private NAT Gateways to the Private
         /// Service Connect endpoints is not supported.
-        pub const PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED: Cause = Cause::new(83);
-
+        PrivateNatToPscEndpointUnsupported,
         /// Packet is sent to the PSC port mapping service, but its destination port
         /// does not match any port mapping rules.
-        pub const PSC_PORT_MAPPING_PORT_MISMATCH: Cause = Cause::new(86);
-
+        PscPortMappingPortMismatch,
         /// Sending packets directly to the PSC port mapping service without going
         /// through the PSC connection is not supported.
-        pub const PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED: Cause = Cause::new(87);
-
+        PscPortMappingWithoutPscConnectionUnsupported,
         /// Packet with destination IP address within the reserved NAT64 range is
         /// dropped due to matching a route of an unsupported type.
-        pub const UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION: Cause = Cause::new(88);
+        UnsupportedRouteMatchedForNat64Destination,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Cause::value] or
+        /// [Cause::name].
+        UnknownValue(cause::UnknownValue),
+    }
 
-        /// Creates a new Cause instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod cause {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Cause {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::UnknownExternalAddress => std::option::Option::Some(1),
+                Self::ForeignIpDisallowed => std::option::Option::Some(2),
+                Self::FirewallRule => std::option::Option::Some(3),
+                Self::NoRoute => std::option::Option::Some(4),
+                Self::RouteBlackhole => std::option::Option::Some(5),
+                Self::RouteWrongNetwork => std::option::Option::Some(6),
+                Self::RouteNextHopIpAddressNotResolved => std::option::Option::Some(42),
+                Self::RouteNextHopResourceNotFound => std::option::Option::Some(43),
+                Self::RouteNextHopInstanceWrongNetwork => std::option::Option::Some(49),
+                Self::RouteNextHopInstanceNonPrimaryIp => std::option::Option::Some(50),
+                Self::RouteNextHopForwardingRuleIpMismatch => std::option::Option::Some(51),
+                Self::RouteNextHopVpnTunnelNotEstablished => std::option::Option::Some(52),
+                Self::RouteNextHopForwardingRuleTypeInvalid => std::option::Option::Some(53),
+                Self::NoRouteFromInternetToPrivateIpv6Address => std::option::Option::Some(44),
+                Self::VpnTunnelLocalSelectorMismatch => std::option::Option::Some(45),
+                Self::VpnTunnelRemoteSelectorMismatch => std::option::Option::Some(46),
+                Self::PrivateTrafficToInternet => std::option::Option::Some(7),
+                Self::PrivateGoogleAccessDisallowed => std::option::Option::Some(8),
+                Self::PrivateGoogleAccessViaVpnTunnelUnsupported => std::option::Option::Some(47),
+                Self::NoExternalAddress => std::option::Option::Some(9),
+                Self::UnknownInternalAddress => std::option::Option::Some(10),
+                Self::ForwardingRuleMismatch => std::option::Option::Some(11),
+                Self::ForwardingRuleNoInstances => std::option::Option::Some(12),
+                Self::FirewallBlockingLoadBalancerBackendHealthCheck => {
+                    std::option::Option::Some(13)
+                }
+                Self::IngressFirewallTagsUnsupportedByDirectVpcEgress => {
+                    std::option::Option::Some(85)
+                }
+                Self::InstanceNotRunning => std::option::Option::Some(14),
+                Self::GkeClusterNotRunning => std::option::Option::Some(27),
+                Self::CloudSqlInstanceNotRunning => std::option::Option::Some(28),
+                Self::RedisInstanceNotRunning => std::option::Option::Some(68),
+                Self::RedisClusterNotRunning => std::option::Option::Some(69),
+                Self::TrafficTypeBlocked => std::option::Option::Some(15),
+                Self::GkeMasterUnauthorizedAccess => std::option::Option::Some(16),
+                Self::CloudSqlInstanceUnauthorizedAccess => std::option::Option::Some(17),
+                Self::DroppedInsideGkeService => std::option::Option::Some(18),
+                Self::DroppedInsideCloudSqlService => std::option::Option::Some(19),
+                Self::GoogleManagedServiceNoPeering => std::option::Option::Some(20),
+                Self::GoogleManagedServiceNoPscEndpoint => std::option::Option::Some(38),
+                Self::GkePscEndpointMissing => std::option::Option::Some(36),
+                Self::CloudSqlInstanceNoIpAddress => std::option::Option::Some(21),
+                Self::GkeControlPlaneRegionMismatch => std::option::Option::Some(30),
+                Self::PublicGkeControlPlaneToPrivateDestination => std::option::Option::Some(31),
+                Self::GkeControlPlaneNoRoute => std::option::Option::Some(32),
+                Self::CloudSqlInstanceNotConfiguredForExternalTraffic => {
+                    std::option::Option::Some(33)
+                }
+                Self::PublicCloudSqlInstanceToPrivateDestination => std::option::Option::Some(34),
+                Self::CloudSqlInstanceNoRoute => std::option::Option::Some(35),
+                Self::CloudSqlConnectorRequired => std::option::Option::Some(63),
+                Self::CloudFunctionNotActive => std::option::Option::Some(22),
+                Self::VpcConnectorNotSet => std::option::Option::Some(23),
+                Self::VpcConnectorNotRunning => std::option::Option::Some(24),
+                Self::VpcConnectorServerlessTrafficBlocked => std::option::Option::Some(60),
+                Self::VpcConnectorHealthCheckTrafficBlocked => std::option::Option::Some(61),
+                Self::ForwardingRuleRegionMismatch => std::option::Option::Some(25),
+                Self::PscConnectionNotAccepted => std::option::Option::Some(26),
+                Self::PscEndpointAccessedFromPeeredNetwork => std::option::Option::Some(41),
+                Self::PscNegProducerEndpointNoGlobalAccess => std::option::Option::Some(48),
+                Self::PscNegProducerForwardingRuleMultiplePorts => std::option::Option::Some(54),
+                Self::CloudSqlPscNegUnsupported => std::option::Option::Some(58),
+                Self::NoNatSubnetsForPscServiceAttachment => std::option::Option::Some(57),
+                Self::PscTransitivityNotPropagated => std::option::Option::Some(64),
+                Self::HybridNegNonDynamicRouteMatched => std::option::Option::Some(55),
+                Self::HybridNegNonLocalDynamicRouteMatched => std::option::Option::Some(56),
+                Self::CloudRunRevisionNotReady => std::option::Option::Some(29),
+                Self::DroppedInsidePscServiceProducer => std::option::Option::Some(37),
+                Self::LoadBalancerHasNoProxySubnet => std::option::Option::Some(39),
+                Self::CloudNatNoAddresses => std::option::Option::Some(40),
+                Self::RoutingLoop => std::option::Option::Some(59),
+                Self::DroppedInsideGoogleManagedService => std::option::Option::Some(62),
+                Self::LoadBalancerBackendInvalidNetwork => std::option::Option::Some(65),
+                Self::BackendServiceNamedPortNotDefined => std::option::Option::Some(66),
+                Self::DestinationIsPrivateNatIpRange => std::option::Option::Some(67),
+                Self::DroppedInsideRedisInstanceService => std::option::Option::Some(70),
+                Self::RedisInstanceUnsupportedPort => std::option::Option::Some(71),
+                Self::RedisInstanceConnectingFromPupiAddress => std::option::Option::Some(72),
+                Self::RedisInstanceNoRouteToDestinationNetwork => std::option::Option::Some(73),
+                Self::RedisInstanceNoExternalIp => std::option::Option::Some(74),
+                Self::RedisInstanceUnsupportedProtocol => std::option::Option::Some(78),
+                Self::DroppedInsideRedisClusterService => std::option::Option::Some(75),
+                Self::RedisClusterUnsupportedPort => std::option::Option::Some(76),
+                Self::RedisClusterNoExternalIp => std::option::Option::Some(77),
+                Self::RedisClusterUnsupportedProtocol => std::option::Option::Some(79),
+                Self::NoAdvertisedRouteToGcpDestination => std::option::Option::Some(80),
+                Self::NoTrafficSelectorToGcpDestination => std::option::Option::Some(81),
+                Self::NoKnownRouteFromPeeredNetworkToDestination => std::option::Option::Some(82),
+                Self::PrivateNatToPscEndpointUnsupported => std::option::Option::Some(83),
+                Self::PscPortMappingPortMismatch => std::option::Option::Some(86),
+                Self::PscPortMappingWithoutPscConnectionUnsupported => {
+                    std::option::Option::Some(87)
+                }
+                Self::UnsupportedRouteMatchedForNat64Destination => std::option::Option::Some(88),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CAUSE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("UNKNOWN_EXTERNAL_ADDRESS"),
-                2 => std::borrow::Cow::Borrowed("FOREIGN_IP_DISALLOWED"),
-                3 => std::borrow::Cow::Borrowed("FIREWALL_RULE"),
-                4 => std::borrow::Cow::Borrowed("NO_ROUTE"),
-                5 => std::borrow::Cow::Borrowed("ROUTE_BLACKHOLE"),
-                6 => std::borrow::Cow::Borrowed("ROUTE_WRONG_NETWORK"),
-                7 => std::borrow::Cow::Borrowed("PRIVATE_TRAFFIC_TO_INTERNET"),
-                8 => std::borrow::Cow::Borrowed("PRIVATE_GOOGLE_ACCESS_DISALLOWED"),
-                9 => std::borrow::Cow::Borrowed("NO_EXTERNAL_ADDRESS"),
-                10 => std::borrow::Cow::Borrowed("UNKNOWN_INTERNAL_ADDRESS"),
-                11 => std::borrow::Cow::Borrowed("FORWARDING_RULE_MISMATCH"),
-                12 => std::borrow::Cow::Borrowed("FORWARDING_RULE_NO_INSTANCES"),
-                13 => std::borrow::Cow::Borrowed(
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CAUSE_UNSPECIFIED"),
+                Self::UnknownExternalAddress => {
+                    std::option::Option::Some("UNKNOWN_EXTERNAL_ADDRESS")
+                }
+                Self::ForeignIpDisallowed => std::option::Option::Some("FOREIGN_IP_DISALLOWED"),
+                Self::FirewallRule => std::option::Option::Some("FIREWALL_RULE"),
+                Self::NoRoute => std::option::Option::Some("NO_ROUTE"),
+                Self::RouteBlackhole => std::option::Option::Some("ROUTE_BLACKHOLE"),
+                Self::RouteWrongNetwork => std::option::Option::Some("ROUTE_WRONG_NETWORK"),
+                Self::RouteNextHopIpAddressNotResolved => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED")
+                }
+                Self::RouteNextHopResourceNotFound => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND")
+                }
+                Self::RouteNextHopInstanceWrongNetwork => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK")
+                }
+                Self::RouteNextHopInstanceNonPrimaryIp => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP")
+                }
+                Self::RouteNextHopForwardingRuleIpMismatch => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH")
+                }
+                Self::RouteNextHopVpnTunnelNotEstablished => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED")
+                }
+                Self::RouteNextHopForwardingRuleTypeInvalid => {
+                    std::option::Option::Some("ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID")
+                }
+                Self::NoRouteFromInternetToPrivateIpv6Address => {
+                    std::option::Option::Some("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS")
+                }
+                Self::VpnTunnelLocalSelectorMismatch => {
+                    std::option::Option::Some("VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH")
+                }
+                Self::VpnTunnelRemoteSelectorMismatch => {
+                    std::option::Option::Some("VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH")
+                }
+                Self::PrivateTrafficToInternet => {
+                    std::option::Option::Some("PRIVATE_TRAFFIC_TO_INTERNET")
+                }
+                Self::PrivateGoogleAccessDisallowed => {
+                    std::option::Option::Some("PRIVATE_GOOGLE_ACCESS_DISALLOWED")
+                }
+                Self::PrivateGoogleAccessViaVpnTunnelUnsupported => {
+                    std::option::Option::Some("PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED")
+                }
+                Self::NoExternalAddress => std::option::Option::Some("NO_EXTERNAL_ADDRESS"),
+                Self::UnknownInternalAddress => {
+                    std::option::Option::Some("UNKNOWN_INTERNAL_ADDRESS")
+                }
+                Self::ForwardingRuleMismatch => {
+                    std::option::Option::Some("FORWARDING_RULE_MISMATCH")
+                }
+                Self::ForwardingRuleNoInstances => {
+                    std::option::Option::Some("FORWARDING_RULE_NO_INSTANCES")
+                }
+                Self::FirewallBlockingLoadBalancerBackendHealthCheck => std::option::Option::Some(
                     "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK",
                 ),
-                14 => std::borrow::Cow::Borrowed("INSTANCE_NOT_RUNNING"),
-                15 => std::borrow::Cow::Borrowed("TRAFFIC_TYPE_BLOCKED"),
-                16 => std::borrow::Cow::Borrowed("GKE_MASTER_UNAUTHORIZED_ACCESS"),
-                17 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS"),
-                18 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_GKE_SERVICE"),
-                19 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_CLOUD_SQL_SERVICE"),
-                20 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_NO_PEERING"),
-                21 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_NO_IP_ADDRESS"),
-                22 => std::borrow::Cow::Borrowed("CLOUD_FUNCTION_NOT_ACTIVE"),
-                23 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_NOT_SET"),
-                24 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_NOT_RUNNING"),
-                25 => std::borrow::Cow::Borrowed("FORWARDING_RULE_REGION_MISMATCH"),
-                26 => std::borrow::Cow::Borrowed("PSC_CONNECTION_NOT_ACCEPTED"),
-                27 => std::borrow::Cow::Borrowed("GKE_CLUSTER_NOT_RUNNING"),
-                28 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_NOT_RUNNING"),
-                29 => std::borrow::Cow::Borrowed("CLOUD_RUN_REVISION_NOT_READY"),
-                30 => std::borrow::Cow::Borrowed("GKE_CONTROL_PLANE_REGION_MISMATCH"),
-                31 => std::borrow::Cow::Borrowed("PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION"),
-                32 => std::borrow::Cow::Borrowed("GKE_CONTROL_PLANE_NO_ROUTE"),
-                33 => std::borrow::Cow::Borrowed(
-                    "CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC",
-                ),
-                34 => {
-                    std::borrow::Cow::Borrowed("PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION")
-                }
-                35 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_NO_ROUTE"),
-                36 => std::borrow::Cow::Borrowed("GKE_PSC_ENDPOINT_MISSING"),
-                37 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_PSC_SERVICE_PRODUCER"),
-                38 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT"),
-                39 => std::borrow::Cow::Borrowed("LOAD_BALANCER_HAS_NO_PROXY_SUBNET"),
-                40 => std::borrow::Cow::Borrowed("CLOUD_NAT_NO_ADDRESSES"),
-                41 => std::borrow::Cow::Borrowed("PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK"),
-                42 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED"),
-                43 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND"),
-                44 => std::borrow::Cow::Borrowed("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS"),
-                45 => std::borrow::Cow::Borrowed("VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH"),
-                46 => std::borrow::Cow::Borrowed("VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH"),
-                47 => {
-                    std::borrow::Cow::Borrowed("PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED")
-                }
-                48 => std::borrow::Cow::Borrowed("PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS"),
-                49 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK"),
-                50 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP"),
-                51 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH"),
-                52 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED"),
-                53 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID"),
-                54 => std::borrow::Cow::Borrowed("PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS"),
-                55 => std::borrow::Cow::Borrowed("HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED"),
-                56 => std::borrow::Cow::Borrowed("HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED"),
-                57 => std::borrow::Cow::Borrowed("NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT"),
-                58 => std::borrow::Cow::Borrowed("CLOUD_SQL_PSC_NEG_UNSUPPORTED"),
-                59 => std::borrow::Cow::Borrowed("ROUTING_LOOP"),
-                60 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED"),
-                61 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED"),
-                62 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE"),
-                63 => std::borrow::Cow::Borrowed("CLOUD_SQL_CONNECTOR_REQUIRED"),
-                64 => std::borrow::Cow::Borrowed("PSC_TRANSITIVITY_NOT_PROPAGATED"),
-                65 => std::borrow::Cow::Borrowed("LOAD_BALANCER_BACKEND_INVALID_NETWORK"),
-                66 => std::borrow::Cow::Borrowed("BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED"),
-                67 => std::borrow::Cow::Borrowed("DESTINATION_IS_PRIVATE_NAT_IP_RANGE"),
-                68 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_NOT_RUNNING"),
-                69 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_NOT_RUNNING"),
-                70 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_REDIS_INSTANCE_SERVICE"),
-                71 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_UNSUPPORTED_PORT"),
-                72 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS"),
-                73 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK"),
-                74 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_NO_EXTERNAL_IP"),
-                75 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_REDIS_CLUSTER_SERVICE"),
-                76 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_UNSUPPORTED_PORT"),
-                77 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_NO_EXTERNAL_IP"),
-                78 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_UNSUPPORTED_PROTOCOL"),
-                79 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_UNSUPPORTED_PROTOCOL"),
-                80 => std::borrow::Cow::Borrowed("NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION"),
-                81 => std::borrow::Cow::Borrowed("NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION"),
-                82 => {
-                    std::borrow::Cow::Borrowed("NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION")
-                }
-                83 => std::borrow::Cow::Borrowed("PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED"),
-                85 => std::borrow::Cow::Borrowed(
+                Self::IngressFirewallTagsUnsupportedByDirectVpcEgress => std::option::Option::Some(
                     "INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS",
                 ),
-                86 => std::borrow::Cow::Borrowed("PSC_PORT_MAPPING_PORT_MISMATCH"),
-                87 => std::borrow::Cow::Borrowed(
-                    "PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED",
+                Self::InstanceNotRunning => std::option::Option::Some("INSTANCE_NOT_RUNNING"),
+                Self::GkeClusterNotRunning => std::option::Option::Some("GKE_CLUSTER_NOT_RUNNING"),
+                Self::CloudSqlInstanceNotRunning => {
+                    std::option::Option::Some("CLOUD_SQL_INSTANCE_NOT_RUNNING")
+                }
+                Self::RedisInstanceNotRunning => {
+                    std::option::Option::Some("REDIS_INSTANCE_NOT_RUNNING")
+                }
+                Self::RedisClusterNotRunning => {
+                    std::option::Option::Some("REDIS_CLUSTER_NOT_RUNNING")
+                }
+                Self::TrafficTypeBlocked => std::option::Option::Some("TRAFFIC_TYPE_BLOCKED"),
+                Self::GkeMasterUnauthorizedAccess => {
+                    std::option::Option::Some("GKE_MASTER_UNAUTHORIZED_ACCESS")
+                }
+                Self::CloudSqlInstanceUnauthorizedAccess => {
+                    std::option::Option::Some("CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS")
+                }
+                Self::DroppedInsideGkeService => {
+                    std::option::Option::Some("DROPPED_INSIDE_GKE_SERVICE")
+                }
+                Self::DroppedInsideCloudSqlService => {
+                    std::option::Option::Some("DROPPED_INSIDE_CLOUD_SQL_SERVICE")
+                }
+                Self::GoogleManagedServiceNoPeering => {
+                    std::option::Option::Some("GOOGLE_MANAGED_SERVICE_NO_PEERING")
+                }
+                Self::GoogleManagedServiceNoPscEndpoint => {
+                    std::option::Option::Some("GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT")
+                }
+                Self::GkePscEndpointMissing => {
+                    std::option::Option::Some("GKE_PSC_ENDPOINT_MISSING")
+                }
+                Self::CloudSqlInstanceNoIpAddress => {
+                    std::option::Option::Some("CLOUD_SQL_INSTANCE_NO_IP_ADDRESS")
+                }
+                Self::GkeControlPlaneRegionMismatch => {
+                    std::option::Option::Some("GKE_CONTROL_PLANE_REGION_MISMATCH")
+                }
+                Self::PublicGkeControlPlaneToPrivateDestination => {
+                    std::option::Option::Some("PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION")
+                }
+                Self::GkeControlPlaneNoRoute => {
+                    std::option::Option::Some("GKE_CONTROL_PLANE_NO_ROUTE")
+                }
+                Self::CloudSqlInstanceNotConfiguredForExternalTraffic => std::option::Option::Some(
+                    "CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC",
                 ),
-                88 => std::borrow::Cow::Borrowed("UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                Self::PublicCloudSqlInstanceToPrivateDestination => {
+                    std::option::Option::Some("PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION")
+                }
+                Self::CloudSqlInstanceNoRoute => {
+                    std::option::Option::Some("CLOUD_SQL_INSTANCE_NO_ROUTE")
+                }
+                Self::CloudSqlConnectorRequired => {
+                    std::option::Option::Some("CLOUD_SQL_CONNECTOR_REQUIRED")
+                }
+                Self::CloudFunctionNotActive => {
+                    std::option::Option::Some("CLOUD_FUNCTION_NOT_ACTIVE")
+                }
+                Self::VpcConnectorNotSet => std::option::Option::Some("VPC_CONNECTOR_NOT_SET"),
+                Self::VpcConnectorNotRunning => {
+                    std::option::Option::Some("VPC_CONNECTOR_NOT_RUNNING")
+                }
+                Self::VpcConnectorServerlessTrafficBlocked => {
+                    std::option::Option::Some("VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED")
+                }
+                Self::VpcConnectorHealthCheckTrafficBlocked => {
+                    std::option::Option::Some("VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED")
+                }
+                Self::ForwardingRuleRegionMismatch => {
+                    std::option::Option::Some("FORWARDING_RULE_REGION_MISMATCH")
+                }
+                Self::PscConnectionNotAccepted => {
+                    std::option::Option::Some("PSC_CONNECTION_NOT_ACCEPTED")
+                }
+                Self::PscEndpointAccessedFromPeeredNetwork => {
+                    std::option::Option::Some("PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK")
+                }
+                Self::PscNegProducerEndpointNoGlobalAccess => {
+                    std::option::Option::Some("PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS")
+                }
+                Self::PscNegProducerForwardingRuleMultiplePorts => {
+                    std::option::Option::Some("PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS")
+                }
+                Self::CloudSqlPscNegUnsupported => {
+                    std::option::Option::Some("CLOUD_SQL_PSC_NEG_UNSUPPORTED")
+                }
+                Self::NoNatSubnetsForPscServiceAttachment => {
+                    std::option::Option::Some("NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT")
+                }
+                Self::PscTransitivityNotPropagated => {
+                    std::option::Option::Some("PSC_TRANSITIVITY_NOT_PROPAGATED")
+                }
+                Self::HybridNegNonDynamicRouteMatched => {
+                    std::option::Option::Some("HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED")
+                }
+                Self::HybridNegNonLocalDynamicRouteMatched => {
+                    std::option::Option::Some("HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED")
+                }
+                Self::CloudRunRevisionNotReady => {
+                    std::option::Option::Some("CLOUD_RUN_REVISION_NOT_READY")
+                }
+                Self::DroppedInsidePscServiceProducer => {
+                    std::option::Option::Some("DROPPED_INSIDE_PSC_SERVICE_PRODUCER")
+                }
+                Self::LoadBalancerHasNoProxySubnet => {
+                    std::option::Option::Some("LOAD_BALANCER_HAS_NO_PROXY_SUBNET")
+                }
+                Self::CloudNatNoAddresses => std::option::Option::Some("CLOUD_NAT_NO_ADDRESSES"),
+                Self::RoutingLoop => std::option::Option::Some("ROUTING_LOOP"),
+                Self::DroppedInsideGoogleManagedService => {
+                    std::option::Option::Some("DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE")
+                }
+                Self::LoadBalancerBackendInvalidNetwork => {
+                    std::option::Option::Some("LOAD_BALANCER_BACKEND_INVALID_NETWORK")
+                }
+                Self::BackendServiceNamedPortNotDefined => {
+                    std::option::Option::Some("BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED")
+                }
+                Self::DestinationIsPrivateNatIpRange => {
+                    std::option::Option::Some("DESTINATION_IS_PRIVATE_NAT_IP_RANGE")
+                }
+                Self::DroppedInsideRedisInstanceService => {
+                    std::option::Option::Some("DROPPED_INSIDE_REDIS_INSTANCE_SERVICE")
+                }
+                Self::RedisInstanceUnsupportedPort => {
+                    std::option::Option::Some("REDIS_INSTANCE_UNSUPPORTED_PORT")
+                }
+                Self::RedisInstanceConnectingFromPupiAddress => {
+                    std::option::Option::Some("REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS")
+                }
+                Self::RedisInstanceNoRouteToDestinationNetwork => {
+                    std::option::Option::Some("REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK")
+                }
+                Self::RedisInstanceNoExternalIp => {
+                    std::option::Option::Some("REDIS_INSTANCE_NO_EXTERNAL_IP")
+                }
+                Self::RedisInstanceUnsupportedProtocol => {
+                    std::option::Option::Some("REDIS_INSTANCE_UNSUPPORTED_PROTOCOL")
+                }
+                Self::DroppedInsideRedisClusterService => {
+                    std::option::Option::Some("DROPPED_INSIDE_REDIS_CLUSTER_SERVICE")
+                }
+                Self::RedisClusterUnsupportedPort => {
+                    std::option::Option::Some("REDIS_CLUSTER_UNSUPPORTED_PORT")
+                }
+                Self::RedisClusterNoExternalIp => {
+                    std::option::Option::Some("REDIS_CLUSTER_NO_EXTERNAL_IP")
+                }
+                Self::RedisClusterUnsupportedProtocol => {
+                    std::option::Option::Some("REDIS_CLUSTER_UNSUPPORTED_PROTOCOL")
+                }
+                Self::NoAdvertisedRouteToGcpDestination => {
+                    std::option::Option::Some("NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION")
+                }
+                Self::NoTrafficSelectorToGcpDestination => {
+                    std::option::Option::Some("NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION")
+                }
+                Self::NoKnownRouteFromPeeredNetworkToDestination => {
+                    std::option::Option::Some("NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION")
+                }
+                Self::PrivateNatToPscEndpointUnsupported => {
+                    std::option::Option::Some("PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED")
+                }
+                Self::PscPortMappingPortMismatch => {
+                    std::option::Option::Some("PSC_PORT_MAPPING_PORT_MISMATCH")
+                }
+                Self::PscPortMappingWithoutPscConnectionUnsupported => {
+                    std::option::Option::Some("PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED")
+                }
+                Self::UnsupportedRouteMatchedForNat64Destination => {
+                    std::option::Option::Some("UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CAUSE_UNSPECIFIED" => std::option::Option::Some(Self::CAUSE_UNSPECIFIED),
-                "UNKNOWN_EXTERNAL_ADDRESS" => {
-                    std::option::Option::Some(Self::UNKNOWN_EXTERNAL_ADDRESS)
-                }
-                "FOREIGN_IP_DISALLOWED" => std::option::Option::Some(Self::FOREIGN_IP_DISALLOWED),
-                "FIREWALL_RULE" => std::option::Option::Some(Self::FIREWALL_RULE),
-                "NO_ROUTE" => std::option::Option::Some(Self::NO_ROUTE),
-                "ROUTE_BLACKHOLE" => std::option::Option::Some(Self::ROUTE_BLACKHOLE),
-                "ROUTE_WRONG_NETWORK" => std::option::Option::Some(Self::ROUTE_WRONG_NETWORK),
-                "ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED)
-                }
-                "ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND)
-                }
-                "ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK)
-                }
-                "ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP)
-                }
-                "ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH)
-                }
-                "ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED)
-                }
-                "ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID" => {
-                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID)
-                }
-                "NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS" => {
-                    std::option::Option::Some(Self::NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS)
-                }
-                "VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH" => {
-                    std::option::Option::Some(Self::VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH)
-                }
-                "VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH" => {
-                    std::option::Option::Some(Self::VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH)
-                }
-                "PRIVATE_TRAFFIC_TO_INTERNET" => {
-                    std::option::Option::Some(Self::PRIVATE_TRAFFIC_TO_INTERNET)
-                }
-                "PRIVATE_GOOGLE_ACCESS_DISALLOWED" => {
-                    std::option::Option::Some(Self::PRIVATE_GOOGLE_ACCESS_DISALLOWED)
-                }
-                "PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED" => std::option::Option::Some(
-                    Self::PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED,
-                ),
-                "NO_EXTERNAL_ADDRESS" => std::option::Option::Some(Self::NO_EXTERNAL_ADDRESS),
-                "UNKNOWN_INTERNAL_ADDRESS" => {
-                    std::option::Option::Some(Self::UNKNOWN_INTERNAL_ADDRESS)
-                }
-                "FORWARDING_RULE_MISMATCH" => {
-                    std::option::Option::Some(Self::FORWARDING_RULE_MISMATCH)
-                }
-                "FORWARDING_RULE_NO_INSTANCES" => {
-                    std::option::Option::Some(Self::FORWARDING_RULE_NO_INSTANCES)
-                }
-                "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK" => {
-                    std::option::Option::Some(
-                        Self::FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK,
-                    )
-                }
-                "INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS" => {
-                    std::option::Option::Some(
-                        Self::INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS,
-                    )
-                }
-                "INSTANCE_NOT_RUNNING" => std::option::Option::Some(Self::INSTANCE_NOT_RUNNING),
-                "GKE_CLUSTER_NOT_RUNNING" => {
-                    std::option::Option::Some(Self::GKE_CLUSTER_NOT_RUNNING)
-                }
-                "CLOUD_SQL_INSTANCE_NOT_RUNNING" => {
-                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_NOT_RUNNING)
-                }
-                "REDIS_INSTANCE_NOT_RUNNING" => {
-                    std::option::Option::Some(Self::REDIS_INSTANCE_NOT_RUNNING)
-                }
-                "REDIS_CLUSTER_NOT_RUNNING" => {
-                    std::option::Option::Some(Self::REDIS_CLUSTER_NOT_RUNNING)
-                }
-                "TRAFFIC_TYPE_BLOCKED" => std::option::Option::Some(Self::TRAFFIC_TYPE_BLOCKED),
-                "GKE_MASTER_UNAUTHORIZED_ACCESS" => {
-                    std::option::Option::Some(Self::GKE_MASTER_UNAUTHORIZED_ACCESS)
-                }
-                "CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS" => {
-                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS)
-                }
-                "DROPPED_INSIDE_GKE_SERVICE" => {
-                    std::option::Option::Some(Self::DROPPED_INSIDE_GKE_SERVICE)
-                }
-                "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => {
-                    std::option::Option::Some(Self::DROPPED_INSIDE_CLOUD_SQL_SERVICE)
-                }
-                "GOOGLE_MANAGED_SERVICE_NO_PEERING" => {
-                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_NO_PEERING)
-                }
-                "GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT" => {
-                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT)
-                }
-                "GKE_PSC_ENDPOINT_MISSING" => {
-                    std::option::Option::Some(Self::GKE_PSC_ENDPOINT_MISSING)
-                }
-                "CLOUD_SQL_INSTANCE_NO_IP_ADDRESS" => {
-                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_NO_IP_ADDRESS)
-                }
-                "GKE_CONTROL_PLANE_REGION_MISMATCH" => {
-                    std::option::Option::Some(Self::GKE_CONTROL_PLANE_REGION_MISMATCH)
-                }
-                "PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION" => {
-                    std::option::Option::Some(Self::PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION)
-                }
-                "GKE_CONTROL_PLANE_NO_ROUTE" => {
-                    std::option::Option::Some(Self::GKE_CONTROL_PLANE_NO_ROUTE)
-                }
-                "CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC" => {
-                    std::option::Option::Some(
-                        Self::CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC,
-                    )
-                }
-                "PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION" => std::option::Option::Some(
-                    Self::PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION,
-                ),
-                "CLOUD_SQL_INSTANCE_NO_ROUTE" => {
-                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_NO_ROUTE)
-                }
-                "CLOUD_SQL_CONNECTOR_REQUIRED" => {
-                    std::option::Option::Some(Self::CLOUD_SQL_CONNECTOR_REQUIRED)
-                }
-                "CLOUD_FUNCTION_NOT_ACTIVE" => {
-                    std::option::Option::Some(Self::CLOUD_FUNCTION_NOT_ACTIVE)
-                }
-                "VPC_CONNECTOR_NOT_SET" => std::option::Option::Some(Self::VPC_CONNECTOR_NOT_SET),
-                "VPC_CONNECTOR_NOT_RUNNING" => {
-                    std::option::Option::Some(Self::VPC_CONNECTOR_NOT_RUNNING)
-                }
-                "VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED" => {
-                    std::option::Option::Some(Self::VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED)
-                }
-                "VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED" => {
-                    std::option::Option::Some(Self::VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED)
-                }
-                "FORWARDING_RULE_REGION_MISMATCH" => {
-                    std::option::Option::Some(Self::FORWARDING_RULE_REGION_MISMATCH)
-                }
-                "PSC_CONNECTION_NOT_ACCEPTED" => {
-                    std::option::Option::Some(Self::PSC_CONNECTION_NOT_ACCEPTED)
-                }
-                "PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK" => {
-                    std::option::Option::Some(Self::PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK)
-                }
-                "PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS" => {
-                    std::option::Option::Some(Self::PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS)
-                }
-                "PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS" => {
-                    std::option::Option::Some(Self::PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS)
-                }
-                "CLOUD_SQL_PSC_NEG_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::CLOUD_SQL_PSC_NEG_UNSUPPORTED)
-                }
-                "NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT" => {
-                    std::option::Option::Some(Self::NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT)
-                }
-                "PSC_TRANSITIVITY_NOT_PROPAGATED" => {
-                    std::option::Option::Some(Self::PSC_TRANSITIVITY_NOT_PROPAGATED)
-                }
-                "HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED" => {
-                    std::option::Option::Some(Self::HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED)
-                }
-                "HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED" => {
-                    std::option::Option::Some(Self::HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED)
-                }
-                "CLOUD_RUN_REVISION_NOT_READY" => {
-                    std::option::Option::Some(Self::CLOUD_RUN_REVISION_NOT_READY)
-                }
-                "DROPPED_INSIDE_PSC_SERVICE_PRODUCER" => {
-                    std::option::Option::Some(Self::DROPPED_INSIDE_PSC_SERVICE_PRODUCER)
-                }
-                "LOAD_BALANCER_HAS_NO_PROXY_SUBNET" => {
-                    std::option::Option::Some(Self::LOAD_BALANCER_HAS_NO_PROXY_SUBNET)
-                }
-                "CLOUD_NAT_NO_ADDRESSES" => std::option::Option::Some(Self::CLOUD_NAT_NO_ADDRESSES),
-                "ROUTING_LOOP" => std::option::Option::Some(Self::ROUTING_LOOP),
-                "DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE" => {
-                    std::option::Option::Some(Self::DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE)
-                }
-                "LOAD_BALANCER_BACKEND_INVALID_NETWORK" => {
-                    std::option::Option::Some(Self::LOAD_BALANCER_BACKEND_INVALID_NETWORK)
-                }
-                "BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED" => {
-                    std::option::Option::Some(Self::BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED)
-                }
-                "DESTINATION_IS_PRIVATE_NAT_IP_RANGE" => {
-                    std::option::Option::Some(Self::DESTINATION_IS_PRIVATE_NAT_IP_RANGE)
-                }
-                "DROPPED_INSIDE_REDIS_INSTANCE_SERVICE" => {
-                    std::option::Option::Some(Self::DROPPED_INSIDE_REDIS_INSTANCE_SERVICE)
-                }
-                "REDIS_INSTANCE_UNSUPPORTED_PORT" => {
-                    std::option::Option::Some(Self::REDIS_INSTANCE_UNSUPPORTED_PORT)
-                }
-                "REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS" => {
-                    std::option::Option::Some(Self::REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS)
-                }
-                "REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK" => {
-                    std::option::Option::Some(Self::REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK)
-                }
-                "REDIS_INSTANCE_NO_EXTERNAL_IP" => {
-                    std::option::Option::Some(Self::REDIS_INSTANCE_NO_EXTERNAL_IP)
-                }
-                "REDIS_INSTANCE_UNSUPPORTED_PROTOCOL" => {
-                    std::option::Option::Some(Self::REDIS_INSTANCE_UNSUPPORTED_PROTOCOL)
-                }
-                "DROPPED_INSIDE_REDIS_CLUSTER_SERVICE" => {
-                    std::option::Option::Some(Self::DROPPED_INSIDE_REDIS_CLUSTER_SERVICE)
-                }
-                "REDIS_CLUSTER_UNSUPPORTED_PORT" => {
-                    std::option::Option::Some(Self::REDIS_CLUSTER_UNSUPPORTED_PORT)
-                }
-                "REDIS_CLUSTER_NO_EXTERNAL_IP" => {
-                    std::option::Option::Some(Self::REDIS_CLUSTER_NO_EXTERNAL_IP)
-                }
-                "REDIS_CLUSTER_UNSUPPORTED_PROTOCOL" => {
-                    std::option::Option::Some(Self::REDIS_CLUSTER_UNSUPPORTED_PROTOCOL)
-                }
-                "NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION" => {
-                    std::option::Option::Some(Self::NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION)
-                }
-                "NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION" => {
-                    std::option::Option::Some(Self::NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION)
-                }
-                "NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION" => std::option::Option::Some(
-                    Self::NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION,
-                ),
-                "PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED)
-                }
-                "PSC_PORT_MAPPING_PORT_MISMATCH" => {
-                    std::option::Option::Some(Self::PSC_PORT_MAPPING_PORT_MISMATCH)
-                }
-                "PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED" => std::option::Option::Some(
-                    Self::PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED,
-                ),
-                "UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION" => {
-                    std::option::Option::Some(Self::UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Cause {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Cause {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Cause {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Cause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::UnknownExternalAddress,
+                2 => Self::ForeignIpDisallowed,
+                3 => Self::FirewallRule,
+                4 => Self::NoRoute,
+                5 => Self::RouteBlackhole,
+                6 => Self::RouteWrongNetwork,
+                7 => Self::PrivateTrafficToInternet,
+                8 => Self::PrivateGoogleAccessDisallowed,
+                9 => Self::NoExternalAddress,
+                10 => Self::UnknownInternalAddress,
+                11 => Self::ForwardingRuleMismatch,
+                12 => Self::ForwardingRuleNoInstances,
+                13 => Self::FirewallBlockingLoadBalancerBackendHealthCheck,
+                14 => Self::InstanceNotRunning,
+                15 => Self::TrafficTypeBlocked,
+                16 => Self::GkeMasterUnauthorizedAccess,
+                17 => Self::CloudSqlInstanceUnauthorizedAccess,
+                18 => Self::DroppedInsideGkeService,
+                19 => Self::DroppedInsideCloudSqlService,
+                20 => Self::GoogleManagedServiceNoPeering,
+                21 => Self::CloudSqlInstanceNoIpAddress,
+                22 => Self::CloudFunctionNotActive,
+                23 => Self::VpcConnectorNotSet,
+                24 => Self::VpcConnectorNotRunning,
+                25 => Self::ForwardingRuleRegionMismatch,
+                26 => Self::PscConnectionNotAccepted,
+                27 => Self::GkeClusterNotRunning,
+                28 => Self::CloudSqlInstanceNotRunning,
+                29 => Self::CloudRunRevisionNotReady,
+                30 => Self::GkeControlPlaneRegionMismatch,
+                31 => Self::PublicGkeControlPlaneToPrivateDestination,
+                32 => Self::GkeControlPlaneNoRoute,
+                33 => Self::CloudSqlInstanceNotConfiguredForExternalTraffic,
+                34 => Self::PublicCloudSqlInstanceToPrivateDestination,
+                35 => Self::CloudSqlInstanceNoRoute,
+                36 => Self::GkePscEndpointMissing,
+                37 => Self::DroppedInsidePscServiceProducer,
+                38 => Self::GoogleManagedServiceNoPscEndpoint,
+                39 => Self::LoadBalancerHasNoProxySubnet,
+                40 => Self::CloudNatNoAddresses,
+                41 => Self::PscEndpointAccessedFromPeeredNetwork,
+                42 => Self::RouteNextHopIpAddressNotResolved,
+                43 => Self::RouteNextHopResourceNotFound,
+                44 => Self::NoRouteFromInternetToPrivateIpv6Address,
+                45 => Self::VpnTunnelLocalSelectorMismatch,
+                46 => Self::VpnTunnelRemoteSelectorMismatch,
+                47 => Self::PrivateGoogleAccessViaVpnTunnelUnsupported,
+                48 => Self::PscNegProducerEndpointNoGlobalAccess,
+                49 => Self::RouteNextHopInstanceWrongNetwork,
+                50 => Self::RouteNextHopInstanceNonPrimaryIp,
+                51 => Self::RouteNextHopForwardingRuleIpMismatch,
+                52 => Self::RouteNextHopVpnTunnelNotEstablished,
+                53 => Self::RouteNextHopForwardingRuleTypeInvalid,
+                54 => Self::PscNegProducerForwardingRuleMultiplePorts,
+                55 => Self::HybridNegNonDynamicRouteMatched,
+                56 => Self::HybridNegNonLocalDynamicRouteMatched,
+                57 => Self::NoNatSubnetsForPscServiceAttachment,
+                58 => Self::CloudSqlPscNegUnsupported,
+                59 => Self::RoutingLoop,
+                60 => Self::VpcConnectorServerlessTrafficBlocked,
+                61 => Self::VpcConnectorHealthCheckTrafficBlocked,
+                62 => Self::DroppedInsideGoogleManagedService,
+                63 => Self::CloudSqlConnectorRequired,
+                64 => Self::PscTransitivityNotPropagated,
+                65 => Self::LoadBalancerBackendInvalidNetwork,
+                66 => Self::BackendServiceNamedPortNotDefined,
+                67 => Self::DestinationIsPrivateNatIpRange,
+                68 => Self::RedisInstanceNotRunning,
+                69 => Self::RedisClusterNotRunning,
+                70 => Self::DroppedInsideRedisInstanceService,
+                71 => Self::RedisInstanceUnsupportedPort,
+                72 => Self::RedisInstanceConnectingFromPupiAddress,
+                73 => Self::RedisInstanceNoRouteToDestinationNetwork,
+                74 => Self::RedisInstanceNoExternalIp,
+                75 => Self::DroppedInsideRedisClusterService,
+                76 => Self::RedisClusterUnsupportedPort,
+                77 => Self::RedisClusterNoExternalIp,
+                78 => Self::RedisInstanceUnsupportedProtocol,
+                79 => Self::RedisClusterUnsupportedProtocol,
+                80 => Self::NoAdvertisedRouteToGcpDestination,
+                81 => Self::NoTrafficSelectorToGcpDestination,
+                82 => Self::NoKnownRouteFromPeeredNetworkToDestination,
+                83 => Self::PrivateNatToPscEndpointUnsupported,
+                85 => Self::IngressFirewallTagsUnsupportedByDirectVpcEgress,
+                86 => Self::PscPortMappingPortMismatch,
+                87 => Self::PscPortMappingWithoutPscConnectionUnsupported,
+                88 => Self::UnsupportedRouteMatchedForNat64Destination,
+                _ => Self::UnknownValue(cause::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Cause {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CAUSE_UNSPECIFIED" => Self::Unspecified,
+                "UNKNOWN_EXTERNAL_ADDRESS" => Self::UnknownExternalAddress,
+                "FOREIGN_IP_DISALLOWED" => Self::ForeignIpDisallowed,
+                "FIREWALL_RULE" => Self::FirewallRule,
+                "NO_ROUTE" => Self::NoRoute,
+                "ROUTE_BLACKHOLE" => Self::RouteBlackhole,
+                "ROUTE_WRONG_NETWORK" => Self::RouteWrongNetwork,
+                "ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED" => Self::RouteNextHopIpAddressNotResolved,
+                "ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND" => Self::RouteNextHopResourceNotFound,
+                "ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK" => Self::RouteNextHopInstanceWrongNetwork,
+                "ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP" => Self::RouteNextHopInstanceNonPrimaryIp,
+                "ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH" => {
+                    Self::RouteNextHopForwardingRuleIpMismatch
+                }
+                "ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED" => {
+                    Self::RouteNextHopVpnTunnelNotEstablished
+                }
+                "ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID" => {
+                    Self::RouteNextHopForwardingRuleTypeInvalid
+                }
+                "NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS" => {
+                    Self::NoRouteFromInternetToPrivateIpv6Address
+                }
+                "VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH" => Self::VpnTunnelLocalSelectorMismatch,
+                "VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH" => Self::VpnTunnelRemoteSelectorMismatch,
+                "PRIVATE_TRAFFIC_TO_INTERNET" => Self::PrivateTrafficToInternet,
+                "PRIVATE_GOOGLE_ACCESS_DISALLOWED" => Self::PrivateGoogleAccessDisallowed,
+                "PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED" => {
+                    Self::PrivateGoogleAccessViaVpnTunnelUnsupported
+                }
+                "NO_EXTERNAL_ADDRESS" => Self::NoExternalAddress,
+                "UNKNOWN_INTERNAL_ADDRESS" => Self::UnknownInternalAddress,
+                "FORWARDING_RULE_MISMATCH" => Self::ForwardingRuleMismatch,
+                "FORWARDING_RULE_NO_INSTANCES" => Self::ForwardingRuleNoInstances,
+                "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK" => {
+                    Self::FirewallBlockingLoadBalancerBackendHealthCheck
+                }
+                "INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS" => {
+                    Self::IngressFirewallTagsUnsupportedByDirectVpcEgress
+                }
+                "INSTANCE_NOT_RUNNING" => Self::InstanceNotRunning,
+                "GKE_CLUSTER_NOT_RUNNING" => Self::GkeClusterNotRunning,
+                "CLOUD_SQL_INSTANCE_NOT_RUNNING" => Self::CloudSqlInstanceNotRunning,
+                "REDIS_INSTANCE_NOT_RUNNING" => Self::RedisInstanceNotRunning,
+                "REDIS_CLUSTER_NOT_RUNNING" => Self::RedisClusterNotRunning,
+                "TRAFFIC_TYPE_BLOCKED" => Self::TrafficTypeBlocked,
+                "GKE_MASTER_UNAUTHORIZED_ACCESS" => Self::GkeMasterUnauthorizedAccess,
+                "CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS" => {
+                    Self::CloudSqlInstanceUnauthorizedAccess
+                }
+                "DROPPED_INSIDE_GKE_SERVICE" => Self::DroppedInsideGkeService,
+                "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => Self::DroppedInsideCloudSqlService,
+                "GOOGLE_MANAGED_SERVICE_NO_PEERING" => Self::GoogleManagedServiceNoPeering,
+                "GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT" => Self::GoogleManagedServiceNoPscEndpoint,
+                "GKE_PSC_ENDPOINT_MISSING" => Self::GkePscEndpointMissing,
+                "CLOUD_SQL_INSTANCE_NO_IP_ADDRESS" => Self::CloudSqlInstanceNoIpAddress,
+                "GKE_CONTROL_PLANE_REGION_MISMATCH" => Self::GkeControlPlaneRegionMismatch,
+                "PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION" => {
+                    Self::PublicGkeControlPlaneToPrivateDestination
+                }
+                "GKE_CONTROL_PLANE_NO_ROUTE" => Self::GkeControlPlaneNoRoute,
+                "CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC" => {
+                    Self::CloudSqlInstanceNotConfiguredForExternalTraffic
+                }
+                "PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION" => {
+                    Self::PublicCloudSqlInstanceToPrivateDestination
+                }
+                "CLOUD_SQL_INSTANCE_NO_ROUTE" => Self::CloudSqlInstanceNoRoute,
+                "CLOUD_SQL_CONNECTOR_REQUIRED" => Self::CloudSqlConnectorRequired,
+                "CLOUD_FUNCTION_NOT_ACTIVE" => Self::CloudFunctionNotActive,
+                "VPC_CONNECTOR_NOT_SET" => Self::VpcConnectorNotSet,
+                "VPC_CONNECTOR_NOT_RUNNING" => Self::VpcConnectorNotRunning,
+                "VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED" => {
+                    Self::VpcConnectorServerlessTrafficBlocked
+                }
+                "VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED" => {
+                    Self::VpcConnectorHealthCheckTrafficBlocked
+                }
+                "FORWARDING_RULE_REGION_MISMATCH" => Self::ForwardingRuleRegionMismatch,
+                "PSC_CONNECTION_NOT_ACCEPTED" => Self::PscConnectionNotAccepted,
+                "PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK" => {
+                    Self::PscEndpointAccessedFromPeeredNetwork
+                }
+                "PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS" => {
+                    Self::PscNegProducerEndpointNoGlobalAccess
+                }
+                "PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS" => {
+                    Self::PscNegProducerForwardingRuleMultiplePorts
+                }
+                "CLOUD_SQL_PSC_NEG_UNSUPPORTED" => Self::CloudSqlPscNegUnsupported,
+                "NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT" => {
+                    Self::NoNatSubnetsForPscServiceAttachment
+                }
+                "PSC_TRANSITIVITY_NOT_PROPAGATED" => Self::PscTransitivityNotPropagated,
+                "HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED" => Self::HybridNegNonDynamicRouteMatched,
+                "HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED" => {
+                    Self::HybridNegNonLocalDynamicRouteMatched
+                }
+                "CLOUD_RUN_REVISION_NOT_READY" => Self::CloudRunRevisionNotReady,
+                "DROPPED_INSIDE_PSC_SERVICE_PRODUCER" => Self::DroppedInsidePscServiceProducer,
+                "LOAD_BALANCER_HAS_NO_PROXY_SUBNET" => Self::LoadBalancerHasNoProxySubnet,
+                "CLOUD_NAT_NO_ADDRESSES" => Self::CloudNatNoAddresses,
+                "ROUTING_LOOP" => Self::RoutingLoop,
+                "DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE" => Self::DroppedInsideGoogleManagedService,
+                "LOAD_BALANCER_BACKEND_INVALID_NETWORK" => Self::LoadBalancerBackendInvalidNetwork,
+                "BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED" => Self::BackendServiceNamedPortNotDefined,
+                "DESTINATION_IS_PRIVATE_NAT_IP_RANGE" => Self::DestinationIsPrivateNatIpRange,
+                "DROPPED_INSIDE_REDIS_INSTANCE_SERVICE" => Self::DroppedInsideRedisInstanceService,
+                "REDIS_INSTANCE_UNSUPPORTED_PORT" => Self::RedisInstanceUnsupportedPort,
+                "REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS" => {
+                    Self::RedisInstanceConnectingFromPupiAddress
+                }
+                "REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK" => {
+                    Self::RedisInstanceNoRouteToDestinationNetwork
+                }
+                "REDIS_INSTANCE_NO_EXTERNAL_IP" => Self::RedisInstanceNoExternalIp,
+                "REDIS_INSTANCE_UNSUPPORTED_PROTOCOL" => Self::RedisInstanceUnsupportedProtocol,
+                "DROPPED_INSIDE_REDIS_CLUSTER_SERVICE" => Self::DroppedInsideRedisClusterService,
+                "REDIS_CLUSTER_UNSUPPORTED_PORT" => Self::RedisClusterUnsupportedPort,
+                "REDIS_CLUSTER_NO_EXTERNAL_IP" => Self::RedisClusterNoExternalIp,
+                "REDIS_CLUSTER_UNSUPPORTED_PROTOCOL" => Self::RedisClusterUnsupportedProtocol,
+                "NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION" => Self::NoAdvertisedRouteToGcpDestination,
+                "NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION" => Self::NoTrafficSelectorToGcpDestination,
+                "NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION" => {
+                    Self::NoKnownRouteFromPeeredNetworkToDestination
+                }
+                "PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED" => {
+                    Self::PrivateNatToPscEndpointUnsupported
+                }
+                "PSC_PORT_MAPPING_PORT_MISMATCH" => Self::PscPortMappingPortMismatch,
+                "PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED" => {
+                    Self::PscPortMappingWithoutPscConnectionUnsupported
+                }
+                "UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION" => {
+                    Self::UnsupportedRouteMatchedForNat64Destination
+                }
+                _ => Self::UnknownValue(cause::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Cause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::UnknownExternalAddress => serializer.serialize_i32(1),
+                Self::ForeignIpDisallowed => serializer.serialize_i32(2),
+                Self::FirewallRule => serializer.serialize_i32(3),
+                Self::NoRoute => serializer.serialize_i32(4),
+                Self::RouteBlackhole => serializer.serialize_i32(5),
+                Self::RouteWrongNetwork => serializer.serialize_i32(6),
+                Self::RouteNextHopIpAddressNotResolved => serializer.serialize_i32(42),
+                Self::RouteNextHopResourceNotFound => serializer.serialize_i32(43),
+                Self::RouteNextHopInstanceWrongNetwork => serializer.serialize_i32(49),
+                Self::RouteNextHopInstanceNonPrimaryIp => serializer.serialize_i32(50),
+                Self::RouteNextHopForwardingRuleIpMismatch => serializer.serialize_i32(51),
+                Self::RouteNextHopVpnTunnelNotEstablished => serializer.serialize_i32(52),
+                Self::RouteNextHopForwardingRuleTypeInvalid => serializer.serialize_i32(53),
+                Self::NoRouteFromInternetToPrivateIpv6Address => serializer.serialize_i32(44),
+                Self::VpnTunnelLocalSelectorMismatch => serializer.serialize_i32(45),
+                Self::VpnTunnelRemoteSelectorMismatch => serializer.serialize_i32(46),
+                Self::PrivateTrafficToInternet => serializer.serialize_i32(7),
+                Self::PrivateGoogleAccessDisallowed => serializer.serialize_i32(8),
+                Self::PrivateGoogleAccessViaVpnTunnelUnsupported => serializer.serialize_i32(47),
+                Self::NoExternalAddress => serializer.serialize_i32(9),
+                Self::UnknownInternalAddress => serializer.serialize_i32(10),
+                Self::ForwardingRuleMismatch => serializer.serialize_i32(11),
+                Self::ForwardingRuleNoInstances => serializer.serialize_i32(12),
+                Self::FirewallBlockingLoadBalancerBackendHealthCheck => {
+                    serializer.serialize_i32(13)
+                }
+                Self::IngressFirewallTagsUnsupportedByDirectVpcEgress => {
+                    serializer.serialize_i32(85)
+                }
+                Self::InstanceNotRunning => serializer.serialize_i32(14),
+                Self::GkeClusterNotRunning => serializer.serialize_i32(27),
+                Self::CloudSqlInstanceNotRunning => serializer.serialize_i32(28),
+                Self::RedisInstanceNotRunning => serializer.serialize_i32(68),
+                Self::RedisClusterNotRunning => serializer.serialize_i32(69),
+                Self::TrafficTypeBlocked => serializer.serialize_i32(15),
+                Self::GkeMasterUnauthorizedAccess => serializer.serialize_i32(16),
+                Self::CloudSqlInstanceUnauthorizedAccess => serializer.serialize_i32(17),
+                Self::DroppedInsideGkeService => serializer.serialize_i32(18),
+                Self::DroppedInsideCloudSqlService => serializer.serialize_i32(19),
+                Self::GoogleManagedServiceNoPeering => serializer.serialize_i32(20),
+                Self::GoogleManagedServiceNoPscEndpoint => serializer.serialize_i32(38),
+                Self::GkePscEndpointMissing => serializer.serialize_i32(36),
+                Self::CloudSqlInstanceNoIpAddress => serializer.serialize_i32(21),
+                Self::GkeControlPlaneRegionMismatch => serializer.serialize_i32(30),
+                Self::PublicGkeControlPlaneToPrivateDestination => serializer.serialize_i32(31),
+                Self::GkeControlPlaneNoRoute => serializer.serialize_i32(32),
+                Self::CloudSqlInstanceNotConfiguredForExternalTraffic => {
+                    serializer.serialize_i32(33)
+                }
+                Self::PublicCloudSqlInstanceToPrivateDestination => serializer.serialize_i32(34),
+                Self::CloudSqlInstanceNoRoute => serializer.serialize_i32(35),
+                Self::CloudSqlConnectorRequired => serializer.serialize_i32(63),
+                Self::CloudFunctionNotActive => serializer.serialize_i32(22),
+                Self::VpcConnectorNotSet => serializer.serialize_i32(23),
+                Self::VpcConnectorNotRunning => serializer.serialize_i32(24),
+                Self::VpcConnectorServerlessTrafficBlocked => serializer.serialize_i32(60),
+                Self::VpcConnectorHealthCheckTrafficBlocked => serializer.serialize_i32(61),
+                Self::ForwardingRuleRegionMismatch => serializer.serialize_i32(25),
+                Self::PscConnectionNotAccepted => serializer.serialize_i32(26),
+                Self::PscEndpointAccessedFromPeeredNetwork => serializer.serialize_i32(41),
+                Self::PscNegProducerEndpointNoGlobalAccess => serializer.serialize_i32(48),
+                Self::PscNegProducerForwardingRuleMultiplePorts => serializer.serialize_i32(54),
+                Self::CloudSqlPscNegUnsupported => serializer.serialize_i32(58),
+                Self::NoNatSubnetsForPscServiceAttachment => serializer.serialize_i32(57),
+                Self::PscTransitivityNotPropagated => serializer.serialize_i32(64),
+                Self::HybridNegNonDynamicRouteMatched => serializer.serialize_i32(55),
+                Self::HybridNegNonLocalDynamicRouteMatched => serializer.serialize_i32(56),
+                Self::CloudRunRevisionNotReady => serializer.serialize_i32(29),
+                Self::DroppedInsidePscServiceProducer => serializer.serialize_i32(37),
+                Self::LoadBalancerHasNoProxySubnet => serializer.serialize_i32(39),
+                Self::CloudNatNoAddresses => serializer.serialize_i32(40),
+                Self::RoutingLoop => serializer.serialize_i32(59),
+                Self::DroppedInsideGoogleManagedService => serializer.serialize_i32(62),
+                Self::LoadBalancerBackendInvalidNetwork => serializer.serialize_i32(65),
+                Self::BackendServiceNamedPortNotDefined => serializer.serialize_i32(66),
+                Self::DestinationIsPrivateNatIpRange => serializer.serialize_i32(67),
+                Self::DroppedInsideRedisInstanceService => serializer.serialize_i32(70),
+                Self::RedisInstanceUnsupportedPort => serializer.serialize_i32(71),
+                Self::RedisInstanceConnectingFromPupiAddress => serializer.serialize_i32(72),
+                Self::RedisInstanceNoRouteToDestinationNetwork => serializer.serialize_i32(73),
+                Self::RedisInstanceNoExternalIp => serializer.serialize_i32(74),
+                Self::RedisInstanceUnsupportedProtocol => serializer.serialize_i32(78),
+                Self::DroppedInsideRedisClusterService => serializer.serialize_i32(75),
+                Self::RedisClusterUnsupportedPort => serializer.serialize_i32(76),
+                Self::RedisClusterNoExternalIp => serializer.serialize_i32(77),
+                Self::RedisClusterUnsupportedProtocol => serializer.serialize_i32(79),
+                Self::NoAdvertisedRouteToGcpDestination => serializer.serialize_i32(80),
+                Self::NoTrafficSelectorToGcpDestination => serializer.serialize_i32(81),
+                Self::NoKnownRouteFromPeeredNetworkToDestination => serializer.serialize_i32(82),
+                Self::PrivateNatToPscEndpointUnsupported => serializer.serialize_i32(83),
+                Self::PscPortMappingPortMismatch => serializer.serialize_i32(86),
+                Self::PscPortMappingWithoutPscConnectionUnsupported => serializer.serialize_i32(87),
+                Self::UnsupportedRouteMatchedForNat64Destination => serializer.serialize_i32(88),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Cause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Cause>::new(
+                ".google.cloud.networkmanagement.v1.DropInfo.Cause",
+            ))
         }
     }
 }
@@ -7785,71 +9684,148 @@ pub mod nat_info {
     use super::*;
 
     /// Types of NAT.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Type is unspecified.
+        Unspecified,
+        /// From Compute Engine instance's internal address to external address.
+        InternalToExternal,
+        /// From Compute Engine instance's external address to internal address.
+        ExternalToInternal,
+        /// Cloud NAT Gateway.
+        CloudNat,
+        /// Private service connect NAT.
+        PrivateServiceConnect,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Type {
-        /// Type is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-        /// From Compute Engine instance's internal address to external address.
-        pub const INTERNAL_TO_EXTERNAL: Type = Type::new(1);
-
-        /// From Compute Engine instance's external address to internal address.
-        pub const EXTERNAL_TO_INTERNAL: Type = Type::new(2);
-
-        /// Cloud NAT Gateway.
-        pub const CLOUD_NAT: Type = Type::new(3);
-
-        /// Private service connect NAT.
-        pub const PRIVATE_SERVICE_CONNECT: Type = Type::new(4);
-
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InternalToExternal => std::option::Option::Some(1),
+                Self::ExternalToInternal => std::option::Option::Some(2),
+                Self::CloudNat => std::option::Option::Some(3),
+                Self::PrivateServiceConnect => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INTERNAL_TO_EXTERNAL"),
-                2 => std::borrow::Cow::Borrowed("EXTERNAL_TO_INTERNAL"),
-                3 => std::borrow::Cow::Borrowed("CLOUD_NAT"),
-                4 => std::borrow::Cow::Borrowed("PRIVATE_SERVICE_CONNECT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::InternalToExternal => std::option::Option::Some("INTERNAL_TO_EXTERNAL"),
+                Self::ExternalToInternal => std::option::Option::Some("EXTERNAL_TO_INTERNAL"),
+                Self::CloudNat => std::option::Option::Some("CLOUD_NAT"),
+                Self::PrivateServiceConnect => std::option::Option::Some("PRIVATE_SERVICE_CONNECT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "INTERNAL_TO_EXTERNAL" => std::option::Option::Some(Self::INTERNAL_TO_EXTERNAL),
-                "EXTERNAL_TO_INTERNAL" => std::option::Option::Some(Self::EXTERNAL_TO_INTERNAL),
-                "CLOUD_NAT" => std::option::Option::Some(Self::CLOUD_NAT),
-                "PRIVATE_SERVICE_CONNECT" => {
-                    std::option::Option::Some(Self::PRIVATE_SERVICE_CONNECT)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InternalToExternal,
+                2 => Self::ExternalToInternal,
+                3 => Self::CloudNat,
+                4 => Self::PrivateServiceConnect,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL_TO_EXTERNAL" => Self::InternalToExternal,
+                "EXTERNAL_TO_INTERNAL" => Self::ExternalToInternal,
+                "CLOUD_NAT" => Self::CloudNat,
+                "PRIVATE_SERVICE_CONNECT" => Self::PrivateServiceConnect,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InternalToExternal => serializer.serialize_i32(1),
+                Self::ExternalToInternal => serializer.serialize_i32(2),
+                Self::CloudNat => serializer.serialize_i32(3),
+                Self::PrivateServiceConnect => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.networkmanagement.v1.NatInfo.Type",
+            ))
         }
     }
 }
@@ -8160,88 +10136,161 @@ pub mod load_balancer_backend_info {
     use super::*;
 
     /// Health check firewalls configuration state enum.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HealthCheckFirewallsConfigState(i32);
-
-    impl HealthCheckFirewallsConfigState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HealthCheckFirewallsConfigState {
         /// Configuration state unspecified. It usually means that the backend has
         /// no health check attached, or there was an unexpected configuration error
         /// preventing Connectivity tests from verifying health check configuration.
-        pub const HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new(0);
-
+        Unspecified,
         /// Firewall rules (policies) allowing health check traffic from all required
         /// IP ranges to the backend are configured.
-        pub const FIREWALLS_CONFIGURED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new(1);
-
+        FirewallsConfigured,
         /// Firewall rules (policies) allow health check traffic only from a part of
         /// required IP ranges.
-        pub const FIREWALLS_PARTIALLY_CONFIGURED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new(2);
-
+        FirewallsPartiallyConfigured,
         /// Firewall rules (policies) deny health check traffic from all required
         /// IP ranges to the backend.
-        pub const FIREWALLS_NOT_CONFIGURED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new(3);
-
+        FirewallsNotConfigured,
         /// The network contains firewall rules of unsupported types, so Connectivity
         /// tests were not able to verify health check configuration status. Please
         /// refer to the documentation for the list of unsupported configurations:
         /// <https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview#unsupported-configs>
-        pub const FIREWALLS_UNSUPPORTED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new(4);
+        FirewallsUnsupported,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HealthCheckFirewallsConfigState::value] or
+        /// [HealthCheckFirewallsConfigState::name].
+        UnknownValue(health_check_firewalls_config_state::UnknownValue),
+    }
 
-        /// Creates a new HealthCheckFirewallsConfigState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod health_check_firewalls_config_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl HealthCheckFirewallsConfigState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::FirewallsConfigured => std::option::Option::Some(1),
+                Self::FirewallsPartiallyConfigured => std::option::Option::Some(2),
+                Self::FirewallsNotConfigured => std::option::Option::Some(3),
+                Self::FirewallsUnsupported => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("FIREWALLS_CONFIGURED"),
-                2 => std::borrow::Cow::Borrowed("FIREWALLS_PARTIALLY_CONFIGURED"),
-                3 => std::borrow::Cow::Borrowed("FIREWALLS_NOT_CONFIGURED"),
-                4 => std::borrow::Cow::Borrowed("FIREWALLS_UNSUPPORTED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED")
+                }
+                Self::FirewallsConfigured => std::option::Option::Some("FIREWALLS_CONFIGURED"),
+                Self::FirewallsPartiallyConfigured => {
+                    std::option::Option::Some("FIREWALLS_PARTIALLY_CONFIGURED")
+                }
+                Self::FirewallsNotConfigured => {
+                    std::option::Option::Some("FIREWALLS_NOT_CONFIGURED")
+                }
+                Self::FirewallsUnsupported => std::option::Option::Some("FIREWALLS_UNSUPPORTED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED)
-                }
-                "FIREWALLS_CONFIGURED" => std::option::Option::Some(Self::FIREWALLS_CONFIGURED),
-                "FIREWALLS_PARTIALLY_CONFIGURED" => {
-                    std::option::Option::Some(Self::FIREWALLS_PARTIALLY_CONFIGURED)
-                }
-                "FIREWALLS_NOT_CONFIGURED" => {
-                    std::option::Option::Some(Self::FIREWALLS_NOT_CONFIGURED)
-                }
-                "FIREWALLS_UNSUPPORTED" => std::option::Option::Some(Self::FIREWALLS_UNSUPPORTED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for HealthCheckFirewallsConfigState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for HealthCheckFirewallsConfigState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HealthCheckFirewallsConfigState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HealthCheckFirewallsConfigState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::FirewallsConfigured,
+                2 => Self::FirewallsPartiallyConfigured,
+                3 => Self::FirewallsNotConfigured,
+                4 => Self::FirewallsUnsupported,
+                _ => Self::UnknownValue(health_check_firewalls_config_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HealthCheckFirewallsConfigState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED" => Self::Unspecified,
+                "FIREWALLS_CONFIGURED" => Self::FirewallsConfigured,
+                "FIREWALLS_PARTIALLY_CONFIGURED" => Self::FirewallsPartiallyConfigured,
+                "FIREWALLS_NOT_CONFIGURED" => Self::FirewallsNotConfigured,
+                "FIREWALLS_UNSUPPORTED" => Self::FirewallsUnsupported,
+                _ => Self::UnknownValue(health_check_firewalls_config_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HealthCheckFirewallsConfigState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::FirewallsConfigured => serializer.serialize_i32(1),
+                Self::FirewallsPartiallyConfigured => serializer.serialize_i32(2),
+                Self::FirewallsNotConfigured => serializer.serialize_i32(3),
+                Self::FirewallsUnsupported => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HealthCheckFirewallsConfigState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HealthCheckFirewallsConfigState>::new(
+                ".google.cloud.networkmanagement.v1.LoadBalancerBackendInfo.HealthCheckFirewallsConfigState"))
         }
     }
 }
@@ -8928,264 +10977,568 @@ pub mod vpc_flow_logs_config {
 
     /// Determines whether this configuration will be generating logs.
     /// Setting state=DISABLED will pause the log generation for this config.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// If not specified, will default to ENABLED.
+        Unspecified,
+        /// When ENABLED, this configuration will generate logs.
+        Enabled,
+        /// When DISABLED, this configuration will not generate logs.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// If not specified, will default to ENABLED.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// When ENABLED, this configuration will generate logs.
-        pub const ENABLED: State = State::new(1);
-
-        /// When DISABLED, this configuration will not generate logs.
-        pub const DISABLED: State = State::new(2);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networkmanagement.v1.VpcFlowLogsConfig.State",
+            ))
         }
     }
 
     /// Toggles the aggregation interval for collecting flow logs by 5-tuple.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationInterval(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AggregationInterval {
+        /// If not specified, will default to INTERVAL_5_SEC.
+        Unspecified,
+        /// Aggregate logs in 5s intervals.
+        Interval5Sec,
+        /// Aggregate logs in 30s intervals.
+        Interval30Sec,
+        /// Aggregate logs in 1m intervals.
+        Interval1Min,
+        /// Aggregate logs in 5m intervals.
+        Interval5Min,
+        /// Aggregate logs in 10m intervals.
+        Interval10Min,
+        /// Aggregate logs in 15m intervals.
+        Interval15Min,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AggregationInterval::value] or
+        /// [AggregationInterval::name].
+        UnknownValue(aggregation_interval::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod aggregation_interval {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl AggregationInterval {
-        /// If not specified, will default to INTERVAL_5_SEC.
-        pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
-            AggregationInterval::new(0);
-
-        /// Aggregate logs in 5s intervals.
-        pub const INTERVAL_5_SEC: AggregationInterval = AggregationInterval::new(1);
-
-        /// Aggregate logs in 30s intervals.
-        pub const INTERVAL_30_SEC: AggregationInterval = AggregationInterval::new(2);
-
-        /// Aggregate logs in 1m intervals.
-        pub const INTERVAL_1_MIN: AggregationInterval = AggregationInterval::new(3);
-
-        /// Aggregate logs in 5m intervals.
-        pub const INTERVAL_5_MIN: AggregationInterval = AggregationInterval::new(4);
-
-        /// Aggregate logs in 10m intervals.
-        pub const INTERVAL_10_MIN: AggregationInterval = AggregationInterval::new(5);
-
-        /// Aggregate logs in 15m intervals.
-        pub const INTERVAL_15_MIN: AggregationInterval = AggregationInterval::new(6);
-
-        /// Creates a new AggregationInterval instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Interval5Sec => std::option::Option::Some(1),
+                Self::Interval30Sec => std::option::Option::Some(2),
+                Self::Interval1Min => std::option::Option::Some(3),
+                Self::Interval5Min => std::option::Option::Some(4),
+                Self::Interval10Min => std::option::Option::Some(5),
+                Self::Interval15Min => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AGGREGATION_INTERVAL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INTERVAL_5_SEC"),
-                2 => std::borrow::Cow::Borrowed("INTERVAL_30_SEC"),
-                3 => std::borrow::Cow::Borrowed("INTERVAL_1_MIN"),
-                4 => std::borrow::Cow::Borrowed("INTERVAL_5_MIN"),
-                5 => std::borrow::Cow::Borrowed("INTERVAL_10_MIN"),
-                6 => std::borrow::Cow::Borrowed("INTERVAL_15_MIN"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AGGREGATION_INTERVAL_UNSPECIFIED"),
+                Self::Interval5Sec => std::option::Option::Some("INTERVAL_5_SEC"),
+                Self::Interval30Sec => std::option::Option::Some("INTERVAL_30_SEC"),
+                Self::Interval1Min => std::option::Option::Some("INTERVAL_1_MIN"),
+                Self::Interval5Min => std::option::Option::Some("INTERVAL_5_MIN"),
+                Self::Interval10Min => std::option::Option::Some("INTERVAL_10_MIN"),
+                Self::Interval15Min => std::option::Option::Some("INTERVAL_15_MIN"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AGGREGATION_INTERVAL_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::AGGREGATION_INTERVAL_UNSPECIFIED)
-                }
-                "INTERVAL_5_SEC" => std::option::Option::Some(Self::INTERVAL_5_SEC),
-                "INTERVAL_30_SEC" => std::option::Option::Some(Self::INTERVAL_30_SEC),
-                "INTERVAL_1_MIN" => std::option::Option::Some(Self::INTERVAL_1_MIN),
-                "INTERVAL_5_MIN" => std::option::Option::Some(Self::INTERVAL_5_MIN),
-                "INTERVAL_10_MIN" => std::option::Option::Some(Self::INTERVAL_10_MIN),
-                "INTERVAL_15_MIN" => std::option::Option::Some(Self::INTERVAL_15_MIN),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AggregationInterval {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AggregationInterval {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AggregationInterval {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationInterval {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Interval5Sec,
+                2 => Self::Interval30Sec,
+                3 => Self::Interval1Min,
+                4 => Self::Interval5Min,
+                5 => Self::Interval10Min,
+                6 => Self::Interval15Min,
+                _ => Self::UnknownValue(aggregation_interval::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AggregationInterval {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AGGREGATION_INTERVAL_UNSPECIFIED" => Self::Unspecified,
+                "INTERVAL_5_SEC" => Self::Interval5Sec,
+                "INTERVAL_30_SEC" => Self::Interval30Sec,
+                "INTERVAL_1_MIN" => Self::Interval1Min,
+                "INTERVAL_5_MIN" => Self::Interval5Min,
+                "INTERVAL_10_MIN" => Self::Interval10Min,
+                "INTERVAL_15_MIN" => Self::Interval15Min,
+                _ => Self::UnknownValue(aggregation_interval::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationInterval {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Interval5Sec => serializer.serialize_i32(1),
+                Self::Interval30Sec => serializer.serialize_i32(2),
+                Self::Interval1Min => serializer.serialize_i32(3),
+                Self::Interval5Min => serializer.serialize_i32(4),
+                Self::Interval10Min => serializer.serialize_i32(5),
+                Self::Interval15Min => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationInterval {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AggregationInterval>::new(
+                ".google.cloud.networkmanagement.v1.VpcFlowLogsConfig.AggregationInterval",
+            ))
         }
     }
 
     /// Configures which log fields would be included.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Metadata(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Metadata {
+        /// If not specified, will default to INCLUDE_ALL_METADATA.
+        Unspecified,
+        /// Include all metadata fields.
+        IncludeAllMetadata,
+        /// Exclude all metadata fields.
+        ExcludeAllMetadata,
+        /// Include only custom fields (specified in metadata_fields).
+        CustomMetadata,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Metadata::value] or
+        /// [Metadata::name].
+        UnknownValue(metadata::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod metadata {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Metadata {
-        /// If not specified, will default to INCLUDE_ALL_METADATA.
-        pub const METADATA_UNSPECIFIED: Metadata = Metadata::new(0);
-
-        /// Include all metadata fields.
-        pub const INCLUDE_ALL_METADATA: Metadata = Metadata::new(1);
-
-        /// Exclude all metadata fields.
-        pub const EXCLUDE_ALL_METADATA: Metadata = Metadata::new(2);
-
-        /// Include only custom fields (specified in metadata_fields).
-        pub const CUSTOM_METADATA: Metadata = Metadata::new(3);
-
-        /// Creates a new Metadata instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::IncludeAllMetadata => std::option::Option::Some(1),
+                Self::ExcludeAllMetadata => std::option::Option::Some(2),
+                Self::CustomMetadata => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METADATA_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INCLUDE_ALL_METADATA"),
-                2 => std::borrow::Cow::Borrowed("EXCLUDE_ALL_METADATA"),
-                3 => std::borrow::Cow::Borrowed("CUSTOM_METADATA"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METADATA_UNSPECIFIED"),
+                Self::IncludeAllMetadata => std::option::Option::Some("INCLUDE_ALL_METADATA"),
+                Self::ExcludeAllMetadata => std::option::Option::Some("EXCLUDE_ALL_METADATA"),
+                Self::CustomMetadata => std::option::Option::Some("CUSTOM_METADATA"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METADATA_UNSPECIFIED" => std::option::Option::Some(Self::METADATA_UNSPECIFIED),
-                "INCLUDE_ALL_METADATA" => std::option::Option::Some(Self::INCLUDE_ALL_METADATA),
-                "EXCLUDE_ALL_METADATA" => std::option::Option::Some(Self::EXCLUDE_ALL_METADATA),
-                "CUSTOM_METADATA" => std::option::Option::Some(Self::CUSTOM_METADATA),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Metadata {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Metadata {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Metadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Metadata {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::IncludeAllMetadata,
+                2 => Self::ExcludeAllMetadata,
+                3 => Self::CustomMetadata,
+                _ => Self::UnknownValue(metadata::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Metadata {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METADATA_UNSPECIFIED" => Self::Unspecified,
+                "INCLUDE_ALL_METADATA" => Self::IncludeAllMetadata,
+                "EXCLUDE_ALL_METADATA" => Self::ExcludeAllMetadata,
+                "CUSTOM_METADATA" => Self::CustomMetadata,
+                _ => Self::UnknownValue(metadata::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Metadata {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::IncludeAllMetadata => serializer.serialize_i32(1),
+                Self::ExcludeAllMetadata => serializer.serialize_i32(2),
+                Self::CustomMetadata => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Metadata {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Metadata>::new(
+                ".google.cloud.networkmanagement.v1.VpcFlowLogsConfig.Metadata",
+            ))
         }
     }
 
     /// Optional states of the target resource that are used as part of the
     /// diagnostic bit.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetResourceState(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TargetResourceState {
+        /// Unspecified target resource state.
+        Unspecified,
+        /// Indicates that the target resource exists.
+        TargetResourceExists,
+        /// Indicates that the target resource does not exist.
+        TargetResourceDoesNotExist,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TargetResourceState::value] or
+        /// [TargetResourceState::name].
+        UnknownValue(target_resource_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod target_resource_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl TargetResourceState {
-        /// Unspecified target resource state.
-        pub const TARGET_RESOURCE_STATE_UNSPECIFIED: TargetResourceState =
-            TargetResourceState::new(0);
-
-        /// Indicates that the target resource exists.
-        pub const TARGET_RESOURCE_EXISTS: TargetResourceState = TargetResourceState::new(1);
-
-        /// Indicates that the target resource does not exist.
-        pub const TARGET_RESOURCE_DOES_NOT_EXIST: TargetResourceState = TargetResourceState::new(2);
-
-        /// Creates a new TargetResourceState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::TargetResourceExists => std::option::Option::Some(1),
+                Self::TargetResourceDoesNotExist => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TARGET_RESOURCE_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("TARGET_RESOURCE_EXISTS"),
-                2 => std::borrow::Cow::Borrowed("TARGET_RESOURCE_DOES_NOT_EXIST"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TARGET_RESOURCE_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::TARGET_RESOURCE_STATE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TARGET_RESOURCE_STATE_UNSPECIFIED"),
+                Self::TargetResourceExists => std::option::Option::Some("TARGET_RESOURCE_EXISTS"),
+                Self::TargetResourceDoesNotExist => {
+                    std::option::Option::Some("TARGET_RESOURCE_DOES_NOT_EXIST")
                 }
-                "TARGET_RESOURCE_EXISTS" => std::option::Option::Some(Self::TARGET_RESOURCE_EXISTS),
-                "TARGET_RESOURCE_DOES_NOT_EXIST" => {
-                    std::option::Option::Some(Self::TARGET_RESOURCE_DOES_NOT_EXIST)
-                }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for TargetResourceState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TargetResourceState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TargetResourceState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TargetResourceState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::TargetResourceExists,
+                2 => Self::TargetResourceDoesNotExist,
+                _ => Self::UnknownValue(target_resource_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TargetResourceState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TARGET_RESOURCE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "TARGET_RESOURCE_EXISTS" => Self::TargetResourceExists,
+                "TARGET_RESOURCE_DOES_NOT_EXIST" => Self::TargetResourceDoesNotExist,
+                _ => Self::UnknownValue(target_resource_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TargetResourceState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::TargetResourceExists => serializer.serialize_i32(1),
+                Self::TargetResourceDoesNotExist => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TargetResourceState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetResourceState>::new(
+                ".google.cloud.networkmanagement.v1.VpcFlowLogsConfig.TargetResourceState",
+            ))
         }
     }
 
@@ -9209,113 +11562,202 @@ pub mod vpc_flow_logs_config {
 /// Type of a load balancer. For more information, see [Summary of Google Cloud
 /// load
 /// balancers](https://cloud.google.com/load-balancing/docs/load-balancing-overview#summary-of-google-cloud-load-balancers).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LoadBalancerType(i32);
-
-impl LoadBalancerType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LoadBalancerType {
     /// Forwarding rule points to a different target than a load balancer or a
     /// load balancer type is unknown.
-    pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType = LoadBalancerType::new(0);
-
+    Unspecified,
     /// Global external HTTP(S) load balancer.
-    pub const HTTPS_ADVANCED_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(1);
-
+    HttpsAdvancedLoadBalancer,
     /// Global external HTTP(S) load balancer (classic)
-    pub const HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(2);
-
+    HttpsLoadBalancer,
     /// Regional external HTTP(S) load balancer.
-    pub const REGIONAL_HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(3);
-
+    RegionalHttpsLoadBalancer,
     /// Internal HTTP(S) load balancer.
-    pub const INTERNAL_HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(4);
-
+    InternalHttpsLoadBalancer,
     /// External SSL proxy load balancer.
-    pub const SSL_PROXY_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(5);
-
+    SslProxyLoadBalancer,
     /// External TCP proxy load balancer.
-    pub const TCP_PROXY_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(6);
-
+    TcpProxyLoadBalancer,
     /// Internal regional TCP proxy load balancer.
-    pub const INTERNAL_TCP_PROXY_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(7);
-
+    InternalTcpProxyLoadBalancer,
     /// External TCP/UDP Network load balancer.
-    pub const NETWORK_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(8);
-
+    NetworkLoadBalancer,
     /// Target-pool based external TCP/UDP Network load balancer.
-    pub const LEGACY_NETWORK_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(9);
-
+    LegacyNetworkLoadBalancer,
     /// Internal TCP/UDP load balancer.
-    pub const TCP_UDP_INTERNAL_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(10);
+    TcpUdpInternalLoadBalancer,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LoadBalancerType::value] or
+    /// [LoadBalancerType::name].
+    UnknownValue(load_balancer_type::UnknownValue),
+}
 
-    /// Creates a new LoadBalancerType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod load_balancer_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LoadBalancerType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::HttpsAdvancedLoadBalancer => std::option::Option::Some(1),
+            Self::HttpsLoadBalancer => std::option::Option::Some(2),
+            Self::RegionalHttpsLoadBalancer => std::option::Option::Some(3),
+            Self::InternalHttpsLoadBalancer => std::option::Option::Some(4),
+            Self::SslProxyLoadBalancer => std::option::Option::Some(5),
+            Self::TcpProxyLoadBalancer => std::option::Option::Some(6),
+            Self::InternalTcpProxyLoadBalancer => std::option::Option::Some(7),
+            Self::NetworkLoadBalancer => std::option::Option::Some(8),
+            Self::LegacyNetworkLoadBalancer => std::option::Option::Some(9),
+            Self::TcpUdpInternalLoadBalancer => std::option::Option::Some(10),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LOAD_BALANCER_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("HTTPS_ADVANCED_LOAD_BALANCER"),
-            2 => std::borrow::Cow::Borrowed("HTTPS_LOAD_BALANCER"),
-            3 => std::borrow::Cow::Borrowed("REGIONAL_HTTPS_LOAD_BALANCER"),
-            4 => std::borrow::Cow::Borrowed("INTERNAL_HTTPS_LOAD_BALANCER"),
-            5 => std::borrow::Cow::Borrowed("SSL_PROXY_LOAD_BALANCER"),
-            6 => std::borrow::Cow::Borrowed("TCP_PROXY_LOAD_BALANCER"),
-            7 => std::borrow::Cow::Borrowed("INTERNAL_TCP_PROXY_LOAD_BALANCER"),
-            8 => std::borrow::Cow::Borrowed("NETWORK_LOAD_BALANCER"),
-            9 => std::borrow::Cow::Borrowed("LEGACY_NETWORK_LOAD_BALANCER"),
-            10 => std::borrow::Cow::Borrowed("TCP_UDP_INTERNAL_LOAD_BALANCER"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LOAD_BALANCER_TYPE_UNSPECIFIED"),
+            Self::HttpsAdvancedLoadBalancer => {
+                std::option::Option::Some("HTTPS_ADVANCED_LOAD_BALANCER")
+            }
+            Self::HttpsLoadBalancer => std::option::Option::Some("HTTPS_LOAD_BALANCER"),
+            Self::RegionalHttpsLoadBalancer => {
+                std::option::Option::Some("REGIONAL_HTTPS_LOAD_BALANCER")
+            }
+            Self::InternalHttpsLoadBalancer => {
+                std::option::Option::Some("INTERNAL_HTTPS_LOAD_BALANCER")
+            }
+            Self::SslProxyLoadBalancer => std::option::Option::Some("SSL_PROXY_LOAD_BALANCER"),
+            Self::TcpProxyLoadBalancer => std::option::Option::Some("TCP_PROXY_LOAD_BALANCER"),
+            Self::InternalTcpProxyLoadBalancer => {
+                std::option::Option::Some("INTERNAL_TCP_PROXY_LOAD_BALANCER")
+            }
+            Self::NetworkLoadBalancer => std::option::Option::Some("NETWORK_LOAD_BALANCER"),
+            Self::LegacyNetworkLoadBalancer => {
+                std::option::Option::Some("LEGACY_NETWORK_LOAD_BALANCER")
+            }
+            Self::TcpUdpInternalLoadBalancer => {
+                std::option::Option::Some("TCP_UDP_INTERNAL_LOAD_BALANCER")
+            }
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LOAD_BALANCER_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LOAD_BALANCER_TYPE_UNSPECIFIED)
-            }
-            "HTTPS_ADVANCED_LOAD_BALANCER" => {
-                std::option::Option::Some(Self::HTTPS_ADVANCED_LOAD_BALANCER)
-            }
-            "HTTPS_LOAD_BALANCER" => std::option::Option::Some(Self::HTTPS_LOAD_BALANCER),
-            "REGIONAL_HTTPS_LOAD_BALANCER" => {
-                std::option::Option::Some(Self::REGIONAL_HTTPS_LOAD_BALANCER)
-            }
-            "INTERNAL_HTTPS_LOAD_BALANCER" => {
-                std::option::Option::Some(Self::INTERNAL_HTTPS_LOAD_BALANCER)
-            }
-            "SSL_PROXY_LOAD_BALANCER" => std::option::Option::Some(Self::SSL_PROXY_LOAD_BALANCER),
-            "TCP_PROXY_LOAD_BALANCER" => std::option::Option::Some(Self::TCP_PROXY_LOAD_BALANCER),
-            "INTERNAL_TCP_PROXY_LOAD_BALANCER" => {
-                std::option::Option::Some(Self::INTERNAL_TCP_PROXY_LOAD_BALANCER)
-            }
-            "NETWORK_LOAD_BALANCER" => std::option::Option::Some(Self::NETWORK_LOAD_BALANCER),
-            "LEGACY_NETWORK_LOAD_BALANCER" => {
-                std::option::Option::Some(Self::LEGACY_NETWORK_LOAD_BALANCER)
-            }
-            "TCP_UDP_INTERNAL_LOAD_BALANCER" => {
-                std::option::Option::Some(Self::TCP_UDP_INTERNAL_LOAD_BALANCER)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LoadBalancerType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LoadBalancerType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LoadBalancerType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LoadBalancerType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::HttpsAdvancedLoadBalancer,
+            2 => Self::HttpsLoadBalancer,
+            3 => Self::RegionalHttpsLoadBalancer,
+            4 => Self::InternalHttpsLoadBalancer,
+            5 => Self::SslProxyLoadBalancer,
+            6 => Self::TcpProxyLoadBalancer,
+            7 => Self::InternalTcpProxyLoadBalancer,
+            8 => Self::NetworkLoadBalancer,
+            9 => Self::LegacyNetworkLoadBalancer,
+            10 => Self::TcpUdpInternalLoadBalancer,
+            _ => Self::UnknownValue(load_balancer_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LoadBalancerType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LOAD_BALANCER_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "HTTPS_ADVANCED_LOAD_BALANCER" => Self::HttpsAdvancedLoadBalancer,
+            "HTTPS_LOAD_BALANCER" => Self::HttpsLoadBalancer,
+            "REGIONAL_HTTPS_LOAD_BALANCER" => Self::RegionalHttpsLoadBalancer,
+            "INTERNAL_HTTPS_LOAD_BALANCER" => Self::InternalHttpsLoadBalancer,
+            "SSL_PROXY_LOAD_BALANCER" => Self::SslProxyLoadBalancer,
+            "TCP_PROXY_LOAD_BALANCER" => Self::TcpProxyLoadBalancer,
+            "INTERNAL_TCP_PROXY_LOAD_BALANCER" => Self::InternalTcpProxyLoadBalancer,
+            "NETWORK_LOAD_BALANCER" => Self::NetworkLoadBalancer,
+            "LEGACY_NETWORK_LOAD_BALANCER" => Self::LegacyNetworkLoadBalancer,
+            "TCP_UDP_INTERNAL_LOAD_BALANCER" => Self::TcpUdpInternalLoadBalancer,
+            _ => Self::UnknownValue(load_balancer_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LoadBalancerType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::HttpsAdvancedLoadBalancer => serializer.serialize_i32(1),
+            Self::HttpsLoadBalancer => serializer.serialize_i32(2),
+            Self::RegionalHttpsLoadBalancer => serializer.serialize_i32(3),
+            Self::InternalHttpsLoadBalancer => serializer.serialize_i32(4),
+            Self::SslProxyLoadBalancer => serializer.serialize_i32(5),
+            Self::TcpProxyLoadBalancer => serializer.serialize_i32(6),
+            Self::InternalTcpProxyLoadBalancer => serializer.serialize_i32(7),
+            Self::NetworkLoadBalancer => serializer.serialize_i32(8),
+            Self::LegacyNetworkLoadBalancer => serializer.serialize_i32(9),
+            Self::TcpUdpInternalLoadBalancer => serializer.serialize_i32(10),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LoadBalancerType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancerType>::new(
+            ".google.cloud.networkmanagement.v1.LoadBalancerType",
+        ))
     }
 }

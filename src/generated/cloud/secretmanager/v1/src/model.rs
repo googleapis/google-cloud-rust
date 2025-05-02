@@ -430,7 +430,7 @@ pub struct SecretVersion {
     /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
+    /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::State::Destroyed
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub destroy_time: std::option::Option<wkt::Timestamp>,
@@ -594,19 +594,30 @@ pub mod secret_version {
     /// it can be accessed.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Not specified. This value is unused and invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
         /// accessed.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const ENABLED: State = State::new(1);
-
+        Enabled,
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
         /// be accessed, but the secret data is still available and can be placed
         /// back into the
@@ -614,58 +625,124 @@ pub mod secret_version {
         /// state.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
-        pub const DISABLED: State = State::new(2);
-
+        /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::State::Enabled
+        Disabled,
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
         /// destroyed and the secret data is no longer stored. A version may not
         /// leave this state once entered.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const DESTROYED: State = State::new(3);
+        Destroyed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::Destroyed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                3 => std::borrow::Cow::Borrowed("DESTROYED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Destroyed => std::option::Option::Some("DESTROYED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                "DESTROYED" => std::option::Option::Some(Self::DESTROYED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                3 => Self::Destroyed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                "DESTROYED" => Self::Destroyed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::Destroyed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.secretmanager.v1.SecretVersion.State",
+            ))
         }
     }
 }

@@ -315,6 +315,7 @@ pub mod iam {
         }
 
         /// Sets the value of [etag][crate::model::ServiceAccount::etag].
+        #[deprecated]
         pub fn set_etag<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -1010,6 +1011,7 @@ pub mod iam {
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
         ///
         /// This is a **required** field for requests.
+        #[deprecated]
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1018,6 +1020,7 @@ pub mod iam {
         /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
         ///
         /// This is a **required** field for requests.
+        #[deprecated]
         pub fn set_bytes_to_sign<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.bytes_to_sign = v.into();
             self
@@ -1063,6 +1066,7 @@ pub mod iam {
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
         ///
         /// This is a **required** field for requests.
+        #[deprecated]
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1071,6 +1075,7 @@ pub mod iam {
         /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
         ///
         /// This is a **required** field for requests.
+        #[deprecated]
         pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self

@@ -183,7 +183,7 @@ impl gaxi::prost::FromProto<iam_v1::model::AuditConfig> for AuditConfig {
 impl gaxi::prost::ToProto<audit_log_config::LogType> for iam_v1::model::audit_log_config::LogType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("iam_v1::model::audit_log_config::LogType"))
     }
 }
 
@@ -235,7 +235,7 @@ impl gaxi::prost::FromProto<iam_v1::model::PolicyDelta> for PolicyDelta {
 impl gaxi::prost::ToProto<binding_delta::Action> for iam_v1::model::binding_delta::Action {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("iam_v1::model::binding_delta::Action"))
     }
 }
 
@@ -264,7 +264,7 @@ impl gaxi::prost::FromProto<iam_v1::model::BindingDelta> for BindingDelta {
 impl gaxi::prost::ToProto<audit_config_delta::Action> for iam_v1::model::audit_config_delta::Action {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("iam_v1::model::audit_config_delta::Action"))
     }
 }
 

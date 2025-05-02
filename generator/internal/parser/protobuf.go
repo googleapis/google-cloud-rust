@@ -429,6 +429,7 @@ func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto,
 		ID:          sFQN,
 		Package:     packagez,
 		DefaultHost: parseDefaultHost(s.GetOptions()),
+		Deprecated:  s.GetOptions().GetDeprecated(),
 	}
 	state.ServiceByID[service.ID] = service
 	return service
@@ -450,6 +451,7 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		ID:                  mFQN,
 		PathInfo:            pathInfo,
 		Name:                m.GetName(),
+		Deprecated:          m.GetOptions().GetDeprecated(),
 		InputTypeID:         m.GetInputType(),
 		OutputTypeID:        outputTypeID,
 		ClientSideStreaming: m.GetClientStreaming(),
@@ -464,10 +466,11 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 
 func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *api.Message) *api.Message {
 	message := &api.Message{
-		Name:    m.GetName(),
-		ID:      mFQN,
-		Parent:  parent,
-		Package: packagez,
+		Name:       m.GetName(),
+		ID:         mFQN,
+		Parent:     parent,
+		Package:    packagez,
+		Deprecated: m.GetOptions().GetDeprecated(),
 	}
 	state.MessageByID[mFQN] = message
 	if opts := m.GetOptions(); opts != nil && opts.GetMapEntry() {
@@ -498,6 +501,7 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 			Name:          mf.GetName(),
 			ID:            mFQN + "." + mf.GetName(),
 			JSONName:      mf.GetJsonName(),
+			Deprecated:    mf.GetOptions().GetDeprecated(),
 			Optional:      isProtoOptional,
 			Repeated:      mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
 			IsOneOf:       mf.OneofIndex != nil && !isProtoOptional,
@@ -530,17 +534,19 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 
 func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *api.Message) *api.Enum {
 	enum := &api.Enum{
-		Name:    e.GetName(),
-		ID:      eFQN,
-		Parent:  parent,
-		Package: packagez,
+		Name:       e.GetName(),
+		ID:         eFQN,
+		Parent:     parent,
+		Package:    packagez,
+		Deprecated: e.GetOptions().GetDeprecated(),
 	}
 	state.EnumByID[eFQN] = enum
 	for _, ev := range e.Value {
 		enumValue := &api.EnumValue{
-			Name:   ev.GetName(),
-			Number: ev.GetNumber(),
-			Parent: enum,
+			Name:       ev.GetName(),
+			Number:     ev.GetNumber(),
+			Parent:     enum,
+			Deprecated: ev.GetOptions().GetDeprecated(),
 		}
 		enum.Values = append(enum.Values, enumValue)
 	}

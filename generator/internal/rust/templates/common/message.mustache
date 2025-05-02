@@ -22,6 +22,9 @@ limitations under the License.
 {{#Codec.MessageAttributes}}
 {{{.}}}
 {{/Codec.MessageAttributes}}
+{{#Deprecated}}
+#[deprecated]
+{{/Deprecated}}
 pub struct {{Codec.Name}} {
     {{#Codec.BasicFields}}
 
@@ -31,6 +34,9 @@ pub struct {{Codec.Name}} {
     {{#Codec.Attributes}}
     {{{.}}}
     {{/Codec.Attributes}}
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub {{Codec.FieldName}}: {{{Codec.FieldType}}},
     {{/Codec.BasicFields}}
     {{#OneOfs}}
@@ -54,6 +60,9 @@ impl {{Codec.Name}} {
     {{#Codec.SingularFields}}
 
     /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Codec.FieldName}} = v.into();
         self
@@ -62,6 +71,9 @@ impl {{Codec.Name}} {
     {{#Codec.RepeatedFields}}
 
     /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -75,6 +87,9 @@ impl {{Codec.Name}} {
     {{#Codec.MapFields}}
 
     /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -102,6 +117,9 @@ impl {{Codec.Name}} {
     /// The value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
     /// if it holds a `{{Codec.BranchName}}`, `None` if the field is not set or
     /// holds a different branch.
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn {{Codec.FieldName}}(&self) -> std::option::Option<&{{{Codec.FieldType}}}> {
         {{! Rarely, oneofs have a single branch and then the `_` case is never matched. }}
         #[allow(unreachable_patterns)]
@@ -118,6 +136,9 @@ impl {{Codec.Name}} {
     ///
     /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
     /// mutually exclusive.
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Group.Codec.FieldName}} = std::option::Option::Some(
             {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
@@ -133,6 +154,9 @@ impl {{Codec.Name}} {
     ///
     /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
     /// mutually exclusive.
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -153,6 +177,9 @@ impl {{Codec.Name}} {
     ///
     /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
     /// mutually exclusive.
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -183,7 +210,7 @@ impl wkt::message::Message for {{Codec.Name}} {
 
 {{> /templates/common/feature_gate}}
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for {{Name}} {
+impl gax::paginator::internal::PageableResponse for {{Codec.Name}} {
     {{#PageableItem}}
     type PageItem = {{{Codec.PrimitiveFieldType}}};
 

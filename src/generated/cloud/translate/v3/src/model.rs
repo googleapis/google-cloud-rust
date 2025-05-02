@@ -5866,78 +5866,159 @@ pub mod batch_translate_metadata {
     use super::*;
 
     /// State of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Request is being processed.
-        pub const RUNNING: State = State::new(1);
-
+        Running,
         /// The batch is processed, and at least one item was successfully
         /// processed.
-        pub const SUCCEEDED: State = State::new(2);
-
+        Succeeded,
         /// The batch is done and no item was successfully processed.
-        pub const FAILED: State = State::new(3);
-
+        Failed,
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: State = State::new(4);
-
+        Cancelling,
         /// The batch is done after the user has called the
         /// longrunning.Operations.CancelOperation. Any records processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: State = State::new(5);
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelling => std::option::Option::Some(4),
+                Self::Cancelled => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNING"),
-                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("CANCELLING"),
-                5 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelling => std::option::Option::Some("CANCELLING"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelling,
+                5 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "CANCELLING" => Self::Cancelling,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelling => serializer.serialize_i32(4),
+                Self::Cancelled => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.translation.v3.BatchTranslateMetadata.State",
+            ))
         }
     }
 }
@@ -7050,75 +7131,156 @@ pub mod create_glossary_metadata {
     use super::*;
 
     /// Enumerates the possible states that the creation request can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Request is being processed.
-        pub const RUNNING: State = State::new(1);
-
+        Running,
         /// The glossary was successfully created.
-        pub const SUCCEEDED: State = State::new(2);
-
+        Succeeded,
         /// Failed to create the glossary.
-        pub const FAILED: State = State::new(3);
-
+        Failed,
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: State = State::new(4);
-
+        Cancelling,
         /// The glossary creation request was successfully canceled.
-        pub const CANCELLED: State = State::new(5);
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelling => std::option::Option::Some(4),
+                Self::Cancelled => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNING"),
-                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("CANCELLING"),
-                5 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelling => std::option::Option::Some("CANCELLING"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelling,
+                5 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "CANCELLING" => Self::Cancelling,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelling => serializer.serialize_i32(4),
+                Self::Cancelled => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.translation.v3.CreateGlossaryMetadata.State",
+            ))
         }
     }
 }
@@ -7194,75 +7356,156 @@ pub mod update_glossary_metadata {
     use super::*;
 
     /// Enumerates the possible states that the update request can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Request is being processed.
-        pub const RUNNING: State = State::new(1);
-
+        Running,
         /// The glossary was successfully updated.
-        pub const SUCCEEDED: State = State::new(2);
-
+        Succeeded,
         /// Failed to update the glossary.
-        pub const FAILED: State = State::new(3);
-
+        Failed,
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: State = State::new(4);
-
+        Cancelling,
         /// The glossary update request was successfully canceled.
-        pub const CANCELLED: State = State::new(5);
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelling => std::option::Option::Some(4),
+                Self::Cancelled => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNING"),
-                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("CANCELLING"),
-                5 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelling => std::option::Option::Some("CANCELLING"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelling,
+                5 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "CANCELLING" => Self::Cancelling,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelling => serializer.serialize_i32(4),
+                Self::Cancelled => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.translation.v3.UpdateGlossaryMetadata.State",
+            ))
         }
     }
 }
@@ -7334,75 +7577,156 @@ pub mod delete_glossary_metadata {
     use super::*;
 
     /// Enumerates the possible states that the creation request can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Request is being processed.
-        pub const RUNNING: State = State::new(1);
-
+        Running,
         /// The glossary was successfully deleted.
-        pub const SUCCEEDED: State = State::new(2);
-
+        Succeeded,
         /// Failed to delete the glossary.
-        pub const FAILED: State = State::new(3);
-
+        Failed,
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: State = State::new(4);
-
+        Cancelling,
         /// The glossary deletion request was successfully canceled.
-        pub const CANCELLED: State = State::new(5);
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelling => std::option::Option::Some(4),
+                Self::Cancelled => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNING"),
-                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("CANCELLING"),
-                5 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelling => std::option::Option::Some("CANCELLING"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelling,
+                5 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "CANCELLING" => Self::Cancelling,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelling => serializer.serialize_i32(4),
+                Self::Cancelled => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.translation.v3.DeleteGlossaryMetadata.State",
+            ))
         }
     }
 }
@@ -8233,77 +8557,158 @@ pub mod batch_translate_document_metadata {
     use super::*;
 
     /// State of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Request is being processed.
-        pub const RUNNING: State = State::new(1);
-
+        Running,
         /// The batch is processed, and at least one item was successfully processed.
-        pub const SUCCEEDED: State = State::new(2);
-
+        Succeeded,
         /// The batch is done and no item was successfully processed.
-        pub const FAILED: State = State::new(3);
-
+        Failed,
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: State = State::new(4);
-
+        Cancelling,
         /// The batch is done after the user has called the
         /// longrunning.Operations.CancelOperation. Any records processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: State = State::new(5);
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelling => std::option::Option::Some(4),
+                Self::Cancelled => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNING"),
-                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("CANCELLING"),
-                5 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelling => std::option::Option::Some("CANCELLING"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelling,
+                5 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "CANCELLING" => Self::Cancelling,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelling => serializer.serialize_i32(4),
+                Self::Cancelled => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.translation.v3.BatchTranslateDocumentMetadata.State",
+            ))
         }
     }
 }
@@ -8369,82 +8774,155 @@ impl wkt::message::Message for TranslateTextGlossaryConfig {
 }
 
 /// Possible states of long running operations.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperationState(i32);
-
-impl OperationState {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OperationState {
     /// Invalid.
-    pub const OPERATION_STATE_UNSPECIFIED: OperationState = OperationState::new(0);
-
+    Unspecified,
     /// Request is being processed.
-    pub const OPERATION_STATE_RUNNING: OperationState = OperationState::new(1);
-
+    Running,
     /// The operation was successful.
-    pub const OPERATION_STATE_SUCCEEDED: OperationState = OperationState::new(2);
-
+    Succeeded,
     /// Failed to process operation.
-    pub const OPERATION_STATE_FAILED: OperationState = OperationState::new(3);
-
+    Failed,
     /// Request is in the process of being canceled after caller invoked
     /// longrunning.Operations.CancelOperation on the request id.
-    pub const OPERATION_STATE_CANCELLING: OperationState = OperationState::new(4);
-
+    Cancelling,
     /// The operation request was successfully canceled.
-    pub const OPERATION_STATE_CANCELLED: OperationState = OperationState::new(5);
+    Cancelled,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OperationState::value] or
+    /// [OperationState::name].
+    UnknownValue(operation_state::UnknownValue),
+}
 
-    /// Creates a new OperationState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod operation_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl OperationState {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Running => std::option::Option::Some(1),
+            Self::Succeeded => std::option::Option::Some(2),
+            Self::Failed => std::option::Option::Some(3),
+            Self::Cancelling => std::option::Option::Some(4),
+            Self::Cancelled => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("OPERATION_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("OPERATION_STATE_RUNNING"),
-            2 => std::borrow::Cow::Borrowed("OPERATION_STATE_SUCCEEDED"),
-            3 => std::borrow::Cow::Borrowed("OPERATION_STATE_FAILED"),
-            4 => std::borrow::Cow::Borrowed("OPERATION_STATE_CANCELLING"),
-            5 => std::borrow::Cow::Borrowed("OPERATION_STATE_CANCELLED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("OPERATION_STATE_UNSPECIFIED"),
+            Self::Running => std::option::Option::Some("OPERATION_STATE_RUNNING"),
+            Self::Succeeded => std::option::Option::Some("OPERATION_STATE_SUCCEEDED"),
+            Self::Failed => std::option::Option::Some("OPERATION_STATE_FAILED"),
+            Self::Cancelling => std::option::Option::Some("OPERATION_STATE_CANCELLING"),
+            Self::Cancelled => std::option::Option::Some("OPERATION_STATE_CANCELLED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "OPERATION_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_UNSPECIFIED)
-            }
-            "OPERATION_STATE_RUNNING" => std::option::Option::Some(Self::OPERATION_STATE_RUNNING),
-            "OPERATION_STATE_SUCCEEDED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_SUCCEEDED)
-            }
-            "OPERATION_STATE_FAILED" => std::option::Option::Some(Self::OPERATION_STATE_FAILED),
-            "OPERATION_STATE_CANCELLING" => {
-                std::option::Option::Some(Self::OPERATION_STATE_CANCELLING)
-            }
-            "OPERATION_STATE_CANCELLED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_CANCELLED)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for OperationState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for OperationState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for OperationState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for OperationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Running,
+            2 => Self::Succeeded,
+            3 => Self::Failed,
+            4 => Self::Cancelling,
+            5 => Self::Cancelled,
+            _ => Self::UnknownValue(operation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for OperationState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OPERATION_STATE_UNSPECIFIED" => Self::Unspecified,
+            "OPERATION_STATE_RUNNING" => Self::Running,
+            "OPERATION_STATE_SUCCEEDED" => Self::Succeeded,
+            "OPERATION_STATE_FAILED" => Self::Failed,
+            "OPERATION_STATE_CANCELLING" => Self::Cancelling,
+            "OPERATION_STATE_CANCELLED" => Self::Cancelled,
+            _ => Self::UnknownValue(operation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for OperationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Running => serializer.serialize_i32(1),
+            Self::Succeeded => serializer.serialize_i32(2),
+            Self::Failed => serializer.serialize_i32(3),
+            Self::Cancelling => serializer.serialize_i32(4),
+            Self::Cancelled => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OperationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationState>::new(
+            ".google.cloud.translation.v3.OperationState",
+        ))
     }
 }

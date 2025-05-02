@@ -17,6 +17,6 @@ limitations under the License.
 impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("{{Codec.QualifiedName}}"))
     }
 }

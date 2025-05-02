@@ -18,14 +18,16 @@ mod test {
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[serde_with::serde_as]
-    #[serde_with::skip_serializing_none]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     pub struct MessageWithBytes {
+        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
         #[serde_as(as = "serde_with::base64::Base64")]
         pub singular: bytes::Bytes,
+        #[serde(skip_serializing_if = "Option::is_none")]
         #[serde_as(as = "Option<serde_with::base64::Base64>")]
         pub optional: Option<bytes::Bytes>,
+        #[serde(skip_serializing_if = "Vec::is_empty")]
         #[serde_as(as = "Vec<serde_with::base64::Base64>")]
         pub repeated: Vec<bytes::Bytes>,
     }
@@ -38,7 +40,8 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw==", "repeated": []});
+        let want =
+            json!({"singular": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;
@@ -54,7 +57,8 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": "", "optional": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw==", "repeated": []});
+        let want =
+            json!({"optional": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;
@@ -70,7 +74,8 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": "", "repeated": ["dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="]});
+        let want =
+            json!({"repeated": ["dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="]});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;

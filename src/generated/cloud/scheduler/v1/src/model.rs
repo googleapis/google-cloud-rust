@@ -820,27 +820,36 @@ pub mod job {
     use super::*;
 
     /// State of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The job is executing normally.
-        pub const ENABLED: State = State::new(1);
-
+        Enabled,
         /// The job is paused by the user. It will not execute. A user can
         /// intentionally pause the job using
         /// [PauseJobRequest][google.cloud.scheduler.v1.PauseJobRequest].
         ///
         /// [google.cloud.scheduler.v1.PauseJobRequest]: crate::model::PauseJobRequest
-        pub const PAUSED: State = State::new(2);
-
+        Paused,
         /// The job is disabled by the system due to error. The user
         /// cannot directly set a job to be disabled.
-        pub const DISABLED: State = State::new(3);
-
+        Disabled,
         /// The job state resulting from a failed
         /// [CloudScheduler.UpdateJob][google.cloud.scheduler.v1.CloudScheduler.UpdateJob]
         /// operation. To recover a job from this state, retry
@@ -848,52 +857,122 @@ pub mod job {
         /// until a successful response is received.
         ///
         /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
-        pub const UPDATE_FAILED: State = State::new(4);
+        UpdateFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Paused => std::option::Option::Some(2),
+                Self::Disabled => std::option::Option::Some(3),
+                Self::UpdateFailed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("PAUSED"),
-                3 => std::borrow::Cow::Borrowed("DISABLED"),
-                4 => std::borrow::Cow::Borrowed("UPDATE_FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Paused => std::option::Option::Some("PAUSED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UpdateFailed => std::option::Option::Some("UPDATE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "PAUSED" => std::option::Option::Some(Self::PAUSED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                "UPDATE_FAILED" => std::option::Option::Some(Self::UPDATE_FAILED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Paused,
+                3 => Self::Disabled,
+                4 => Self::UpdateFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "PAUSED" => Self::Paused,
+                "DISABLED" => Self::Disabled,
+                "UPDATE_FAILED" => Self::UpdateFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Paused => serializer.serialize_i32(2),
+                Self::Disabled => serializer.serialize_i32(3),
+                Self::UpdateFailed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.scheduler.v1.Job.State",
+            ))
         }
     }
 
@@ -1784,83 +1863,168 @@ impl wkt::message::Message for OidcToken {
 }
 
 /// The HTTP method used to execute the job.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpMethod(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum HttpMethod {
+    /// HTTP method unspecified. Defaults to POST.
+    Unspecified,
+    /// HTTP POST
+    Post,
+    /// HTTP GET
+    Get,
+    /// HTTP HEAD
+    Head,
+    /// HTTP PUT
+    Put,
+    /// HTTP DELETE
+    Delete,
+    /// HTTP PATCH
+    Patch,
+    /// HTTP OPTIONS
+    Options,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [HttpMethod::value] or
+    /// [HttpMethod::name].
+    UnknownValue(http_method::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod http_method {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl HttpMethod {
-    /// HTTP method unspecified. Defaults to POST.
-    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new(0);
-
-    /// HTTP POST
-    pub const POST: HttpMethod = HttpMethod::new(1);
-
-    /// HTTP GET
-    pub const GET: HttpMethod = HttpMethod::new(2);
-
-    /// HTTP HEAD
-    pub const HEAD: HttpMethod = HttpMethod::new(3);
-
-    /// HTTP PUT
-    pub const PUT: HttpMethod = HttpMethod::new(4);
-
-    /// HTTP DELETE
-    pub const DELETE: HttpMethod = HttpMethod::new(5);
-
-    /// HTTP PATCH
-    pub const PATCH: HttpMethod = HttpMethod::new(6);
-
-    /// HTTP OPTIONS
-    pub const OPTIONS: HttpMethod = HttpMethod::new(7);
-
-    /// Creates a new HttpMethod instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Post => std::option::Option::Some(1),
+            Self::Get => std::option::Option::Some(2),
+            Self::Head => std::option::Option::Some(3),
+            Self::Put => std::option::Option::Some(4),
+            Self::Delete => std::option::Option::Some(5),
+            Self::Patch => std::option::Option::Some(6),
+            Self::Options => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("HTTP_METHOD_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("POST"),
-            2 => std::borrow::Cow::Borrowed("GET"),
-            3 => std::borrow::Cow::Borrowed("HEAD"),
-            4 => std::borrow::Cow::Borrowed("PUT"),
-            5 => std::borrow::Cow::Borrowed("DELETE"),
-            6 => std::borrow::Cow::Borrowed("PATCH"),
-            7 => std::borrow::Cow::Borrowed("OPTIONS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("HTTP_METHOD_UNSPECIFIED"),
+            Self::Post => std::option::Option::Some("POST"),
+            Self::Get => std::option::Option::Some("GET"),
+            Self::Head => std::option::Option::Some("HEAD"),
+            Self::Put => std::option::Option::Some("PUT"),
+            Self::Delete => std::option::Option::Some("DELETE"),
+            Self::Patch => std::option::Option::Some("PATCH"),
+            Self::Options => std::option::Option::Some("OPTIONS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "HTTP_METHOD_UNSPECIFIED" => std::option::Option::Some(Self::HTTP_METHOD_UNSPECIFIED),
-            "POST" => std::option::Option::Some(Self::POST),
-            "GET" => std::option::Option::Some(Self::GET),
-            "HEAD" => std::option::Option::Some(Self::HEAD),
-            "PUT" => std::option::Option::Some(Self::PUT),
-            "DELETE" => std::option::Option::Some(Self::DELETE),
-            "PATCH" => std::option::Option::Some(Self::PATCH),
-            "OPTIONS" => std::option::Option::Some(Self::OPTIONS),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for HttpMethod {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for HttpMethod {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for HttpMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for HttpMethod {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Post,
+            2 => Self::Get,
+            3 => Self::Head,
+            4 => Self::Put,
+            5 => Self::Delete,
+            6 => Self::Patch,
+            7 => Self::Options,
+            _ => Self::UnknownValue(http_method::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for HttpMethod {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "HTTP_METHOD_UNSPECIFIED" => Self::Unspecified,
+            "POST" => Self::Post,
+            "GET" => Self::Get,
+            "HEAD" => Self::Head,
+            "PUT" => Self::Put,
+            "DELETE" => Self::Delete,
+            "PATCH" => Self::Patch,
+            "OPTIONS" => Self::Options,
+            _ => Self::UnknownValue(http_method::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for HttpMethod {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Post => serializer.serialize_i32(1),
+            Self::Get => serializer.serialize_i32(2),
+            Self::Head => serializer.serialize_i32(3),
+            Self::Put => serializer.serialize_i32(4),
+            Self::Delete => serializer.serialize_i32(5),
+            Self::Patch => serializer.serialize_i32(6),
+            Self::Options => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HttpMethod {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<HttpMethod>::new(
+            ".google.cloud.scheduler.v1.HttpMethod",
+        ))
     }
 }
