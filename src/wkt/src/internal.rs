@@ -20,8 +20,7 @@
 pub type F32 = Float<f32>;
 pub type F64 = Float<f64>;
 
-#[doc(hidden)]
-pub struct Float<T>(std::marker::PhantomData<T>);
+pub struct Float<T: FloatExt>(std::marker::PhantomData<T>);
 
 impl<T> serde_with::SerializeAs<T> for Float<T>
 where
@@ -112,7 +111,7 @@ where
 }
 
 // Trait to abstract over f32 and f64.
-pub trait FloatExt: num_traits::Float {
+pub trait FloatExt: num_traits::Float + std::fmt::Debug {
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer;
@@ -154,36 +153,43 @@ mod test {
     use test_case::test_case;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    #[test_case(9876.5)]
-    #[test_case(0.0)]
-    fn roundtrip(input: f32) -> Result {
-        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!(input, got);
-        let rt = F32::deserialize_as(got)?;
-        assert_eq!(input, rt);
-        Ok(())
-    }
-
-    #[test_case(f32::NAN)]
-    #[test_case(-f32::NAN)]
-    fn roundtrip_nan(input: f32) -> Result {
-        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!("NaN", got);
-        let rt = F32::deserialize_as(got)?;
-        assert!(rt.is_nan(), "expected NaN, got {rt}");
-        Ok(())
-    }
-
+    #[test_case(9876.5, 9876.5)]
+    #[test_case(0.0, 0.0)]
+    #[test_case(f32::NAN, "NaN")]
+    #[test_case(-f32::NAN, "NaN")]
     #[test_case(f32::INFINITY, "Infinity")]
     #[test_case(2.0*f32::INFINITY, "Infinity")]
     #[test_case(f32::NEG_INFINITY, "-Infinity")]
     #[test_case(2.0*f32::NEG_INFINITY, "-Infinity")]
-    fn roundtrip_inf(input: f32, want: &str) -> Result {
+    fn roundtrip_f32<T>(input: f32, want: T) -> Result
+    where
+        T: std::fmt::Debug,
+        serde_json::Value: PartialEq<T>,
+    {
         let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!(want, got);
+        assert_eq!(got, want);
         let rt = F32::deserialize_as(got)?;
-        assert!(rt.is_infinite(), "expected infinite, got {rt}");
-        assert_eq!(rt.is_sign_positive(), input.is_sign_positive());
+        assert_float_eq(input, rt);
+        Ok(())
+    }
+
+    #[test_case(9876.5_f64, 9876.5)]
+    #[test_case(0.0, 0.0)]
+    #[test_case(f64::NAN, "NaN")]
+    #[test_case(-f64::NAN, "NaN")]
+    #[test_case(f64::INFINITY, "Infinity")]
+    #[test_case(2.0*f64::INFINITY, "Infinity")]
+    #[test_case(f64::NEG_INFINITY, "-Infinity")]
+    #[test_case(2.0*f64::NEG_INFINITY, "-Infinity")]
+    fn roundtrip_f64<T>(input: f64, want: T) -> Result
+    where
+        T: std::fmt::Debug,
+        serde_json::Value: PartialEq<T>,
+    {
+        let got = F64::serialize_as(&input, serde_json::value::Serializer)?;
+        assert_eq!(got, want);
+        let rt = F64::deserialize_as(got)?;
+        assert_float_eq(input, rt);
         Ok(())
     }
 
@@ -196,5 +202,20 @@ mod test {
             .is_err()
         );
         assert!(F32::deserialize_as(serde_json::Value::Bool(false)).is_err());
+    }
+
+    fn assert_float_eq<T: FloatExt>(left: T, right: T) {
+        // Consider all NaN as equal.
+        if left.is_nan() && right.is_nan() {
+            return;
+        }
+        // Consider all infinites floats of the same sign as equal.
+        if left.is_infinite()
+            && right.is_infinite()
+            && left.is_sign_positive() == right.is_sign_positive()
+        {
+            return;
+        }
+        assert_eq!(left, right);
     }
 }
