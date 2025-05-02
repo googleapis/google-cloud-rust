@@ -20,11 +20,12 @@
 pub type F32 = Float<f32>;
 pub type F64 = Float<f64>;
 
+#[doc(hidden)]
 pub struct Float<T>(std::marker::PhantomData<T>);
 
 impl<T> serde_with::SerializeAs<T> for Float<T>
 where
-    T: num_traits::Float,
+    T: FloatExt,
 {
     fn serialize_as<S>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -41,7 +42,7 @@ where
 
 impl<'de, T> serde_with::DeserializeAs<'de, T> for Float<T>
 where
-    T: num_traits::Float + 'de,
+    T: FloatExt + 'de,
 {
     fn deserialize_as<D>(deserializer: D) -> Result<T, D::Error>
     where
@@ -65,7 +66,7 @@ impl<T> FloatVisitor<T> {
 
 impl<'de, T> serde::de::Visitor<'de> for FloatVisitor<T>
 where
-    T: num_traits::Float,
+    T: FloatExt,
 {
     type Value = T;
 
@@ -110,7 +111,7 @@ where
     }
 }
 
-// Trait to abstract over f32 and f64
+// Trait to abstract over f32 and f64.
 pub trait FloatExt: num_traits::Float {
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
