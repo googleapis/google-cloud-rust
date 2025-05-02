@@ -12,10 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub struct F32;
+pub type F32 = Float<f32>;
+pub type F64 = Float<f64>;
 
-impl serde_with::SerializeAs<f32> for F32 {
-    fn serialize_as<S>(value: &f32, serializer: S) -> Result<S::Ok, S::Error>
+pub struct Float<T>(std::marker::PhantomData<T>);
+
+impl<T> serde_with::SerializeAs<T> for Float<T>
+where
+    T: FloatExt,
+{
+    fn serialize_as<S>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
@@ -23,62 +29,118 @@ impl serde_with::SerializeAs<f32> for F32 {
             x if x.is_nan() => serializer.serialize_str("NaN"),
             x if x.is_infinite() && x.is_sign_negative() => serializer.serialize_str("-Infinity"),
             x if x.is_infinite() => serializer.serialize_str("Infinity"),
-            x => serializer.serialize_f32(*x),
+            x => x.serialize(serializer),
         }
     }
 }
 
-impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
-    fn deserialize_as<D>(deserializer: D) -> Result<f32, D::Error>
+impl<'de, T> serde_with::DeserializeAs<'de, T> for Float<T>
+where
+    T: FloatExt + 'de,
+{
+    fn deserialize_as<D>(deserializer: D) -> Result<T, D::Error>
     where
         D: serde::de::Deserializer<'de>,
     {
-        deserializer.deserialize_any(FloatVisitor)
+        deserializer.deserialize_any(FloatVisitor::<T>::new())
     }
 }
 
-struct FloatVisitor;
+struct FloatVisitor<T> {
+    phantom: std::marker::PhantomData<T>,
+}
 
-impl serde::de::Visitor<'_> for FloatVisitor {
-    type Value = f32;
+impl<T> FloatVisitor<T> {
+    fn new() -> Self {
+        FloatVisitor {
+            phantom: std::marker::PhantomData,
+        }
+    }
+}
 
-    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+impl<'de, T: FloatExt> serde::de::Visitor<'de> for FloatVisitor<T>
+where
+    T: FloatExt,
+{
+    type Value = T;
+
+    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
     where
         E: serde::de::Error,
     {
-        // Handle special strings, see https://protobuf.dev/programming-guides/json/.
         match value {
-            "NaN" => Ok(f32::NAN),
-            "Infinity" => Ok(f32::INFINITY),
-            "-Infinity" => Ok(f32::NEG_INFINITY),
+            "NaN" => Ok(T::nan()),
+            "Infinity" => Ok(T::infinity()),
+            "-Infinity" => Ok(T::neg_infinity()),
             _ => Err(serde::de::Error::invalid_value(
                 serde::de::Unexpected::Other(value),
-                &"a valid ProtoJSON string for f32 (NaN, Infinity, -Infinity)",
+                &format!(
+                    "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
+                    T::type_name()
+                )
+                .as_str(),
             )),
         }
     }
 
-    fn visit_f32<E>(self, value: f32) -> std::result::Result<Self::Value, E>
+    fn visit_f64<E>(self, value: f64) -> Result<Self::Value, E>
     where
         E: serde::de::Error,
     {
-        // TODO(#1767): Find a way to test this code path, serde_json floats
-        // stored as f64.
-        Ok(value)
-    }
-
-    // Floats in serde_json are f64.
-    fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        // Cast f64 to f32 to produce the closest possible float value.
-        // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-        Ok(value as f32)
+        Ok(T::from_f64(value))
     }
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("a 32-bit floating point in ProtoJSON format")
+        formatter.write_str(&format!(
+            "a {}-bit floating point in ProtoJSON format",
+            T::bits()
+        ))
+    }
+}
+
+// Trait to abstract over f32 and f64
+pub trait FloatExt: num_traits::Float {
+    fn from_f64(value: f64) -> Self;
+    fn type_name() -> &'static str;
+    fn bits() -> u8;
+    fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer;
+}
+
+impl FloatExt for f32 {
+    fn from_f64(value: f64) -> Self {
+        value as f32
+    }
+    fn type_name() -> &'static str {
+        "f32"
+    }
+    fn bits() -> u8 {
+        32
+    }
+    fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        serializer.serialize_f32(self)
+    }
+}
+
+impl FloatExt for f64 {
+    fn from_f64(value: f64) -> Self {
+        value
+    }
+    fn type_name() -> &'static str {
+        "f64"
+    }
+    fn bits() -> u8 {
+        64
+    }
+    fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        serializer.serialize_f64(self)
     }
 }
 
