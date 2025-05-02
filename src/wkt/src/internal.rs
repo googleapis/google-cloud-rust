@@ -73,6 +73,7 @@ where
     where
         E: serde::de::Error,
     {
+        // Handle special strings, see https://protobuf.dev/programming-guides/json/.
         match value {
             "NaN" => Ok(T::nan()),
             "Infinity" => Ok(T::infinity()),
