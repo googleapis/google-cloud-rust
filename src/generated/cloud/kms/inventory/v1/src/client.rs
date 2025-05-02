@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the KMS Inventory API.
 ///
 /// # Example
@@ -130,6 +131,7 @@ impl KeyDashboardService {
             .set_parent(parent.into())
     }
 }
+
 /// Implements a client for the KMS Inventory API.
 ///
 /// # Example

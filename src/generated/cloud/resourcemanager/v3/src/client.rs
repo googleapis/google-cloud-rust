@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -374,6 +375,7 @@ impl Folders {
         super::builder::folders::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -545,6 +547,7 @@ impl Organizations {
         super::builder::organizations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -917,6 +920,7 @@ impl Projects {
         super::builder::projects::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -1077,6 +1081,7 @@ impl TagBindings {
         super::builder::tag_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -1236,6 +1241,7 @@ impl TagHolds {
         super::builder::tag_holds::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -1462,6 +1468,7 @@ impl TagKeys {
         super::builder::tag_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example

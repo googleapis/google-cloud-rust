@@ -52,40 +52,7 @@
     feature = "vizier_service",
 ))]
 use crate::Result;
-#[cfg(any(
-    feature = "dataset_service",
-    feature = "deployment_resource_pool_service",
-    feature = "endpoint_service",
-    feature = "evaluation_service",
-    feature = "feature_online_store_admin_service",
-    feature = "feature_online_store_service",
-    feature = "feature_registry_service",
-    feature = "featurestore_online_serving_service",
-    feature = "featurestore_service",
-    feature = "gen_ai_cache_service",
-    feature = "gen_ai_tuning_service",
-    feature = "index_endpoint_service",
-    feature = "index_service",
-    feature = "job_service",
-    feature = "llm_utility_service",
-    feature = "match_service",
-    feature = "metadata_service",
-    feature = "migration_service",
-    feature = "model_garden_service",
-    feature = "model_service",
-    feature = "notebook_service",
-    feature = "persistent_resource_service",
-    feature = "pipeline_service",
-    feature = "prediction_service",
-    feature = "reasoning_engine_execution_service",
-    feature = "reasoning_engine_service",
-    feature = "schedule_service",
-    feature = "specialist_pool_service",
-    feature = "tensorboard_service",
-    feature = "vertex_rag_data_service",
-    feature = "vertex_rag_service",
-    feature = "vizier_service",
-))]
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -548,6 +515,7 @@ impl DatasetService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -862,6 +830,7 @@ impl DeploymentResourcePoolService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -1221,6 +1190,7 @@ impl EndpointService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -1446,6 +1416,7 @@ impl EvaluationService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -1865,6 +1836,7 @@ impl FeatureOnlineStoreAdminService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -2101,6 +2073,7 @@ impl FeatureOnlineStoreService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -2487,6 +2460,7 @@ impl FeatureRegistryService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -2737,6 +2711,7 @@ impl FeaturestoreOnlineServingService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -3297,6 +3272,7 @@ impl FeaturestoreService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -3559,6 +3535,7 @@ impl GenAiCacheService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -3847,6 +3824,7 @@ impl GenAiTuningService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -4188,6 +4166,7 @@ impl IndexEndpointService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -4492,6 +4471,7 @@ impl IndexService {
         super::builder::index_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -5155,6 +5135,7 @@ impl JobService {
         super::builder::job_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -5389,6 +5370,7 @@ impl LlmUtilityService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -5618,6 +5600,7 @@ impl MatchService {
         super::builder::match_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -6215,6 +6198,7 @@ impl MetadataService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -6463,6 +6447,7 @@ impl MigrationService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -6688,6 +6673,7 @@ impl ModelGardenService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -7154,6 +7140,7 @@ impl ModelService {
         super::builder::model_service::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -7604,6 +7591,7 @@ impl NotebookService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -7924,6 +7912,7 @@ impl PersistentResourceService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -8333,6 +8322,7 @@ impl PipelineService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -8632,6 +8622,7 @@ impl PredictionService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -8861,6 +8852,7 @@ impl ReasoningEngineExecutionService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -9152,6 +9144,7 @@ impl ReasoningEngineService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -9462,6 +9455,7 @@ impl ScheduleService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -9758,6 +9752,7 @@ impl SpecialistPoolService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -10312,6 +10307,7 @@ impl TensorboardService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -10668,6 +10664,7 @@ impl VertexRagDataService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example
@@ -10914,6 +10911,7 @@ impl VertexRagService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Vertex AI API.
 ///
 /// # Example

@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Composer API.
 ///
 /// # Example
@@ -475,6 +476,7 @@ impl Environments {
         super::builder::environments::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Composer API.
 ///
 /// # Example

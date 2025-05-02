@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Google Cloud Support API.
 ///
 /// # Example
@@ -128,6 +129,7 @@ impl CaseAttachmentService {
             .set_parent(parent.into())
     }
 }
+
 /// Implements a client for the Google Cloud Support API.
 ///
 /// # Example
@@ -307,6 +309,7 @@ impl CaseService {
         super::builder::case_service::SearchCaseClassifications::new(self.inner.clone())
     }
 }
+
 /// Implements a client for the Google Cloud Support API.
 ///
 /// # Example

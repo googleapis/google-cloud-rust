@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the GKE Multi-Cloud API.
 ///
 /// # Example
@@ -329,6 +330,7 @@ impl AttachedClusters {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the GKE Multi-Cloud API.
 ///
 /// # Example
@@ -753,6 +755,7 @@ impl AwsClusters {
         super::builder::aws_clusters::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the GKE Multi-Cloud API.
 ///
 /// # Example

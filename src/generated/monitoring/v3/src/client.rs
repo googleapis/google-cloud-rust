@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -187,6 +188,7 @@ impl AlertPolicyService {
             .set_alert_policy(alert_policy.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -348,6 +350,7 @@ impl GroupService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -553,6 +556,7 @@ impl MetricService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -814,6 +818,7 @@ impl NotificationChannelService {
         .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -928,6 +933,7 @@ impl QueryService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -1133,6 +1139,7 @@ impl ServiceMonitoringService {
         .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -1274,6 +1281,7 @@ impl SnoozeService {
             .set_snooze(snooze.into())
     }
 }
+
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example

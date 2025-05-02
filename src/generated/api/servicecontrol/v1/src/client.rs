@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Service Control API.
 ///
 /// # Example
@@ -141,6 +142,7 @@ impl QuotaController {
             .set_service_name(service_name.into())
     }
 }
+
 /// Implements a client for the Service Control API.
 ///
 /// # Example

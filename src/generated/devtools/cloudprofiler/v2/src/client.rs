@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Profiler API.
 ///
 /// # Example
@@ -182,6 +183,7 @@ impl ProfilerService {
             .set_profile(profile.into())
     }
 }
+
 /// Implements a client for the Cloud Profiler API.
 ///
 /// # Example

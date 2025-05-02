@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Network Services API.
 ///
 /// # Example
@@ -362,6 +363,7 @@ impl DepService {
         super::builder::dep_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Network Services API.
 ///
 /// # Example

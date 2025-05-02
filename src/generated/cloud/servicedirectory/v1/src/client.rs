@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Service Directory API.
 ///
 /// # Example
@@ -146,6 +147,7 @@ impl LookupService {
         super::builder::lookup_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Service Directory API.
 ///
 /// # Example

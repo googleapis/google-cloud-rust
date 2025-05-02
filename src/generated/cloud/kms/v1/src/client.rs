@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
 /// # Example
@@ -248,6 +249,7 @@ impl Autokey {
         super::builder::autokey::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
 /// # Example
@@ -461,6 +463,7 @@ impl AutokeyAdmin {
         super::builder::autokey_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
 /// # Example
@@ -715,6 +718,7 @@ impl EkmService {
         super::builder::ekm_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
 /// # Example

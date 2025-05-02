@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Talent Solution API.
 ///
 /// # Example
@@ -172,6 +173,7 @@ impl CompanyService {
         super::builder::company_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Talent Solution API.
 ///
 /// # Example
@@ -291,6 +293,7 @@ impl Completion {
         super::builder::completion::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Talent Solution API.
 ///
 /// # Example
@@ -416,6 +419,7 @@ impl EventService {
         super::builder::event_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Talent Solution API.
 ///
 /// # Example
@@ -673,6 +677,7 @@ impl JobService {
         super::builder::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Talent Solution API.
 ///
 /// # Example

@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Vision API.
 ///
 /// # Example
@@ -192,6 +193,7 @@ impl ImageAnnotator {
         super::builder::image_annotator::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Vision API.
 ///
 /// # Example

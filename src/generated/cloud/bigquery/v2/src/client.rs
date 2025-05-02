@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the BigQuery API.
 ///
 /// # Example
@@ -201,6 +202,7 @@ impl DatasetService {
             .set_dataset_id(dataset_id.into())
     }
 }
+
 /// Implements a client for the BigQuery API.
 ///
 /// # Example
@@ -353,6 +355,7 @@ impl ModelService {
             .set_model_id(model_id.into())
     }
 }
+
 /// Implements a client for the BigQuery API.
 ///
 /// # Example
@@ -463,6 +466,7 @@ impl ProjectService {
             .set_project_id(project_id.into())
     }
 }
+
 /// Implements a client for the BigQuery API.
 ///
 /// # Example
@@ -626,6 +630,7 @@ impl RoutineService {
             .set_dataset_id(dataset_id.into())
     }
 }
+
 /// Implements a client for the BigQuery API.
 ///
 /// # Example
@@ -814,6 +819,7 @@ impl RowAccessPolicyService {
         .set_table_id(table_id.into())
     }
 }
+
 /// Implements a client for the BigQuery API.
 ///
 /// # Example

@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -555,6 +556,7 @@ impl CatalogService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -824,6 +826,7 @@ impl CmekService {
         super::builder::cmek_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -1073,6 +1076,7 @@ impl ContentService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -1504,6 +1508,7 @@ impl DataTaxonomyService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -1822,6 +1827,7 @@ impl DataScanService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -2104,6 +2110,7 @@ impl MetadataService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example

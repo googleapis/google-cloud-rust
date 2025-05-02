@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -253,6 +254,7 @@ impl CompletionService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -453,6 +455,7 @@ impl ControlService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -744,6 +747,7 @@ impl ConversationalSearchService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -966,6 +970,7 @@ impl DataStoreService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -1237,6 +1242,7 @@ impl DocumentService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -1446,6 +1452,7 @@ impl EngineService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -1601,6 +1608,7 @@ impl GroundedGenerationService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -1760,6 +1768,7 @@ impl ProjectService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -1899,6 +1908,7 @@ impl RankService {
         super::builder::rank_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -2043,6 +2053,7 @@ impl RecommendationService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -2260,6 +2271,7 @@ impl SchemaService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -2424,6 +2436,7 @@ impl SearchService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -2587,6 +2600,7 @@ impl SearchTuningService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -2736,6 +2750,7 @@ impl ServingConfigService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -3140,6 +3155,7 @@ impl SiteSearchEngineService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example

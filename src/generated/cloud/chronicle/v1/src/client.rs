@@ -17,6 +17,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
+
 /// Implements a client for the Chronicle API.
 ///
 /// # Example
@@ -266,6 +267,7 @@ impl DataAccessControlService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Chronicle API.
 ///
 /// # Example
@@ -454,6 +456,7 @@ impl EntityService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Chronicle API.
 ///
 /// # Example
@@ -608,6 +611,7 @@ impl InstanceService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Chronicle API.
 ///
 /// # Example
@@ -790,6 +794,7 @@ impl ReferenceListService {
             .set_name(name.into())
     }
 }
+
 /// Implements a client for the Chronicle API.
 ///
 /// # Example

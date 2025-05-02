@@ -27,11 +27,9 @@ limitations under the License.
 #[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use crate::Result;
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
 {{/Codec.HasServices}}
 {{#Codec.Services}}
+
 /// Implements a client for the {{Codec.APITitle}}.
 ///
 /// # Example
