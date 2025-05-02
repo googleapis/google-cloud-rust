@@ -370,6 +370,17 @@ impl Entitlement {
         self
     }
 
+    /// Sets the value of [eligible_users][crate::model::Entitlement::eligible_users].
+    pub fn set_eligible_users<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AccessControlEntry>,
+    {
+        use std::iter::Iterator;
+        self.eligible_users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [approval_workflow][crate::model::Entitlement::approval_workflow].
     pub fn set_approval_workflow<
         T: std::convert::Into<std::option::Option<crate::model::ApprovalWorkflow>>,
@@ -441,17 +452,6 @@ impl Entitlement {
         self.etag = v.into();
         self
     }
-
-    /// Sets the value of [eligible_users][crate::model::Entitlement::eligible_users].
-    pub fn set_eligible_users<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessControlEntry>,
-    {
-        use std::iter::Iterator;
-        self.eligible_users = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Entitlement {
@@ -515,23 +515,6 @@ pub mod entitlement {
             })
         }
 
-        /// The value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
-        /// if it holds a `Unstructured`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn unstructured(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::entitlement::requester_justification_config::Unstructured,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.justification_type.as_ref().and_then(|v| match v {
-                crate::model::entitlement::requester_justification_config::JustificationType::Unstructured(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
         /// to hold a `NotMandatory`.
         ///
@@ -553,6 +536,23 @@ pub mod entitlement {
                 )
             );
             self
+        }
+
+        /// The value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
+        /// if it holds a `Unstructured`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn unstructured(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::entitlement::requester_justification_config::Unstructured,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.justification_type.as_ref().and_then(|v| match v {
+                crate::model::entitlement::requester_justification_config::JustificationType::Unstructured(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
@@ -1092,12 +1092,6 @@ pub mod manual_approvals {
             std::default::Default::default()
         }
 
-        /// Sets the value of [approvals_needed][crate::model::manual_approvals::Step::approvals_needed].
-        pub fn set_approvals_needed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.approvals_needed = v.into();
-            self
-        }
-
         /// Sets the value of [approvers][crate::model::manual_approvals::Step::approvers].
         pub fn set_approvers<T, V>(mut self, v: T) -> Self
         where
@@ -1106,6 +1100,12 @@ pub mod manual_approvals {
         {
             use std::iter::Iterator;
             self.approvers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [approvals_needed][crate::model::manual_approvals::Step::approvals_needed].
+        pub fn set_approvals_needed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.approvals_needed = v.into();
             self
         }
 
@@ -1435,12 +1435,6 @@ impl ListEntitlementsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEntitlementsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entitlements][crate::model::ListEntitlementsResponse::entitlements].
     pub fn set_entitlements<T, V>(mut self, v: T) -> Self
     where
@@ -1449,6 +1443,12 @@ impl ListEntitlementsResponse {
     {
         use std::iter::Iterator;
         self.entitlements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEntitlementsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1724,12 +1724,6 @@ impl SearchEntitlementsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchEntitlementsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entitlements][crate::model::SearchEntitlementsResponse::entitlements].
     pub fn set_entitlements<T, V>(mut self, v: T) -> Self
     where
@@ -1738,6 +1732,12 @@ impl SearchEntitlementsResponse {
     {
         use std::iter::Iterator;
         self.entitlements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchEntitlementsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2176,12 +2176,6 @@ impl Grant {
         self
     }
 
-    /// Sets the value of [externally_modified][crate::model::Grant::externally_modified].
-    pub fn set_externally_modified<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.externally_modified = v.into();
-        self
-    }
-
     /// Sets the value of [additional_email_recipients][crate::model::Grant::additional_email_recipients].
     pub fn set_additional_email_recipients<T, V>(mut self, v: T) -> Self
     where
@@ -2190,6 +2184,12 @@ impl Grant {
     {
         use std::iter::Iterator;
         self.additional_email_recipients = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [externally_modified][crate::model::Grant::externally_modified].
+    pub fn set_externally_modified<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.externally_modified = v.into();
         self
     }
 }
@@ -2314,154 +2314,6 @@ pub mod grant {
                 })
             }
 
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Approved`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn approved(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Approved>>
-            {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Approved(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Denied`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn denied(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Denied>>
-            {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Denied(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Revoked`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn revoked(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Revoked>>
-            {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Revoked(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Scheduled`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn scheduled(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Scheduled(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Activated`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn activated(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::grant::timeline::event::Activated>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Activated(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `ActivationFailed`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn activation_failed(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::ActivationFailed(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Expired`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn expired(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Expired>>
-            {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Expired(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `Ended`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn ended(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Ended>>
-            {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::Ended(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [event][crate::model::grant::timeline::Event::event]
-            /// if it holds a `ExternallyModified`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn externally_modified(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.event.as_ref().and_then(|v| match v {
-                    crate::model::grant::timeline::event::Event::ExternallyModified(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
             /// to hold a `Requested`.
             ///
@@ -2481,6 +2333,22 @@ pub mod grant {
                 self
             }
 
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Approved`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn approved(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Approved>>
+            {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Approved(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
             /// to hold a `Approved`.
             ///
@@ -2496,6 +2364,22 @@ pub mod grant {
                     crate::model::grant::timeline::event::Event::Approved(v.into()),
                 );
                 self
+            }
+
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Denied`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn denied(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Denied>>
+            {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Denied(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
@@ -2515,6 +2399,22 @@ pub mod grant {
                 self
             }
 
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Revoked`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn revoked(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Revoked>>
+            {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Revoked(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
             /// to hold a `Revoked`.
             ///
@@ -2530,6 +2430,23 @@ pub mod grant {
                     crate::model::grant::timeline::event::Event::Revoked(v.into()),
                 );
                 self
+            }
+
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Scheduled`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn scheduled(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Scheduled(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
@@ -2551,6 +2468,23 @@ pub mod grant {
                 self
             }
 
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Activated`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn activated(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::grant::timeline::event::Activated>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Activated(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
             /// to hold a `Activated`.
             ///
@@ -2568,6 +2502,23 @@ pub mod grant {
                     crate::model::grant::timeline::event::Event::Activated(v.into()),
                 );
                 self
+            }
+
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `ActivationFailed`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn activation_failed(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::ActivationFailed(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
@@ -2589,6 +2540,22 @@ pub mod grant {
                 self
             }
 
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Expired`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn expired(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Expired>>
+            {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Expired(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
             /// to hold a `Expired`.
             ///
@@ -2606,6 +2573,22 @@ pub mod grant {
                 self
             }
 
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Ended`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn ended(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Ended>>
+            {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Ended(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
             /// to hold a `Ended`.
             ///
@@ -2621,6 +2604,23 @@ pub mod grant {
                     crate::model::grant::timeline::event::Event::Ended(v.into()),
                 );
                 self
+            }
+
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `ExternallyModified`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn externally_modified(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::ExternallyModified(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [event][crate::model::grant::timeline::Event::event]
@@ -3465,12 +3465,6 @@ impl ListGrantsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGrantsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [grants][crate::model::ListGrantsResponse::grants].
     pub fn set_grants<T, V>(mut self, v: T) -> Self
     where
@@ -3479,6 +3473,12 @@ impl ListGrantsResponse {
     {
         use std::iter::Iterator;
         self.grants = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGrantsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3762,12 +3762,6 @@ impl SearchGrantsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchGrantsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [grants][crate::model::SearchGrantsResponse::grants].
     pub fn set_grants<T, V>(mut self, v: T) -> Self
     where
@@ -3776,6 +3770,12 @@ impl SearchGrantsResponse {
     {
         use std::iter::Iterator;
         self.grants = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchGrantsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

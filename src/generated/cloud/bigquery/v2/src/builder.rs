@@ -1928,12 +1928,6 @@ pub mod row_access_policy_service {
             self
         }
 
-        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
-            self
-        }
-
         /// Sets the value of [policy_ids][crate::model::BatchDeleteRowAccessPoliciesRequest::policy_ids].
         ///
         /// This is a **required** field for requests.
@@ -1944,6 +1938,12 @@ pub mod row_access_policy_service {
         {
             use std::iter::Iterator;
             self.0.request.policy_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
             self
         }
     }

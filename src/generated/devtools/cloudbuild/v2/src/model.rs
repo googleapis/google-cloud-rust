@@ -347,12 +347,6 @@ impl Connection {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Connection::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::Connection::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -362,6 +356,12 @@ impl Connection {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Connection::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 
@@ -394,66 +394,6 @@ impl Connection {
         })
     }
 
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn github_enterprise_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitHubEnterpriseConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::GithubEnterpriseConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `GitlabConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gitlab_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::GitlabConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `BitbucketDataCenterConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bitbucket_data_center_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BitbucketDataCenterConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::BitbucketDataCenterConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `BitbucketCloudConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bitbucket_cloud_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BitbucketCloudConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::BitbucketCloudConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
     /// to hold a `GithubConfig`.
     ///
@@ -467,6 +407,21 @@ impl Connection {
             crate::model::connection::ConnectionConfig::GithubConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn github_enterprise_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GitHubEnterpriseConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::GithubEnterpriseConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
@@ -486,6 +441,21 @@ impl Connection {
         self
     }
 
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `GitlabConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gitlab_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::GitlabConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
     /// to hold a `GitlabConfig`.
     ///
@@ -499,6 +469,21 @@ impl Connection {
             crate::model::connection::ConnectionConfig::GitlabConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `BitbucketDataCenterConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bitbucket_data_center_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BitbucketDataCenterConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::BitbucketDataCenterConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
@@ -516,6 +501,21 @@ impl Connection {
             crate::model::connection::ConnectionConfig::BitbucketDataCenterConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `BitbucketCloudConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bitbucket_cloud_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BitbucketCloudConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::BitbucketCloudConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
@@ -853,12 +853,6 @@ impl FetchLinkableRepositoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchLinkableRepositoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [repositories][crate::model::FetchLinkableRepositoriesResponse::repositories].
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
@@ -867,6 +861,12 @@ impl FetchLinkableRepositoriesResponse {
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchLinkableRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1513,18 +1513,6 @@ impl Repository {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Repository::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [webhook_id][crate::model::Repository::webhook_id].
-    pub fn set_webhook_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.webhook_id = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::Repository::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -1534,6 +1522,18 @@ impl Repository {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Repository::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [webhook_id][crate::model::Repository::webhook_id].
+    pub fn set_webhook_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.webhook_id = v.into();
         self
     }
 }
@@ -1807,12 +1807,6 @@ impl ListConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
@@ -1821,6 +1815,12 @@ impl ListConnectionsResponse {
     {
         use std::iter::Iterator;
         self.connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2243,12 +2243,6 @@ impl ListRepositoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
@@ -2257,6 +2251,12 @@ impl ListRepositoriesResponse {
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

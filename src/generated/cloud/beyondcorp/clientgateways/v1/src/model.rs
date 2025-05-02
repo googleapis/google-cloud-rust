@@ -396,12 +396,6 @@ impl ListClientGatewaysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClientGatewaysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [client_gateways][crate::model::ListClientGatewaysResponse::client_gateways].
     pub fn set_client_gateways<T, V>(mut self, v: T) -> Self
     where
@@ -410,6 +404,12 @@ impl ListClientGatewaysResponse {
     {
         use std::iter::Iterator;
         self.client_gateways = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClientGatewaysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

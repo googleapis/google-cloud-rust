@@ -3054,14 +3054,6 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_auto_commit<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.auto_commit = v.into();
-            self
-        }
-
         /// Sets the value of [rules_files][crate::model::ImportMappingRulesRequest::rules_files].
         ///
         /// This is a **required** field for requests.
@@ -3072,6 +3064,14 @@ pub mod data_migration_service {
         {
             use std::iter::Iterator;
             self.0.request.rules_files = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_auto_commit<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.auto_commit = v.into();
             self
         }
     }

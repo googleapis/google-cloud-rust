@@ -292,6 +292,18 @@ impl AttachedCluster {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::AttachedCluster::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [workload_identity_config][crate::model::AttachedCluster::workload_identity_config].
     pub fn set_workload_identity_config<
         T: std::convert::Into<std::option::Option<crate::model::WorkloadIdentityConfig>>,
@@ -311,6 +323,17 @@ impl AttachedCluster {
         v: T,
     ) -> Self {
         self.logging_config = v.into();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::AttachedCluster::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AttachedClusterError>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -366,29 +389,6 @@ impl AttachedCluster {
         v: T,
     ) -> Self {
         self.security_posture_config = v.into();
-        self
-    }
-
-    /// Sets the value of [errors][crate::model::AttachedCluster::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedClusterError>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::AttachedCluster::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1527,12 +1527,6 @@ impl ListAttachedClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttachedClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attached_clusters][crate::model::ListAttachedClustersResponse::attached_clusters].
     pub fn set_attached_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -1541,6 +1535,12 @@ impl ListAttachedClustersResponse {
     {
         use std::iter::Iterator;
         self.attached_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttachedClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2105,6 +2105,18 @@ impl AwsCluster {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::AwsCluster::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [workload_identity_config][crate::model::AwsCluster::workload_identity_config].
     pub fn set_workload_identity_config<
         T: std::convert::Into<std::option::Option<crate::model::WorkloadIdentityConfig>>,
@@ -2145,6 +2157,17 @@ impl AwsCluster {
         self
     }
 
+    /// Sets the value of [errors][crate::model::AwsCluster::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AwsClusterError>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [monitoring_config][crate::model::AwsCluster::monitoring_config].
     pub fn set_monitoring_config<
         T: std::convert::Into<std::option::Option<crate::model::MonitoringConfig>>,
@@ -2164,29 +2187,6 @@ impl AwsCluster {
         v: T,
     ) -> Self {
         self.binary_authorization = v.into();
-        self
-    }
-
-    /// Sets the value of [errors][crate::model::AwsCluster::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsClusterError>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::AwsCluster::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2496,6 +2496,28 @@ impl AwsControlPlane {
         self
     }
 
+    /// Sets the value of [subnet_ids][crate::model::AwsControlPlane::subnet_ids].
+    pub fn set_subnet_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.subnet_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [security_group_ids][crate::model::AwsControlPlane::security_group_ids].
+    pub fn set_security_group_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.security_group_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [iam_instance_profile][crate::model::AwsControlPlane::iam_instance_profile].
     pub fn set_iam_instance_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2535,6 +2557,18 @@ impl AwsControlPlane {
         v: T,
     ) -> Self {
         self.database_encryption = v.into();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::AwsControlPlane::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2579,40 +2613,6 @@ impl AwsControlPlane {
         v: T,
     ) -> Self {
         self.instance_placement = v.into();
-        self
-    }
-
-    /// Sets the value of [subnet_ids][crate::model::AwsControlPlane::subnet_ids].
-    pub fn set_subnet_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.subnet_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [security_group_ids][crate::model::AwsControlPlane::security_group_ids].
-    pub fn set_security_group_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.security_group_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::AwsControlPlane::tags].
-    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3108,15 +3108,6 @@ impl AwsClusterNetworking {
         self
     }
 
-    /// Sets the value of [per_node_pool_sg_rules_disabled][crate::model::AwsClusterNetworking::per_node_pool_sg_rules_disabled].
-    pub fn set_per_node_pool_sg_rules_disabled<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.per_node_pool_sg_rules_disabled = v.into();
-        self
-    }
-
     /// Sets the value of [pod_address_cidr_blocks][crate::model::AwsClusterNetworking::pod_address_cidr_blocks].
     pub fn set_pod_address_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
@@ -3136,6 +3127,15 @@ impl AwsClusterNetworking {
     {
         use std::iter::Iterator;
         self.service_address_cidr_blocks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [per_node_pool_sg_rules_disabled][crate::model::AwsClusterNetworking::per_node_pool_sg_rules_disabled].
+    pub fn set_per_node_pool_sg_rules_disabled<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.per_node_pool_sg_rules_disabled = v.into();
         self
     }
 }
@@ -3338,6 +3338,18 @@ impl AwsNodePool {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::AwsNodePool::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [max_pods_constraint][crate::model::AwsNodePool::max_pods_constraint].
     pub fn set_max_pods_constraint<
         T: std::convert::Into<std::option::Option<crate::model::MaxPodsConstraint>>,
@@ -3346,6 +3358,17 @@ impl AwsNodePool {
         v: T,
     ) -> Self {
         self.max_pods_constraint = v.into();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::AwsNodePool::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AwsNodePoolError>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3379,29 +3402,6 @@ impl AwsNodePool {
         v: T,
     ) -> Self {
         self.update_settings = v.into();
-        self
-    }
-
-    /// Sets the value of [errors][crate::model::AwsNodePool::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsNodePoolError>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::AwsNodePool::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3837,6 +3837,41 @@ impl AwsNodeConfig {
         self
     }
 
+    /// Sets the value of [taints][crate::model::AwsNodeConfig::taints].
+    pub fn set_taints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NodeTaint>,
+    {
+        use std::iter::Iterator;
+        self.taints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::AwsNodeConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::AwsNodeConfig::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [iam_instance_profile][crate::model::AwsNodeConfig::iam_instance_profile].
     pub fn set_iam_instance_profile<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3860,6 +3895,17 @@ impl AwsNodeConfig {
         v: T,
     ) -> Self {
         self.ssh_config = v.into();
+        self
+    }
+
+    /// Sets the value of [security_group_ids][crate::model::AwsNodeConfig::security_group_ids].
+    pub fn set_security_group_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.security_group_ids = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3913,52 +3959,6 @@ impl AwsNodeConfig {
         v: T,
     ) -> Self {
         self.spot_config = v.into();
-        self
-    }
-
-    /// Sets the value of [taints][crate::model::AwsNodeConfig::taints].
-    pub fn set_taints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeTaint>,
-    {
-        use std::iter::Iterator;
-        self.taints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [security_group_ids][crate::model::AwsNodeConfig::security_group_ids].
-    pub fn set_security_group_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.security_group_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::AwsNodeConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::AwsNodeConfig::tags].
-    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5090,12 +5090,6 @@ impl ListAwsClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAwsClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [aws_clusters][crate::model::ListAwsClustersResponse::aws_clusters].
     pub fn set_aws_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -5104,6 +5098,12 @@ impl ListAwsClustersResponse {
     {
         use std::iter::Iterator;
         self.aws_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAwsClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5616,12 +5616,6 @@ impl ListAwsNodePoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAwsNodePoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [aws_node_pools][crate::model::ListAwsNodePoolsResponse::aws_node_pools].
     pub fn set_aws_node_pools<T, V>(mut self, v: T) -> Self
     where
@@ -5630,6 +5624,12 @@ impl ListAwsNodePoolsResponse {
     {
         use std::iter::Iterator;
         self.aws_node_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAwsNodePoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6418,6 +6418,18 @@ impl AzureCluster {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::AzureCluster::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [workload_identity_config][crate::model::AzureCluster::workload_identity_config].
     pub fn set_workload_identity_config<
         T: std::convert::Into<std::option::Option<crate::model::WorkloadIdentityConfig>>,
@@ -6469,17 +6481,6 @@ impl AzureCluster {
         self
     }
 
-    /// Sets the value of [monitoring_config][crate::model::AzureCluster::monitoring_config].
-    pub fn set_monitoring_config<
-        T: std::convert::Into<std::option::Option<crate::model::MonitoringConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitoring_config = v.into();
-        self
-    }
-
     /// Sets the value of [errors][crate::model::AzureCluster::errors].
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
@@ -6491,15 +6492,14 @@ impl AzureCluster {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::AzureCluster::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [monitoring_config][crate::model::AzureCluster::monitoring_config].
+    pub fn set_monitoring_config<
+        T: std::convert::Into<std::option::Option<crate::model::MonitoringConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.monitoring_config = v.into();
         self
     }
 }
@@ -6746,15 +6746,6 @@ impl AzureClusterNetworking {
         self
     }
 
-    /// Sets the value of [service_load_balancer_subnet_id][crate::model::AzureClusterNetworking::service_load_balancer_subnet_id].
-    pub fn set_service_load_balancer_subnet_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_load_balancer_subnet_id = v.into();
-        self
-    }
-
     /// Sets the value of [pod_address_cidr_blocks][crate::model::AzureClusterNetworking::pod_address_cidr_blocks].
     pub fn set_pod_address_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
@@ -6774,6 +6765,15 @@ impl AzureClusterNetworking {
     {
         use std::iter::Iterator;
         self.service_address_cidr_blocks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [service_load_balancer_subnet_id][crate::model::AzureClusterNetworking::service_load_balancer_subnet_id].
+    pub fn set_service_load_balancer_subnet_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_load_balancer_subnet_id = v.into();
         self
     }
 }
@@ -6969,12 +6969,15 @@ impl AzureControlPlane {
         self
     }
 
-    /// Sets the value of [endpoint_subnet_id][crate::model::AzureControlPlane::endpoint_subnet_id].
-    pub fn set_endpoint_subnet_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoint_subnet_id = v.into();
+    /// Sets the value of [tags][crate::model::AzureControlPlane::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -6989,15 +6992,12 @@ impl AzureControlPlane {
         self
     }
 
-    /// Sets the value of [tags][crate::model::AzureControlPlane::tags].
-    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [endpoint_subnet_id][crate::model::AzureControlPlane::endpoint_subnet_id].
+    pub fn set_endpoint_subnet_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.endpoint_subnet_id = v.into();
         self
     }
 }
@@ -7342,6 +7342,18 @@ impl AzureClient {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::AzureClient::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [pem_certificate][crate::model::AzureClient::pem_certificate].
     pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_certificate = v.into();
@@ -7369,18 +7381,6 @@ impl AzureClient {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::AzureClient::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -7744,6 +7744,18 @@ impl AzureNodePool {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::AzureNodePool::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [max_pods_constraint][crate::model::AzureNodePool::max_pods_constraint].
     pub fn set_max_pods_constraint<
         T: std::convert::Into<std::option::Option<crate::model::MaxPodsConstraint>>,
@@ -7764,17 +7776,6 @@ impl AzureNodePool {
         self
     }
 
-    /// Sets the value of [management][crate::model::AzureNodePool::management].
-    pub fn set_management<
-        T: std::convert::Into<std::option::Option<crate::model::AzureNodeManagement>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.management = v.into();
-        self
-    }
-
     /// Sets the value of [errors][crate::model::AzureNodePool::errors].
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
@@ -7786,15 +7787,14 @@ impl AzureNodePool {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::AzureNodePool::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [management][crate::model::AzureNodePool::management].
+    pub fn set_management<
+        T: std::convert::Into<std::option::Option<crate::model::AzureNodeManagement>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.management = v.into();
         self
     }
 }
@@ -8097,6 +8097,18 @@ impl AzureNodeConfig {
         self
     }
 
+    /// Sets the value of [tags][crate::model::AzureNodeConfig::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [image_type][crate::model::AzureNodeConfig::image_type].
     pub fn set_image_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_type = v.into();
@@ -8144,18 +8156,6 @@ impl AzureNodeConfig {
     {
         use std::iter::Iterator;
         self.taints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::AzureNodeConfig::tags].
-    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -9007,12 +9007,6 @@ impl ListAzureClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAzureClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [azure_clusters][crate::model::ListAzureClustersResponse::azure_clusters].
     pub fn set_azure_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -9021,6 +9015,12 @@ impl ListAzureClustersResponse {
     {
         use std::iter::Iterator;
         self.azure_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAzureClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9458,12 +9458,6 @@ impl ListAzureNodePoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAzureNodePoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [azure_node_pools][crate::model::ListAzureNodePoolsResponse::azure_node_pools].
     pub fn set_azure_node_pools<T, V>(mut self, v: T) -> Self
     where
@@ -9472,6 +9466,12 @@ impl ListAzureNodePoolsResponse {
     {
         use std::iter::Iterator;
         self.azure_node_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAzureNodePoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9945,12 +9945,6 @@ impl ListAzureClientsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAzureClientsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [azure_clients][crate::model::ListAzureClientsResponse::azure_clients].
     pub fn set_azure_clients<T, V>(mut self, v: T) -> Self
     where
@@ -9959,6 +9953,12 @@ impl ListAzureClientsResponse {
     {
         use std::iter::Iterator;
         self.azure_clients = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAzureClientsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

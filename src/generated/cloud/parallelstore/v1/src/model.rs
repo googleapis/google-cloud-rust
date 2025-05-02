@@ -174,6 +174,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [capacity_gib][crate::model::Instance::capacity_gib].
     pub fn set_capacity_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gib = v.into();
@@ -184,6 +196,17 @@ impl Instance {
     #[deprecated]
     pub fn set_daos_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.daos_version = v.into();
+        self
+    }
+
+    /// Sets the value of [access_points][crate::model::Instance::access_points].
+    pub fn set_access_points<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.access_points = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -235,29 +258,6 @@ impl Instance {
         v: T,
     ) -> Self {
         self.deployment_type = v.into();
-        self
-    }
-
-    /// Sets the value of [access_points][crate::model::Instance::access_points].
-    pub fn set_access_points<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.access_points = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -542,12 +542,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -556,6 +550,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1955,21 +1955,6 @@ impl TransferOperationMetadata {
         })
     }
 
-    /// The value of [source][crate::model::TransferOperationMetadata::source]
-    /// if it holds a `SourceGcsBucket`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_gcs_bucket(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceGcsBucket>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Source::SourceGcsBucket(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::TransferOperationMetadata::source]
     /// to hold a `SourceParallelstore`.
     ///
@@ -1985,6 +1970,21 @@ impl TransferOperationMetadata {
             crate::model::transfer_operation_metadata::Source::SourceParallelstore(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::TransferOperationMetadata::source]
+    /// if it holds a `SourceGcsBucket`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_gcs_bucket(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceGcsBucket>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::transfer_operation_metadata::Source::SourceGcsBucket(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::TransferOperationMetadata::source]
@@ -2035,21 +2035,6 @@ impl TransferOperationMetadata {
         })
     }
 
-    /// The value of [destination][crate::model::TransferOperationMetadata::destination]
-    /// if it holds a `DestinationParallelstore`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn destination_parallelstore(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationParallelstore>> {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Destination::DestinationParallelstore(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination]
     /// to hold a `DestinationGcsBucket`.
     ///
@@ -2065,6 +2050,21 @@ impl TransferOperationMetadata {
             crate::model::transfer_operation_metadata::Destination::DestinationGcsBucket(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::TransferOperationMetadata::destination]
+    /// if it holds a `DestinationParallelstore`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn destination_parallelstore(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationParallelstore>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::transfer_operation_metadata::Destination::DestinationParallelstore(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination]

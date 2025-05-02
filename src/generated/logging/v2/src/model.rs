@@ -280,6 +280,18 @@ impl LogEntry {
         self
     }
 
+    /// Sets the value of [labels][crate::model::LogEntry::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [operation][crate::model::LogEntry::operation].
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::LogEntryOperation>>,
@@ -329,18 +341,6 @@ impl LogEntry {
         self
     }
 
-    /// Sets the value of [labels][crate::model::LogEntry::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [payload][crate::model::LogEntry::payload].
     ///
     /// Note that all the setters affecting `payload` are mutually
@@ -366,28 +366,6 @@ impl LogEntry {
         })
     }
 
-    /// The value of [payload][crate::model::LogEntry::payload]
-    /// if it holds a `TextPayload`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.payload.as_ref().and_then(|v| match v {
-            crate::model::log_entry::Payload::TextPayload(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [payload][crate::model::LogEntry::payload]
-    /// if it holds a `JsonPayload`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn json_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
-        #[allow(unreachable_patterns)]
-        self.payload.as_ref().and_then(|v| match v {
-            crate::model::log_entry::Payload::JsonPayload(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [payload][crate::model::LogEntry::payload]
     /// to hold a `ProtoPayload`.
     ///
@@ -402,6 +380,17 @@ impl LogEntry {
         self
     }
 
+    /// The value of [payload][crate::model::LogEntry::payload]
+    /// if it holds a `TextPayload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.payload.as_ref().and_then(|v| match v {
+            crate::model::log_entry::Payload::TextPayload(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [payload][crate::model::LogEntry::payload]
     /// to hold a `TextPayload`.
     ///
@@ -411,6 +400,17 @@ impl LogEntry {
         self.payload =
             std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
         self
+    }
+
+    /// The value of [payload][crate::model::LogEntry::payload]
+    /// if it holds a `JsonPayload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn json_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+        #[allow(unreachable_patterns)]
+        self.payload.as_ref().and_then(|v| match v {
+            crate::model::log_entry::Payload::JsonPayload(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [payload][crate::model::LogEntry::payload]
@@ -815,15 +815,15 @@ impl WriteLogEntriesRequest {
         self
     }
 
-    /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
-    pub fn set_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.partial_success = v.into();
-        self
-    }
-
-    /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
-    pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.dry_run = v.into();
+    /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -838,15 +838,15 @@ impl WriteLogEntriesRequest {
         self
     }
 
-    /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
+    pub fn set_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.partial_success = v.into();
+        self
+    }
+
+    /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
+    pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dry_run = v.into();
         self
     }
 }
@@ -988,6 +988,17 @@ impl ListLogEntriesRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
+    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [filter][crate::model::ListLogEntriesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -1009,17 +1020,6 @@ impl ListLogEntriesRequest {
     /// Sets the value of [page_token][crate::model::ListLogEntriesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
-    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1064,12 +1064,6 @@ impl ListLogEntriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogEntriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entries][crate::model::ListLogEntriesResponse::entries].
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
@@ -1078,6 +1072,12 @@ impl ListLogEntriesResponse {
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogEntriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1174,12 +1174,6 @@ impl ListMonitoredResourceDescriptorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [resource_descriptors][crate::model::ListMonitoredResourceDescriptorsResponse::resource_descriptors].
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
@@ -1188,6 +1182,12 @@ impl ListMonitoredResourceDescriptorsResponse {
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1273,6 +1273,17 @@ impl ListLogsRequest {
         self
     }
 
+    /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
+    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::ListLogsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -1282,17 +1293,6 @@ impl ListLogsRequest {
     /// Sets the value of [page_token][crate::model::ListLogsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
-    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1330,12 +1330,6 @@ impl ListLogsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [log_names][crate::model::ListLogsResponse::log_names].
     pub fn set_log_names<T, V>(mut self, v: T) -> Self
     where
@@ -1344,6 +1338,12 @@ impl ListLogsResponse {
     {
         use std::iter::Iterator;
         self.log_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1400,6 +1400,17 @@ impl TailLogEntriesRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [resource_names][crate::model::TailLogEntriesRequest::resource_names].
+    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [filter][crate::model::TailLogEntriesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -1412,17 +1423,6 @@ impl TailLogEntriesRequest {
         v: T,
     ) -> Self {
         self.buffer_window = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_names][crate::model::TailLogEntriesRequest::resource_names].
-    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1899,17 +1899,6 @@ impl LogBucket {
         self
     }
 
-    /// Sets the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
-    pub fn set_cmek_settings<
-        T: std::convert::Into<std::option::Option<crate::model::CmekSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cmek_settings = v.into();
-        self
-    }
-
     /// Sets the value of [restricted_fields][crate::model::LogBucket::restricted_fields].
     pub fn set_restricted_fields<T, V>(mut self, v: T) -> Self
     where
@@ -1929,6 +1918,17 @@ impl LogBucket {
     {
         use std::iter::Iterator;
         self.index_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
+    pub fn set_cmek_settings<
+        T: std::convert::Into<std::option::Option<crate::model::CmekSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cmek_settings = v.into();
         self
     }
 }
@@ -2202,6 +2202,17 @@ impl LogSink {
         self
     }
 
+    /// Sets the value of [exclusions][crate::model::LogSink::exclusions].
+    pub fn set_exclusions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LogExclusion>,
+    {
+        use std::iter::Iterator;
+        self.exclusions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [output_version_format][crate::model::LogSink::output_version_format].
     #[deprecated]
     pub fn set_output_version_format<
@@ -2241,17 +2252,6 @@ impl LogSink {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [exclusions][crate::model::LogSink::exclusions].
-    pub fn set_exclusions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogExclusion>,
-    {
-        use std::iter::Iterator;
-        self.exclusions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2741,12 +2741,6 @@ impl ListBucketsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [buckets][crate::model::ListBucketsResponse::buckets].
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
@@ -2755,6 +2749,12 @@ impl ListBucketsResponse {
     {
         use std::iter::Iterator;
         self.buckets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3138,12 +3138,6 @@ impl ListViewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [views][crate::model::ListViewsResponse::views].
     pub fn set_views<T, V>(mut self, v: T) -> Self
     where
@@ -3152,6 +3146,12 @@ impl ListViewsResponse {
     {
         use std::iter::Iterator;
         self.views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3483,12 +3483,6 @@ impl ListSinksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSinksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [sinks][crate::model::ListSinksResponse::sinks].
     pub fn set_sinks<T, V>(mut self, v: T) -> Self
     where
@@ -3497,6 +3491,12 @@ impl ListSinksResponse {
     {
         use std::iter::Iterator;
         self.sinks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSinksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3982,12 +3982,6 @@ impl ListLinksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLinksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [links][crate::model::ListLinksResponse::links].
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
@@ -3996,6 +3990,12 @@ impl ListLinksResponse {
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLinksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4259,12 +4259,6 @@ impl ListExclusionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExclusionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [exclusions][crate::model::ListExclusionsResponse::exclusions].
     pub fn set_exclusions<T, V>(mut self, v: T) -> Self
     where
@@ -4273,6 +4267,12 @@ impl ListExclusionsResponse {
     {
         use std::iter::Iterator;
         self.exclusions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExclusionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5351,21 +5351,6 @@ impl BucketMetadata {
         })
     }
 
-    /// The value of [request][crate::model::BucketMetadata::request]
-    /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn update_bucket_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
-        #[allow(unreachable_patterns)]
-        self.request.as_ref().and_then(|v| match v {
-            crate::model::bucket_metadata::Request::UpdateBucketRequest(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [request][crate::model::BucketMetadata::request]
     /// to hold a `CreateBucketRequest`.
     ///
@@ -5381,6 +5366,21 @@ impl BucketMetadata {
             crate::model::bucket_metadata::Request::CreateBucketRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [request][crate::model::BucketMetadata::request]
+    /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_bucket_request(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::bucket_metadata::Request::UpdateBucketRequest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [request][crate::model::BucketMetadata::request]
@@ -5505,21 +5505,6 @@ impl LinkMetadata {
         })
     }
 
-    /// The value of [request][crate::model::LinkMetadata::request]
-    /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete_link_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
-        #[allow(unreachable_patterns)]
-        self.request.as_ref().and_then(|v| match v {
-            crate::model::link_metadata::Request::DeleteLinkRequest(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [request][crate::model::LinkMetadata::request]
     /// to hold a `CreateLinkRequest`.
     ///
@@ -5535,6 +5520,21 @@ impl LinkMetadata {
             crate::model::link_metadata::Request::CreateLinkRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [request][crate::model::LinkMetadata::request]
+    /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_link_request(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::link_metadata::Request::DeleteLinkRequest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [request][crate::model::LinkMetadata::request]
@@ -5815,6 +5815,18 @@ impl LogMetric {
         self
     }
 
+    /// Sets the value of [label_extractors][crate::model::LogMetric::label_extractors].
+    pub fn set_label_extractors<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.label_extractors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [bucket_options][crate::model::LogMetric::bucket_options].
     pub fn set_bucket_options<
         T: std::convert::Into<std::option::Option<api::model::distribution::BucketOptions>>,
@@ -5851,18 +5863,6 @@ impl LogMetric {
         v: T,
     ) -> Self {
         self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [label_extractors][crate::model::LogMetric::label_extractors].
-    pub fn set_label_extractors<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.label_extractors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6090,12 +6090,6 @@ impl ListLogMetricsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogMetricsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [metrics][crate::model::ListLogMetricsResponse::metrics].
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
@@ -6104,6 +6098,12 @@ impl ListLogMetricsResponse {
     {
         use std::iter::Iterator;
         self.metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogMetricsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

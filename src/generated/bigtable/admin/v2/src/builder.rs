@@ -343,6 +343,17 @@ pub mod bigtable_instance_admin {
             self
         }
 
+        /// Sets the value of [labels][crate::model::Instance::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [create_time][crate::model::Instance::create_time].
         pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -361,17 +372,6 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
         pub fn set_satisfies_pzi<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
             self.0.request.satisfies_pzi = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::Instance::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -3763,12 +3763,6 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
-        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_warnings = v.into();
-            self
-        }
-
         /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
         ///
         /// This is a **required** field for requests.
@@ -3779,6 +3773,12 @@ pub mod bigtable_table_admin {
         {
             use std::iter::Iterator;
             self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
             self
         }
     }

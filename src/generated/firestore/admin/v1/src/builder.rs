@@ -642,21 +642,6 @@ pub mod firestore_admin {
             self
         }
 
-        /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
-        pub fn set_output_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.output_uri_prefix = v.into();
-            self
-        }
-
-        /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
-        pub fn set_snapshot_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot_time = v.into();
-            self
-        }
-
         /// Sets the value of [collection_ids][crate::model::ExportDocumentsRequest::collection_ids].
         pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
         where
@@ -668,6 +653,12 @@ pub mod firestore_admin {
             self
         }
 
+        /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
+        pub fn set_output_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.output_uri_prefix = v.into();
+            self
+        }
+
         /// Sets the value of [namespace_ids][crate::model::ExportDocumentsRequest::namespace_ids].
         pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
         where
@@ -676,6 +667,15 @@ pub mod firestore_admin {
         {
             use std::iter::Iterator;
             self.0.request.namespace_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+        pub fn set_snapshot_time<T: Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.snapshot_time = v.into();
             self
         }
     }
@@ -761,12 +761,6 @@ pub mod firestore_admin {
             self
         }
 
-        /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
-        pub fn set_input_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.input_uri_prefix = v.into();
-            self
-        }
-
         /// Sets the value of [collection_ids][crate::model::ImportDocumentsRequest::collection_ids].
         pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
         where
@@ -775,6 +769,12 @@ pub mod firestore_admin {
         {
             use std::iter::Iterator;
             self.0.request.collection_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
+        pub fn set_input_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.input_uri_prefix = v.into();
             self
         }
 

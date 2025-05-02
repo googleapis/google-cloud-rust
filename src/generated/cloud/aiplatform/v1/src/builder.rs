@@ -1324,6 +1324,17 @@ pub mod dataset_service {
             self
         }
 
+        /// Sets the value of [annotation_filters][crate::model::SearchDataItemsRequest::annotation_filters].
+        pub fn set_annotation_filters<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.annotation_filters = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [field_mask][crate::model::SearchDataItemsRequest::field_mask].
         pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
@@ -1355,17 +1366,6 @@ pub mod dataset_service {
         /// Sets the value of [page_token][crate::model::SearchDataItemsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [annotation_filters][crate::model::SearchDataItemsRequest::annotation_filters].
-        pub fn set_annotation_filters<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.annotation_filters = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -12489,6 +12489,19 @@ pub mod featurestore_service {
             self
         }
 
+        /// Sets the value of [feature_specs][crate::model::ImportFeatureValuesRequest::feature_specs].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_feature_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::import_feature_values_request::FeatureSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.feature_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [disable_online_serving][crate::model::ImportFeatureValuesRequest::disable_online_serving].
         pub fn set_disable_online_serving<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.disable_online_serving = v.into();
@@ -12504,19 +12517,6 @@ pub mod featurestore_service {
         /// Sets the value of [disable_ingestion_analysis][crate::model::ImportFeatureValuesRequest::disable_ingestion_analysis].
         pub fn set_disable_ingestion_analysis<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.disable_ingestion_analysis = v.into();
-            self
-        }
-
-        /// Sets the value of [feature_specs][crate::model::ImportFeatureValuesRequest::feature_specs].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_feature_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::import_feature_values_request::FeatureSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.feature_specs = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -12719,15 +12719,6 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of [start_time][crate::model::BatchReadFeatureValuesRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
-            self
-        }
-
         /// Sets the value of [pass_through_fields][crate::model::BatchReadFeatureValuesRequest::pass_through_fields].
         pub fn set_pass_through_fields<T, V>(mut self, v: T) -> Self
         where
@@ -12751,6 +12742,15 @@ pub mod featurestore_service {
         {
             use std::iter::Iterator;
             self.0.request.entity_type_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [start_time][crate::model::BatchReadFeatureValuesRequest::start_time].
+        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.start_time = v.into();
             self
         }
 
@@ -17604,15 +17604,6 @@ pub mod index_service {
             self
         }
 
-        /// Sets the value of [update_mask][crate::model::UpsertDatapointsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
-            self
-        }
-
         /// Sets the value of [datapoints][crate::model::UpsertDatapointsRequest::datapoints].
         pub fn set_datapoints<T, V>(mut self, v: T) -> Self
         where
@@ -17621,6 +17612,15 @@ pub mod index_service {
         {
             use std::iter::Iterator;
             self.0.request.datapoints = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpsertDatapointsRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
             self
         }
     }
@@ -20294,6 +20294,19 @@ pub mod job_service {
             self
         }
 
+        /// Sets the value of [objectives][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::objectives].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_objectives<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective>
+        {
+            use std::iter::Iterator;
+            self.0.request.objectives = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -20318,19 +20331,6 @@ pub mod job_service {
         /// Sets the value of [end_time][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::end_time].
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
-            self
-        }
-
-        /// Sets the value of [objectives][crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest::objectives].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_objectives<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective>
-        {
-            use std::iter::Iterator;
-            self.0.request.objectives = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -21482,26 +21482,6 @@ pub mod llm_utility_service {
             self
         }
 
-        /// Sets the value of [system_instruction][crate::model::CountTokensRequest::system_instruction].
-        pub fn set_system_instruction<T: Into<std::option::Option<crate::model::Content>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.system_instruction = v.into();
-            self
-        }
-
-        /// Sets the value of [generation_config][crate::model::CountTokensRequest::generation_config].
-        pub fn set_generation_config<
-            T: Into<std::option::Option<crate::model::GenerationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generation_config = v.into();
-            self
-        }
-
         /// Sets the value of [instances][crate::model::CountTokensRequest::instances].
         pub fn set_instances<T, V>(mut self, v: T) -> Self
         where
@@ -21524,6 +21504,15 @@ pub mod llm_utility_service {
             self
         }
 
+        /// Sets the value of [system_instruction][crate::model::CountTokensRequest::system_instruction].
+        pub fn set_system_instruction<T: Into<std::option::Option<crate::model::Content>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.system_instruction = v.into();
+            self
+        }
+
         /// Sets the value of [tools][crate::model::CountTokensRequest::tools].
         pub fn set_tools<T, V>(mut self, v: T) -> Self
         where
@@ -21532,6 +21521,17 @@ pub mod llm_utility_service {
         {
             use std::iter::Iterator;
             self.0.request.tools = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [generation_config][crate::model::CountTokensRequest::generation_config].
+        pub fn set_generation_config<
+            T: Into<std::option::Option<crate::model::GenerationConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.generation_config = v.into();
             self
         }
     }
@@ -21582,12 +21582,6 @@ pub mod llm_utility_service {
             self
         }
 
-        /// Sets the value of [model][crate::model::ComputeTokensRequest::model].
-        pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.model = v.into();
-            self
-        }
-
         /// Sets the value of [instances][crate::model::ComputeTokensRequest::instances].
         pub fn set_instances<T, V>(mut self, v: T) -> Self
         where
@@ -21596,6 +21590,12 @@ pub mod llm_utility_service {
         {
             use std::iter::Iterator;
             self.0.request.instances = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [model][crate::model::ComputeTokensRequest::model].
+        pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.model = v.into();
             self
         }
 
@@ -22311,12 +22311,6 @@ pub mod match_service {
             self
         }
 
-        /// Sets the value of [return_full_datapoint][crate::model::FindNeighborsRequest::return_full_datapoint].
-        pub fn set_return_full_datapoint<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.return_full_datapoint = v.into();
-            self
-        }
-
         /// Sets the value of [queries][crate::model::FindNeighborsRequest::queries].
         pub fn set_queries<T, V>(mut self, v: T) -> Self
         where
@@ -22325,6 +22319,12 @@ pub mod match_service {
         {
             use std::iter::Iterator;
             self.0.request.queries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [return_full_datapoint][crate::model::FindNeighborsRequest::return_full_datapoint].
+        pub fn set_return_full_datapoint<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_full_datapoint = v.into();
             self
         }
     }
@@ -34607,12 +34607,6 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [parameters][crate::model::PredictRequest::parameters].
-        pub fn set_parameters<T: Into<std::option::Option<wkt::Value>>>(mut self, v: T) -> Self {
-            self.0.request.parameters = v.into();
-            self
-        }
-
         /// Sets the value of [instances][crate::model::PredictRequest::instances].
         ///
         /// This is a **required** field for requests.
@@ -34623,6 +34617,12 @@ pub mod prediction_service {
         {
             use std::iter::Iterator;
             self.0.request.instances = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parameters][crate::model::PredictRequest::parameters].
+        pub fn set_parameters<T: Into<std::option::Option<wkt::Value>>>(mut self, v: T) -> Self {
+            self.0.request.parameters = v.into();
             self
         }
     }
@@ -34729,15 +34729,6 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [parameters][crate::model::DirectPredictRequest::parameters].
-        pub fn set_parameters<T: Into<std::option::Option<crate::model::Tensor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameters = v.into();
-            self
-        }
-
         /// Sets the value of [inputs][crate::model::DirectPredictRequest::inputs].
         pub fn set_inputs<T, V>(mut self, v: T) -> Self
         where
@@ -34746,6 +34737,15 @@ pub mod prediction_service {
         {
             use std::iter::Iterator;
             self.0.request.inputs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parameters][crate::model::DirectPredictRequest::parameters].
+        pub fn set_parameters<T: Into<std::option::Option<crate::model::Tensor>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.parameters = v.into();
             self
         }
     }
@@ -34858,6 +34858,19 @@ pub mod prediction_service {
             self
         }
 
+        /// Sets the value of [instances][crate::model::ExplainRequest::instances].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instances<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<wkt::Value>,
+        {
+            use std::iter::Iterator;
+            self.0.request.instances = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [parameters][crate::model::ExplainRequest::parameters].
         pub fn set_parameters<T: Into<std::option::Option<wkt::Value>>>(mut self, v: T) -> Self {
             self.0.request.parameters = v.into();
@@ -34878,19 +34891,6 @@ pub mod prediction_service {
         /// Sets the value of [deployed_model_id][crate::model::ExplainRequest::deployed_model_id].
         pub fn set_deployed_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.deployed_model_id = v.into();
-            self
-        }
-
-        /// Sets the value of [instances][crate::model::ExplainRequest::instances].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_instances<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<wkt::Value>,
-        {
-            use std::iter::Iterator;
-            self.0.request.instances = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -34941,6 +34941,19 @@ pub mod prediction_service {
             self
         }
 
+        /// Sets the value of [contents][crate::model::GenerateContentRequest::contents].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Content>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [system_instruction][crate::model::GenerateContentRequest::system_instruction].
         pub fn set_system_instruction<T: Into<std::option::Option<crate::model::Content>>>(
             mut self,
@@ -34956,6 +34969,17 @@ pub mod prediction_service {
             self
         }
 
+        /// Sets the value of [tools][crate::model::GenerateContentRequest::tools].
+        pub fn set_tools<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Tool>,
+        {
+            use std::iter::Iterator;
+            self.0.request.tools = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [tool_config][crate::model::GenerateContentRequest::tool_config].
         pub fn set_tool_config<T: Into<std::option::Option<crate::model::ToolConfig>>>(
             mut self,
@@ -34965,38 +34989,14 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
-        pub fn set_generation_config<
-            T: Into<std::option::Option<crate::model::GenerationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.generation_config = v.into();
-            self
-        }
-
-        /// Sets the value of [contents][crate::model::GenerateContentRequest::contents].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        /// Sets the value of [labels][crate::model::GenerateContentRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Content>,
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
-            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [tools][crate::model::GenerateContentRequest::tools].
-        pub fn set_tools<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Tool>,
-        {
-            use std::iter::Iterator;
-            self.0.request.tools = v.into_iter().map(|i| i.into()).collect();
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -35011,14 +35011,14 @@ pub mod prediction_service {
             self
         }
 
-        /// Sets the value of [labels][crate::model::GenerateContentRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
+        pub fn set_generation_config<
+            T: Into<std::option::Option<crate::model::GenerationConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.generation_config = v.into();
             self
         }
     }
@@ -43975,17 +43975,6 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of [model][crate::model::AugmentPromptRequest::model].
-        pub fn set_model<
-            T: Into<std::option::Option<crate::model::augment_prompt_request::Model>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
-            self
-        }
-
         /// Sets the value of [contents][crate::model::AugmentPromptRequest::contents].
         pub fn set_contents<T, V>(mut self, v: T) -> Self
         where
@@ -43994,6 +43983,17 @@ pub mod vertex_rag_service {
         {
             use std::iter::Iterator;
             self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [model][crate::model::AugmentPromptRequest::model].
+        pub fn set_model<
+            T: Into<std::option::Option<crate::model::augment_prompt_request::Model>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.model = v.into();
             self
         }
 
@@ -44085,17 +44085,6 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of [parameters][crate::model::CorroborateContentRequest::parameters].
-        pub fn set_parameters<
-            T: Into<std::option::Option<crate::model::corroborate_content_request::Parameters>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameters = v.into();
-            self
-        }
-
         /// Sets the value of [facts][crate::model::CorroborateContentRequest::facts].
         pub fn set_facts<T, V>(mut self, v: T) -> Self
         where
@@ -44104,6 +44093,17 @@ pub mod vertex_rag_service {
         {
             use std::iter::Iterator;
             self.0.request.facts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parameters][crate::model::CorroborateContentRequest::parameters].
+        pub fn set_parameters<
+            T: Into<std::option::Option<crate::model::corroborate_content_request::Parameters>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.parameters = v.into();
             self
         }
     }

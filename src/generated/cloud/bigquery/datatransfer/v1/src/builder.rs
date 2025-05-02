@@ -509,6 +509,17 @@ pub mod data_transfer_service {
             self
         }
 
+        /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
+        pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_token][crate::model::ListTransferConfigsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
@@ -518,17 +529,6 @@ pub mod data_transfer_service {
         /// Sets the value of [page_size][crate::model::ListTransferConfigsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
-            self
-        }
-
-        /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
-        pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -857,6 +857,17 @@ pub mod data_transfer_service {
             self
         }
 
+        /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
+        pub fn set_states<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::TransferState>,
+        {
+            use std::iter::Iterator;
+            self.0.request.states = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_token][crate::model::ListTransferRunsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
@@ -875,17 +886,6 @@ pub mod data_transfer_service {
             v: T,
         ) -> Self {
             self.0.request.run_attempt = v.into();
-            self
-        }
-
-        /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
-        pub fn set_states<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::TransferState>,
-        {
-            use std::iter::Iterator;
-            self.0.request.states = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

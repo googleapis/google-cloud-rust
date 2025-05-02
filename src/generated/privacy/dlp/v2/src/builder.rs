@@ -195,6 +195,17 @@ pub mod dlp_service {
             self
         }
 
+        /// Sets the value of [image_redaction_configs][crate::model::RedactImageRequest::image_redaction_configs].
+        pub fn set_image_redaction_configs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::redact_image_request::ImageRedactionConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.image_redaction_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [include_findings][crate::model::RedactImageRequest::include_findings].
         pub fn set_include_findings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.include_findings = v.into();
@@ -207,17 +218,6 @@ pub mod dlp_service {
             v: T,
         ) -> Self {
             self.0.request.byte_item = v.into();
-            self
-        }
-
-        /// Sets the value of [image_redaction_configs][crate::model::RedactImageRequest::image_redaction_configs].
-        pub fn set_image_redaction_configs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::redact_image_request::ImageRedactionConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.image_redaction_configs = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

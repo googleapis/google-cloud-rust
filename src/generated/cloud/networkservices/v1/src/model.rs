@@ -755,6 +755,17 @@ pub mod extension_chain {
             self
         }
 
+        /// Sets the value of [supported_events][crate::model::extension_chain::Extension::supported_events].
+        pub fn set_supported_events<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::EventType>,
+        {
+            use std::iter::Iterator;
+            self.supported_events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [timeout][crate::model::extension_chain::Extension::timeout].
         pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -767,17 +778,6 @@ pub mod extension_chain {
         /// Sets the value of [fail_open][crate::model::extension_chain::Extension::fail_open].
         pub fn set_fail_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.fail_open = v.into();
-            self
-        }
-
-        /// Sets the value of [supported_events][crate::model::extension_chain::Extension::supported_events].
-        pub fn set_supported_events<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::EventType>,
-        {
-            use std::iter::Iterator;
-            self.supported_events = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -907,21 +907,15 @@ impl LbTrafficExtension {
         self
     }
 
-    /// Sets the value of [load_balancing_scheme][crate::model::LbTrafficExtension::load_balancing_scheme].
-    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.load_balancing_scheme = v.into();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::LbTrafficExtension::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    /// Sets the value of [labels][crate::model::LbTrafficExtension::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -947,15 +941,21 @@ impl LbTrafficExtension {
         self
     }
 
-    /// Sets the value of [labels][crate::model::LbTrafficExtension::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [load_balancing_scheme][crate::model::LbTrafficExtension::load_balancing_scheme].
+    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_scheme = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::LbTrafficExtension::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -1068,12 +1068,6 @@ impl ListLbTrafficExtensionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLbTrafficExtensionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [lb_traffic_extensions][crate::model::ListLbTrafficExtensionsResponse::lb_traffic_extensions].
     pub fn set_lb_traffic_extensions<T, V>(mut self, v: T) -> Self
     where
@@ -1082,6 +1076,12 @@ impl ListLbTrafficExtensionsResponse {
     {
         use std::iter::Iterator;
         self.lb_traffic_extensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLbTrafficExtensionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1473,21 +1473,15 @@ impl LbRouteExtension {
         self
     }
 
-    /// Sets the value of [load_balancing_scheme][crate::model::LbRouteExtension::load_balancing_scheme].
-    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.load_balancing_scheme = v.into();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::LbRouteExtension::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    /// Sets the value of [labels][crate::model::LbRouteExtension::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1513,15 +1507,21 @@ impl LbRouteExtension {
         self
     }
 
-    /// Sets the value of [labels][crate::model::LbRouteExtension::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [load_balancing_scheme][crate::model::LbRouteExtension::load_balancing_scheme].
+    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_scheme = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::LbRouteExtension::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -1634,12 +1634,6 @@ impl ListLbRouteExtensionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLbRouteExtensionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [lb_route_extensions][crate::model::ListLbRouteExtensionsResponse::lb_route_extensions].
     pub fn set_lb_route_extensions<T, V>(mut self, v: T) -> Self
     where
@@ -1648,6 +1642,12 @@ impl ListLbRouteExtensionsResponse {
     {
         use std::iter::Iterator;
         self.lb_route_extensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLbRouteExtensionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2038,6 +2038,18 @@ impl EndpointPolicy {
         self
     }
 
+    /// Sets the value of [labels][crate::model::EndpointPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [r#type][crate::model::EndpointPolicy::type].
     pub fn set_type<T: std::convert::Into<crate::model::endpoint_policy::EndpointPolicyType>>(
         mut self,
@@ -2099,18 +2111,6 @@ impl EndpointPolicy {
         v: T,
     ) -> Self {
         self.client_tls_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::EndpointPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2340,12 +2340,6 @@ impl ListEndpointPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEndpointPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [endpoint_policies][crate::model::ListEndpointPoliciesResponse::endpoint_policies].
     pub fn set_endpoint_policies<T, V>(mut self, v: T) -> Self
     where
@@ -2354,6 +2348,12 @@ impl ListEndpointPoliciesResponse {
     {
         use std::iter::Iterator;
         self.endpoint_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEndpointPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2661,6 +2661,18 @@ impl Gateway {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Gateway::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Gateway::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -2670,6 +2682,17 @@ impl Gateway {
     /// Sets the value of [r#type][crate::model::Gateway::type].
     pub fn set_type<T: std::convert::Into<crate::model::gateway::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [ports][crate::model::Gateway::ports].
+    pub fn set_ports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.ports = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2685,29 +2708,6 @@ impl Gateway {
         v: T,
     ) -> Self {
         self.server_tls_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [ports][crate::model::Gateway::ports].
-    pub fn set_ports<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.ports = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Gateway::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2941,12 +2941,6 @@ impl ListGatewaysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [gateways][crate::model::ListGatewaysResponse::gateways].
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
@@ -2955,6 +2949,12 @@ impl ListGatewaysResponse {
     {
         use std::iter::Iterator;
         self.gateways = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3285,6 +3285,18 @@ impl GrpcRoute {
         self
     }
 
+    /// Sets the value of [labels][crate::model::GrpcRoute::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::GrpcRoute::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -3332,18 +3344,6 @@ impl GrpcRoute {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::GrpcRoute::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4150,12 +4150,6 @@ pub mod grpc_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [num_retries][crate::model::grpc_route::RetryPolicy::num_retries].
-        pub fn set_num_retries<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
-            self.num_retries = v.into();
-            self
-        }
-
         /// Sets the value of [retry_conditions][crate::model::grpc_route::RetryPolicy::retry_conditions].
         pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
         where
@@ -4164,6 +4158,12 @@ pub mod grpc_route {
         {
             use std::iter::Iterator;
             self.retry_conditions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [num_retries][crate::model::grpc_route::RetryPolicy::num_retries].
+        pub fn set_num_retries<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
+            self.num_retries = v.into();
             self
         }
     }
@@ -4219,6 +4219,17 @@ pub mod grpc_route {
             std::default::Default::default()
         }
 
+        /// Sets the value of [destinations][crate::model::grpc_route::RouteAction::destinations].
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::grpc_route::Destination>,
+        {
+            use std::iter::Iterator;
+            self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
         pub fn set_fault_injection_policy<
             T: std::convert::Into<std::option::Option<crate::model::grpc_route::FaultInjectionPolicy>>,
@@ -4247,17 +4258,6 @@ pub mod grpc_route {
             v: T,
         ) -> Self {
             self.retry_policy = v.into();
-            self
-        }
-
-        /// Sets the value of [destinations][crate::model::grpc_route::RouteAction::destinations].
-        pub fn set_destinations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::grpc_route::Destination>,
-        {
-            use std::iter::Iterator;
-            self.destinations = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4295,17 +4295,6 @@ pub mod grpc_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::grpc_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::grpc_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::grpc_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -4314,6 +4303,17 @@ pub mod grpc_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::grpc_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::grpc_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -4405,12 +4405,6 @@ impl ListGrpcRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGrpcRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [grpc_routes][crate::model::ListGrpcRoutesResponse::grpc_routes].
     pub fn set_grpc_routes<T, V>(mut self, v: T) -> Self
     where
@@ -4419,6 +4413,12 @@ impl ListGrpcRoutesResponse {
     {
         use std::iter::Iterator;
         self.grpc_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGrpcRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4781,17 +4781,6 @@ impl HttpRoute {
         self
     }
 
-    /// Sets the value of [rules][crate::model::HttpRoute::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::http_route::RouteRule>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::HttpRoute::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -4801,6 +4790,17 @@ impl HttpRoute {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::HttpRoute::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::http_route::RouteRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4884,6 +4884,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// to hold a `ExactMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::header_match::MatchType::ExactMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4897,6 +4909,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// to hold a `RegexMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::header_match::MatchType::RegexMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `PrefixMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4908,73 +4932,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// if it holds a `PresentMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn present_match(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.match_type.as_ref().and_then(|v| match v {
-                crate::model::http_route::header_match::MatchType::PresentMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// if it holds a `SuffixMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn suffix_match(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.match_type.as_ref().and_then(|v| match v {
-                crate::model::http_route::header_match::MatchType::SuffixMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// if it holds a `RangeMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn range_match(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.match_type.as_ref().and_then(|v| match v {
-                crate::model::http_route::header_match::MatchType::RangeMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `ExactMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::ExactMatch(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::RegexMatch(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -4992,6 +4949,19 @@ pub mod http_route {
             self
         }
 
+        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// if it holds a `PresentMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn present_match(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.match_type.as_ref().and_then(|v| match v {
+                crate::model::http_route::header_match::MatchType::PresentMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// to hold a `PresentMatch`.
         ///
@@ -5002,6 +4972,19 @@ pub mod http_route {
                 crate::model::http_route::header_match::MatchType::PresentMatch(v.into()),
             );
             self
+        }
+
+        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// if it holds a `SuffixMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn suffix_match(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.match_type.as_ref().and_then(|v| match v {
+                crate::model::http_route::header_match::MatchType::SuffixMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -5017,6 +5000,23 @@ pub mod http_route {
                 crate::model::http_route::header_match::MatchType::SuffixMatch(v.into()),
             );
             self
+        }
+
+        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// if it holds a `RangeMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn range_match(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.match_type.as_ref().and_then(|v| match v {
+                crate::model::http_route::header_match::MatchType::RangeMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -5177,6 +5177,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
+        /// to hold a `ExactMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -5190,6 +5202,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
+        /// to hold a `RegexMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `PresentMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -5201,30 +5225,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `ExactMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
@@ -5367,32 +5367,6 @@ pub mod http_route {
             })
         }
 
-        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// if it holds a `PrefixMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn prefix_match(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.path_match.as_ref().and_then(|v| match v {
-                crate::model::http_route::route_match::PathMatch::PrefixMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// if it holds a `RegexMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.path_match.as_ref().and_then(|v| match v {
-                crate::model::http_route::route_match::PathMatch::RegexMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// to hold a `FullPathMatch`.
         ///
@@ -5408,6 +5382,19 @@ pub mod http_route {
             self
         }
 
+        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
+        /// if it holds a `PrefixMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn prefix_match(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.path_match.as_ref().and_then(|v| match v {
+                crate::model::http_route::route_match::PathMatch::PrefixMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// to hold a `PrefixMatch`.
         ///
@@ -5421,6 +5408,19 @@ pub mod http_route {
                 crate::model::http_route::route_match::PathMatch::PrefixMatch(v.into()),
             );
             self
+        }
+
+        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
+        /// if it holds a `RegexMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.path_match.as_ref().and_then(|v| match v {
+                crate::model::http_route::route_match::PathMatch::RegexMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
@@ -6009,17 +6009,6 @@ pub mod http_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [remove][crate::model::http_route::HeaderModifier::remove].
-        pub fn set_remove<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.remove = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [set][crate::model::http_route::HeaderModifier::set].
         pub fn set_set<T, K, V>(mut self, v: T) -> Self
         where
@@ -6041,6 +6030,17 @@ pub mod http_route {
         {
             use std::iter::Iterator;
             self.add = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [remove][crate::model::http_route::HeaderModifier::remove].
+        pub fn set_remove<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.remove = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -6151,6 +6151,17 @@ pub mod http_route {
             std::default::Default::default()
         }
 
+        /// Sets the value of [retry_conditions][crate::model::http_route::RetryPolicy::retry_conditions].
+        pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.retry_conditions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [num_retries][crate::model::http_route::RetryPolicy::num_retries].
         pub fn set_num_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.num_retries = v.into();
@@ -6163,17 +6174,6 @@ pub mod http_route {
             v: T,
         ) -> Self {
             self.per_try_timeout = v.into();
-            self
-        }
-
-        /// Sets the value of [retry_conditions][crate::model::http_route::RetryPolicy::retry_conditions].
-        pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.retry_conditions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -6282,24 +6282,6 @@ pub mod http_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [max_age][crate::model::http_route::CorsPolicy::max_age].
-        pub fn set_max_age<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.max_age = v.into();
-            self
-        }
-
-        /// Sets the value of [allow_credentials][crate::model::http_route::CorsPolicy::allow_credentials].
-        pub fn set_allow_credentials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.allow_credentials = v.into();
-            self
-        }
-
-        /// Sets the value of [disabled][crate::model::http_route::CorsPolicy::disabled].
-        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.disabled = v.into();
-            self
-        }
-
         /// Sets the value of [allow_origins][crate::model::http_route::CorsPolicy::allow_origins].
         pub fn set_allow_origins<T, V>(mut self, v: T) -> Self
         where
@@ -6352,6 +6334,24 @@ pub mod http_route {
         {
             use std::iter::Iterator;
             self.expose_headers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [max_age][crate::model::http_route::CorsPolicy::max_age].
+        pub fn set_max_age<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.max_age = v.into();
+            self
+        }
+
+        /// Sets the value of [allow_credentials][crate::model::http_route::CorsPolicy::allow_credentials].
+        pub fn set_allow_credentials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.allow_credentials = v.into();
+            self
+        }
+
+        /// Sets the value of [disabled][crate::model::http_route::CorsPolicy::disabled].
+        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disabled = v.into();
             self
         }
     }
@@ -6438,6 +6438,17 @@ pub mod http_route {
     impl RouteAction {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [destinations][crate::model::http_route::RouteAction::destinations].
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::http_route::Destination>,
+        {
+            use std::iter::Iterator;
+            self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [redirect][crate::model::http_route::RouteAction::redirect].
@@ -6536,17 +6547,6 @@ pub mod http_route {
             self.cors_policy = v.into();
             self
         }
-
-        /// Sets the value of [destinations][crate::model::http_route::RouteAction::destinations].
-        pub fn set_destinations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::http_route::Destination>,
-        {
-            use std::iter::Iterator;
-            self.destinations = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     impl wkt::message::Message for RouteAction {
@@ -6587,17 +6587,6 @@ pub mod http_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::http_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::http_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -6606,6 +6595,17 @@ pub mod http_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::http_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::http_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -6697,12 +6697,6 @@ impl ListHttpRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHttpRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [http_routes][crate::model::ListHttpRoutesResponse::http_routes].
     pub fn set_http_routes<T, V>(mut self, v: T) -> Self
     where
@@ -6711,6 +6705,12 @@ impl ListHttpRoutesResponse {
     {
         use std::iter::Iterator;
         self.http_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHttpRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6991,18 +6991,6 @@ impl Mesh {
         self
     }
 
-    /// Sets the value of [description][crate::model::Mesh::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [interception_port][crate::model::Mesh::interception_port].
-    pub fn set_interception_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.interception_port = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Mesh::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -7012,6 +7000,18 @@ impl Mesh {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Mesh::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [interception_port][crate::model::Mesh::interception_port].
+    pub fn set_interception_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.interception_port = v.into();
         self
     }
 }
@@ -7102,12 +7102,6 @@ impl ListMeshesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMeshesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [meshes][crate::model::ListMeshesResponse::meshes].
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
@@ -7116,6 +7110,12 @@ impl ListMeshesResponse {
     {
         use std::iter::Iterator;
         self.meshes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMeshesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7492,12 +7492,6 @@ impl ListServiceBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_bindings][crate::model::ListServiceBindingsResponse::service_bindings].
     pub fn set_service_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -7506,6 +7500,12 @@ impl ListServiceBindingsResponse {
     {
         use std::iter::Iterator;
         self.service_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7843,17 +7843,6 @@ pub mod tcp_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::tcp_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::tcp_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::tcp_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -7862,6 +7851,17 @@ pub mod tcp_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::tcp_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::tcp_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -7952,12 +7952,6 @@ pub mod tcp_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [original_destination][crate::model::tcp_route::RouteAction::original_destination].
-        pub fn set_original_destination<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.original_destination = v.into();
-            self
-        }
-
         /// Sets the value of [destinations][crate::model::tcp_route::RouteAction::destinations].
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
@@ -7966,6 +7960,12 @@ pub mod tcp_route {
         {
             use std::iter::Iterator;
             self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [original_destination][crate::model::tcp_route::RouteAction::original_destination].
+        pub fn set_original_destination<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.original_destination = v.into();
             self
         }
     }
@@ -8116,12 +8116,6 @@ impl ListTcpRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTcpRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tcp_routes][crate::model::ListTcpRoutesResponse::tcp_routes].
     pub fn set_tcp_routes<T, V>(mut self, v: T) -> Self
     where
@@ -8130,6 +8124,12 @@ impl ListTcpRoutesResponse {
     {
         use std::iter::Iterator;
         self.tcp_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTcpRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8496,17 +8496,6 @@ pub mod tls_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::tls_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::tls_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::tls_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -8515,6 +8504,17 @@ pub mod tls_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::tls_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::tls_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -8758,12 +8758,6 @@ impl ListTlsRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTlsRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tls_routes][crate::model::ListTlsRoutesResponse::tls_routes].
     pub fn set_tls_routes<T, V>(mut self, v: T) -> Self
     where
@@ -8772,6 +8766,12 @@ impl ListTlsRoutesResponse {
     {
         use std::iter::Iterator;
         self.tls_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTlsRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

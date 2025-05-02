@@ -122,12 +122,6 @@ pub mod service_controller {
             self
         }
 
-        /// Sets the value of [flags][crate::model::CheckRequest::flags].
-        pub fn set_flags<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.flags = v.into();
-            self
-        }
-
         /// Sets the value of [resources][crate::model::CheckRequest::resources].
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
@@ -136,6 +130,12 @@ pub mod service_controller {
         {
             use std::iter::Iterator;
             self.0.request.resources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [flags][crate::model::CheckRequest::flags].
+        pub fn set_flags<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.flags = v.into();
             self
         }
     }

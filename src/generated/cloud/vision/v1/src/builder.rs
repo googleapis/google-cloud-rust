@@ -102,12 +102,6 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
         ///
         /// This is a **required** field for requests.
@@ -118,6 +112,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -174,12 +174,6 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
         ///
         /// This is a **required** field for requests.
@@ -190,6 +184,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -291,6 +291,19 @@ pub mod image_annotator {
             lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
+        /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_requests<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AnnotateImageRequest>,
+        {
+            use std::iter::Iterator;
+            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
         ///
         /// This is a **required** field for requests.
@@ -305,19 +318,6 @@ pub mod image_annotator {
         /// Sets the value of [parent][crate::model::AsyncBatchAnnotateImagesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_requests<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AnnotateImageRequest>,
-        {
-            use std::iter::Iterator;
-            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -419,12 +419,6 @@ pub mod image_annotator {
             lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
         ///
         /// This is a **required** field for requests.
@@ -435,6 +429,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 

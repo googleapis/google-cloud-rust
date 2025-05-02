@@ -162,12 +162,35 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [authorized_network][crate::model::Instance::authorized_network].
     pub fn set_authorized_network<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.authorized_network = v.into();
+        self
+    }
+
+    /// Sets the value of [zones][crate::model::Instance::zones].
+    pub fn set_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.zones = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -208,6 +231,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [memcache_nodes][crate::model::Instance::memcache_nodes].
+    pub fn set_memcache_nodes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::instance::Node>,
+    {
+        use std::iter::Iterator;
+        self.memcache_nodes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -241,6 +275,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [instance_messages][crate::model::Instance::instance_messages].
+    pub fn set_instance_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::instance::InstanceMessage>,
+    {
+        use std::iter::Iterator;
+        self.instance_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [discovery_endpoint][crate::model::Instance::discovery_endpoint].
     pub fn set_discovery_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -269,51 +314,6 @@ impl Instance {
         v: T,
     ) -> Self {
         self.maintenance_schedule = v.into();
-        self
-    }
-
-    /// Sets the value of [zones][crate::model::Instance::zones].
-    pub fn set_zones<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.zones = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [memcache_nodes][crate::model::Instance::memcache_nodes].
-    pub fn set_memcache_nodes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::Node>,
-    {
-        use std::iter::Iterator;
-        self.memcache_nodes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [instance_messages][crate::model::Instance::instance_messages].
-    pub fn set_instance_messages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::InstanceMessage>,
-    {
-        use std::iter::Iterator;
-        self.instance_messages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1476,12 +1476,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -1490,6 +1484,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1756,12 +1756,6 @@ impl ApplyParametersRequest {
         self
     }
 
-    /// Sets the value of [apply_all][crate::model::ApplyParametersRequest::apply_all].
-    pub fn set_apply_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.apply_all = v.into();
-        self
-    }
-
     /// Sets the value of [node_ids][crate::model::ApplyParametersRequest::node_ids].
     pub fn set_node_ids<T, V>(mut self, v: T) -> Self
     where
@@ -1770,6 +1764,12 @@ impl ApplyParametersRequest {
     {
         use std::iter::Iterator;
         self.node_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [apply_all][crate::model::ApplyParametersRequest::apply_all].
+    pub fn set_apply_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.apply_all = v.into();
         self
     }
 }

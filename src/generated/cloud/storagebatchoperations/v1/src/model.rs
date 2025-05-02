@@ -133,12 +133,6 @@ impl ListJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -147,6 +141,12 @@ impl ListJobsResponse {
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -625,12 +625,6 @@ impl Job {
         self
     }
 
-    /// Sets the value of [state][crate::model::Job::state].
-    pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
-        self.state = v.into();
-        self
-    }
-
     /// Sets the value of [error_summaries][crate::model::Job::error_summaries].
     pub fn set_error_summaries<T, V>(mut self, v: T) -> Self
     where
@@ -639,6 +633,12 @@ impl Job {
     {
         use std::iter::Iterator;
         self.error_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Job::state].
+    pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
         self
     }
 
@@ -705,43 +705,6 @@ impl Job {
         })
     }
 
-    /// The value of [transformation][crate::model::Job::transformation]
-    /// if it holds a `DeleteObject`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete_object(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteObject>> {
-        #[allow(unreachable_patterns)]
-        self.transformation.as_ref().and_then(|v| match v {
-            crate::model::job::Transformation::DeleteObject(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [transformation][crate::model::Job::transformation]
-    /// if it holds a `PutMetadata`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn put_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
-        #[allow(unreachable_patterns)]
-        self.transformation.as_ref().and_then(|v| match v {
-            crate::model::job::Transformation::PutMetadata(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [transformation][crate::model::Job::transformation]
-    /// if it holds a `RewriteObject`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn rewrite_object(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RewriteObject>> {
-        #[allow(unreachable_patterns)]
-        self.transformation.as_ref().and_then(|v| match v {
-            crate::model::job::Transformation::RewriteObject(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [transformation][crate::model::Job::transformation]
     /// to hold a `PutObjectHold`.
     ///
@@ -758,6 +721,19 @@ impl Job {
         self
     }
 
+    /// The value of [transformation][crate::model::Job::transformation]
+    /// if it holds a `DeleteObject`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_object(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteObject>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::job::Transformation::DeleteObject(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [transformation][crate::model::Job::transformation]
     /// to hold a `DeleteObject`.
     ///
@@ -772,6 +748,17 @@ impl Job {
         self
     }
 
+    /// The value of [transformation][crate::model::Job::transformation]
+    /// if it holds a `PutMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn put_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::job::Transformation::PutMetadata(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [transformation][crate::model::Job::transformation]
     /// to hold a `PutMetadata`.
     ///
@@ -784,6 +771,19 @@ impl Job {
         self.transformation =
             std::option::Option::Some(crate::model::job::Transformation::PutMetadata(v.into()));
         self
+    }
+
+    /// The value of [transformation][crate::model::Job::transformation]
+    /// if it holds a `RewriteObject`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rewrite_object(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RewriteObject>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::job::Transformation::RewriteObject(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [transformation][crate::model::Job::transformation]
@@ -1093,19 +1093,6 @@ pub mod bucket_list {
             })
         }
 
-        /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
-        /// if it holds a `Manifest`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn manifest(&self) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
-            #[allow(unreachable_patterns)]
-            self.object_configuration.as_ref().and_then(|v| match v {
-                crate::model::bucket_list::bucket::ObjectConfiguration::Manifest(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
         /// to hold a `PrefixList`.
         ///
@@ -1119,6 +1106,19 @@ pub mod bucket_list {
                 crate::model::bucket_list::bucket::ObjectConfiguration::PrefixList(v.into()),
             );
             self
+        }
+
+        /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
+        /// if it holds a `Manifest`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn manifest(&self) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
+            #[allow(unreachable_patterns)]
+            self.object_configuration.as_ref().and_then(|v| match v {
+                crate::model::bucket_list::bucket::ObjectConfiguration::Manifest(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]

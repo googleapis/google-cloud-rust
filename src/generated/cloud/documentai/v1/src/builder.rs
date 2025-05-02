@@ -131,12 +131,6 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
-        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.imageless_mode = v.into();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::ProcessRequest::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -145,6 +139,12 @@ pub mod document_processor_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
+        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.imageless_mode = v.into();
             self
         }
 

@@ -1474,6 +1474,17 @@ pub mod conversational_search_service {
             self
         }
 
+        /// Sets the value of [user_labels][crate::model::ConverseConversationRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [summary_spec][crate::model::ConverseConversationRequest::summary_spec].
         pub fn set_summary_spec<
             T: Into<
@@ -1501,17 +1512,6 @@ pub mod conversational_search_service {
             v: T,
         ) -> Self {
             self.0.request.boost_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [user_labels][crate::model::ConverseConversationRequest::user_labels].
-        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -1967,17 +1967,6 @@ pub mod conversational_search_service {
             self
         }
 
-        /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
-        pub fn set_end_user_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.end_user_spec = v.into();
-            self
-        }
-
         /// Sets the value of [user_labels][crate::model::AnswerQueryRequest::user_labels].
         pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -1986,6 +1975,17 @@ pub mod conversational_search_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+        pub fn set_end_user_spec<
+            T: Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.end_user_spec = v.into();
             self
         }
     }
@@ -4886,6 +4886,17 @@ pub mod grounded_generation_service {
             self
         }
 
+        /// Sets the value of [contents][crate::model::GenerateGroundedContentRequest::contents].
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::GroundedGenerationContent>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [generation_spec][crate::model::GenerateGroundedContentRequest::generation_spec].
         pub fn set_generation_spec<
             T: Into<
@@ -4911,17 +4922,6 @@ pub mod grounded_generation_service {
             v: T,
         ) -> Self {
             self.0.request.grounding_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [contents][crate::model::GenerateGroundedContentRequest::contents].
-        pub fn set_contents<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::GroundedGenerationContent>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -4989,17 +4989,6 @@ pub mod grounded_generation_service {
             self
         }
 
-        /// Sets the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
-        pub fn set_grounding_spec<
-            T: Into<std::option::Option<crate::model::CheckGroundingSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grounding_spec = v.into();
-            self
-        }
-
         /// Sets the value of [facts][crate::model::CheckGroundingRequest::facts].
         pub fn set_facts<T, V>(mut self, v: T) -> Self
         where
@@ -5008,6 +4997,17 @@ pub mod grounded_generation_service {
         {
             use std::iter::Iterator;
             self.0.request.facts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
+        pub fn set_grounding_spec<
+            T: Into<std::option::Option<crate::model::CheckGroundingSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.grounding_spec = v.into();
             self
         }
 
@@ -5656,12 +5656,6 @@ pub mod rank_service {
             self
         }
 
-        /// Sets the value of [ignore_record_details_in_response][crate::model::RankRequest::ignore_record_details_in_response].
-        pub fn set_ignore_record_details_in_response<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_record_details_in_response = v.into();
-            self
-        }
-
         /// Sets the value of [records][crate::model::RankRequest::records].
         ///
         /// This is a **required** field for requests.
@@ -5672,6 +5666,12 @@ pub mod rank_service {
         {
             use std::iter::Iterator;
             self.0.request.records = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ignore_record_details_in_response][crate::model::RankRequest::ignore_record_details_in_response].
+        pub fn set_ignore_record_details_in_response<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_record_details_in_response = v.into();
             self
         }
 
@@ -6990,6 +6990,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
+        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::SearchRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -7023,6 +7034,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
         pub fn set_boost_spec<
             T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
@@ -7031,6 +7053,17 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.boost_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::SearchRequest::params].
+        pub fn set_params<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7076,6 +7109,17 @@ pub mod search_service {
         /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
         pub fn set_safe_search<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.safe_search = v.into();
+            self
+        }
+
+        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7137,50 +7181,6 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_score_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
-        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
-        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::FacetSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [params][crate::model::SearchRequest::params].
-        pub fn set_params<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<wkt::Value>,
-        {
-            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
-
-        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
-        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -7293,6 +7293,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
+        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::SearchRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -7326,6 +7337,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
         pub fn set_boost_spec<
             T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
@@ -7334,6 +7356,17 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.boost_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::SearchRequest::params].
+        pub fn set_params<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7379,6 +7412,17 @@ pub mod search_service {
         /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
         pub fn set_safe_search<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.safe_search = v.into();
+            self
+        }
+
+        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7440,50 +7484,6 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_score_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
-        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
-        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::FacetSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [params][crate::model::SearchRequest::params].
-        pub fn set_params<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<wkt::Value>,
-        {
-            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
-
-        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
-        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -9510,12 +9510,6 @@ pub mod site_search_engine_service {
             self
         }
 
-        /// Sets the value of [site_credential][crate::model::RecrawlUrisRequest::site_credential].
-        pub fn set_site_credential<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.site_credential = v.into();
-            self
-        }
-
         /// Sets the value of [uris][crate::model::RecrawlUrisRequest::uris].
         ///
         /// This is a **required** field for requests.
@@ -9526,6 +9520,12 @@ pub mod site_search_engine_service {
         {
             use std::iter::Iterator;
             self.0.request.uris = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [site_credential][crate::model::RecrawlUrisRequest::site_credential].
+        pub fn set_site_credential<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.site_credential = v.into();
             self
         }
     }

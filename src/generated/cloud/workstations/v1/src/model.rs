@@ -160,6 +160,30 @@ impl WorkstationCluster {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::WorkstationCluster::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WorkstationCluster::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::WorkstationCluster::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -241,30 +265,6 @@ impl WorkstationCluster {
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::WorkstationCluster::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::WorkstationCluster::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -565,6 +565,30 @@ impl WorkstationConfig {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::WorkstationConfig::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WorkstationConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::WorkstationConfig::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -627,6 +651,17 @@ impl WorkstationConfig {
         self
     }
 
+    /// Sets the value of [persistent_directories][crate::model::WorkstationConfig::persistent_directories].
+    pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workstation_config::PersistentDirectory>,
+    {
+        use std::iter::Iterator;
+        self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [container][crate::model::WorkstationConfig::container].
     pub fn set_container<
         T: std::convert::Into<std::option::Option<crate::model::workstation_config::Container>>,
@@ -648,23 +683,6 @@ impl WorkstationConfig {
         v: T,
     ) -> Self {
         self.encryption_key = v.into();
-        self
-    }
-
-    /// Sets the value of [degraded][crate::model::WorkstationConfig::degraded].
-    pub fn set_degraded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.degraded = v.into();
-        self
-    }
-
-    /// Sets the value of [persistent_directories][crate::model::WorkstationConfig::persistent_directories].
-    pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workstation_config::PersistentDirectory>,
-    {
-        use std::iter::Iterator;
-        self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -690,6 +708,12 @@ impl WorkstationConfig {
         self
     }
 
+    /// Sets the value of [degraded][crate::model::WorkstationConfig::degraded].
+    pub fn set_degraded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.degraded = v.into();
+        self
+    }
+
     /// Sets the value of [conditions][crate::model::WorkstationConfig::conditions].
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
@@ -698,30 +722,6 @@ impl WorkstationConfig {
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::WorkstationConfig::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::WorkstationConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -976,6 +976,28 @@ pub mod workstation_config {
                 self
             }
 
+            /// Sets the value of [service_account_scopes][crate::model::workstation_config::host::GceInstance::service_account_scopes].
+            pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.service_account_scopes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [tags][crate::model::workstation_config::host::GceInstance::tags].
+            pub fn set_tags<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.tags = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [pool_size][crate::model::workstation_config::host::GceInstance::pool_size].
             pub fn set_pool_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.pool_size = v.into();
@@ -1021,28 +1043,6 @@ pub mod workstation_config {
             /// Sets the value of [boot_disk_size_gb][crate::model::workstation_config::host::GceInstance::boot_disk_size_gb].
             pub fn set_boot_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.boot_disk_size_gb = v.into();
-                self
-            }
-
-            /// Sets the value of [service_account_scopes][crate::model::workstation_config::host::GceInstance::service_account_scopes].
-            pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.service_account_scopes = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [tags][crate::model::workstation_config::host::GceInstance::tags].
-            pub fn set_tags<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.tags = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1584,18 +1584,6 @@ pub mod workstation_config {
             self
         }
 
-        /// Sets the value of [working_dir][crate::model::workstation_config::Container::working_dir].
-        pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.working_dir = v.into();
-            self
-        }
-
-        /// Sets the value of [run_as_user][crate::model::workstation_config::Container::run_as_user].
-        pub fn set_run_as_user<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.run_as_user = v.into();
-            self
-        }
-
         /// Sets the value of [command][crate::model::workstation_config::Container::command].
         pub fn set_command<T, V>(mut self, v: T) -> Self
         where
@@ -1627,6 +1615,18 @@ pub mod workstation_config {
         {
             use std::iter::Iterator;
             self.env = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [working_dir][crate::model::workstation_config::Container::working_dir].
+        pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.working_dir = v.into();
+            self
+        }
+
+        /// Sets the value of [run_as_user][crate::model::workstation_config::Container::run_as_user].
+        pub fn set_run_as_user<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.run_as_user = v.into();
             self
         }
     }
@@ -1839,6 +1839,30 @@ impl Workstation {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Workstation::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Workstation::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Workstation::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1893,30 +1917,6 @@ impl Workstation {
     /// Sets the value of [host][crate::model::Workstation::host].
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Workstation::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Workstation::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2194,12 +2194,6 @@ impl ListWorkstationClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkstationClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstation_clusters][crate::model::ListWorkstationClustersResponse::workstation_clusters].
     pub fn set_workstation_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -2208,6 +2202,12 @@ impl ListWorkstationClustersResponse {
     {
         use std::iter::Iterator;
         self.workstation_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkstationClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2567,12 +2567,6 @@ impl ListWorkstationConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkstationConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstation_configs][crate::model::ListWorkstationConfigsResponse::workstation_configs].
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
@@ -2581,6 +2575,12 @@ impl ListWorkstationConfigsResponse {
     {
         use std::iter::Iterator;
         self.workstation_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkstationConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2697,12 +2697,6 @@ impl ListUsableWorkstationConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstation_configs][crate::model::ListUsableWorkstationConfigsResponse::workstation_configs].
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
@@ -2711,6 +2705,12 @@ impl ListUsableWorkstationConfigsResponse {
     {
         use std::iter::Iterator;
         self.workstation_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3070,12 +3070,6 @@ impl ListWorkstationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkstationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstations][crate::model::ListWorkstationsResponse::workstations].
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
@@ -3084,6 +3078,12 @@ impl ListWorkstationsResponse {
     {
         use std::iter::Iterator;
         self.workstations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkstationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3200,12 +3200,6 @@ impl ListUsableWorkstationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstations][crate::model::ListUsableWorkstationsResponse::workstations].
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
@@ -3214,6 +3208,12 @@ impl ListUsableWorkstationsResponse {
     {
         use std::iter::Iterator;
         self.workstations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3612,19 +3612,6 @@ impl GenerateAccessTokenRequest {
         })
     }
 
-    /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.expiration.as_ref().and_then(|v| match v {
-            crate::model::generate_access_token_request::Expiration::Ttl(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
     /// to hold a `ExpireTime`.
     ///
@@ -3638,6 +3625,19 @@ impl GenerateAccessTokenRequest {
             crate::model::generate_access_token_request::Expiration::ExpireTime(v.into()),
         );
         self
+    }
+
+    /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::generate_access_token_request::Expiration::Ttl(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]

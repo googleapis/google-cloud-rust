@@ -589,15 +589,6 @@ impl EventType {
         self
     }
 
-    /// Sets the value of [event_schema_uri][crate::model::EventType::event_schema_uri].
-    pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event_schema_uri = v.into();
-        self
-    }
-
     /// Sets the value of [filtering_attributes][crate::model::EventType::filtering_attributes].
     pub fn set_filtering_attributes<T, V>(mut self, v: T) -> Self
     where
@@ -606,6 +597,15 @@ impl EventType {
     {
         use std::iter::Iterator;
         self.filtering_attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [event_schema_uri][crate::model::EventType::event_schema_uri].
+    pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_schema_uri = v.into();
         self
     }
 }
@@ -788,30 +788,6 @@ impl Enrollment {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::Enrollment::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [cel_match][crate::model::Enrollment::cel_match].
-    pub fn set_cel_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.cel_match = v.into();
-        self
-    }
-
-    /// Sets the value of [message_bus][crate::model::Enrollment::message_bus].
-    pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.message_bus = v.into();
-        self
-    }
-
-    /// Sets the value of [destination][crate::model::Enrollment::destination].
-    pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Enrollment::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -833,6 +809,30 @@ impl Enrollment {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Enrollment::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [cel_match][crate::model::Enrollment::cel_match].
+    pub fn set_cel_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cel_match = v.into();
+        self
+    }
+
+    /// Sets the value of [message_bus][crate::model::Enrollment::message_bus].
+    pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message_bus = v.into();
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::Enrollment::destination].
+    pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.destination = v.into();
         self
     }
 }
@@ -986,12 +986,6 @@ impl ListTriggersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTriggersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [triggers][crate::model::ListTriggersResponse::triggers].
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
@@ -1000,6 +994,12 @@ impl ListTriggersResponse {
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTriggersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1369,12 +1369,6 @@ impl ListChannelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [channels][crate::model::ListChannelsResponse::channels].
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
@@ -1383,6 +1377,12 @@ impl ListChannelsResponse {
     {
         use std::iter::Iterator;
         self.channels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1727,12 +1727,6 @@ impl ListProvidersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [providers][crate::model::ListProvidersResponse::providers].
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
@@ -1741,6 +1735,12 @@ impl ListProvidersResponse {
     {
         use std::iter::Iterator;
         self.providers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1896,12 +1896,6 @@ impl ListChannelConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListChannelConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [channel_connections][crate::model::ListChannelConnectionsResponse::channel_connections].
     pub fn set_channel_connections<T, V>(mut self, v: T) -> Self
     where
@@ -1910,6 +1904,12 @@ impl ListChannelConnectionsResponse {
     {
         use std::iter::Iterator;
         self.channel_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListChannelConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2263,12 +2263,6 @@ impl ListMessageBusesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMessageBusesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [message_buses][crate::model::ListMessageBusesResponse::message_buses].
     pub fn set_message_buses<T, V>(mut self, v: T) -> Self
     where
@@ -2277,6 +2271,12 @@ impl ListMessageBusesResponse {
     {
         use std::iter::Iterator;
         self.message_buses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMessageBusesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2398,12 +2398,6 @@ impl ListMessageBusEnrollmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMessageBusEnrollmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [enrollments][crate::model::ListMessageBusEnrollmentsResponse::enrollments].
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
@@ -2412,6 +2406,12 @@ impl ListMessageBusEnrollmentsResponse {
     {
         use std::iter::Iterator;
         self.enrollments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMessageBusEnrollmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2779,12 +2779,6 @@ impl ListEnrollmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEnrollmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [enrollments][crate::model::ListEnrollmentsResponse::enrollments].
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
@@ -2793,6 +2787,12 @@ impl ListEnrollmentsResponse {
     {
         use std::iter::Iterator;
         self.enrollments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEnrollmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3174,12 +3174,6 @@ impl ListPipelinesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPipelinesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [pipelines][crate::model::ListPipelinesResponse::pipelines].
     pub fn set_pipelines<T, V>(mut self, v: T) -> Self
     where
@@ -3188,6 +3182,12 @@ impl ListPipelinesResponse {
     {
         use std::iter::Iterator;
         self.pipelines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPipelinesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3568,12 +3568,6 @@ impl ListGoogleApiSourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGoogleApiSourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [google_api_sources][crate::model::ListGoogleApiSourcesResponse::google_api_sources].
     pub fn set_google_api_sources<T, V>(mut self, v: T) -> Self
     where
@@ -3582,6 +3576,12 @@ impl ListGoogleApiSourcesResponse {
     {
         use std::iter::Iterator;
         self.google_api_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGoogleApiSourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4040,6 +4040,30 @@ impl GoogleApiSource {
         self
     }
 
+    /// Sets the value of [labels][crate::model::GoogleApiSource::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::GoogleApiSource::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::GoogleApiSource::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4066,30 +4090,6 @@ impl GoogleApiSource {
         v: T,
     ) -> Self {
         self.logging_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::GoogleApiSource::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::GoogleApiSource::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4500,29 +4500,6 @@ impl MessageBus {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::MessageBus::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_key_name][crate::model::MessageBus::crypto_key_name].
-    pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.crypto_key_name = v.into();
-        self
-    }
-
-    /// Sets the value of [logging_config][crate::model::MessageBus::logging_config].
-    pub fn set_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::LoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logging_config = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::MessageBus::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -4544,6 +4521,29 @@ impl MessageBus {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::MessageBus::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [crypto_key_name][crate::model::MessageBus::crypto_key_name].
+    pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.crypto_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [logging_config][crate::model::MessageBus::logging_config].
+    pub fn set_logging_config<
+        T: std::convert::Into<std::option::Option<crate::model::LoggingConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logging_config = v.into();
         self
     }
 }
@@ -4713,15 +4713,61 @@ impl Pipeline {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Pipeline::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [uid][crate::model::Pipeline::uid].
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Pipeline::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Pipeline::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [destinations][crate::model::Pipeline::destinations].
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pipeline::Destination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mediations][crate::model::Pipeline::mediations].
+    pub fn set_mediations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pipeline::Mediation>,
+    {
+        use std::iter::Iterator;
+        self.mediations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4767,52 +4813,6 @@ impl Pipeline {
     /// Sets the value of [etag][crate::model::Pipeline::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [destinations][crate::model::Pipeline::destinations].
-    pub fn set_destinations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pipeline::Destination>,
-    {
-        use std::iter::Iterator;
-        self.destinations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [mediations][crate::model::Pipeline::mediations].
-    pub fn set_mediations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pipeline::Mediation>,
-    {
-        use std::iter::Iterator;
-        self.mediations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Pipeline::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Pipeline::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4883,40 +4883,6 @@ pub mod pipeline {
             })
         }
 
-        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// if it holds a `Avro`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn avro(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Avro(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// if it holds a `Json`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn json(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Json(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// to hold a `Protobuf`.
         ///
@@ -4936,6 +4902,23 @@ pub mod pipeline {
             self
         }
 
+        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
+        /// if it holds a `Avro`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn avro(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::pipeline::message_payload_format::Kind::Avro(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// to hold a `Avro`.
         ///
@@ -4953,6 +4936,23 @@ pub mod pipeline {
                 crate::model::pipeline::message_payload_format::Kind::Avro(v.into()),
             );
             self
+        }
+
+        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
+        /// if it holds a `Json`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn json(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::pipeline::message_payload_format::Kind::Json(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
@@ -5208,45 +5208,6 @@ pub mod pipeline {
             })
         }
 
-        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// if it holds a `Workflow`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn workflow(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// if it holds a `MessageBus`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn message_bus(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// if it holds a `Topic`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn topic(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// to hold a `HttpEndpoint`.
         ///
@@ -5264,6 +5225,19 @@ pub mod pipeline {
             self
         }
 
+        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
+        /// if it holds a `Workflow`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn workflow(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination_descriptor.as_ref().and_then(|v| match v {
+                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// to hold a `Workflow`.
         ///
@@ -5276,6 +5250,19 @@ pub mod pipeline {
             self
         }
 
+        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
+        /// if it holds a `MessageBus`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn message_bus(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination_descriptor.as_ref().and_then(|v| match v {
+                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// to hold a `MessageBus`.
         ///
@@ -5286,6 +5273,19 @@ pub mod pipeline {
                 crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v.into()),
             );
             self
+        }
+
+        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
+        /// if it holds a `Topic`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn topic(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination_descriptor.as_ref().and_then(|v| match v {
+                crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
@@ -5614,23 +5614,6 @@ pub mod pipeline {
                 })
             }
 
-            /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
-            /// if it holds a `OauthToken`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn oauth_token(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::pipeline::destination::authentication_config::OAuthToken,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.authentication_method_descriptor.as_ref().and_then(|v| match v {
-                    crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// to hold a `GoogleOidc`.
             ///
@@ -5652,6 +5635,23 @@ pub mod pipeline {
                     )
                 );
                 self
+            }
+
+            /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
+            /// if it holds a `OauthToken`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn oauth_token(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::pipeline::destination::authentication_config::OAuthToken,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.authentication_method_descriptor.as_ref().and_then(|v| match v {
+                    crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
@@ -6261,6 +6261,17 @@ impl Trigger {
         self
     }
 
+    /// Sets the value of [event_filters][crate::model::Trigger::event_filters].
+    pub fn set_event_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventFilter>,
+    {
+        use std::iter::Iterator;
+        self.event_filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::Trigger::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -6287,9 +6298,33 @@ impl Trigger {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Trigger::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [channel][crate::model::Trigger::channel].
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::Trigger::conditions].
+    pub fn set_conditions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::StateCondition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -6311,41 +6346,6 @@ impl Trigger {
     /// Sets the value of [etag][crate::model::Trigger::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [event_filters][crate::model::Trigger::event_filters].
-    pub fn set_event_filters<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventFilter>,
-    {
-        use std::iter::Iterator;
-        self.event_filters = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Trigger::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [conditions][crate::model::Trigger::conditions].
-    pub fn set_conditions<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::StateCondition>,
-    {
-        use std::iter::Iterator;
-        self.conditions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6518,52 +6518,6 @@ impl Destination {
         })
     }
 
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `CloudFunction`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_function(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::CloudFunction(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `Gke`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::Gke>> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::Gke(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `Workflow`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn workflow(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::Workflow(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `HttpEndpoint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn http_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::HttpEndpoint(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
     /// to hold a `CloudRun`.
     ///
@@ -6578,6 +6532,17 @@ impl Destination {
         self
     }
 
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `CloudFunction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_function(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::CloudFunction(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
     /// to hold a `CloudFunction`.
     ///
@@ -6588,6 +6553,17 @@ impl Destination {
             crate::model::destination::Descriptor::CloudFunction(v.into()),
         );
         self
+    }
+
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `Gke`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::Gke>> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::Gke(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
@@ -6604,6 +6580,17 @@ impl Destination {
         self
     }
 
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `Workflow`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn workflow(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::Workflow(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
     /// to hold a `Workflow`.
     ///
@@ -6613,6 +6600,19 @@ impl Destination {
         self.descriptor =
             std::option::Option::Some(crate::model::destination::Descriptor::Workflow(v.into()));
         self
+    }
+
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `HttpEndpoint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn http_endpoint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::HttpEndpoint(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]

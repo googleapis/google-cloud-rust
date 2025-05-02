@@ -305,15 +305,6 @@ impl ExplainedPolicy {
         self
     }
 
-    /// Sets the value of [relevance][crate::model::ExplainedPolicy::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.relevance = v.into();
-        self
-    }
-
     /// Sets the value of [binding_explanations][crate::model::ExplainedPolicy::binding_explanations].
     pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
     where
@@ -322,6 +313,15 @@ impl ExplainedPolicy {
     {
         use std::iter::Iterator;
         self.binding_explanations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relevance][crate::model::ExplainedPolicy::relevance].
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance = v.into();
         self
     }
 }
@@ -446,6 +446,18 @@ impl BindingExplanation {
         self
     }
 
+    /// Sets the value of [memberships][crate::model::BindingExplanation::memberships].
+    pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::binding_explanation::AnnotatedMembership>,
+    {
+        use std::iter::Iterator;
+        self.memberships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::BindingExplanation::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
@@ -461,18 +473,6 @@ impl BindingExplanation {
         v: T,
     ) -> Self {
         self.condition = v.into();
-        self
-    }
-
-    /// Sets the value of [memberships][crate::model::BindingExplanation::memberships].
-    pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::binding_explanation::AnnotatedMembership>,
-    {
-        use std::iter::Iterator;
-        self.memberships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

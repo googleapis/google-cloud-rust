@@ -168,6 +168,17 @@ impl ExportAssetsRequest {
         self
     }
 
+    /// Sets the value of [asset_types][crate::model::ExportAssetsRequest::asset_types].
+    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.asset_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [content_type][crate::model::ExportAssetsRequest::content_type].
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
@@ -185,17 +196,6 @@ impl ExportAssetsRequest {
         v: T,
     ) -> Self {
         self.output_config = v.into();
-        self
-    }
-
-    /// Sets the value of [asset_types][crate::model::ExportAssetsRequest::asset_types].
-    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.asset_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -393,6 +393,17 @@ impl ListAssetsRequest {
         self
     }
 
+    /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
+    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.asset_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [content_type][crate::model::ListAssetsRequest::content_type].
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
@@ -411,17 +422,6 @@ impl ListAssetsRequest {
     /// Sets the value of [page_token][crate::model::ListAssetsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
-    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.asset_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -481,12 +481,6 @@ impl ListAssetsResponse {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [assets][crate::model::ListAssetsResponse::assets].
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
@@ -495,6 +489,12 @@ impl ListAssetsResponse {
     {
         use std::iter::Iterator;
         self.assets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -589,6 +589,17 @@ impl BatchGetAssetsHistoryRequest {
         self
     }
 
+    /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
+    pub fn set_asset_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.asset_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [content_type][crate::model::BatchGetAssetsHistoryRequest::content_type].
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
@@ -606,17 +617,6 @@ impl BatchGetAssetsHistoryRequest {
         v: T,
     ) -> Self {
         self.read_time_window = v.into();
-        self
-    }
-
-    /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
-    pub fn set_asset_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.asset_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -979,21 +979,6 @@ impl OutputConfig {
         })
     }
 
-    /// The value of [destination][crate::model::OutputConfig::destination]
-    /// if it holds a `BigqueryDestination`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bigquery_destination(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::output_config::Destination::BigqueryDestination(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::OutputConfig::destination]
     /// to hold a `GcsDestination`.
     ///
@@ -1009,6 +994,21 @@ impl OutputConfig {
             crate::model::output_config::Destination::GcsDestination(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::OutputConfig::destination]
+    /// if it holds a `BigqueryDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::output_config::Destination::BigqueryDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::OutputConfig::destination]
@@ -1217,17 +1217,6 @@ impl GcsDestination {
         })
     }
 
-    /// The value of [object_uri][crate::model::GcsDestination::object_uri]
-    /// if it holds a `UriPrefix`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn uri_prefix(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.object_uri.as_ref().and_then(|v| match v {
-            crate::model::gcs_destination::ObjectUri::UriPrefix(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [object_uri][crate::model::GcsDestination::object_uri]
     /// to hold a `Uri`.
     ///
@@ -1237,6 +1226,17 @@ impl GcsDestination {
         self.object_uri =
             std::option::Option::Some(crate::model::gcs_destination::ObjectUri::Uri(v.into()));
         self
+    }
+
+    /// The value of [object_uri][crate::model::GcsDestination::object_uri]
+    /// if it holds a `UriPrefix`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn uri_prefix(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.object_uri.as_ref().and_then(|v| match v {
+            crate::model::gcs_destination::ObjectUri::UriPrefix(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [object_uri][crate::model::GcsDestination::object_uri]
@@ -1824,6 +1824,28 @@ impl Feed {
         self
     }
 
+    /// Sets the value of [asset_names][crate::model::Feed::asset_names].
+    pub fn set_asset_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.asset_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [asset_types][crate::model::Feed::asset_types].
+    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.asset_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [content_type][crate::model::Feed::content_type].
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
@@ -1850,28 +1872,6 @@ impl Feed {
         v: T,
     ) -> Self {
         self.condition = v.into();
-        self
-    }
-
-    /// Sets the value of [asset_names][crate::model::Feed::asset_names].
-    pub fn set_asset_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.asset_names = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [asset_types][crate::model::Feed::asset_types].
-    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.asset_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2104,6 +2104,17 @@ impl SearchAllResourcesRequest {
         self
     }
 
+    /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
+    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.asset_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::SearchAllResourcesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -2128,17 +2139,6 @@ impl SearchAllResourcesRequest {
         v: T,
     ) -> Self {
         self.read_mask = v.into();
-        self
-    }
-
-    /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
-    pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.asset_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2175,12 +2175,6 @@ impl SearchAllResourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchAllResourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [results][crate::model::SearchAllResourcesResponse::results].
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
@@ -2189,6 +2183,12 @@ impl SearchAllResourcesResponse {
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchAllResourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2361,12 +2361,6 @@ impl SearchAllIamPoliciesRequest {
         self
     }
 
-    /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
-    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.order_by = v.into();
-        self
-    }
-
     /// Sets the value of [asset_types][crate::model::SearchAllIamPoliciesRequest::asset_types].
     pub fn set_asset_types<T, V>(mut self, v: T) -> Self
     where
@@ -2375,6 +2369,12 @@ impl SearchAllIamPoliciesRequest {
     {
         use std::iter::Iterator;
         self.asset_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
         self
     }
 }
@@ -2411,12 +2411,6 @@ impl SearchAllIamPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchAllIamPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [results][crate::model::SearchAllIamPoliciesResponse::results].
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
@@ -2425,6 +2419,12 @@ impl SearchAllIamPoliciesResponse {
     {
         use std::iter::Iterator;
         self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchAllIamPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3138,12 +3138,6 @@ impl AnalyzeIamPolicyResponse {
         self
     }
 
-    /// Sets the value of [fully_explored][crate::model::AnalyzeIamPolicyResponse::fully_explored].
-    pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.fully_explored = v.into();
-        self
-    }
-
     /// Sets the value of [service_account_impersonation_analysis][crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis].
     pub fn set_service_account_impersonation_analysis<T, V>(mut self, v: T) -> Self
     where
@@ -3152,6 +3146,12 @@ impl AnalyzeIamPolicyResponse {
     {
         use std::iter::Iterator;
         self.service_account_impersonation_analysis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [fully_explored][crate::model::AnalyzeIamPolicyResponse::fully_explored].
+    pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.fully_explored = v.into();
         self
     }
 }
@@ -3217,12 +3217,6 @@ pub mod analyze_iam_policy_response {
             self
         }
 
-        /// Sets the value of [fully_explored][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::fully_explored].
-        pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.fully_explored = v.into();
-            self
-        }
-
         /// Sets the value of [analysis_results][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_results].
         pub fn set_analysis_results<T, V>(mut self, v: T) -> Self
         where
@@ -3231,6 +3225,12 @@ pub mod analyze_iam_policy_response {
         {
             use std::iter::Iterator;
             self.analysis_results = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [fully_explored][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::fully_explored].
+        pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.fully_explored = v.into();
             self
         }
 
@@ -3306,23 +3306,6 @@ impl IamPolicyAnalysisOutputConfig {
         })
     }
 
-    /// The value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
-    /// if it holds a `BigqueryDestination`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bigquery_destination(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::iam_policy_analysis_output_config::BigQueryDestination>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::iam_policy_analysis_output_config::Destination::BigqueryDestination(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
     /// to hold a `GcsDestination`.
     ///
@@ -3340,6 +3323,23 @@ impl IamPolicyAnalysisOutputConfig {
             crate::model::iam_policy_analysis_output_config::Destination::GcsDestination(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
+    /// if it holds a `BigqueryDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_destination(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::iam_policy_analysis_output_config::BigQueryDestination>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::iam_policy_analysis_output_config::Destination::BigqueryDestination(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
@@ -3871,17 +3871,6 @@ impl SavedQuery {
         self
     }
 
-    /// Sets the value of [content][crate::model::SavedQuery::content].
-    pub fn set_content<
-        T: std::convert::Into<std::option::Option<crate::model::saved_query::QueryContent>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.content = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::SavedQuery::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -3891,6 +3880,17 @@ impl SavedQuery {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [content][crate::model::SavedQuery::content].
+    pub fn set_content<
+        T: std::convert::Into<std::option::Option<crate::model::saved_query::QueryContent>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content = v.into();
         self
     }
 }
@@ -4210,12 +4210,6 @@ impl ListSavedQueriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSavedQueriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [saved_queries][crate::model::ListSavedQueriesResponse::saved_queries].
     pub fn set_saved_queries<T, V>(mut self, v: T) -> Self
     where
@@ -4224,6 +4218,12 @@ impl ListSavedQueriesResponse {
     {
         use std::iter::Iterator;
         self.saved_queries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSavedQueriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4640,17 +4640,6 @@ impl MoveAnalysis {
         })
     }
 
-    /// The value of [result][crate::model::MoveAnalysis::result]
-    /// if it holds a `Error`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::move_analysis::Result::Error(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::MoveAnalysis::result]
     /// to hold a `Analysis`.
     ///
@@ -4665,6 +4654,17 @@ impl MoveAnalysis {
         self.result =
             std::option::Option::Some(crate::model::move_analysis::Result::Analysis(v.into()));
         self
+    }
+
+    /// The value of [result][crate::model::MoveAnalysis::result]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::move_analysis::Result::Error(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::MoveAnalysis::result]
@@ -5050,6 +5050,18 @@ impl QueryAssetsRequest {
         })
     }
 
+    /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
+    /// to hold a `Statement`.
+    ///
+    /// Note that all the setters affecting `query` are
+    /// mutually exclusive.
+    pub fn set_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = std::option::Option::Some(
+            crate::model::query_assets_request::Query::Statement(v.into()),
+        );
+        self
+    }
+
     /// The value of [query][crate::model::QueryAssetsRequest::query]
     /// if it holds a `JobReference`, `None` if the field is not set or
     /// holds a different branch.
@@ -5061,18 +5073,6 @@ impl QueryAssetsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
-    /// to hold a `Statement`.
-    ///
-    /// Note that all the setters affecting `query` are
-    /// mutually exclusive.
-    pub fn set_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query = std::option::Option::Some(
-            crate::model::query_assets_request::Query::Statement(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
@@ -5116,17 +5116,6 @@ impl QueryAssetsRequest {
         })
     }
 
-    /// The value of [time][crate::model::QueryAssetsRequest::time]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.time.as_ref().and_then(|v| match v {
-            crate::model::query_assets_request::Time::ReadTime(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [time][crate::model::QueryAssetsRequest::time]
     /// to hold a `ReadTimeWindow`.
     ///
@@ -5142,6 +5131,17 @@ impl QueryAssetsRequest {
             crate::model::query_assets_request::Time::ReadTimeWindow(v.into()),
         );
         self
+    }
+
+    /// The value of [time][crate::model::QueryAssetsRequest::time]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.time.as_ref().and_then(|v| match v {
+            crate::model::query_assets_request::Time::ReadTime(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [time][crate::model::QueryAssetsRequest::time]
@@ -5274,34 +5274,6 @@ impl QueryAssetsResponse {
         })
     }
 
-    /// The value of [response][crate::model::QueryAssetsResponse::response]
-    /// if it holds a `QueryResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn query_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryResult>> {
-        #[allow(unreachable_patterns)]
-        self.response.as_ref().and_then(|v| match v {
-            crate::model::query_assets_response::Response::QueryResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response][crate::model::QueryAssetsResponse::response]
-    /// if it holds a `OutputConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn output_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::QueryAssetsOutputConfig>> {
-        #[allow(unreachable_patterns)]
-        self.response.as_ref().and_then(|v| match v {
-            crate::model::query_assets_response::Response::OutputConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [response][crate::model::QueryAssetsResponse::response]
     /// to hold a `Error`.
     ///
@@ -5317,6 +5289,19 @@ impl QueryAssetsResponse {
         self
     }
 
+    /// The value of [response][crate::model::QueryAssetsResponse::response]
+    /// if it holds a `QueryResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn query_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryResult>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::query_assets_response::Response::QueryResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [response][crate::model::QueryAssetsResponse::response]
     /// to hold a `QueryResult`.
     ///
@@ -5330,6 +5315,21 @@ impl QueryAssetsResponse {
             crate::model::query_assets_response::Response::QueryResult(v.into()),
         );
         self
+    }
+
+    /// The value of [response][crate::model::QueryAssetsResponse::response]
+    /// if it holds a `OutputConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn output_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::QueryAssetsOutputConfig>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::query_assets_response::Response::OutputConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response][crate::model::QueryAssetsResponse::response]
@@ -5412,6 +5412,17 @@ impl QueryResult {
         std::default::Default::default()
     }
 
+    /// Sets the value of [rows][crate::model::QueryResult::rows].
+    pub fn set_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Struct>,
+    {
+        use std::iter::Iterator;
+        self.rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [schema][crate::model::QueryResult::schema].
     pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::TableSchema>>>(
         mut self,
@@ -5430,17 +5441,6 @@ impl QueryResult {
     /// Sets the value of [total_rows][crate::model::QueryResult::total_rows].
     pub fn set_total_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_rows = v.into();
-        self
-    }
-
-    /// Sets the value of [rows][crate::model::QueryResult::rows].
-    pub fn set_rows<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Struct>,
-    {
-        use std::iter::Iterator;
-        self.rows = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5916,6 +5916,17 @@ impl AnalyzerOrgPolicy {
         self
     }
 
+    /// Sets the value of [rules][crate::model::AnalyzerOrgPolicy::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::analyzer_org_policy::Rule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [inherit_from_parent][crate::model::AnalyzerOrgPolicy::inherit_from_parent].
     pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inherit_from_parent = v.into();
@@ -5925,17 +5936,6 @@ impl AnalyzerOrgPolicy {
     /// Sets the value of [reset][crate::model::AnalyzerOrgPolicy::reset].
     pub fn set_reset<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reset = v.into();
-        self
-    }
-
-    /// Sets the value of [rules][crate::model::AnalyzerOrgPolicy::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::analyzer_org_policy::Rule>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6050,45 +6050,6 @@ pub mod analyzer_org_policy {
             })
         }
 
-        /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// if it holds a `AllowAll`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn allow_all(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::analyzer_org_policy::rule::Kind::AllowAll(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// if it holds a `DenyAll`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn deny_all(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::analyzer_org_policy::rule::Kind::DenyAll(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// if it holds a `Enforce`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn enforce(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::analyzer_org_policy::rule::Kind::Enforce(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
         /// to hold a `Values`.
         ///
@@ -6108,6 +6069,19 @@ pub mod analyzer_org_policy {
             self
         }
 
+        /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
+        /// if it holds a `AllowAll`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn allow_all(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::analyzer_org_policy::rule::Kind::AllowAll(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
         /// to hold a `AllowAll`.
         ///
@@ -6120,6 +6094,19 @@ pub mod analyzer_org_policy {
             self
         }
 
+        /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
+        /// if it holds a `DenyAll`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn deny_all(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::analyzer_org_policy::rule::Kind::DenyAll(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
         /// to hold a `DenyAll`.
         ///
@@ -6130,6 +6117,19 @@ pub mod analyzer_org_policy {
                 crate::model::analyzer_org_policy::rule::Kind::DenyAll(v.into()),
             );
             self
+        }
+
+        /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
+        /// if it holds a `Enforce`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn enforce(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::analyzer_org_policy::rule::Kind::Enforce(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
@@ -6281,21 +6281,6 @@ impl AnalyzerOrgPolicyConstraint {
         })
     }
 
-    /// The value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
-    /// if it holds a `CustomConstraint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom_constraint(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::analyzer_org_policy_constraint::CustomConstraint>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.constraint_definition.as_ref().and_then(|v| match v {
-            crate::model::analyzer_org_policy_constraint::ConstraintDefinition::CustomConstraint(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
     /// to hold a `GoogleDefinedConstraint`.
     ///
@@ -6315,6 +6300,21 @@ impl AnalyzerOrgPolicyConstraint {
             )
         );
         self
+    }
+
+    /// The value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
+    /// if it holds a `CustomConstraint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom_constraint(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::analyzer_org_policy_constraint::CustomConstraint>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.constraint_definition.as_ref().and_then(|v| match v {
+            crate::model::analyzer_org_policy_constraint::ConstraintDefinition::CustomConstraint(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
@@ -6463,23 +6463,6 @@ pub mod analyzer_org_policy_constraint {
             })
         }
 
-        /// The value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
-        /// if it holds a `BooleanConstraint`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn boolean_constraint(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::analyzer_org_policy_constraint::constraint::BooleanConstraint,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.constraint_type.as_ref().and_then(|v| match v {
-                crate::model::analyzer_org_policy_constraint::constraint::ConstraintType::BooleanConstraint(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
         /// to hold a `ListConstraint`.
         ///
@@ -6501,6 +6484,23 @@ pub mod analyzer_org_policy_constraint {
                 )
             );
             self
+        }
+
+        /// The value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
+        /// if it holds a `BooleanConstraint`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn boolean_constraint(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::analyzer_org_policy_constraint::constraint::BooleanConstraint,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.constraint_type.as_ref().and_then(|v| match v {
+                crate::model::analyzer_org_policy_constraint::constraint::ConstraintType::BooleanConstraint(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
@@ -6836,6 +6836,30 @@ pub mod analyzer_org_policy_constraint {
             self
         }
 
+        /// Sets the value of [resource_types][crate::model::analyzer_org_policy_constraint::CustomConstraint::resource_types].
+        pub fn set_resource_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.resource_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [method_types][crate::model::analyzer_org_policy_constraint::CustomConstraint::method_types].
+        pub fn set_method_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::analyzer_org_policy_constraint::custom_constraint::MethodType,
+                >,
+        {
+            use std::iter::Iterator;
+            self.method_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [condition][crate::model::analyzer_org_policy_constraint::CustomConstraint::condition].
         pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.condition = v.into();
@@ -6867,30 +6891,6 @@ pub mod analyzer_org_policy_constraint {
         /// Sets the value of [description][crate::model::analyzer_org_policy_constraint::CustomConstraint::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
-            self
-        }
-
-        /// Sets the value of [resource_types][crate::model::analyzer_org_policy_constraint::CustomConstraint::resource_types].
-        pub fn set_resource_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.resource_types = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [method_types][crate::model::analyzer_org_policy_constraint::CustomConstraint::method_types].
-        pub fn set_method_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::analyzer_org_policy_constraint::custom_constraint::MethodType,
-                >,
-        {
-            use std::iter::Iterator;
-            self.method_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -7337,6 +7337,17 @@ impl AnalyzeOrgPoliciesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [org_policy_results][crate::model::AnalyzeOrgPoliciesResponse::org_policy_results].
+    pub fn set_org_policy_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::analyze_org_policies_response::OrgPolicyResult>,
+    {
+        use std::iter::Iterator;
+        self.org_policy_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPoliciesResponse::constraint].
     pub fn set_constraint<
         T: std::convert::Into<std::option::Option<crate::model::AnalyzerOrgPolicyConstraint>>,
@@ -7351,17 +7362,6 @@ impl AnalyzeOrgPoliciesResponse {
     /// Sets the value of [next_page_token][crate::model::AnalyzeOrgPoliciesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [org_policy_results][crate::model::AnalyzeOrgPoliciesResponse::org_policy_results].
-    pub fn set_org_policy_results<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::analyze_org_policies_response::OrgPolicyResult>,
-    {
-        use std::iter::Iterator;
-        self.org_policy_results = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7452,21 +7452,6 @@ pub mod analyze_org_policies_response {
             self
         }
 
-        /// Sets the value of [project][crate::model::analyze_org_policies_response::OrgPolicyResult::project].
-        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.project = v.into();
-            self
-        }
-
-        /// Sets the value of [organization][crate::model::analyze_org_policies_response::OrgPolicyResult::organization].
-        pub fn set_organization<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.organization = v.into();
-            self
-        }
-
         /// Sets the value of [policy_bundle][crate::model::analyze_org_policies_response::OrgPolicyResult::policy_bundle].
         pub fn set_policy_bundle<T, V>(mut self, v: T) -> Self
         where
@@ -7478,6 +7463,12 @@ pub mod analyze_org_policies_response {
             self
         }
 
+        /// Sets the value of [project][crate::model::analyze_org_policies_response::OrgPolicyResult::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
         /// Sets the value of [folders][crate::model::analyze_org_policies_response::OrgPolicyResult::folders].
         pub fn set_folders<T, V>(mut self, v: T) -> Self
         where
@@ -7486,6 +7477,15 @@ pub mod analyze_org_policies_response {
         {
             use std::iter::Iterator;
             self.folders = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [organization][crate::model::analyze_org_policies_response::OrgPolicyResult::organization].
+        pub fn set_organization<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.organization = v.into();
             self
         }
     }
@@ -7631,6 +7631,19 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [governed_containers][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers].
+    pub fn set_governed_containers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::analyze_org_policy_governed_containers_response::GovernedContainer,
+            >,
+    {
+        use std::iter::Iterator;
+        self.governed_containers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::constraint].
     pub fn set_constraint<
         T: std::convert::Into<std::option::Option<crate::model::AnalyzerOrgPolicyConstraint>>,
@@ -7645,19 +7658,6 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     /// Sets the value of [next_page_token][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [governed_containers][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers].
-    pub fn set_governed_containers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<
-                crate::model::analyze_org_policy_governed_containers_response::GovernedContainer,
-            >,
-    {
-        use std::iter::Iterator;
-        self.governed_containers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7789,21 +7789,6 @@ pub mod analyze_org_policy_governed_containers_response {
             self
         }
 
-        /// Sets the value of [project][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::project].
-        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.project = v.into();
-            self
-        }
-
-        /// Sets the value of [organization][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::organization].
-        pub fn set_organization<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.organization = v.into();
-            self
-        }
-
         /// Sets the value of [policy_bundle][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::policy_bundle].
         pub fn set_policy_bundle<T, V>(mut self, v: T) -> Self
         where
@@ -7815,6 +7800,12 @@ pub mod analyze_org_policy_governed_containers_response {
             self
         }
 
+        /// Sets the value of [project][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
         /// Sets the value of [folders][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::folders].
         pub fn set_folders<T, V>(mut self, v: T) -> Self
         where
@@ -7823,6 +7814,15 @@ pub mod analyze_org_policy_governed_containers_response {
         {
             use std::iter::Iterator;
             self.folders = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [organization][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::organization].
+        pub fn set_organization<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.organization = v.into();
             self
         }
 
@@ -7995,6 +7995,19 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [governed_assets][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets].
+    pub fn set_governed_assets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::analyze_org_policy_governed_assets_response::GovernedAsset,
+            >,
+    {
+        use std::iter::Iterator;
+        self.governed_assets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::constraint].
     pub fn set_constraint<
         T: std::convert::Into<std::option::Option<crate::model::AnalyzerOrgPolicyConstraint>>,
@@ -8009,19 +8022,6 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     /// Sets the value of [next_page_token][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [governed_assets][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets].
-    pub fn set_governed_assets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<
-                crate::model::analyze_org_policy_governed_assets_response::GovernedAsset,
-            >,
-    {
-        use std::iter::Iterator;
-        self.governed_assets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8139,6 +8139,17 @@ pub mod analyze_org_policy_governed_assets_response {
             self
         }
 
+        /// Sets the value of [folders][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::folders].
+        pub fn set_folders<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.folders = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [organization][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::organization].
         pub fn set_organization<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -8151,17 +8162,6 @@ pub mod analyze_org_policy_governed_assets_response {
         /// Sets the value of [asset_type][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::asset_type].
         pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset_type = v.into();
-            self
-        }
-
-        /// Sets the value of [folders][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::folders].
-        pub fn set_folders<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.folders = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -8268,6 +8268,17 @@ pub mod analyze_org_policy_governed_assets_response {
             self
         }
 
+        /// Sets the value of [folders][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::folders].
+        pub fn set_folders<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.folders = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [organization][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::organization].
         pub fn set_organization<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -8280,17 +8291,6 @@ pub mod analyze_org_policy_governed_assets_response {
         /// Sets the value of [asset_type][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::asset_type].
         pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset_type = v.into();
-            self
-        }
-
-        /// Sets the value of [folders][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::folders].
-        pub fn set_folders<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.folders = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -8392,23 +8392,6 @@ pub mod analyze_org_policy_governed_assets_response {
             })
         }
 
-        /// The value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
-        /// if it holds a `GovernedIamPolicy`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn governed_iam_policy(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.governed_asset.as_ref().and_then(|v| match v {
-                crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedIamPolicy(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
         /// to hold a `GovernedResource`.
         ///
@@ -8430,6 +8413,23 @@ pub mod analyze_org_policy_governed_assets_response {
                 )
             );
             self
+        }
+
+        /// The value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
+        /// if it holds a `GovernedIamPolicy`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn governed_iam_policy(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.governed_asset.as_ref().and_then(|v| match v {
+                crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedIamPolicy(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
@@ -8916,6 +8916,17 @@ impl Asset {
         self
     }
 
+    /// Sets the value of [org_policy][crate::model::Asset::org_policy].
+    pub fn set_org_policy<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<orgpolicy_v1::model::Policy>,
+    {
+        use std::iter::Iterator;
+        self.org_policy = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [os_inventory][crate::model::Asset::os_inventory].
     pub fn set_os_inventory<
         T: std::convert::Into<std::option::Option<osconfig_v1::model::Inventory>>,
@@ -8947,17 +8958,6 @@ impl Asset {
         v: T,
     ) -> Self {
         self.related_asset = v.into();
-        self
-    }
-
-    /// Sets the value of [org_policy][crate::model::Asset::org_policy].
-    pub fn set_org_policy<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<orgpolicy_v1::model::Policy>,
-    {
-        use std::iter::Iterator;
-        self.org_policy = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -9001,37 +9001,6 @@ impl Asset {
         })
     }
 
-    /// The value of [access_context_policy][crate::model::Asset::access_context_policy]
-    /// if it holds a `AccessLevel`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn access_level(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>> {
-        #[allow(unreachable_patterns)]
-        self.access_context_policy.as_ref().and_then(|v| match v {
-            crate::model::asset::AccessContextPolicy::AccessLevel(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [access_context_policy][crate::model::Asset::access_context_policy]
-    /// if it holds a `ServicePerimeter`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn service_perimeter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>>
-    {
-        #[allow(unreachable_patterns)]
-        self.access_context_policy.as_ref().and_then(|v| match v {
-            crate::model::asset::AccessContextPolicy::ServicePerimeter(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [access_context_policy][crate::model::Asset::access_context_policy]
     /// to hold a `AccessPolicy`.
     ///
@@ -9049,6 +9018,21 @@ impl Asset {
         self
     }
 
+    /// The value of [access_context_policy][crate::model::Asset::access_context_policy]
+    /// if it holds a `AccessLevel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn access_level(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>> {
+        #[allow(unreachable_patterns)]
+        self.access_context_policy.as_ref().and_then(|v| match v {
+            crate::model::asset::AccessContextPolicy::AccessLevel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [access_context_policy][crate::model::Asset::access_context_policy]
     /// to hold a `AccessLevel`.
     ///
@@ -9064,6 +9048,22 @@ impl Asset {
             crate::model::asset::AccessContextPolicy::AccessLevel(v.into()),
         );
         self
+    }
+
+    /// The value of [access_context_policy][crate::model::Asset::access_context_policy]
+    /// if it holds a `ServicePerimeter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_perimeter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>>
+    {
+        #[allow(unreachable_patterns)]
+        self.access_context_policy.as_ref().and_then(|v| match v {
+            crate::model::asset::AccessContextPolicy::ServicePerimeter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [access_context_policy][crate::model::Asset::access_context_policy]
@@ -9431,15 +9431,6 @@ impl RelatedAsset {
         self
     }
 
-    /// Sets the value of [relationship_type][crate::model::RelatedAsset::relationship_type].
-    pub fn set_relationship_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.relationship_type = v.into();
-        self
-    }
-
     /// Sets the value of [ancestors][crate::model::RelatedAsset::ancestors].
     pub fn set_ancestors<T, V>(mut self, v: T) -> Self
     where
@@ -9448,6 +9439,15 @@ impl RelatedAsset {
     {
         use std::iter::Iterator;
         self.ancestors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relationship_type][crate::model::RelatedAsset::relationship_type].
+    pub fn set_relationship_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relationship_type = v.into();
         self
     }
 }
@@ -10017,6 +10017,17 @@ impl ResourceSearchResult {
         self
     }
 
+    /// Sets the value of [folders][crate::model::ResourceSearchResult::folders].
+    pub fn set_folders<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.folders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [organization][crate::model::ResourceSearchResult::organization].
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
@@ -10041,10 +10052,44 @@ impl ResourceSearchResult {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ResourceSearchResult::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network_tags][crate::model::ResourceSearchResult::network_tags].
+    pub fn set_network_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.network_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [kms_key][crate::model::ResourceSearchResult::kms_key].
     #[deprecated]
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_keys][crate::model::ResourceSearchResult::kms_keys].
+    pub fn set_kms_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_keys = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -10090,48 +10135,6 @@ impl ResourceSearchResult {
         self
     }
 
-    /// Sets the value of [parent_asset_type][crate::model::ResourceSearchResult::parent_asset_type].
-    pub fn set_parent_asset_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parent_asset_type = v.into();
-        self
-    }
-
-    /// Sets the value of [folders][crate::model::ResourceSearchResult::folders].
-    pub fn set_folders<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.folders = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [network_tags][crate::model::ResourceSearchResult::network_tags].
-    pub fn set_network_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.network_tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [kms_keys][crate::model::ResourceSearchResult::kms_keys].
-    pub fn set_kms_keys<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.kms_keys = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [versioned_resources][crate::model::ResourceSearchResult::versioned_resources].
     pub fn set_versioned_resources<T, V>(mut self, v: T) -> Self
     where
@@ -10151,6 +10154,18 @@ impl ResourceSearchResult {
     {
         use std::iter::Iterator;
         self.attached_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relationships][crate::model::ResourceSearchResult::relationships].
+    pub fn set_relationships<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::RelatedResources>,
+    {
+        use std::iter::Iterator;
+        self.relationships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -10212,27 +10227,12 @@ impl ResourceSearchResult {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ResourceSearchResult::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [relationships][crate::model::ResourceSearchResult::relationships].
-    pub fn set_relationships<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::RelatedResources>,
-    {
-        use std::iter::Iterator;
-        self.relationships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [parent_asset_type][crate::model::ResourceSearchResult::parent_asset_type].
+    pub fn set_parent_asset_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parent_asset_type = v.into();
         self
     }
 
@@ -10569,6 +10569,17 @@ impl IamPolicySearchResult {
         self
     }
 
+    /// Sets the value of [folders][crate::model::IamPolicySearchResult::folders].
+    pub fn set_folders<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.folders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [organization][crate::model::IamPolicySearchResult::organization].
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
@@ -10594,17 +10605,6 @@ impl IamPolicySearchResult {
         v: T,
     ) -> Self {
         self.explanation = v.into();
-        self
-    }
-
-    /// Sets the value of [folders][crate::model::IamPolicySearchResult::folders].
-    pub fn set_folders<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.folders = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -11016,6 +11016,17 @@ impl IamPolicyAnalysisResult {
         self
     }
 
+    /// Sets the value of [access_control_lists][crate::model::IamPolicyAnalysisResult::access_control_lists].
+    pub fn set_access_control_lists<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::iam_policy_analysis_result::AccessControlList>,
+    {
+        use std::iter::Iterator;
+        self.access_control_lists = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [identity_list][crate::model::IamPolicyAnalysisResult::identity_list].
     pub fn set_identity_list<
         T: std::convert::Into<
@@ -11032,17 +11043,6 @@ impl IamPolicyAnalysisResult {
     /// Sets the value of [fully_explored][crate::model::IamPolicyAnalysisResult::fully_explored].
     pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fully_explored = v.into();
-        self
-    }
-
-    /// Sets the value of [access_control_lists][crate::model::IamPolicyAnalysisResult::access_control_lists].
-    pub fn set_access_control_lists<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::iam_policy_analysis_result::AccessControlList>,
-    {
-        use std::iter::Iterator;
-        self.access_control_lists = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -11174,6 +11174,18 @@ pub mod iam_policy_analysis_result {
             })
         }
 
+        /// Sets the value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
+        /// to hold a `Role`.
+        ///
+        /// Note that all the setters affecting `oneof_access` are
+        /// mutually exclusive.
+        pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.oneof_access = std::option::Option::Some(
+                crate::model::iam_policy_analysis_result::access::OneofAccess::Role(v.into()),
+            );
+            self
+        }
+
         /// The value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
@@ -11185,18 +11197,6 @@ pub mod iam_policy_analysis_result {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
-        /// to hold a `Role`.
-        ///
-        /// Note that all the setters affecting `oneof_access` are
-        /// mutually exclusive.
-        pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.oneof_access = std::option::Option::Some(
-                crate::model::iam_policy_analysis_result::access::OneofAccess::Role(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
@@ -11398,17 +11398,6 @@ pub mod iam_policy_analysis_result {
             std::default::Default::default()
         }
 
-        /// Sets the value of [condition_evaluation][crate::model::iam_policy_analysis_result::AccessControlList::condition_evaluation].
-        pub fn set_condition_evaluation<
-            T: std::convert::Into<std::option::Option<crate::model::ConditionEvaluation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition_evaluation = v.into();
-            self
-        }
-
         /// Sets the value of [resources][crate::model::iam_policy_analysis_result::AccessControlList::resources].
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
@@ -11439,6 +11428,17 @@ pub mod iam_policy_analysis_result {
         {
             use std::iter::Iterator;
             self.resource_edges = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [condition_evaluation][crate::model::iam_policy_analysis_result::AccessControlList::condition_evaluation].
+        pub fn set_condition_evaluation<
+            T: std::convert::Into<std::option::Option<crate::model::ConditionEvaluation>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.condition_evaluation = v.into();
             self
         }
     }

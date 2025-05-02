@@ -438,12 +438,6 @@ pub mod migration_center {
             self
         }
 
-        /// Sets the value of [allow_missing][crate::model::BatchDeleteAssetsRequest::allow_missing].
-        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.allow_missing = v.into();
-            self
-        }
-
         /// Sets the value of [names][crate::model::BatchDeleteAssetsRequest::names].
         ///
         /// This is a **required** field for requests.
@@ -454,6 +448,12 @@ pub mod migration_center {
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [allow_missing][crate::model::BatchDeleteAssetsRequest::allow_missing].
+        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.allow_missing = v.into();
             self
         }
     }
@@ -574,12 +574,6 @@ pub mod migration_center {
             self
         }
 
-        /// Sets the value of [filter][crate::model::AggregateAssetsValuesRequest::filter].
-        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.filter = v.into();
-            self
-        }
-
         /// Sets the value of [aggregations][crate::model::AggregateAssetsValuesRequest::aggregations].
         pub fn set_aggregations<T, V>(mut self, v: T) -> Self
         where
@@ -588,6 +582,12 @@ pub mod migration_center {
         {
             use std::iter::Iterator;
             self.0.request.aggregations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::AggregateAssetsValuesRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
             self
         }
     }

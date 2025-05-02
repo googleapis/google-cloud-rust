@@ -2464,6 +2464,17 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
         ///
         /// This is a **required** field for requests.
@@ -2485,17 +2496,6 @@ pub mod secret_manager_service {
         /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
-            self
-        }
-
-        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
-        pub fn set_permissions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2546,6 +2546,17 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
         ///
         /// This is a **required** field for requests.
@@ -2567,17 +2578,6 @@ pub mod secret_manager_service {
         /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
-            self
-        }
-
-        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
-        pub fn set_permissions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

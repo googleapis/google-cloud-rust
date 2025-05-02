@@ -214,12 +214,6 @@ impl ListAccessApprovalRequestsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAccessApprovalRequestsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [access_approval_requests][crate::model::ListAccessApprovalRequestsResponse::access_approval_requests].
     pub fn set_access_approval_requests<T, V>(mut self, v: T) -> Self
     where
@@ -228,6 +222,12 @@ impl ListAccessApprovalRequestsResponse {
     {
         use std::iter::Iterator;
         self.access_approval_requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessApprovalRequestsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1014,12 +1014,6 @@ impl ListWorkloadsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workloads][crate::model::ListWorkloadsResponse::workloads].
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
@@ -1028,6 +1022,12 @@ impl ListWorkloadsResponse {
     {
         use std::iter::Iterator;
         self.workloads = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1516,12 +1516,6 @@ impl ListCustomersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCustomersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [customers][crate::model::ListCustomersResponse::customers].
     pub fn set_customers<T, V>(mut self, v: T) -> Self
     where
@@ -1530,6 +1524,12 @@ impl ListCustomersResponse {
     {
         use std::iter::Iterator;
         self.customers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCustomersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2498,33 +2498,6 @@ impl Partner {
         self
     }
 
-    /// Sets the value of [partner_project_id][crate::model::Partner::partner_project_id].
-    pub fn set_partner_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.partner_project_id = v.into();
-        self
-    }
-
-    /// Sets the value of [create_time][crate::model::Partner::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::Partner::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [skus][crate::model::Partner::skus].
     pub fn set_skus<T, V>(mut self, v: T) -> Self
     where
@@ -2555,6 +2528,33 @@ impl Partner {
     {
         use std::iter::Iterator;
         self.operated_cloud_regions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [partner_project_id][crate::model::Partner::partner_project_id].
+    pub fn set_partner_project_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partner_project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Partner::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Partner::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -3044,17 +3044,6 @@ pub mod violation {
             self
         }
 
-        /// Sets the value of [remediation_type][crate::model::violation::Remediation::remediation_type].
-        pub fn set_remediation_type<
-            T: std::convert::Into<crate::model::violation::remediation::RemediationType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.remediation_type = v.into();
-            self
-        }
-
         /// Sets the value of [compliant_values][crate::model::violation::Remediation::compliant_values].
         pub fn set_compliant_values<T, V>(mut self, v: T) -> Self
         where
@@ -3063,6 +3052,17 @@ pub mod violation {
         {
             use std::iter::Iterator;
             self.compliant_values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [remediation_type][crate::model::violation::Remediation::remediation_type].
+        pub fn set_remediation_type<
+            T: std::convert::Into<crate::model::violation::remediation::RemediationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.remediation_type = v.into();
             self
         }
     }
@@ -3738,12 +3738,6 @@ impl ListViolationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListViolationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [violations][crate::model::ListViolationsResponse::violations].
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
@@ -3752,6 +3746,12 @@ impl ListViolationsResponse {
     {
         use std::iter::Iterator;
         self.violations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListViolationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

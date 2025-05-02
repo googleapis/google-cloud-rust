@@ -118,12 +118,6 @@ impl ListTunnelDestGroupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTunnelDestGroupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tunnel_dest_groups][crate::model::ListTunnelDestGroupsResponse::tunnel_dest_groups].
     pub fn set_tunnel_dest_groups<T, V>(mut self, v: T) -> Self
     where
@@ -132,6 +126,12 @@ impl ListTunnelDestGroupsResponse {
     {
         use std::iter::Iterator;
         self.tunnel_dest_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTunnelDestGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -856,15 +856,6 @@ impl GcipSettings {
         std::default::Default::default()
     }
 
-    /// Sets the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
-    pub fn set_login_page_uri<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.login_page_uri = v.into();
-        self
-    }
-
     /// Sets the value of [tenant_ids][crate::model::GcipSettings::tenant_ids].
     pub fn set_tenant_ids<T, V>(mut self, v: T) -> Self
     where
@@ -873,6 +864,15 @@ impl GcipSettings {
     {
         use std::iter::Iterator;
         self.tenant_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
+    pub fn set_login_page_uri<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.login_page_uri = v.into();
         self
     }
 }
@@ -1001,15 +1001,6 @@ impl WorkforceIdentitySettings {
         std::default::Default::default()
     }
 
-    /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
-    pub fn set_oauth2<T: std::convert::Into<std::option::Option<crate::model::OAuth2>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oauth2 = v.into();
-        self
-    }
-
     /// Sets the value of [workforce_pools][crate::model::WorkforceIdentitySettings::workforce_pools].
     pub fn set_workforce_pools<T, V>(mut self, v: T) -> Self
     where
@@ -1018,6 +1009,15 @@ impl WorkforceIdentitySettings {
     {
         use std::iter::Iterator;
         self.workforce_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
+    pub fn set_oauth2<T: std::convert::Into<std::option::Option<crate::model::OAuth2>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.oauth2 = v.into();
         self
     }
 }
@@ -1744,12 +1744,6 @@ impl AttributePropagationSettings {
         self
     }
 
-    /// Sets the value of [enable][crate::model::AttributePropagationSettings::enable].
-    pub fn set_enable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.enable = v.into();
-        self
-    }
-
     /// Sets the value of [output_credentials][crate::model::AttributePropagationSettings::output_credentials].
     pub fn set_output_credentials<T, V>(mut self, v: T) -> Self
     where
@@ -1758,6 +1752,12 @@ impl AttributePropagationSettings {
     {
         use std::iter::Iterator;
         self.output_credentials = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enable][crate::model::AttributePropagationSettings::enable].
+    pub fn set_enable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+        self.enable = v.into();
         self
     }
 }
@@ -2217,12 +2217,6 @@ impl ListIdentityAwareProxyClientsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIdentityAwareProxyClientsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [identity_aware_proxy_clients][crate::model::ListIdentityAwareProxyClientsResponse::identity_aware_proxy_clients].
     pub fn set_identity_aware_proxy_clients<T, V>(mut self, v: T) -> Self
     where
@@ -2231,6 +2225,12 @@ impl ListIdentityAwareProxyClientsResponse {
     {
         use std::iter::Iterator;
         self.identity_aware_proxy_clients = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIdentityAwareProxyClientsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

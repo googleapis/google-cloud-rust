@@ -73,15 +73,6 @@ impl ActionLog {
         self
     }
 
-    /// Sets the value of [recommendation_name][crate::model::ActionLog::recommendation_name].
-    pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recommendation_name = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::ActionLog::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -91,6 +82,15 @@ impl ActionLog {
     {
         use std::iter::Iterator;
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [recommendation_name][crate::model::ActionLog::recommendation_name].
+    pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.recommendation_name = v.into();
         self
     }
 }
@@ -147,12 +147,6 @@ impl InsightActionLog {
         self
     }
 
-    /// Sets the value of [insight][crate::model::InsightActionLog::insight].
-    pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.insight = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::InsightActionLog::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -162,6 +156,12 @@ impl InsightActionLog {
     {
         use std::iter::Iterator;
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [insight][crate::model::InsightActionLog::insight].
+    pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.insight = v.into();
         self
     }
 }

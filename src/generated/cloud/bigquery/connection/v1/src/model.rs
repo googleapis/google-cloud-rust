@@ -451,80 +451,6 @@ impl Connection {
         })
     }
 
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `Aws`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::Aws(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `Azure`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn azure(&self) -> std::option::Option<&std::boxed::Box<crate::model::AzureProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::Azure(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `CloudSpanner`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_spanner(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSpannerProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::CloudSpanner(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `CloudResource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudResourceProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::CloudResource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `Spark`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn spark(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::Spark(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `SalesforceDataCloud`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_data_cloud(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceDataCloudProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::SalesforceDataCloud(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `CloudSql`.
     ///
@@ -541,6 +467,17 @@ impl Connection {
         self
     }
 
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `Aws`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::Aws(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `Aws`.
     ///
@@ -553,6 +490,17 @@ impl Connection {
         self.properties =
             std::option::Option::Some(crate::model::connection::Properties::Aws(v.into()));
         self
+    }
+
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `Azure`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn azure(&self) -> std::option::Option<&std::boxed::Box<crate::model::AzureProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::Azure(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [properties][crate::model::Connection::properties]
@@ -569,6 +517,19 @@ impl Connection {
         self
     }
 
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `CloudSpanner`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_spanner(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSpannerProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::CloudSpanner(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `CloudSpanner`.
     ///
@@ -583,6 +544,19 @@ impl Connection {
         self.properties =
             std::option::Option::Some(crate::model::connection::Properties::CloudSpanner(v.into()));
         self
+    }
+
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `CloudResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudResourceProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::CloudResource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [properties][crate::model::Connection::properties]
@@ -602,6 +576,17 @@ impl Connection {
         self
     }
 
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `Spark`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spark(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::Spark(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `Spark`.
     ///
@@ -614,6 +599,21 @@ impl Connection {
         self.properties =
             std::option::Option::Some(crate::model::connection::Properties::Spark(v.into()));
         self
+    }
+
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `SalesforceDataCloud`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_data_cloud(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceDataCloudProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::SalesforceDataCloud(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [properties][crate::model::Connection::properties]
@@ -1092,21 +1092,6 @@ impl AwsProperties {
         })
     }
 
-    /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
-    /// if it holds a `AccessRole`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn access_role(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsAccessRole>> {
-        #[allow(unreachable_patterns)]
-        self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::aws_properties::AuthenticationMethod::AccessRole(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]
     /// to hold a `CrossAccountRole`.
     ///
@@ -1123,6 +1108,21 @@ impl AwsProperties {
             crate::model::aws_properties::AuthenticationMethod::CrossAccountRole(v.into()),
         );
         self
+    }
+
+    /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
+    /// if it holds a `AccessRole`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn access_role(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsAccessRole>> {
+        #[allow(unreachable_patterns)]
+        self.authentication_method.as_ref().and_then(|v| match v {
+            crate::model::aws_properties::AuthenticationMethod::AccessRole(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]

@@ -94,6 +94,18 @@ impl Template {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Template::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [filter_config][crate::model::Template::filter_config].
     pub fn set_filter_config<
         T: std::convert::Into<std::option::Option<crate::model::FilterConfig>>,
@@ -113,18 +125,6 @@ impl Template {
         v: T,
     ) -> Self {
         self.template_metadata = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Template::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -445,12 +445,6 @@ impl ListTemplatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTemplatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [templates][crate::model::ListTemplatesResponse::templates].
     pub fn set_templates<T, V>(mut self, v: T) -> Self
     where
@@ -459,6 +453,12 @@ impl ListTemplatesResponse {
     {
         use std::iter::Iterator;
         self.templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTemplatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1423,21 +1423,6 @@ impl SdpFilterSettings {
         })
     }
 
-    /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
-    /// if it holds a `AdvancedConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn advanced_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpAdvancedConfig>> {
-        #[allow(unreachable_patterns)]
-        self.sdp_configuration.as_ref().and_then(|v| match v {
-            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
     /// to hold a `BasicConfig`.
     ///
@@ -1453,6 +1438,21 @@ impl SdpFilterSettings {
             crate::model::sdp_filter_settings::SdpConfiguration::BasicConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
+    /// if it holds a `AdvancedConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn advanced_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpAdvancedConfig>> {
+        #[allow(unreachable_patterns)]
+        self.sdp_configuration.as_ref().and_then(|v| match v {
+            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
@@ -1979,6 +1979,18 @@ impl SanitizationResult {
         self
     }
 
+    /// Sets the value of [filter_results][crate::model::SanitizationResult::filter_results].
+    pub fn set_filter_results<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::FilterResult>,
+    {
+        use std::iter::Iterator;
+        self.filter_results = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [invocation_result][crate::model::SanitizationResult::invocation_result].
     pub fn set_invocation_result<T: std::convert::Into<crate::model::InvocationResult>>(
         mut self,
@@ -1998,18 +2010,6 @@ impl SanitizationResult {
         v: T,
     ) -> Self {
         self.sanitization_metadata = v.into();
-        self
-    }
-
-    /// Sets the value of [filter_results][crate::model::SanitizationResult::filter_results].
-    pub fn set_filter_results<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::FilterResult>,
-    {
-        use std::iter::Iterator;
-        self.filter_results = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2122,81 +2122,6 @@ impl FilterResult {
         })
     }
 
-    /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `SdpFilterResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sdp_filter_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpFilterResult>> {
-        #[allow(unreachable_patterns)]
-        self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::SdpFilterResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `PiAndJailbreakFilterResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn pi_and_jailbreak_filter_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PiAndJailbreakFilterResult>> {
-        #[allow(unreachable_patterns)]
-        self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `MaliciousUriFilterResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn malicious_uri_filter_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MaliciousUriFilterResult>> {
-        #[allow(unreachable_patterns)]
-        self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `CsamFilterFilterResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn csam_filter_filter_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
-        #[allow(unreachable_patterns)]
-        self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `VirusScanFilterResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn virus_scan_filter_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VirusScanFilterResult>> {
-        #[allow(unreachable_patterns)]
-        self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::VirusScanFilterResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
     /// to hold a `RaiFilterResult`.
     ///
@@ -2212,6 +2137,21 @@ impl FilterResult {
             crate::model::filter_result::FilterResult::RaiFilterResult(v.into()),
         );
         self
+    }
+
+    /// The value of [filter_result][crate::model::FilterResult::filter_result]
+    /// if it holds a `SdpFilterResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sdp_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpFilterResult>> {
+        #[allow(unreachable_patterns)]
+        self.filter_result.as_ref().and_then(|v| match v {
+            crate::model::filter_result::FilterResult::SdpFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
@@ -2231,6 +2171,21 @@ impl FilterResult {
         self
     }
 
+    /// The value of [filter_result][crate::model::FilterResult::filter_result]
+    /// if it holds a `PiAndJailbreakFilterResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pi_and_jailbreak_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PiAndJailbreakFilterResult>> {
+        #[allow(unreachable_patterns)]
+        self.filter_result.as_ref().and_then(|v| match v {
+            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
     /// to hold a `PiAndJailbreakFilterResult`.
     ///
@@ -2246,6 +2201,21 @@ impl FilterResult {
             crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v.into()),
         );
         self
+    }
+
+    /// The value of [filter_result][crate::model::FilterResult::filter_result]
+    /// if it holds a `MaliciousUriFilterResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn malicious_uri_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MaliciousUriFilterResult>> {
+        #[allow(unreachable_patterns)]
+        self.filter_result.as_ref().and_then(|v| match v {
+            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
@@ -2265,6 +2235,21 @@ impl FilterResult {
         self
     }
 
+    /// The value of [filter_result][crate::model::FilterResult::filter_result]
+    /// if it holds a `CsamFilterFilterResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn csam_filter_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
+        #[allow(unreachable_patterns)]
+        self.filter_result.as_ref().and_then(|v| match v {
+            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
     /// to hold a `CsamFilterFilterResult`.
     ///
@@ -2280,6 +2265,21 @@ impl FilterResult {
             crate::model::filter_result::FilterResult::CsamFilterFilterResult(v.into()),
         );
         self
+    }
+
+    /// The value of [filter_result][crate::model::FilterResult::filter_result]
+    /// if it holds a `VirusScanFilterResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn virus_scan_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VirusScanFilterResult>> {
+        #[allow(unreachable_patterns)]
+        self.filter_result.as_ref().and_then(|v| match v {
+            crate::model::filter_result::FilterResult::VirusScanFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
@@ -2381,15 +2381,6 @@ impl RaiFilterResult {
         self
     }
 
-    /// Sets the value of [match_state][crate::model::RaiFilterResult::match_state].
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.match_state = v.into();
-        self
-    }
-
     /// Sets the value of [message_items][crate::model::RaiFilterResult::message_items].
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
@@ -2398,6 +2389,15 @@ impl RaiFilterResult {
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [match_state][crate::model::RaiFilterResult::match_state].
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.match_state = v.into();
         self
     }
 
@@ -2534,21 +2534,6 @@ impl SdpFilterResult {
         })
     }
 
-    /// The value of [result][crate::model::SdpFilterResult::result]
-    /// if it holds a `DeidentifyResult`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deidentify_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpDeidentifyResult>> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::sdp_filter_result::Result::DeidentifyResult(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::SdpFilterResult::result]
     /// to hold a `InspectResult`.
     ///
@@ -2564,6 +2549,21 @@ impl SdpFilterResult {
             crate::model::sdp_filter_result::Result::InspectResult(v.into()),
         );
         self
+    }
+
+    /// The value of [result][crate::model::SdpFilterResult::result]
+    /// if it holds a `DeidentifyResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deidentify_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpDeidentifyResult>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::sdp_filter_result::Result::DeidentifyResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::SdpFilterResult::result]
@@ -2660,21 +2660,6 @@ impl SdpInspectResult {
         self
     }
 
-    /// Sets the value of [match_state][crate::model::SdpInspectResult::match_state].
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.match_state = v.into();
-        self
-    }
-
-    /// Sets the value of [findings_truncated][crate::model::SdpInspectResult::findings_truncated].
-    pub fn set_findings_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.findings_truncated = v.into();
-        self
-    }
-
     /// Sets the value of [message_items][crate::model::SdpInspectResult::message_items].
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
@@ -2686,6 +2671,15 @@ impl SdpInspectResult {
         self
     }
 
+    /// Sets the value of [match_state][crate::model::SdpInspectResult::match_state].
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.match_state = v.into();
+        self
+    }
+
     /// Sets the value of [findings][crate::model::SdpInspectResult::findings].
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
@@ -2694,6 +2688,12 @@ impl SdpInspectResult {
     {
         use std::iter::Iterator;
         self.findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [findings_truncated][crate::model::SdpInspectResult::findings_truncated].
+    pub fn set_findings_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.findings_truncated = v.into();
         self
     }
 }
@@ -2748,17 +2748,6 @@ impl DataItem {
         })
     }
 
-    /// The value of [data_item][crate::model::DataItem::data_item]
-    /// if it holds a `ByteItem`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn byte_item(&self) -> std::option::Option<&std::boxed::Box<crate::model::ByteDataItem>> {
-        #[allow(unreachable_patterns)]
-        self.data_item.as_ref().and_then(|v| match v {
-            crate::model::data_item::DataItem::ByteItem(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_item][crate::model::DataItem::data_item]
     /// to hold a `Text`.
     ///
@@ -2768,6 +2757,17 @@ impl DataItem {
         self.data_item =
             std::option::Option::Some(crate::model::data_item::DataItem::Text(v.into()));
         self
+    }
+
+    /// The value of [data_item][crate::model::DataItem::data_item]
+    /// if it holds a `ByteItem`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn byte_item(&self) -> std::option::Option<&std::boxed::Box<crate::model::ByteDataItem>> {
+        #[allow(unreachable_patterns)]
+        self.data_item.as_ref().and_then(|v| match v {
+            crate::model::data_item::DataItem::ByteItem(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_item][crate::model::DataItem::data_item]
@@ -3043,6 +3043,17 @@ impl SdpDeidentifyResult {
         self
     }
 
+    /// Sets the value of [message_items][crate::model::SdpDeidentifyResult::message_items].
+    pub fn set_message_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessageItem>,
+    {
+        use std::iter::Iterator;
+        self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [match_state][crate::model::SdpDeidentifyResult::match_state].
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
@@ -3064,17 +3075,6 @@ impl SdpDeidentifyResult {
     /// Sets the value of [transformed_bytes][crate::model::SdpDeidentifyResult::transformed_bytes].
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
-        self
-    }
-
-    /// Sets the value of [message_items][crate::model::SdpDeidentifyResult::message_items].
-    pub fn set_message_items<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>,
-    {
-        use std::iter::Iterator;
-        self.message_items = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3259,6 +3259,17 @@ impl PiAndJailbreakFilterResult {
         self
     }
 
+    /// Sets the value of [message_items][crate::model::PiAndJailbreakFilterResult::message_items].
+    pub fn set_message_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessageItem>,
+    {
+        use std::iter::Iterator;
+        self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [match_state][crate::model::PiAndJailbreakFilterResult::match_state].
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
@@ -3274,17 +3285,6 @@ impl PiAndJailbreakFilterResult {
         v: T,
     ) -> Self {
         self.confidence_level = v.into();
-        self
-    }
-
-    /// Sets the value of [message_items][crate::model::PiAndJailbreakFilterResult::message_items].
-    pub fn set_message_items<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>,
-    {
-        use std::iter::Iterator;
-        self.message_items = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3339,15 +3339,6 @@ impl MaliciousUriFilterResult {
         self
     }
 
-    /// Sets the value of [match_state][crate::model::MaliciousUriFilterResult::match_state].
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.match_state = v.into();
-        self
-    }
-
     /// Sets the value of [message_items][crate::model::MaliciousUriFilterResult::message_items].
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
@@ -3356,6 +3347,15 @@ impl MaliciousUriFilterResult {
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [match_state][crate::model::MaliciousUriFilterResult::match_state].
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.match_state = v.into();
         self
     }
 
@@ -3484,6 +3484,17 @@ impl VirusScanFilterResult {
         self
     }
 
+    /// Sets the value of [message_items][crate::model::VirusScanFilterResult::message_items].
+    pub fn set_message_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessageItem>,
+    {
+        use std::iter::Iterator;
+        self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [match_state][crate::model::VirusScanFilterResult::match_state].
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
@@ -3510,17 +3521,6 @@ impl VirusScanFilterResult {
         v: T,
     ) -> Self {
         self.scanned_size = v.into();
-        self
-    }
-
-    /// Sets the value of [message_items][crate::model::VirusScanFilterResult::message_items].
-    pub fn set_message_items<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>,
-    {
-        use std::iter::Iterator;
-        self.message_items = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3720,15 +3720,6 @@ impl VirusDetail {
         self
     }
 
-    /// Sets the value of [threat_type][crate::model::VirusDetail::threat_type].
-    pub fn set_threat_type<T: std::convert::Into<crate::model::virus_detail::ThreatType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.threat_type = v.into();
-        self
-    }
-
     /// Sets the value of [names][crate::model::VirusDetail::names].
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
@@ -3737,6 +3728,15 @@ impl VirusDetail {
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [threat_type][crate::model::VirusDetail::threat_type].
+    pub fn set_threat_type<T: std::convert::Into<crate::model::virus_detail::ThreatType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.threat_type = v.into();
         self
     }
 }
@@ -3948,15 +3948,6 @@ impl CsamFilterResult {
         self
     }
 
-    /// Sets the value of [match_state][crate::model::CsamFilterResult::match_state].
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.match_state = v.into();
-        self
-    }
-
     /// Sets the value of [message_items][crate::model::CsamFilterResult::message_items].
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
@@ -3965,6 +3956,15 @@ impl CsamFilterResult {
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [match_state][crate::model::CsamFilterResult::match_state].
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.match_state = v.into();
         self
     }
 }

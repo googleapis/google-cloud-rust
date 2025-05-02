@@ -343,12 +343,6 @@ impl ListDataPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_policies][crate::model::ListDataPoliciesResponse::data_policies].
     pub fn set_data_policies<T, V>(mut self, v: T) -> Self
     where
@@ -357,6 +351,12 @@ impl ListDataPoliciesResponse {
     {
         use std::iter::Iterator;
         self.data_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -740,19 +740,6 @@ impl DataMaskingPolicy {
         })
     }
 
-    /// The value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
-    /// if it holds a `Routine`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn routine(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.masking_expression.as_ref().and_then(|v| match v {
-            crate::model::data_masking_policy::MaskingExpression::Routine(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
     /// to hold a `PredefinedExpression`.
     ///
@@ -768,6 +755,19 @@ impl DataMaskingPolicy {
             crate::model::data_masking_policy::MaskingExpression::PredefinedExpression(v.into()),
         );
         self
+    }
+
+    /// The value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
+    /// if it holds a `Routine`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn routine(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.masking_expression.as_ref().and_then(|v| match v {
+            crate::model::data_masking_policy::MaskingExpression::Routine(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]

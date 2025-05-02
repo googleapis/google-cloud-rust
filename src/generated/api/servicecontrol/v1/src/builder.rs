@@ -282,12 +282,6 @@ pub mod service_controller {
             self
         }
 
-        /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
-        pub fn set_service_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.service_config_id = v.into();
-            self
-        }
-
         /// Sets the value of [operations][crate::model::ReportRequest::operations].
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
@@ -296,6 +290,12 @@ pub mod service_controller {
         {
             use std::iter::Iterator;
             self.0.request.operations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
+        pub fn set_service_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.service_config_id = v.into();
             self
         }
     }

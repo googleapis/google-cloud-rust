@@ -1216,23 +1216,6 @@ impl AutomatedBackupPolicy {
         })
     }
 
-    /// The value of [retention][crate::model::AutomatedBackupPolicy::retention]
-    /// if it holds a `QuantityBasedRetention`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn quantity_based_retention(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.retention.as_ref().and_then(|v| match v {
-            crate::model::automated_backup_policy::Retention::QuantityBasedRetention(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention]
     /// to hold a `TimeBasedRetention`.
     ///
@@ -1250,6 +1233,23 @@ impl AutomatedBackupPolicy {
             crate::model::automated_backup_policy::Retention::TimeBasedRetention(v.into()),
         );
         self
+    }
+
+    /// The value of [retention][crate::model::AutomatedBackupPolicy::retention]
+    /// if it holds a `QuantityBasedRetention`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn quantity_based_retention(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.retention.as_ref().and_then(|v| match v {
+            crate::model::automated_backup_policy::Retention::QuantityBasedRetention(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention]
@@ -1575,17 +1575,6 @@ impl ContinuousBackupInfo {
         self
     }
 
-    /// Sets the value of [earliest_restorable_time][crate::model::ContinuousBackupInfo::earliest_restorable_time].
-    pub fn set_earliest_restorable_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.earliest_restorable_time = v.into();
-        self
-    }
-
     /// Sets the value of [schedule][crate::model::ContinuousBackupInfo::schedule].
     pub fn set_schedule<T, V>(mut self, v: T) -> Self
     where
@@ -1594,6 +1583,17 @@ impl ContinuousBackupInfo {
     {
         use std::iter::Iterator;
         self.schedule = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [earliest_restorable_time][crate::model::ContinuousBackupInfo::earliest_restorable_time].
+    pub fn set_earliest_restorable_time<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.earliest_restorable_time = v.into();
         self
     }
 }
@@ -2058,6 +2058,18 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Cluster::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Cluster::state].
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -2103,6 +2115,18 @@ impl Cluster {
     /// Sets the value of [etag][crate::model::Cluster::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::Cluster::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2269,30 +2293,6 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Cluster::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Cluster::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [tags][crate::model::Cluster::tags].
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
@@ -2330,19 +2330,6 @@ impl Cluster {
         })
     }
 
-    /// The value of [source][crate::model::Cluster::source]
-    /// if it holds a `MigrationSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn migration_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MigrationSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::cluster::Source::MigrationSource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::Cluster::source]
     /// to hold a `BackupSource`.
     ///
@@ -2355,6 +2342,19 @@ impl Cluster {
         self.source =
             std::option::Option::Some(crate::model::cluster::Source::BackupSource(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::Cluster::source]
+    /// if it holds a `MigrationSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn migration_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MigrationSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::cluster::Source::MigrationSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::Cluster::source]
@@ -3176,6 +3176,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Instance::state].
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -3219,6 +3231,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [database_flags][crate::model::Instance::database_flags].
+    pub fn set_database_flags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.database_flags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [writable_node][crate::model::Instance::writable_node].
     pub fn set_writable_node<
         T: std::convert::Into<std::option::Option<crate::model::instance::Node>>,
@@ -3227,6 +3251,17 @@ impl Instance {
         v: T,
     ) -> Self {
         self.writable_node = v.into();
+        self
+    }
+
+    /// Sets the value of [nodes][crate::model::Instance::nodes].
+    pub fn set_nodes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::instance::Node>,
+    {
+        use std::iter::Iterator;
+        self.nodes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3281,6 +3316,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Instance::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [client_connection_config][crate::model::Instance::client_connection_config].
     pub fn set_client_connection_config<
         T: std::convert::Into<std::option::Option<crate::model::instance::ClientConnectionConfig>>,
@@ -3320,17 +3367,6 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [nodes][crate::model::Instance::nodes].
-    pub fn set_nodes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::Node>,
-    {
-        use std::iter::Iterator;
-        self.nodes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [outbound_public_ip_addresses][crate::model::Instance::outbound_public_ip_addresses].
     pub fn set_outbound_public_ip_addresses<T, V>(mut self, v: T) -> Self
     where
@@ -3339,42 +3375,6 @@ impl Instance {
     {
         use std::iter::Iterator;
         self.outbound_public_ip_addresses = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [database_flags][crate::model::Instance::database_flags].
-    pub fn set_database_flags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.database_flags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Instance::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3687,15 +3687,6 @@ pub mod instance {
             self
         }
 
-        /// Sets the value of [psc_dns_name][crate::model::instance::PscInstanceConfig::psc_dns_name].
-        pub fn set_psc_dns_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.psc_dns_name = v.into();
-            self
-        }
-
         /// Sets the value of [allowed_consumer_projects][crate::model::instance::PscInstanceConfig::allowed_consumer_projects].
         pub fn set_allowed_consumer_projects<T, V>(mut self, v: T) -> Self
         where
@@ -3704,6 +3695,15 @@ pub mod instance {
         {
             use std::iter::Iterator;
             self.allowed_consumer_projects = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [psc_dns_name][crate::model::instance::PscInstanceConfig::psc_dns_name].
+        pub fn set_psc_dns_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.psc_dns_name = v.into();
             self
         }
     }
@@ -3743,18 +3743,6 @@ pub mod instance {
             std::default::Default::default()
         }
 
-        /// Sets the value of [enable_public_ip][crate::model::instance::InstanceNetworkConfig::enable_public_ip].
-        pub fn set_enable_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.enable_public_ip = v.into();
-            self
-        }
-
-        /// Sets the value of [enable_outbound_public_ip][crate::model::instance::InstanceNetworkConfig::enable_outbound_public_ip].
-        pub fn set_enable_outbound_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.enable_outbound_public_ip = v.into();
-            self
-        }
-
         /// Sets the value of [authorized_external_networks][crate::model::instance::InstanceNetworkConfig::authorized_external_networks].
         pub fn set_authorized_external_networks<T, V>(mut self, v: T) -> Self
         where
@@ -3765,6 +3753,18 @@ pub mod instance {
         {
             use std::iter::Iterator;
             self.authorized_external_networks = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [enable_public_ip][crate::model::instance::InstanceNetworkConfig::enable_public_ip].
+        pub fn set_enable_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_public_ip = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_outbound_public_ip][crate::model::instance::InstanceNetworkConfig::enable_outbound_public_ip].
+        pub fn set_enable_outbound_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_outbound_public_ip = v.into();
             self
         }
     }
@@ -4534,6 +4534,18 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Backup::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Backup::state].
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4598,6 +4610,18 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Backup::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
@@ -4636,30 +4660,6 @@ impl Backup {
         v: T,
     ) -> Self {
         self.database_version = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Backup::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Backup::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5114,12 +5114,6 @@ impl SupportedDatabaseFlag {
         self
     }
 
-    /// Sets the value of [requires_db_restart][crate::model::SupportedDatabaseFlag::requires_db_restart].
-    pub fn set_requires_db_restart<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.requires_db_restart = v.into();
-        self
-    }
-
     /// Sets the value of [supported_db_versions][crate::model::SupportedDatabaseFlag::supported_db_versions].
     pub fn set_supported_db_versions<T, V>(mut self, v: T) -> Self
     where
@@ -5128,6 +5122,12 @@ impl SupportedDatabaseFlag {
     {
         use std::iter::Iterator;
         self.supported_db_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [requires_db_restart][crate::model::SupportedDatabaseFlag::requires_db_restart].
+    pub fn set_requires_db_restart<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.requires_db_restart = v.into();
         self
     }
 
@@ -5164,23 +5164,6 @@ impl SupportedDatabaseFlag {
         })
     }
 
-    /// The value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
-    /// if it holds a `IntegerRestrictions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn integer_restrictions(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.restrictions.as_ref().and_then(|v| match v {
-            crate::model::supported_database_flag::Restrictions::IntegerRestrictions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
     /// to hold a `StringRestrictions`.
     ///
@@ -5198,6 +5181,23 @@ impl SupportedDatabaseFlag {
             crate::model::supported_database_flag::Restrictions::StringRestrictions(v.into()),
         );
         self
+    }
+
+    /// The value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
+    /// if it holds a `IntegerRestrictions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn integer_restrictions(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.restrictions.as_ref().and_then(|v| match v {
+            crate::model::supported_database_flag::Restrictions::IntegerRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
@@ -5532,6 +5532,17 @@ impl User {
         self
     }
 
+    /// Sets the value of [database_roles][crate::model::User::database_roles].
+    pub fn set_database_roles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.database_roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [user_type][crate::model::User::user_type].
     pub fn set_user_type<T: std::convert::Into<crate::model::user::UserType>>(
         mut self,
@@ -5544,17 +5555,6 @@ impl User {
     /// Sets the value of [keep_extra_roles][crate::model::User::keep_extra_roles].
     pub fn set_keep_extra_roles<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.keep_extra_roles = v.into();
-        self
-    }
-
-    /// Sets the value of [database_roles][crate::model::User::database_roles].
-    pub fn set_database_roles<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.database_roles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5865,12 +5865,6 @@ impl ListClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -5879,6 +5873,12 @@ impl ListClustersResponse {
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6586,21 +6586,6 @@ impl RestoreClusterRequest {
         })
     }
 
-    /// The value of [source][crate::model::RestoreClusterRequest::source]
-    /// if it holds a `ContinuousBackupSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn continuous_backup_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ContinuousBackupSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::restore_cluster_request::Source::ContinuousBackupSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
     /// to hold a `BackupSource`.
     ///
@@ -6614,6 +6599,21 @@ impl RestoreClusterRequest {
             crate::model::restore_cluster_request::Source::BackupSource(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::RestoreClusterRequest::source]
+    /// if it holds a `ContinuousBackupSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn continuous_backup_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ContinuousBackupSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::restore_cluster_request::Source::ContinuousBackupSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
@@ -6765,12 +6765,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -6779,6 +6773,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8196,17 +8196,6 @@ impl ExecuteSqlResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::ExecuteSqlMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [sql_results][crate::model::ExecuteSqlResponse::sql_results].
     pub fn set_sql_results<T, V>(mut self, v: T) -> Self
     where
@@ -8215,6 +8204,17 @@ impl ExecuteSqlResponse {
     {
         use std::iter::Iterator;
         self.sql_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
+    pub fn set_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::ExecuteSqlMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -8551,12 +8551,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -8565,6 +8559,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8977,12 +8977,6 @@ impl ListSupportedDatabaseFlagsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSupportedDatabaseFlagsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [supported_database_flags][crate::model::ListSupportedDatabaseFlagsResponse::supported_database_flags].
     pub fn set_supported_database_flags<T, V>(mut self, v: T) -> Self
     where
@@ -8991,6 +8985,12 @@ impl ListSupportedDatabaseFlagsResponse {
     {
         use std::iter::Iterator;
         self.supported_database_flags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSupportedDatabaseFlagsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9135,12 +9135,6 @@ impl GenerateClientCertificateResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [ca_cert][crate::model::GenerateClientCertificateResponse::ca_cert].
-    pub fn set_ca_cert<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.ca_cert = v.into();
-        self
-    }
-
     /// Sets the value of [pem_certificate_chain][crate::model::GenerateClientCertificateResponse::pem_certificate_chain].
     pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
     where
@@ -9149,6 +9143,12 @@ impl GenerateClientCertificateResponse {
     {
         use std::iter::Iterator;
         self.pem_certificate_chain = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ca_cert][crate::model::GenerateClientCertificateResponse::ca_cert].
+    pub fn set_ca_cert<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ca_cert = v.into();
         self
     }
 }
@@ -9485,12 +9485,6 @@ impl ListUsersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [users][crate::model::ListUsersResponse::users].
     pub fn set_users<T, V>(mut self, v: T) -> Self
     where
@@ -9499,6 +9493,12 @@ impl ListUsersResponse {
     {
         use std::iter::Iterator;
         self.users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -9908,12 +9908,6 @@ impl ListDatabasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
@@ -9922,6 +9916,12 @@ impl ListDatabasesResponse {
     {
         use std::iter::Iterator;
         self.databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

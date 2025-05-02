@@ -2793,6 +2793,17 @@ pub mod hub_service {
             self
         }
 
+        /// Sets the value of [spoke_locations][crate::model::ListHubSpokesRequest::spoke_locations].
+        pub fn set_spoke_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.spoke_locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::ListHubSpokesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -2823,17 +2834,6 @@ pub mod hub_service {
             v: T,
         ) -> Self {
             self.0.request.view = v.into();
-            self
-        }
-
-        /// Sets the value of [spoke_locations][crate::model::ListHubSpokesRequest::spoke_locations].
-        pub fn set_spoke_locations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.spoke_locations = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

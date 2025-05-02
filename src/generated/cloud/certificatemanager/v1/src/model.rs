@@ -140,12 +140,6 @@ impl ListCertificateIssuanceConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateIssuanceConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_issuance_configs][crate::model::ListCertificateIssuanceConfigsResponse::certificate_issuance_configs].
     pub fn set_certificate_issuance_configs<T, V>(mut self, v: T) -> Self
     where
@@ -154,6 +148,12 @@ impl ListCertificateIssuanceConfigsResponse {
     {
         use std::iter::Iterator;
         self.certificate_issuance_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateIssuanceConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -396,6 +396,18 @@ impl CertificateIssuanceConfig {
         self
     }
 
+    /// Sets the value of [labels][crate::model::CertificateIssuanceConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::CertificateIssuanceConfig::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -440,18 +452,6 @@ impl CertificateIssuanceConfig {
         v: T,
     ) -> Self {
         self.key_algorithm = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::CertificateIssuanceConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -817,12 +817,6 @@ impl ListCertificatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificates][crate::model::ListCertificatesResponse::certificates].
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
@@ -831,6 +825,12 @@ impl ListCertificatesResponse {
     {
         use std::iter::Iterator;
         self.certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1148,12 +1148,6 @@ impl ListCertificateMapsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateMapsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_maps][crate::model::ListCertificateMapsResponse::certificate_maps].
     pub fn set_certificate_maps<T, V>(mut self, v: T) -> Self
     where
@@ -1162,6 +1156,12 @@ impl ListCertificateMapsResponse {
     {
         use std::iter::Iterator;
         self.certificate_maps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateMapsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1487,12 +1487,6 @@ impl ListCertificateMapEntriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateMapEntriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_map_entries][crate::model::ListCertificateMapEntriesResponse::certificate_map_entries].
     pub fn set_certificate_map_entries<T, V>(mut self, v: T) -> Self
     where
@@ -1501,6 +1495,12 @@ impl ListCertificateMapEntriesResponse {
     {
         use std::iter::Iterator;
         self.certificate_map_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateMapEntriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1821,12 +1821,6 @@ impl ListDnsAuthorizationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDnsAuthorizationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [dns_authorizations][crate::model::ListDnsAuthorizationsResponse::dns_authorizations].
     pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
     where
@@ -1835,6 +1829,12 @@ impl ListDnsAuthorizationsResponse {
     {
         use std::iter::Iterator;
         self.dns_authorizations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDnsAuthorizationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2240,6 +2240,29 @@ impl Certificate {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Certificate::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [san_dnsnames][crate::model::Certificate::san_dnsnames].
+    pub fn set_san_dnsnames<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.san_dnsnames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [pem_certificate][crate::model::Certificate::pem_certificate].
     pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_certificate = v.into();
@@ -2261,29 +2284,6 @@ impl Certificate {
         v: T,
     ) -> Self {
         self.scope = v.into();
-        self
-    }
-
-    /// Sets the value of [san_dnsnames][crate::model::Certificate::san_dnsnames].
-    pub fn set_san_dnsnames<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.san_dnsnames = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Certificate::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2313,19 +2313,6 @@ impl Certificate {
         })
     }
 
-    /// The value of [r#type][crate::model::Certificate::r#type]
-    /// if it holds a `Managed`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::ManagedCertificate>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::certificate::Type::Managed(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [r#type][crate::model::Certificate::r#type]
     /// to hold a `SelfManaged`.
     ///
@@ -2340,6 +2327,19 @@ impl Certificate {
         self.r#type =
             std::option::Option::Some(crate::model::certificate::Type::SelfManaged(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::Certificate::r#type]
+    /// if it holds a `Managed`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::ManagedCertificate>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::certificate::Type::Managed(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::Certificate::r#type]
@@ -2475,6 +2475,28 @@ pub mod certificate {
             std::default::Default::default()
         }
 
+        /// Sets the value of [domains][crate::model::certificate::ManagedCertificate::domains].
+        pub fn set_domains<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.domains = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dns_authorizations][crate::model::certificate::ManagedCertificate::dns_authorizations].
+        pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.dns_authorizations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [issuance_config][crate::model::certificate::ManagedCertificate::issuance_config].
         pub fn set_issuance_config<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -2507,28 +2529,6 @@ pub mod certificate {
             v: T,
         ) -> Self {
             self.provisioning_issue = v.into();
-            self
-        }
-
-        /// Sets the value of [domains][crate::model::certificate::ManagedCertificate::domains].
-        pub fn set_domains<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.domains = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [dns_authorizations][crate::model::certificate::ManagedCertificate::dns_authorizations].
-        pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.dns_authorizations = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -3483,17 +3483,6 @@ impl CertificateMap {
         self
     }
 
-    /// Sets the value of [gclb_targets][crate::model::CertificateMap::gclb_targets].
-    pub fn set_gclb_targets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::certificate_map::GclbTarget>,
-    {
-        use std::iter::Iterator;
-        self.gclb_targets = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::CertificateMap::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -3503,6 +3492,17 @@ impl CertificateMap {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [gclb_targets][crate::model::CertificateMap::gclb_targets].
+    pub fn set_gclb_targets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::certificate_map::GclbTarget>,
+    {
+        use std::iter::Iterator;
+        self.gclb_targets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3583,19 +3583,6 @@ pub mod certificate_map {
             })
         }
 
-        /// The value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
-        /// if it holds a `TargetSslProxy`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn target_ssl_proxy(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.target_proxy.as_ref().and_then(|v| match v {
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
         /// to hold a `TargetHttpsProxy`.
         ///
@@ -3609,6 +3596,19 @@ pub mod certificate_map {
                 crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(v.into()),
             );
             self
+        }
+
+        /// The value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
+        /// if it holds a `TargetSslProxy`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn target_ssl_proxy(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.target_proxy.as_ref().and_then(|v| match v {
+                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
@@ -3784,9 +3784,15 @@ impl CertificateMapEntry {
         self
     }
 
-    /// Sets the value of [state][crate::model::CertificateMapEntry::state].
-    pub fn set_state<T: std::convert::Into<crate::model::ServingState>>(mut self, v: T) -> Self {
-        self.state = v.into();
+    /// Sets the value of [labels][crate::model::CertificateMapEntry::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -3801,15 +3807,9 @@ impl CertificateMapEntry {
         self
     }
 
-    /// Sets the value of [labels][crate::model::CertificateMapEntry::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [state][crate::model::CertificateMapEntry::state].
+    pub fn set_state<T: std::convert::Into<crate::model::ServingState>>(mut self, v: T) -> Self {
+        self.state = v.into();
         self
     }
 
@@ -3838,17 +3838,6 @@ impl CertificateMapEntry {
         })
     }
 
-    /// The value of [r#match][crate::model::CertificateMapEntry::r#match]
-    /// if it holds a `Matcher`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn matcher(&self) -> std::option::Option<&crate::model::certificate_map_entry::Matcher> {
-        #[allow(unreachable_patterns)]
-        self.r#match.as_ref().and_then(|v| match v {
-            crate::model::certificate_map_entry::Match::Matcher(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [r#match][crate::model::CertificateMapEntry::r#match]
     /// to hold a `Hostname`.
     ///
@@ -3859,6 +3848,17 @@ impl CertificateMapEntry {
             crate::model::certificate_map_entry::Match::Hostname(v.into()),
         );
         self
+    }
+
+    /// The value of [r#match][crate::model::CertificateMapEntry::r#match]
+    /// if it holds a `Matcher`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn matcher(&self) -> std::option::Option<&crate::model::certificate_map_entry::Matcher> {
+        #[allow(unreachable_patterns)]
+        self.r#match.as_ref().and_then(|v| match v {
+            crate::model::certificate_map_entry::Match::Matcher(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#match][crate::model::CertificateMapEntry::r#match]
@@ -4110,6 +4110,18 @@ impl DnsAuthorization {
         self
     }
 
+    /// Sets the value of [labels][crate::model::DnsAuthorization::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::DnsAuthorization::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -4139,18 +4151,6 @@ impl DnsAuthorization {
         v: T,
     ) -> Self {
         self.r#type = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::DnsAuthorization::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4464,12 +4464,6 @@ impl ListTrustConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTrustConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [trust_configs][crate::model::ListTrustConfigsResponse::trust_configs].
     pub fn set_trust_configs<T, V>(mut self, v: T) -> Self
     where
@@ -4478,6 +4472,12 @@ impl ListTrustConfigsResponse {
     {
         use std::iter::Iterator;
         self.trust_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTrustConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4778,6 +4778,18 @@ impl TrustConfig {
         self
     }
 
+    /// Sets the value of [labels][crate::model::TrustConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::TrustConfig::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -4798,18 +4810,6 @@ impl TrustConfig {
     {
         use std::iter::Iterator;
         self.trust_stores = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::TrustConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

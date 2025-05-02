@@ -508,6 +508,17 @@ impl AnnotateAssessmentRequest {
         self
     }
 
+    /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
+    pub fn set_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+    {
+        use std::iter::Iterator;
+        self.reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [account_id][crate::model::AnnotateAssessmentRequest::account_id].
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
@@ -528,17 +539,6 @@ impl AnnotateAssessmentRequest {
         v: T,
     ) -> Self {
         self.transaction_event = v.into();
-        self
-    }
-
-    /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
-    pub fn set_reasons<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
-    {
-        use std::iter::Iterator;
-        self.reasons = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1034,6 +1034,18 @@ impl EndpointVerificationInfo {
         })
     }
 
+    /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
+    /// to hold a `EmailAddress`.
+    ///
+    /// Note that all the setters affecting `endpoint` are
+    /// mutually exclusive.
+    pub fn set_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.endpoint = std::option::Option::Some(
+            crate::model::endpoint_verification_info::Endpoint::EmailAddress(v.into()),
+        );
+        self
+    }
+
     /// The value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
     /// if it holds a `PhoneNumber`, `None` if the field is not set or
     /// holds a different branch.
@@ -1045,18 +1057,6 @@ impl EndpointVerificationInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
-    /// to hold a `EmailAddress`.
-    ///
-    /// Note that all the setters affecting `endpoint` are
-    /// mutually exclusive.
-    pub fn set_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.endpoint = std::option::Option::Some(
-            crate::model::endpoint_verification_info::Endpoint::EmailAddress(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
@@ -1128,6 +1128,17 @@ impl AccountVerificationInfo {
         std::default::Default::default()
     }
 
+    /// Sets the value of [endpoints][crate::model::AccountVerificationInfo::endpoints].
+    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EndpointVerificationInfo>,
+    {
+        use std::iter::Iterator;
+        self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [language_code][crate::model::AccountVerificationInfo::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -1149,17 +1160,6 @@ impl AccountVerificationInfo {
     #[deprecated]
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
-        self
-    }
-
-    /// Sets the value of [endpoints][crate::model::AccountVerificationInfo::endpoints].
-    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EndpointVerificationInfo>,
-    {
-        use std::iter::Iterator;
-        self.endpoints = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1435,15 +1435,6 @@ impl PrivatePasswordLeakVerification {
         self
     }
 
-    /// Sets the value of [reencrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::reencrypted_user_credentials_hash].
-    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reencrypted_user_credentials_hash = v.into();
-        self
-    }
-
     /// Sets the value of [encrypted_leak_match_prefixes][crate::model::PrivatePasswordLeakVerification::encrypted_leak_match_prefixes].
     pub fn set_encrypted_leak_match_prefixes<T, V>(mut self, v: T) -> Self
     where
@@ -1452,6 +1443,15 @@ impl PrivatePasswordLeakVerification {
     {
         use std::iter::Iterator;
         self.encrypted_leak_match_prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reencrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::reencrypted_user_credentials_hash].
+    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reencrypted_user_credentials_hash = v.into();
         self
     }
 }
@@ -1837,6 +1837,17 @@ impl Event {
         self
     }
 
+    /// Sets the value of [headers][crate::model::Event::headers].
+    pub fn set_headers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [firewall_policy_evaluation][crate::model::Event::firewall_policy_evaluation].
     pub fn set_firewall_policy_evaluation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.firewall_policy_evaluation = v.into();
@@ -1869,17 +1880,6 @@ impl Event {
         v: T,
     ) -> Self {
         self.fraud_prevention = v.into();
-        self
-    }
-
-    /// Sets the value of [headers][crate::model::Event::headers].
-    pub fn set_headers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.headers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2192,17 +2192,6 @@ impl TransactionData {
         self
     }
 
-    /// Sets the value of [gateway_info][crate::model::TransactionData::gateway_info].
-    pub fn set_gateway_info<
-        T: std::convert::Into<std::option::Option<crate::model::transaction_data::GatewayInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gateway_info = v.into();
-        self
-    }
-
     /// Sets the value of [merchants][crate::model::TransactionData::merchants].
     pub fn set_merchants<T, V>(mut self, v: T) -> Self
     where
@@ -2222,6 +2211,17 @@ impl TransactionData {
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [gateway_info][crate::model::TransactionData::gateway_info].
+    pub fn set_gateway_info<
+        T: std::convert::Into<std::option::Option<crate::model::transaction_data::GatewayInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gateway_info = v.into();
         self
     }
 }
@@ -2286,6 +2286,17 @@ pub mod transaction_data {
             self
         }
 
+        /// Sets the value of [address][crate::model::transaction_data::Address::address].
+        pub fn set_address<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.address = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [locality][crate::model::transaction_data::Address::locality].
         pub fn set_locality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.locality = v.into();
@@ -2310,17 +2321,6 @@ pub mod transaction_data {
         /// Sets the value of [postal_code][crate::model::transaction_data::Address::postal_code].
         pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.postal_code = v.into();
-            self
-        }
-
-        /// Sets the value of [address][crate::model::transaction_data::Address::address].
-        pub fn set_address<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.address = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2673,6 +2673,16 @@ impl UserId {
         })
     }
 
+    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
+    /// to hold a `Email`.
+    ///
+    /// Note that all the setters affecting `id_oneof` are
+    /// mutually exclusive.
+    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id_oneof = std::option::Option::Some(crate::model::user_id::IdOneof::Email(v.into()));
+        self
+    }
+
     /// The value of [id_oneof][crate::model::UserId::id_oneof]
     /// if it holds a `PhoneNumber`, `None` if the field is not set or
     /// holds a different branch.
@@ -2684,27 +2694,6 @@ impl UserId {
         })
     }
 
-    /// The value of [id_oneof][crate::model::UserId::id_oneof]
-    /// if it holds a `Username`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn username(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.id_oneof.as_ref().and_then(|v| match v {
-            crate::model::user_id::IdOneof::Username(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
-    /// to hold a `Email`.
-    ///
-    /// Note that all the setters affecting `id_oneof` are
-    /// mutually exclusive.
-    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof = std::option::Option::Some(crate::model::user_id::IdOneof::Email(v.into()));
-        self
-    }
-
     /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
     /// to hold a `PhoneNumber`.
     ///
@@ -2714,6 +2703,17 @@ impl UserId {
         self.id_oneof =
             std::option::Option::Some(crate::model::user_id::IdOneof::PhoneNumber(v.into()));
         self
+    }
+
+    /// The value of [id_oneof][crate::model::UserId::id_oneof]
+    /// if it holds a `Username`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn username(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.id_oneof.as_ref().and_then(|v| match v {
+            crate::model::user_id::IdOneof::Username(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
@@ -2794,15 +2794,6 @@ impl RiskAnalysis {
         self
     }
 
-    /// Sets the value of [challenge][crate::model::RiskAnalysis::challenge].
-    pub fn set_challenge<T: std::convert::Into<crate::model::risk_analysis::Challenge>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.challenge = v.into();
-        self
-    }
-
     /// Sets the value of [reasons][crate::model::RiskAnalysis::reasons].
     pub fn set_reasons<T, V>(mut self, v: T) -> Self
     where
@@ -2822,6 +2813,15 @@ impl RiskAnalysis {
     {
         use std::iter::Iterator;
         self.extended_verdict_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [challenge][crate::model::RiskAnalysis::challenge].
+    pub fn set_challenge<T: std::convert::Into<crate::model::risk_analysis::Challenge>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.challenge = v.into();
         self
     }
 }
@@ -4460,12 +4460,6 @@ impl ListKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [keys][crate::model::ListKeysResponse::keys].
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
@@ -4474,6 +4468,12 @@ impl ListKeysResponse {
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4773,12 +4773,6 @@ impl ListFirewallPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFirewallPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [firewall_policies][crate::model::ListFirewallPoliciesResponse::firewall_policies].
     pub fn set_firewall_policies<T, V>(mut self, v: T) -> Self
     where
@@ -4787,6 +4781,12 @@ impl ListFirewallPoliciesResponse {
     {
         use std::iter::Iterator;
         self.firewall_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFirewallPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5260,6 +5260,18 @@ impl Key {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Key::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Key::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -5291,18 +5303,6 @@ impl Key {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Key::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [platform_settings][crate::model::Key::platform_settings].
     ///
     /// Note that all the setters affecting `platform_settings` are mutually
@@ -5330,45 +5330,6 @@ impl Key {
         })
     }
 
-    /// The value of [platform_settings][crate::model::Key::platform_settings]
-    /// if it holds a `AndroidSettings`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn android_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeySettings>> {
-        #[allow(unreachable_patterns)]
-        self.platform_settings.as_ref().and_then(|v| match v {
-            crate::model::key::PlatformSettings::AndroidSettings(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [platform_settings][crate::model::Key::platform_settings]
-    /// if it holds a `IosSettings`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ios_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IOSKeySettings>> {
-        #[allow(unreachable_patterns)]
-        self.platform_settings.as_ref().and_then(|v| match v {
-            crate::model::key::PlatformSettings::IosSettings(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [platform_settings][crate::model::Key::platform_settings]
-    /// if it holds a `ExpressSettings`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn express_settings(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ExpressKeySettings>> {
-        #[allow(unreachable_patterns)]
-        self.platform_settings.as_ref().and_then(|v| match v {
-            crate::model::key::PlatformSettings::ExpressSettings(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
     /// to hold a `WebSettings`.
     ///
@@ -5383,6 +5344,19 @@ impl Key {
         self.platform_settings =
             std::option::Option::Some(crate::model::key::PlatformSettings::WebSettings(v.into()));
         self
+    }
+
+    /// The value of [platform_settings][crate::model::Key::platform_settings]
+    /// if it holds a `AndroidSettings`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn android_settings(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeySettings>> {
+        #[allow(unreachable_patterns)]
+        self.platform_settings.as_ref().and_then(|v| match v {
+            crate::model::key::PlatformSettings::AndroidSettings(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
@@ -5402,6 +5376,19 @@ impl Key {
         self
     }
 
+    /// The value of [platform_settings][crate::model::Key::platform_settings]
+    /// if it holds a `IosSettings`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ios_settings(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IOSKeySettings>> {
+        #[allow(unreachable_patterns)]
+        self.platform_settings.as_ref().and_then(|v| match v {
+            crate::model::key::PlatformSettings::IosSettings(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
     /// to hold a `IosSettings`.
     ///
@@ -5416,6 +5403,19 @@ impl Key {
         self.platform_settings =
             std::option::Option::Some(crate::model::key::PlatformSettings::IosSettings(v.into()));
         self
+    }
+
+    /// The value of [platform_settings][crate::model::Key::platform_settings]
+    /// if it holds a `ExpressSettings`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn express_settings(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ExpressKeySettings>> {
+        #[allow(unreachable_patterns)]
+        self.platform_settings.as_ref().and_then(|v| match v {
+            crate::model::key::PlatformSettings::ExpressSettings(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
@@ -5700,6 +5700,17 @@ impl WebKeySettings {
         self
     }
 
+    /// Sets the value of [allowed_domains][crate::model::WebKeySettings::allowed_domains].
+    pub fn set_allowed_domains<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowed_domains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [allow_amp_traffic][crate::model::WebKeySettings::allow_amp_traffic].
     pub fn set_allow_amp_traffic<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_amp_traffic = v.into();
@@ -5725,17 +5736,6 @@ impl WebKeySettings {
         v: T,
     ) -> Self {
         self.challenge_security_preference = v.into();
-        self
-    }
-
-    /// Sets the value of [allowed_domains][crate::model::WebKeySettings::allowed_domains].
-    pub fn set_allowed_domains<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.allowed_domains = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6073,15 +6073,6 @@ impl AndroidKeySettings {
         self
     }
 
-    /// Sets the value of [support_non_google_app_store_distribution][crate::model::AndroidKeySettings::support_non_google_app_store_distribution].
-    pub fn set_support_non_google_app_store_distribution<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.support_non_google_app_store_distribution = v.into();
-        self
-    }
-
     /// Sets the value of [allowed_package_names][crate::model::AndroidKeySettings::allowed_package_names].
     pub fn set_allowed_package_names<T, V>(mut self, v: T) -> Self
     where
@@ -6090,6 +6081,15 @@ impl AndroidKeySettings {
     {
         use std::iter::Iterator;
         self.allowed_package_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [support_non_google_app_store_distribution][crate::model::AndroidKeySettings::support_non_google_app_store_distribution].
+    pub fn set_support_non_google_app_store_distribution<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.support_non_google_app_store_distribution = v.into();
         self
     }
 }
@@ -6138,17 +6138,6 @@ impl IOSKeySettings {
         self
     }
 
-    /// Sets the value of [apple_developer_id][crate::model::IOSKeySettings::apple_developer_id].
-    pub fn set_apple_developer_id<
-        T: std::convert::Into<std::option::Option<crate::model::AppleDeveloperId>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.apple_developer_id = v.into();
-        self
-    }
-
     /// Sets the value of [allowed_bundle_ids][crate::model::IOSKeySettings::allowed_bundle_ids].
     pub fn set_allowed_bundle_ids<T, V>(mut self, v: T) -> Self
     where
@@ -6157,6 +6146,17 @@ impl IOSKeySettings {
     {
         use std::iter::Iterator;
         self.allowed_bundle_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [apple_developer_id][crate::model::IOSKeySettings::apple_developer_id].
+    pub fn set_apple_developer_id<
+        T: std::convert::Into<std::option::Option<crate::model::AppleDeveloperId>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.apple_developer_id = v.into();
         self
     }
 }
@@ -6512,84 +6512,6 @@ impl FirewallAction {
         })
     }
 
-    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// if it holds a `Block`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn block(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::BlockAction>> {
-        #[allow(unreachable_patterns)]
-        self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Block(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// if it holds a `IncludeRecaptchaScript`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn include_recaptcha_script(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// if it holds a `Redirect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn redirect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::RedirectAction>> {
-        #[allow(unreachable_patterns)]
-        self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Redirect(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// if it holds a `Substitute`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn substitute(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SubstituteAction>>
-    {
-        #[allow(unreachable_patterns)]
-        self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::Substitute(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// if it holds a `SetHeader`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn set_header(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SetHeaderAction>> {
-        #[allow(unreachable_patterns)]
-        self.firewall_action_oneof.as_ref().and_then(|v| match v {
-            crate::model::firewall_action::FirewallActionOneof::SetHeader(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// to hold a `Allow`.
     ///
@@ -6607,6 +6529,21 @@ impl FirewallAction {
         self
     }
 
+    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
+    /// if it holds a `Block`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn block(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::BlockAction>> {
+        #[allow(unreachable_patterns)]
+        self.firewall_action_oneof.as_ref().and_then(|v| match v {
+            crate::model::firewall_action::FirewallActionOneof::Block(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// to hold a `Block`.
     ///
@@ -6622,6 +6559,23 @@ impl FirewallAction {
             crate::model::firewall_action::FirewallActionOneof::Block(v.into()),
         );
         self
+    }
+
+    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
+    /// if it holds a `IncludeRecaptchaScript`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn include_recaptcha_script(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.firewall_action_oneof.as_ref().and_then(|v| match v {
+            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
@@ -6643,6 +6597,21 @@ impl FirewallAction {
         self
     }
 
+    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
+    /// if it holds a `Redirect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn redirect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::RedirectAction>> {
+        #[allow(unreachable_patterns)]
+        self.firewall_action_oneof.as_ref().and_then(|v| match v {
+            crate::model::firewall_action::FirewallActionOneof::Redirect(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// to hold a `Redirect`.
     ///
@@ -6660,6 +6629,22 @@ impl FirewallAction {
         self
     }
 
+    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
+    /// if it holds a `Substitute`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn substitute(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SubstituteAction>>
+    {
+        #[allow(unreachable_patterns)]
+        self.firewall_action_oneof.as_ref().and_then(|v| match v {
+            crate::model::firewall_action::FirewallActionOneof::Substitute(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// to hold a `Substitute`.
     ///
@@ -6675,6 +6660,21 @@ impl FirewallAction {
             crate::model::firewall_action::FirewallActionOneof::Substitute(v.into()),
         );
         self
+    }
+
+    /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
+    /// if it holds a `SetHeader`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn set_header(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SetHeaderAction>> {
+        #[allow(unreachable_patterns)]
+        self.firewall_action_oneof.as_ref().and_then(|v| match v {
+            crate::model::firewall_action::FirewallActionOneof::SetHeader(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
@@ -7087,12 +7087,6 @@ impl ListRelatedAccountGroupMembershipsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupMembershipsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [related_account_group_memberships][crate::model::ListRelatedAccountGroupMembershipsResponse::related_account_group_memberships].
     pub fn set_related_account_group_memberships<T, V>(mut self, v: T) -> Self
     where
@@ -7101,6 +7095,12 @@ impl ListRelatedAccountGroupMembershipsResponse {
     {
         use std::iter::Iterator;
         self.related_account_group_memberships = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupMembershipsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7209,12 +7209,6 @@ impl ListRelatedAccountGroupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [related_account_groups][crate::model::ListRelatedAccountGroupsResponse::related_account_groups].
     pub fn set_related_account_groups<T, V>(mut self, v: T) -> Self
     where
@@ -7223,6 +7217,12 @@ impl ListRelatedAccountGroupsResponse {
     {
         use std::iter::Iterator;
         self.related_account_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7364,12 +7364,6 @@ impl SearchRelatedAccountGroupMembershipsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchRelatedAccountGroupMembershipsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [related_account_group_memberships][crate::model::SearchRelatedAccountGroupMembershipsResponse::related_account_group_memberships].
     pub fn set_related_account_group_memberships<T, V>(mut self, v: T) -> Self
     where
@@ -7378,6 +7372,12 @@ impl SearchRelatedAccountGroupMembershipsResponse {
     {
         use std::iter::Iterator;
         self.related_account_group_memberships = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchRelatedAccountGroupMembershipsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7623,12 +7623,6 @@ impl ListIpOverridesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIpOverridesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [ip_overrides][crate::model::ListIpOverridesResponse::ip_overrides].
     pub fn set_ip_overrides<T, V>(mut self, v: T) -> Self
     where
@@ -7637,6 +7631,12 @@ impl ListIpOverridesResponse {
     {
         use std::iter::Iterator;
         self.ip_overrides = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIpOverridesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

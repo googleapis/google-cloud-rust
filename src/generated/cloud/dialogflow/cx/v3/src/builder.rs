@@ -2543,6 +2543,19 @@ pub mod entity_types {
             self
         }
 
+        /// Sets the value of [entity_types][crate::model::ExportEntityTypesRequest::entity_types].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entity_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.entity_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [data_format][crate::model::ExportEntityTypesRequest::data_format].
         pub fn set_data_format<T: Into<crate::model::export_entity_types_request::DataFormat>>(
             mut self,
@@ -2555,19 +2568,6 @@ pub mod entity_types {
         /// Sets the value of [language_code][crate::model::ExportEntityTypesRequest::language_code].
         pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.language_code = v.into();
-            self
-        }
-
-        /// Sets the value of [entity_types][crate::model::ExportEntityTypesRequest::entity_types].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_entity_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.entity_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -7195,15 +7195,6 @@ pub mod intents {
             self
         }
 
-        /// Sets the value of [data_format][crate::model::ExportIntentsRequest::data_format].
-        pub fn set_data_format<T: Into<crate::model::export_intents_request::DataFormat>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_format = v.into();
-            self
-        }
-
         /// Sets the value of [intents][crate::model::ExportIntentsRequest::intents].
         ///
         /// This is a **required** field for requests.
@@ -7214,6 +7205,15 @@ pub mod intents {
         {
             use std::iter::Iterator;
             self.0.request.intents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [data_format][crate::model::ExportIntentsRequest::data_format].
+        pub fn set_data_format<T: Into<crate::model::export_intents_request::DataFormat>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.data_format = v.into();
             self
         }
 

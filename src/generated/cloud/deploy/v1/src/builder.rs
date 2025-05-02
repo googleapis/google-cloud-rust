@@ -2853,12 +2853,6 @@ pub mod cloud_deploy {
             self
         }
 
-        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
-        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.starting_phase_id = v.into();
-            self
-        }
-
         /// Sets the value of [override_deploy_policy][crate::model::CreateRolloutRequest::override_deploy_policy].
         pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
         where
@@ -2867,6 +2861,12 @@ pub mod cloud_deploy {
         {
             use std::iter::Iterator;
             self.0.request.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
+        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.starting_phase_id = v.into();
             self
         }
     }

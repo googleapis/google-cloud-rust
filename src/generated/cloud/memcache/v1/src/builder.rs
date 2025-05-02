@@ -671,12 +671,6 @@ pub mod cloud_memcache {
             self
         }
 
-        /// Sets the value of [apply_all][crate::model::ApplyParametersRequest::apply_all].
-        pub fn set_apply_all<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.apply_all = v.into();
-            self
-        }
-
         /// Sets the value of [node_ids][crate::model::ApplyParametersRequest::node_ids].
         pub fn set_node_ids<T, V>(mut self, v: T) -> Self
         where
@@ -685,6 +679,12 @@ pub mod cloud_memcache {
         {
             use std::iter::Iterator;
             self.0.request.node_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [apply_all][crate::model::ApplyParametersRequest::apply_all].
+        pub fn set_apply_all<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.apply_all = v.into();
             self
         }
     }

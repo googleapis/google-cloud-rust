@@ -284,6 +284,17 @@ pub mod access_context_manager {
             self
         }
 
+        /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
+        pub fn set_scopes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.scopes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
         pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -305,17 +316,6 @@ pub mod access_context_manager {
         /// Sets the value of [etag][crate::model::AccessPolicy::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
-            self
-        }
-
-        /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
-        pub fn set_scopes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.scopes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1044,12 +1044,6 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [access_levels][crate::model::ReplaceAccessLevelsRequest::access_levels].
         ///
         /// This is a **required** field for requests.
@@ -1060,6 +1054,12 @@ pub mod access_context_manager {
         {
             use std::iter::Iterator;
             self.0.request.access_levels = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -1589,12 +1589,6 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [service_perimeters][crate::model::ReplaceServicePerimetersRequest::service_perimeters].
         ///
         /// This is a **required** field for requests.
@@ -1605,6 +1599,12 @@ pub mod access_context_manager {
         {
             use std::iter::Iterator;
             self.0.request.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }

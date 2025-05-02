@@ -394,12 +394,6 @@ impl ListAppConnectorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAppConnectorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [app_connectors][crate::model::ListAppConnectorsResponse::app_connectors].
     pub fn set_app_connectors<T, V>(mut self, v: T) -> Self
     where
@@ -408,6 +402,12 @@ impl ListAppConnectorsResponse {
     {
         use std::iter::Iterator;
         self.app_connectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAppConnectorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -891,6 +891,18 @@ impl AppConnector {
         self
     }
 
+    /// Sets the value of [labels][crate::model::AppConnector::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::AppConnector::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -931,18 +943,6 @@ impl AppConnector {
         v: T,
     ) -> Self {
         self.resource_info = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::AppConnector::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

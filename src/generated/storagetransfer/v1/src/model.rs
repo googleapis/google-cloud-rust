@@ -405,12 +405,6 @@ impl ListTransferJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTransferJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [transfer_jobs][crate::model::ListTransferJobsResponse::transfer_jobs].
     pub fn set_transfer_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -419,6 +413,12 @@ impl ListTransferJobsResponse {
     {
         use std::iter::Iterator;
         self.transfer_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTransferJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -848,12 +848,6 @@ impl ListAgentPoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAgentPoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [agent_pools][crate::model::ListAgentPoolsResponse::agent_pools].
     pub fn set_agent_pools<T, V>(mut self, v: T) -> Self
     where
@@ -862,6 +856,12 @@ impl ListAgentPoolsResponse {
     {
         use std::iter::Iterator;
         self.agent_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAgentPoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1191,24 +1191,6 @@ impl ObjectConditions {
         self
     }
 
-    /// Sets the value of [last_modified_since][crate::model::ObjectConditions::last_modified_since].
-    pub fn set_last_modified_since<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_modified_since = v.into();
-        self
-    }
-
-    /// Sets the value of [last_modified_before][crate::model::ObjectConditions::last_modified_before].
-    pub fn set_last_modified_before<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_modified_before = v.into();
-        self
-    }
-
     /// Sets the value of [include_prefixes][crate::model::ObjectConditions::include_prefixes].
     pub fn set_include_prefixes<T, V>(mut self, v: T) -> Self
     where
@@ -1228,6 +1210,24 @@ impl ObjectConditions {
     {
         use std::iter::Iterator;
         self.exclude_prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [last_modified_since][crate::model::ObjectConditions::last_modified_since].
+    pub fn set_last_modified_since<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_modified_since = v.into();
+        self
+    }
+
+    /// Sets the value of [last_modified_before][crate::model::ObjectConditions::last_modified_before].
+    pub fn set_last_modified_before<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_modified_before = v.into();
         self
     }
 }
@@ -3188,19 +3188,6 @@ impl TransferSpec {
         })
     }
 
-    /// The value of [data_sink][crate::model::TransferSpec::data_sink]
-    /// if it holds a `PosixDataSink`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn posix_data_sink(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
-        #[allow(unreachable_patterns)]
-        self.data_sink.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSink::PosixDataSink(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_sink][crate::model::TransferSpec::data_sink]
     /// to hold a `GcsDataSink`.
     ///
@@ -3213,6 +3200,19 @@ impl TransferSpec {
         self.data_sink =
             std::option::Option::Some(crate::model::transfer_spec::DataSink::GcsDataSink(v.into()));
         self
+    }
+
+    /// The value of [data_sink][crate::model::TransferSpec::data_sink]
+    /// if it holds a `PosixDataSink`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn posix_data_sink(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
+        #[allow(unreachable_patterns)]
+        self.data_sink.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSink::PosixDataSink(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_sink][crate::model::TransferSpec::data_sink]
@@ -3259,96 +3259,6 @@ impl TransferSpec {
         })
     }
 
-    /// The value of [data_source][crate::model::TransferSpec::data_source]
-    /// if it holds a `AwsS3DataSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aws_s3_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3Data>> {
-        #[allow(unreachable_patterns)]
-        self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::AwsS3DataSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_source][crate::model::TransferSpec::data_source]
-    /// if it holds a `HttpDataSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn http_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpData>> {
-        #[allow(unreachable_patterns)]
-        self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::HttpDataSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_source][crate::model::TransferSpec::data_source]
-    /// if it holds a `PosixDataSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn posix_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
-        #[allow(unreachable_patterns)]
-        self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::PosixDataSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_source][crate::model::TransferSpec::data_source]
-    /// if it holds a `AzureBlobStorageDataSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn azure_blob_storage_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AzureBlobStorageData>> {
-        #[allow(unreachable_patterns)]
-        self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_source][crate::model::TransferSpec::data_source]
-    /// if it holds a `AwsS3CompatibleDataSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aws_s3_compatible_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3CompatibleData>> {
-        #[allow(unreachable_patterns)]
-        self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_source][crate::model::TransferSpec::data_source]
-    /// if it holds a `HdfsDataSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn hdfs_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HdfsData>> {
-        #[allow(unreachable_patterns)]
-        self.data_source.as_ref().and_then(|v| match v {
-            crate::model::transfer_spec::DataSource::HdfsDataSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
     /// to hold a `GcsDataSource`.
     ///
@@ -3362,6 +3272,21 @@ impl TransferSpec {
             crate::model::transfer_spec::DataSource::GcsDataSource(v.into()),
         );
         self
+    }
+
+    /// The value of [data_source][crate::model::TransferSpec::data_source]
+    /// if it holds a `AwsS3DataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aws_s3_data_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3Data>> {
+        #[allow(unreachable_patterns)]
+        self.data_source.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSource::AwsS3DataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
@@ -3381,6 +3306,21 @@ impl TransferSpec {
         self
     }
 
+    /// The value of [data_source][crate::model::TransferSpec::data_source]
+    /// if it holds a `HttpDataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn http_data_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpData>> {
+        #[allow(unreachable_patterns)]
+        self.data_source.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSource::HttpDataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
     /// to hold a `HttpDataSource`.
     ///
@@ -3394,6 +3334,21 @@ impl TransferSpec {
             crate::model::transfer_spec::DataSource::HttpDataSource(v.into()),
         );
         self
+    }
+
+    /// The value of [data_source][crate::model::TransferSpec::data_source]
+    /// if it holds a `PosixDataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn posix_data_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
+        #[allow(unreachable_patterns)]
+        self.data_source.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSource::PosixDataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
@@ -3413,6 +3368,21 @@ impl TransferSpec {
         self
     }
 
+    /// The value of [data_source][crate::model::TransferSpec::data_source]
+    /// if it holds a `AzureBlobStorageDataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn azure_blob_storage_data_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AzureBlobStorageData>> {
+        #[allow(unreachable_patterns)]
+        self.data_source.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
     /// to hold a `AzureBlobStorageDataSource`.
     ///
@@ -3430,6 +3400,21 @@ impl TransferSpec {
         self
     }
 
+    /// The value of [data_source][crate::model::TransferSpec::data_source]
+    /// if it holds a `AwsS3CompatibleDataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aws_s3_compatible_data_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3CompatibleData>> {
+        #[allow(unreachable_patterns)]
+        self.data_source.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
     /// to hold a `AwsS3CompatibleDataSource`.
     ///
@@ -3445,6 +3430,21 @@ impl TransferSpec {
             crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v.into()),
         );
         self
+    }
+
+    /// The value of [data_source][crate::model::TransferSpec::data_source]
+    /// if it holds a `HdfsDataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn hdfs_data_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HdfsData>> {
+        #[allow(unreachable_patterns)]
+        self.data_source.as_ref().and_then(|v| match v {
+            crate::model::transfer_spec::DataSource::HdfsDataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
@@ -6289,17 +6289,6 @@ impl NotificationConfig {
         self
     }
 
-    /// Sets the value of [payload_format][crate::model::NotificationConfig::payload_format].
-    pub fn set_payload_format<
-        T: std::convert::Into<crate::model::notification_config::PayloadFormat>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload_format = v.into();
-        self
-    }
-
     /// Sets the value of [event_types][crate::model::NotificationConfig::event_types].
     pub fn set_event_types<T, V>(mut self, v: T) -> Self
     where
@@ -6308,6 +6297,17 @@ impl NotificationConfig {
     {
         use std::iter::Iterator;
         self.event_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [payload_format][crate::model::NotificationConfig::payload_format].
+    pub fn set_payload_format<
+        T: std::convert::Into<crate::model::notification_config::PayloadFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.payload_format = v.into();
         self
     }
 }
@@ -6655,15 +6655,6 @@ impl LoggingConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [enable_onprem_gcs_transfer_logs][crate::model::LoggingConfig::enable_onprem_gcs_transfer_logs].
-    pub fn set_enable_onprem_gcs_transfer_logs<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_onprem_gcs_transfer_logs = v.into();
-        self
-    }
-
     /// Sets the value of [log_actions][crate::model::LoggingConfig::log_actions].
     pub fn set_log_actions<T, V>(mut self, v: T) -> Self
     where
@@ -6683,6 +6674,15 @@ impl LoggingConfig {
     {
         use std::iter::Iterator;
         self.log_action_states = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enable_onprem_gcs_transfer_logs][crate::model::LoggingConfig::enable_onprem_gcs_transfer_logs].
+    pub fn set_enable_onprem_gcs_transfer_logs<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enable_onprem_gcs_transfer_logs = v.into();
         self
     }
 }
@@ -7113,15 +7113,6 @@ impl TransferOperation {
         self
     }
 
-    /// Sets the value of [transfer_job_name][crate::model::TransferOperation::transfer_job_name].
-    pub fn set_transfer_job_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transfer_job_name = v.into();
-        self
-    }
-
     /// Sets the value of [error_breakdowns][crate::model::TransferOperation::error_breakdowns].
     pub fn set_error_breakdowns<T, V>(mut self, v: T) -> Self
     where
@@ -7130,6 +7121,15 @@ impl TransferOperation {
     {
         use std::iter::Iterator;
         self.error_breakdowns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [transfer_job_name][crate::model::TransferOperation::transfer_job_name].
+    pub fn set_transfer_job_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transfer_job_name = v.into();
         self
     }
 }

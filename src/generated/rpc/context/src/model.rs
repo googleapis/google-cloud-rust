@@ -250,18 +250,6 @@ pub mod attribute_context {
             self
         }
 
-        /// Sets the value of [principal][crate::model::attribute_context::Peer::principal].
-        pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.principal = v.into();
-            self
-        }
-
-        /// Sets the value of [region_code][crate::model::attribute_context::Peer::region_code].
-        pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.region_code = v.into();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::attribute_context::Peer::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -271,6 +259,18 @@ pub mod attribute_context {
         {
             use std::iter::Iterator;
             self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [principal][crate::model::attribute_context::Peer::principal].
+        pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.principal = v.into();
+            self
+        }
+
+        /// Sets the value of [region_code][crate::model::attribute_context::Peer::region_code].
+        pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.region_code = v.into();
             self
         }
     }
@@ -434,6 +434,17 @@ pub mod attribute_context {
             self
         }
 
+        /// Sets the value of [audiences][crate::model::attribute_context::Auth::audiences].
+        pub fn set_audiences<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.audiences = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [presenter][crate::model::attribute_context::Auth::presenter].
         pub fn set_presenter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.presenter = v.into();
@@ -446,17 +457,6 @@ pub mod attribute_context {
             v: T,
         ) -> Self {
             self.claims = v.into();
-            self
-        }
-
-        /// Sets the value of [audiences][crate::model::attribute_context::Auth::audiences].
-        pub fn set_audiences<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.audiences = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -567,6 +567,18 @@ pub mod attribute_context {
             self
         }
 
+        /// Sets the value of [headers][crate::model::attribute_context::Request::headers].
+        pub fn set_headers<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [path][crate::model::attribute_context::Request::path].
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
@@ -626,18 +638,6 @@ pub mod attribute_context {
             v: T,
         ) -> Self {
             self.auth = v.into();
-            self
-        }
-
-        /// Sets the value of [headers][crate::model::attribute_context::Request::headers].
-        pub fn set_headers<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -704,6 +704,18 @@ pub mod attribute_context {
             self
         }
 
+        /// Sets the value of [headers][crate::model::attribute_context::Response::headers].
+        pub fn set_headers<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [time][crate::model::attribute_context::Response::time].
         pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -719,18 +731,6 @@ pub mod attribute_context {
             v: T,
         ) -> Self {
             self.backend_latency = v.into();
-            self
-        }
-
-        /// Sets the value of [headers][crate::model::attribute_context::Response::headers].
-        pub fn set_headers<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -865,9 +865,33 @@ pub mod attribute_context {
             self
         }
 
+        /// Sets the value of [labels][crate::model::attribute_context::Resource::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [uid][crate::model::attribute_context::Resource::uid].
         pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uid = v.into();
+            self
+        }
+
+        /// Sets the value of [annotations][crate::model::attribute_context::Resource::annotations].
+        pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -916,30 +940,6 @@ pub mod attribute_context {
         /// Sets the value of [location][crate::model::attribute_context::Resource::location].
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::attribute_context::Resource::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
-
-        /// Sets the value of [annotations][crate::model::attribute_context::Resource::annotations].
-        pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }

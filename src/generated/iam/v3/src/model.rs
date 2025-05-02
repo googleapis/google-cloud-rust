@@ -279,6 +279,18 @@ impl PolicyBinding {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::PolicyBinding::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [target][crate::model::PolicyBinding::target].
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::policy_binding::Target>>,
@@ -335,18 +347,6 @@ impl PolicyBinding {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::PolicyBinding::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -957,12 +957,6 @@ impl ListPolicyBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPolicyBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_bindings][crate::model::ListPolicyBindingsResponse::policy_bindings].
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -971,6 +965,12 @@ impl ListPolicyBindingsResponse {
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPolicyBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1109,12 +1109,6 @@ impl SearchTargetPolicyBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchTargetPolicyBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_bindings][crate::model::SearchTargetPolicyBindingsResponse::policy_bindings].
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -1123,6 +1117,12 @@ impl SearchTargetPolicyBindingsResponse {
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchTargetPolicyBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1489,12 +1489,6 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [principal_access_boundary_policies][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::principal_access_boundary_policies].
     pub fn set_principal_access_boundary_policies<T, V>(mut self, v: T) -> Self
     where
@@ -1503,6 +1497,12 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
     {
         use std::iter::Iterator;
         self.principal_access_boundary_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1615,12 +1615,6 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_bindings][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::policy_bindings].
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -1629,6 +1623,12 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1736,6 +1736,18 @@ impl PrincipalAccessBoundaryPolicy {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::PrincipalAccessBoundaryPolicy::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::PrincipalAccessBoundaryPolicy::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1762,18 +1774,6 @@ impl PrincipalAccessBoundaryPolicy {
         v: T,
     ) -> Self {
         self.details = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::PrincipalAccessBoundaryPolicy::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1812,15 +1812,6 @@ impl PrincipalAccessBoundaryPolicyDetails {
         std::default::Default::default()
     }
 
-    /// Sets the value of [enforcement_version][crate::model::PrincipalAccessBoundaryPolicyDetails::enforcement_version].
-    pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enforcement_version = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::PrincipalAccessBoundaryPolicyDetails::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -1829,6 +1820,15 @@ impl PrincipalAccessBoundaryPolicyDetails {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enforcement_version][crate::model::PrincipalAccessBoundaryPolicyDetails::enforcement_version].
+    pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enforcement_version = v.into();
         self
     }
 }
@@ -1884,17 +1884,6 @@ impl PrincipalAccessBoundaryPolicyRule {
         self
     }
 
-    /// Sets the value of [effect][crate::model::PrincipalAccessBoundaryPolicyRule::effect].
-    pub fn set_effect<
-        T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.effect = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::PrincipalAccessBoundaryPolicyRule::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -1903,6 +1892,17 @@ impl PrincipalAccessBoundaryPolicyRule {
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [effect][crate::model::PrincipalAccessBoundaryPolicyRule::effect].
+    pub fn set_effect<
+        T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.effect = v.into();
         self
     }
 }
