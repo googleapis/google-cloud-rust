@@ -56,7 +56,6 @@ pub mod builder;
 pub(crate) mod tracing;
 
 #[doc(hidden)]
-#[allow(deprecated)]
 pub(crate) mod transport;
 
 /// The default host used by the service.
