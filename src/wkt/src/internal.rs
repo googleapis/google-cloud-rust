@@ -63,7 +63,7 @@ impl<T> FloatVisitor<T> {
     }
 }
 
-impl<'de, T> serde::de::Visitor<'de> for FloatVisitor<T>
+impl<T> serde::de::Visitor<'_> for FloatVisitor<T>
 where
     T: FloatExt,
 {
