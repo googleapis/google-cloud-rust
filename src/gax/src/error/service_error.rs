@@ -132,10 +132,7 @@ mod test {
         assert_eq!(error.headers(), &None);
 
         let got = format!("{error}");
-        assert!(
-            got.contains(&format!("code: {}", Code::Aborted as i32)),
-            "{error:?}"
-        );
+        assert!(got.contains("code: Aborted"), "{error:?}");
         assert!(got.contains("ABORTED"), "{error:?}");
     }
 
@@ -147,10 +144,7 @@ mod test {
         assert_eq!(error.headers(), &None);
 
         let got = format!("{error}");
-        assert!(
-            got.contains(&format!("code: {}", Code::Aborted as i32)),
-            "{error:?}"
-        );
+        assert!(got.contains("code: Aborted"), "{error:?}");
         assert!(got.contains("ABORTED"), "{error:?}");
     }
 
@@ -162,11 +156,7 @@ mod test {
         assert_eq!(error.headers(), &None);
 
         let got = format!("{error}");
-        assert!(
-            got.contains(&format!("code: {}", Code::Aborted as i32)),
-            "{error:?}"
-        );
-        assert!(got.contains("ABORTED"), "{error:?}");
+        assert!(got.contains("code: Aborted"), "{error:?}");
         assert!(got.contains("http_status_code=404"), "{error:?}");
     }
 
@@ -180,16 +170,13 @@ mod test {
         assert_eq!(error.headers(), &Some(want));
 
         let got = format!("{error}");
-        assert!(
-            got.contains(&format!("code: {}", Code::Aborted as i32)),
-            "{error:?}"
-        );
+        assert!(got.contains("code: Aborted"), "{error:?}");
         assert!(got.contains("ABORTED"), "{error:?}");
         assert!(got.contains("headers=[]"), "{error:?}");
     }
 
     #[test]
-    fn with_one_headers() {
+    fn with_one_header() {
         let error =
             ServiceError::from(source()).with_headers([("content-type", "application/json")]);
         assert_eq!(error.status(), &Status::from(source()));
@@ -202,10 +189,7 @@ mod test {
         assert_eq!(error.headers(), &Some(want));
 
         let got = format!("{error}");
-        assert!(
-            got.contains(&format!("code: {}", Code::Aborted as i32)),
-            "{error:?}"
-        );
+        assert!(got.contains("code: Aborted"), "{error:?}");
         assert!(got.contains("ABORTED"), "{error:?}");
         assert!(got.contains("headers=["), "{error:?}");
         assert!(got.contains("content-type: application/json"), "{error:?}");
@@ -230,10 +214,7 @@ mod test {
         assert_eq!(error.headers(), &Some(want));
 
         let got = format!("{error}");
-        assert!(
-            got.contains(&format!("code: {}", Code::Aborted as i32)),
-            "{error:?}"
-        );
+        assert!(got.contains("code: Aborted"), "{error:?}");
         assert!(got.contains("ABORTED"), "{error:?}");
         assert!(got.contains("headers=["), "{error:?}");
         assert!(got.contains("content-type: application/json"), "{error:?}");

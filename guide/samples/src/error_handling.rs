@@ -61,8 +61,7 @@ pub async fn update_secret(
 
 // ANCHOR: examine-error
 pub fn is_not_found(error: &gax::error::ServiceError) -> bool {
-    let status = error.status();
-    status.code == 404 || status.code == gax::error::rpc::Code::NotFound as i32
+    error.status().code == gax::error::rpc::Code::NotFound
 }
 // ANCHOR_END: examine-error
 

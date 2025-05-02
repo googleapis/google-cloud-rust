@@ -57,10 +57,8 @@ impl gax::client_builder::internal::ClientFactory for Factory {
 
 pub fn make_status() -> Result<gax::error::rpc::Status> {
     let value = make_status_value()?;
-    let value = value
-        .get("error")
-        .ok_or("missing error field in status payload")?;
-    let status = serde_json::from_value::<gax::error::rpc::Status>(value.clone())?;
+    let payload = bytes::Bytes::from_owner(value.to_string());
+    let status = gax::error::rpc::Status::try_from(&payload)?;
     Ok(status)
 }
 
@@ -131,7 +129,7 @@ fn make_status_value() -> Result<serde_json::Value> {
     let details = serde_json::to_value(&details)?;
     let status = json!({"error": {
         "code": StatusCode::BAD_REQUEST.as_u16(),
-        "status": "INVALID_ARGUMENT",
+        "status": gax::error::rpc::Code::InvalidArgument.name(),
         "message": "this path always returns an error",
         "details": [details],
     }});

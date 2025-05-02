@@ -28,6 +28,8 @@ pub const SECRET_ID_LENGTH: usize = 64;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
+pub const BUCKET_ID_LENGTH: usize = 63;
+
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").map_err(Error::other)?;
@@ -63,6 +65,19 @@ pub(crate) fn random_workflow_id() -> String {
         .map(char::from)
         .collect();
     format!("{PREFIX}{workflow_id}")
+}
+
+pub(crate) fn random_bucket_id() -> String {
+    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+
+    let distr = RandomChars { chars: CHARSET };
+    const PREFIX: &str = "rust-sdk-testing-";
+    let bucket_id: String = rand::rng()
+        .sample_iter(distr)
+        .take(BUCKET_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{bucket_id}")
 }
 
 pub(crate) struct RandomChars {

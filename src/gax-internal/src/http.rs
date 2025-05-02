@@ -342,17 +342,17 @@ mod test {
     #[tokio::test]
     async fn client_error_with_status() -> TestResult {
         use gax::error::ServiceError;
-        use gax::error::rpc::*;
-        let status = Status::default()
-            .set_code(404)
-            .set_message("The thing is not there, oh noes!")
-            .set_status("NOT_FOUND")
-            .set_details([StatusDetails::LocalizedMessage(
-                rpc::model::LocalizedMessage::default()
-                    .set_locale("en-US")
-                    .set_message("we searched everywhere, honest"),
-            )]);
-        let body = serde_json::json!({"error": serde_json::to_value(&status)?});
+        use gax::error::rpc::{Code, Status, StatusDetails::LocalizedMessage};
+        let body = serde_json::json!({"error": {
+            "code": 404,
+            "message": "The thing is not there, oh noes!",
+            "status": "NOT_FOUND",
+            "details": [{
+                    "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+                    "locale": "en-US",
+                    "message": "we searched everywhere, honest",
+                }]
+        }});
         let http_resp = http::Response::builder()
             .header("Content-Type", "application/json")
             .status(404)
@@ -363,7 +363,15 @@ mod test {
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
         let err = err.as_inner::<ServiceError>().unwrap();
-        assert_eq!(err.status(), &status);
+        let want_status = Status::default()
+            .set_code(Code::NotFound)
+            .set_message("The thing is not there, oh noes!")
+            .set_details([LocalizedMessage(
+                rpc::model::LocalizedMessage::new()
+                    .set_locale("en-US")
+                    .set_message("we searched everywhere, honest"),
+            )]);
+        assert_eq!(err.status(), &want_status);
         assert_eq!(err.http_status_code(), &Some(404_u16));
         let want = HashMap::from(
             [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),

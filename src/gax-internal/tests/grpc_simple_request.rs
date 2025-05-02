@@ -114,8 +114,7 @@ mod test {
         assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
         let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
         let status = svc.status().clone();
-        assert_eq!(status.code, gax::error::rpc::Code::InvalidArgument as i32);
-        assert_eq!(status.status.as_deref(), Some("INVALID_ARGUMENT"));
+        assert_eq!(status.code, gax::error::rpc::Code::InvalidArgument);
         Ok(())
     }
 

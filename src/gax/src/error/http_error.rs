@@ -143,7 +143,7 @@ mod tests {
         );
         assert!(display.contains(r##"code=400"##), "missing code in {error}");
         assert!(
-            display.contains("payload:\nStatus { code: 400"),
+            display.contains("payload:\nStatus { code: InvalidArgument"),
             "missing payload in {error}"
         );
     }
