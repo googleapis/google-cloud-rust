@@ -16,7 +16,6 @@
 
 pub mod certificate_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CertificateManager][super::super::client::CertificateManager].
     ///
@@ -49,7 +48,7 @@ pub mod certificate_manager {
     /// Common implementation for [super::super::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod certificate_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod certificate_manager {
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +162,9 @@ pub mod certificate_manager {
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -204,7 +209,9 @@ pub mod certificate_manager {
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +316,9 @@ pub mod certificate_manager {
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -409,7 +418,9 @@ pub mod certificate_manager {
     pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
 
     impl DeleteCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -492,7 +503,9 @@ pub mod certificate_manager {
     pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
 
     impl ListCertificateMaps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -579,7 +592,9 @@ pub mod certificate_manager {
     pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
 
     impl GetCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -627,7 +642,9 @@ pub mod certificate_manager {
     pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
 
     impl CreateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -733,7 +750,9 @@ pub mod certificate_manager {
     pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
 
     impl UpdateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -834,7 +853,9 @@ pub mod certificate_manager {
     pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
 
     impl DeleteCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -919,7 +940,9 @@ pub mod certificate_manager {
     );
 
     impl ListCertificateMapEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1008,7 +1031,9 @@ pub mod certificate_manager {
     pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
 
     impl GetCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1058,7 +1083,9 @@ pub mod certificate_manager {
     );
 
     impl CreateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1168,7 +1195,9 @@ pub mod certificate_manager {
     );
 
     impl UpdateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,7 +1302,9 @@ pub mod certificate_manager {
     );
 
     impl DeleteCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1356,7 +1387,9 @@ pub mod certificate_manager {
     pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
 
     impl ListDnsAuthorizations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1443,7 +1476,9 @@ pub mod certificate_manager {
     pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
 
     impl GetDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1491,7 +1526,9 @@ pub mod certificate_manager {
     pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
 
     impl CreateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1599,7 +1636,9 @@ pub mod certificate_manager {
     pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
 
     impl UpdateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1702,7 +1741,9 @@ pub mod certificate_manager {
     pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
 
     impl DeleteDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1787,7 +1828,9 @@ pub mod certificate_manager {
     );
 
     impl ListCertificateIssuanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1878,7 +1921,9 @@ pub mod certificate_manager {
     );
 
     impl GetCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1928,7 +1973,9 @@ pub mod certificate_manager {
     );
 
     impl CreateCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2043,7 +2090,9 @@ pub mod certificate_manager {
     );
 
     impl DeleteCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2126,7 +2175,9 @@ pub mod certificate_manager {
     pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
     impl ListTrustConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2213,7 +2264,9 @@ pub mod certificate_manager {
     pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
 
     impl GetTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2258,7 +2311,9 @@ pub mod certificate_manager {
     pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
     impl CreateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2363,7 +2418,9 @@ pub mod certificate_manager {
     pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
     impl UpdateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2463,7 +2520,9 @@ pub mod certificate_manager {
     pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
     impl DeleteTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2552,7 +2611,9 @@ pub mod certificate_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2631,7 +2692,9 @@ pub mod certificate_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2674,7 +2737,9 @@ pub mod certificate_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2753,7 +2818,9 @@ pub mod certificate_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2799,7 +2866,9 @@ pub mod certificate_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2845,7 +2914,9 @@ pub mod certificate_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

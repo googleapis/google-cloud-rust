@@ -16,7 +16,6 @@
 
 pub mod storage {
     use crate::Result;
-    use std::sync::Arc;
 
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -36,7 +35,7 @@ pub mod storage {
     /// Common implementation for [super::super::client::Storage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Storage>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -45,7 +44,7 @@ pub mod storage {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -58,7 +57,7 @@ pub mod storage {
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
     impl DeleteBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -120,7 +119,7 @@ pub mod storage {
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
     impl GetBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -188,7 +187,7 @@ pub mod storage {
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,7 +263,7 @@ pub mod storage {
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
     impl ListBuckets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -349,7 +348,7 @@ pub mod storage {
     );
 
     impl LockBucketRetentionPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,7 +403,7 @@ pub mod storage {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -457,7 +456,7 @@ pub mod storage {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,7 +520,7 @@ pub mod storage {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -581,7 +580,7 @@ pub mod storage {
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -672,7 +671,7 @@ pub mod storage {
     pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
 
     impl ComposeObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -780,7 +779,7 @@ pub mod storage {
     pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
 
     impl DeleteObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -882,7 +881,7 @@ pub mod storage {
     pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
 
     impl RestoreObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -998,7 +997,7 @@ pub mod storage {
     pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
 
     impl GetObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1118,7 +1117,7 @@ pub mod storage {
     pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
 
     impl UpdateObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1226,7 +1225,7 @@ pub mod storage {
     pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
 
     impl ListObjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1357,7 +1356,7 @@ pub mod storage {
     pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
 
     impl RewriteObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1583,7 +1582,7 @@ pub mod storage {
     pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
 
     impl MoveObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

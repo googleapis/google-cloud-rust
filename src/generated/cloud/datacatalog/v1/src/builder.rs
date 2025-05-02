@@ -16,7 +16,6 @@
 
 pub mod data_catalog {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataCatalog][super::super::client::DataCatalog].
     ///
@@ -49,7 +48,7 @@ pub mod data_catalog {
     /// Common implementation for [super::super::client::DataCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod data_catalog {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod data_catalog {
     pub struct SearchCatalog(RequestBuilder<crate::model::SearchCatalogRequest>);
 
     impl SearchCatalog {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,7 +170,9 @@ pub mod data_catalog {
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
     impl CreateEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -232,7 +237,9 @@ pub mod data_catalog {
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
     impl GetEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -283,7 +290,9 @@ pub mod data_catalog {
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
     impl UpdateEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -343,7 +352,9 @@ pub mod data_catalog {
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
     impl DeleteEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -397,7 +408,9 @@ pub mod data_catalog {
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
     impl ListEntryGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,7 +482,9 @@ pub mod data_catalog {
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
     impl CreateEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -533,7 +548,9 @@ pub mod data_catalog {
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
     impl UpdateEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,7 +607,9 @@ pub mod data_catalog {
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
     impl DeleteEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -635,7 +654,9 @@ pub mod data_catalog {
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
     impl GetEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -680,7 +701,9 @@ pub mod data_catalog {
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
     impl LookupEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -780,7 +803,9 @@ pub mod data_catalog {
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
     impl ListEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -858,7 +883,9 @@ pub mod data_catalog {
     pub struct ModifyEntryOverview(RequestBuilder<crate::model::ModifyEntryOverviewRequest>);
 
     impl ModifyEntryOverview {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -917,7 +944,9 @@ pub mod data_catalog {
     pub struct ModifyEntryContacts(RequestBuilder<crate::model::ModifyEntryContactsRequest>);
 
     impl ModifyEntryContacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -976,7 +1005,9 @@ pub mod data_catalog {
     pub struct CreateTagTemplate(RequestBuilder<crate::model::CreateTagTemplateRequest>);
 
     impl CreateTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1043,7 +1074,9 @@ pub mod data_catalog {
     pub struct GetTagTemplate(RequestBuilder<crate::model::GetTagTemplateRequest>);
 
     impl GetTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1088,7 +1121,9 @@ pub mod data_catalog {
     pub struct UpdateTagTemplate(RequestBuilder<crate::model::UpdateTagTemplateRequest>);
 
     impl UpdateTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1148,7 +1183,9 @@ pub mod data_catalog {
     pub struct DeleteTagTemplate(RequestBuilder<crate::model::DeleteTagTemplateRequest>);
 
     impl DeleteTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1204,7 +1241,9 @@ pub mod data_catalog {
     pub struct CreateTagTemplateField(RequestBuilder<crate::model::CreateTagTemplateFieldRequest>);
 
     impl CreateTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,7 +1312,9 @@ pub mod data_catalog {
     pub struct UpdateTagTemplateField(RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>);
 
     impl UpdateTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1343,7 +1384,9 @@ pub mod data_catalog {
     pub struct RenameTagTemplateField(RequestBuilder<crate::model::RenameTagTemplateFieldRequest>);
 
     impl RenameTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1401,7 +1444,9 @@ pub mod data_catalog {
     );
 
     impl RenameTagTemplateFieldEnumValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1460,7 +1505,9 @@ pub mod data_catalog {
     pub struct DeleteTagTemplateField(RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>);
 
     impl DeleteTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1516,7 +1563,9 @@ pub mod data_catalog {
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1569,7 +1618,9 @@ pub mod data_catalog {
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1623,7 +1674,9 @@ pub mod data_catalog {
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1668,7 +1721,9 @@ pub mod data_catalog {
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1740,7 +1795,9 @@ pub mod data_catalog {
     pub struct ReconcileTags(RequestBuilder<crate::model::ReconcileTagsRequest>);
 
     impl ReconcileTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1851,7 +1908,9 @@ pub mod data_catalog {
     pub struct StarEntry(RequestBuilder<crate::model::StarEntryRequest>);
 
     impl StarEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,7 +1955,9 @@ pub mod data_catalog {
     pub struct UnstarEntry(RequestBuilder<crate::model::UnstarEntryRequest>);
 
     impl UnstarEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1941,7 +2002,9 @@ pub mod data_catalog {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2006,7 +2069,9 @@ pub mod data_catalog {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2060,7 +2125,9 @@ pub mod data_catalog {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2121,7 +2188,9 @@ pub mod data_catalog {
     pub struct ImportEntries(RequestBuilder<crate::model::ImportEntriesRequest>);
 
     impl ImportEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2238,7 +2307,9 @@ pub mod data_catalog {
     pub struct SetConfig(RequestBuilder<crate::model::SetConfigRequest>);
 
     impl SetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2327,7 +2398,9 @@ pub mod data_catalog {
     pub struct RetrieveConfig(RequestBuilder<crate::model::RetrieveConfigRequest>);
 
     impl RetrieveConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2374,7 +2447,9 @@ pub mod data_catalog {
     );
 
     impl RetrieveEffectiveConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2422,7 +2497,9 @@ pub mod data_catalog {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2501,7 +2578,9 @@ pub mod data_catalog {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2547,7 +2626,9 @@ pub mod data_catalog {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2593,7 +2674,9 @@ pub mod data_catalog {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2637,7 +2720,6 @@ pub mod data_catalog {
 
 pub mod policy_tag_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PolicyTagManager][super::super::client::PolicyTagManager].
     ///
@@ -2670,7 +2752,7 @@ pub mod policy_tag_manager {
     /// Common implementation for [super::super::client::PolicyTagManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2679,7 +2761,9 @@ pub mod policy_tag_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2693,7 +2777,9 @@ pub mod policy_tag_manager {
     pub struct CreateTaxonomy(RequestBuilder<crate::model::CreateTaxonomyRequest>);
 
     impl CreateTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2747,7 +2833,9 @@ pub mod policy_tag_manager {
     pub struct DeleteTaxonomy(RequestBuilder<crate::model::DeleteTaxonomyRequest>);
 
     impl DeleteTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2792,7 +2880,9 @@ pub mod policy_tag_manager {
     pub struct UpdateTaxonomy(RequestBuilder<crate::model::UpdateTaxonomyRequest>);
 
     impl UpdateTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2847,7 +2937,9 @@ pub mod policy_tag_manager {
     pub struct ListTaxonomies(RequestBuilder<crate::model::ListTaxonomiesRequest>);
 
     impl ListTaxonomies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2925,7 +3017,9 @@ pub mod policy_tag_manager {
     pub struct GetTaxonomy(RequestBuilder<crate::model::GetTaxonomyRequest>);
 
     impl GetTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2970,7 +3064,9 @@ pub mod policy_tag_manager {
     pub struct CreatePolicyTag(RequestBuilder<crate::model::CreatePolicyTagRequest>);
 
     impl CreatePolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3024,7 +3120,9 @@ pub mod policy_tag_manager {
     pub struct DeletePolicyTag(RequestBuilder<crate::model::DeletePolicyTagRequest>);
 
     impl DeletePolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3069,7 +3167,9 @@ pub mod policy_tag_manager {
     pub struct UpdatePolicyTag(RequestBuilder<crate::model::UpdatePolicyTagRequest>);
 
     impl UpdatePolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3124,7 +3224,9 @@ pub mod policy_tag_manager {
     pub struct ListPolicyTags(RequestBuilder<crate::model::ListPolicyTagsRequest>);
 
     impl ListPolicyTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3196,7 +3298,9 @@ pub mod policy_tag_manager {
     pub struct GetPolicyTag(RequestBuilder<crate::model::GetPolicyTagRequest>);
 
     impl GetPolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3241,7 +3345,9 @@ pub mod policy_tag_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3295,7 +3401,9 @@ pub mod policy_tag_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3360,7 +3468,9 @@ pub mod policy_tag_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3421,7 +3531,9 @@ pub mod policy_tag_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3500,7 +3612,9 @@ pub mod policy_tag_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3546,7 +3660,9 @@ pub mod policy_tag_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3592,7 +3708,9 @@ pub mod policy_tag_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3636,7 +3754,6 @@ pub mod policy_tag_manager {
 
 pub mod policy_tag_manager_serialization {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PolicyTagManagerSerialization][super::super::client::PolicyTagManagerSerialization].
     ///
@@ -3669,7 +3786,7 @@ pub mod policy_tag_manager_serialization {
     /// Common implementation for [super::super::client::PolicyTagManagerSerialization] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3679,7 +3796,7 @@ pub mod policy_tag_manager_serialization {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self {
                 stub,
@@ -3695,7 +3812,7 @@ pub mod policy_tag_manager_serialization {
 
     impl ReplaceTaxonomy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3755,7 +3872,7 @@ pub mod policy_tag_manager_serialization {
 
     impl ImportTaxonomies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3847,7 +3964,7 @@ pub mod policy_tag_manager_serialization {
 
     impl ExportTaxonomies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3934,7 +4051,7 @@ pub mod policy_tag_manager_serialization {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4015,7 +4132,7 @@ pub mod policy_tag_manager_serialization {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4063,7 +4180,7 @@ pub mod policy_tag_manager_serialization {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4111,7 +4228,7 @@ pub mod policy_tag_manager_serialization {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

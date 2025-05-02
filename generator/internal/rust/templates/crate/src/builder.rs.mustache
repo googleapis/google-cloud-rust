@@ -25,7 +25,6 @@ limitations under the License.
 {{/Codec.PerServiceFeatures}}
 pub mod {{Codec.ModuleName}} {
     use crate::Result;
-    use std::sync::Arc;
 
     {{^Codec.SkipBuilderDocs}}
     /// A builder for [{{Codec.Name}}][super::super::client::{{Codec.Name}}].
@@ -60,14 +59,14 @@ pub mod {{Codec.ModuleName}} {
     /// Common implementation for [super::super::client::{{Codec.Name}}] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -84,7 +83,7 @@ pub mod {{Codec.ModuleName}} {
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 
     impl {{Codec.BuilderName}} {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )

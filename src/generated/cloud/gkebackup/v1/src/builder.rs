@@ -16,7 +16,6 @@
 
 pub mod backup_for_gke {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BackupForGKE][super::super::client::BackupForGKE].
     ///
@@ -49,7 +48,7 @@ pub mod backup_for_gke {
     /// Common implementation for [super::super::client::BackupForGKE] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod backup_for_gke {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod backup_for_gke {
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -177,7 +180,9 @@ pub mod backup_for_gke {
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -261,7 +266,9 @@ pub mod backup_for_gke {
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +313,9 @@ pub mod backup_for_gke {
     pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
     impl UpdateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,7 +413,9 @@ pub mod backup_for_gke {
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -493,7 +504,9 @@ pub mod backup_for_gke {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,7 +603,9 @@ pub mod backup_for_gke {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -674,7 +689,9 @@ pub mod backup_for_gke {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -719,7 +736,9 @@ pub mod backup_for_gke {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -813,7 +832,9 @@ pub mod backup_for_gke {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -905,7 +926,9 @@ pub mod backup_for_gke {
     pub struct ListVolumeBackups(RequestBuilder<crate::model::ListVolumeBackupsRequest>);
 
     impl ListVolumeBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -992,7 +1015,9 @@ pub mod backup_for_gke {
     pub struct GetVolumeBackup(RequestBuilder<crate::model::GetVolumeBackupRequest>);
 
     impl GetVolumeBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1037,7 +1062,9 @@ pub mod backup_for_gke {
     pub struct CreateRestorePlan(RequestBuilder<crate::model::CreateRestorePlanRequest>);
 
     impl CreateRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1142,7 +1169,9 @@ pub mod backup_for_gke {
     pub struct ListRestorePlans(RequestBuilder<crate::model::ListRestorePlansRequest>);
 
     impl ListRestorePlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1229,7 +1258,9 @@ pub mod backup_for_gke {
     pub struct GetRestorePlan(RequestBuilder<crate::model::GetRestorePlanRequest>);
 
     impl GetRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1274,7 +1305,9 @@ pub mod backup_for_gke {
     pub struct UpdateRestorePlan(RequestBuilder<crate::model::UpdateRestorePlanRequest>);
 
     impl UpdateRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1372,7 +1405,9 @@ pub mod backup_for_gke {
     pub struct DeleteRestorePlan(RequestBuilder<crate::model::DeleteRestorePlanRequest>);
 
     impl DeleteRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1467,7 +1502,9 @@ pub mod backup_for_gke {
     pub struct CreateRestore(RequestBuilder<crate::model::CreateRestoreRequest>);
 
     impl CreateRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1568,7 +1605,9 @@ pub mod backup_for_gke {
     pub struct ListRestores(RequestBuilder<crate::model::ListRestoresRequest>);
 
     impl ListRestores {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1652,7 +1691,9 @@ pub mod backup_for_gke {
     pub struct GetRestore(RequestBuilder<crate::model::GetRestoreRequest>);
 
     impl GetRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1697,7 +1738,9 @@ pub mod backup_for_gke {
     pub struct UpdateRestore(RequestBuilder<crate::model::UpdateRestoreRequest>);
 
     impl UpdateRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1791,7 +1834,9 @@ pub mod backup_for_gke {
     pub struct DeleteRestore(RequestBuilder<crate::model::DeleteRestoreRequest>);
 
     impl DeleteRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1883,7 +1928,9 @@ pub mod backup_for_gke {
     pub struct ListVolumeRestores(RequestBuilder<crate::model::ListVolumeRestoresRequest>);
 
     impl ListVolumeRestores {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1970,7 +2017,9 @@ pub mod backup_for_gke {
     pub struct GetVolumeRestore(RequestBuilder<crate::model::GetVolumeRestoreRequest>);
 
     impl GetVolumeRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2020,7 +2069,9 @@ pub mod backup_for_gke {
     );
 
     impl GetBackupIndexDownloadUrl {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2068,7 +2119,9 @@ pub mod backup_for_gke {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2147,7 +2200,9 @@ pub mod backup_for_gke {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2190,7 +2245,9 @@ pub mod backup_for_gke {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2255,7 +2312,9 @@ pub mod backup_for_gke {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2309,7 +2368,9 @@ pub mod backup_for_gke {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2370,7 +2431,9 @@ pub mod backup_for_gke {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2449,7 +2512,9 @@ pub mod backup_for_gke {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2495,7 +2560,9 @@ pub mod backup_for_gke {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2541,7 +2608,9 @@ pub mod backup_for_gke {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

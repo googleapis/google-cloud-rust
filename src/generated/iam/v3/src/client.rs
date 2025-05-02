@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Identity and Access Management (IAM) API.
 ///
@@ -59,11 +58,11 @@ use std::sync::Arc;
 ///
 /// `PolicyBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyBindings` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings {
-    inner: Arc<dyn super::stub::dynamic::PolicyBindings>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>,
 }
 
 impl PolicyBindings {
@@ -88,7 +87,7 @@ impl PolicyBindings {
         T: super::stub::PolicyBindings + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -99,11 +98,11 @@ impl PolicyBindings {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyBindings>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -264,11 +263,11 @@ impl PolicyBindings {
 ///
 /// `PrincipalAccessBoundaryPolicies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PrincipalAccessBoundaryPolicies` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies {
-    inner: Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
 }
 
 impl PrincipalAccessBoundaryPolicies {
@@ -295,7 +294,7 @@ impl PrincipalAccessBoundaryPolicies {
         T: super::stub::PrincipalAccessBoundaryPolicies + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -306,11 +305,11 @@ impl PrincipalAccessBoundaryPolicies {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

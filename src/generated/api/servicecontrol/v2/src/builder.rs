@@ -16,7 +16,6 @@
 
 pub mod service_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ServiceController][super::super::client::ServiceController].
     ///
@@ -49,7 +48,7 @@ pub mod service_controller {
     /// Common implementation for [super::super::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod service_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod service_controller {
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
     impl Check {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -149,7 +152,9 @@ pub mod service_controller {
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 
     impl Report {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

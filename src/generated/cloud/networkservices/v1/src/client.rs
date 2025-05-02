@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Network Services API.
 ///
@@ -58,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `DepService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DepService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DepService {
-    inner: Arc<dyn super::stub::dynamic::DepService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DepService>,
 }
 
 impl DepService {
@@ -87,7 +86,7 @@ impl DepService {
         T: super::stub::DepService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -98,11 +97,11 @@ impl DepService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DepService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DepService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -404,11 +403,11 @@ impl DepService {
 ///
 /// `NetworkServices` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `NetworkServices` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct NetworkServices {
-    inner: Arc<dyn super::stub::dynamic::NetworkServices>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::NetworkServices>,
 }
 
 impl NetworkServices {
@@ -435,7 +434,7 @@ impl NetworkServices {
         T: super::stub::NetworkServices + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -446,11 +445,11 @@ impl NetworkServices {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::NetworkServices>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::NetworkServices>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

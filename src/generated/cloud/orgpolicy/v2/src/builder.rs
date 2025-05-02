@@ -16,7 +16,6 @@
 
 pub mod org_policy {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [OrgPolicy][super::super::client::OrgPolicy].
     ///
@@ -49,7 +48,7 @@ pub mod org_policy {
     /// Common implementation for [super::super::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod org_policy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod org_policy {
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
     impl ListConstraints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +147,9 @@ pub mod org_policy {
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -216,7 +221,9 @@ pub mod org_policy {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -261,7 +268,9 @@ pub mod org_policy {
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
     impl GetEffectivePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +318,9 @@ pub mod org_policy {
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -365,7 +376,9 @@ pub mod org_policy {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -422,7 +435,9 @@ pub mod org_policy {
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -473,7 +488,9 @@ pub mod org_policy {
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
     impl CreateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -534,7 +551,9 @@ pub mod org_policy {
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
     impl UpdateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,7 +606,9 @@ pub mod org_policy {
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
     impl GetCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -635,7 +656,9 @@ pub mod org_policy {
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
     impl ListCustomConstraints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -710,7 +733,9 @@ pub mod org_policy {
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 
     impl DeleteCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

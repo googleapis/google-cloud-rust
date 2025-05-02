@@ -16,7 +16,6 @@
 
 pub mod image_annotator {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ImageAnnotator][super::super::client::ImageAnnotator].
     ///
@@ -49,7 +48,7 @@ pub mod image_annotator {
     /// Common implementation for [super::super::client::ImageAnnotator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod image_annotator {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod image_annotator {
     pub struct BatchAnnotateImages(RequestBuilder<crate::model::BatchAnnotateImagesRequest>);
 
     impl BatchAnnotateImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -142,7 +145,9 @@ pub mod image_annotator {
     pub struct BatchAnnotateFiles(RequestBuilder<crate::model::BatchAnnotateFilesRequest>);
 
     impl BatchAnnotateFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -214,7 +219,9 @@ pub mod image_annotator {
     );
 
     impl AsyncBatchAnnotateImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -340,7 +347,9 @@ pub mod image_annotator {
     );
 
     impl AsyncBatchAnnotateFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -453,7 +462,9 @@ pub mod image_annotator {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -497,7 +508,6 @@ pub mod image_annotator {
 
 pub mod product_search {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ProductSearch][super::super::client::ProductSearch].
     ///
@@ -530,7 +540,7 @@ pub mod product_search {
     /// Common implementation for [super::super::client::ProductSearch] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -539,7 +549,9 @@ pub mod product_search {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -553,7 +565,9 @@ pub mod product_search {
     pub struct CreateProductSet(RequestBuilder<crate::model::CreateProductSetRequest>);
 
     impl CreateProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,7 +632,9 @@ pub mod product_search {
     pub struct ListProductSets(RequestBuilder<crate::model::ListProductSetsRequest>);
 
     impl ListProductSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,7 +706,9 @@ pub mod product_search {
     pub struct GetProductSet(RequestBuilder<crate::model::GetProductSetRequest>);
 
     impl GetProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -735,7 +753,9 @@ pub mod product_search {
     pub struct UpdateProductSet(RequestBuilder<crate::model::UpdateProductSetRequest>);
 
     impl UpdateProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -795,7 +815,9 @@ pub mod product_search {
     pub struct DeleteProductSet(RequestBuilder<crate::model::DeleteProductSetRequest>);
 
     impl DeleteProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -843,7 +865,9 @@ pub mod product_search {
     pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
 
     impl CreateProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -905,7 +929,9 @@ pub mod product_search {
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -977,7 +1003,9 @@ pub mod product_search {
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1022,7 +1050,9 @@ pub mod product_search {
     pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
 
     impl UpdateProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1079,7 +1109,9 @@ pub mod product_search {
     pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
 
     impl DeleteProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1124,7 +1156,9 @@ pub mod product_search {
     pub struct CreateReferenceImage(RequestBuilder<crate::model::CreateReferenceImageRequest>);
 
     impl CreateReferenceImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1189,7 +1223,9 @@ pub mod product_search {
     pub struct DeleteReferenceImage(RequestBuilder<crate::model::DeleteReferenceImageRequest>);
 
     impl DeleteReferenceImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1237,7 +1273,9 @@ pub mod product_search {
     pub struct ListReferenceImages(RequestBuilder<crate::model::ListReferenceImagesRequest>);
 
     impl ListReferenceImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1312,7 +1350,9 @@ pub mod product_search {
     pub struct GetReferenceImage(RequestBuilder<crate::model::GetReferenceImageRequest>);
 
     impl GetReferenceImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1360,7 +1400,9 @@ pub mod product_search {
     pub struct AddProductToProductSet(RequestBuilder<crate::model::AddProductToProductSetRequest>);
 
     impl AddProductToProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1418,7 +1460,9 @@ pub mod product_search {
     );
 
     impl RemoveProductFromProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1476,7 +1520,9 @@ pub mod product_search {
     );
 
     impl ListProductsInProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1553,7 +1599,9 @@ pub mod product_search {
     pub struct ImportProductSets(RequestBuilder<crate::model::ImportProductSetsRequest>);
 
     impl ImportProductSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1657,7 +1705,9 @@ pub mod product_search {
     pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
 
     impl PurgeProducts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1780,7 +1830,9 @@ pub mod product_search {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

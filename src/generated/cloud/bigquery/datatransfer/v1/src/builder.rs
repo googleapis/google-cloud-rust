@@ -16,7 +16,6 @@
 
 pub mod data_transfer_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataTransferService][super::super::client::DataTransferService].
     ///
@@ -49,7 +48,7 @@ pub mod data_transfer_service {
     /// Common implementation for [super::super::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod data_transfer_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod data_transfer_service {
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,7 +120,9 @@ pub mod data_transfer_service {
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +194,9 @@ pub mod data_transfer_service {
     pub struct CreateTransferConfig(RequestBuilder<crate::model::CreateTransferConfigRequest>);
 
     impl CreateTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -267,7 +274,9 @@ pub mod data_transfer_service {
     pub struct UpdateTransferConfig(RequestBuilder<crate::model::UpdateTransferConfigRequest>);
 
     impl UpdateTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -348,7 +357,9 @@ pub mod data_transfer_service {
     pub struct DeleteTransferConfig(RequestBuilder<crate::model::DeleteTransferConfigRequest>);
 
     impl DeleteTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,7 +407,9 @@ pub mod data_transfer_service {
     pub struct GetTransferConfig(RequestBuilder<crate::model::GetTransferConfigRequest>);
 
     impl GetTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -444,7 +457,9 @@ pub mod data_transfer_service {
     pub struct ListTransferConfigs(RequestBuilder<crate::model::ListTransferConfigsRequest>);
 
     impl ListTransferConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -530,7 +545,9 @@ pub mod data_transfer_service {
     pub struct ScheduleTransferRuns(RequestBuilder<crate::model::ScheduleTransferRunsRequest>);
 
     impl ScheduleTransferRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -599,7 +616,9 @@ pub mod data_transfer_service {
     );
 
     impl StartManualTransferRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -689,7 +708,9 @@ pub mod data_transfer_service {
     pub struct GetTransferRun(RequestBuilder<crate::model::GetTransferRunRequest>);
 
     impl GetTransferRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -734,7 +755,9 @@ pub mod data_transfer_service {
     pub struct DeleteTransferRun(RequestBuilder<crate::model::DeleteTransferRunRequest>);
 
     impl DeleteTransferRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -782,7 +805,9 @@ pub mod data_transfer_service {
     pub struct ListTransferRuns(RequestBuilder<crate::model::ListTransferRunsRequest>);
 
     impl ListTransferRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -877,7 +902,9 @@ pub mod data_transfer_service {
     pub struct ListTransferLogs(RequestBuilder<crate::model::ListTransferLogsRequest>);
 
     impl ListTransferLogs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -963,7 +990,9 @@ pub mod data_transfer_service {
     pub struct CheckValidCreds(RequestBuilder<crate::model::CheckValidCredsRequest>);
 
     impl CheckValidCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1008,7 +1037,9 @@ pub mod data_transfer_service {
     pub struct EnrollDataSources(RequestBuilder<crate::model::EnrollDataSourcesRequest>);
 
     impl EnrollDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1067,7 +1098,9 @@ pub mod data_transfer_service {
     pub struct UnenrollDataSources(RequestBuilder<crate::model::UnenrollDataSourcesRequest>);
 
     impl UnenrollDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1126,7 +1159,9 @@ pub mod data_transfer_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1205,7 +1240,9 @@ pub mod data_transfer_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

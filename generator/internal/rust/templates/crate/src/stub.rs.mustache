@@ -34,13 +34,6 @@ limitations under the License.
 #[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use gax::error::Error;
-{{#Codec.HasLROs}}
-{{#Codec.PerServiceFeatures}}
-{{! When using per-service features this may be used or not depending on what services use LROs }}
-#[allow(unused_imports)]
-{{/Codec.PerServiceFeatures}}
-use std::sync::Arc;
-{{/Codec.HasLROs}}
 
 pub(crate) mod dynamic;
 
@@ -82,8 +75,8 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     fn get_polling_error_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        Arc::new(gax::polling_error_policy::Aip194Strict)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -93,8 +86,8 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     fn get_polling_backoff_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
     {{/Codec.HasLROs}}
 }

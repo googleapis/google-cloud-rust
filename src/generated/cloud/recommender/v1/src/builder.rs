@@ -16,7 +16,6 @@
 
 pub mod recommender {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Recommender][super::super::client::Recommender].
     ///
@@ -49,7 +48,7 @@ pub mod recommender {
     /// Common implementation for [super::super::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Recommender>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod recommender {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod recommender {
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
     impl ListInsights {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -150,7 +153,9 @@ pub mod recommender {
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
     impl GetInsight {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -195,7 +200,9 @@ pub mod recommender {
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
     impl MarkInsightAccepted {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -263,7 +270,9 @@ pub mod recommender {
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
     impl ListRecommendations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -344,7 +353,9 @@ pub mod recommender {
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
     impl GetRecommendation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -394,7 +405,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationDismissed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -450,7 +463,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationClaimed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -520,7 +535,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationSucceeded {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,7 +607,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationFailed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -658,7 +677,9 @@ pub mod recommender {
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
     impl GetRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,7 +729,9 @@ pub mod recommender {
     );
 
     impl UpdateRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -776,7 +799,9 @@ pub mod recommender {
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
     impl GetInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -826,7 +851,9 @@ pub mod recommender {
     );
 
     impl UpdateInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

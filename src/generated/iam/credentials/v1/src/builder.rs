@@ -16,7 +16,6 @@
 
 pub mod iam_credentials {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IAMCredentials][super::super::client::IAMCredentials].
     ///
@@ -49,7 +48,7 @@ pub mod iam_credentials {
     /// Common implementation for [super::super::client::IAMCredentials] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod iam_credentials {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod iam_credentials {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -150,7 +153,9 @@ pub mod iam_credentials {
     pub struct GenerateIdToken(RequestBuilder<crate::model::GenerateIdTokenRequest>);
 
     impl GenerateIdToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -220,7 +225,9 @@ pub mod iam_credentials {
     pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +291,9 @@ pub mod iam_credentials {
     pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

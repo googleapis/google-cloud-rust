@@ -16,7 +16,6 @@
 
 pub mod storage_insights {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [StorageInsights][super::super::client::StorageInsights].
     ///
@@ -49,7 +48,7 @@ pub mod storage_insights {
     /// Common implementation for [super::super::client::StorageInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod storage_insights {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod storage_insights {
     pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
 
     impl ListReportConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +162,9 @@ pub mod storage_insights {
     pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
 
     impl GetReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -204,7 +209,9 @@ pub mod storage_insights {
     pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
 
     impl CreateReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -269,7 +276,9 @@ pub mod storage_insights {
     pub struct UpdateReportConfig(RequestBuilder<crate::model::UpdateReportConfigRequest>);
 
     impl UpdateReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -337,7 +346,9 @@ pub mod storage_insights {
     pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
 
     impl DeleteReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -397,7 +408,9 @@ pub mod storage_insights {
     pub struct ListReportDetails(RequestBuilder<crate::model::ListReportDetailsRequest>);
 
     impl ListReportDetails {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,7 +497,9 @@ pub mod storage_insights {
     pub struct GetReportDetail(RequestBuilder<crate::model::GetReportDetailRequest>);
 
     impl GetReportDetail {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -529,7 +544,9 @@ pub mod storage_insights {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -608,7 +625,9 @@ pub mod storage_insights {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -651,7 +670,9 @@ pub mod storage_insights {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -730,7 +751,9 @@ pub mod storage_insights {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -776,7 +799,9 @@ pub mod storage_insights {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -822,7 +847,9 @@ pub mod storage_insights {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageInsights>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

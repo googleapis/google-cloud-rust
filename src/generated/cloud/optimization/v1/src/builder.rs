@@ -16,7 +16,6 @@
 
 pub mod fleet_routing {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [FleetRouting][super::super::client::FleetRouting].
     ///
@@ -49,7 +48,7 @@ pub mod fleet_routing {
     /// Common implementation for [super::super::client::FleetRouting] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod fleet_routing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod fleet_routing {
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
     impl OptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -259,7 +262,9 @@ pub mod fleet_routing {
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
     impl BatchOptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,7 +366,9 @@ pub mod fleet_routing {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,7 +16,6 @@
 
 pub mod backup_dr {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BackupDR][super::super::client::BackupDR].
     ///
@@ -49,7 +48,7 @@ pub mod backup_dr {
     /// Common implementation for [super::super::client::BackupDR] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BackupDR>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod backup_dr {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod backup_dr {
     pub struct ListManagementServers(RequestBuilder<crate::model::ListManagementServersRequest>);
 
     impl ListManagementServers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +164,7 @@ pub mod backup_dr {
     pub struct GetManagementServer(RequestBuilder<crate::model::GetManagementServerRequest>);
 
     impl GetManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,7 +212,7 @@ pub mod backup_dr {
     pub struct CreateManagementServer(RequestBuilder<crate::model::CreateManagementServerRequest>);
 
     impl CreateManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -327,7 +326,7 @@ pub mod backup_dr {
     pub struct DeleteManagementServer(RequestBuilder<crate::model::DeleteManagementServerRequest>);
 
     impl DeleteManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -416,7 +415,7 @@ pub mod backup_dr {
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -533,7 +532,7 @@ pub mod backup_dr {
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -628,7 +627,7 @@ pub mod backup_dr {
     );
 
     impl FetchUsableBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -717,7 +716,7 @@ pub mod backup_dr {
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -768,7 +767,7 @@ pub mod backup_dr {
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -886,7 +885,7 @@ pub mod backup_dr {
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1005,7 +1004,7 @@ pub mod backup_dr {
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1089,7 +1088,7 @@ pub mod backup_dr {
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,7 +1133,7 @@ pub mod backup_dr {
     pub struct UpdateDataSource(RequestBuilder<crate::model::UpdateDataSourceRequest>);
 
     impl UpdateDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1246,7 +1245,7 @@ pub mod backup_dr {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1336,7 +1335,7 @@ pub mod backup_dr {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1387,7 +1386,7 @@ pub mod backup_dr {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1489,7 +1488,7 @@ pub mod backup_dr {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1577,7 +1576,7 @@ pub mod backup_dr {
     pub struct RestoreBackup(RequestBuilder<crate::model::RestoreBackupRequest>);
 
     impl RestoreBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1727,7 +1726,7 @@ pub mod backup_dr {
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1838,7 +1837,7 @@ pub mod backup_dr {
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1883,7 +1882,7 @@ pub mod backup_dr {
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1967,7 +1966,7 @@ pub mod backup_dr {
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2058,7 +2057,7 @@ pub mod backup_dr {
     );
 
     impl CreateBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2179,7 +2178,7 @@ pub mod backup_dr {
     );
 
     impl GetBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2229,7 +2228,7 @@ pub mod backup_dr {
     );
 
     impl ListBackupPlanAssociations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2314,7 +2313,7 @@ pub mod backup_dr {
     );
 
     impl DeleteBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2403,7 +2402,7 @@ pub mod backup_dr {
     pub struct TriggerBackup(RequestBuilder<crate::model::TriggerBackupRequest>);
 
     impl TriggerBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2503,7 +2502,7 @@ pub mod backup_dr {
     pub struct InitializeService(RequestBuilder<crate::model::InitializeServiceRequest>);
 
     impl InitializeService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2606,7 +2605,7 @@ pub mod backup_dr {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2685,7 +2684,7 @@ pub mod backup_dr {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2728,7 +2727,7 @@ pub mod backup_dr {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2793,7 +2792,7 @@ pub mod backup_dr {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2847,7 +2846,7 @@ pub mod backup_dr {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2908,7 +2907,7 @@ pub mod backup_dr {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2987,7 +2986,7 @@ pub mod backup_dr {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3033,7 +3032,7 @@ pub mod backup_dr {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3079,7 +3078,7 @@ pub mod backup_dr {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

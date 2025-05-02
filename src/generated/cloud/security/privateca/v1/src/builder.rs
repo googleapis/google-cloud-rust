@@ -16,7 +16,6 @@
 
 pub mod certificate_authority_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CertificateAuthorityService][super::super::client::CertificateAuthorityService].
     ///
@@ -49,7 +48,7 @@ pub mod certificate_authority_service {
     /// Common implementation for [super::super::client::CertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod certificate_authority_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -163,7 +162,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -210,7 +209,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -299,7 +298,7 @@ pub mod certificate_authority_service {
 
     impl RevokeCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -363,7 +362,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -435,7 +434,7 @@ pub mod certificate_authority_service {
 
     impl ActivateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -553,7 +552,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -671,7 +670,7 @@ pub mod certificate_authority_service {
 
     impl DisableCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -774,7 +773,7 @@ pub mod certificate_authority_service {
 
     impl EnableCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -871,7 +870,7 @@ pub mod certificate_authority_service {
 
     impl FetchCertificateAuthorityCsr {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -923,7 +922,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -975,7 +974,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateAuthorities {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1068,7 +1067,7 @@ pub mod certificate_authority_service {
 
     impl UndeleteCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1165,7 +1164,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1280,7 +1279,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1391,7 +1390,7 @@ pub mod certificate_authority_service {
 
     impl CreateCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1500,7 +1499,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1604,7 +1603,7 @@ pub mod certificate_authority_service {
 
     impl GetCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1651,7 +1650,7 @@ pub mod certificate_authority_service {
 
     impl ListCaPools {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1737,7 +1736,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1831,7 +1830,7 @@ pub mod certificate_authority_service {
 
     impl FetchCaCerts {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1886,7 +1885,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateRevocationList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1938,7 +1937,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateRevocationLists {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2031,7 +2030,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateRevocationList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2146,7 +2145,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2264,7 +2263,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2355,7 +2354,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2407,7 +2406,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2500,7 +2499,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2611,7 +2610,7 @@ pub mod certificate_authority_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2692,7 +2691,7 @@ pub mod certificate_authority_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2737,7 +2736,7 @@ pub mod certificate_authority_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2804,7 +2803,7 @@ pub mod certificate_authority_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2860,7 +2859,7 @@ pub mod certificate_authority_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2923,7 +2922,7 @@ pub mod certificate_authority_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3004,7 +3003,7 @@ pub mod certificate_authority_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3052,7 +3051,7 @@ pub mod certificate_authority_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3100,7 +3099,7 @@ pub mod certificate_authority_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

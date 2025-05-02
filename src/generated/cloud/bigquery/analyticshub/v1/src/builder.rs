@@ -16,7 +16,6 @@
 
 pub mod analytics_hub_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AnalyticsHubService][super::super::client::AnalyticsHubService].
     ///
@@ -49,7 +48,7 @@ pub mod analytics_hub_service {
     /// Common implementation for [super::super::client::AnalyticsHubService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod analytics_hub_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod analytics_hub_service {
     pub struct ListDataExchanges(RequestBuilder<crate::model::ListDataExchangesRequest>);
 
     impl ListDataExchanges {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -147,7 +150,9 @@ pub mod analytics_hub_service {
     pub struct ListOrgDataExchanges(RequestBuilder<crate::model::ListOrgDataExchangesRequest>);
 
     impl ListOrgDataExchanges {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +227,9 @@ pub mod analytics_hub_service {
     pub struct GetDataExchange(RequestBuilder<crate::model::GetDataExchangeRequest>);
 
     impl GetDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -267,7 +274,9 @@ pub mod analytics_hub_service {
     pub struct CreateDataExchange(RequestBuilder<crate::model::CreateDataExchangeRequest>);
 
     impl CreateDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -334,7 +343,9 @@ pub mod analytics_hub_service {
     pub struct UpdateDataExchange(RequestBuilder<crate::model::UpdateDataExchangeRequest>);
 
     impl UpdateDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,7 +407,9 @@ pub mod analytics_hub_service {
     pub struct DeleteDataExchange(RequestBuilder<crate::model::DeleteDataExchangeRequest>);
 
     impl DeleteDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -444,7 +457,9 @@ pub mod analytics_hub_service {
     pub struct ListListings(RequestBuilder<crate::model::ListListingsRequest>);
 
     impl ListListings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -516,7 +531,9 @@ pub mod analytics_hub_service {
     pub struct GetListing(RequestBuilder<crate::model::GetListingRequest>);
 
     impl GetListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -561,7 +578,9 @@ pub mod analytics_hub_service {
     pub struct CreateListing(RequestBuilder<crate::model::CreateListingRequest>);
 
     impl CreateListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -625,7 +644,9 @@ pub mod analytics_hub_service {
     pub struct UpdateListing(RequestBuilder<crate::model::UpdateListingRequest>);
 
     impl UpdateListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -684,7 +705,9 @@ pub mod analytics_hub_service {
     pub struct DeleteListing(RequestBuilder<crate::model::DeleteListingRequest>);
 
     impl DeleteListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -729,7 +752,9 @@ pub mod analytics_hub_service {
     pub struct SubscribeListing(RequestBuilder<crate::model::SubscribeListingRequest>);
 
     impl SubscribeListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -821,7 +846,9 @@ pub mod analytics_hub_service {
     pub struct SubscribeDataExchange(RequestBuilder<crate::model::SubscribeDataExchangeRequest>);
 
     impl SubscribeDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -943,7 +970,9 @@ pub mod analytics_hub_service {
     pub struct RefreshSubscription(RequestBuilder<crate::model::RefreshSubscriptionRequest>);
 
     impl RefreshSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1032,7 +1061,9 @@ pub mod analytics_hub_service {
     pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
 
     impl GetSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1077,7 +1108,9 @@ pub mod analytics_hub_service {
     pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
     impl ListSubscriptions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1160,7 +1193,9 @@ pub mod analytics_hub_service {
     );
 
     impl ListSharedResourceSubscriptions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1243,7 +1278,9 @@ pub mod analytics_hub_service {
     pub struct RevokeSubscription(RequestBuilder<crate::model::RevokeSubscriptionRequest>);
 
     impl RevokeSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1291,7 +1328,9 @@ pub mod analytics_hub_service {
     pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
 
     impl DeleteSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1374,7 +1413,9 @@ pub mod analytics_hub_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1428,7 +1469,9 @@ pub mod analytics_hub_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1493,7 +1536,9 @@ pub mod analytics_hub_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1554,7 +1599,9 @@ pub mod analytics_hub_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

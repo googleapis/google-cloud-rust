@@ -16,7 +16,6 @@
 
 pub mod artifact_registry {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ArtifactRegistry][super::super::client::ArtifactRegistry].
     ///
@@ -49,7 +48,7 @@ pub mod artifact_registry {
     /// Common implementation for [super::super::client::ArtifactRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod artifact_registry {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod artifact_registry {
     pub struct ListDockerImages(RequestBuilder<crate::model::ListDockerImagesRequest>);
 
     impl ListDockerImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -153,7 +156,9 @@ pub mod artifact_registry {
     pub struct GetDockerImage(RequestBuilder<crate::model::GetDockerImageRequest>);
 
     impl GetDockerImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -198,7 +203,9 @@ pub mod artifact_registry {
     pub struct ListMavenArtifacts(RequestBuilder<crate::model::ListMavenArtifactsRequest>);
 
     impl ListMavenArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -273,7 +280,9 @@ pub mod artifact_registry {
     pub struct GetMavenArtifact(RequestBuilder<crate::model::GetMavenArtifactRequest>);
 
     impl GetMavenArtifact {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -321,7 +330,9 @@ pub mod artifact_registry {
     pub struct ListNpmPackages(RequestBuilder<crate::model::ListNpmPackagesRequest>);
 
     impl ListNpmPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -393,7 +404,9 @@ pub mod artifact_registry {
     pub struct GetNpmPackage(RequestBuilder<crate::model::GetNpmPackageRequest>);
 
     impl GetNpmPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +451,9 @@ pub mod artifact_registry {
     pub struct ListPythonPackages(RequestBuilder<crate::model::ListPythonPackagesRequest>);
 
     impl ListPythonPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -513,7 +528,9 @@ pub mod artifact_registry {
     pub struct GetPythonPackage(RequestBuilder<crate::model::GetPythonPackageRequest>);
 
     impl GetPythonPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -561,7 +578,9 @@ pub mod artifact_registry {
     pub struct ImportAptArtifacts(RequestBuilder<crate::model::ImportAptArtifactsRequest>);
 
     impl ImportAptArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -677,7 +696,9 @@ pub mod artifact_registry {
     pub struct ImportYumArtifacts(RequestBuilder<crate::model::ImportYumArtifactsRequest>);
 
     impl ImportYumArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,7 +814,9 @@ pub mod artifact_registry {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -880,7 +903,9 @@ pub mod artifact_registry {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -925,7 +950,9 @@ pub mod artifact_registry {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1030,7 +1057,9 @@ pub mod artifact_registry {
     pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1088,7 +1117,9 @@ pub mod artifact_registry {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1171,7 +1202,9 @@ pub mod artifact_registry {
     pub struct ListPackages(RequestBuilder<crate::model::ListPackagesRequest>);
 
     impl ListPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1255,7 +1288,9 @@ pub mod artifact_registry {
     pub struct GetPackage(RequestBuilder<crate::model::GetPackageRequest>);
 
     impl GetPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1300,7 +1335,9 @@ pub mod artifact_registry {
     pub struct DeletePackage(RequestBuilder<crate::model::DeletePackageRequest>);
 
     impl DeletePackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1380,7 +1417,9 @@ pub mod artifact_registry {
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1468,7 +1507,9 @@ pub mod artifact_registry {
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1517,7 +1558,9 @@ pub mod artifact_registry {
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1601,7 +1644,9 @@ pub mod artifact_registry {
     pub struct BatchDeleteVersions(RequestBuilder<crate::model::BatchDeleteVersionsRequest>);
 
     impl BatchDeleteVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1703,7 +1748,9 @@ pub mod artifact_registry {
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1760,7 +1807,9 @@ pub mod artifact_registry {
     pub struct ListFiles(RequestBuilder<crate::model::ListFilesRequest>);
 
     impl ListFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1844,7 +1893,9 @@ pub mod artifact_registry {
     pub struct GetFile(RequestBuilder<crate::model::GetFileRequest>);
 
     impl GetFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1889,7 +1940,9 @@ pub mod artifact_registry {
     pub struct DeleteFile(RequestBuilder<crate::model::DeleteFileRequest>);
 
     impl DeleteFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1969,7 +2022,9 @@ pub mod artifact_registry {
     pub struct UpdateFile(RequestBuilder<crate::model::UpdateFileRequest>);
 
     impl UpdateFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2025,7 +2080,9 @@ pub mod artifact_registry {
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2101,7 +2158,9 @@ pub mod artifact_registry {
     pub struct GetTag(RequestBuilder<crate::model::GetTagRequest>);
 
     impl GetTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2144,7 +2203,9 @@ pub mod artifact_registry {
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2199,7 +2260,9 @@ pub mod artifact_registry {
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2251,7 +2314,9 @@ pub mod artifact_registry {
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2294,7 +2359,9 @@ pub mod artifact_registry {
     pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
 
     impl CreateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2351,7 +2418,9 @@ pub mod artifact_registry {
     pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
 
     impl ListRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2423,7 +2492,9 @@ pub mod artifact_registry {
     pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
 
     impl GetRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2468,7 +2539,9 @@ pub mod artifact_registry {
     pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
 
     impl UpdateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2520,7 +2593,9 @@ pub mod artifact_registry {
     pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
 
     impl DeleteRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2565,7 +2640,9 @@ pub mod artifact_registry {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2630,7 +2707,9 @@ pub mod artifact_registry {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2684,7 +2763,9 @@ pub mod artifact_registry {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2745,7 +2826,9 @@ pub mod artifact_registry {
     pub struct GetProjectSettings(RequestBuilder<crate::model::GetProjectSettingsRequest>);
 
     impl GetProjectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2793,7 +2876,9 @@ pub mod artifact_registry {
     pub struct UpdateProjectSettings(RequestBuilder<crate::model::UpdateProjectSettingsRequest>);
 
     impl UpdateProjectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2851,7 +2936,9 @@ pub mod artifact_registry {
     pub struct GetVPCSCConfig(RequestBuilder<crate::model::GetVPCSCConfigRequest>);
 
     impl GetVPCSCConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2896,7 +2983,9 @@ pub mod artifact_registry {
     pub struct UpdateVPCSCConfig(RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
 
     impl UpdateVPCSCConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2954,7 +3043,9 @@ pub mod artifact_registry {
     pub struct UpdatePackage(RequestBuilder<crate::model::UpdatePackageRequest>);
 
     impl UpdatePackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3009,7 +3100,9 @@ pub mod artifact_registry {
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3087,7 +3180,9 @@ pub mod artifact_registry {
     pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3132,7 +3227,9 @@ pub mod artifact_registry {
     pub struct CreateAttachment(RequestBuilder<crate::model::CreateAttachmentRequest>);
 
     impl CreateAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3237,7 +3334,9 @@ pub mod artifact_registry {
     pub struct DeleteAttachment(RequestBuilder<crate::model::DeleteAttachmentRequest>);
 
     impl DeleteAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3320,7 +3419,9 @@ pub mod artifact_registry {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3399,7 +3500,9 @@ pub mod artifact_registry {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3442,7 +3545,9 @@ pub mod artifact_registry {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

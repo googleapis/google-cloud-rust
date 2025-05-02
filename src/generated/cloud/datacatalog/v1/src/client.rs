@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
@@ -61,12 +60,12 @@ use std::sync::Arc;
 ///
 /// `DataCatalog` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataCatalog` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 #[deprecated]
 pub struct DataCatalog {
-    inner: Arc<dyn super::stub::dynamic::DataCatalog>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataCatalog>,
 }
 
 impl DataCatalog {
@@ -91,7 +90,7 @@ impl DataCatalog {
         T: super::stub::DataCatalog + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -102,11 +101,11 @@ impl DataCatalog {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataCatalog>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -826,11 +825,11 @@ impl DataCatalog {
 ///
 /// `PolicyTagManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManager` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManager {
-    inner: Arc<dyn super::stub::dynamic::PolicyTagManager>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>,
 }
 
 impl PolicyTagManager {
@@ -857,7 +856,7 @@ impl PolicyTagManager {
         T: super::stub::PolicyTagManager + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -868,11 +867,11 @@ impl PolicyTagManager {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTagManager>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1106,11 +1105,11 @@ impl PolicyTagManager {
 ///
 /// `PolicyTagManagerSerialization` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManagerSerialization` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManagerSerialization {
-    inner: Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
 }
 
 impl PolicyTagManagerSerialization {
@@ -1137,7 +1136,7 @@ impl PolicyTagManagerSerialization {
         T: super::stub::PolicyTagManagerSerialization + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1148,11 +1147,11 @@ impl PolicyTagManagerSerialization {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

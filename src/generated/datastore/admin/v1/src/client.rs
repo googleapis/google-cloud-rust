@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Datastore API.
 ///
@@ -104,11 +103,11 @@ use std::sync::Arc;
 ///
 /// `DatastoreAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DatastoreAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DatastoreAdmin {
-    inner: Arc<dyn super::stub::dynamic::DatastoreAdmin>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DatastoreAdmin>,
 }
 
 impl DatastoreAdmin {
@@ -133,7 +132,7 @@ impl DatastoreAdmin {
         T: super::stub::DatastoreAdmin + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -144,11 +143,11 @@ impl DatastoreAdmin {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

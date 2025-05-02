@@ -16,7 +16,6 @@
 
 pub mod parallelstore {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Parallelstore][super::super::client::Parallelstore].
     ///
@@ -49,7 +48,7 @@ pub mod parallelstore {
     /// Common implementation for [super::super::client::Parallelstore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod parallelstore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod parallelstore {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod parallelstore {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod parallelstore {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +316,9 @@ pub mod parallelstore {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -412,7 +421,9 @@ pub mod parallelstore {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -498,7 +509,9 @@ pub mod parallelstore {
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -648,7 +661,9 @@ pub mod parallelstore {
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -798,7 +813,9 @@ pub mod parallelstore {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -877,7 +894,9 @@ pub mod parallelstore {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -920,7 +939,9 @@ pub mod parallelstore {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -999,7 +1020,9 @@ pub mod parallelstore {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1045,7 +1068,9 @@ pub mod parallelstore {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1091,7 +1116,9 @@ pub mod parallelstore {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Parallelstore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

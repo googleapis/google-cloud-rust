@@ -16,7 +16,6 @@
 
 pub mod eventarc {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Eventarc][super::super::client::Eventarc].
     ///
@@ -49,7 +48,7 @@ pub mod eventarc {
     /// Common implementation for [super::super::client::Eventarc] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Eventarc>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod eventarc {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod eventarc {
     pub struct GetTrigger(RequestBuilder<crate::model::GetTriggerRequest>);
 
     impl GetTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,7 +116,7 @@ pub mod eventarc {
     pub struct ListTriggers(RequestBuilder<crate::model::ListTriggersRequest>);
 
     impl ListTriggers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +200,7 @@ pub mod eventarc {
     pub struct CreateTrigger(RequestBuilder<crate::model::CreateTriggerRequest>);
 
     impl CreateTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -308,7 +307,7 @@ pub mod eventarc {
     pub struct UpdateTrigger(RequestBuilder<crate::model::UpdateTriggerRequest>);
 
     impl UpdateTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -412,7 +411,7 @@ pub mod eventarc {
     pub struct DeleteTrigger(RequestBuilder<crate::model::DeleteTriggerRequest>);
 
     impl DeleteTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,7 +511,7 @@ pub mod eventarc {
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -557,7 +556,7 @@ pub mod eventarc {
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -635,7 +634,7 @@ pub mod eventarc {
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -742,7 +741,7 @@ pub mod eventarc {
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -840,7 +839,7 @@ pub mod eventarc {
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -928,7 +927,7 @@ pub mod eventarc {
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
     impl GetProvider {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -973,7 +972,7 @@ pub mod eventarc {
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
     impl ListProviders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1057,7 +1056,7 @@ pub mod eventarc {
     pub struct GetChannelConnection(RequestBuilder<crate::model::GetChannelConnectionRequest>);
 
     impl GetChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1105,7 +1104,7 @@ pub mod eventarc {
     pub struct ListChannelConnections(RequestBuilder<crate::model::ListChannelConnectionsRequest>);
 
     impl ListChannelConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1184,7 +1183,7 @@ pub mod eventarc {
     );
 
     impl CreateChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1294,7 +1293,7 @@ pub mod eventarc {
     );
 
     impl DeleteChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1381,7 +1380,7 @@ pub mod eventarc {
     pub struct GetGoogleChannelConfig(RequestBuilder<crate::model::GetGoogleChannelConfigRequest>);
 
     impl GetGoogleChannelConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1431,7 +1430,7 @@ pub mod eventarc {
     );
 
     impl UpdateGoogleChannelConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1493,7 +1492,7 @@ pub mod eventarc {
     pub struct GetMessageBus(RequestBuilder<crate::model::GetMessageBusRequest>);
 
     impl GetMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1538,7 +1537,7 @@ pub mod eventarc {
     pub struct ListMessageBuses(RequestBuilder<crate::model::ListMessageBusesRequest>);
 
     impl ListMessageBuses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1627,7 +1626,7 @@ pub mod eventarc {
     );
 
     impl ListMessageBusEnrollments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1687,7 +1686,7 @@ pub mod eventarc {
     pub struct CreateMessageBus(RequestBuilder<crate::model::CreateMessageBusRequest>);
 
     impl CreateMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1798,7 +1797,7 @@ pub mod eventarc {
     pub struct UpdateMessageBus(RequestBuilder<crate::model::UpdateMessageBusRequest>);
 
     impl UpdateMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1908,7 +1907,7 @@ pub mod eventarc {
     pub struct DeleteMessageBus(RequestBuilder<crate::model::DeleteMessageBusRequest>);
 
     impl DeleteMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2012,7 +2011,7 @@ pub mod eventarc {
     pub struct GetEnrollment(RequestBuilder<crate::model::GetEnrollmentRequest>);
 
     impl GetEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2057,7 +2056,7 @@ pub mod eventarc {
     pub struct ListEnrollments(RequestBuilder<crate::model::ListEnrollmentsRequest>);
 
     impl ListEnrollments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2141,7 +2140,7 @@ pub mod eventarc {
     pub struct CreateEnrollment(RequestBuilder<crate::model::CreateEnrollmentRequest>);
 
     impl CreateEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2252,7 +2251,7 @@ pub mod eventarc {
     pub struct UpdateEnrollment(RequestBuilder<crate::model::UpdateEnrollmentRequest>);
 
     impl UpdateEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2362,7 +2361,7 @@ pub mod eventarc {
     pub struct DeleteEnrollment(RequestBuilder<crate::model::DeleteEnrollmentRequest>);
 
     impl DeleteEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2466,7 +2465,7 @@ pub mod eventarc {
     pub struct GetPipeline(RequestBuilder<crate::model::GetPipelineRequest>);
 
     impl GetPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2511,7 +2510,7 @@ pub mod eventarc {
     pub struct ListPipelines(RequestBuilder<crate::model::ListPipelinesRequest>);
 
     impl ListPipelines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2595,7 +2594,7 @@ pub mod eventarc {
     pub struct CreatePipeline(RequestBuilder<crate::model::CreatePipelineRequest>);
 
     impl CreatePipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2703,7 +2702,7 @@ pub mod eventarc {
     pub struct UpdatePipeline(RequestBuilder<crate::model::UpdatePipelineRequest>);
 
     impl UpdatePipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2810,7 +2809,7 @@ pub mod eventarc {
     pub struct DeletePipeline(RequestBuilder<crate::model::DeletePipelineRequest>);
 
     impl DeletePipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2911,7 +2910,7 @@ pub mod eventarc {
     pub struct GetGoogleApiSource(RequestBuilder<crate::model::GetGoogleApiSourceRequest>);
 
     impl GetGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2959,7 +2958,7 @@ pub mod eventarc {
     pub struct ListGoogleApiSources(RequestBuilder<crate::model::ListGoogleApiSourcesRequest>);
 
     impl ListGoogleApiSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3046,7 +3045,7 @@ pub mod eventarc {
     pub struct CreateGoogleApiSource(RequestBuilder<crate::model::CreateGoogleApiSourceRequest>);
 
     impl CreateGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3160,7 +3159,7 @@ pub mod eventarc {
     pub struct UpdateGoogleApiSource(RequestBuilder<crate::model::UpdateGoogleApiSourceRequest>);
 
     impl UpdateGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3273,7 +3272,7 @@ pub mod eventarc {
     pub struct DeleteGoogleApiSource(RequestBuilder<crate::model::DeleteGoogleApiSourceRequest>);
 
     impl DeleteGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3378,7 +3377,7 @@ pub mod eventarc {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3457,7 +3456,7 @@ pub mod eventarc {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3500,7 +3499,7 @@ pub mod eventarc {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3565,7 +3564,7 @@ pub mod eventarc {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3619,7 +3618,7 @@ pub mod eventarc {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3680,7 +3679,7 @@ pub mod eventarc {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3759,7 +3758,7 @@ pub mod eventarc {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3805,7 +3804,7 @@ pub mod eventarc {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3851,7 +3850,7 @@ pub mod eventarc {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

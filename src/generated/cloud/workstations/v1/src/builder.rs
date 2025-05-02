@@ -16,7 +16,6 @@
 
 pub mod workstations {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Workstations][super::super::client::Workstations].
     ///
@@ -49,7 +48,7 @@ pub mod workstations {
     /// Common implementation for [super::super::client::Workstations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Workstations>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod workstations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod workstations {
     pub struct GetWorkstationCluster(RequestBuilder<crate::model::GetWorkstationClusterRequest>);
 
     impl GetWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -122,7 +125,9 @@ pub mod workstations {
     );
 
     impl ListWorkstationClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod workstations {
     );
 
     impl CreateWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -317,7 +324,9 @@ pub mod workstations {
     );
 
     impl UpdateWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -434,7 +443,9 @@ pub mod workstations {
     );
 
     impl DeleteWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -539,7 +550,9 @@ pub mod workstations {
     pub struct GetWorkstationConfig(RequestBuilder<crate::model::GetWorkstationConfigRequest>);
 
     impl GetWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,7 +600,9 @@ pub mod workstations {
     pub struct ListWorkstationConfigs(RequestBuilder<crate::model::ListWorkstationConfigsRequest>);
 
     impl ListWorkstationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -666,7 +681,9 @@ pub mod workstations {
     );
 
     impl ListUsableWorkstationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -745,7 +762,9 @@ pub mod workstations {
     );
 
     impl CreateWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -861,7 +880,9 @@ pub mod workstations {
     );
 
     impl UpdateWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -978,7 +999,9 @@ pub mod workstations {
     );
 
     impl DeleteWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1083,7 +1106,9 @@ pub mod workstations {
     pub struct GetWorkstation(RequestBuilder<crate::model::GetWorkstationRequest>);
 
     impl GetWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1128,7 +1153,9 @@ pub mod workstations {
     pub struct ListWorkstations(RequestBuilder<crate::model::ListWorkstationsRequest>);
 
     impl ListWorkstations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1203,7 +1230,9 @@ pub mod workstations {
     pub struct ListUsableWorkstations(RequestBuilder<crate::model::ListUsableWorkstationsRequest>);
 
     impl ListUsableWorkstations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1280,7 +1309,9 @@ pub mod workstations {
     pub struct CreateWorkstation(RequestBuilder<crate::model::CreateWorkstationRequest>);
 
     impl CreateWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1391,7 +1422,9 @@ pub mod workstations {
     pub struct UpdateWorkstation(RequestBuilder<crate::model::UpdateWorkstationRequest>);
 
     impl UpdateWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1503,7 +1536,9 @@ pub mod workstations {
     pub struct DeleteWorkstation(RequestBuilder<crate::model::DeleteWorkstationRequest>);
 
     impl DeleteWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1601,7 +1636,9 @@ pub mod workstations {
     pub struct StartWorkstation(RequestBuilder<crate::model::StartWorkstationRequest>);
 
     impl StartWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1699,7 +1736,9 @@ pub mod workstations {
     pub struct StopWorkstation(RequestBuilder<crate::model::StopWorkstationRequest>);
 
     impl StopWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1794,7 +1833,9 @@ pub mod workstations {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1882,7 +1923,9 @@ pub mod workstations {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1947,7 +1990,9 @@ pub mod workstations {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2001,7 +2046,9 @@ pub mod workstations {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2062,7 +2109,9 @@ pub mod workstations {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2141,7 +2190,9 @@ pub mod workstations {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2187,7 +2238,9 @@ pub mod workstations {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2233,7 +2286,9 @@ pub mod workstations {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

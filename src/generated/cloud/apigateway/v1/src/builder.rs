@@ -16,7 +16,6 @@
 
 pub mod api_gateway_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ApiGatewayService][super::super::client::ApiGatewayService].
     ///
@@ -49,7 +48,7 @@ pub mod api_gateway_service {
     /// Common implementation for [super::super::client::ApiGatewayService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod api_gateway_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod api_gateway_service {
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
     impl ListGateways {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod api_gateway_service {
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
     impl GetGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod api_gateway_service {
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
     impl CreateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -302,7 +309,9 @@ pub mod api_gateway_service {
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
     impl UpdateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,7 +405,9 @@ pub mod api_gateway_service {
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
     impl DeleteGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -476,7 +487,9 @@ pub mod api_gateway_service {
     pub struct ListApis(RequestBuilder<crate::model::ListApisRequest>);
 
     impl ListApis {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -560,7 +573,9 @@ pub mod api_gateway_service {
     pub struct GetApi(RequestBuilder<crate::model::GetApiRequest>);
 
     impl GetApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -605,7 +620,9 @@ pub mod api_gateway_service {
     pub struct CreateApi(RequestBuilder<crate::model::CreateApiRequest>);
 
     impl CreateApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -703,7 +720,9 @@ pub mod api_gateway_service {
     pub struct UpdateApi(RequestBuilder<crate::model::UpdateApiRequest>);
 
     impl UpdateApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -794,7 +813,9 @@ pub mod api_gateway_service {
     pub struct DeleteApi(RequestBuilder<crate::model::DeleteApiRequest>);
 
     impl DeleteApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -874,7 +895,9 @@ pub mod api_gateway_service {
     pub struct ListApiConfigs(RequestBuilder<crate::model::ListApiConfigsRequest>);
 
     impl ListApiConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -958,7 +981,9 @@ pub mod api_gateway_service {
     pub struct GetApiConfig(RequestBuilder<crate::model::GetApiConfigRequest>);
 
     impl GetApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1012,7 +1037,9 @@ pub mod api_gateway_service {
     pub struct CreateApiConfig(RequestBuilder<crate::model::CreateApiConfigRequest>);
 
     impl CreateApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1114,7 +1141,9 @@ pub mod api_gateway_service {
     pub struct UpdateApiConfig(RequestBuilder<crate::model::UpdateApiConfigRequest>);
 
     impl UpdateApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1209,7 +1238,9 @@ pub mod api_gateway_service {
     pub struct DeleteApiConfig(RequestBuilder<crate::model::DeleteApiConfigRequest>);
 
     impl DeleteApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1289,7 +1320,9 @@ pub mod api_gateway_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1368,7 +1401,9 @@ pub mod api_gateway_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1414,7 +1449,9 @@ pub mod api_gateway_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1460,7 +1497,9 @@ pub mod api_gateway_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

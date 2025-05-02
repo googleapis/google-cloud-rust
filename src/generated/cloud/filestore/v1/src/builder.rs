@@ -16,7 +16,6 @@
 
 pub mod cloud_filestore_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudFilestoreManager][super::super::client::CloudFilestoreManager].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_filestore_manager {
     /// Common implementation for [super::super::client::CloudFilestoreManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod cloud_filestore_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod cloud_filestore_manager {
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -161,7 +160,7 @@ pub mod cloud_filestore_manager {
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -208,7 +207,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -313,7 +312,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -409,7 +408,7 @@ pub mod cloud_filestore_manager {
 
     impl RestoreInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -528,7 +527,7 @@ pub mod cloud_filestore_manager {
 
     impl RevertInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -622,7 +621,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -712,7 +711,7 @@ pub mod cloud_filestore_manager {
 
     impl ListSnapshots {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -804,7 +803,7 @@ pub mod cloud_filestore_manager {
 
     impl GetSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -851,7 +850,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -956,7 +955,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1040,7 +1039,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1140,7 +1139,7 @@ pub mod cloud_filestore_manager {
 
     impl ListBackups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1226,7 +1225,7 @@ pub mod cloud_filestore_manager {
 
     impl GetBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1273,7 +1272,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1378,7 +1377,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1462,7 +1461,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1562,7 +1561,7 @@ pub mod cloud_filestore_manager {
 
     impl PromoteReplica {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1654,7 +1653,7 @@ pub mod cloud_filestore_manager {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1735,7 +1734,7 @@ pub mod cloud_filestore_manager {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1780,7 +1779,7 @@ pub mod cloud_filestore_manager {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1861,7 +1860,7 @@ pub mod cloud_filestore_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1909,7 +1908,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1957,7 +1956,7 @@ pub mod cloud_filestore_manager {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

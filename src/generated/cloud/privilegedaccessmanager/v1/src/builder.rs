@@ -16,7 +16,6 @@
 
 pub mod privileged_access_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PrivilegedAccessManager][super::super::client::PrivilegedAccessManager].
     ///
@@ -49,7 +48,7 @@ pub mod privileged_access_manager {
     /// Common implementation for [super::super::client::PrivilegedAccessManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod privileged_access_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod privileged_access_manager {
 
     impl CheckOnboardingStatus {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -125,7 +124,7 @@ pub mod privileged_access_manager {
 
     impl ListEntitlements {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -214,7 +213,7 @@ pub mod privileged_access_manager {
 
     impl SearchEntitlements {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -310,7 +309,7 @@ pub mod privileged_access_manager {
 
     impl GetEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -357,7 +356,7 @@ pub mod privileged_access_manager {
 
     impl CreateEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -470,7 +469,7 @@ pub mod privileged_access_manager {
 
     impl DeleteEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -570,7 +569,7 @@ pub mod privileged_access_manager {
 
     impl UpdateEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -672,7 +671,7 @@ pub mod privileged_access_manager {
 
     impl ListGrants {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -758,7 +757,7 @@ pub mod privileged_access_manager {
 
     impl SearchGrants {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -851,7 +850,7 @@ pub mod privileged_access_manager {
 
     impl GetGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -898,7 +897,7 @@ pub mod privileged_access_manager {
 
     impl CreateGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -962,7 +961,7 @@ pub mod privileged_access_manager {
 
     impl ApproveGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1015,7 +1014,7 @@ pub mod privileged_access_manager {
 
     impl DenyGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1068,7 +1067,7 @@ pub mod privileged_access_manager {
 
     impl RevokeGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1158,7 +1157,7 @@ pub mod privileged_access_manager {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1239,7 +1238,7 @@ pub mod privileged_access_manager {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1284,7 +1283,7 @@ pub mod privileged_access_manager {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1365,7 +1364,7 @@ pub mod privileged_access_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1413,7 +1412,7 @@ pub mod privileged_access_manager {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

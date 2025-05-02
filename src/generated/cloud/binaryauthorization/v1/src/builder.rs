@@ -16,7 +16,6 @@
 
 pub mod binauthz_management_service_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BinauthzManagementServiceV1][super::super::client::BinauthzManagementServiceV1].
     ///
@@ -49,7 +48,7 @@ pub mod binauthz_management_service_v_1 {
     /// Common implementation for [super::super::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod binauthz_management_service_v_1 {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl GetPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -122,7 +121,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl UpdatePolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -172,7 +171,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl CreateAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -238,7 +237,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl GetAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -285,7 +284,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl UpdateAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -335,7 +334,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl ListAttestors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -409,7 +408,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl DeleteAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -453,7 +452,6 @@ pub mod binauthz_management_service_v_1 {
 
 pub mod system_policy_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SystemPolicyV1][super::super::client::SystemPolicyV1].
     ///
@@ -486,7 +484,7 @@ pub mod system_policy_v_1 {
     /// Common implementation for [super::super::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -495,7 +493,9 @@ pub mod system_policy_v_1 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -509,7 +509,9 @@ pub mod system_policy_v_1 {
     pub struct GetSystemPolicy(RequestBuilder<crate::model::GetSystemPolicyRequest>);
 
     impl GetSystemPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,7 +554,6 @@ pub mod system_policy_v_1 {
 
 pub mod validation_helper_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ValidationHelperV1][super::super::client::ValidationHelperV1].
     ///
@@ -585,7 +586,7 @@ pub mod validation_helper_v_1 {
     /// Common implementation for [super::super::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -594,7 +595,9 @@ pub mod validation_helper_v_1 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -610,7 +613,9 @@ pub mod validation_helper_v_1 {
     );
 
     impl ValidateAttestationOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

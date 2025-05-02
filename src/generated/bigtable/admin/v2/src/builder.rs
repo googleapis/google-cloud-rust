@@ -16,7 +16,6 @@
 
 pub mod bigtable_instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BigtableInstanceAdmin][super::super::client::BigtableInstanceAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod bigtable_instance_admin {
     /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod bigtable_instance_admin {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -193,7 +192,7 @@ pub mod bigtable_instance_admin {
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -240,7 +239,7 @@ pub mod bigtable_instance_admin {
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -293,7 +292,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -390,7 +389,7 @@ pub mod bigtable_instance_admin {
 
     impl PartialUpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -493,7 +492,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -540,7 +539,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -644,7 +643,7 @@ pub mod bigtable_instance_admin {
 
     impl GetCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -691,7 +690,7 @@ pub mod bigtable_instance_admin {
 
     impl ListClusters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -744,7 +743,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -898,7 +897,7 @@ pub mod bigtable_instance_admin {
 
     impl PartialUpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1001,7 +1000,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1048,7 +1047,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1123,7 +1122,7 @@ pub mod bigtable_instance_admin {
 
     impl GetAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1170,7 +1169,7 @@ pub mod bigtable_instance_admin {
 
     impl ListAppProfiles {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1244,7 +1243,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1353,7 +1352,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1411,7 +1410,7 @@ pub mod bigtable_instance_admin {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1467,7 +1466,7 @@ pub mod bigtable_instance_admin {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1534,7 +1533,7 @@ pub mod bigtable_instance_admin {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1597,7 +1596,7 @@ pub mod bigtable_instance_admin {
 
     impl ListHotTablets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1686,7 +1685,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1794,7 +1793,7 @@ pub mod bigtable_instance_admin {
 
     impl GetLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1841,7 +1840,7 @@ pub mod bigtable_instance_admin {
 
     impl ListLogicalViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1918,7 +1917,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2019,7 +2018,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2075,7 +2074,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2187,7 +2186,7 @@ pub mod bigtable_instance_admin {
 
     impl GetMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2237,7 +2236,7 @@ pub mod bigtable_instance_admin {
 
     impl ListMaterializedViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2314,7 +2313,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2419,7 +2418,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2475,7 +2474,7 @@ pub mod bigtable_instance_admin {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2556,7 +2555,7 @@ pub mod bigtable_instance_admin {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2604,7 +2603,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2652,7 +2651,7 @@ pub mod bigtable_instance_admin {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2697,7 +2696,6 @@ pub mod bigtable_instance_admin {
 
 pub mod bigtable_table_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BigtableTableAdmin][super::super::client::BigtableTableAdmin].
     ///
@@ -2730,7 +2728,7 @@ pub mod bigtable_table_admin {
     /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2739,7 +2737,9 @@ pub mod bigtable_table_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2753,7 +2753,9 @@ pub mod bigtable_table_admin {
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2830,7 +2832,9 @@ pub mod bigtable_table_admin {
     );
 
     impl CreateTableFromSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2933,7 +2937,9 @@ pub mod bigtable_table_admin {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3011,7 +3017,9 @@ pub mod bigtable_table_admin {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3062,7 +3070,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3164,7 +3174,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3209,7 +3221,9 @@ pub mod bigtable_table_admin {
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3292,7 +3306,9 @@ pub mod bigtable_table_admin {
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
     impl CreateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3400,7 +3416,9 @@ pub mod bigtable_table_admin {
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
     impl ListAuthorizedViews {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3484,7 +3502,9 @@ pub mod bigtable_table_admin {
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3541,7 +3561,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
     impl UpdateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3648,7 +3670,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
     impl DeleteAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3702,7 +3726,9 @@ pub mod bigtable_table_admin {
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
     impl ModifyColumnFamilies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3769,7 +3795,9 @@ pub mod bigtable_table_admin {
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3848,7 +3876,9 @@ pub mod bigtable_table_admin {
     );
 
     impl GenerateConsistencyToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3896,7 +3926,9 @@ pub mod bigtable_table_admin {
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3994,7 +4026,9 @@ pub mod bigtable_table_admin {
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4105,7 +4139,9 @@ pub mod bigtable_table_admin {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4150,7 +4186,9 @@ pub mod bigtable_table_admin {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4222,7 +4260,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4267,7 +4307,9 @@ pub mod bigtable_table_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4369,7 +4411,9 @@ pub mod bigtable_table_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4414,7 +4458,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4473,7 +4519,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4518,7 +4566,9 @@ pub mod bigtable_table_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4602,7 +4652,9 @@ pub mod bigtable_table_admin {
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4715,7 +4767,9 @@ pub mod bigtable_table_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4824,7 +4878,9 @@ pub mod bigtable_table_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4878,7 +4934,9 @@ pub mod bigtable_table_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4943,7 +5001,9 @@ pub mod bigtable_table_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5004,7 +5064,9 @@ pub mod bigtable_table_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5083,7 +5145,9 @@ pub mod bigtable_table_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5129,7 +5193,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5175,7 +5241,9 @@ pub mod bigtable_table_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

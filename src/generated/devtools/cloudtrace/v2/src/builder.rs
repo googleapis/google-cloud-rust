@@ -16,7 +16,6 @@
 
 pub mod trace_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TraceService][super::super::client::TraceService].
     ///
@@ -49,7 +48,7 @@ pub mod trace_service {
     /// Common implementation for [super::super::client::TraceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TraceService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod trace_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod trace_service {
     pub struct BatchWriteSpans(RequestBuilder<crate::model::BatchWriteSpansRequest>);
 
     impl BatchWriteSpans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -130,7 +133,9 @@ pub mod trace_service {
     pub struct CreateSpan(RequestBuilder<crate::model::Span>);
 
     impl CreateSpan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,7 +16,6 @@
 
 pub mod iam_checker {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IamChecker][super::super::client::IamChecker].
     ///
@@ -49,7 +48,7 @@ pub mod iam_checker {
     /// Common implementation for [super::super::client::IamChecker] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IamChecker>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IamChecker>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod iam_checker {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IamChecker>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IamChecker>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod iam_checker {
     pub struct TroubleshootIamPolicy(RequestBuilder<crate::model::TroubleshootIamPolicyRequest>);
 
     impl TroubleshootIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IamChecker>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IamChecker>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

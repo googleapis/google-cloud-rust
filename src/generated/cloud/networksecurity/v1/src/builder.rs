@@ -16,7 +16,6 @@
 
 pub mod network_security {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NetworkSecurity][super::super::client::NetworkSecurity].
     ///
@@ -49,7 +48,7 @@ pub mod network_security {
     /// Common implementation for [super::super::client::NetworkSecurity] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod network_security {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +75,9 @@ pub mod network_security {
     );
 
     impl ListAuthorizationPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -151,7 +154,9 @@ pub mod network_security {
     pub struct GetAuthorizationPolicy(RequestBuilder<crate::model::GetAuthorizationPolicyRequest>);
 
     impl GetAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod network_security {
     );
 
     impl CreateAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -311,7 +318,9 @@ pub mod network_security {
     );
 
     impl UpdateAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -414,7 +423,9 @@ pub mod network_security {
     );
 
     impl DeleteAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -497,7 +508,9 @@ pub mod network_security {
     pub struct ListServerTlsPolicies(RequestBuilder<crate::model::ListServerTlsPoliciesRequest>);
 
     impl ListServerTlsPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -572,7 +585,9 @@ pub mod network_security {
     pub struct GetServerTlsPolicy(RequestBuilder<crate::model::GetServerTlsPolicyRequest>);
 
     impl GetServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -620,7 +635,9 @@ pub mod network_security {
     pub struct CreateServerTlsPolicy(RequestBuilder<crate::model::CreateServerTlsPolicyRequest>);
 
     impl CreateServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -728,7 +745,9 @@ pub mod network_security {
     pub struct UpdateServerTlsPolicy(RequestBuilder<crate::model::UpdateServerTlsPolicyRequest>);
 
     impl UpdateServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -829,7 +848,9 @@ pub mod network_security {
     pub struct DeleteServerTlsPolicy(RequestBuilder<crate::model::DeleteServerTlsPolicyRequest>);
 
     impl DeleteServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -912,7 +933,9 @@ pub mod network_security {
     pub struct ListClientTlsPolicies(RequestBuilder<crate::model::ListClientTlsPoliciesRequest>);
 
     impl ListClientTlsPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -987,7 +1010,9 @@ pub mod network_security {
     pub struct GetClientTlsPolicy(RequestBuilder<crate::model::GetClientTlsPolicyRequest>);
 
     impl GetClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1035,7 +1060,9 @@ pub mod network_security {
     pub struct CreateClientTlsPolicy(RequestBuilder<crate::model::CreateClientTlsPolicyRequest>);
 
     impl CreateClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1143,7 +1170,9 @@ pub mod network_security {
     pub struct UpdateClientTlsPolicy(RequestBuilder<crate::model::UpdateClientTlsPolicyRequest>);
 
     impl UpdateClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1244,7 +1273,9 @@ pub mod network_security {
     pub struct DeleteClientTlsPolicy(RequestBuilder<crate::model::DeleteClientTlsPolicyRequest>);
 
     impl DeleteClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1327,7 +1358,9 @@ pub mod network_security {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1406,7 +1439,9 @@ pub mod network_security {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1449,7 +1484,9 @@ pub mod network_security {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1514,7 +1551,9 @@ pub mod network_security {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1568,7 +1607,9 @@ pub mod network_security {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1629,7 +1670,9 @@ pub mod network_security {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1708,7 +1751,9 @@ pub mod network_security {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1754,7 +1799,9 @@ pub mod network_security {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1800,7 +1847,9 @@ pub mod network_security {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

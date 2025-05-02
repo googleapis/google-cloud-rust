@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Billing API.
 ///
@@ -59,11 +58,11 @@ use std::sync::Arc;
 ///
 /// `CloudBilling` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudBilling` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudBilling {
-    inner: Arc<dyn super::stub::dynamic::CloudBilling>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudBilling>,
 }
 
 impl CloudBilling {
@@ -88,7 +87,7 @@ impl CloudBilling {
         T: super::stub::CloudBilling + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -99,11 +98,11 @@ impl CloudBilling {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudBilling>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CloudBilling>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -323,11 +322,11 @@ impl CloudBilling {
 ///
 /// `CloudCatalog` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudCatalog` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudCatalog {
-    inner: Arc<dyn super::stub::dynamic::CloudCatalog>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>,
 }
 
 impl CloudCatalog {
@@ -352,7 +351,7 @@ impl CloudCatalog {
         T: super::stub::CloudCatalog + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -363,11 +362,11 @@ impl CloudCatalog {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudCatalog>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

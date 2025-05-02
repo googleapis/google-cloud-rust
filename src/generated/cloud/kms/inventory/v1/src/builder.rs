@@ -16,7 +16,6 @@
 
 pub mod key_dashboard_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [KeyDashboardService][super::super::client::KeyDashboardService].
     ///
@@ -49,7 +48,7 @@ pub mod key_dashboard_service {
     /// Common implementation for [super::super::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod key_dashboard_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod key_dashboard_service {
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -142,7 +145,6 @@ pub mod key_dashboard_service {
 
 pub mod key_tracking_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [KeyTrackingService][super::super::client::KeyTrackingService].
     ///
@@ -175,7 +177,7 @@ pub mod key_tracking_service {
     /// Common implementation for [super::super::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -184,7 +186,9 @@ pub mod key_tracking_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -200,7 +204,9 @@ pub mod key_tracking_service {
     );
 
     impl GetProtectedResourcesSummary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,7 +256,9 @@ pub mod key_tracking_service {
     );
 
     impl SearchProtectedResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

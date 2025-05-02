@@ -16,7 +16,6 @@
 
 pub mod executions {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Executions][super::super::client::Executions].
     ///
@@ -49,7 +48,7 @@ pub mod executions {
     /// Common implementation for [super::super::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Executions>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod executions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod executions {
     pub struct ListExecutions(RequestBuilder<crate::model::ListExecutionsRequest>);
 
     impl ListExecutions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -162,7 +165,9 @@ pub mod executions {
     pub struct CreateExecution(RequestBuilder<crate::model::CreateExecutionRequest>);
 
     impl CreateExecution {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -218,7 +223,9 @@ pub mod executions {
     pub struct GetExecution(RequestBuilder<crate::model::GetExecutionRequest>);
 
     impl GetExecution {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -269,7 +276,9 @@ pub mod executions {
     pub struct CancelExecution(RequestBuilder<crate::model::CancelExecutionRequest>);
 
     impl CancelExecution {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
