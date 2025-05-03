@@ -751,6 +751,7 @@ mod test {
     // This is a sample string received from production. It is useful to
     // validate the serialization helpers.
     const SAMPLE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n";
+    const INVALID_CODE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"NOT-A-VALID-CODE\"\n  }\n}\n";
 
     // The corresponding status message.
     fn sample_status() -> Status {
@@ -793,6 +794,9 @@ mod test {
         assert!(got.is_err());
         let err = got.err().unwrap();
         assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+
+        let got = Status::try_from(&bytes::Bytes::from_static(INVALID_CODE_PAYLOAD))?;
+        assert_eq!(got.code, Code::Unknown);
         Ok(())
     }
 
@@ -824,6 +828,8 @@ mod test {
         let code = Code::try_from(input)?;
         let output = String::from(code);
         assert_eq!(output.as_str(), input.to_string());
+        assert_eq!(&format!("{code}"), input);
+        assert_eq!(code.name(), input);
         Ok(())
     }
 
