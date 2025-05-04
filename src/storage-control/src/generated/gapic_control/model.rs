@@ -63,6 +63,7 @@ pub struct Folder {
 
     /// Output only. The version of the metadata for this folder. Used for
     /// preconditions and for detecting changes in metadata.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
@@ -243,6 +244,7 @@ pub struct CreateFolderRequest {
 
     /// Optional. If true, parent folder doesn't have to be present and all missing
     /// ancestor folders will be created atomically.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub recursive: bool,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
@@ -388,6 +390,7 @@ pub struct ListFoldersRequest {
 
     /// Optional. Maximum number of folders to return in a single response. The
     /// service will use this parameter or 1,000 items, whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
@@ -672,10 +675,12 @@ pub struct CommonLongRunningOperationMetadata {
     pub r#type: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. The estimated progress of the operation in percentage [0,
     /// 100]. The value -1 means the progress is unknown.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -946,6 +951,7 @@ pub mod storage_layout {
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
         /// Enables the hierarchical namespace feature.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1041,6 +1047,7 @@ pub struct ManagedFolder {
     /// Output only. The metadata version of this managed folder. It increases
     /// whenever the metadata is updated. Used for preconditions and for detecting
     /// changes in metadata. Managed folders don't have a generation number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
@@ -1276,6 +1283,7 @@ pub struct DeleteManagedFolderRequest {
     /// A managed folder is empty if it manages no child managed folders or
     /// objects. Caller must have permission for
     /// storage.managedFolders.setIamPolicy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_non_empty: bool,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
@@ -1347,6 +1355,7 @@ pub struct ListManagedFoldersRequest {
 
     /// Optional. Maximum number of managed folders to return in a single response.
     /// The service will use this parameter or 1,000 items, whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger

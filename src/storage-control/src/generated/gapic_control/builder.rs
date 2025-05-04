@@ -16,7 +16,6 @@
 
 pub mod storage_control {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [StorageControl][super::super::client::StorageControl].
     ///
@@ -49,7 +48,7 @@ pub mod storage_control {
     /// Common implementation for [super::super::client::StorageControl] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::StorageControl>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod storage_control {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod storage_control {
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -148,7 +151,9 @@ pub mod storage_control {
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -217,7 +222,9 @@ pub mod storage_control {
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,7 +293,9 @@ pub mod storage_control {
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
     impl ListFolders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -388,7 +397,9 @@ pub mod storage_control {
     pub struct RenameFolder(RequestBuilder<crate::model::RenameFolderRequest>);
 
     impl RenameFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -503,7 +514,9 @@ pub mod storage_control {
     pub struct GetStorageLayout(RequestBuilder<crate::model::GetStorageLayoutRequest>);
 
     impl GetStorageLayout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -563,7 +576,9 @@ pub mod storage_control {
     pub struct CreateManagedFolder(RequestBuilder<crate::model::CreateManagedFolderRequest>);
 
     impl CreateManagedFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -636,7 +651,9 @@ pub mod storage_control {
     pub struct DeleteManagedFolder(RequestBuilder<crate::model::DeleteManagedFolderRequest>);
 
     impl DeleteManagedFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -714,7 +731,9 @@ pub mod storage_control {
     pub struct GetManagedFolder(RequestBuilder<crate::model::GetManagedFolderRequest>);
 
     impl GetManagedFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -786,7 +805,9 @@ pub mod storage_control {
     pub struct ListManagedFolders(RequestBuilder<crate::model::ListManagedFoldersRequest>);
 
     impl ListManagedFolders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -873,7 +894,9 @@ pub mod storage_control {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
