@@ -17,7 +17,6 @@ limitations under the License.
 impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
     type Output = {{Codec.RelativeName}};
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        {{! TODO : Doesn't work.}}
         match self {
             {{#Fields}}
             {{^Codec.IsBoxed}}
@@ -27,6 +26,7 @@ impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
             Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}((*v).to_proto()?)),
             {{/Codec.IsBoxed}}
             {{/Fields}}
+            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -37,12 +37,12 @@ impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} 
         {{! TODO : Doesn't work AFAICT.}}
         match self {
             {{#Fields}}
-            {{^IsEnum}}
-            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v.cnv()),
-            {{/IsEnum}}
-            {{#IsEnum}}
-            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v),
-            {{/IsEnum}}
+            {{^Codec.IsBoxed}}
+            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}(v.cnv()),
+            {{/Codec.IsBoxed}}
+            {{#Codec.IsBoxed}}
+            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}(v.cnv().into()),
+            {{/Codec.IsBoxed}}
             {{/Fields}}
         }
     }

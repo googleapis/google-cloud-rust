@@ -20,6 +20,7 @@ impl gaxi::prost::ToProto<operation::Result> for longrunning::model::operation::
         match self {
             Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
             Self::Response(v) => Ok(Self::Output::Response((*v).to_proto()?)),
+            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -28,8 +29,8 @@ impl gaxi::prost::FromProto<longrunning::model::operation::Result> for operation
     fn cnv(self) -> longrunning::model::operation::Result {
         use longrunning::model::operation::Result as T;
         match self {
-            Self::Error(v) => T::from_error(v.cnv()),
-            Self::Response(v) => T::from_response(v.cnv()),
+            Self::Error(v) => T::Error(v.cnv().into()),
+            Self::Response(v) => T::Response(v.cnv().into()),
         }
     }
 }
