@@ -1188,18 +1188,6 @@ pub mod lineage {
             self
         }
 
-        /// Sets the value of [page_size][crate::model::BatchSearchLinkProcessesRequest::page_size].
-        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
-            self
-        }
-
-        /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
-        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.page_token = v.into();
-            self
-        }
-
         /// Sets the value of [links][crate::model::BatchSearchLinkProcessesRequest::links].
         ///
         /// This is a **required** field for requests.
@@ -1210,6 +1198,18 @@ pub mod lineage {
         {
             use std::iter::Iterator;
             self.0.request.links = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::BatchSearchLinkProcessesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
             self
         }
     }

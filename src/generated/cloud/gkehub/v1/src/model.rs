@@ -128,6 +128,18 @@ impl Feature {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Feature::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [resource_state][crate::model::Feature::resource_state].
     pub fn set_resource_state<
         T: std::convert::Into<std::option::Option<crate::model::FeatureResourceState>>,
@@ -148,6 +160,18 @@ impl Feature {
         self
     }
 
+    /// Sets the value of [membership_specs][crate::model::Feature::membership_specs].
+    pub fn set_membership_specs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::MembershipFeatureSpec>,
+    {
+        use std::iter::Iterator;
+        self.membership_specs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Feature::state].
     pub fn set_state<
         T: std::convert::Into<std::option::Option<crate::model::CommonFeatureState>>,
@@ -156,6 +180,18 @@ impl Feature {
         v: T,
     ) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [membership_states][crate::model::Feature::membership_states].
+    pub fn set_membership_states<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::MembershipFeatureState>,
+    {
+        use std::iter::Iterator;
+        self.membership_states = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -183,42 +219,6 @@ impl Feature {
         v: T,
     ) -> Self {
         self.delete_time = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Feature::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [membership_specs][crate::model::Feature::membership_specs].
-    pub fn set_membership_specs<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::MembershipFeatureSpec>,
-    {
-        use std::iter::Iterator;
-        self.membership_specs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [membership_states][crate::model::Feature::membership_states].
-    pub fn set_membership_states<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::MembershipFeatureState>,
-    {
-        use std::iter::Iterator;
-        self.membership_states = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1048,6 +1048,18 @@ impl Membership {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Membership::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Membership::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -1128,18 +1140,6 @@ impl Membership {
         v: T,
     ) -> Self {
         self.monitoring_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Membership::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1350,17 +1350,6 @@ impl KubernetesResource {
         self
     }
 
-    /// Sets the value of [resource_options][crate::model::KubernetesResource::resource_options].
-    pub fn set_resource_options<
-        T: std::convert::Into<std::option::Option<crate::model::ResourceOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_options = v.into();
-        self
-    }
-
     /// Sets the value of [membership_resources][crate::model::KubernetesResource::membership_resources].
     pub fn set_membership_resources<T, V>(mut self, v: T) -> Self
     where
@@ -1380,6 +1369,17 @@ impl KubernetesResource {
     {
         use std::iter::Iterator;
         self.connect_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [resource_options][crate::model::KubernetesResource::resource_options].
+    pub fn set_resource_options<
+        T: std::convert::Into<std::option::Option<crate::model::ResourceOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_options = v.into();
         self
     }
 }
@@ -2143,12 +2143,6 @@ impl ListMembershipsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMembershipsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::ListMembershipsResponse::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -2157,6 +2151,12 @@ impl ListMembershipsResponse {
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMembershipsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2826,12 +2826,6 @@ impl ListFeaturesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFeaturesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::ListFeaturesResponse::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -2840,6 +2834,12 @@ impl ListFeaturesResponse {
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFeaturesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -1091,6 +1091,29 @@ impl Dataset {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Dataset::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [access][crate::model::Dataset::access].
+    pub fn set_access<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Access>,
+    {
+        use std::iter::Iterator;
+        self.access = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [creation_time][crate::model::Dataset::creation_time].
     pub fn set_creation_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.creation_time = v.into();
@@ -1228,6 +1251,18 @@ impl Dataset {
         self
     }
 
+    /// Sets the value of [tags][crate::model::Dataset::tags].
+    #[deprecated]
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GcpTag>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [storage_billing_model][crate::model::Dataset::storage_billing_model].
     pub fn set_storage_billing_model<
         T: std::convert::Into<crate::model::dataset::StorageBillingModel>,
@@ -1247,41 +1282,6 @@ impl Dataset {
         v: T,
     ) -> Self {
         self.restrictions = v.into();
-        self
-    }
-
-    /// Sets the value of [access][crate::model::Dataset::access].
-    pub fn set_access<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Access>,
-    {
-        use std::iter::Iterator;
-        self.access = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::Dataset::tags].
-    #[deprecated]
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GcpTag>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Dataset::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2469,6 +2469,18 @@ impl ListFormatDataset {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ListFormatDataset::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [friendly_name][crate::model::ListFormatDataset::friendly_name].
     pub fn set_friendly_name<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
         mut self,
@@ -2481,18 +2493,6 @@ impl ListFormatDataset {
     /// Sets the value of [location][crate::model::ListFormatDataset::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ListFormatDataset::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2823,15 +2823,6 @@ impl ExternalCatalogDatasetOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [default_storage_location_uri][crate::model::ExternalCatalogDatasetOptions::default_storage_location_uri].
-    pub fn set_default_storage_location_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_storage_location_uri = v.into();
-        self
-    }
-
     /// Sets the value of [parameters][crate::model::ExternalCatalogDatasetOptions::parameters].
     pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
     where
@@ -2841,6 +2832,15 @@ impl ExternalCatalogDatasetOptions {
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [default_storage_location_uri][crate::model::ExternalCatalogDatasetOptions::default_storage_location_uri].
+    pub fn set_default_storage_location_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_storage_location_uri = v.into();
         self
     }
 }
@@ -2887,6 +2887,18 @@ impl ExternalCatalogTableOptions {
         std::default::Default::default()
     }
 
+    /// Sets the value of [parameters][crate::model::ExternalCatalogTableOptions::parameters].
+    pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [storage_descriptor][crate::model::ExternalCatalogTableOptions::storage_descriptor].
     pub fn set_storage_descriptor<
         T: std::convert::Into<std::option::Option<crate::model::StorageDescriptor>>,
@@ -2901,18 +2913,6 @@ impl ExternalCatalogTableOptions {
     /// Sets the value of [connection_id][crate::model::ExternalCatalogTableOptions::connection_id].
     pub fn set_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_id = v.into();
-        self
-    }
-
-    /// Sets the value of [parameters][crate::model::ExternalCatalogTableOptions::parameters].
-    pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3353,15 +3353,6 @@ impl CsvOptions {
         self
     }
 
-    /// Sets the value of [source_column_match][crate::model::CsvOptions::source_column_match].
-    pub fn set_source_column_match<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_column_match = v.into();
-        self
-    }
-
     /// Sets the value of [null_markers][crate::model::CsvOptions::null_markers].
     pub fn set_null_markers<T, V>(mut self, v: T) -> Self
     where
@@ -3370,6 +3361,15 @@ impl CsvOptions {
     {
         use std::iter::Iterator;
         self.null_markers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [source_column_match][crate::model::CsvOptions::source_column_match].
+    pub fn set_source_column_match<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_column_match = v.into();
         self
     }
 }
@@ -3624,15 +3624,6 @@ impl BigtableColumnFamily {
         self
     }
 
-    /// Sets the value of [only_read_latest][crate::model::BigtableColumnFamily::only_read_latest].
-    pub fn set_only_read_latest<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.only_read_latest = v.into();
-        self
-    }
-
     /// Sets the value of [columns][crate::model::BigtableColumnFamily::columns].
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
@@ -3641,6 +3632,15 @@ impl BigtableColumnFamily {
     {
         use std::iter::Iterator;
         self.columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [only_read_latest][crate::model::BigtableColumnFamily::only_read_latest].
+    pub fn set_only_read_latest<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.only_read_latest = v.into();
         self
     }
 }
@@ -3699,6 +3699,17 @@ impl BigtableOptions {
         std::default::Default::default()
     }
 
+    /// Sets the value of [column_families][crate::model::BigtableOptions::column_families].
+    pub fn set_column_families<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BigtableColumnFamily>,
+    {
+        use std::iter::Iterator;
+        self.column_families = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [ignore_unspecified_column_families][crate::model::BigtableOptions::ignore_unspecified_column_families].
     pub fn set_ignore_unspecified_column_families<
         T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
@@ -3727,17 +3738,6 @@ impl BigtableOptions {
         v: T,
     ) -> Self {
         self.output_column_families_as_json = v.into();
-        self
-    }
-
-    /// Sets the value of [column_families][crate::model::BigtableOptions::column_families].
-    pub fn set_column_families<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BigtableColumnFamily>,
-    {
-        use std::iter::Iterator;
-        self.column_families = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4020,6 +4020,17 @@ impl ExternalDataConfiguration {
         std::default::Default::default()
     }
 
+    /// Sets the value of [source_uris][crate::model::ExternalDataConfiguration::source_uris].
+    pub fn set_source_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.source_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [file_set_spec_type][crate::model::ExternalDataConfiguration::file_set_spec_type].
     pub fn set_file_set_spec_type<T: std::convert::Into<crate::model::FileSetSpecType>>(
         mut self,
@@ -4136,6 +4147,17 @@ impl ExternalDataConfiguration {
         self
     }
 
+    /// Sets the value of [decimal_target_types][crate::model::ExternalDataConfiguration::decimal_target_types].
+    pub fn set_decimal_target_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DecimalTargetType>,
+    {
+        use std::iter::Iterator;
+        self.decimal_target_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [avro_options][crate::model::ExternalDataConfiguration::avro_options].
     pub fn set_avro_options<
         T: std::convert::Into<std::option::Option<crate::model::AvroOptions>>,
@@ -4244,28 +4266,6 @@ impl ExternalDataConfiguration {
         v: T,
     ) -> Self {
         self.timestamp_format = v.into();
-        self
-    }
-
-    /// Sets the value of [source_uris][crate::model::ExternalDataConfiguration::source_uris].
-    pub fn set_source_uris<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.source_uris = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [decimal_target_types][crate::model::ExternalDataConfiguration::decimal_target_types].
-    pub fn set_decimal_target_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DecimalTargetType>,
-    {
-        use std::iter::Iterator;
-        self.decimal_target_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4861,6 +4861,18 @@ impl RemoteModelInfo {
         })
     }
 
+    /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service]
+    /// to hold a `Endpoint`.
+    ///
+    /// Note that all the setters affecting `remote_service` are
+    /// mutually exclusive.
+    pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.remote_service = std::option::Option::Some(
+            crate::model::remote_model_info::RemoteService::Endpoint(v.into()),
+        );
+        self
+    }
+
     /// The value of [remote_service][crate::model::RemoteModelInfo::remote_service]
     /// if it holds a `RemoteServiceType`, `None` if the field is not set or
     /// holds a different branch.
@@ -4874,18 +4886,6 @@ impl RemoteModelInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service]
-    /// to hold a `Endpoint`.
-    ///
-    /// Note that all the setters affecting `remote_service` are
-    /// mutually exclusive.
-    pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.remote_service = std::option::Option::Some(
-            crate::model::remote_model_info::RemoteService::Endpoint(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service]
@@ -5314,6 +5314,18 @@ impl Model {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Model::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [expiration_time][crate::model::Model::expiration_time].
     pub fn set_expiration_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.expiration_time = v.into();
@@ -5343,34 +5355,6 @@ impl Model {
         v: T,
     ) -> Self {
         self.model_type = v.into();
-        self
-    }
-
-    /// Sets the value of [hparam_search_spaces][crate::model::Model::hparam_search_spaces].
-    pub fn set_hparam_search_spaces<
-        T: std::convert::Into<std::option::Option<crate::model::model::HparamSearchSpaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hparam_search_spaces = v.into();
-        self
-    }
-
-    /// Sets the value of [default_trial_id][crate::model::Model::default_trial_id].
-    pub fn set_default_trial_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.default_trial_id = v.into();
-        self
-    }
-
-    /// Sets the value of [remote_model_info][crate::model::Model::remote_model_info].
-    pub fn set_remote_model_info<
-        T: std::convert::Into<std::option::Option<crate::model::RemoteModelInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_model_info = v.into();
         self
     }
 
@@ -5418,6 +5402,23 @@ impl Model {
         self
     }
 
+    /// Sets the value of [hparam_search_spaces][crate::model::Model::hparam_search_spaces].
+    pub fn set_hparam_search_spaces<
+        T: std::convert::Into<std::option::Option<crate::model::model::HparamSearchSpaces>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.hparam_search_spaces = v.into();
+        self
+    }
+
+    /// Sets the value of [default_trial_id][crate::model::Model::default_trial_id].
+    pub fn set_default_trial_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.default_trial_id = v.into();
+        self
+    }
+
     /// Sets the value of [hparam_trials][crate::model::Model::hparam_trials].
     pub fn set_hparam_trials<T, V>(mut self, v: T) -> Self
     where
@@ -5440,15 +5441,14 @@ impl Model {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Model::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [remote_model_info][crate::model::Model::remote_model_info].
+    pub fn set_remote_model_info<
+        T: std::convert::Into<std::option::Option<crate::model::RemoteModelInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.remote_model_info = v.into();
         self
     }
 }
@@ -6840,6 +6840,19 @@ pub mod model {
             self
         }
 
+        /// Sets the value of [binary_confusion_matrix_list][crate::model::model::BinaryClassificationMetrics::binary_confusion_matrix_list].
+        pub fn set_binary_confusion_matrix_list<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::model::binary_classification_metrics::BinaryConfusionMatrix,
+                >,
+        {
+            use std::iter::Iterator;
+            self.binary_confusion_matrix_list = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [positive_label][crate::model::model::BinaryClassificationMetrics::positive_label].
         pub fn set_positive_label<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -6855,19 +6868,6 @@ pub mod model {
             v: T,
         ) -> Self {
             self.negative_label = v.into();
-            self
-        }
-
-        /// Sets the value of [binary_confusion_matrix_list][crate::model::model::BinaryClassificationMetrics::binary_confusion_matrix_list].
-        pub fn set_binary_confusion_matrix_list<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::model::binary_classification_metrics::BinaryConfusionMatrix,
-                >,
-        {
-            use std::iter::Iterator;
-            self.binary_confusion_matrix_list = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -7376,15 +7376,6 @@ pub mod model {
                 self
             }
 
-            /// Sets the value of [count][crate::model::model::clustering_metrics::Cluster::count].
-            pub fn set_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.count = v.into();
-                self
-            }
-
             /// Sets the value of [feature_values][crate::model::model::clustering_metrics::Cluster::feature_values].
             pub fn set_feature_values<T, V>(mut self, v: T) -> Self
             where
@@ -7395,6 +7386,15 @@ pub mod model {
             {
                 use std::iter::Iterator;
                 self.feature_values = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [count][crate::model::model::clustering_metrics::Cluster::count].
+            pub fn set_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.count = v.into();
                 self
             }
         }
@@ -7467,17 +7467,6 @@ pub mod model {
                     })
                 }
 
-                /// The value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
-                /// if it holds a `CategoricalValue`, `None` if the field is not set or
-                /// holds a different branch.
-                pub fn categorical_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::model::clustering_metrics::cluster::feature_value::CategoricalValue>>{
-                    #[allow(unreachable_patterns)]
-                    self.value.as_ref().and_then(|v| match v {
-                        crate::model::model::clustering_metrics::cluster::feature_value::Value::CategoricalValue(v) => std::option::Option::Some(v),
-                        _ => std::option::Option::None,
-                    })
-                }
-
                 /// Sets the value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
                 /// to hold a `NumericalValue`.
                 ///
@@ -7495,6 +7484,17 @@ pub mod model {
                         )
                     );
                     self
+                }
+
+                /// The value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
+                /// if it holds a `CategoricalValue`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn categorical_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::model::clustering_metrics::cluster::feature_value::CategoricalValue>>{
+                    #[allow(unreachable_patterns)]
+                    self.value.as_ref().and_then(|v| match v {
+                        crate::model::model::clustering_metrics::cluster::feature_value::Value::CategoricalValue(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
                 }
 
                 /// Sets the value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
@@ -7877,6 +7877,28 @@ pub mod model {
                 self
             }
 
+            /// Sets the value of [time_series_ids][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::time_series_ids].
+            pub fn set_time_series_ids<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.time_series_ids = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [seasonal_periods][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::seasonal_periods].
+            pub fn set_seasonal_periods<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::model::seasonal_period::SeasonalPeriodType>,
+            {
+                use std::iter::Iterator;
+                self.seasonal_periods = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [has_holiday_effect][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::has_holiday_effect].
             pub fn set_has_holiday_effect<
                 T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
@@ -7907,28 +7929,6 @@ pub mod model {
                 v: T,
             ) -> Self {
                 self.has_step_changes = v.into();
-                self
-            }
-
-            /// Sets the value of [time_series_ids][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::time_series_ids].
-            pub fn set_time_series_ids<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.time_series_ids = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [seasonal_periods][crate::model::model::arima_forecasting_metrics::ArimaSingleModelForecastingMetrics::seasonal_periods].
-            pub fn set_seasonal_periods<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::model::seasonal_period::SeasonalPeriodType>,
-            {
-                use std::iter::Iterator;
-                self.seasonal_periods = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -8030,98 +8030,6 @@ pub mod model {
             })
         }
 
-        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// if it holds a `BinaryClassificationMetrics`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn binary_classification_metrics(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::model::BinaryClassificationMetrics>>
-        {
-            #[allow(unreachable_patterns)]
-            self.metrics.as_ref().and_then(|v| match v {
-                crate::model::model::evaluation_metrics::Metrics::BinaryClassificationMetrics(
-                    v,
-                ) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// if it holds a `MultiClassClassificationMetrics`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn multi_class_classification_metrics(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::model::MultiClassClassificationMetrics>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.metrics.as_ref().and_then(|v| match v {
-                crate::model::model::evaluation_metrics::Metrics::MultiClassClassificationMetrics(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// if it holds a `ClusteringMetrics`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn clustering_metrics(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::model::ClusteringMetrics>> {
-            #[allow(unreachable_patterns)]
-            self.metrics.as_ref().and_then(|v| match v {
-                crate::model::model::evaluation_metrics::Metrics::ClusteringMetrics(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// if it holds a `RankingMetrics`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn ranking_metrics(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::model::RankingMetrics>> {
-            #[allow(unreachable_patterns)]
-            self.metrics.as_ref().and_then(|v| match v {
-                crate::model::model::evaluation_metrics::Metrics::RankingMetrics(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// if it holds a `ArimaForecastingMetrics`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn arima_forecasting_metrics(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::model::ArimaForecastingMetrics>>
-        {
-            #[allow(unreachable_patterns)]
-            self.metrics.as_ref().and_then(|v| match v {
-                crate::model::model::evaluation_metrics::Metrics::ArimaForecastingMetrics(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// if it holds a `DimensionalityReductionMetrics`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn dimensionality_reduction_metrics(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::model::DimensionalityReductionMetrics>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.metrics.as_ref().and_then(|v| match v {
-                crate::model::model::evaluation_metrics::Metrics::DimensionalityReductionMetrics(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// to hold a `RegressionMetrics`.
         ///
@@ -8137,6 +8045,22 @@ pub mod model {
                 crate::model::model::evaluation_metrics::Metrics::RegressionMetrics(v.into()),
             );
             self
+        }
+
+        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
+        /// if it holds a `BinaryClassificationMetrics`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn binary_classification_metrics(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::model::BinaryClassificationMetrics>>
+        {
+            #[allow(unreachable_patterns)]
+            self.metrics.as_ref().and_then(|v| match v {
+                crate::model::model::evaluation_metrics::Metrics::BinaryClassificationMetrics(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
@@ -8156,6 +8080,21 @@ pub mod model {
                 ),
             );
             self
+        }
+
+        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
+        /// if it holds a `MultiClassClassificationMetrics`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn multi_class_classification_metrics(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::model::MultiClassClassificationMetrics>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.metrics.as_ref().and_then(|v| match v {
+                crate::model::model::evaluation_metrics::Metrics::MultiClassClassificationMetrics(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
@@ -8179,6 +8118,21 @@ pub mod model {
             self
         }
 
+        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
+        /// if it holds a `ClusteringMetrics`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn clustering_metrics(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::model::ClusteringMetrics>> {
+            #[allow(unreachable_patterns)]
+            self.metrics.as_ref().and_then(|v| match v {
+                crate::model::model::evaluation_metrics::Metrics::ClusteringMetrics(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// to hold a `ClusteringMetrics`.
         ///
@@ -8194,6 +8148,21 @@ pub mod model {
                 crate::model::model::evaluation_metrics::Metrics::ClusteringMetrics(v.into()),
             );
             self
+        }
+
+        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
+        /// if it holds a `RankingMetrics`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn ranking_metrics(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::model::RankingMetrics>> {
+            #[allow(unreachable_patterns)]
+            self.metrics.as_ref().and_then(|v| match v {
+                crate::model::model::evaluation_metrics::Metrics::RankingMetrics(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
@@ -8213,6 +8182,22 @@ pub mod model {
             self
         }
 
+        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
+        /// if it holds a `ArimaForecastingMetrics`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn arima_forecasting_metrics(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::model::ArimaForecastingMetrics>>
+        {
+            #[allow(unreachable_patterns)]
+            self.metrics.as_ref().and_then(|v| match v {
+                crate::model::model::evaluation_metrics::Metrics::ArimaForecastingMetrics(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// to hold a `ArimaForecastingMetrics`.
         ///
@@ -8228,6 +8213,21 @@ pub mod model {
                 crate::model::model::evaluation_metrics::Metrics::ArimaForecastingMetrics(v.into()),
             );
             self
+        }
+
+        /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
+        /// if it holds a `DimensionalityReductionMetrics`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn dimensionality_reduction_metrics(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::model::DimensionalityReductionMetrics>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.metrics.as_ref().and_then(|v| match v {
+                crate::model::model::evaluation_metrics::Metrics::DimensionalityReductionMetrics(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
@@ -8513,12 +8513,6 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of [class_label][crate::model::model::GlobalExplanation::class_label].
-        pub fn set_class_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.class_label = v.into();
-            self
-        }
-
         /// Sets the value of [explanations][crate::model::model::GlobalExplanation::explanations].
         pub fn set_explanations<T, V>(mut self, v: T) -> Self
         where
@@ -8527,6 +8521,12 @@ pub mod model {
         {
             use std::iter::Iterator;
             self.explanations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [class_label][crate::model::model::GlobalExplanation::class_label].
+        pub fn set_class_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.class_label = v.into();
             self
         }
     }
@@ -9174,6 +9174,17 @@ pub mod model {
             self
         }
 
+        /// Sets the value of [results][crate::model::model::TrainingRun::results].
+        pub fn set_results<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::model::training_run::IterationResult>,
+        {
+            use std::iter::Iterator;
+            self.results = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [evaluation_metrics][crate::model::model::TrainingRun::evaluation_metrics].
         pub fn set_evaluation_metrics<
             T: std::convert::Into<std::option::Option<crate::model::model::EvaluationMetrics>>,
@@ -9207,6 +9218,17 @@ pub mod model {
             self
         }
 
+        /// Sets the value of [class_level_global_explanations][crate::model::model::TrainingRun::class_level_global_explanations].
+        pub fn set_class_level_global_explanations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::model::GlobalExplanation>,
+        {
+            use std::iter::Iterator;
+            self.class_level_global_explanations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [vertex_ai_model_id][crate::model::model::TrainingRun::vertex_ai_model_id].
         pub fn set_vertex_ai_model_id<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -9222,28 +9244,6 @@ pub mod model {
             v: T,
         ) -> Self {
             self.vertex_ai_model_version = v.into();
-            self
-        }
-
-        /// Sets the value of [results][crate::model::model::TrainingRun::results].
-        pub fn set_results<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::model::training_run::IterationResult>,
-        {
-            use std::iter::Iterator;
-            self.results = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [class_level_global_explanations][crate::model::model::TrainingRun::class_level_global_explanations].
-        pub fn set_class_level_global_explanations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::model::GlobalExplanation>,
-        {
-            use std::iter::Iterator;
-            self.class_level_global_explanations = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -9795,6 +9795,17 @@ pub mod model {
                 self
             }
 
+            /// Sets the value of [input_label_columns][crate::model::model::training_run::TrainingOptions::input_label_columns].
+            pub fn set_input_label_columns<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.input_label_columns = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [data_split_method][crate::model::model::training_run::TrainingOptions::data_split_method].
             pub fn set_data_split_method<
                 T: std::convert::Into<crate::model::model::DataSplitMethod>,
@@ -9838,6 +9849,19 @@ pub mod model {
             /// Sets the value of [initial_learn_rate][crate::model::model::training_run::TrainingOptions::initial_learn_rate].
             pub fn set_initial_learn_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.initial_learn_rate = v.into();
+                self
+            }
+
+            /// Sets the value of [label_class_weights][crate::model::model::training_run::TrainingOptions::label_class_weights].
+            pub fn set_label_class_weights<T, K, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = (K, V)>,
+                K: std::convert::Into<std::string::String>,
+                V: std::convert::Into<f64>,
+            {
+                use std::iter::Iterator;
+                self.label_class_weights =
+                    v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
                 self
             }
 
@@ -9891,6 +9915,17 @@ pub mod model {
                 v: T,
             ) -> Self {
                 self.optimization_strategy = v.into();
+                self
+            }
+
+            /// Sets the value of [hidden_units][crate::model::model::training_run::TrainingOptions::hidden_units].
+            pub fn set_hidden_units<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<i64>,
+            {
+                use std::iter::Iterator;
+                self.hidden_units = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -10142,12 +10177,34 @@ pub mod model {
                 self
             }
 
+            /// Sets the value of [holiday_regions][crate::model::model::training_run::TrainingOptions::holiday_regions].
+            pub fn set_holiday_regions<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::model::HolidayRegion>,
+            {
+                use std::iter::Iterator;
+                self.holiday_regions = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [time_series_id_column][crate::model::model::training_run::TrainingOptions::time_series_id_column].
             pub fn set_time_series_id_column<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
             ) -> Self {
                 self.time_series_id_column = v.into();
+                self
+            }
+
+            /// Sets the value of [time_series_id_columns][crate::model::model::training_run::TrainingOptions::time_series_id_columns].
+            pub fn set_time_series_id_columns<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.time_series_id_columns = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -10196,6 +10253,19 @@ pub mod model {
             /// Sets the value of [max_parallel_trials][crate::model::model::training_run::TrainingOptions::max_parallel_trials].
             pub fn set_max_parallel_trials<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.max_parallel_trials = v.into();
+                self
+            }
+
+            /// Sets the value of [hparam_tuning_objectives][crate::model::model::training_run::TrainingOptions::hparam_tuning_objectives].
+            pub fn set_hparam_tuning_objectives<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::model::hparam_tuning_enums::HparamTuningObjective,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.hparam_tuning_objectives = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -10461,6 +10531,28 @@ pub mod model {
                 self
             }
 
+            /// Sets the value of [vertex_ai_model_version_aliases][crate::model::model::training_run::TrainingOptions::vertex_ai_model_version_aliases].
+            pub fn set_vertex_ai_model_version_aliases<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.vertex_ai_model_version_aliases = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [dimension_id_columns][crate::model::model::training_run::TrainingOptions::dimension_id_columns].
+            pub fn set_dimension_id_columns<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.dimension_id_columns = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [contribution_metric][crate::model::model::training_run::TrainingOptions::contribution_metric].
             pub fn set_contribution_metric<
                 T: std::convert::Into<std::option::Option<std::string::String>>,
@@ -10489,98 +10581,6 @@ pub mod model {
                 v: T,
             ) -> Self {
                 self.min_apriori_support = v.into();
-                self
-            }
-
-            /// Sets the value of [input_label_columns][crate::model::model::training_run::TrainingOptions::input_label_columns].
-            pub fn set_input_label_columns<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.input_label_columns = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [hidden_units][crate::model::model::training_run::TrainingOptions::hidden_units].
-            pub fn set_hidden_units<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<i64>,
-            {
-                use std::iter::Iterator;
-                self.hidden_units = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [holiday_regions][crate::model::model::training_run::TrainingOptions::holiday_regions].
-            pub fn set_holiday_regions<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::model::HolidayRegion>,
-            {
-                use std::iter::Iterator;
-                self.holiday_regions = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [time_series_id_columns][crate::model::model::training_run::TrainingOptions::time_series_id_columns].
-            pub fn set_time_series_id_columns<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.time_series_id_columns = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [hparam_tuning_objectives][crate::model::model::training_run::TrainingOptions::hparam_tuning_objectives].
-            pub fn set_hparam_tuning_objectives<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<
-                        crate::model::model::hparam_tuning_enums::HparamTuningObjective,
-                    >,
-            {
-                use std::iter::Iterator;
-                self.hparam_tuning_objectives = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [vertex_ai_model_version_aliases][crate::model::model::training_run::TrainingOptions::vertex_ai_model_version_aliases].
-            pub fn set_vertex_ai_model_version_aliases<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.vertex_ai_model_version_aliases = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [dimension_id_columns][crate::model::model::training_run::TrainingOptions::dimension_id_columns].
-            pub fn set_dimension_id_columns<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.dimension_id_columns = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [label_class_weights][crate::model::model::training_run::TrainingOptions::label_class_weights].
-            pub fn set_label_class_weights<T, K, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = (K, V)>,
-                K: std::convert::Into<std::string::String>,
-                V: std::convert::Into<f64>,
-            {
-                use std::iter::Iterator;
-                self.label_class_weights =
-                    v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
                 self
             }
         }
@@ -10688,6 +10688,19 @@ pub mod model {
                 self
             }
 
+            /// Sets the value of [cluster_infos][crate::model::model::training_run::IterationResult::cluster_infos].
+            pub fn set_cluster_infos<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::model::training_run::iteration_result::ClusterInfo,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.cluster_infos = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [arima_result][crate::model::model::training_run::IterationResult::arima_result].
             pub fn set_arima_result<
                 T: std::convert::Into<
@@ -10700,19 +10713,6 @@ pub mod model {
                 v: T,
             ) -> Self {
                 self.arima_result = v.into();
-                self
-            }
-
-            /// Sets the value of [cluster_infos][crate::model::model::training_run::IterationResult::cluster_infos].
-            pub fn set_cluster_infos<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<
-                        crate::model::model::training_run::iteration_result::ClusterInfo,
-                    >,
-            {
-                use std::iter::Iterator;
-                self.cluster_infos = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -10896,17 +10896,6 @@ pub mod model {
                         std::default::Default::default()
                     }
 
-                    /// Sets the value of [intercept_coefficient][crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients::intercept_coefficient].
-                    pub fn set_intercept_coefficient<
-                        T: std::convert::Into<std::option::Option<wkt::DoubleValue>>,
-                    >(
-                        mut self,
-                        v: T,
-                    ) -> Self {
-                        self.intercept_coefficient = v.into();
-                        self
-                    }
-
                     /// Sets the value of [auto_regressive_coefficients][crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients::auto_regressive_coefficients].
                     pub fn set_auto_regressive_coefficients<T, V>(mut self, v: T) -> Self
                     where
@@ -10928,6 +10917,17 @@ pub mod model {
                         use std::iter::Iterator;
                         self.moving_average_coefficients =
                             v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+
+                    /// Sets the value of [intercept_coefficient][crate::model::model::training_run::iteration_result::arima_result::ArimaCoefficients::intercept_coefficient].
+                    pub fn set_intercept_coefficient<
+                        T: std::convert::Into<std::option::Option<wkt::DoubleValue>>,
+                    >(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.intercept_coefficient = v.into();
                         self
                     }
                 }
@@ -11059,6 +11059,30 @@ pub mod model {
                         self
                     }
 
+                    /// Sets the value of [time_series_ids][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::time_series_ids].
+                    pub fn set_time_series_ids<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<std::string::String>,
+                    {
+                        use std::iter::Iterator;
+                        self.time_series_ids = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+
+                    /// Sets the value of [seasonal_periods][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::seasonal_periods].
+                    pub fn set_seasonal_periods<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<
+                                crate::model::model::seasonal_period::SeasonalPeriodType,
+                            >,
+                    {
+                        use std::iter::Iterator;
+                        self.seasonal_periods = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+
                     /// Sets the value of [has_holiday_effect][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::has_holiday_effect].
                     pub fn set_has_holiday_effect<
                         T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
@@ -11089,30 +11113,6 @@ pub mod model {
                         v: T,
                     ) -> Self {
                         self.has_step_changes = v.into();
-                        self
-                    }
-
-                    /// Sets the value of [time_series_ids][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::time_series_ids].
-                    pub fn set_time_series_ids<T, V>(mut self, v: T) -> Self
-                    where
-                        T: std::iter::IntoIterator<Item = V>,
-                        V: std::convert::Into<std::string::String>,
-                    {
-                        use std::iter::Iterator;
-                        self.time_series_ids = v.into_iter().map(|i| i.into()).collect();
-                        self
-                    }
-
-                    /// Sets the value of [seasonal_periods][crate::model::model::training_run::iteration_result::arima_result::ArimaModelInfo::seasonal_periods].
-                    pub fn set_seasonal_periods<T, V>(mut self, v: T) -> Self
-                    where
-                        T: std::iter::IntoIterator<Item = V>,
-                        V: std::convert::Into<
-                                crate::model::model::seasonal_period::SeasonalPeriodType,
-                            >,
-                    {
-                        use std::iter::Iterator;
-                        self.seasonal_periods = v.into_iter().map(|i| i.into()).collect();
                         self
                     }
                 }
@@ -11268,23 +11268,6 @@ pub mod model {
             })
         }
 
-        /// The value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
-        /// if it holds a `Candidates`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn candidates(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleCandidates>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.search_space.as_ref().and_then(|v| match v {
-                crate::model::model::double_hparam_search_space::SearchSpace::Candidates(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
         /// to hold a `Range`.
         ///
@@ -11302,6 +11285,23 @@ pub mod model {
                 crate::model::model::double_hparam_search_space::SearchSpace::Range(v.into()),
             );
             self
+        }
+
+        /// The value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
+        /// if it holds a `Candidates`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn candidates(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleCandidates>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.search_space.as_ref().and_then(|v| match v {
+                crate::model::model::double_hparam_search_space::SearchSpace::Candidates(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
@@ -11489,23 +11489,6 @@ pub mod model {
             })
         }
 
-        /// The value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
-        /// if it holds a `Candidates`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn candidates(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::model::int_hparam_search_space::IntCandidates>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.search_space.as_ref().and_then(|v| match v {
-                crate::model::model::int_hparam_search_space::SearchSpace::Candidates(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
         /// to hold a `Range`.
         ///
@@ -11523,6 +11506,23 @@ pub mod model {
                 crate::model::model::int_hparam_search_space::SearchSpace::Range(v.into()),
             );
             self
+        }
+
+        /// The value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
+        /// if it holds a `Candidates`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn candidates(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::model::int_hparam_search_space::IntCandidates>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.search_space.as_ref().and_then(|v| match v {
+                crate::model::model::int_hparam_search_space::SearchSpace::Candidates(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
@@ -14764,12 +14764,6 @@ impl ListModelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [models][crate::model::ListModelsResponse::models].
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
@@ -14778,6 +14772,12 @@ impl ListModelsResponse {
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -15429,21 +15429,6 @@ impl PrivacyPolicy {
         })
     }
 
-    /// The value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
-    /// if it holds a `DifferentialPrivacyPolicy`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn differential_privacy_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DifferentialPrivacyPolicy>> {
-        #[allow(unreachable_patterns)]
-        self.privacy_policy.as_ref().and_then(|v| match v {
-            crate::model::privacy_policy::PrivacyPolicy::DifferentialPrivacyPolicy(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
     /// to hold a `AggregationThresholdPolicy`.
     ///
@@ -15459,6 +15444,21 @@ impl PrivacyPolicy {
             crate::model::privacy_policy::PrivacyPolicy::AggregationThresholdPolicy(v.into()),
         );
         self
+    }
+
+    /// The value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
+    /// if it holds a `DifferentialPrivacyPolicy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn differential_privacy_policy(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DifferentialPrivacyPolicy>> {
+        #[allow(unreachable_patterns)]
+        self.privacy_policy.as_ref().and_then(|v| match v {
+            crate::model::privacy_policy::PrivacyPolicy::DifferentialPrivacyPolicy(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
@@ -15685,17 +15685,6 @@ impl QueryParameterType {
         self
     }
 
-    /// Sets the value of [range_element_type][crate::model::QueryParameterType::range_element_type].
-    pub fn set_range_element_type<
-        T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::QueryParameterType>>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.range_element_type = v.into();
-        self
-    }
-
     /// Sets the value of [struct_types][crate::model::QueryParameterType::struct_types].
     pub fn set_struct_types<T, V>(mut self, v: T) -> Self
     where
@@ -15704,6 +15693,17 @@ impl QueryParameterType {
     {
         use std::iter::Iterator;
         self.struct_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [range_element_type][crate::model::QueryParameterType::range_element_type].
+    pub fn set_range_element_type<
+        T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::QueryParameterType>>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.range_element_type = v.into();
         self
     }
 }
@@ -15813,17 +15813,6 @@ impl QueryParameterValue {
         self
     }
 
-    /// Sets the value of [range_value][crate::model::QueryParameterValue::range_value].
-    pub fn set_range_value<
-        T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::RangeValue>>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.range_value = v.into();
-        self
-    }
-
     /// Sets the value of [array_values][crate::model::QueryParameterValue::array_values].
     pub fn set_array_values<T, V>(mut self, v: T) -> Self
     where
@@ -15832,17 +15821,6 @@ impl QueryParameterValue {
     {
         use std::iter::Iterator;
         self.array_values = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [alt_struct_values][crate::model::QueryParameterValue::alt_struct_values].
-    pub fn set_alt_struct_values<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Value>,
-    {
-        use std::iter::Iterator;
-        self.alt_struct_values = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -15855,6 +15833,28 @@ impl QueryParameterValue {
     {
         use std::iter::Iterator;
         self.struct_values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [range_value][crate::model::QueryParameterValue::range_value].
+    pub fn set_range_value<
+        T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::RangeValue>>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.range_value = v.into();
+        self
+    }
+
+    /// Sets the value of [alt_struct_values][crate::model::QueryParameterValue::alt_struct_values].
+    pub fn set_alt_struct_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Value>,
+    {
+        use std::iter::Iterator;
+        self.alt_struct_values = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -16404,6 +16404,17 @@ impl Routine {
         self
     }
 
+    /// Sets the value of [arguments][crate::model::Routine::arguments].
+    pub fn set_arguments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::routine::Argument>,
+    {
+        use std::iter::Iterator;
+        self.arguments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [return_type][crate::model::Routine::return_type].
     pub fn set_return_type<
         T: std::convert::Into<std::option::Option<crate::model::StandardSqlDataType>>,
@@ -16423,6 +16434,17 @@ impl Routine {
         v: T,
     ) -> Self {
         self.return_table_type = v.into();
+        self
+    }
+
+    /// Sets the value of [imported_libraries][crate::model::Routine::imported_libraries].
+    pub fn set_imported_libraries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.imported_libraries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -16495,28 +16517,6 @@ impl Routine {
         v: T,
     ) -> Self {
         self.data_governance_type = v.into();
-        self
-    }
-
-    /// Sets the value of [arguments][crate::model::Routine::arguments].
-    pub fn set_arguments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::routine::Argument>,
-    {
-        use std::iter::Iterator;
-        self.arguments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [imported_libraries][crate::model::Routine::imported_libraries].
-    pub fn set_imported_libraries<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.imported_libraries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -16962,12 +16962,6 @@ pub mod routine {
             self
         }
 
-        /// Sets the value of [max_batching_rows][crate::model::routine::RemoteFunctionOptions::max_batching_rows].
-        pub fn set_max_batching_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-            self.max_batching_rows = v.into();
-            self
-        }
-
         /// Sets the value of [user_defined_context][crate::model::routine::RemoteFunctionOptions::user_defined_context].
         pub fn set_user_defined_context<T, K, V>(mut self, v: T) -> Self
         where
@@ -16977,6 +16971,12 @@ pub mod routine {
         {
             use std::iter::Iterator;
             self.user_defined_context = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [max_batching_rows][crate::model::routine::RemoteFunctionOptions::max_batching_rows].
+        pub fn set_max_batching_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_batching_rows = v.into();
             self
         }
     }
@@ -17783,15 +17783,21 @@ impl SparkOptions {
         self
     }
 
-    /// Sets the value of [main_file_uri][crate::model::SparkOptions::main_file_uri].
-    pub fn set_main_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.main_file_uri = v.into();
+    /// Sets the value of [properties][crate::model::SparkOptions::properties].
+    pub fn set_properties<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.properties = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
-    /// Sets the value of [main_class][crate::model::SparkOptions::main_class].
-    pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.main_class = v.into();
+    /// Sets the value of [main_file_uri][crate::model::SparkOptions::main_file_uri].
+    pub fn set_main_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.main_file_uri = v.into();
         self
     }
 
@@ -17839,15 +17845,9 @@ impl SparkOptions {
         self
     }
 
-    /// Sets the value of [properties][crate::model::SparkOptions::properties].
-    pub fn set_properties<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.properties = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [main_class][crate::model::SparkOptions::main_class].
+    pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.main_class = v.into();
         self
     }
 }
@@ -18268,12 +18268,6 @@ impl ListRoutinesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRoutinesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [routines][crate::model::ListRoutinesResponse::routines].
     pub fn set_routines<T, V>(mut self, v: T) -> Self
     where
@@ -18282,6 +18276,12 @@ impl ListRoutinesResponse {
     {
         use std::iter::Iterator;
         self.routines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRoutinesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -18443,12 +18443,6 @@ impl ListRowAccessPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRowAccessPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [row_access_policies][crate::model::ListRowAccessPoliciesResponse::row_access_policies].
     pub fn set_row_access_policies<T, V>(mut self, v: T) -> Self
     where
@@ -18457,6 +18451,12 @@ impl ListRowAccessPoliciesResponse {
     {
         use std::iter::Iterator;
         self.row_access_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRowAccessPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -18816,12 +18816,6 @@ impl BatchDeleteRowAccessPoliciesRequest {
         self
     }
 
-    /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-    pub fn set_force<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.force = v.into();
-        self
-    }
-
     /// Sets the value of [policy_ids][crate::model::BatchDeleteRowAccessPoliciesRequest::policy_ids].
     pub fn set_policy_ids<T, V>(mut self, v: T) -> Self
     where
@@ -18830,6 +18824,12 @@ impl BatchDeleteRowAccessPoliciesRequest {
     {
         use std::iter::Iterator;
         self.policy_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+    pub fn set_force<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+        self.force = v.into();
         self
     }
 }
@@ -19144,36 +19144,6 @@ impl StandardSqlDataType {
         })
     }
 
-    /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
-    /// if it holds a `StructType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn struct_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlStructType>> {
-        #[allow(unreachable_patterns)]
-        self.sub_type.as_ref().and_then(|v| match v {
-            crate::model::standard_sql_data_type::SubType::StructType(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
-    /// if it holds a `RangeElementType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn range_element_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlDataType>> {
-        #[allow(unreachable_patterns)]
-        self.sub_type.as_ref().and_then(|v| match v {
-            crate::model::standard_sql_data_type::SubType::RangeElementType(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// to hold a `ArrayElementType`.
     ///
@@ -19191,6 +19161,21 @@ impl StandardSqlDataType {
         self
     }
 
+    /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
+    /// if it holds a `StructType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn struct_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlStructType>> {
+        #[allow(unreachable_patterns)]
+        self.sub_type.as_ref().and_then(|v| match v {
+            crate::model::standard_sql_data_type::SubType::StructType(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// to hold a `StructType`.
     ///
@@ -19206,6 +19191,21 @@ impl StandardSqlDataType {
             crate::model::standard_sql_data_type::SubType::StructType(v.into()),
         );
         self
+    }
+
+    /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
+    /// if it holds a `RangeElementType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn range_element_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlDataType>> {
+        #[allow(unreachable_patterns)]
+        self.sub_type.as_ref().and_then(|v| match v {
+            crate::model::standard_sql_data_type::SubType::RangeElementType(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type]
@@ -19638,15 +19638,6 @@ impl SystemVariables {
         std::default::Default::default()
     }
 
-    /// Sets the value of [values][crate::model::SystemVariables::values].
-    pub fn set_values<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.values = v.into();
-        self
-    }
-
     /// Sets the value of [types][crate::model::SystemVariables::types].
     pub fn set_types<T, K, V>(mut self, v: T) -> Self
     where
@@ -19656,6 +19647,15 @@ impl SystemVariables {
     {
         use std::iter::Iterator;
         self.types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [values][crate::model::SystemVariables::values].
+    pub fn set_values<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.values = v.into();
         self
     }
 }
@@ -19971,6 +19971,17 @@ impl ViewDefinition {
         self
     }
 
+    /// Sets the value of [user_defined_function_resources][crate::model::ViewDefinition::user_defined_function_resources].
+    pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UserDefinedFunctionResource>,
+    {
+        use std::iter::Iterator;
+        self.user_defined_function_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [use_legacy_sql][crate::model::ViewDefinition::use_legacy_sql].
     pub fn set_use_legacy_sql<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
         mut self,
@@ -19994,17 +20005,6 @@ impl ViewDefinition {
         v: T,
     ) -> Self {
         self.privacy_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [user_defined_function_resources][crate::model::ViewDefinition::user_defined_function_resources].
-    pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserDefinedFunctionResource>,
-    {
-        use std::iter::Iterator;
-        self.user_defined_function_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -20745,6 +20745,18 @@ impl Table {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Table::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [schema][crate::model::Table::schema].
     pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::TableSchema>>>(
         mut self,
@@ -21127,6 +21139,18 @@ impl Table {
         self
     }
 
+    /// Sets the value of [resource_tags][crate::model::Table::resource_tags].
+    pub fn set_resource_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [table_replication_info][crate::model::Table::table_replication_info].
     pub fn set_table_replication_info<
         T: std::convert::Into<std::option::Option<crate::model::TableReplicationInfo>>,
@@ -21135,17 +21159,6 @@ impl Table {
         v: T,
     ) -> Self {
         self.table_replication_info = v.into();
-        self
-    }
-
-    /// Sets the value of [external_catalog_table_options][crate::model::Table::external_catalog_table_options].
-    pub fn set_external_catalog_table_options<
-        T: std::convert::Into<std::option::Option<crate::model::ExternalCatalogTableOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.external_catalog_table_options = v.into();
         self
     }
 
@@ -21160,27 +21173,14 @@ impl Table {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Table::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [resource_tags][crate::model::Table::resource_tags].
-    pub fn set_resource_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [external_catalog_table_options][crate::model::Table::external_catalog_table_options].
+    pub fn set_external_catalog_table_options<
+        T: std::convert::Into<std::option::Option<crate::model::ExternalCatalogTableOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.external_catalog_table_options = v.into();
         self
     }
 }
@@ -21866,6 +21866,18 @@ impl ListFormatTable {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ListFormatTable::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [view][crate::model::ListFormatTable::view].
     pub fn set_view<T: std::convert::Into<std::option::Option<crate::model::ListFormatView>>>(
         mut self,
@@ -21895,18 +21907,6 @@ impl ListFormatTable {
         v: T,
     ) -> Self {
         self.require_partition_filter = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ListFormatTable::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -21970,15 +21970,6 @@ impl TableList {
         self
     }
 
-    /// Sets the value of [total_items][crate::model::TableList::total_items].
-    pub fn set_total_items<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.total_items = v.into();
-        self
-    }
-
     /// Sets the value of [tables][crate::model::TableList::tables].
     pub fn set_tables<T, V>(mut self, v: T) -> Self
     where
@@ -21987,6 +21978,15 @@ impl TableList {
     {
         use std::iter::Iterator;
         self.tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [total_items][crate::model::TableList::total_items].
+    pub fn set_total_items<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_items = v.into();
         self
     }
 }
@@ -22283,17 +22283,6 @@ impl TableSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of [foreign_type_info][crate::model::TableSchema::foreign_type_info].
-    pub fn set_foreign_type_info<
-        T: std::convert::Into<std::option::Option<crate::model::ForeignTypeInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.foreign_type_info = v.into();
-        self
-    }
-
     /// Sets the value of [fields][crate::model::TableSchema::fields].
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
@@ -22302,6 +22291,17 @@ impl TableSchema {
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [foreign_type_info][crate::model::TableSchema::foreign_type_info].
+    pub fn set_foreign_type_info<
+        T: std::convert::Into<std::option::Option<crate::model::ForeignTypeInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.foreign_type_info = v.into();
         self
     }
 }
@@ -22692,6 +22692,17 @@ impl TableFieldSchema {
         self
     }
 
+    /// Sets the value of [fields][crate::model::TableFieldSchema::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TableFieldSchema>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::TableFieldSchema::description].
     pub fn set_description<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
         mut self,
@@ -22709,6 +22720,17 @@ impl TableFieldSchema {
         v: T,
     ) -> Self {
         self.policy_tags = v.into();
+        self
+    }
+
+    /// Sets the value of [data_policies][crate::model::TableFieldSchema::data_policies].
+    pub fn set_data_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataPolicyOption>,
+    {
+        use std::iter::Iterator;
+        self.data_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -22778,28 +22800,6 @@ impl TableFieldSchema {
         v: T,
     ) -> Self {
         self.foreign_type_definition = v.into();
-        self
-    }
-
-    /// Sets the value of [fields][crate::model::TableFieldSchema::fields].
-    pub fn set_fields<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TableFieldSchema>,
-    {
-        use std::iter::Iterator;
-        self.fields = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [data_policies][crate::model::TableFieldSchema::data_policies].
-    pub fn set_data_policies<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataPolicyOption>,
-    {
-        use std::iter::Iterator;
-        self.data_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

@@ -3699,15 +3699,6 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
-            self
-        }
-
         /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
@@ -3716,6 +3707,15 @@ pub mod contact_center_insights {
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.measure_mask = v.into();
             self
         }
     }

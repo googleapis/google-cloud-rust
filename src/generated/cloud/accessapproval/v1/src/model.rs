@@ -387,19 +387,6 @@ impl SignatureInfo {
         })
     }
 
-    /// The value of [verification_info][crate::model::SignatureInfo::verification_info]
-    /// if it holds a `CustomerKmsKeyVersion`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn customer_kms_key_version(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.verification_info.as_ref().and_then(|v| match v {
-            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [verification_info][crate::model::SignatureInfo::verification_info]
     /// to hold a `GooglePublicKeyPem`.
     ///
@@ -413,6 +400,19 @@ impl SignatureInfo {
             crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(v.into()),
         );
         self
+    }
+
+    /// The value of [verification_info][crate::model::SignatureInfo::verification_info]
+    /// if it holds a `CustomerKmsKeyVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn customer_kms_key_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.verification_info.as_ref().and_then(|v| match v {
+            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [verification_info][crate::model::SignatureInfo::verification_info]
@@ -768,17 +768,6 @@ impl ApprovalRequest {
         })
     }
 
-    /// The value of [decision][crate::model::ApprovalRequest::decision]
-    /// if it holds a `Dismiss`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dismiss(&self) -> std::option::Option<&std::boxed::Box<crate::model::DismissDecision>> {
-        #[allow(unreachable_patterns)]
-        self.decision.as_ref().and_then(|v| match v {
-            crate::model::approval_request::Decision::Dismiss(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [decision][crate::model::ApprovalRequest::decision]
     /// to hold a `Approve`.
     ///
@@ -791,6 +780,17 @@ impl ApprovalRequest {
         self.decision =
             std::option::Option::Some(crate::model::approval_request::Decision::Approve(v.into()));
         self
+    }
+
+    /// The value of [decision][crate::model::ApprovalRequest::decision]
+    /// if it holds a `Dismiss`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dismiss(&self) -> std::option::Option<&std::boxed::Box<crate::model::DismissDecision>> {
+        #[allow(unreachable_patterns)]
+        self.decision.as_ref().and_then(|v| match v {
+            crate::model::approval_request::Decision::Dismiss(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [decision][crate::model::ApprovalRequest::decision]
@@ -1018,6 +1018,28 @@ impl AccessApprovalSettings {
         self
     }
 
+    /// Sets the value of [notification_emails][crate::model::AccessApprovalSettings::notification_emails].
+    pub fn set_notification_emails<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.notification_emails = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enrolled_services][crate::model::AccessApprovalSettings::enrolled_services].
+    pub fn set_enrolled_services<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EnrolledService>,
+    {
+        use std::iter::Iterator;
+        self.enrolled_services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [enrolled_ancestor][crate::model::AccessApprovalSettings::enrolled_ancestor].
     pub fn set_enrolled_ancestor<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enrolled_ancestor = v.into();
@@ -1045,28 +1067,6 @@ impl AccessApprovalSettings {
     /// Sets the value of [invalid_key_version][crate::model::AccessApprovalSettings::invalid_key_version].
     pub fn set_invalid_key_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.invalid_key_version = v.into();
-        self
-    }
-
-    /// Sets the value of [notification_emails][crate::model::AccessApprovalSettings::notification_emails].
-    pub fn set_notification_emails<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.notification_emails = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [enrolled_services][crate::model::AccessApprovalSettings::enrolled_services].
-    pub fn set_enrolled_services<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnrolledService>,
-    {
-        use std::iter::Iterator;
-        self.enrolled_services = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1220,12 +1220,6 @@ impl ListApprovalRequestsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListApprovalRequestsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [approval_requests][crate::model::ListApprovalRequestsResponse::approval_requests].
     pub fn set_approval_requests<T, V>(mut self, v: T) -> Self
     where
@@ -1234,6 +1228,12 @@ impl ListApprovalRequestsResponse {
     {
         use std::iter::Iterator;
         self.approval_requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListApprovalRequestsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

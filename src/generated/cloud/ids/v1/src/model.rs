@@ -115,6 +115,18 @@ impl Endpoint {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Endpoint::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [network][crate::model::Endpoint::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -160,18 +172,6 @@ impl Endpoint {
     /// Sets the value of [traffic_logs][crate::model::Endpoint::traffic_logs].
     pub fn set_traffic_logs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.traffic_logs = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Endpoint::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -585,12 +585,6 @@ impl ListEndpointsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [endpoints][crate::model::ListEndpointsResponse::endpoints].
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -599,6 +593,12 @@ impl ListEndpointsResponse {
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

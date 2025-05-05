@@ -174,6 +174,29 @@ impl Function {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Function::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state_messages][crate::model::Function::state_messages].
+    pub fn set_state_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StateMessage>,
+    {
+        use std::iter::Iterator;
+        self.state_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [environment][crate::model::Function::environment].
     pub fn set_environment<T: std::convert::Into<crate::model::Environment>>(
         mut self,
@@ -207,29 +230,6 @@ impl Function {
         v: T,
     ) -> Self {
         self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [state_messages][crate::model::Function::state_messages].
-    pub fn set_state_messages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StateMessage>,
-    {
-        use std::iter::Iterator;
-        self.state_messages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Function::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -765,28 +765,6 @@ impl RepoSource {
         })
     }
 
-    /// The value of [revision][crate::model::RepoSource::revision]
-    /// if it holds a `TagName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn tag_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.revision.as_ref().and_then(|v| match v {
-            crate::model::repo_source::Revision::TagName(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [revision][crate::model::RepoSource::revision]
-    /// if it holds a `CommitSha`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.revision.as_ref().and_then(|v| match v {
-            crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [revision][crate::model::RepoSource::revision]
     /// to hold a `BranchName`.
     ///
@@ -798,6 +776,17 @@ impl RepoSource {
         self
     }
 
+    /// The value of [revision][crate::model::RepoSource::revision]
+    /// if it holds a `TagName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tag_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.revision.as_ref().and_then(|v| match v {
+            crate::model::repo_source::Revision::TagName(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [revision][crate::model::RepoSource::revision]
     /// to hold a `TagName`.
     ///
@@ -807,6 +796,17 @@ impl RepoSource {
         self.revision =
             std::option::Option::Some(crate::model::repo_source::Revision::TagName(v.into()));
         self
+    }
+
+    /// The value of [revision][crate::model::RepoSource::revision]
+    /// if it holds a `CommitSha`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.revision.as_ref().and_then(|v| match v {
+            crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [revision][crate::model::RepoSource::revision]
@@ -898,28 +898,6 @@ impl Source {
         })
     }
 
-    /// The value of [source][crate::model::Source::source]
-    /// if it holds a `RepoSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn repo_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::source::Source::RepoSource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source][crate::model::Source::source]
-    /// if it holds a `GitUri`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn git_uri(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::source::Source::GitUri(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::Source::source]
     /// to hold a `StorageSource`.
     ///
@@ -936,6 +914,17 @@ impl Source {
         self
     }
 
+    /// The value of [source][crate::model::Source::source]
+    /// if it holds a `RepoSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn repo_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source::Source::RepoSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source][crate::model::Source::source]
     /// to hold a `RepoSource`.
     ///
@@ -947,6 +936,17 @@ impl Source {
     ) -> Self {
         self.source = std::option::Option::Some(crate::model::source::Source::RepoSource(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::Source::source]
+    /// if it holds a `GitUri`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn git_uri(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source::Source::GitUri(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::Source::source]
@@ -1199,6 +1199,18 @@ impl BuildConfig {
         self
     }
 
+    /// Sets the value of [environment_variables][crate::model::BuildConfig::environment_variables].
+    pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.environment_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [docker_registry][crate::model::BuildConfig::docker_registry].
     #[deprecated]
     pub fn set_docker_registry<
@@ -1223,18 +1235,6 @@ impl BuildConfig {
     /// Sets the value of [service_account][crate::model::BuildConfig::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
-        self
-    }
-
-    /// Sets the value of [environment_variables][crate::model::BuildConfig::environment_variables].
-    pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.environment_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1267,21 +1267,6 @@ impl BuildConfig {
         })
     }
 
-    /// The value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
-    /// if it holds a `OnDeployUpdatePolicy`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn on_deploy_update_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OnDeployUpdatePolicy>> {
-        #[allow(unreachable_patterns)]
-        self.runtime_update_policy.as_ref().and_then(|v| match v {
-            crate::model::build_config::RuntimeUpdatePolicy::OnDeployUpdatePolicy(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
     /// to hold a `AutomaticUpdatePolicy`.
     ///
@@ -1297,6 +1282,21 @@ impl BuildConfig {
             crate::model::build_config::RuntimeUpdatePolicy::AutomaticUpdatePolicy(v.into()),
         );
         self
+    }
+
+    /// The value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
+    /// if it holds a `OnDeployUpdatePolicy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn on_deploy_update_policy(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OnDeployUpdatePolicy>> {
+        #[allow(unreachable_patterns)]
+        self.runtime_update_policy.as_ref().and_then(|v| match v {
+            crate::model::build_config::RuntimeUpdatePolicy::OnDeployUpdatePolicy(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
@@ -1636,6 +1636,18 @@ impl ServiceConfig {
         self
     }
 
+    /// Sets the value of [environment_variables][crate::model::ServiceConfig::environment_variables].
+    pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.environment_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [max_instance_count][crate::model::ServiceConfig::max_instance_count].
     pub fn set_max_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instance_count = v.into();
@@ -1697,6 +1709,28 @@ impl ServiceConfig {
         self
     }
 
+    /// Sets the value of [secret_environment_variables][crate::model::ServiceConfig::secret_environment_variables].
+    pub fn set_secret_environment_variables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretEnvVar>,
+    {
+        use std::iter::Iterator;
+        self.secret_environment_variables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [secret_volumes][crate::model::ServiceConfig::secret_volumes].
+    pub fn set_secret_volumes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretVolume>,
+    {
+        use std::iter::Iterator;
+        self.secret_volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [revision][crate::model::ServiceConfig::revision].
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -1729,40 +1763,6 @@ impl ServiceConfig {
         v: T,
     ) -> Self {
         self.binary_authorization_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [secret_environment_variables][crate::model::ServiceConfig::secret_environment_variables].
-    pub fn set_secret_environment_variables<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretEnvVar>,
-    {
-        use std::iter::Iterator;
-        self.secret_environment_variables = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [secret_volumes][crate::model::ServiceConfig::secret_volumes].
-    pub fn set_secret_volumes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretVolume>,
-    {
-        use std::iter::Iterator;
-        self.secret_volumes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [environment_variables][crate::model::ServiceConfig::environment_variables].
-    pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.environment_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2497,6 +2497,17 @@ impl EventTrigger {
         self
     }
 
+    /// Sets the value of [event_filters][crate::model::EventTrigger::event_filters].
+    pub fn set_event_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventFilter>,
+    {
+        use std::iter::Iterator;
+        self.event_filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [pubsub_topic][crate::model::EventTrigger::pubsub_topic].
     pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pubsub_topic = v.into();
@@ -2530,17 +2541,6 @@ impl EventTrigger {
     /// Sets the value of [service][crate::model::EventTrigger::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
-        self
-    }
-
-    /// Sets the value of [event_filters][crate::model::EventTrigger::event_filters].
-    pub fn set_event_filters<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventFilter>,
-    {
-        use std::iter::Iterator;
-        self.event_filters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2908,12 +2908,6 @@ impl ListFunctionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFunctionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [functions][crate::model::ListFunctionsResponse::functions].
     pub fn set_functions<T, V>(mut self, v: T) -> Self
     where
@@ -2922,6 +2916,12 @@ impl ListFunctionsResponse {
     {
         use std::iter::Iterator;
         self.functions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFunctionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3446,6 +3446,17 @@ pub mod list_runtimes_response {
             self
         }
 
+        /// Sets the value of [warnings][crate::model::list_runtimes_response::Runtime::warnings].
+        pub fn set_warnings<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.warnings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [environment][crate::model::list_runtimes_response::Runtime::environment].
         pub fn set_environment<T: std::convert::Into<crate::model::Environment>>(
             mut self,
@@ -3474,17 +3485,6 @@ pub mod list_runtimes_response {
             v: T,
         ) -> Self {
             self.decommission_date = v.into();
-            self
-        }
-
-        /// Sets the value of [warnings][crate::model::list_runtimes_response::Runtime::warnings].
-        pub fn set_warnings<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.warnings = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3840,6 +3840,17 @@ impl OperationMetadata {
         self
     }
 
+    /// Sets the value of [stages][crate::model::OperationMetadata::stages].
+    pub fn set_stages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Stage>,
+    {
+        use std::iter::Iterator;
+        self.stages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [source_token][crate::model::OperationMetadata::source_token].
     pub fn set_source_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_token = v.into();
@@ -3858,17 +3869,6 @@ impl OperationMetadata {
         v: T,
     ) -> Self {
         self.operation_type = v.into();
-        self
-    }
-
-    /// Sets the value of [stages][crate::model::OperationMetadata::stages].
-    pub fn set_stages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Stage>,
-    {
-        use std::iter::Iterator;
-        self.stages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

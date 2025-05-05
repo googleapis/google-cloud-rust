@@ -407,6 +407,17 @@ pub mod essential_contacts_service {
             self
         }
 
+        /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
+        pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::NotificationCategory>,
+        {
+            use std::iter::Iterator;
+            self.0.request.notification_categories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::ComputeContactsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -416,17 +427,6 @@ pub mod essential_contacts_service {
         /// Sets the value of [page_token][crate::model::ComputeContactsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
-        pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::NotificationCategory>,
-        {
-            use std::iter::Iterator;
-            self.0.request.notification_categories = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -469,6 +469,19 @@ pub mod essential_contacts_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_contacts<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contacts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [resource][crate::model::SendTestMessageRequest::resource].
         ///
         /// This is a **required** field for requests.
@@ -485,19 +498,6 @@ pub mod essential_contacts_service {
             v: T,
         ) -> Self {
             self.0.request.notification_category = v.into();
-            self
-        }
-
-        /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_contacts<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contacts = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

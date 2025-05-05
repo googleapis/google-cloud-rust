@@ -1267,6 +1267,17 @@ pub mod completion_service {
             self
         }
 
+        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [device_type][crate::model::CompleteQueryRequest::device_type].
         pub fn set_device_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.device_type = v.into();
@@ -1294,17 +1305,6 @@ pub mod completion_service {
         /// Sets the value of [entity][crate::model::CompleteQueryRequest::entity].
         pub fn set_entity<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.entity = v.into();
-            self
-        }
-
-        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
-        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4315,18 +4315,6 @@ pub mod product_service {
             self
         }
 
-        /// Sets the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
-        pub fn set_add_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.add_time = v.into();
-            self
-        }
-
-        /// Sets the value of [allow_missing][crate::model::AddFulfillmentPlacesRequest::allow_missing].
-        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.allow_missing = v.into();
-            self
-        }
-
         /// Sets the value of [place_ids][crate::model::AddFulfillmentPlacesRequest::place_ids].
         ///
         /// This is a **required** field for requests.
@@ -4337,6 +4325,18 @@ pub mod product_service {
         {
             use std::iter::Iterator;
             self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
+        pub fn set_add_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+            self.0.request.add_time = v.into();
+            self
+        }
+
+        /// Sets the value of [allow_missing][crate::model::AddFulfillmentPlacesRequest::allow_missing].
+        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.allow_missing = v.into();
             self
         }
     }
@@ -4443,6 +4443,19 @@ pub mod product_service {
             self
         }
 
+        /// Sets the value of [place_ids][crate::model::RemoveFulfillmentPlacesRequest::place_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [remove_time][crate::model::RemoveFulfillmentPlacesRequest::remove_time].
         pub fn set_remove_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -4455,19 +4468,6 @@ pub mod product_service {
         /// Sets the value of [allow_missing][crate::model::RemoveFulfillmentPlacesRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
-            self
-        }
-
-        /// Sets the value of [place_ids][crate::model::RemoveFulfillmentPlacesRequest::place_ids].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4564,6 +4564,19 @@ pub mod product_service {
             self
         }
 
+        /// Sets the value of [local_inventories][crate::model::AddLocalInventoriesRequest::local_inventories].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::LocalInventory>,
+        {
+            use std::iter::Iterator;
+            self.0.request.local_inventories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [add_mask][crate::model::AddLocalInventoriesRequest::add_mask].
         pub fn set_add_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
             self.0.request.add_mask = v.into();
@@ -4579,19 +4592,6 @@ pub mod product_service {
         /// Sets the value of [allow_missing][crate::model::AddLocalInventoriesRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
-            self
-        }
-
-        /// Sets the value of [local_inventories][crate::model::AddLocalInventoriesRequest::local_inventories].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::LocalInventory>,
-        {
-            use std::iter::Iterator;
-            self.0.request.local_inventories = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4688,6 +4688,19 @@ pub mod product_service {
             self
         }
 
+        /// Sets the value of [place_ids][crate::model::RemoveLocalInventoriesRequest::place_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [remove_time][crate::model::RemoveLocalInventoriesRequest::remove_time].
         pub fn set_remove_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -4700,19 +4713,6 @@ pub mod product_service {
         /// Sets the value of [allow_missing][crate::model::RemoveLocalInventoriesRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
-            self
-        }
-
-        /// Sets the value of [place_ids][crate::model::RemoveLocalInventoriesRequest::place_ids].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5027,6 +5027,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
         #[deprecated]
         pub fn set_dynamic_facet_spec<
@@ -5061,6 +5072,28 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [variant_rollup_keys][crate::model::SearchRequest::variant_rollup_keys].
+        pub fn set_variant_rollup_keys<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.variant_rollup_keys = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
+        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [search_mode][crate::model::SearchRequest::search_mode].
         pub fn set_search_mode<T: Into<crate::model::search_request::SearchMode>>(
             mut self,
@@ -5078,6 +5111,17 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.personalization_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::SearchRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -5117,50 +5161,6 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.tile_navigation_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
-        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::FacetSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [variant_rollup_keys][crate::model::SearchRequest::variant_rollup_keys].
-        pub fn set_variant_rollup_keys<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.variant_rollup_keys = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
-        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::SearchRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }

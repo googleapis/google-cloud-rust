@@ -603,6 +603,16 @@ impl VmImage {
         })
     }
 
+    /// Sets the value of [image][crate::model::VmImage::image]
+    /// to hold a `Name`.
+    ///
+    /// Note that all the setters affecting `image` are
+    /// mutually exclusive.
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image = std::option::Option::Some(crate::model::vm_image::Image::Name(v.into()));
+        self
+    }
+
     /// The value of [image][crate::model::VmImage::image]
     /// if it holds a `Family`, `None` if the field is not set or
     /// holds a different branch.
@@ -612,16 +622,6 @@ impl VmImage {
             crate::model::vm_image::Image::Family(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [image][crate::model::VmImage::image]
-    /// to hold a `Name`.
-    ///
-    /// Note that all the setters affecting `image` are
-    /// mutually exclusive.
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(crate::model::vm_image::Image::Name(v.into()));
-        self
     }
 
     /// Sets the value of [image][crate::model::VmImage::image]
@@ -1339,49 +1339,6 @@ impl GceSetup {
         self
     }
 
-    /// Sets the value of [boot_disk][crate::model::GceSetup::boot_disk].
-    pub fn set_boot_disk<T: std::convert::Into<std::option::Option<crate::model::BootDisk>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.boot_disk = v.into();
-        self
-    }
-
-    /// Sets the value of [shielded_instance_config][crate::model::GceSetup::shielded_instance_config].
-    pub fn set_shielded_instance_config<
-        T: std::convert::Into<std::option::Option<crate::model::ShieldedInstanceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shielded_instance_config = v.into();
-        self
-    }
-
-    /// Sets the value of [disable_public_ip][crate::model::GceSetup::disable_public_ip].
-    pub fn set_disable_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.disable_public_ip = v.into();
-        self
-    }
-
-    /// Sets the value of [enable_ip_forwarding][crate::model::GceSetup::enable_ip_forwarding].
-    pub fn set_enable_ip_forwarding<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_ip_forwarding = v.into();
-        self
-    }
-
-    /// Sets the value of [gpu_driver_config][crate::model::GceSetup::gpu_driver_config].
-    pub fn set_gpu_driver_config<
-        T: std::convert::Into<std::option::Option<crate::model::GPUDriverConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gpu_driver_config = v.into();
-        self
-    }
-
     /// Sets the value of [accelerator_configs][crate::model::GceSetup::accelerator_configs].
     pub fn set_accelerator_configs<T, V>(mut self, v: T) -> Self
     where
@@ -1404,6 +1361,15 @@ impl GceSetup {
         self
     }
 
+    /// Sets the value of [boot_disk][crate::model::GceSetup::boot_disk].
+    pub fn set_boot_disk<T: std::convert::Into<std::option::Option<crate::model::BootDisk>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.boot_disk = v.into();
+        self
+    }
+
     /// Sets the value of [data_disks][crate::model::GceSetup::data_disks].
     pub fn set_data_disks<T, V>(mut self, v: T) -> Self
     where
@@ -1415,6 +1381,17 @@ impl GceSetup {
         self
     }
 
+    /// Sets the value of [shielded_instance_config][crate::model::GceSetup::shielded_instance_config].
+    pub fn set_shielded_instance_config<
+        T: std::convert::Into<std::option::Option<crate::model::ShieldedInstanceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.shielded_instance_config = v.into();
+        self
+    }
+
     /// Sets the value of [network_interfaces][crate::model::GceSetup::network_interfaces].
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
@@ -1423,6 +1400,12 @@ impl GceSetup {
     {
         use std::iter::Iterator;
         self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [disable_public_ip][crate::model::GceSetup::disable_public_ip].
+    pub fn set_disable_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disable_public_ip = v.into();
         self
     }
 
@@ -1449,6 +1432,23 @@ impl GceSetup {
         self
     }
 
+    /// Sets the value of [enable_ip_forwarding][crate::model::GceSetup::enable_ip_forwarding].
+    pub fn set_enable_ip_forwarding<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_ip_forwarding = v.into();
+        self
+    }
+
+    /// Sets the value of [gpu_driver_config][crate::model::GceSetup::gpu_driver_config].
+    pub fn set_gpu_driver_config<
+        T: std::convert::Into<std::option::Option<crate::model::GPUDriverConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gpu_driver_config = v.into();
+        self
+    }
+
     /// Sets the value of [image][crate::model::GceSetup::image].
     ///
     /// Note that all the setters affecting `image` are mutually
@@ -1472,19 +1472,6 @@ impl GceSetup {
         })
     }
 
-    /// The value of [image][crate::model::GceSetup::image]
-    /// if it holds a `ContainerImage`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn container_image(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ContainerImage>> {
-        #[allow(unreachable_patterns)]
-        self.image.as_ref().and_then(|v| match v {
-            crate::model::gce_setup::Image::ContainerImage(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [image][crate::model::GceSetup::image]
     /// to hold a `VmImage`.
     ///
@@ -1496,6 +1483,19 @@ impl GceSetup {
     ) -> Self {
         self.image = std::option::Option::Some(crate::model::gce_setup::Image::VmImage(v.into()));
         self
+    }
+
+    /// The value of [image][crate::model::GceSetup::image]
+    /// if it holds a `ContainerImage`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn container_image(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ContainerImage>> {
+        #[allow(unreachable_patterns)]
+        self.image.as_ref().and_then(|v| match v {
+            crate::model::gce_setup::Image::ContainerImage(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [image][crate::model::GceSetup::image]
@@ -2036,6 +2036,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [instance_owners][crate::model::Instance::instance_owners].
+    pub fn set_instance_owners<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.instance_owners = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [creator][crate::model::Instance::creator].
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
@@ -2045,6 +2056,17 @@ impl Instance {
     /// Sets the value of [state][crate::model::Instance::state].
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [upgrade_history][crate::model::Instance::upgrade_history].
+    pub fn set_upgrade_history<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UpgradeHistoryEntry>,
+    {
+        use std::iter::Iterator;
+        self.upgrade_history = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2060,6 +2082,18 @@ impl Instance {
         v: T,
     ) -> Self {
         self.health_state = v.into();
+        self
+    }
+
+    /// Sets the value of [health_info][crate::model::Instance::health_info].
+    pub fn set_health_info<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.health_info = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2084,40 +2118,6 @@ impl Instance {
     /// Sets the value of [disable_proxy_access][crate::model::Instance::disable_proxy_access].
     pub fn set_disable_proxy_access<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_proxy_access = v.into();
-        self
-    }
-
-    /// Sets the value of [instance_owners][crate::model::Instance::instance_owners].
-    pub fn set_instance_owners<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.instance_owners = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [upgrade_history][crate::model::Instance::upgrade_history].
-    pub fn set_upgrade_history<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UpgradeHistoryEntry>,
-    {
-        use std::iter::Iterator;
-        self.upgrade_history = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [health_info][crate::model::Instance::health_info].
-    pub fn set_health_info<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.health_info = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2414,12 +2414,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -2428,6 +2422,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

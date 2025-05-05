@@ -244,6 +244,18 @@ impl ServiceConnectionMap {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ServiceConnectionMap::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::ServiceConnectionMap::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -271,21 +283,6 @@ impl ServiceConnectionMap {
         v: T,
     ) -> Self {
         self.infrastructure = v.into();
-        self
-    }
-
-    /// Sets the value of [token][crate::model::ServiceConnectionMap::token].
-    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.token = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::ServiceConnectionMap::etag].
-    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.etag = v.into();
         self
     }
 
@@ -322,15 +319,18 @@ impl ServiceConnectionMap {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ServiceConnectionMap::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [token][crate::model::ServiceConnectionMap::token].
+    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ServiceConnectionMap::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -489,26 +489,6 @@ pub mod service_connection_map {
             self
         }
 
-        /// Sets the value of [consumer_instance_project][crate::model::service_connection_map::ConsumerPscConfig::consumer_instance_project].
-        pub fn set_consumer_instance_project<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.consumer_instance_project = v.into();
-            self
-        }
-
-        /// Sets the value of [ip_version][crate::model::service_connection_map::ConsumerPscConfig::ip_version].
-        pub fn set_ip_version<
-            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ip_version = v.into();
-            self
-        }
-
         /// Sets the value of [service_attachment_ip_address_map][crate::model::service_connection_map::ConsumerPscConfig::service_attachment_ip_address_map].
         pub fn set_service_attachment_ip_address_map<T, K, V>(mut self, v: T) -> Self
         where
@@ -522,6 +502,15 @@ pub mod service_connection_map {
             self
         }
 
+        /// Sets the value of [consumer_instance_project][crate::model::service_connection_map::ConsumerPscConfig::consumer_instance_project].
+        pub fn set_consumer_instance_project<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_instance_project = v.into();
+            self
+        }
+
         /// Sets the value of [producer_instance_metadata][crate::model::service_connection_map::ConsumerPscConfig::producer_instance_metadata].
         pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -532,6 +521,17 @@ pub mod service_connection_map {
             use std::iter::Iterator;
             self.producer_instance_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [ip_version][crate::model::service_connection_map::ConsumerPscConfig::ip_version].
+        pub fn set_ip_version<
+            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ip_version = v.into();
             self
         }
     }
@@ -913,17 +913,6 @@ pub mod service_connection_map {
             self
         }
 
-        /// Sets the value of [ip_version][crate::model::service_connection_map::ConsumerPscConnection::ip_version].
-        pub fn set_ip_version<
-            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ip_version = v.into();
-            self
-        }
-
         /// Sets the value of [producer_instance_metadata][crate::model::service_connection_map::ConsumerPscConnection::producer_instance_metadata].
         pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -934,6 +923,17 @@ pub mod service_connection_map {
             use std::iter::Iterator;
             self.producer_instance_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [ip_version][crate::model::service_connection_map::ConsumerPscConnection::ip_version].
+        pub fn set_ip_version<
+            T: std::convert::Into<std::option::Option<crate::model::IPVersion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ip_version = v.into();
             self
         }
     }
@@ -1219,12 +1219,6 @@ impl ListServiceConnectionMapsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionMapsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_connection_maps][crate::model::ListServiceConnectionMapsResponse::service_connection_maps].
     pub fn set_service_connection_maps<T, V>(mut self, v: T) -> Self
     where
@@ -1233,6 +1227,12 @@ impl ListServiceConnectionMapsResponse {
     {
         use std::iter::Iterator;
         self.service_connection_maps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionMapsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1630,6 +1630,18 @@ impl ServiceConnectionPolicy {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ServiceConnectionPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::ServiceConnectionPolicy::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -1668,15 +1680,6 @@ impl ServiceConnectionPolicy {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ServiceConnectionPolicy::etag].
-    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [psc_connections][crate::model::ServiceConnectionPolicy::psc_connections].
     pub fn set_psc_connections<T, V>(mut self, v: T) -> Self
     where
@@ -1688,15 +1691,12 @@ impl ServiceConnectionPolicy {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ServiceConnectionPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [etag][crate::model::ServiceConnectionPolicy::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -1763,6 +1763,17 @@ pub mod service_connection_policy {
             std::default::Default::default()
         }
 
+        /// Sets the value of [subnetworks][crate::model::service_connection_policy::PscConfig::subnetworks].
+        pub fn set_subnetworks<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.subnetworks = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [limit][crate::model::service_connection_policy::PscConfig::limit].
         pub fn set_limit<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
             self.limit = v.into();
@@ -1779,17 +1790,6 @@ pub mod service_connection_policy {
             v: T,
         ) -> Self {
             self.producer_instance_location = v.into();
-            self
-        }
-
-        /// Sets the value of [subnetworks][crate::model::service_connection_policy::PscConfig::subnetworks].
-        pub fn set_subnetworks<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.subnetworks = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -2139,6 +2139,19 @@ pub mod service_connection_policy {
             self
         }
 
+        /// Sets the value of [producer_instance_metadata][crate::model::service_connection_policy::PscConnection::producer_instance_metadata].
+        pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.producer_instance_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [service_class][crate::model::service_connection_policy::PscConnection::service_class].
         pub fn set_service_class<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -2156,19 +2169,6 @@ pub mod service_connection_policy {
             v: T,
         ) -> Self {
             self.ip_version = v.into();
-            self
-        }
-
-        /// Sets the value of [producer_instance_metadata][crate::model::service_connection_policy::PscConnection::producer_instance_metadata].
-        pub fn set_producer_instance_metadata<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.producer_instance_metadata =
-                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -2446,12 +2446,6 @@ impl ListServiceConnectionPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_connection_policies][crate::model::ListServiceConnectionPoliciesResponse::service_connection_policies].
     pub fn set_service_connection_policies<T, V>(mut self, v: T) -> Self
     where
@@ -2460,6 +2454,12 @@ impl ListServiceConnectionPoliciesResponse {
     {
         use std::iter::Iterator;
         self.service_connection_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2838,6 +2838,18 @@ impl ServiceClass {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ServiceClass::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::ServiceClass::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -2850,18 +2862,6 @@ impl ServiceClass {
         v: T,
     ) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ServiceClass::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2972,12 +2972,6 @@ impl ListServiceClassesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceClassesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_classes][crate::model::ListServiceClassesResponse::service_classes].
     pub fn set_service_classes<T, V>(mut self, v: T) -> Self
     where
@@ -2986,6 +2980,12 @@ impl ListServiceClassesResponse {
     {
         use std::iter::Iterator;
         self.service_classes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceClassesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3280,6 +3280,18 @@ impl ServiceConnectionToken {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ServiceConnectionToken::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::ServiceConnectionToken::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -3313,18 +3325,6 @@ impl ServiceConnectionToken {
         v: T,
     ) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ServiceConnectionToken::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3435,12 +3435,6 @@ impl ListServiceConnectionTokensResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionTokensResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_connection_tokens][crate::model::ListServiceConnectionTokensResponse::service_connection_tokens].
     pub fn set_service_connection_tokens<T, V>(mut self, v: T) -> Self
     where
@@ -3449,6 +3443,12 @@ impl ListServiceConnectionTokensResponse {
     {
         use std::iter::Iterator;
         self.service_connection_tokens = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConnectionTokensResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3792,6 +3792,18 @@ impl Hub {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Hub::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Hub::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -3807,6 +3819,28 @@ impl Hub {
     /// Sets the value of [state][crate::model::Hub::state].
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [routing_vpcs][crate::model::Hub::routing_vpcs].
+    pub fn set_routing_vpcs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RoutingVPC>,
+    {
+        use std::iter::Iterator;
+        self.routing_vpcs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [route_tables][crate::model::Hub::route_tables].
+    pub fn set_route_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.route_tables = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3845,40 +3879,6 @@ impl Hub {
         v: T,
     ) -> Self {
         self.export_psc = v.into();
-        self
-    }
-
-    /// Sets the value of [routing_vpcs][crate::model::Hub::routing_vpcs].
-    pub fn set_routing_vpcs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RoutingVPC>,
-    {
-        use std::iter::Iterator;
-        self.routing_vpcs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [route_tables][crate::model::Hub::route_tables].
-    pub fn set_route_tables<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.route_tables = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Hub::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4067,6 +4067,18 @@ impl Spoke {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Spoke::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Spoke::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -4152,6 +4164,17 @@ impl Spoke {
         self
     }
 
+    /// Sets the value of [reasons][crate::model::Spoke::reasons].
+    pub fn set_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::spoke::StateReason>,
+    {
+        use std::iter::Iterator;
+        self.reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [spoke_type][crate::model::Spoke::spoke_type].
     pub fn set_spoke_type<T: std::convert::Into<crate::model::SpokeType>>(mut self, v: T) -> Self {
         self.spoke_type = v.into();
@@ -4164,17 +4187,6 @@ impl Spoke {
         self
     }
 
-    /// Sets the value of [reasons][crate::model::Spoke::reasons].
-    pub fn set_reasons<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::spoke::StateReason>,
-    {
-        use std::iter::Iterator;
-        self.reasons = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [field_paths_pending_update][crate::model::Spoke::field_paths_pending_update].
     pub fn set_field_paths_pending_update<T, V>(mut self, v: T) -> Self
     where
@@ -4183,18 +4195,6 @@ impl Spoke {
     {
         use std::iter::Iterator;
         self.field_paths_pending_update = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Spoke::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4518,6 +4518,18 @@ impl RouteTable {
         self
     }
 
+    /// Sets the value of [labels][crate::model::RouteTable::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::RouteTable::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -4533,18 +4545,6 @@ impl RouteTable {
     /// Sets the value of [state][crate::model::RouteTable::state].
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::RouteTable::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4698,6 +4698,18 @@ impl Route {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Route::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Route::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -4764,18 +4776,6 @@ impl Route {
         v: T,
     ) -> Self {
         self.next_hop_interconnect_attachment = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Route::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4869,6 +4869,18 @@ impl Group {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Group::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Group::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -4899,18 +4911,6 @@ impl Group {
     /// Sets the value of [route_table][crate::model::Group::route_table].
     pub fn set_route_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.route_table = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Group::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5075,12 +5075,6 @@ impl ListHubsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHubsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [hubs][crate::model::ListHubsResponse::hubs].
     pub fn set_hubs<T, V>(mut self, v: T) -> Self
     where
@@ -5089,6 +5083,12 @@ impl ListHubsResponse {
     {
         use std::iter::Iterator;
         self.hubs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHubsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5439,6 +5439,17 @@ impl ListHubSpokesRequest {
         self
     }
 
+    /// Sets the value of [spoke_locations][crate::model::ListHubSpokesRequest::spoke_locations].
+    pub fn set_spoke_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.spoke_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::ListHubSpokesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -5469,17 +5480,6 @@ impl ListHubSpokesRequest {
         v: T,
     ) -> Self {
         self.view = v.into();
-        self
-    }
-
-    /// Sets the value of [spoke_locations][crate::model::ListHubSpokesRequest::spoke_locations].
-    pub fn set_spoke_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.spoke_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5666,12 +5666,6 @@ impl ListHubSpokesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHubSpokesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [spokes][crate::model::ListHubSpokesResponse::spokes].
     pub fn set_spokes<T, V>(mut self, v: T) -> Self
     where
@@ -5680,6 +5674,12 @@ impl ListHubSpokesResponse {
     {
         use std::iter::Iterator;
         self.spokes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHubSpokesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5855,12 +5855,6 @@ impl QueryHubStatusResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::QueryHubStatusResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [hub_status_entries][crate::model::QueryHubStatusResponse::hub_status_entries].
     pub fn set_hub_status_entries<T, V>(mut self, v: T) -> Self
     where
@@ -5869,6 +5863,12 @@ impl QueryHubStatusResponse {
     {
         use std::iter::Iterator;
         self.hub_status_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryHubStatusResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6349,12 +6349,6 @@ impl ListSpokesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSpokesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [spokes][crate::model::ListSpokesResponse::spokes].
     pub fn set_spokes<T, V>(mut self, v: T) -> Self
     where
@@ -6363,6 +6357,12 @@ impl ListSpokesResponse {
     {
         use std::iter::Iterator;
         self.spokes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSpokesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7294,12 +7294,6 @@ impl ListRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [routes][crate::model::ListRoutesResponse::routes].
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
@@ -7308,6 +7302,12 @@ impl ListRoutesResponse {
     {
         use std::iter::Iterator;
         self.routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7452,12 +7452,6 @@ impl ListRouteTablesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRouteTablesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [route_tables][crate::model::ListRouteTablesResponse::route_tables].
     pub fn set_route_tables<T, V>(mut self, v: T) -> Self
     where
@@ -7466,6 +7460,12 @@ impl ListRouteTablesResponse {
     {
         use std::iter::Iterator;
         self.route_tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRouteTablesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7610,12 +7610,6 @@ impl ListGroupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [groups][crate::model::ListGroupsResponse::groups].
     pub fn set_groups<T, V>(mut self, v: T) -> Self
     where
@@ -7624,6 +7618,12 @@ impl ListGroupsResponse {
     {
         use std::iter::Iterator;
         self.groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7697,6 +7697,17 @@ impl LinkedVpnTunnels {
         std::default::Default::default()
     }
 
+    /// Sets the value of [uris][crate::model::LinkedVpnTunnels::uris].
+    pub fn set_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [site_to_site_data_transfer][crate::model::LinkedVpnTunnels::site_to_site_data_transfer].
     pub fn set_site_to_site_data_transfer<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.site_to_site_data_transfer = v.into();
@@ -7706,17 +7717,6 @@ impl LinkedVpnTunnels {
     /// Sets the value of [vpc_network][crate::model::LinkedVpnTunnels::vpc_network].
     pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc_network = v.into();
-        self
-    }
-
-    /// Sets the value of [uris][crate::model::LinkedVpnTunnels::uris].
-    pub fn set_uris<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.uris = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -7776,6 +7776,17 @@ impl LinkedInterconnectAttachments {
         std::default::Default::default()
     }
 
+    /// Sets the value of [uris][crate::model::LinkedInterconnectAttachments::uris].
+    pub fn set_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [site_to_site_data_transfer][crate::model::LinkedInterconnectAttachments::site_to_site_data_transfer].
     pub fn set_site_to_site_data_transfer<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.site_to_site_data_transfer = v.into();
@@ -7785,17 +7796,6 @@ impl LinkedInterconnectAttachments {
     /// Sets the value of [vpc_network][crate::model::LinkedInterconnectAttachments::vpc_network].
     pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc_network = v.into();
-        self
-    }
-
-    /// Sets the value of [uris][crate::model::LinkedInterconnectAttachments::uris].
-    pub fn set_uris<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.uris = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -7856,6 +7856,17 @@ impl LinkedRouterApplianceInstances {
         std::default::Default::default()
     }
 
+    /// Sets the value of [instances][crate::model::LinkedRouterApplianceInstances::instances].
+    pub fn set_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RouterApplianceInstance>,
+    {
+        use std::iter::Iterator;
+        self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [site_to_site_data_transfer][crate::model::LinkedRouterApplianceInstances::site_to_site_data_transfer].
     pub fn set_site_to_site_data_transfer<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.site_to_site_data_transfer = v.into();
@@ -7865,17 +7876,6 @@ impl LinkedRouterApplianceInstances {
     /// Sets the value of [vpc_network][crate::model::LinkedRouterApplianceInstances::vpc_network].
     pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc_network = v.into();
-        self
-    }
-
-    /// Sets the value of [instances][crate::model::LinkedRouterApplianceInstances::instances].
-    pub fn set_instances<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RouterApplianceInstance>,
-    {
-        use std::iter::Iterator;
-        self.instances = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8859,6 +8859,18 @@ impl PolicyBasedRoute {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PolicyBasedRoute::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::PolicyBasedRoute::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -8888,18 +8900,6 @@ impl PolicyBasedRoute {
         self
     }
 
-    /// Sets the value of [self_link][crate::model::PolicyBasedRoute::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
-        self
-    }
-
-    /// Sets the value of [kind][crate::model::PolicyBasedRoute::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
-        self
-    }
-
     /// Sets the value of [warnings][crate::model::PolicyBasedRoute::warnings].
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
@@ -8911,15 +8911,15 @@ impl PolicyBasedRoute {
         self
     }
 
-    /// Sets the value of [labels][crate::model::PolicyBasedRoute::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [self_link][crate::model::PolicyBasedRoute::self_link].
+    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.self_link = v.into();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::PolicyBasedRoute::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
         self
     }
 
@@ -8953,23 +8953,6 @@ impl PolicyBasedRoute {
         })
     }
 
-    /// The value of [target][crate::model::PolicyBasedRoute::target]
-    /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn interconnect_attachment(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::policy_based_route::Target::InterconnectAttachment(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target][crate::model::PolicyBasedRoute::target]
     /// to hold a `VirtualMachine`.
     ///
@@ -8985,6 +8968,23 @@ impl PolicyBasedRoute {
             crate::model::policy_based_route::Target::VirtualMachine(v.into()),
         );
         self
+    }
+
+    /// The value of [target][crate::model::PolicyBasedRoute::target]
+    /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn interconnect_attachment(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::policy_based_route::Target::InterconnectAttachment(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::PolicyBasedRoute::target]
@@ -9033,6 +9033,18 @@ impl PolicyBasedRoute {
         })
     }
 
+    /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
+    /// to hold a `NextHopIlbIp`.
+    ///
+    /// Note that all the setters affecting `next_hop` are
+    /// mutually exclusive.
+    pub fn set_next_hop_ilb_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_hop = std::option::Option::Some(
+            crate::model::policy_based_route::NextHop::NextHopIlbIp(v.into()),
+        );
+        self
+    }
+
     /// The value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
     /// if it holds a `NextHopOtherRoutes`, `None` if the field is not set or
     /// holds a different branch.
@@ -9046,18 +9058,6 @@ impl PolicyBasedRoute {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
-    /// to hold a `NextHopIlbIp`.
-    ///
-    /// Note that all the setters affecting `next_hop` are
-    /// mutually exclusive.
-    pub fn set_next_hop_ilb_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_hop = std::option::Option::Some(
-            crate::model::policy_based_route::NextHop::NextHopIlbIp(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
@@ -9405,15 +9405,6 @@ pub mod policy_based_route {
             self
         }
 
-        /// Sets the value of [warning_message][crate::model::policy_based_route::Warnings::warning_message].
-        pub fn set_warning_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.warning_message = v.into();
-            self
-        }
-
         /// Sets the value of [data][crate::model::policy_based_route::Warnings::data].
         pub fn set_data<T, K, V>(mut self, v: T) -> Self
         where
@@ -9423,6 +9414,15 @@ pub mod policy_based_route {
         {
             use std::iter::Iterator;
             self.data = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [warning_message][crate::model::policy_based_route::Warnings::warning_message].
+        pub fn set_warning_message<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.warning_message = v.into();
             self
         }
     }
@@ -9846,12 +9846,6 @@ impl ListPolicyBasedRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPolicyBasedRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_based_routes][crate::model::ListPolicyBasedRoutesResponse::policy_based_routes].
     pub fn set_policy_based_routes<T, V>(mut self, v: T) -> Self
     where
@@ -9860,6 +9854,12 @@ impl ListPolicyBasedRoutesResponse {
     {
         use std::iter::Iterator;
         self.policy_based_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPolicyBasedRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

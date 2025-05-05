@@ -565,12 +565,6 @@ pub mod consumer_procurement_service {
             self
         }
 
-        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
-        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.request_id = v.into();
-            self
-        }
-
         /// Sets the value of [line_item_info][crate::model::PlaceOrderRequest::line_item_info].
         pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
         where
@@ -579,6 +573,12 @@ pub mod consumer_procurement_service {
         {
             use std::iter::Iterator;
             self.0.request.line_item_info = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
             self
         }
     }
@@ -793,6 +793,17 @@ pub mod consumer_procurement_service {
             self
         }
 
+        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
+        pub fn set_modifications<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::modify_order_request::Modification>,
+        {
+            use std::iter::Iterator;
+            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [display_name][crate::model::ModifyOrderRequest::display_name].
         pub fn set_display_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.display_name = v.into();
@@ -802,17 +813,6 @@ pub mod consumer_procurement_service {
         /// Sets the value of [etag][crate::model::ModifyOrderRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
-            self
-        }
-
-        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
-        pub fn set_modifications<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::modify_order_request::Modification>,
-        {
-            use std::iter::Iterator;
-            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

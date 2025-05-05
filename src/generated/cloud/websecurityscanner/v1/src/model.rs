@@ -800,6 +800,17 @@ impl Xss {
         std::default::Default::default()
     }
 
+    /// Sets the value of [stack_traces][crate::model::Xss::stack_traces].
+    pub fn set_stack_traces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.stack_traces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [error_message][crate::model::Xss::error_message].
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
@@ -821,17 +832,6 @@ impl Xss {
         v: T,
     ) -> Self {
         self.stored_xss_seeding_url = v.into();
-        self
-    }
-
-    /// Sets the value of [stack_traces][crate::model::Xss::stack_traces].
-    pub fn set_stack_traces<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.stack_traces = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1383,6 +1383,17 @@ impl ScanConfig {
         self
     }
 
+    /// Sets the value of [starting_urls][crate::model::ScanConfig::starting_urls].
+    pub fn set_starting_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.starting_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [authentication][crate::model::ScanConfig::authentication].
     pub fn set_authentication<
         T: std::convert::Into<std::option::Option<crate::model::scan_config::Authentication>>,
@@ -1400,6 +1411,17 @@ impl ScanConfig {
         v: T,
     ) -> Self {
         self.user_agent = v.into();
+        self
+    }
+
+    /// Sets the value of [blacklist_patterns][crate::model::ScanConfig::blacklist_patterns].
+    pub fn set_blacklist_patterns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.blacklist_patterns = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1449,28 +1471,6 @@ impl ScanConfig {
     /// Sets the value of [ignore_http_status_errors][crate::model::ScanConfig::ignore_http_status_errors].
     pub fn set_ignore_http_status_errors<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_http_status_errors = v.into();
-        self
-    }
-
-    /// Sets the value of [starting_urls][crate::model::ScanConfig::starting_urls].
-    pub fn set_starting_urls<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.starting_urls = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [blacklist_patterns][crate::model::ScanConfig::blacklist_patterns].
-    pub fn set_blacklist_patterns<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.blacklist_patterns = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1541,40 +1541,6 @@ pub mod scan_config {
             })
         }
 
-        /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
-        /// if it holds a `CustomAccount`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_account(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::scan_config::authentication::CustomAccount>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.authentication.as_ref().and_then(|v| match v {
-                crate::model::scan_config::authentication::Authentication::CustomAccount(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
-        /// if it holds a `IapCredential`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn iap_credential(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::scan_config::authentication::IapCredential>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.authentication.as_ref().and_then(|v| match v {
-                crate::model::scan_config::authentication::Authentication::IapCredential(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// to hold a `GoogleAccount`.
         ///
@@ -1595,6 +1561,23 @@ pub mod scan_config {
             self
         }
 
+        /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
+        /// if it holds a `CustomAccount`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_account(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::scan_config::authentication::CustomAccount>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.authentication.as_ref().and_then(|v| match v {
+                crate::model::scan_config::authentication::Authentication::CustomAccount(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// to hold a `CustomAccount`.
         ///
@@ -1612,6 +1595,23 @@ pub mod scan_config {
                 crate::model::scan_config::authentication::Authentication::CustomAccount(v.into()),
             );
             self
+        }
+
+        /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
+        /// if it holds a `IapCredential`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn iap_credential(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::scan_config::authentication::IapCredential>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.authentication.as_ref().and_then(|v| match v {
+                crate::model::scan_config::authentication::Authentication::IapCredential(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [authentication][crate::model::scan_config::Authentication::authentication]
@@ -4158,12 +4158,6 @@ impl ListScanConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListScanConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [scan_configs][crate::model::ListScanConfigsResponse::scan_configs].
     pub fn set_scan_configs<T, V>(mut self, v: T) -> Self
     where
@@ -4172,6 +4166,12 @@ impl ListScanConfigsResponse {
     {
         use std::iter::Iterator;
         self.scan_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListScanConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4344,12 +4344,6 @@ impl ListScanRunsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListScanRunsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [scan_runs][crate::model::ListScanRunsResponse::scan_runs].
     pub fn set_scan_runs<T, V>(mut self, v: T) -> Self
     where
@@ -4358,6 +4352,12 @@ impl ListScanRunsResponse {
     {
         use std::iter::Iterator;
         self.scan_runs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListScanRunsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4498,12 +4498,6 @@ impl ListCrawledUrlsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCrawledUrlsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [crawled_urls][crate::model::ListCrawledUrlsResponse::crawled_urls].
     pub fn set_crawled_urls<T, V>(mut self, v: T) -> Self
     where
@@ -4512,6 +4506,12 @@ impl ListCrawledUrlsResponse {
     {
         use std::iter::Iterator;
         self.crawled_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCrawledUrlsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4665,12 +4665,6 @@ impl ListFindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [findings][crate::model::ListFindingsResponse::findings].
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
@@ -4679,6 +4673,12 @@ impl ListFindingsResponse {
     {
         use std::iter::Iterator;
         self.findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

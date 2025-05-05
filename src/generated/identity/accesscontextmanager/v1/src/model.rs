@@ -116,12 +116,6 @@ impl ListAccessPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [access_policies][crate::model::ListAccessPoliciesResponse::access_policies].
     pub fn set_access_policies<T, V>(mut self, v: T) -> Self
     where
@@ -130,6 +124,12 @@ impl ListAccessPoliciesResponse {
     {
         use std::iter::Iterator;
         self.access_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -369,12 +369,6 @@ impl ListAccessLevelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [access_levels][crate::model::ListAccessLevelsResponse::access_levels].
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -383,6 +377,12 @@ impl ListAccessLevelsResponse {
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -655,12 +655,6 @@ impl ReplaceAccessLevelsRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [access_levels][crate::model::ReplaceAccessLevelsRequest::access_levels].
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -669,6 +663,12 @@ impl ReplaceAccessLevelsRequest {
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -803,12 +803,6 @@ impl ListServicePerimetersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_perimeters][crate::model::ListServicePerimetersResponse::service_perimeters].
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
@@ -817,6 +811,12 @@ impl ListServicePerimetersResponse {
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1067,12 +1067,6 @@ impl ReplaceServicePerimetersRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [service_perimeters][crate::model::ReplaceServicePerimetersRequest::service_perimeters].
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
@@ -1081,6 +1075,12 @@ impl ReplaceServicePerimetersRequest {
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -1311,12 +1311,6 @@ impl ListGcpUserAccessBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [gcp_user_access_bindings][crate::model::ListGcpUserAccessBindingsResponse::gcp_user_access_bindings].
     pub fn set_gcp_user_access_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -1325,6 +1319,12 @@ impl ListGcpUserAccessBindingsResponse {
     {
         use std::iter::Iterator;
         self.gcp_user_access_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1672,17 +1672,6 @@ impl AccessLevel {
         })
     }
 
-    /// The value of [level][crate::model::AccessLevel::level]
-    /// if it holds a `Custom`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
-        #[allow(unreachable_patterns)]
-        self.level.as_ref().and_then(|v| match v {
-            crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [level][crate::model::AccessLevel::level]
     /// to hold a `Basic`.
     ///
@@ -1694,6 +1683,17 @@ impl AccessLevel {
     ) -> Self {
         self.level = std::option::Option::Some(crate::model::access_level::Level::Basic(v.into()));
         self
+    }
+
+    /// The value of [level][crate::model::AccessLevel::level]
+    /// if it holds a `Custom`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
+        #[allow(unreachable_patterns)]
+        self.level.as_ref().and_then(|v| match v {
+            crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [level][crate::model::AccessLevel::level]
@@ -1759,17 +1759,6 @@ impl BasicLevel {
         std::default::Default::default()
     }
 
-    /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
-    pub fn set_combining_function<
-        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.combining_function = v.into();
-        self
-    }
-
     /// Sets the value of [conditions][crate::model::BasicLevel::conditions].
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
@@ -1778,6 +1767,17 @@ impl BasicLevel {
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
+    pub fn set_combining_function<
+        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.combining_function = v.into();
         self
     }
 }
@@ -1982,23 +1982,6 @@ impl Condition {
         std::default::Default::default()
     }
 
-    /// Sets the value of [device_policy][crate::model::Condition::device_policy].
-    pub fn set_device_policy<
-        T: std::convert::Into<std::option::Option<crate::model::DevicePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.device_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [negate][crate::model::Condition::negate].
-    pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.negate = v.into();
-        self
-    }
-
     /// Sets the value of [ip_subnetworks][crate::model::Condition::ip_subnetworks].
     pub fn set_ip_subnetworks<T, V>(mut self, v: T) -> Self
     where
@@ -2010,6 +1993,17 @@ impl Condition {
         self
     }
 
+    /// Sets the value of [device_policy][crate::model::Condition::device_policy].
+    pub fn set_device_policy<
+        T: std::convert::Into<std::option::Option<crate::model::DevicePolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.device_policy = v.into();
+        self
+    }
+
     /// Sets the value of [required_access_levels][crate::model::Condition::required_access_levels].
     pub fn set_required_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -2018,6 +2012,12 @@ impl Condition {
     {
         use std::iter::Iterator;
         self.required_access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [negate][crate::model::Condition::negate].
+    pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.negate = v.into();
         self
     }
 
@@ -2144,18 +2144,6 @@ impl DevicePolicy {
         self
     }
 
-    /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
-    pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_admin_approval = v.into();
-        self
-    }
-
-    /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
-    pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_corp_owned = v.into();
-        self
-    }
-
     /// Sets the value of [allowed_encryption_statuses][crate::model::DevicePolicy::allowed_encryption_statuses].
     pub fn set_allowed_encryption_statuses<T, V>(mut self, v: T) -> Self
     where
@@ -2186,6 +2174,18 @@ impl DevicePolicy {
     {
         use std::iter::Iterator;
         self.allowed_device_management_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
+    pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_admin_approval = v.into();
+        self
+    }
+
+    /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
+    pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_corp_owned = v.into();
         self
     }
 }
@@ -2340,6 +2340,17 @@ impl AccessPolicy {
         self
     }
 
+    /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2361,17 +2372,6 @@ impl AccessPolicy {
     /// Sets the value of [etag][crate::model::AccessPolicy::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
-    pub fn set_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2828,19 +2828,6 @@ impl ServicePerimeterConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
-    pub fn set_vpc_accessible_services<
-        T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vpc_accessible_services = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::ServicePerimeterConfig::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -2871,6 +2858,19 @@ impl ServicePerimeterConfig {
     {
         use std::iter::Iterator;
         self.restricted_services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    pub fn set_vpc_accessible_services<
+        T: std::convert::Into<
+                std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vpc_accessible_services = v.into();
         self
     }
 
@@ -3012,6 +3012,18 @@ pub mod service_perimeter_config {
             })
         }
 
+        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
+        /// to hold a `Method`.
+        ///
+        /// Note that all the setters affecting `kind` are
+        /// mutually exclusive.
+        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.kind = std::option::Option::Some(
+                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
+            );
+            self
+        }
+
         /// The value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
@@ -3023,18 +3035,6 @@ pub mod service_perimeter_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
-        /// to hold a `Method`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
@@ -3195,19 +3195,6 @@ pub mod service_perimeter_config {
             })
         }
 
-        /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
-        /// if it holds a `Resource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn resource(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.source.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
         /// to hold a `AccessLevel`.
         ///
@@ -3223,6 +3210,19 @@ pub mod service_perimeter_config {
                 ),
             );
             self
+        }
+
+        /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
+        /// if it holds a `Resource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn resource(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
@@ -3322,17 +3322,6 @@ pub mod service_perimeter_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.identity_type = v.into();
-            self
-        }
-
         /// Sets the value of [sources][crate::model::service_perimeter_config::IngressFrom::sources].
         pub fn set_sources<T, V>(mut self, v: T) -> Self
         where
@@ -3352,6 +3341,17 @@ pub mod service_perimeter_config {
         {
             use std::iter::Iterator;
             self.identities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
+        pub fn set_identity_type<
+            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.identity_type = v.into();
             self
         }
     }
@@ -3552,17 +3552,6 @@ pub mod service_perimeter_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.identity_type = v.into();
-            self
-        }
-
         /// Sets the value of [identities][crate::model::service_perimeter_config::EgressFrom::identities].
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
@@ -3571,6 +3560,17 @@ pub mod service_perimeter_config {
         {
             use std::iter::Iterator;
             self.identities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
+        pub fn set_identity_type<
+            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.identity_type = v.into();
             self
         }
     }

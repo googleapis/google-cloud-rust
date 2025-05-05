@@ -172,7 +172,7 @@ pub mod {{Codec.ModuleName}} {
             lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
         {{/OperationInfo}}
-        {{#InputType.Codec.SingularFields}}
+        {{#InputType.Codec.BasicFields}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
         {{#DocumentAsRequired}}
@@ -182,21 +182,13 @@ pub mod {{Codec.ModuleName}} {
         {{#Deprecated}}
         #[deprecated]
         {{/Deprecated}}
+        {{#Singular}}
         pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{/InputType.Codec.SingularFields}}
-        {{#InputType.Codec.RepeatedFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
-        {{#DocumentAsRequired}}
-        ///
-        /// This is a **required** field for requests.
-        {{/DocumentAsRequired}}
-        {{#Deprecated}}
-        #[deprecated]
-        {{/Deprecated}}
+        {{/Singular}}
+        {{#Repeated}}
         pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -206,17 +198,8 @@ pub mod {{Codec.ModuleName}} {
             self.0.request.{{Codec.FieldName}} = v.into_iter().map(|i| i.into()).collect();
             self
         }
-        {{/InputType.Codec.RepeatedFields}}
-        {{#InputType.Codec.MapFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
-        {{#DocumentAsRequired}}
-        ///
-        /// This is a **required** field for requests.
-        {{/DocumentAsRequired}}
-        {{#Deprecated}}
-        #[deprecated]
-        {{/Deprecated}}
+        {{/Repeated}}
+        {{#Map}}
         pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -226,7 +209,8 @@ pub mod {{Codec.ModuleName}} {
             self.0.request.{{Codec.FieldName}} = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
-        {{/InputType.Codec.MapFields}}
+        {{/Map}}
+        {{/InputType.Codec.BasicFields}}
         {{#InputType.OneOfs}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.StructQualifiedName}}::{{Codec.SetterName}}].
@@ -237,7 +221,7 @@ pub mod {{Codec.ModuleName}} {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{#Codec.SingularFields}}
+        {{#Fields}}
 
         /// Sets the value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
         /// to hold a `{{Codec.BranchName}}`.
@@ -247,20 +231,13 @@ pub mod {{Codec.ModuleName}} {
         {{#Deprecated}}
         #[deprecated]
         {{/Deprecated}}
+        {{#Singular}}
         pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_{{Codec.SetterName}}(v);
             self
         }
-        {{/Codec.SingularFields}}
-        {{#Codec.RepeatedFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
-        ///
-        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-        /// mutually exclusive.
-        {{#Deprecated}}
-        #[deprecated]
-        {{/Deprecated}}
+        {{/Singular}}
+        {{#Repeated}}
         pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -274,16 +251,8 @@ pub mod {{Codec.ModuleName}} {
             );
             self
         }
-        {{/Codec.RepeatedFields}}
-        {{#Codec.MapFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
-        ///
-        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-        /// mutually exclusive.
-        {{#Deprecated}}
-        #[deprecated]
-        {{/Deprecated}}
+        {{/Repeated}}
+        {{#Map}}
         pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -298,7 +267,8 @@ pub mod {{Codec.ModuleName}} {
             );
             self
         }
-        {{/Codec.MapFields}}
+        {{/Map}}
+        {{/Fields}}
         {{/InputType.OneOfs}}
     }
 

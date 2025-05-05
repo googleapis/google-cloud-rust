@@ -85,15 +85,6 @@ impl Process {
         self
     }
 
-    /// Sets the value of [origin][crate::model::Process::origin].
-    pub fn set_origin<T: std::convert::Into<std::option::Option<crate::model::Origin>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.origin = v.into();
-        self
-    }
-
     /// Sets the value of [attributes][crate::model::Process::attributes].
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -103,6 +94,15 @@ impl Process {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [origin][crate::model::Process::origin].
+    pub fn set_origin<T: std::convert::Into<std::option::Option<crate::model::Origin>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.origin = v.into();
         self
     }
 }
@@ -173,6 +173,18 @@ impl Run {
         self
     }
 
+    /// Sets the value of [attributes][crate::model::Run::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Value>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [start_time][crate::model::Run::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -194,18 +206,6 @@ impl Run {
     /// Sets the value of [state][crate::model::Run::state].
     pub fn set_state<T: std::convert::Into<crate::model::run::State>>(mut self, v: T) -> Self {
         self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [attributes][crate::model::Run::attributes].
-    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<wkt::Value>,
-    {
-        use std::iter::Iterator;
-        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -416,6 +416,17 @@ impl LineageEvent {
         self
     }
 
+    /// Sets the value of [links][crate::model::LineageEvent::links].
+    pub fn set_links<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventLink>,
+    {
+        use std::iter::Iterator;
+        self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [start_time][crate::model::LineageEvent::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -431,17 +442,6 @@ impl LineageEvent {
         v: T,
     ) -> Self {
         self.end_time = v.into();
-        self
-    }
-
-    /// Sets the value of [links][crate::model::LineageEvent::links].
-    pub fn set_links<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventLink>,
-    {
-        use std::iter::Iterator;
-        self.links = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1279,12 +1279,6 @@ impl ListProcessesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProcessesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [processes][crate::model::ListProcessesResponse::processes].
     pub fn set_processes<T, V>(mut self, v: T) -> Self
     where
@@ -1293,6 +1287,12 @@ impl ListProcessesResponse {
     {
         use std::iter::Iterator;
         self.processes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProcessesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1602,12 +1602,6 @@ impl ListRunsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRunsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [runs][crate::model::ListRunsResponse::runs].
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
@@ -1616,6 +1610,12 @@ impl ListRunsResponse {
     {
         use std::iter::Iterator;
         self.runs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRunsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1864,12 +1864,6 @@ impl ListLineageEventsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLineageEventsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [lineage_events][crate::model::ListLineageEventsResponse::lineage_events].
     pub fn set_lineage_events<T, V>(mut self, v: T) -> Self
     where
@@ -1878,6 +1872,12 @@ impl ListLineageEventsResponse {
     {
         use std::iter::Iterator;
         self.lineage_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLineageEventsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2032,17 +2032,6 @@ impl SearchLinksRequest {
         })
     }
 
-    /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
-    /// if it holds a `Target`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn target(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityReference>> {
-        #[allow(unreachable_patterns)]
-        self.criteria.as_ref().and_then(|v| match v {
-            crate::model::search_links_request::Criteria::Target(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
     /// to hold a `Source`.
     ///
@@ -2056,6 +2045,17 @@ impl SearchLinksRequest {
             crate::model::search_links_request::Criteria::Source(v.into()),
         );
         self
+    }
+
+    /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
+    /// if it holds a `Target`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn target(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityReference>> {
+        #[allow(unreachable_patterns)]
+        self.criteria.as_ref().and_then(|v| match v {
+            crate::model::search_links_request::Criteria::Target(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
@@ -2127,12 +2127,6 @@ impl SearchLinksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchLinksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [links][crate::model::SearchLinksResponse::links].
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
@@ -2141,6 +2135,12 @@ impl SearchLinksResponse {
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchLinksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2306,6 +2306,17 @@ impl BatchSearchLinkProcessesRequest {
         self
     }
 
+    /// Sets the value of [links][crate::model::BatchSearchLinkProcessesRequest::links].
+    pub fn set_links<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::BatchSearchLinkProcessesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -2315,17 +2326,6 @@ impl BatchSearchLinkProcessesRequest {
     /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [links][crate::model::BatchSearchLinkProcessesRequest::links].
-    pub fn set_links<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.links = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2363,12 +2363,6 @@ impl BatchSearchLinkProcessesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::BatchSearchLinkProcessesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [process_links][crate::model::BatchSearchLinkProcessesResponse::process_links].
     pub fn set_process_links<T, V>(mut self, v: T) -> Self
     where
@@ -2377,6 +2371,12 @@ impl BatchSearchLinkProcessesResponse {
     {
         use std::iter::Iterator;
         self.process_links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::BatchSearchLinkProcessesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

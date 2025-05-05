@@ -575,6 +575,17 @@ pub mod aml {
             self
         }
 
+        /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
+        pub fn set_party_tables<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.party_tables = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [mode][crate::model::ImportRegisteredPartiesRequest::mode].
         ///
         /// This is a **required** field for requests.
@@ -597,17 +608,6 @@ pub mod aml {
         /// This is a **required** field for requests.
         pub fn set_line_of_business<T: Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
             self.0.request.line_of_business = v.into();
-            self
-        }
-
-        /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
-        pub fn set_party_tables<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.party_tables = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

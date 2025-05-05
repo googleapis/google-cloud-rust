@@ -819,15 +819,6 @@ impl AllowPolicyExplanation {
         self
     }
 
-    /// Sets the value of [relevance][crate::model::AllowPolicyExplanation::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.relevance = v.into();
-        self
-    }
-
     /// Sets the value of [explained_policies][crate::model::AllowPolicyExplanation::explained_policies].
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
@@ -836,6 +827,15 @@ impl AllowPolicyExplanation {
     {
         use std::iter::Iterator;
         self.explained_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relevance][crate::model::AllowPolicyExplanation::relevance].
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance = v.into();
         self
     }
 }
@@ -928,6 +928,17 @@ impl ExplainedAllowPolicy {
         self
     }
 
+    /// Sets the value of [binding_explanations][crate::model::ExplainedAllowPolicy::binding_explanations].
+    pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AllowBindingExplanation>,
+    {
+        use std::iter::Iterator;
+        self.binding_explanations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::ExplainedAllowPolicy::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
@@ -943,17 +954,6 @@ impl ExplainedAllowPolicy {
         v: T,
     ) -> Self {
         self.policy = v.into();
-        self
-    }
-
-    /// Sets the value of [binding_explanations][crate::model::ExplainedAllowPolicy::binding_explanations].
-    pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AllowBindingExplanation>,
-    {
-        use std::iter::Iterator;
-        self.binding_explanations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1107,6 +1107,18 @@ impl AllowBindingExplanation {
         self
     }
 
+    /// Sets the value of [memberships][crate::model::AllowBindingExplanation::memberships].
+    pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
+    {
+        use std::iter::Iterator;
+        self.memberships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::AllowBindingExplanation::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
@@ -1133,18 +1145,6 @@ impl AllowBindingExplanation {
         v: T,
     ) -> Self {
         self.condition_explanation = v.into();
-        self
-    }
-
-    /// Sets the value of [memberships][crate::model::AllowBindingExplanation::memberships].
-    pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
-    {
-        use std::iter::Iterator;
-        self.memberships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1261,6 +1261,17 @@ impl DenyPolicyExplanation {
         self
     }
 
+    /// Sets the value of [explained_resources][crate::model::DenyPolicyExplanation::explained_resources].
+    pub fn set_explained_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExplainedDenyResource>,
+    {
+        use std::iter::Iterator;
+        self.explained_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::DenyPolicyExplanation::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
@@ -1273,17 +1284,6 @@ impl DenyPolicyExplanation {
     /// Sets the value of [permission_deniable][crate::model::DenyPolicyExplanation::permission_deniable].
     pub fn set_permission_deniable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.permission_deniable = v.into();
-        self
-    }
-
-    /// Sets the value of [explained_resources][crate::model::DenyPolicyExplanation::explained_resources].
-    pub fn set_explained_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExplainedDenyResource>,
-    {
-        use std::iter::Iterator;
-        self.explained_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1367,15 +1367,6 @@ impl ExplainedDenyResource {
         self
     }
 
-    /// Sets the value of [relevance][crate::model::ExplainedDenyResource::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.relevance = v.into();
-        self
-    }
-
     /// Sets the value of [explained_policies][crate::model::ExplainedDenyResource::explained_policies].
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
@@ -1384,6 +1375,15 @@ impl ExplainedDenyResource {
     {
         use std::iter::Iterator;
         self.explained_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relevance][crate::model::ExplainedDenyResource::relevance].
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance = v.into();
         self
     }
 }
@@ -1467,15 +1467,6 @@ impl ExplainedDenyPolicy {
         self
     }
 
-    /// Sets the value of [relevance][crate::model::ExplainedDenyPolicy::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.relevance = v.into();
-        self
-    }
-
     /// Sets the value of [rule_explanations][crate::model::ExplainedDenyPolicy::rule_explanations].
     pub fn set_rule_explanations<T, V>(mut self, v: T) -> Self
     where
@@ -1484,6 +1475,15 @@ impl ExplainedDenyPolicy {
     {
         use std::iter::Iterator;
         self.rule_explanations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relevance][crate::model::ExplainedDenyPolicy::relevance].
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance = v.into();
         self
     }
 }
@@ -1636,6 +1636,18 @@ impl DenyRuleExplanation {
         self
     }
 
+    /// Sets the value of [denied_permissions][crate::model::DenyRuleExplanation::denied_permissions].
+    pub fn set_denied_permissions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    {
+        use std::iter::Iterator;
+        self.denied_permissions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
     pub fn set_combined_exception_permission<
         T: std::convert::Into<
@@ -1648,6 +1660,18 @@ impl DenyRuleExplanation {
         v: T,
     ) -> Self {
         self.combined_exception_permission = v.into();
+        self
+    }
+
+    /// Sets the value of [exception_permissions][crate::model::DenyRuleExplanation::exception_permissions].
+    pub fn set_exception_permissions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    {
+        use std::iter::Iterator;
+        self.exception_permissions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1666,6 +1690,18 @@ impl DenyRuleExplanation {
         self
     }
 
+    /// Sets the value of [denied_principals][crate::model::DenyRuleExplanation::denied_principals].
+    pub fn set_denied_principals<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    {
+        use std::iter::Iterator;
+        self.denied_principals = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
     pub fn set_combined_exception_principal<
         T: std::convert::Into<
@@ -1678,6 +1714,18 @@ impl DenyRuleExplanation {
         v: T,
     ) -> Self {
         self.combined_exception_principal = v.into();
+        self
+    }
+
+    /// Sets the value of [exception_principals][crate::model::DenyRuleExplanation::exception_principals].
+    pub fn set_exception_principals<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    {
+        use std::iter::Iterator;
+        self.exception_principals = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1707,54 +1755,6 @@ impl DenyRuleExplanation {
         v: T,
     ) -> Self {
         self.condition_explanation = v.into();
-        self
-    }
-
-    /// Sets the value of [denied_permissions][crate::model::DenyRuleExplanation::denied_permissions].
-    pub fn set_denied_permissions<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
-    {
-        use std::iter::Iterator;
-        self.denied_permissions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [exception_permissions][crate::model::DenyRuleExplanation::exception_permissions].
-    pub fn set_exception_permissions<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
-    {
-        use std::iter::Iterator;
-        self.exception_permissions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [denied_principals][crate::model::DenyRuleExplanation::denied_principals].
-    pub fn set_denied_principals<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
-    {
-        use std::iter::Iterator;
-        self.denied_principals = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [exception_principals][crate::model::DenyRuleExplanation::exception_principals].
-    pub fn set_exception_principals<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
-    {
-        use std::iter::Iterator;
-        self.exception_principals = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

@@ -129,18 +129,6 @@ impl Endpoint {
         self
     }
 
-    /// Sets the value of [network][crate::model::Endpoint::network].
-    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network = v.into();
-        self
-    }
-
-    /// Sets the value of [uid][crate::model::Endpoint::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::Endpoint::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -150,6 +138,18 @@ impl Endpoint {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::Endpoint::network].
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Endpoint::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }
@@ -332,12 +332,6 @@ impl Namespace {
         self
     }
 
-    /// Sets the value of [uid][crate::model::Namespace::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Namespace::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -347,6 +341,12 @@ impl Namespace {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Namespace::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }
@@ -562,12 +562,6 @@ impl ListNamespacesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNamespacesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [namespaces][crate::model::ListNamespacesResponse::namespaces].
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
@@ -576,6 +570,12 @@ impl ListNamespacesResponse {
     {
         use std::iter::Iterator;
         self.namespaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNamespacesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -928,12 +928,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -942,6 +936,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1299,12 +1299,6 @@ impl ListEndpointsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [endpoints][crate::model::ListEndpointsResponse::endpoints].
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -1313,6 +1307,12 @@ impl ListEndpointsResponse {
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1529,9 +1529,15 @@ impl Service {
         self
     }
 
-    /// Sets the value of [uid][crate::model::Service::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
+    /// Sets the value of [annotations][crate::model::Service::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1546,15 +1552,9 @@ impl Service {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::Service::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [uid][crate::model::Service::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }

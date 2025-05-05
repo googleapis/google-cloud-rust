@@ -237,14 +237,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkInsightAcceptedRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -254,6 +246,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -500,14 +500,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkRecommendationClaimedRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -517,6 +509,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -572,14 +572,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkRecommendationSucceededRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -589,6 +581,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -644,14 +644,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkRecommendationFailedRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -661,6 +653,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }

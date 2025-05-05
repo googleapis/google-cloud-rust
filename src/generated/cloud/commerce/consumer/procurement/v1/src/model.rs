@@ -82,22 +82,6 @@ impl AssignmentProtocol {
         })
     }
 
-    /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
-    /// if it holds a `AutoAssignmentType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn auto_assignment_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>
-    {
-        #[allow(unreachable_patterns)]
-        self.assignment_type.as_ref().and_then(|v| match v {
-            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
     /// to hold a `ManualAssignmentType`.
     ///
@@ -115,6 +99,22 @@ impl AssignmentProtocol {
             crate::model::assignment_protocol::AssignmentType::ManualAssignmentType(v.into()),
         );
         self
+    }
+
+    /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
+    /// if it holds a `AutoAssignmentType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn auto_assignment_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>
+    {
+        #[allow(unreachable_patterns)]
+        self.assignment_type.as_ref().and_then(|v| match v {
+            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
@@ -673,12 +673,6 @@ impl EnumerateLicensedUsersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::EnumerateLicensedUsersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [licensed_users][crate::model::EnumerateLicensedUsersResponse::licensed_users].
     pub fn set_licensed_users<T, V>(mut self, v: T) -> Self
     where
@@ -687,6 +681,12 @@ impl EnumerateLicensedUsersResponse {
     {
         use std::iter::Iterator;
         self.licensed_users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::EnumerateLicensedUsersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -777,6 +777,28 @@ impl Order {
         self
     }
 
+    /// Sets the value of [line_items][crate::model::Order::line_items].
+    pub fn set_line_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LineItem>,
+    {
+        use std::iter::Iterator;
+        self.line_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cancelled_line_items][crate::model::Order::cancelled_line_items].
+    pub fn set_cancelled_line_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LineItem>,
+    {
+        use std::iter::Iterator;
+        self.cancelled_line_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Order::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -798,28 +820,6 @@ impl Order {
     /// Sets the value of [etag][crate::model::Order::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [line_items][crate::model::Order::line_items].
-    pub fn set_line_items<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineItem>,
-    {
-        use std::iter::Iterator;
-        self.line_items = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [cancelled_line_items][crate::model::Order::cancelled_line_items].
-    pub fn set_cancelled_line_items<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineItem>,
-    {
-        use std::iter::Iterator;
-        self.cancelled_line_items = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1107,17 +1107,6 @@ impl LineItemInfo {
         self
     }
 
-    /// Sets the value of [subscription][crate::model::LineItemInfo::subscription].
-    pub fn set_subscription<
-        T: std::convert::Into<std::option::Option<crate::model::Subscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subscription = v.into();
-        self
-    }
-
     /// Sets the value of [parameters][crate::model::LineItemInfo::parameters].
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
@@ -1126,6 +1115,17 @@ impl LineItemInfo {
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [subscription][crate::model::LineItemInfo::subscription].
+    pub fn set_subscription<
+        T: std::convert::Into<std::option::Option<crate::model::Subscription>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subscription = v.into();
         self
     }
 }
@@ -1229,6 +1229,18 @@ pub mod parameter {
             })
         }
 
+        /// Sets the value of [kind][crate::model::parameter::Value::kind]
+        /// to hold a `Int64Value`.
+        ///
+        /// Note that all the setters affecting `kind` are
+        /// mutually exclusive.
+        pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.kind = std::option::Option::Some(
+                crate::model::parameter::value::Kind::Int64Value(v.into()),
+            );
+            self
+        }
+
         /// The value of [kind][crate::model::parameter::Value::kind]
         /// if it holds a `StringValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -1240,31 +1252,6 @@ pub mod parameter {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// The value of [kind][crate::model::parameter::Value::kind]
-        /// if it holds a `DoubleValue`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn double_value(&self) -> std::option::Option<&f64> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::parameter::value::Kind::DoubleValue(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [kind][crate::model::parameter::Value::kind]
-        /// to hold a `Int64Value`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::Int64Value(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [kind][crate::model::parameter::Value::kind]
@@ -1280,6 +1267,19 @@ pub mod parameter {
                 crate::model::parameter::value::Kind::StringValue(v.into()),
             );
             self
+        }
+
+        /// The value of [kind][crate::model::parameter::Value::kind]
+        /// if it holds a `DoubleValue`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn double_value(&self) -> std::option::Option<&f64> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::parameter::value::Kind::DoubleValue(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [kind][crate::model::parameter::Value::kind]
@@ -1434,12 +1434,6 @@ impl PlaceOrderRequest {
         self
     }
 
-    /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
-    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request_id = v.into();
-        self
-    }
-
     /// Sets the value of [line_item_info][crate::model::PlaceOrderRequest::line_item_info].
     pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
     where
@@ -1448,6 +1442,12 @@ impl PlaceOrderRequest {
     {
         use std::iter::Iterator;
         self.line_item_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
         self
     }
 }
@@ -1626,12 +1626,6 @@ impl ListOrdersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrdersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [orders][crate::model::ListOrdersResponse::orders].
     pub fn set_orders<T, V>(mut self, v: T) -> Self
     where
@@ -1640,6 +1634,12 @@ impl ListOrdersResponse {
     {
         use std::iter::Iterator;
         self.orders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrdersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1709,6 +1709,17 @@ impl ModifyOrderRequest {
         self
     }
 
+    /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
+    pub fn set_modifications<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::modify_order_request::Modification>,
+    {
+        use std::iter::Iterator;
+        self.modifications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::ModifyOrderRequest::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -1718,17 +1729,6 @@ impl ModifyOrderRequest {
     /// Sets the value of [etag][crate::model::ModifyOrderRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
-    pub fn set_modifications<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::modify_order_request::Modification>,
-    {
-        use std::iter::Iterator;
-        self.modifications = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

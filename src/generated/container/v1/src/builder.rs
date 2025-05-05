@@ -421,6 +421,17 @@ pub mod cluster_manager {
             self
         }
 
+        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
         pub fn set_workload_metadata_config<
             T: Into<std::option::Option<crate::model::WorkloadMetadataConfig>>,
@@ -576,6 +587,17 @@ pub mod cluster_manager {
             self
         }
 
+        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
+        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AcceleratorConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [machine_type][crate::model::UpdateNodePoolRequest::machine_type].
         pub fn set_machine_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.machine_type = v.into();
@@ -624,28 +646,6 @@ pub mod cluster_manager {
             v: T,
         ) -> Self {
             self.0.request.queued_provisioning = v.into();
-            self
-        }
-
-        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
-        pub fn set_locations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
-        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AcceleratorConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -1038,12 +1038,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
         ///
         /// This is a **required** field for requests.
@@ -1054,6 +1048,12 @@ pub mod cluster_manager {
         {
             use std::iter::Iterator;
             self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
             self
         }
     }
@@ -2150,20 +2150,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.label_fingerprint = v.into();
-            self
-        }
-
-        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
         ///
         /// This is a **required** field for requests.
@@ -2175,6 +2161,20 @@ pub mod cluster_manager {
         {
             self.0.request.resource_labels =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.label_fingerprint = v.into();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
             self
         }
     }

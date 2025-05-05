@@ -183,12 +183,6 @@ impl ListKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [keys][crate::model::ListKeysResponse::keys].
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
@@ -197,6 +191,12 @@ impl ListKeysResponse {
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -646,6 +646,18 @@ impl Key {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Key::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [restrictions][crate::model::Key::restrictions].
     pub fn set_restrictions<
         T: std::convert::Into<std::option::Option<crate::model::Restrictions>>,
@@ -660,18 +672,6 @@ impl Key {
     /// Sets the value of [etag][crate::model::Key::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Key::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -750,51 +750,6 @@ impl Restrictions {
         })
     }
 
-    /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// if it holds a `ServerKeyRestrictions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn server_key_restrictions(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ServerKeyRestrictions>> {
-        #[allow(unreachable_patterns)]
-        self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// if it holds a `AndroidKeyRestrictions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn android_key_restrictions(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeyRestrictions>> {
-        #[allow(unreachable_patterns)]
-        self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// if it holds a `IosKeyRestrictions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ios_key_restrictions(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IosKeyRestrictions>> {
-        #[allow(unreachable_patterns)]
-        self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// to hold a `BrowserKeyRestrictions`.
     ///
@@ -810,6 +765,21 @@ impl Restrictions {
             crate::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(v.into()),
         );
         self
+    }
+
+    /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
+    /// if it holds a `ServerKeyRestrictions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn server_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ServerKeyRestrictions>> {
+        #[allow(unreachable_patterns)]
+        self.client_restrictions.as_ref().and_then(|v| match v {
+            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
@@ -829,6 +799,21 @@ impl Restrictions {
         self
     }
 
+    /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
+    /// if it holds a `AndroidKeyRestrictions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn android_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeyRestrictions>> {
+        #[allow(unreachable_patterns)]
+        self.client_restrictions.as_ref().and_then(|v| match v {
+            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// to hold a `AndroidKeyRestrictions`.
     ///
@@ -844,6 +829,21 @@ impl Restrictions {
             crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v.into()),
         );
         self
+    }
+
+    /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
+    /// if it holds a `IosKeyRestrictions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ios_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IosKeyRestrictions>> {
+        #[allow(unreachable_patterns)]
+        self.client_restrictions.as_ref().and_then(|v| match v {
+            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]

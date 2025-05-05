@@ -184,6 +184,17 @@ impl ServiceConfig {
         self
     }
 
+    /// Sets the value of [apis][crate::model::ServiceConfig::apis].
+    pub fn set_apis<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Api>,
+    {
+        use std::iter::Iterator;
+        self.apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [documentation][crate::model::ServiceConfig::documentation].
     pub fn set_documentation<
         T: std::convert::Into<std::option::Option<api::model::Documentation>>,
@@ -224,26 +235,6 @@ impl ServiceConfig {
         self
     }
 
-    /// Sets the value of [monitoring][crate::model::ServiceConfig::monitoring].
-    pub fn set_monitoring<T: std::convert::Into<std::option::Option<api::model::Monitoring>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitoring = v.into();
-        self
-    }
-
-    /// Sets the value of [apis][crate::model::ServiceConfig::apis].
-    pub fn set_apis<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Api>,
-    {
-        use std::iter::Iterator;
-        self.apis = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [endpoints][crate::model::ServiceConfig::endpoints].
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -263,6 +254,15 @@ impl ServiceConfig {
     {
         use std::iter::Iterator;
         self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [monitoring][crate::model::ServiceConfig::monitoring].
+    pub fn set_monitoring<T: std::convert::Into<std::option::Option<api::model::Monitoring>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.monitoring = v.into();
         self
     }
 }
@@ -765,12 +765,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -779,6 +773,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

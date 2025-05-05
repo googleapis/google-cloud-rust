@@ -102,48 +102,6 @@ impl AuthConfig {
         })
     }
 
-    /// The value of [r#type][crate::model::AuthConfig::r#type]
-    /// if it holds a `Oauth2JwtBearer`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oauth2_jwt_bearer(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::auth_config::Type::Oauth2JwtBearer(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::AuthConfig::r#type]
-    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oauth2_client_credentials(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>
-    {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::auth_config::Type::Oauth2ClientCredentials(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::AuthConfig::r#type]
-    /// if it holds a `SshPublicKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ssh_public_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::SshPublicKey>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::auth_config::Type::SshPublicKey(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
     /// to hold a `UserPassword`.
     ///
@@ -158,6 +116,19 @@ impl AuthConfig {
         self.r#type =
             std::option::Option::Some(crate::model::auth_config::Type::UserPassword(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::AuthConfig::r#type]
+    /// if it holds a `Oauth2JwtBearer`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth2_jwt_bearer(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::auth_config::Type::Oauth2JwtBearer(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
@@ -176,6 +147,22 @@ impl AuthConfig {
         self
     }
 
+    /// The value of [r#type][crate::model::AuthConfig::r#type]
+    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth2_client_credentials(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>
+    {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::auth_config::Type::Oauth2ClientCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
     /// to hold a `Oauth2ClientCredentials`.
     ///
@@ -191,6 +178,19 @@ impl AuthConfig {
             crate::model::auth_config::Type::Oauth2ClientCredentials(v.into()),
         );
         self
+    }
+
+    /// The value of [r#type][crate::model::AuthConfig::r#type]
+    /// if it holds a `SshPublicKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ssh_public_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::SshPublicKey>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::auth_config::Type::SshPublicKey(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
@@ -559,6 +559,17 @@ impl AuthConfigTemplate {
         self
     }
 
+    /// Sets the value of [config_variable_templates][crate::model::AuthConfigTemplate::config_variable_templates].
+    pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
+    {
+        use std::iter::Iterator;
+        self.config_variable_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::AuthConfigTemplate::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -568,17 +579,6 @@ impl AuthConfigTemplate {
     /// Sets the value of [description][crate::model::AuthConfigTemplate::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [config_variable_templates][crate::model::AuthConfigTemplate::config_variable_templates].
-    pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
-    {
-        use std::iter::Iterator;
-        self.config_variable_templates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -808,6 +808,17 @@ impl ConfigVariableTemplate {
         self
     }
 
+    /// Sets the value of [enum_options][crate::model::ConfigVariableTemplate::enum_options].
+    pub fn set_enum_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EnumOption>,
+    {
+        use std::iter::Iterator;
+        self.enum_options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [authorization_code_link][crate::model::ConfigVariableTemplate::authorization_code_link].
     pub fn set_authorization_code_link<
         T: std::convert::Into<std::option::Option<crate::model::AuthorizationCodeLink>>,
@@ -831,17 +842,6 @@ impl ConfigVariableTemplate {
     /// Sets the value of [is_advanced][crate::model::ConfigVariableTemplate::is_advanced].
     pub fn set_is_advanced<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_advanced = v.into();
-        self
-    }
-
-    /// Sets the value of [enum_options][crate::model::ConfigVariableTemplate::enum_options].
-    pub fn set_enum_options<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnumOption>,
-    {
-        use std::iter::Iterator;
-        self.enum_options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1280,39 +1280,6 @@ impl ConfigVariable {
         })
     }
 
-    /// The value of [value][crate::model::ConfigVariable::value]
-    /// if it holds a `BoolValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bool_value(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::config_variable::Value::BoolValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::ConfigVariable::value]
-    /// if it holds a `StringValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::config_variable::Value::StringValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::ConfigVariable::value]
-    /// if it holds a `SecretValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn secret_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Secret>> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::config_variable::Value::SecretValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::ConfigVariable::value]
     /// to hold a `IntValue`.
     ///
@@ -1322,6 +1289,17 @@ impl ConfigVariable {
         self.value =
             std::option::Option::Some(crate::model::config_variable::Value::IntValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::ConfigVariable::value]
+    /// if it holds a `BoolValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::config_variable::Value::BoolValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::ConfigVariable::value]
@@ -1335,6 +1313,17 @@ impl ConfigVariable {
         self
     }
 
+    /// The value of [value][crate::model::ConfigVariable::value]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::config_variable::Value::StringValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::ConfigVariable::value]
     /// to hold a `StringValue`.
     ///
@@ -1344,6 +1333,17 @@ impl ConfigVariable {
         self.value =
             std::option::Option::Some(crate::model::config_variable::Value::StringValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::ConfigVariable::value]
+    /// if it holds a `SecretValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn secret_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Secret>> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::config_variable::Value::SecretValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::ConfigVariable::value]
@@ -1431,6 +1431,17 @@ impl RoleGrant {
         self
     }
 
+    /// Sets the value of [roles][crate::model::RoleGrant::roles].
+    pub fn set_roles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [resource][crate::model::RoleGrant::resource].
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::role_grant::Resource>>,
@@ -1448,17 +1459,6 @@ impl RoleGrant {
         v: T,
     ) -> Self {
         self.helper_text_template = v.into();
-        self
-    }
-
-    /// Sets the value of [roles][crate::model::RoleGrant::roles].
-    pub fn set_roles<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.roles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1852,6 +1852,17 @@ impl AuthorizationCodeLink {
         self
     }
 
+    /// Sets the value of [scopes][crate::model::AuthorizationCodeLink::scopes].
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [client_id][crate::model::AuthorizationCodeLink::client_id].
     pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_id = v.into();
@@ -1861,17 +1872,6 @@ impl AuthorizationCodeLink {
     /// Sets the value of [enable_pkce][crate::model::AuthorizationCodeLink::enable_pkce].
     pub fn set_enable_pkce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_pkce = v.into();
-        self
-    }
-
-    /// Sets the value of [scopes][crate::model::AuthorizationCodeLink::scopes].
-    pub fn set_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2008,6 +2008,18 @@ impl Connection {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Connection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Connection::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -2034,6 +2046,17 @@ impl Connection {
         self
     }
 
+    /// Sets the value of [config_variables][crate::model::Connection::config_variables].
+    pub fn set_config_variables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConfigVariable>,
+    {
+        use std::iter::Iterator;
+        self.config_variables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [auth_config][crate::model::Connection::auth_config].
     pub fn set_auth_config<T: std::convert::Into<std::option::Option<crate::model::AuthConfig>>>(
         mut self,
@@ -2049,6 +2072,17 @@ impl Connection {
         v: T,
     ) -> Self {
         self.lock_config = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_configs][crate::model::Connection::destination_configs].
+    pub fn set_destination_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DestinationConfig>,
+    {
+        use std::iter::Iterator;
+        self.destination_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2103,40 +2137,6 @@ impl Connection {
         v: T,
     ) -> Self {
         self.ssl_config = v.into();
-        self
-    }
-
-    /// Sets the value of [config_variables][crate::model::Connection::config_variables].
-    pub fn set_config_variables<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariable>,
-    {
-        use std::iter::Iterator;
-        self.config_variables = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [destination_configs][crate::model::Connection::destination_configs].
-    pub fn set_destination_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DestinationConfig>,
-    {
-        use std::iter::Iterator;
-        self.destination_configs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Connection::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2232,6 +2232,28 @@ impl ConnectionSchemaMetadata {
         std::default::Default::default()
     }
 
+    /// Sets the value of [entities][crate::model::ConnectionSchemaMetadata::entities].
+    pub fn set_entities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [actions][crate::model::ConnectionSchemaMetadata::actions].
+    pub fn set_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [name][crate::model::ConnectionSchemaMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2262,28 +2284,6 @@ impl ConnectionSchemaMetadata {
         v: T,
     ) -> Self {
         self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [entities][crate::model::ConnectionSchemaMetadata::entities].
-    pub fn set_entities<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.entities = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [actions][crate::model::ConnectionSchemaMetadata::actions].
-    pub fn set_actions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.actions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2952,12 +2952,6 @@ impl ListConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
@@ -2966,6 +2960,12 @@ impl ListConnectionsResponse {
     {
         use std::iter::Iterator;
         self.connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3363,12 +3363,6 @@ impl ListRuntimeEntitySchemasResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuntimeEntitySchemasResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [runtime_entity_schemas][crate::model::ListRuntimeEntitySchemasResponse::runtime_entity_schemas].
     pub fn set_runtime_entity_schemas<T, V>(mut self, v: T) -> Self
     where
@@ -3377,6 +3371,12 @@ impl ListRuntimeEntitySchemasResponse {
     {
         use std::iter::Iterator;
         self.runtime_entity_schemas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuntimeEntitySchemasResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3496,12 +3496,6 @@ impl ListRuntimeActionSchemasResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuntimeActionSchemasResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [runtime_action_schemas][crate::model::ListRuntimeActionSchemasResponse::runtime_action_schemas].
     pub fn set_runtime_action_schemas<T, V>(mut self, v: T) -> Self
     where
@@ -3510,6 +3504,12 @@ impl ListRuntimeActionSchemasResponse {
     {
         use std::iter::Iterator;
         self.runtime_action_schemas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuntimeActionSchemasResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3845,6 +3845,18 @@ impl Connector {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Connector::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [documentation_uri][crate::model::Connector::documentation_uri].
     pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3887,18 +3899,6 @@ impl Connector {
         v: T,
     ) -> Self {
         self.launch_stage = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Connector::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4024,12 +4024,6 @@ impl ListConnectorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connectors][crate::model::ListConnectorsResponse::connectors].
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
@@ -4038,6 +4032,12 @@ impl ListConnectorsResponse {
     {
         use std::iter::Iterator;
         self.connectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4174,6 +4174,18 @@ impl ConnectorVersion {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ConnectorVersion::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [launch_stage][crate::model::ConnectorVersion::launch_stage].
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
@@ -4186,6 +4198,28 @@ impl ConnectorVersion {
     /// Sets the value of [release_version][crate::model::ConnectorVersion::release_version].
     pub fn set_release_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_version = v.into();
+        self
+    }
+
+    /// Sets the value of [auth_config_templates][crate::model::ConnectorVersion::auth_config_templates].
+    pub fn set_auth_config_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthConfigTemplate>,
+    {
+        use std::iter::Iterator;
+        self.auth_config_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [config_variable_templates][crate::model::ConnectorVersion::config_variable_templates].
+    pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
+    {
+        use std::iter::Iterator;
+        self.config_variable_templates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4217,6 +4251,17 @@ impl ConnectorVersion {
         self
     }
 
+    /// Sets the value of [role_grants][crate::model::ConnectorVersion::role_grants].
+    pub fn set_role_grants<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RoleGrant>,
+    {
+        use std::iter::Iterator;
+        self.role_grants = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [role_grant][crate::model::ConnectorVersion::role_grant].
     pub fn set_role_grant<T: std::convert::Into<std::option::Option<crate::model::RoleGrant>>>(
         mut self,
@@ -4234,51 +4279,6 @@ impl ConnectorVersion {
         v: T,
     ) -> Self {
         self.ssl_config_template = v.into();
-        self
-    }
-
-    /// Sets the value of [auth_config_templates][crate::model::ConnectorVersion::auth_config_templates].
-    pub fn set_auth_config_templates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuthConfigTemplate>,
-    {
-        use std::iter::Iterator;
-        self.auth_config_templates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [config_variable_templates][crate::model::ConnectorVersion::config_variable_templates].
-    pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigVariableTemplate>,
-    {
-        use std::iter::Iterator;
-        self.config_variable_templates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [role_grants][crate::model::ConnectorVersion::role_grants].
-    pub fn set_role_grants<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RoleGrant>,
-    {
-        use std::iter::Iterator;
-        self.role_grants = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ConnectorVersion::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4430,12 +4430,6 @@ impl ListConnectorVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectorVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connector_versions][crate::model::ListConnectorVersionsResponse::connector_versions].
     pub fn set_connector_versions<T, V>(mut self, v: T) -> Self
     where
@@ -4444,6 +4438,12 @@ impl ListConnectorVersionsResponse {
     {
         use std::iter::Iterator;
         self.connector_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectorVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4583,6 +4583,18 @@ impl EgressControlConfig {
         })
     }
 
+    /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
+    /// to hold a `Backends`.
+    ///
+    /// Note that all the setters affecting `oneof_backends` are
+    /// mutually exclusive.
+    pub fn set_backends<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.oneof_backends = std::option::Option::Some(
+            crate::model::egress_control_config::OneofBackends::Backends(v.into()),
+        );
+        self
+    }
+
     /// The value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
     /// if it holds a `ExtractionRules`, `None` if the field is not set or
     /// holds a different branch.
@@ -4596,18 +4608,6 @@ impl EgressControlConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
-    /// to hold a `Backends`.
-    ///
-    /// Note that all the setters affecting `oneof_backends` are
-    /// mutually exclusive.
-    pub fn set_backends<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.oneof_backends = std::option::Option::Some(
-            crate::model::egress_control_config::OneofBackends::Backends(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
@@ -5018,17 +5018,6 @@ impl Destination {
         })
     }
 
-    /// The value of [destination][crate::model::Destination::destination]
-    /// if it holds a `Host`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn host(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::destination::Destination::Host(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::Destination::destination]
     /// to hold a `ServiceAttachment`.
     ///
@@ -5042,6 +5031,17 @@ impl Destination {
             crate::model::destination::Destination::ServiceAttachment(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::Destination::destination]
+    /// if it holds a `Host`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn host(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::destination::Destination::Host(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::Destination::destination]
@@ -5161,6 +5161,18 @@ impl Provider {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Provider::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [documentation_uri][crate::model::Provider::documentation_uri].
     pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5203,18 +5215,6 @@ impl Provider {
         v: T,
     ) -> Self {
         self.launch_stage = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Provider::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5340,12 +5340,6 @@ impl ListProvidersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [providers][crate::model::ListProvidersResponse::providers].
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
@@ -5354,6 +5348,12 @@ impl ListProvidersResponse {
     {
         use std::iter::Iterator;
         self.providers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

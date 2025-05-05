@@ -242,23 +242,6 @@ impl SharingEnvironmentConfig {
         })
     }
 
-    /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
-    /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dcr_exchange_config(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.environment.as_ref().and_then(|v| match v {
-            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// to hold a `DefaultExchangeConfig`.
     ///
@@ -276,6 +259,23 @@ impl SharingEnvironmentConfig {
             crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
+    /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dcr_exchange_config(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.environment.as_ref().and_then(|v| match v {
+            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment]
@@ -606,12 +606,6 @@ impl DestinationDataset {
         self
     }
 
-    /// Sets the value of [location][crate::model::DestinationDataset::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::DestinationDataset::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -621,6 +615,12 @@ impl DestinationDataset {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::DestinationDataset::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -820,6 +820,17 @@ impl Listing {
         self
     }
 
+    /// Sets the value of [categories][crate::model::Listing::categories].
+    pub fn set_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::listing::Category>,
+    {
+        use std::iter::Iterator;
+        self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [publisher][crate::model::Listing::publisher].
     pub fn set_publisher<T: std::convert::Into<std::option::Option<crate::model::Publisher>>>(
         mut self,
@@ -877,17 +888,6 @@ impl Listing {
         self
     }
 
-    /// Sets the value of [categories][crate::model::Listing::categories].
-    pub fn set_categories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::listing::Category>,
-    {
-        use std::iter::Iterator;
-        self.categories = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [source][crate::model::Listing::source].
     ///
     /// Note that all the setters affecting `source` are mutually
@@ -913,19 +913,6 @@ impl Listing {
         })
     }
 
-    /// The value of [source][crate::model::Listing::source]
-    /// if it holds a `PubsubTopic`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn pubsub_topic(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::Listing::source]
     /// to hold a `BigqueryDataset`.
     ///
@@ -940,6 +927,19 @@ impl Listing {
         self.source =
             std::option::Option::Some(crate::model::listing::Source::BigqueryDataset(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::Listing::source]
+    /// if it holds a `PubsubTopic`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pubsub_topic(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::Listing::source]
@@ -1015,6 +1015,19 @@ pub mod listing {
             self
         }
 
+        /// Sets the value of [selected_resources][crate::model::listing::BigQueryDatasetSource::selected_resources].
+        pub fn set_selected_resources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::listing::big_query_dataset_source::SelectedResource,
+                >,
+        {
+            use std::iter::Iterator;
+            self.selected_resources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
         pub fn set_restricted_export_policy<
             T: std::convert::Into<
@@ -1027,19 +1040,6 @@ pub mod listing {
             v: T,
         ) -> Self {
             self.restricted_export_policy = v.into();
-            self
-        }
-
-        /// Sets the value of [selected_resources][crate::model::listing::BigQueryDatasetSource::selected_resources].
-        pub fn set_selected_resources<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::listing::big_query_dataset_source::SelectedResource,
-                >,
-        {
-            use std::iter::Iterator;
-            self.selected_resources = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1811,12 +1811,35 @@ impl Subscription {
         self
     }
 
+    /// Sets the value of [linked_dataset_map][crate::model::Subscription::linked_dataset_map].
+    pub fn set_linked_dataset_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::subscription::LinkedResource>,
+    {
+        use std::iter::Iterator;
+        self.linked_dataset_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [subscriber_contact][crate::model::Subscription::subscriber_contact].
     pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.subscriber_contact = v.into();
+        self
+    }
+
+    /// Sets the value of [linked_resources][crate::model::Subscription::linked_resources].
+    pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::subscription::LinkedResource>,
+    {
+        use std::iter::Iterator;
+        self.linked_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1837,29 +1860,6 @@ impl Subscription {
         v: T,
     ) -> Self {
         self.log_linked_dataset_query_user_email = v.into();
-        self
-    }
-
-    /// Sets the value of [linked_resources][crate::model::Subscription::linked_resources].
-    pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::subscription::LinkedResource>,
-    {
-        use std::iter::Iterator;
-        self.linked_resources = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [linked_dataset_map][crate::model::Subscription::linked_dataset_map].
-    pub fn set_linked_dataset_map<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::subscription::LinkedResource>,
-    {
-        use std::iter::Iterator;
-        self.linked_dataset_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1888,6 +1888,17 @@ impl Subscription {
         })
     }
 
+    /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
+    /// to hold a `Listing`.
+    ///
+    /// Note that all the setters affecting `resource_name` are
+    /// mutually exclusive.
+    pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_name =
+            std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
+        self
+    }
+
     /// The value of [resource_name][crate::model::Subscription::resource_name]
     /// if it holds a `DataExchange`, `None` if the field is not set or
     /// holds a different branch.
@@ -1899,17 +1910,6 @@ impl Subscription {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
-    /// to hold a `Listing`.
-    ///
-    /// Note that all the setters affecting `resource_name` are
-    /// mutually exclusive.
-    pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource_name =
-            std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
-        self
     }
 
     /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
@@ -1993,17 +1993,6 @@ pub mod subscription {
             })
         }
 
-        /// The value of [reference][crate::model::subscription::LinkedResource::reference]
-        /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.reference.as_ref().and_then(|v| match v {
-                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
         /// to hold a `LinkedDataset`.
         ///
@@ -2017,6 +2006,17 @@ pub mod subscription {
                 crate::model::subscription::linked_resource::Reference::LinkedDataset(v.into()),
             );
             self
+        }
+
+        /// The value of [reference][crate::model::subscription::LinkedResource::reference]
+        /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.reference.as_ref().and_then(|v| match v {
+                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
@@ -2293,12 +2293,6 @@ impl ListDataExchangesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataExchangesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_exchanges][crate::model::ListDataExchangesResponse::data_exchanges].
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
@@ -2307,6 +2301,12 @@ impl ListDataExchangesResponse {
     {
         use std::iter::Iterator;
         self.data_exchanges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataExchangesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2411,12 +2411,6 @@ impl ListOrgDataExchangesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrgDataExchangesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_exchanges][crate::model::ListOrgDataExchangesResponse::data_exchanges].
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
@@ -2425,6 +2419,12 @@ impl ListOrgDataExchangesResponse {
     {
         use std::iter::Iterator;
         self.data_exchanges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrgDataExchangesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2708,12 +2708,6 @@ impl ListListingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListListingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [listings][crate::model::ListListingsResponse::listings].
     pub fn set_listings<T, V>(mut self, v: T) -> Self
     where
@@ -2722,6 +2716,12 @@ impl ListListingsResponse {
     {
         use std::iter::Iterator;
         self.listings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListListingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2981,21 +2981,6 @@ impl SubscribeListingRequest {
         })
     }
 
-    /// The value of [destination][crate::model::SubscribeListingRequest::destination]
-    /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn destination_pubsub_subscription(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
     /// to hold a `DestinationDataset`.
     ///
@@ -3011,6 +2996,21 @@ impl SubscribeListingRequest {
             crate::model::subscribe_listing_request::Destination::DestinationDataset(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::SubscribeListingRequest::destination]
+    /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn destination_pubsub_subscription(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
@@ -3417,12 +3417,6 @@ impl ListSubscriptionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSubscriptionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [subscriptions][crate::model::ListSubscriptionsResponse::subscriptions].
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
@@ -3431,6 +3425,12 @@ impl ListSubscriptionsResponse {
     {
         use std::iter::Iterator;
         self.subscriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSubscriptionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3544,12 +3544,6 @@ impl ListSharedResourceSubscriptionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSharedResourceSubscriptionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [shared_resource_subscriptions][crate::model::ListSharedResourceSubscriptionsResponse::shared_resource_subscriptions].
     pub fn set_shared_resource_subscriptions<T, V>(mut self, v: T) -> Self
     where
@@ -3558,6 +3552,12 @@ impl ListSharedResourceSubscriptionsResponse {
     {
         use std::iter::Iterator;
         self.shared_resource_subscriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSharedResourceSubscriptionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3993,6 +3993,18 @@ impl PubSubSubscription {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PubSubSubscription::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [enable_message_ordering][crate::model::PubSubSubscription::enable_message_ordering].
     pub fn set_enable_message_ordering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_message_ordering = v.into();
@@ -4058,18 +4070,6 @@ impl PubSubSubscription {
     {
         use std::iter::Iterator;
         self.message_transforms = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::PubSubSubscription::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4399,19 +4399,6 @@ impl PushConfig {
         })
     }
 
-    /// The value of [wrapper][crate::model::PushConfig::wrapper]
-    /// if it holds a `NoWrapper`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn no_wrapper(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
-        #[allow(unreachable_patterns)]
-        self.wrapper.as_ref().and_then(|v| match v {
-            crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
     /// to hold a `PubsubWrapper`.
     ///
@@ -4426,6 +4413,19 @@ impl PushConfig {
         self.wrapper =
             std::option::Option::Some(crate::model::push_config::Wrapper::PubsubWrapper(v.into()));
         self
+    }
+
+    /// The value of [wrapper][crate::model::PushConfig::wrapper]
+    /// if it holds a `NoWrapper`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn no_wrapper(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
+        #[allow(unreachable_patterns)]
+        self.wrapper.as_ref().and_then(|v| match v {
+            crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
@@ -4866,21 +4866,6 @@ impl CloudStorageConfig {
         })
     }
 
-    /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
-    /// if it holds a `AvroConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn avro_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
-        #[allow(unreachable_patterns)]
-        self.output_format.as_ref().and_then(|v| match v {
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// to hold a `TextConfig`.
     ///
@@ -4896,6 +4881,21 @@ impl CloudStorageConfig {
             crate::model::cloud_storage_config::OutputFormat::TextConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
+    /// if it holds a `AvroConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn avro_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
+        #[allow(unreachable_patterns)]
+        self.output_format.as_ref().and_then(|v| match v {
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]

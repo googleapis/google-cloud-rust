@@ -357,12 +357,6 @@ impl ListBillingAccountsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBillingAccountsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [billing_accounts][crate::model::ListBillingAccountsResponse::billing_accounts].
     pub fn set_billing_accounts<T, V>(mut self, v: T) -> Self
     where
@@ -371,6 +365,12 @@ impl ListBillingAccountsResponse {
     {
         use std::iter::Iterator;
         self.billing_accounts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBillingAccountsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -592,12 +592,6 @@ impl ListProjectBillingInfoResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProjectBillingInfoResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [project_billing_info][crate::model::ListProjectBillingInfoResponse::project_billing_info].
     pub fn set_project_billing_info<T, V>(mut self, v: T) -> Self
     where
@@ -606,6 +600,12 @@ impl ListProjectBillingInfoResponse {
     {
         use std::iter::Iterator;
         self.project_billing_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProjectBillingInfoResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -912,26 +912,6 @@ impl Sku {
         self
     }
 
-    /// Sets the value of [service_provider_name][crate::model::Sku::service_provider_name].
-    pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_provider_name = v.into();
-        self
-    }
-
-    /// Sets the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
-    pub fn set_geo_taxonomy<
-        T: std::convert::Into<std::option::Option<crate::model::GeoTaxonomy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.geo_taxonomy = v.into();
-        self
-    }
-
     /// Sets the value of [service_regions][crate::model::Sku::service_regions].
     pub fn set_service_regions<T, V>(mut self, v: T) -> Self
     where
@@ -951,6 +931,26 @@ impl Sku {
     {
         use std::iter::Iterator;
         self.pricing_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [service_provider_name][crate::model::Sku::service_provider_name].
+    pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_provider_name = v.into();
+        self
+    }
+
+    /// Sets the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
+    pub fn set_geo_taxonomy<
+        T: std::convert::Into<std::option::Option<crate::model::GeoTaxonomy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.geo_taxonomy = v.into();
         self
     }
 }
@@ -1206,6 +1206,17 @@ impl PricingExpression {
         self
     }
 
+    /// Sets the value of [tiered_rates][crate::model::PricingExpression::tiered_rates].
+    pub fn set_tiered_rates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pricing_expression::TierRate>,
+    {
+        use std::iter::Iterator;
+        self.tiered_rates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [usage_unit_description][crate::model::PricingExpression::usage_unit_description].
     pub fn set_usage_unit_description<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1233,17 +1244,6 @@ impl PricingExpression {
     /// Sets the value of [base_unit_conversion_factor][crate::model::PricingExpression::base_unit_conversion_factor].
     pub fn set_base_unit_conversion_factor<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.base_unit_conversion_factor = v.into();
-        self
-    }
-
-    /// Sets the value of [tiered_rates][crate::model::PricingExpression::tiered_rates].
-    pub fn set_tiered_rates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pricing_expression::TierRate>,
-    {
-        use std::iter::Iterator;
-        self.tiered_rates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1903,12 +1903,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -1917,6 +1911,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2069,12 +2069,6 @@ impl ListSkusResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSkusResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [skus][crate::model::ListSkusResponse::skus].
     pub fn set_skus<T, V>(mut self, v: T) -> Self
     where
@@ -2083,6 +2077,12 @@ impl ListSkusResponse {
     {
         use std::iter::Iterator;
         self.skus = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSkusResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

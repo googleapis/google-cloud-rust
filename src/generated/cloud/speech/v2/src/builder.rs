@@ -795,6 +795,17 @@ pub mod speech {
             self
         }
 
+        /// Sets the value of [files][crate::model::BatchRecognizeRequest::files].
+        pub fn set_files<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>,
+        {
+            use std::iter::Iterator;
+            self.0.request.files = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
         pub fn set_recognition_output_config<
             T: Into<std::option::Option<crate::model::RecognitionOutputConfig>>,
@@ -814,17 +825,6 @@ pub mod speech {
             v: T,
         ) -> Self {
             self.0.request.processing_strategy = v.into();
-            self
-        }
-
-        /// Sets the value of [files][crate::model::BatchRecognizeRequest::files].
-        pub fn set_files<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>,
-        {
-            use std::iter::Iterator;
-            self.0.request.files = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

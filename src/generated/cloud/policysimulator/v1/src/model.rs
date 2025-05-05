@@ -204,15 +204,6 @@ impl ExplainedPolicy {
         self
     }
 
-    /// Sets the value of [relevance][crate::model::ExplainedPolicy::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.relevance = v.into();
-        self
-    }
-
     /// Sets the value of [binding_explanations][crate::model::ExplainedPolicy::binding_explanations].
     pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
     where
@@ -221,6 +212,15 @@ impl ExplainedPolicy {
     {
         use std::iter::Iterator;
         self.binding_explanations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [relevance][crate::model::ExplainedPolicy::relevance].
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.relevance = v.into();
         self
     }
 }
@@ -345,6 +345,18 @@ impl BindingExplanation {
         self
     }
 
+    /// Sets the value of [memberships][crate::model::BindingExplanation::memberships].
+    pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::binding_explanation::AnnotatedMembership>,
+    {
+        use std::iter::Iterator;
+        self.memberships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::BindingExplanation::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
@@ -360,18 +372,6 @@ impl BindingExplanation {
         v: T,
     ) -> Self {
         self.condition = v.into();
-        self
-    }
-
-    /// Sets the value of [memberships][crate::model::BindingExplanation::memberships].
-    pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::binding_explanation::AnnotatedMembership>,
-    {
-        use std::iter::Iterator;
-        self.memberships = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1170,17 +1170,6 @@ impl ReplayResult {
         })
     }
 
-    /// The value of [result][crate::model::ReplayResult::result]
-    /// if it holds a `Error`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::replay_result::Result::Error(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::ReplayResult::result]
     /// to hold a `Diff`.
     ///
@@ -1193,6 +1182,17 @@ impl ReplayResult {
         self.result =
             std::option::Option::Some(crate::model::replay_result::Result::Diff(v.into()));
         self
+    }
+
+    /// The value of [result][crate::model::ReplayResult::result]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::replay_result::Result::Error(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::ReplayResult::result]
@@ -1488,12 +1488,6 @@ impl ListReplayResultsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReplayResultsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [replay_results][crate::model::ListReplayResultsResponse::replay_results].
     pub fn set_replay_results<T, V>(mut self, v: T) -> Self
     where
@@ -1502,6 +1496,12 @@ impl ListReplayResultsResponse {
     {
         use std::iter::Iterator;
         self.replay_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReplayResultsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1569,15 +1569,6 @@ impl ReplayConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [log_source][crate::model::ReplayConfig::log_source].
-    pub fn set_log_source<T: std::convert::Into<crate::model::replay_config::LogSource>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.log_source = v.into();
-        self
-    }
-
     /// Sets the value of [policy_overlay][crate::model::ReplayConfig::policy_overlay].
     pub fn set_policy_overlay<T, K, V>(mut self, v: T) -> Self
     where
@@ -1587,6 +1578,15 @@ impl ReplayConfig {
     {
         use std::iter::Iterator;
         self.policy_overlay = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [log_source][crate::model::ReplayConfig::log_source].
+    pub fn set_log_source<T: std::convert::Into<crate::model::replay_config::LogSource>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.log_source = v.into();
         self
     }
 }

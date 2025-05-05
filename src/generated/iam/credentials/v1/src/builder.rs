@@ -110,12 +110,6 @@ pub mod iam_credentials {
             self
         }
 
-        /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-        pub fn set_lifetime<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.lifetime = v.into();
-            self
-        }
-
         /// Sets the value of [delegates][crate::model::GenerateAccessTokenRequest::delegates].
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
@@ -137,6 +131,12 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.scope = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+        pub fn set_lifetime<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
+            self.0.request.lifetime = v.into();
             self
         }
     }
@@ -187,6 +187,17 @@ pub mod iam_credentials {
             self
         }
 
+        /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
+        pub fn set_delegates<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
         ///
         /// This is a **required** field for requests.
@@ -198,17 +209,6 @@ pub mod iam_credentials {
         /// Sets the value of [include_email][crate::model::GenerateIdTokenRequest::include_email].
         pub fn set_include_email<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.include_email = v.into();
-            self
-        }
-
-        /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
-        pub fn set_delegates<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -259,14 +259,6 @@ pub mod iam_credentials {
             self
         }
 
-        /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.payload = v.into();
-            self
-        }
-
         /// Sets the value of [delegates][crate::model::SignBlobRequest::delegates].
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
@@ -275,6 +267,14 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.payload = v.into();
             self
         }
     }
@@ -325,14 +325,6 @@ pub mod iam_credentials {
             self
         }
 
-        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.payload = v.into();
-            self
-        }
-
         /// Sets the value of [delegates][crate::model::SignJwtRequest::delegates].
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
@@ -341,6 +333,14 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.payload = v.into();
             self
         }
     }

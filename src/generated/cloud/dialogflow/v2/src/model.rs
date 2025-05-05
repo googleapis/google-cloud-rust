@@ -148,6 +148,17 @@ impl Agent {
         self
     }
 
+    /// Sets the value of [supported_language_codes][crate::model::Agent::supported_language_codes].
+    pub fn set_supported_language_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.supported_language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [time_zone][crate::model::Agent::time_zone].
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
@@ -200,17 +211,6 @@ impl Agent {
     /// Sets the value of [tier][crate::model::Agent::tier].
     pub fn set_tier<T: std::convert::Into<crate::model::agent::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
-        self
-    }
-
-    /// Sets the value of [supported_language_codes][crate::model::Agent::supported_language_codes].
-    pub fn set_supported_language_codes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.supported_language_codes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -849,12 +849,6 @@ impl SearchAgentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchAgentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [agents][crate::model::SearchAgentsResponse::agents].
     pub fn set_agents<T, V>(mut self, v: T) -> Self
     where
@@ -863,6 +857,12 @@ impl SearchAgentsResponse {
     {
         use std::iter::Iterator;
         self.agents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchAgentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1025,6 +1025,18 @@ impl ExportAgentResponse {
         })
     }
 
+    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent]
+    /// to hold a `AgentUri`.
+    ///
+    /// Note that all the setters affecting `agent` are
+    /// mutually exclusive.
+    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.agent = std::option::Option::Some(
+            crate::model::export_agent_response::Agent::AgentUri(v.into()),
+        );
+        self
+    }
+
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -1036,18 +1048,6 @@ impl ExportAgentResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent]
-    /// to hold a `AgentUri`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::export_agent_response::Agent::AgentUri(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [agent][crate::model::ExportAgentResponse::agent]
@@ -1145,6 +1145,18 @@ impl ImportAgentRequest {
         })
     }
 
+    /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
+    /// to hold a `AgentUri`.
+    ///
+    /// Note that all the setters affecting `agent` are
+    /// mutually exclusive.
+    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.agent = std::option::Option::Some(
+            crate::model::import_agent_request::Agent::AgentUri(v.into()),
+        );
+        self
+    }
+
     /// The value of [agent][crate::model::ImportAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -1156,18 +1168,6 @@ impl ImportAgentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
-    /// to hold a `AgentUri`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::import_agent_request::Agent::AgentUri(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
@@ -1271,6 +1271,18 @@ impl RestoreAgentRequest {
         })
     }
 
+    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
+    /// to hold a `AgentUri`.
+    ///
+    /// Note that all the setters affecting `agent` are
+    /// mutually exclusive.
+    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.agent = std::option::Option::Some(
+            crate::model::restore_agent_request::Agent::AgentUri(v.into()),
+        );
+        self
+    }
+
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -1282,18 +1294,6 @@ impl RestoreAgentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
-    /// to hold a `AgentUri`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::restore_agent_request::Agent::AgentUri(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
@@ -1663,12 +1663,6 @@ impl ListAnswerRecordsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAnswerRecordsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [answer_records][crate::model::ListAnswerRecordsResponse::answer_records].
     pub fn set_answer_records<T, V>(mut self, v: T) -> Self
     where
@@ -1677,6 +1671,12 @@ impl ListAnswerRecordsResponse {
     {
         use std::iter::Iterator;
         self.answer_records = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAnswerRecordsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2840,34 +2840,6 @@ impl AgentAssistantRecord {
         })
     }
 
-    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
-    /// if it holds a `FaqAnswer`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn faq_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::FaqAnswer>> {
-        #[allow(unreachable_patterns)]
-        self.answer.as_ref().and_then(|v| match v {
-            crate::model::agent_assistant_record::Answer::FaqAnswer(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
-    /// if it holds a `DialogflowAssistAnswer`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dialogflow_assist_answer(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowAssistAnswer>> {
-        #[allow(unreachable_patterns)]
-        self.answer.as_ref().and_then(|v| match v {
-            crate::model::agent_assistant_record::Answer::DialogflowAssistAnswer(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
     /// to hold a `ArticleSuggestionAnswer`.
     ///
@@ -2885,6 +2857,19 @@ impl AgentAssistantRecord {
         self
     }
 
+    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// if it holds a `FaqAnswer`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn faq_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::FaqAnswer>> {
+        #[allow(unreachable_patterns)]
+        self.answer.as_ref().and_then(|v| match v {
+            crate::model::agent_assistant_record::Answer::FaqAnswer(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
     /// to hold a `FaqAnswer`.
     ///
@@ -2898,6 +2883,21 @@ impl AgentAssistantRecord {
             crate::model::agent_assistant_record::Answer::FaqAnswer(v.into()),
         );
         self
+    }
+
+    /// The value of [answer][crate::model::AgentAssistantRecord::answer]
+    /// if it holds a `DialogflowAssistAnswer`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dialogflow_assist_answer(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowAssistAnswer>> {
+        #[allow(unreachable_patterns)]
+        self.answer.as_ref().and_then(|v| match v {
+            crate::model::agent_assistant_record::Answer::DialogflowAssistAnswer(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
@@ -2988,12 +2988,6 @@ impl SpeechContext {
         std::default::Default::default()
     }
 
-    /// Sets the value of [boost][crate::model::SpeechContext::boost].
-    pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.boost = v.into();
-        self
-    }
-
     /// Sets the value of [phrases][crate::model::SpeechContext::phrases].
     pub fn set_phrases<T, V>(mut self, v: T) -> Self
     where
@@ -3002,6 +2996,12 @@ impl SpeechContext {
     {
         use std::iter::Iterator;
         self.phrases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [boost][crate::model::SpeechContext::boost].
+    pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.boost = v.into();
         self
     }
 }
@@ -3236,6 +3236,29 @@ impl InputAudioConfig {
         self
     }
 
+    /// Sets the value of [phrase_hints][crate::model::InputAudioConfig::phrase_hints].
+    #[deprecated]
+    pub fn set_phrase_hints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.phrase_hints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [speech_contexts][crate::model::InputAudioConfig::speech_contexts].
+    pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpeechContext>,
+    {
+        use std::iter::Iterator;
+        self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [model][crate::model::InputAudioConfig::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -3272,38 +3295,6 @@ impl InputAudioConfig {
         self
     }
 
-    /// Sets the value of [opt_out_conformer_model_migration][crate::model::InputAudioConfig::opt_out_conformer_model_migration].
-    pub fn set_opt_out_conformer_model_migration<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.opt_out_conformer_model_migration = v.into();
-        self
-    }
-
-    /// Sets the value of [phrase_hints][crate::model::InputAudioConfig::phrase_hints].
-    #[deprecated]
-    pub fn set_phrase_hints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.phrase_hints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [speech_contexts][crate::model::InputAudioConfig::speech_contexts].
-    pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechContext>,
-    {
-        use std::iter::Iterator;
-        self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [phrase_sets][crate::model::InputAudioConfig::phrase_sets].
     pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
     where
@@ -3312,6 +3303,15 @@ impl InputAudioConfig {
     {
         use std::iter::Iterator;
         self.phrase_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [opt_out_conformer_model_migration][crate::model::InputAudioConfig::opt_out_conformer_model_migration].
+    pub fn set_opt_out_conformer_model_migration<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.opt_out_conformer_model_migration = v.into();
         self
     }
 }
@@ -3444,17 +3444,6 @@ impl SynthesizeSpeechConfig {
         self
     }
 
-    /// Sets the value of [voice][crate::model::SynthesizeSpeechConfig::voice].
-    pub fn set_voice<
-        T: std::convert::Into<std::option::Option<crate::model::VoiceSelectionParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.voice = v.into();
-        self
-    }
-
     /// Sets the value of [effects_profile_id][crate::model::SynthesizeSpeechConfig::effects_profile_id].
     pub fn set_effects_profile_id<T, V>(mut self, v: T) -> Self
     where
@@ -3463,6 +3452,17 @@ impl SynthesizeSpeechConfig {
     {
         use std::iter::Iterator;
         self.effects_profile_id = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [voice][crate::model::SynthesizeSpeechConfig::voice].
+    pub fn set_voice<
+        T: std::convert::Into<std::option::Option<crate::model::VoiceSelectionParams>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.voice = v.into();
         self
     }
 }
@@ -3688,6 +3688,17 @@ impl SpeechToTextConfig {
         self
     }
 
+    /// Sets the value of [phrase_sets][crate::model::SpeechToTextConfig::phrase_sets].
+    pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.phrase_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [audio_encoding][crate::model::SpeechToTextConfig::audio_encoding].
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::AudioEncoding>>(
         mut self,
@@ -3718,17 +3729,6 @@ impl SpeechToTextConfig {
     /// Sets the value of [use_timeout_based_endpointing][crate::model::SpeechToTextConfig::use_timeout_based_endpointing].
     pub fn set_use_timeout_based_endpointing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_timeout_based_endpointing = v.into();
-        self
-    }
-
-    /// Sets the value of [phrase_sets][crate::model::SpeechToTextConfig::phrase_sets].
-    pub fn set_phrase_sets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.phrase_sets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3929,12 +3929,6 @@ impl ListContextsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListContextsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [contexts][crate::model::ListContextsResponse::contexts].
     pub fn set_contexts<T, V>(mut self, v: T) -> Self
     where
@@ -3943,6 +3937,12 @@ impl ListContextsResponse {
     {
         use std::iter::Iterator;
         self.contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListContextsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4582,6 +4582,17 @@ pub mod conversation {
             std::default::Default::default()
         }
 
+        /// Sets the value of [context_contents][crate::model::conversation::ContextReference::context_contents].
+        pub fn set_context_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::conversation::context_reference::ContextContent>,
+        {
+            use std::iter::Iterator;
+            self.context_contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [update_mode][crate::model::conversation::ContextReference::update_mode].
         pub fn set_update_mode<
             T: std::convert::Into<crate::model::conversation::context_reference::UpdateMode>,
@@ -4608,17 +4619,6 @@ pub mod conversation {
             v: T,
         ) -> Self {
             self.create_time = v.into();
-            self
-        }
-
-        /// Sets the value of [context_contents][crate::model::conversation::ContextReference::context_contents].
-        pub fn set_context_contents<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::conversation::context_reference::ContextContent>,
-        {
-            use std::iter::Iterator;
-            self.context_contents = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5413,12 +5413,6 @@ impl ListConversationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversations][crate::model::ListConversationsResponse::conversations].
     pub fn set_conversations<T, V>(mut self, v: T) -> Self
     where
@@ -5427,6 +5421,12 @@ impl ListConversationsResponse {
     {
         use std::iter::Iterator;
         self.conversations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5629,12 +5629,6 @@ impl ListMessagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMessagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [messages][crate::model::ListMessagesResponse::messages].
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
@@ -5643,6 +5637,12 @@ impl ListMessagesResponse {
     {
         use std::iter::Iterator;
         self.messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMessagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6008,6 +6008,18 @@ pub mod suggest_conversation_summary_response {
             self
         }
 
+        /// Sets the value of [text_sections][crate::model::suggest_conversation_summary_response::Summary::text_sections].
+        pub fn set_text_sections<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.text_sections = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [answer_record][crate::model::suggest_conversation_summary_response::Summary::answer_record].
         pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -6023,18 +6035,6 @@ pub mod suggest_conversation_summary_response {
             v: T,
         ) -> Self {
             self.baseline_model_version = v.into();
-            self
-        }
-
-        /// Sets the value of [text_sections][crate::model::suggest_conversation_summary_response::Summary::text_sections].
-        pub fn set_text_sections<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.text_sections = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -6168,12 +6168,6 @@ pub mod generate_stateless_summary_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of [parent][crate::model::generate_stateless_summary_request::MinimalConversation::parent].
-        pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.parent = v.into();
-            self
-        }
-
         /// Sets the value of [messages][crate::model::generate_stateless_summary_request::MinimalConversation::messages].
         pub fn set_messages<T, V>(mut self, v: T) -> Self
         where
@@ -6182,6 +6176,12 @@ pub mod generate_stateless_summary_request {
         {
             use std::iter::Iterator;
             self.messages = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::generate_stateless_summary_request::MinimalConversation::parent].
+        pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.parent = v.into();
             self
         }
     }
@@ -6306,15 +6306,6 @@ pub mod generate_stateless_summary_response {
             self
         }
 
-        /// Sets the value of [baseline_model_version][crate::model::generate_stateless_summary_response::Summary::baseline_model_version].
-        pub fn set_baseline_model_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.baseline_model_version = v.into();
-            self
-        }
-
         /// Sets the value of [text_sections][crate::model::generate_stateless_summary_response::Summary::text_sections].
         pub fn set_text_sections<T, K, V>(mut self, v: T) -> Self
         where
@@ -6324,6 +6315,15 @@ pub mod generate_stateless_summary_response {
         {
             use std::iter::Iterator;
             self.text_sections = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [baseline_model_version][crate::model::generate_stateless_summary_response::Summary::baseline_model_version].
+        pub fn set_baseline_model_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.baseline_model_version = v.into();
             self
         }
     }
@@ -6388,6 +6388,18 @@ impl GenerateStatelessSuggestionRequest {
         self
     }
 
+    /// Sets the value of [context_references][crate::model::GenerateStatelessSuggestionRequest::context_references].
+    pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::conversation::ContextReference>,
+    {
+        use std::iter::Iterator;
+        self.context_references = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [conversation_context][crate::model::GenerateStatelessSuggestionRequest::conversation_context].
     pub fn set_conversation_context<
         T: std::convert::Into<std::option::Option<crate::model::ConversationContext>>,
@@ -6407,18 +6419,6 @@ impl GenerateStatelessSuggestionRequest {
     {
         use std::iter::Iterator;
         self.trigger_events = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [context_references][crate::model::GenerateStatelessSuggestionRequest::context_references].
-    pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::conversation::ContextReference>,
-    {
-        use std::iter::Iterator;
-        self.context_references = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -6453,17 +6453,6 @@ impl GenerateStatelessSuggestionRequest {
         })
     }
 
-    /// The value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
-    /// if it holds a `GeneratorName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn generator_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.generator_resource.as_ref().and_then(|v| match v {
-            crate::model::generate_stateless_suggestion_request::GeneratorResource::GeneratorName(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
     /// to hold a `Generator`.
     ///
@@ -6479,6 +6468,17 @@ impl GenerateStatelessSuggestionRequest {
             ),
         );
         self
+    }
+
+    /// The value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
+    /// if it holds a `GeneratorName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn generator_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.generator_resource.as_ref().and_then(|v| match v {
+            crate::model::generate_stateless_suggestion_request::GeneratorResource::GeneratorName(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
@@ -7485,12 +7485,6 @@ pub mod search_knowledge_request {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [filter][crate::model::search_knowledge_request::search_config::FilterSpecs::filter].
-            pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.filter = v.into();
-                self
-            }
-
             /// Sets the value of [data_stores][crate::model::search_knowledge_request::search_config::FilterSpecs::data_stores].
             pub fn set_data_stores<T, V>(mut self, v: T) -> Self
             where
@@ -7499,6 +7493,12 @@ pub mod search_knowledge_request {
             {
                 use std::iter::Iterator;
                 self.data_stores = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [filter][crate::model::search_knowledge_request::search_config::FilterSpecs::filter].
+            pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.filter = v.into();
                 self
             }
         }
@@ -7679,12 +7679,6 @@ impl SearchKnowledgeResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [rewritten_query][crate::model::SearchKnowledgeResponse::rewritten_query].
-    pub fn set_rewritten_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.rewritten_query = v.into();
-        self
-    }
-
     /// Sets the value of [answers][crate::model::SearchKnowledgeResponse::answers].
     pub fn set_answers<T, V>(mut self, v: T) -> Self
     where
@@ -7693,6 +7687,12 @@ impl SearchKnowledgeResponse {
     {
         use std::iter::Iterator;
         self.answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rewritten_query][crate::model::SearchKnowledgeResponse::rewritten_query].
+    pub fn set_rewritten_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.rewritten_query = v.into();
         self
     }
 }
@@ -7753,12 +7753,6 @@ impl SearchKnowledgeAnswer {
         self
     }
 
-    /// Sets the value of [answer_record][crate::model::SearchKnowledgeAnswer::answer_record].
-    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.answer_record = v.into();
-        self
-    }
-
     /// Sets the value of [answer_sources][crate::model::SearchKnowledgeAnswer::answer_sources].
     pub fn set_answer_sources<T, V>(mut self, v: T) -> Self
     where
@@ -7767,6 +7761,12 @@ impl SearchKnowledgeAnswer {
     {
         use std::iter::Iterator;
         self.answer_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::SearchKnowledgeAnswer::answer_record].
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
         self
     }
 }
@@ -8484,12 +8484,6 @@ impl ListConversationDatasetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversationDatasetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversation_datasets][crate::model::ListConversationDatasetsResponse::conversation_datasets].
     pub fn set_conversation_datasets<T, V>(mut self, v: T) -> Self
     where
@@ -8498,6 +8492,12 @@ impl ListConversationDatasetsResponse {
     {
         use std::iter::Iterator;
         self.conversation_datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversationDatasetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8655,15 +8655,6 @@ impl ImportConversationDataOperationMetadata {
         self
     }
 
-    /// Sets the value of [create_time][crate::model::ImportConversationDataOperationMetadata::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
     /// Sets the value of [partial_failures][crate::model::ImportConversationDataOperationMetadata::partial_failures].
     pub fn set_partial_failures<T, V>(mut self, v: T) -> Self
     where
@@ -8672,6 +8663,15 @@ impl ImportConversationDataOperationMetadata {
     {
         use std::iter::Iterator;
         self.partial_failures = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ImportConversationDataOperationMetadata::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
         self
     }
 }
@@ -8880,21 +8880,6 @@ impl ConversationEvent {
         })
     }
 
-    /// The value of [payload][crate::model::ConversationEvent::payload]
-    /// if it holds a `NewRecognitionResultPayload`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn new_recognition_result_payload(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionResult>> {
-        #[allow(unreachable_patterns)]
-        self.payload.as_ref().and_then(|v| match v {
-            crate::model::conversation_event::Payload::NewRecognitionResultPayload(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [payload][crate::model::ConversationEvent::payload]
     /// to hold a `NewMessagePayload`.
     ///
@@ -8910,6 +8895,21 @@ impl ConversationEvent {
             crate::model::conversation_event::Payload::NewMessagePayload(v.into()),
         );
         self
+    }
+
+    /// The value of [payload][crate::model::ConversationEvent::payload]
+    /// if it holds a `NewRecognitionResultPayload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn new_recognition_result_payload(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionResult>> {
+        #[allow(unreachable_patterns)]
+        self.payload.as_ref().and_then(|v| match v {
+            crate::model::conversation_event::Payload::NewRecognitionResultPayload(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [payload][crate::model::ConversationEvent::payload]
@@ -9215,6 +9215,17 @@ impl ConversationModel {
         self
     }
 
+    /// Sets the value of [datasets][crate::model::ConversationModel::datasets].
+    pub fn set_datasets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InputDataset>,
+    {
+        use std::iter::Iterator;
+        self.datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::ConversationModel::state].
     pub fn set_state<T: std::convert::Into<crate::model::conversation_model::State>>(
         mut self,
@@ -9248,17 +9259,6 @@ impl ConversationModel {
         self
     }
 
-    /// Sets the value of [datasets][crate::model::ConversationModel::datasets].
-    pub fn set_datasets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InputDataset>,
-    {
-        use std::iter::Iterator;
-        self.datasets = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [model_metadata][crate::model::ConversationModel::model_metadata].
     ///
     /// Note that all the setters affecting `model_metadata` are mutually
@@ -9288,21 +9288,6 @@ impl ConversationModel {
         })
     }
 
-    /// The value of [model_metadata][crate::model::ConversationModel::model_metadata]
-    /// if it holds a `SmartReplyModelMetadata`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn smart_reply_model_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SmartReplyModelMetadata>> {
-        #[allow(unreachable_patterns)]
-        self.model_metadata.as_ref().and_then(|v| match v {
-            crate::model::conversation_model::ModelMetadata::SmartReplyModelMetadata(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [model_metadata][crate::model::ConversationModel::model_metadata]
     /// to hold a `ArticleSuggestionModelMetadata`.
     ///
@@ -9320,6 +9305,21 @@ impl ConversationModel {
             ),
         );
         self
+    }
+
+    /// The value of [model_metadata][crate::model::ConversationModel::model_metadata]
+    /// if it holds a `SmartReplyModelMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn smart_reply_model_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SmartReplyModelMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.model_metadata.as_ref().and_then(|v| match v {
+            crate::model::conversation_model::ModelMetadata::SmartReplyModelMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [model_metadata][crate::model::ConversationModel::model_metadata]
@@ -9910,22 +9910,6 @@ impl EvaluationConfig {
         })
     }
 
-    /// The value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
-    /// if it holds a `SmartComposeConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn smart_compose_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::evaluation_config::SmartComposeConfig>>
-    {
-        #[allow(unreachable_patterns)]
-        self.model_specific_config.as_ref().and_then(|v| match v {
-            crate::model::evaluation_config::ModelSpecificConfig::SmartComposeConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
     /// to hold a `SmartReplyConfig`.
     ///
@@ -9941,6 +9925,22 @@ impl EvaluationConfig {
             crate::model::evaluation_config::ModelSpecificConfig::SmartReplyConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
+    /// if it holds a `SmartComposeConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn smart_compose_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::evaluation_config::SmartComposeConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.model_specific_config.as_ref().and_then(|v| match v {
+            crate::model::evaluation_config::ModelSpecificConfig::SmartComposeConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
@@ -10230,12 +10230,6 @@ impl SmartReplyMetrics {
         self
     }
 
-    /// Sets the value of [conversation_count][crate::model::SmartReplyMetrics::conversation_count].
-    pub fn set_conversation_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.conversation_count = v.into();
-        self
-    }
-
     /// Sets the value of [top_n_metrics][crate::model::SmartReplyMetrics::top_n_metrics].
     pub fn set_top_n_metrics<T, V>(mut self, v: T) -> Self
     where
@@ -10244,6 +10238,12 @@ impl SmartReplyMetrics {
     {
         use std::iter::Iterator;
         self.top_n_metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [conversation_count][crate::model::SmartReplyMetrics::conversation_count].
+    pub fn set_conversation_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.conversation_count = v.into();
         self
     }
 }
@@ -10479,12 +10479,6 @@ impl ListConversationModelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversationModelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversation_models][crate::model::ListConversationModelsResponse::conversation_models].
     pub fn set_conversation_models<T, V>(mut self, v: T) -> Self
     where
@@ -10493,6 +10487,12 @@ impl ListConversationModelsResponse {
     {
         use std::iter::Iterator;
         self.conversation_models = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversationModelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -10746,12 +10746,6 @@ impl ListConversationModelEvaluationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversationModelEvaluationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversation_model_evaluations][crate::model::ListConversationModelEvaluationsResponse::conversation_model_evaluations].
     pub fn set_conversation_model_evaluations<T, V>(mut self, v: T) -> Self
     where
@@ -10760,6 +10754,12 @@ impl ListConversationModelEvaluationsResponse {
     {
         use std::iter::Iterator;
         self.conversation_model_evaluations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversationModelEvaluationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -11832,12 +11832,6 @@ impl ListConversationProfilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversationProfilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversation_profiles][crate::model::ListConversationProfilesResponse::conversation_profiles].
     pub fn set_conversation_profiles<T, V>(mut self, v: T) -> Self
     where
@@ -11846,6 +11840,12 @@ impl ListConversationProfilesResponse {
     {
         use std::iter::Iterator;
         self.conversation_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversationProfilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -12507,21 +12507,6 @@ pub mod human_agent_assistant_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [group_suggestion_responses][crate::model::human_agent_assistant_config::SuggestionConfig::group_suggestion_responses].
-        pub fn set_group_suggestion_responses<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.group_suggestion_responses = v.into();
-            self
-        }
-
-        /// Sets the value of [disable_high_latency_features_sync_delivery][crate::model::human_agent_assistant_config::SuggestionConfig::disable_high_latency_features_sync_delivery].
-        pub fn set_disable_high_latency_features_sync_delivery<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.disable_high_latency_features_sync_delivery = v.into();
-            self
-        }
-
         /// Sets the value of [feature_configs][crate::model::human_agent_assistant_config::SuggestionConfig::feature_configs].
         pub fn set_feature_configs<T, V>(mut self, v: T) -> Self
         where
@@ -12535,6 +12520,12 @@ pub mod human_agent_assistant_config {
             self
         }
 
+        /// Sets the value of [group_suggestion_responses][crate::model::human_agent_assistant_config::SuggestionConfig::group_suggestion_responses].
+        pub fn set_group_suggestion_responses<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.group_suggestion_responses = v.into();
+            self
+        }
+
         /// Sets the value of [generators][crate::model::human_agent_assistant_config::SuggestionConfig::generators].
         pub fn set_generators<T, V>(mut self, v: T) -> Self
         where
@@ -12543,6 +12534,15 @@ pub mod human_agent_assistant_config {
         {
             use std::iter::Iterator;
             self.generators = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [disable_high_latency_features_sync_delivery][crate::model::human_agent_assistant_config::SuggestionConfig::disable_high_latency_features_sync_delivery].
+        pub fn set_disable_high_latency_features_sync_delivery<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.disable_high_latency_features_sync_delivery = v.into();
             self
         }
     }
@@ -12668,28 +12668,6 @@ pub mod human_agent_assistant_config {
             })
         }
 
-        /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
-        /// if it holds a `DocumentQuerySource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn document_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource>>{
-            #[allow(unreachable_patterns)]
-            self.query_source.as_ref().and_then(|v| match v {
-                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DocumentQuerySource(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
-        /// if it holds a `DialogflowQuerySource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn dialogflow_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource>>{
-            #[allow(unreachable_patterns)]
-            self.query_source.as_ref().and_then(|v| match v {
-                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DialogflowQuerySource(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// to hold a `KnowledgeBaseQuerySource`.
         ///
@@ -12704,6 +12682,17 @@ pub mod human_agent_assistant_config {
             self
         }
 
+        /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
+        /// if it holds a `DocumentQuerySource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn document_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource>>{
+            #[allow(unreachable_patterns)]
+            self.query_source.as_ref().and_then(|v| match v {
+                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DocumentQuerySource(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// to hold a `DocumentQuerySource`.
         ///
@@ -12716,6 +12705,17 @@ pub mod human_agent_assistant_config {
                 )
             );
             self
+        }
+
+        /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
+        /// if it holds a `DialogflowQuerySource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn dialogflow_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource>>{
+            #[allow(unreachable_patterns)]
+            self.query_source.as_ref().and_then(|v| match v {
+                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DialogflowQuerySource(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
@@ -13442,23 +13442,6 @@ impl HumanAgentHandoffConfig {
         })
     }
 
-    /// The value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
-    /// if it holds a `SalesforceLiveAgentConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_live_agent_config(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::human_agent_handoff_config::SalesforceLiveAgentConfig>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.agent_service.as_ref().and_then(|v| match v {
-            crate::model::human_agent_handoff_config::AgentService::SalesforceLiveAgentConfig(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
     /// to hold a `LivePersonConfig`.
     ///
@@ -13476,6 +13459,23 @@ impl HumanAgentHandoffConfig {
             crate::model::human_agent_handoff_config::AgentService::LivePersonConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
+    /// if it holds a `SalesforceLiveAgentConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_live_agent_config(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::human_agent_handoff_config::SalesforceLiveAgentConfig>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.agent_service.as_ref().and_then(|v| match v {
+            crate::model::human_agent_handoff_config::AgentService::SalesforceLiveAgentConfig(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
@@ -14487,6 +14487,17 @@ impl Document {
         self
     }
 
+    /// Sets the value of [knowledge_types][crate::model::Document::knowledge_types].
+    pub fn set_knowledge_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::document::KnowledgeType>,
+    {
+        use std::iter::Iterator;
+        self.knowledge_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [enable_auto_reload][crate::model::Document::enable_auto_reload].
     pub fn set_enable_auto_reload<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_auto_reload = v.into();
@@ -14504,23 +14515,6 @@ impl Document {
         self
     }
 
-    /// Sets the value of [state][crate::model::Document::state].
-    pub fn set_state<T: std::convert::Into<crate::model::document::State>>(mut self, v: T) -> Self {
-        self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [knowledge_types][crate::model::Document::knowledge_types].
-    pub fn set_knowledge_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::KnowledgeType>,
-    {
-        use std::iter::Iterator;
-        self.knowledge_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::Document::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -14530,6 +14524,12 @@ impl Document {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Document::state].
+    pub fn set_state<T: std::convert::Into<crate::model::document::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
         self
     }
 
@@ -14558,17 +14558,6 @@ impl Document {
         })
     }
 
-    /// The value of [source][crate::model::Document::source]
-    /// if it holds a `RawContent`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn raw_content(&self) -> std::option::Option<&::bytes::Bytes> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::document::Source::RawContent(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::Document::source]
     /// to hold a `ContentUri`.
     ///
@@ -14578,6 +14567,17 @@ impl Document {
         self.source =
             std::option::Option::Some(crate::model::document::Source::ContentUri(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::Document::source]
+    /// if it holds a `RawContent`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn raw_content(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::document::Source::RawContent(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::Document::source]
@@ -15135,12 +15135,6 @@ impl ListDocumentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [documents][crate::model::ListDocumentsResponse::documents].
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
@@ -15149,6 +15143,12 @@ impl ListDocumentsResponse {
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -16379,12 +16379,6 @@ impl EntityType {
         self
     }
 
-    /// Sets the value of [enable_fuzzy_extraction][crate::model::EntityType::enable_fuzzy_extraction].
-    pub fn set_enable_fuzzy_extraction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_fuzzy_extraction = v.into();
-        self
-    }
-
     /// Sets the value of [entities][crate::model::EntityType::entities].
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
@@ -16393,6 +16387,12 @@ impl EntityType {
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enable_fuzzy_extraction][crate::model::EntityType::enable_fuzzy_extraction].
+    pub fn set_enable_fuzzy_extraction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_fuzzy_extraction = v.into();
         self
     }
 }
@@ -16843,12 +16843,6 @@ impl ListEntityTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEntityTypesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entity_types][crate::model::ListEntityTypesResponse::entity_types].
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
@@ -16857,6 +16851,12 @@ impl ListEntityTypesResponse {
     {
         use std::iter::Iterator;
         self.entity_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEntityTypesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -17190,19 +17190,6 @@ impl BatchUpdateEntityTypesRequest {
         })
     }
 
-    /// The value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
-    /// if it holds a `EntityTypeBatchInline`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn entity_type_batch_inline(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityTypeBatch>> {
-        #[allow(unreachable_patterns)]
-        self.entity_type_batch.as_ref().and_then(|v| match v {
-            crate::model::batch_update_entity_types_request::EntityTypeBatch::EntityTypeBatchInline(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
     /// to hold a `EntityTypeBatchUri`.
     ///
@@ -17218,6 +17205,19 @@ impl BatchUpdateEntityTypesRequest {
             ),
         );
         self
+    }
+
+    /// The value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
+    /// if it holds a `EntityTypeBatchInline`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn entity_type_batch_inline(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityTypeBatch>> {
+        #[allow(unreachable_patterns)]
+        self.entity_type_batch.as_ref().and_then(|v| match v {
+            crate::model::batch_update_entity_types_request::EntityTypeBatch::EntityTypeBatchInline(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
@@ -17404,12 +17404,6 @@ impl BatchCreateEntitiesRequest {
         self
     }
 
-    /// Sets the value of [language_code][crate::model::BatchCreateEntitiesRequest::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
     /// Sets the value of [entities][crate::model::BatchCreateEntitiesRequest::entities].
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
@@ -17418,6 +17412,12 @@ impl BatchCreateEntitiesRequest {
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::BatchCreateEntitiesRequest::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
         self
     }
 }
@@ -17473,6 +17473,17 @@ impl BatchUpdateEntitiesRequest {
         self
     }
 
+    /// Sets the value of [entities][crate::model::BatchUpdateEntitiesRequest::entities].
+    pub fn set_entities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::entity_type::Entity>,
+    {
+        use std::iter::Iterator;
+        self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [language_code][crate::model::BatchUpdateEntitiesRequest::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -17485,17 +17496,6 @@ impl BatchUpdateEntitiesRequest {
         v: T,
     ) -> Self {
         self.update_mask = v.into();
-        self
-    }
-
-    /// Sets the value of [entities][crate::model::BatchUpdateEntitiesRequest::entities].
-    pub fn set_entities<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::entity_type::Entity>,
-    {
-        use std::iter::Iterator;
-        self.entities = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -17549,12 +17549,6 @@ impl BatchDeleteEntitiesRequest {
         self
     }
 
-    /// Sets the value of [language_code][crate::model::BatchDeleteEntitiesRequest::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
     /// Sets the value of [entity_values][crate::model::BatchDeleteEntitiesRequest::entity_values].
     pub fn set_entity_values<T, V>(mut self, v: T) -> Self
     where
@@ -17563,6 +17557,12 @@ impl BatchDeleteEntitiesRequest {
     {
         use std::iter::Iterator;
         self.entity_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::BatchDeleteEntitiesRequest::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
         self
     }
 }
@@ -18064,12 +18064,6 @@ impl ListEnvironmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [environments][crate::model::ListEnvironmentsResponse::environments].
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
@@ -18078,6 +18072,12 @@ impl ListEnvironmentsResponse {
     {
         use std::iter::Iterator;
         self.environments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -18427,12 +18427,6 @@ impl EnvironmentHistory {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::EnvironmentHistory::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entries][crate::model::EnvironmentHistory::entries].
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
@@ -18441,6 +18435,12 @@ impl EnvironmentHistory {
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::EnvironmentHistory::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -18737,13 +18737,6 @@ pub mod fulfillment {
             self
         }
 
-        /// Sets the value of [is_cloud_function][crate::model::fulfillment::GenericWebService::is_cloud_function].
-        #[deprecated]
-        pub fn set_is_cloud_function<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.is_cloud_function = v.into();
-            self
-        }
-
         /// Sets the value of [request_headers][crate::model::fulfillment::GenericWebService::request_headers].
         pub fn set_request_headers<T, K, V>(mut self, v: T) -> Self
         where
@@ -18753,6 +18746,13 @@ pub mod fulfillment {
         {
             use std::iter::Iterator;
             self.request_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [is_cloud_function][crate::model::fulfillment::GenericWebService::is_cloud_function].
+        #[deprecated]
+        pub fn set_is_cloud_function<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.is_cloud_function = v.into();
             self
         }
     }
@@ -19284,12 +19284,6 @@ impl ListGeneratorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGeneratorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [generators][crate::model::ListGeneratorsResponse::generators].
     pub fn set_generators<T, V>(mut self, v: T) -> Self
     where
@@ -19298,6 +19292,12 @@ impl ListGeneratorsResponse {
     {
         use std::iter::Iterator;
         self.generators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGeneratorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -19738,17 +19738,6 @@ impl FewShotExample {
         self
     }
 
-    /// Sets the value of [output][crate::model::FewShotExample::output].
-    pub fn set_output<
-        T: std::convert::Into<std::option::Option<crate::model::GeneratorSuggestion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output = v.into();
-        self
-    }
-
     /// Sets the value of [extra_info][crate::model::FewShotExample::extra_info].
     pub fn set_extra_info<T, K, V>(mut self, v: T) -> Self
     where
@@ -19758,6 +19747,17 @@ impl FewShotExample {
     {
         use std::iter::Iterator;
         self.extra_info = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [output][crate::model::FewShotExample::output].
+    pub fn set_output<
+        T: std::convert::Into<std::option::Option<crate::model::GeneratorSuggestion>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output = v.into();
         self
     }
 
@@ -20204,21 +20204,6 @@ impl SummarizationContext {
         std::default::Default::default()
     }
 
-    /// Sets the value of [version][crate::model::SummarizationContext::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [output_language_code][crate::model::SummarizationContext::output_language_code].
-    pub fn set_output_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_language_code = v.into();
-        self
-    }
-
     /// Sets the value of [summarization_sections][crate::model::SummarizationContext::summarization_sections].
     pub fn set_summarization_sections<T, V>(mut self, v: T) -> Self
     where
@@ -20238,6 +20223,21 @@ impl SummarizationContext {
     {
         use std::iter::Iterator;
         self.few_shot_examples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::SummarizationContext::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [output_language_code][crate::model::SummarizationContext::output_language_code].
+    pub fn set_output_language_code<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_language_code = v.into();
         self
     }
 }
@@ -20407,21 +20407,6 @@ impl Generator {
         })
     }
 
-    /// The value of [context][crate::model::Generator::context]
-    /// if it holds a `SummarizationContext`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn summarization_context(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationContext>> {
-        #[allow(unreachable_patterns)]
-        self.context.as_ref().and_then(|v| match v {
-            crate::model::generator::Context::SummarizationContext(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [context][crate::model::Generator::context]
     /// to hold a `FreeFormContext`.
     ///
@@ -20436,6 +20421,21 @@ impl Generator {
         self.context =
             std::option::Option::Some(crate::model::generator::Context::FreeFormContext(v.into()));
         self
+    }
+
+    /// The value of [context][crate::model::Generator::context]
+    /// if it holds a `SummarizationContext`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn summarization_context(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationContext>> {
+        #[allow(unreachable_patterns)]
+        self.context.as_ref().and_then(|v| match v {
+            crate::model::generator::Context::SummarizationContext(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [context][crate::model::Generator::context]
@@ -20699,21 +20699,6 @@ impl GeneratorSuggestion {
         })
     }
 
-    /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
-    /// if it holds a `SummarySuggestion`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn summary_suggestion(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SummarySuggestion>> {
-        #[allow(unreachable_patterns)]
-        self.suggestion.as_ref().and_then(|v| match v {
-            crate::model::generator_suggestion::Suggestion::SummarySuggestion(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
     /// to hold a `FreeFormSuggestion`.
     ///
@@ -20729,6 +20714,21 @@ impl GeneratorSuggestion {
             crate::model::generator_suggestion::Suggestion::FreeFormSuggestion(v.into()),
         );
         self
+    }
+
+    /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
+    /// if it holds a `SummarySuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn summary_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SummarySuggestion>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion.as_ref().and_then(|v| match v {
+            crate::model::generator_suggestion::Suggestion::SummarySuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
@@ -21041,36 +21041,6 @@ impl Intent {
         self
     }
 
-    /// Sets the value of [action][crate::model::Intent::action].
-    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action = v.into();
-        self
-    }
-
-    /// Sets the value of [reset_contexts][crate::model::Intent::reset_contexts].
-    pub fn set_reset_contexts<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.reset_contexts = v.into();
-        self
-    }
-
-    /// Sets the value of [root_followup_intent_name][crate::model::Intent::root_followup_intent_name].
-    pub fn set_root_followup_intent_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.root_followup_intent_name = v.into();
-        self
-    }
-
-    /// Sets the value of [parent_followup_intent_name][crate::model::Intent::parent_followup_intent_name].
-    pub fn set_parent_followup_intent_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parent_followup_intent_name = v.into();
-        self
-    }
-
     /// Sets the value of [input_context_names][crate::model::Intent::input_context_names].
     pub fn set_input_context_names<T, V>(mut self, v: T) -> Self
     where
@@ -21104,6 +21074,12 @@ impl Intent {
         self
     }
 
+    /// Sets the value of [action][crate::model::Intent::action].
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
     /// Sets the value of [output_contexts][crate::model::Intent::output_contexts].
     pub fn set_output_contexts<T, V>(mut self, v: T) -> Self
     where
@@ -21112,6 +21088,12 @@ impl Intent {
     {
         use std::iter::Iterator;
         self.output_contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reset_contexts][crate::model::Intent::reset_contexts].
+    pub fn set_reset_contexts<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reset_contexts = v.into();
         self
     }
 
@@ -21145,6 +21127,24 @@ impl Intent {
     {
         use std::iter::Iterator;
         self.default_response_platforms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [root_followup_intent_name][crate::model::Intent::root_followup_intent_name].
+    pub fn set_root_followup_intent_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.root_followup_intent_name = v.into();
+        self
+    }
+
+    /// Sets the value of [parent_followup_intent_name][crate::model::Intent::parent_followup_intent_name].
+    pub fn set_parent_followup_intent_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parent_followup_intent_name = v.into();
         self
     }
 
@@ -21241,12 +21241,6 @@ pub mod intent {
             self
         }
 
-        /// Sets the value of [times_added_count][crate::model::intent::TrainingPhrase::times_added_count].
-        pub fn set_times_added_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.times_added_count = v.into();
-            self
-        }
-
         /// Sets the value of [parts][crate::model::intent::TrainingPhrase::parts].
         pub fn set_parts<T, V>(mut self, v: T) -> Self
         where
@@ -21255,6 +21249,12 @@ pub mod intent {
         {
             use std::iter::Iterator;
             self.parts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [times_added_count][crate::model::intent::TrainingPhrase::times_added_count].
+        pub fn set_times_added_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.times_added_count = v.into();
             self
         }
     }
@@ -21590,12 +21590,6 @@ pub mod intent {
             self
         }
 
-        /// Sets the value of [is_list][crate::model::intent::Parameter::is_list].
-        pub fn set_is_list<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.is_list = v.into();
-            self
-        }
-
         /// Sets the value of [prompts][crate::model::intent::Parameter::prompts].
         pub fn set_prompts<T, V>(mut self, v: T) -> Self
         where
@@ -21604,6 +21598,12 @@ pub mod intent {
         {
             use std::iter::Iterator;
             self.prompts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [is_list][crate::model::intent::Parameter::is_list].
+        pub fn set_is_list<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.is_list = v.into();
             self
         }
     }
@@ -21676,203 +21676,6 @@ pub mod intent {
             })
         }
 
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `Image`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn image(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>> {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::Image(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `QuickReplies`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn quick_replies(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::QuickReplies>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::QuickReplies(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `Card`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn card(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Card>> {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::Card(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `Payload`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::Payload(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `SimpleResponses`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn simple_responses(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::SimpleResponses>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::SimpleResponses(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `BasicCard`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn basic_card(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::BasicCard>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::BasicCard(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `Suggestions`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn suggestions(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Suggestions>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::Suggestions(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `LinkOutSuggestion`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn link_out_suggestion(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::LinkOutSuggestion>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::LinkOutSuggestion(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `ListSelect`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn list_select(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::ListSelect>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::ListSelect(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `CarouselSelect`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn carousel_select(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::CarouselSelect>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::CarouselSelect(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `BrowseCarouselCard`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn browse_carousel_card(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::BrowseCarouselCard>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::BrowseCarouselCard(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `TableCard`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn table_card(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::TableCard>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::TableCard(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [message][crate::model::intent::Message::message]
-        /// if it holds a `MediaContent`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn media_content(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::MediaContent>>
-        {
-            #[allow(unreachable_patterns)]
-            self.message.as_ref().and_then(|v| match v {
-                crate::model::intent::message::Message::MediaContent(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `Text`.
         ///
@@ -21889,6 +21692,19 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `Image`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn image(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>> {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::Image(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `Image`.
         ///
@@ -21903,6 +21719,22 @@ pub mod intent {
             self.message =
                 std::option::Option::Some(crate::model::intent::message::Message::Image(v.into()));
             self
+        }
+
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `QuickReplies`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn quick_replies(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::QuickReplies>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::QuickReplies(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [message][crate::model::intent::Message::message]
@@ -21922,6 +21754,19 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `Card`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn card(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Card>> {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::Card(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `Card`.
         ///
@@ -21938,6 +21783,17 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `Payload`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::Payload(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `Payload`.
         ///
@@ -21951,6 +21807,22 @@ pub mod intent {
                 crate::model::intent::message::Message::Payload(v.into()),
             );
             self
+        }
+
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `SimpleResponses`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn simple_responses(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::SimpleResponses>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::SimpleResponses(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [message][crate::model::intent::Message::message]
@@ -21970,6 +21842,22 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `BasicCard`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn basic_card(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::BasicCard>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::BasicCard(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `BasicCard`.
         ///
@@ -21985,6 +21873,22 @@ pub mod intent {
                 crate::model::intent::message::Message::BasicCard(v.into()),
             );
             self
+        }
+
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `Suggestions`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn suggestions(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Suggestions>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::Suggestions(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [message][crate::model::intent::Message::message]
@@ -22004,6 +21908,22 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `LinkOutSuggestion`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn link_out_suggestion(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::LinkOutSuggestion>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::LinkOutSuggestion(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `LinkOutSuggestion`.
         ///
@@ -22019,6 +21939,22 @@ pub mod intent {
                 crate::model::intent::message::Message::LinkOutSuggestion(v.into()),
             );
             self
+        }
+
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `ListSelect`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn list_select(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::ListSelect>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::ListSelect(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [message][crate::model::intent::Message::message]
@@ -22038,6 +21974,22 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `CarouselSelect`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn carousel_select(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::CarouselSelect>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::CarouselSelect(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `CarouselSelect`.
         ///
@@ -22053,6 +22005,22 @@ pub mod intent {
                 crate::model::intent::message::Message::CarouselSelect(v.into()),
             );
             self
+        }
+
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `BrowseCarouselCard`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn browse_carousel_card(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::BrowseCarouselCard>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::BrowseCarouselCard(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [message][crate::model::intent::Message::message]
@@ -22072,6 +22040,22 @@ pub mod intent {
             self
         }
 
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `TableCard`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn table_card(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::TableCard>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::TableCard(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [message][crate::model::intent::Message::message]
         /// to hold a `TableCard`.
         ///
@@ -22087,6 +22071,22 @@ pub mod intent {
                 crate::model::intent::message::Message::TableCard(v.into()),
             );
             self
+        }
+
+        /// The value of [message][crate::model::intent::Message::message]
+        /// if it holds a `MediaContent`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn media_content(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::MediaContent>>
+        {
+            #[allow(unreachable_patterns)]
+            self.message.as_ref().and_then(|v| match v {
+                crate::model::intent::message::Message::MediaContent(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [message][crate::model::intent::Message::message]
@@ -22823,15 +22823,6 @@ pub mod intent {
                 self
             }
 
-            /// Sets the value of [subtitle][crate::model::intent::message::ListSelect::subtitle].
-            pub fn set_subtitle<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.subtitle = v.into();
-                self
-            }
-
             /// Sets the value of [items][crate::model::intent::message::ListSelect::items].
             pub fn set_items<T, V>(mut self, v: T) -> Self
             where
@@ -22840,6 +22831,15 @@ pub mod intent {
             {
                 use std::iter::Iterator;
                 self.items = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [subtitle][crate::model::intent::message::ListSelect::subtitle].
+            pub fn set_subtitle<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.subtitle = v.into();
                 self
             }
         }
@@ -23252,20 +23252,6 @@ pub mod intent {
                     })
                 }
 
-                /// The value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
-                /// if it holds a `Icon`, `None` if the field is not set or
-                /// holds a different branch.
-                pub fn icon(
-                    &self,
-                ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>>
-                {
-                    #[allow(unreachable_patterns)]
-                    self.image.as_ref().and_then(|v| match v {
-                        crate::model::intent::message::media_content::response_media_object::Image::Icon(v) => std::option::Option::Some(v),
-                        _ => std::option::Option::None,
-                    })
-                }
-
                 /// Sets the value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
                 /// to hold a `LargeImage`.
                 ///
@@ -23283,6 +23269,20 @@ pub mod intent {
                         )
                     );
                     self
+                }
+
+                /// The value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
+                /// if it holds a `Icon`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn icon(
+                    &self,
+                ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>>
+                {
+                    #[allow(unreachable_patterns)]
+                    self.image.as_ref().and_then(|v| match v {
+                        crate::model::intent::message::media_content::response_media_object::Image::Icon(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
                 }
 
                 /// Sets the value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
@@ -23488,19 +23488,6 @@ pub mod intent {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [image_display_options][crate::model::intent::message::BrowseCarouselCard::image_display_options].
-            pub fn set_image_display_options<
-                T: std::convert::Into<
-                        crate::model::intent::message::browse_carousel_card::ImageDisplayOptions,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.image_display_options = v.into();
-                self
-            }
-
             /// Sets the value of [items][crate::model::intent::message::BrowseCarouselCard::items].
             pub fn set_items<T, V>(mut self, v: T) -> Self
             where
@@ -23511,6 +23498,19 @@ pub mod intent {
             {
                 use std::iter::Iterator;
                 self.items = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [image_display_options][crate::model::intent::message::BrowseCarouselCard::image_display_options].
+            pub fn set_image_display_options<
+                T: std::convert::Into<
+                        crate::model::intent::message::browse_carousel_card::ImageDisplayOptions,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.image_display_options = v.into();
                 self
             }
         }
@@ -24308,12 +24308,6 @@ pub mod intent {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [divider_after][crate::model::intent::message::TableCardRow::divider_after].
-            pub fn set_divider_after<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-                self.divider_after = v.into();
-                self
-            }
-
             /// Sets the value of [cells][crate::model::intent::message::TableCardRow::cells].
             pub fn set_cells<T, V>(mut self, v: T) -> Self
             where
@@ -24322,6 +24316,12 @@ pub mod intent {
             {
                 use std::iter::Iterator;
                 self.cells = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [divider_after][crate::model::intent::message::TableCardRow::divider_after].
+            pub fn set_divider_after<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.divider_after = v.into();
                 self
             }
         }
@@ -24895,12 +24895,6 @@ impl ListIntentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIntentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [intents][crate::model::ListIntentsResponse::intents].
     pub fn set_intents<T, V>(mut self, v: T) -> Self
     where
@@ -24909,6 +24903,12 @@ impl ListIntentsResponse {
     {
         use std::iter::Iterator;
         self.intents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIntentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -25281,21 +25281,6 @@ impl BatchUpdateIntentsRequest {
         })
     }
 
-    /// The value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
-    /// if it holds a `IntentBatchInline`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn intent_batch_inline(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IntentBatch>> {
-        #[allow(unreachable_patterns)]
-        self.intent_batch.as_ref().and_then(|v| match v {
-            crate::model::batch_update_intents_request::IntentBatch::IntentBatchInline(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
     /// to hold a `IntentBatchUri`.
     ///
@@ -25309,6 +25294,21 @@ impl BatchUpdateIntentsRequest {
             crate::model::batch_update_intents_request::IntentBatch::IntentBatchUri(v.into()),
         );
         self
+    }
+
+    /// The value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
+    /// if it holds a `IntentBatchInline`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn intent_batch_inline(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IntentBatch>> {
+        #[allow(unreachable_patterns)]
+        self.intent_batch.as_ref().and_then(|v| match v {
+            crate::model::batch_update_intents_request::IntentBatch::IntentBatchInline(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
@@ -25669,12 +25669,6 @@ impl ListKnowledgeBasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListKnowledgeBasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [knowledge_bases][crate::model::ListKnowledgeBasesResponse::knowledge_bases].
     pub fn set_knowledge_bases<T, V>(mut self, v: T) -> Self
     where
@@ -25683,6 +25677,12 @@ impl ListKnowledgeBasesResponse {
     {
         use std::iter::Iterator;
         self.knowledge_bases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListKnowledgeBasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -26506,12 +26506,6 @@ impl ListParticipantsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListParticipantsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [participants][crate::model::ListParticipantsResponse::participants].
     pub fn set_participants<T, V>(mut self, v: T) -> Self
     where
@@ -26520,6 +26514,12 @@ impl ListParticipantsResponse {
     {
         use std::iter::Iterator;
         self.participants = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListParticipantsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -26737,47 +26737,6 @@ impl AnalyzeContentRequest {
         })
     }
 
-    /// The value of [input][crate::model::AnalyzeContentRequest::input]
-    /// if it holds a `AudioInput`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn audio_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
-        #[allow(unreachable_patterns)]
-        self.input.as_ref().and_then(|v| match v {
-            crate::model::analyze_content_request::Input::AudioInput(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [input][crate::model::AnalyzeContentRequest::input]
-    /// if it holds a `EventInput`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn event_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
-        #[allow(unreachable_patterns)]
-        self.input.as_ref().and_then(|v| match v {
-            crate::model::analyze_content_request::Input::EventInput(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [input][crate::model::AnalyzeContentRequest::input]
-    /// if it holds a `SuggestionInput`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suggestion_input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestionInput>> {
-        #[allow(unreachable_patterns)]
-        self.input.as_ref().and_then(|v| match v {
-            crate::model::analyze_content_request::Input::SuggestionInput(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
     /// to hold a `TextInput`.
     ///
@@ -26791,6 +26750,19 @@ impl AnalyzeContentRequest {
             crate::model::analyze_content_request::Input::TextInput(v.into()),
         );
         self
+    }
+
+    /// The value of [input][crate::model::AnalyzeContentRequest::input]
+    /// if it holds a `AudioInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn audio_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::analyze_content_request::Input::AudioInput(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
@@ -26808,6 +26780,19 @@ impl AnalyzeContentRequest {
         self
     }
 
+    /// The value of [input][crate::model::AnalyzeContentRequest::input]
+    /// if it holds a `EventInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn event_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::analyze_content_request::Input::EventInput(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
     /// to hold a `EventInput`.
     ///
@@ -26821,6 +26806,21 @@ impl AnalyzeContentRequest {
             crate::model::analyze_content_request::Input::EventInput(v.into()),
         );
         self
+    }
+
+    /// The value of [input][crate::model::AnalyzeContentRequest::input]
+    /// if it holds a `SuggestionInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggestion_input(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestionInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::analyze_content_request::Input::SuggestionInput(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
@@ -27025,17 +27025,6 @@ impl AnalyzeContentResponse {
         self
     }
 
-    /// Sets the value of [dtmf_parameters][crate::model::AnalyzeContentResponse::dtmf_parameters].
-    pub fn set_dtmf_parameters<
-        T: std::convert::Into<std::option::Option<crate::model::DtmfParameters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dtmf_parameters = v.into();
-        self
-    }
-
     /// Sets the value of [human_agent_suggestion_results][crate::model::AnalyzeContentResponse::human_agent_suggestion_results].
     pub fn set_human_agent_suggestion_results<T, V>(mut self, v: T) -> Self
     where
@@ -27055,6 +27044,17 @@ impl AnalyzeContentResponse {
     {
         use std::iter::Iterator;
         self.end_user_suggestion_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dtmf_parameters][crate::model::AnalyzeContentResponse::dtmf_parameters].
+    pub fn set_dtmf_parameters<
+        T: std::convert::Into<std::option::Option<crate::model::DtmfParameters>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dtmf_parameters = v.into();
         self
     }
 }
@@ -27306,21 +27306,6 @@ impl StreamingAnalyzeContentRequest {
         })
     }
 
-    /// The value of [config][crate::model::StreamingAnalyzeContentRequest::config]
-    /// if it holds a `TextConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn text_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InputTextConfig>> {
-        #[allow(unreachable_patterns)]
-        self.config.as_ref().and_then(|v| match v {
-            crate::model::streaming_analyze_content_request::Config::TextConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [config][crate::model::StreamingAnalyzeContentRequest::config]
     /// to hold a `AudioConfig`.
     ///
@@ -27336,6 +27321,21 @@ impl StreamingAnalyzeContentRequest {
             crate::model::streaming_analyze_content_request::Config::AudioConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [config][crate::model::StreamingAnalyzeContentRequest::config]
+    /// if it holds a `TextConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InputTextConfig>> {
+        #[allow(unreachable_patterns)]
+        self.config.as_ref().and_then(|v| match v {
+            crate::model::streaming_analyze_content_request::Config::TextConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [config][crate::model::StreamingAnalyzeContentRequest::config]
@@ -27384,6 +27384,18 @@ impl StreamingAnalyzeContentRequest {
         })
     }
 
+    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
+    /// to hold a `InputAudio`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::streaming_analyze_content_request::Input::InputAudio(v.into()),
+        );
+        self
+    }
+
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
     /// if it holds a `InputText`, `None` if the field is not set or
     /// holds a different branch.
@@ -27395,6 +27407,18 @@ impl StreamingAnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
+    }
+
+    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
+    /// to hold a `InputText`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    pub fn set_input_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::streaming_analyze_content_request::Input::InputText(v.into()),
+        );
+        self
     }
 
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
@@ -27410,30 +27434,6 @@ impl StreamingAnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
-    /// to hold a `InputAudio`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Input::InputAudio(v.into()),
-        );
-        self
-    }
-
-    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
-    /// to hold a `InputText`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_input_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Input::InputText(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
@@ -27654,6 +27654,28 @@ impl StreamingAnalyzeContentResponse {
         self
     }
 
+    /// Sets the value of [human_agent_suggestion_results][crate::model::StreamingAnalyzeContentResponse::human_agent_suggestion_results].
+    pub fn set_human_agent_suggestion_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SuggestionResult>,
+    {
+        use std::iter::Iterator;
+        self.human_agent_suggestion_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_user_suggestion_results][crate::model::StreamingAnalyzeContentResponse::end_user_suggestion_results].
+    pub fn set_end_user_suggestion_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SuggestionResult>,
+    {
+        use std::iter::Iterator;
+        self.end_user_suggestion_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [dtmf_parameters][crate::model::StreamingAnalyzeContentResponse::dtmf_parameters].
     pub fn set_dtmf_parameters<
         T: std::convert::Into<std::option::Option<crate::model::DtmfParameters>>,
@@ -27679,28 +27701,6 @@ impl StreamingAnalyzeContentResponse {
     /// Sets the value of [speech_model][crate::model::StreamingAnalyzeContentResponse::speech_model].
     pub fn set_speech_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.speech_model = v.into();
-        self
-    }
-
-    /// Sets the value of [human_agent_suggestion_results][crate::model::StreamingAnalyzeContentResponse::human_agent_suggestion_results].
-    pub fn set_human_agent_suggestion_results<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SuggestionResult>,
-    {
-        use std::iter::Iterator;
-        self.human_agent_suggestion_results = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [end_user_suggestion_results][crate::model::StreamingAnalyzeContentResponse::end_user_suggestion_results].
-    pub fn set_end_user_suggestion_results<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SuggestionResult>,
-    {
-        use std::iter::Iterator;
-        self.end_user_suggestion_results = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -27834,6 +27834,17 @@ impl SuggestArticlesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [article_answers][crate::model::SuggestArticlesResponse::article_answers].
+    pub fn set_article_answers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ArticleAnswer>,
+    {
+        use std::iter::Iterator;
+        self.article_answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [latest_message][crate::model::SuggestArticlesResponse::latest_message].
     pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_message = v.into();
@@ -27843,17 +27854,6 @@ impl SuggestArticlesResponse {
     /// Sets the value of [context_size][crate::model::SuggestArticlesResponse::context_size].
     pub fn set_context_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.context_size = v.into();
-        self
-    }
-
-    /// Sets the value of [article_answers][crate::model::SuggestArticlesResponse::article_answers].
-    pub fn set_article_answers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ArticleAnswer>,
-    {
-        use std::iter::Iterator;
-        self.article_answers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -27984,6 +27984,17 @@ impl SuggestFaqAnswersResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [faq_answers][crate::model::SuggestFaqAnswersResponse::faq_answers].
+    pub fn set_faq_answers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FaqAnswer>,
+    {
+        use std::iter::Iterator;
+        self.faq_answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [latest_message][crate::model::SuggestFaqAnswersResponse::latest_message].
     pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_message = v.into();
@@ -27993,17 +28004,6 @@ impl SuggestFaqAnswersResponse {
     /// Sets the value of [context_size][crate::model::SuggestFaqAnswersResponse::context_size].
     pub fn set_context_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.context_size = v.into();
-        self
-    }
-
-    /// Sets the value of [faq_answers][crate::model::SuggestFaqAnswersResponse::faq_answers].
-    pub fn set_faq_answers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaqAnswer>,
-    {
-        use std::iter::Iterator;
-        self.faq_answers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -28045,12 +28045,6 @@ impl GenerateSuggestionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [latest_message][crate::model::GenerateSuggestionsResponse::latest_message].
-    pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.latest_message = v.into();
-        self
-    }
-
     /// Sets the value of [generator_suggestion_answers][crate::model::GenerateSuggestionsResponse::generator_suggestion_answers].
     pub fn set_generator_suggestion_answers<T, V>(mut self, v: T) -> Self
     where
@@ -28061,6 +28055,12 @@ impl GenerateSuggestionsResponse {
     {
         use std::iter::Iterator;
         self.generator_suggestion_answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [latest_message][crate::model::GenerateSuggestionsResponse::latest_message].
+    pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.latest_message = v.into();
         self
     }
 }
@@ -28267,6 +28267,17 @@ impl SuggestSmartRepliesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [smart_reply_answers][crate::model::SuggestSmartRepliesResponse::smart_reply_answers].
+    pub fn set_smart_reply_answers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SmartReplyAnswer>,
+    {
+        use std::iter::Iterator;
+        self.smart_reply_answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [latest_message][crate::model::SuggestSmartRepliesResponse::latest_message].
     pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_message = v.into();
@@ -28276,17 +28287,6 @@ impl SuggestSmartRepliesResponse {
     /// Sets the value of [context_size][crate::model::SuggestSmartRepliesResponse::context_size].
     pub fn set_context_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.context_size = v.into();
-        self
-    }
-
-    /// Sets the value of [smart_reply_answers][crate::model::SuggestSmartRepliesResponse::smart_reply_answers].
-    pub fn set_smart_reply_answers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SmartReplyAnswer>,
-    {
-        use std::iter::Iterator;
-        self.smart_reply_answers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -28678,18 +28678,6 @@ impl ArticleAnswer {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::ArticleAnswer::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
-    /// Sets the value of [answer_record][crate::model::ArticleAnswer::answer_record].
-    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.answer_record = v.into();
-        self
-    }
-
     /// Sets the value of [snippets][crate::model::ArticleAnswer::snippets].
     pub fn set_snippets<T, V>(mut self, v: T) -> Self
     where
@@ -28698,6 +28686,12 @@ impl ArticleAnswer {
     {
         use std::iter::Iterator;
         self.snippets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::ArticleAnswer::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 
@@ -28710,6 +28704,12 @@ impl ArticleAnswer {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::ArticleAnswer::answer_record].
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
         self
     }
 }
@@ -28792,12 +28792,6 @@ impl FaqAnswer {
         self
     }
 
-    /// Sets the value of [answer_record][crate::model::FaqAnswer::answer_record].
-    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.answer_record = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::FaqAnswer::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -28807,6 +28801,12 @@ impl FaqAnswer {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [answer_record][crate::model::FaqAnswer::answer_record].
+    pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_record = v.into();
         self
     }
 }
@@ -29035,21 +29035,6 @@ impl DialogflowAssistAnswer {
         })
     }
 
-    /// The value of [result][crate::model::DialogflowAssistAnswer::result]
-    /// if it holds a `IntentSuggestion`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn intent_suggestion(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IntentSuggestion>> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::dialogflow_assist_answer::Result::IntentSuggestion(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::DialogflowAssistAnswer::result]
     /// to hold a `QueryResult`.
     ///
@@ -29063,6 +29048,21 @@ impl DialogflowAssistAnswer {
             crate::model::dialogflow_assist_answer::Result::QueryResult(v.into()),
         );
         self
+    }
+
+    /// The value of [result][crate::model::DialogflowAssistAnswer::result]
+    /// if it holds a `IntentSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn intent_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IntentSuggestion>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::dialogflow_assist_answer::Result::IntentSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::DialogflowAssistAnswer::result]
@@ -29164,81 +29164,6 @@ impl SuggestionResult {
         })
     }
 
-    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// if it holds a `SuggestArticlesResponse`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suggest_articles_response(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestArticlesResponse>> {
-        #[allow(unreachable_patterns)]
-        self.suggestion_response.as_ref().and_then(|v| match v {
-            crate::model::suggestion_result::SuggestionResponse::SuggestArticlesResponse(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// if it holds a `SuggestKnowledgeAssistResponse`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suggest_knowledge_assist_response(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestKnowledgeAssistResponse>> {
-        #[allow(unreachable_patterns)]
-        self.suggestion_response.as_ref().and_then(|v| match v {
-            crate::model::suggestion_result::SuggestionResponse::SuggestKnowledgeAssistResponse(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// if it holds a `SuggestFaqAnswersResponse`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suggest_faq_answers_response(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestFaqAnswersResponse>> {
-        #[allow(unreachable_patterns)]
-        self.suggestion_response.as_ref().and_then(|v| match v {
-            crate::model::suggestion_result::SuggestionResponse::SuggestFaqAnswersResponse(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// if it holds a `SuggestSmartRepliesResponse`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suggest_smart_replies_response(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestSmartRepliesResponse>> {
-        #[allow(unreachable_patterns)]
-        self.suggestion_response.as_ref().and_then(|v| match v {
-            crate::model::suggestion_result::SuggestionResponse::SuggestSmartRepliesResponse(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// if it holds a `GenerateSuggestionsResponse`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn generate_suggestions_response(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GenerateSuggestionsResponse>> {
-        #[allow(unreachable_patterns)]
-        self.suggestion_response.as_ref().and_then(|v| match v {
-            crate::model::suggestion_result::SuggestionResponse::GenerateSuggestionsResponse(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// to hold a `Error`.
     ///
@@ -29252,6 +29177,21 @@ impl SuggestionResult {
             crate::model::suggestion_result::SuggestionResponse::Error(v.into()),
         );
         self
+    }
+
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `SuggestArticlesResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggest_articles_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestArticlesResponse>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::SuggestArticlesResponse(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
@@ -29269,6 +29209,21 @@ impl SuggestionResult {
             crate::model::suggestion_result::SuggestionResponse::SuggestArticlesResponse(v.into()),
         );
         self
+    }
+
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `SuggestKnowledgeAssistResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggest_knowledge_assist_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestKnowledgeAssistResponse>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::SuggestKnowledgeAssistResponse(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
@@ -29290,6 +29245,21 @@ impl SuggestionResult {
         self
     }
 
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `SuggestFaqAnswersResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggest_faq_answers_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestFaqAnswersResponse>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::SuggestFaqAnswersResponse(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// to hold a `SuggestFaqAnswersResponse`.
     ///
@@ -29309,6 +29279,21 @@ impl SuggestionResult {
         self
     }
 
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `SuggestSmartRepliesResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suggest_smart_replies_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestSmartRepliesResponse>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::SuggestSmartRepliesResponse(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// to hold a `SuggestSmartRepliesResponse`.
     ///
@@ -29326,6 +29311,21 @@ impl SuggestionResult {
             ),
         );
         self
+    }
+
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `GenerateSuggestionsResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn generate_suggestions_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GenerateSuggestionsResponse>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::GenerateSuggestionsResponse(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
@@ -29504,12 +29504,6 @@ impl MessageAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [contain_entities][crate::model::MessageAnnotation::contain_entities].
-    pub fn set_contain_entities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.contain_entities = v.into();
-        self
-    }
-
     /// Sets the value of [parts][crate::model::MessageAnnotation::parts].
     pub fn set_parts<T, V>(mut self, v: T) -> Self
     where
@@ -29518,6 +29512,12 @@ impl MessageAnnotation {
     {
         use std::iter::Iterator;
         self.parts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [contain_entities][crate::model::MessageAnnotation::contain_entities].
+    pub fn set_contain_entities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.contain_entities = v.into();
         self
     }
 }
@@ -29948,23 +29948,6 @@ pub mod knowledge_assist_answer {
             })
         }
 
-        /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
-        /// if it holds a `GenerativeSource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn generative_source(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.source.as_ref().and_then(|v| match v {
-                crate::model::knowledge_assist_answer::knowledge_answer::Source::GenerativeSource(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
         /// to hold a `FaqSource`.
         ///
@@ -29986,6 +29969,23 @@ pub mod knowledge_assist_answer {
                 ),
             );
             self
+        }
+
+        /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
+        /// if it holds a `GenerativeSource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn generative_source(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::knowledge_assist_answer::knowledge_answer::Source::GenerativeSource(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
@@ -30522,9 +30522,31 @@ impl QueryParameters {
         self
     }
 
+    /// Sets the value of [contexts][crate::model::QueryParameters::contexts].
+    pub fn set_contexts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Context>,
+    {
+        use std::iter::Iterator;
+        self.contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [reset_contexts][crate::model::QueryParameters::reset_contexts].
     pub fn set_reset_contexts<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reset_contexts = v.into();
+        self
+    }
+
+    /// Sets the value of [session_entity_types][crate::model::QueryParameters::session_entity_types].
+    pub fn set_session_entity_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SessionEntityType>,
+    {
+        use std::iter::Iterator;
+        self.session_entity_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -30548,34 +30570,6 @@ impl QueryParameters {
         self
     }
 
-    /// Sets the value of [platform][crate::model::QueryParameters::platform].
-    pub fn set_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.platform = v.into();
-        self
-    }
-
-    /// Sets the value of [contexts][crate::model::QueryParameters::contexts].
-    pub fn set_contexts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Context>,
-    {
-        use std::iter::Iterator;
-        self.contexts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [session_entity_types][crate::model::QueryParameters::session_entity_types].
-    pub fn set_session_entity_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SessionEntityType>,
-    {
-        use std::iter::Iterator;
-        self.session_entity_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [webhook_headers][crate::model::QueryParameters::webhook_headers].
     pub fn set_webhook_headers<T, K, V>(mut self, v: T) -> Self
     where
@@ -30585,6 +30579,12 @@ impl QueryParameters {
     {
         use std::iter::Iterator;
         self.webhook_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [platform][crate::model::QueryParameters::platform].
+    pub fn set_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.platform = v.into();
         self
     }
 }
@@ -30649,28 +30649,6 @@ impl QueryInput {
         })
     }
 
-    /// The value of [input][crate::model::QueryInput::input]
-    /// if it holds a `Text`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
-        #[allow(unreachable_patterns)]
-        self.input.as_ref().and_then(|v| match v {
-            crate::model::query_input::Input::Text(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [input][crate::model::QueryInput::input]
-    /// if it holds a `Event`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn event(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
-        #[allow(unreachable_patterns)]
-        self.input.as_ref().and_then(|v| match v {
-            crate::model::query_input::Input::Event(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [input][crate::model::QueryInput::input]
     /// to hold a `AudioConfig`.
     ///
@@ -30687,6 +30665,17 @@ impl QueryInput {
         self
     }
 
+    /// The value of [input][crate::model::QueryInput::input]
+    /// if it holds a `Text`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::query_input::Input::Text(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [input][crate::model::QueryInput::input]
     /// to hold a `Text`.
     ///
@@ -30698,6 +30687,17 @@ impl QueryInput {
     ) -> Self {
         self.input = std::option::Option::Some(crate::model::query_input::Input::Text(v.into()));
         self
+    }
+
+    /// The value of [input][crate::model::QueryInput::input]
+    /// if it holds a `Event`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn event(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::query_input::Input::Event(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [input][crate::model::QueryInput::input]
@@ -30936,6 +30936,17 @@ impl QueryResult {
         self
     }
 
+    /// Sets the value of [fulfillment_messages][crate::model::QueryResult::fulfillment_messages].
+    pub fn set_fulfillment_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::intent::Message>,
+    {
+        use std::iter::Iterator;
+        self.fulfillment_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [webhook_source][crate::model::QueryResult::webhook_source].
     pub fn set_webhook_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.webhook_source = v.into();
@@ -30948,6 +30959,17 @@ impl QueryResult {
         v: T,
     ) -> Self {
         self.webhook_payload = v.into();
+        self
+    }
+
+    /// Sets the value of [output_contexts][crate::model::QueryResult::output_contexts].
+    pub fn set_output_contexts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Context>,
+    {
+        use std::iter::Iterator;
+        self.output_contexts = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -30983,28 +31005,6 @@ impl QueryResult {
         v: T,
     ) -> Self {
         self.sentiment_analysis_result = v.into();
-        self
-    }
-
-    /// Sets the value of [fulfillment_messages][crate::model::QueryResult::fulfillment_messages].
-    pub fn set_fulfillment_messages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::intent::Message>,
-    {
-        use std::iter::Iterator;
-        self.fulfillment_messages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [output_contexts][crate::model::QueryResult::output_contexts].
-    pub fn set_output_contexts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Context>,
-    {
-        use std::iter::Iterator;
-        self.output_contexts = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -31354,6 +31354,28 @@ impl CloudConversationDebuggingInfo {
         self
     }
 
+    /// Sets the value of [speech_partial_results_end_times][crate::model::CloudConversationDebuggingInfo::speech_partial_results_end_times].
+    pub fn set_speech_partial_results_end_times<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Duration>,
+    {
+        use std::iter::Iterator;
+        self.speech_partial_results_end_times = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [speech_final_results_end_times][crate::model::CloudConversationDebuggingInfo::speech_final_results_end_times].
+    pub fn set_speech_final_results_end_times<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Duration>,
+    {
+        use std::iter::Iterator;
+        self.speech_final_results_end_times = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [partial_responses][crate::model::CloudConversationDebuggingInfo::partial_responses].
     pub fn set_partial_responses<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.partial_responses = v.into();
@@ -31378,6 +31400,28 @@ impl CloudConversationDebuggingInfo {
     /// Sets the value of [speech_single_utterance][crate::model::CloudConversationDebuggingInfo::speech_single_utterance].
     pub fn set_speech_single_utterance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.speech_single_utterance = v.into();
+        self
+    }
+
+    /// Sets the value of [dtmf_partial_results_times][crate::model::CloudConversationDebuggingInfo::dtmf_partial_results_times].
+    pub fn set_dtmf_partial_results_times<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Duration>,
+    {
+        use std::iter::Iterator;
+        self.dtmf_partial_results_times = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dtmf_final_results_times][crate::model::CloudConversationDebuggingInfo::dtmf_final_results_times].
+    pub fn set_dtmf_final_results_times<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Duration>,
+    {
+        use std::iter::Iterator;
+        self.dtmf_final_results_times = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -31435,50 +31479,6 @@ impl CloudConversationDebuggingInfo {
         v: T,
     ) -> Self {
         self.client_half_close_streaming_time_offset = v.into();
-        self
-    }
-
-    /// Sets the value of [speech_partial_results_end_times][crate::model::CloudConversationDebuggingInfo::speech_partial_results_end_times].
-    pub fn set_speech_partial_results_end_times<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Duration>,
-    {
-        use std::iter::Iterator;
-        self.speech_partial_results_end_times = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [speech_final_results_end_times][crate::model::CloudConversationDebuggingInfo::speech_final_results_end_times].
-    pub fn set_speech_final_results_end_times<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Duration>,
-    {
-        use std::iter::Iterator;
-        self.speech_final_results_end_times = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [dtmf_partial_results_times][crate::model::CloudConversationDebuggingInfo::dtmf_partial_results_times].
-    pub fn set_dtmf_partial_results_times<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Duration>,
-    {
-        use std::iter::Iterator;
-        self.dtmf_partial_results_times = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [dtmf_final_results_times][crate::model::CloudConversationDebuggingInfo::dtmf_final_results_times].
-    pub fn set_dtmf_final_results_times<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Duration>,
-    {
-        use std::iter::Iterator;
-        self.dtmf_final_results_times = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -31762,6 +31762,17 @@ impl StreamingRecognitionResult {
         self
     }
 
+    /// Sets the value of [speech_word_info][crate::model::StreamingRecognitionResult::speech_word_info].
+    pub fn set_speech_word_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpeechWordInfo>,
+    {
+        use std::iter::Iterator;
+        self.speech_word_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [speech_end_offset][crate::model::StreamingRecognitionResult::speech_end_offset].
     pub fn set_speech_end_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -31774,17 +31785,6 @@ impl StreamingRecognitionResult {
     /// Sets the value of [language_code][crate::model::StreamingRecognitionResult::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
-        self
-    }
-
-    /// Sets the value of [speech_word_info][crate::model::StreamingRecognitionResult::speech_word_info].
-    pub fn set_speech_word_info<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechWordInfo>,
-    {
-        use std::iter::Iterator;
-        self.speech_word_info = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -32525,12 +32525,6 @@ impl ListSessionEntityTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSessionEntityTypesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [session_entity_types][crate::model::ListSessionEntityTypesResponse::session_entity_types].
     pub fn set_session_entity_types<T, V>(mut self, v: T) -> Self
     where
@@ -32539,6 +32533,12 @@ impl ListSessionEntityTypesResponse {
     {
         use std::iter::Iterator;
         self.session_entity_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSessionEntityTypesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -32801,12 +32801,6 @@ impl ValidationError {
         self
     }
 
-    /// Sets the value of [error_message][crate::model::ValidationError::error_message].
-    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.error_message = v.into();
-        self
-    }
-
     /// Sets the value of [entries][crate::model::ValidationError::entries].
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
@@ -32815,6 +32809,12 @@ impl ValidationError {
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error_message][crate::model::ValidationError::error_message].
+    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_message = v.into();
         self
     }
 }
@@ -33349,12 +33349,6 @@ impl ListVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
@@ -33363,6 +33357,12 @@ impl ListVersionsResponse {
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -33767,6 +33767,17 @@ impl WebhookResponse {
         self
     }
 
+    /// Sets the value of [fulfillment_messages][crate::model::WebhookResponse::fulfillment_messages].
+    pub fn set_fulfillment_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::intent::Message>,
+    {
+        use std::iter::Iterator;
+        self.fulfillment_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [source][crate::model::WebhookResponse::source].
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
@@ -33782,28 +33793,6 @@ impl WebhookResponse {
         self
     }
 
-    /// Sets the value of [followup_event_input][crate::model::WebhookResponse::followup_event_input].
-    pub fn set_followup_event_input<
-        T: std::convert::Into<std::option::Option<crate::model::EventInput>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.followup_event_input = v.into();
-        self
-    }
-
-    /// Sets the value of [fulfillment_messages][crate::model::WebhookResponse::fulfillment_messages].
-    pub fn set_fulfillment_messages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::intent::Message>,
-    {
-        use std::iter::Iterator;
-        self.fulfillment_messages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [output_contexts][crate::model::WebhookResponse::output_contexts].
     pub fn set_output_contexts<T, V>(mut self, v: T) -> Self
     where
@@ -33812,6 +33801,17 @@ impl WebhookResponse {
     {
         use std::iter::Iterator;
         self.output_contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [followup_event_input][crate::model::WebhookResponse::followup_event_input].
+    pub fn set_followup_event_input<
+        T: std::convert::Into<std::option::Option<crate::model::EventInput>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.followup_event_input = v.into();
         self
     }
 

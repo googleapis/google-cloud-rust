@@ -1789,14 +1789,6 @@ pub mod catalog_service {
             self
         }
 
-        /// Sets the value of [entry][crate::model::LookupEntryRequest::entry].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.entry = v.into();
-            self
-        }
-
         /// Sets the value of [aspect_types][crate::model::LookupEntryRequest::aspect_types].
         pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
         where
@@ -1816,6 +1808,14 @@ pub mod catalog_service {
         {
             use std::iter::Iterator;
             self.0.request.paths = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [entry][crate::model::LookupEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entry<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.entry = v.into();
             self
         }
     }

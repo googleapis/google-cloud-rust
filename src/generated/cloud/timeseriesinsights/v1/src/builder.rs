@@ -278,14 +278,6 @@ pub mod timeseries_insights_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.dataset = v.into();
-            self
-        }
-
         /// Sets the value of [events][crate::model::AppendEventsRequest::events].
         pub fn set_events<T, V>(mut self, v: T) -> Self
         where
@@ -294,6 +286,14 @@ pub mod timeseries_insights_controller {
         {
             use std::iter::Iterator;
             self.0.request.events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dataset = v.into();
             self
         }
     }
@@ -443,6 +443,19 @@ pub mod timeseries_insights_controller {
             self
         }
 
+        /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::PinnedDimension>,
+        {
+            use std::iter::Iterator;
+            self.0.request.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
         ///
         /// This is a **required** field for requests.
@@ -471,19 +484,6 @@ pub mod timeseries_insights_controller {
             v: T,
         ) -> Self {
             self.0.request.forecast_params = v.into();
-            self
-        }
-
-        /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::PinnedDimension>,
-        {
-            use std::iter::Iterator;
-            self.0.request.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

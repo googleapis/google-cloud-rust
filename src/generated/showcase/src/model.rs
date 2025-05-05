@@ -1080,17 +1080,6 @@ impl EchoRequest {
         })
     }
 
-    /// The value of [response][crate::model::EchoRequest::response]
-    /// if it holds a `Error`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
-        #[allow(unreachable_patterns)]
-        self.response.as_ref().and_then(|v| match v {
-            crate::model::echo_request::Response::Error(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [response][crate::model::EchoRequest::response]
     /// to hold a `Content`.
     ///
@@ -1100,6 +1089,17 @@ impl EchoRequest {
         self.response =
             std::option::Option::Some(crate::model::echo_request::Response::Content(v.into()));
         self
+    }
+
+    /// The value of [response][crate::model::EchoRequest::response]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::echo_request::Response::Error(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response][crate::model::EchoRequest::response]
@@ -1732,12 +1732,6 @@ impl PagedExpandResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::PagedExpandResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [responses][crate::model::PagedExpandResponse::responses].
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
@@ -1746,6 +1740,12 @@ impl PagedExpandResponse {
     {
         use std::iter::Iterator;
         self.responses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::PagedExpandResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1831,12 +1831,6 @@ impl PagedExpandLegacyMappedResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::PagedExpandLegacyMappedResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [alphabetized][crate::model::PagedExpandLegacyMappedResponse::alphabetized].
     pub fn set_alphabetized<T, K, V>(mut self, v: T) -> Self
     where
@@ -1846,6 +1840,12 @@ impl PagedExpandLegacyMappedResponse {
     {
         use std::iter::Iterator;
         self.alphabetized = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::PagedExpandLegacyMappedResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1900,17 +1900,6 @@ impl WaitRequest {
         })
     }
 
-    /// The value of [end][crate::model::WaitRequest::end]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.end.as_ref().and_then(|v| match v {
-            crate::model::wait_request::End::Ttl(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [end][crate::model::WaitRequest::end]
     /// to hold a `EndTime`.
     ///
@@ -1922,6 +1911,17 @@ impl WaitRequest {
     ) -> Self {
         self.end = std::option::Option::Some(crate::model::wait_request::End::EndTime(v.into()));
         self
+    }
+
+    /// The value of [end][crate::model::WaitRequest::end]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.end.as_ref().and_then(|v| match v {
+            crate::model::wait_request::End::Ttl(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [end][crate::model::WaitRequest::end]
@@ -1959,17 +1959,6 @@ impl WaitRequest {
         })
     }
 
-    /// The value of [response][crate::model::WaitRequest::response]
-    /// if it holds a `Success`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn success(&self) -> std::option::Option<&std::boxed::Box<crate::model::WaitResponse>> {
-        #[allow(unreachable_patterns)]
-        self.response.as_ref().and_then(|v| match v {
-            crate::model::wait_request::Response::Success(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [response][crate::model::WaitRequest::response]
     /// to hold a `Error`.
     ///
@@ -1982,6 +1971,17 @@ impl WaitRequest {
         self.response =
             std::option::Option::Some(crate::model::wait_request::Response::Error(v.into()));
         self
+    }
+
+    /// The value of [response][crate::model::WaitRequest::response]
+    /// if it holds a `Success`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn success(&self) -> std::option::Option<&std::boxed::Box<crate::model::WaitResponse>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::wait_request::Response::Success(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response][crate::model::WaitRequest::response]
@@ -2155,17 +2155,6 @@ impl BlockRequest {
         })
     }
 
-    /// The value of [response][crate::model::BlockRequest::response]
-    /// if it holds a `Success`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn success(&self) -> std::option::Option<&std::boxed::Box<crate::model::BlockResponse>> {
-        #[allow(unreachable_patterns)]
-        self.response.as_ref().and_then(|v| match v {
-            crate::model::block_request::Response::Success(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [response][crate::model::BlockRequest::response]
     /// to hold a `Error`.
     ///
@@ -2178,6 +2167,17 @@ impl BlockRequest {
         self.response =
             std::option::Option::Some(crate::model::block_request::Response::Error(v.into()));
         self
+    }
+
+    /// The value of [response][crate::model::BlockRequest::response]
+    /// if it holds a `Success`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn success(&self) -> std::option::Option<&std::boxed::Box<crate::model::BlockResponse>> {
+        #[allow(unreachable_patterns)]
+        self.response.as_ref().and_then(|v| match v {
+            crate::model::block_request::Response::Success(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response][crate::model::BlockRequest::response]
@@ -2609,12 +2609,6 @@ impl ListUsersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [users][crate::model::ListUsersResponse::users].
     pub fn set_users<T, V>(mut self, v: T) -> Self
     where
@@ -2623,6 +2617,12 @@ impl ListUsersResponse {
     {
         use std::iter::Iterator;
         self.users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2950,12 +2950,6 @@ impl ListRoomsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRoomsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rooms][crate::model::ListRoomsResponse::rooms].
     pub fn set_rooms<T, V>(mut self, v: T) -> Self
     where
@@ -2964,6 +2958,12 @@ impl ListRoomsResponse {
     {
         use std::iter::Iterator;
         self.rooms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRoomsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3082,6 +3082,16 @@ impl Blurb {
         })
     }
 
+    /// Sets the value of [content][crate::model::Blurb::content]
+    /// to hold a `Text`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.content = std::option::Option::Some(crate::model::blurb::Content::Text(v.into()));
+        self
+    }
+
     /// The value of [content][crate::model::Blurb::content]
     /// if it holds a `Image`, `None` if the field is not set or
     /// holds a different branch.
@@ -3091,16 +3101,6 @@ impl Blurb {
             crate::model::blurb::Content::Image(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [content][crate::model::Blurb::content]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `content` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.content = std::option::Option::Some(crate::model::blurb::Content::Text(v.into()));
-        self
     }
 
     /// Sets the value of [content][crate::model::Blurb::content]
@@ -3138,17 +3138,6 @@ impl Blurb {
         })
     }
 
-    /// The value of [legacy_id][crate::model::Blurb::legacy_id]
-    /// if it holds a `LegacyUserId`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn legacy_user_id(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.legacy_id.as_ref().and_then(|v| match v {
-            crate::model::blurb::LegacyId::LegacyUserId(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [legacy_id][crate::model::Blurb::legacy_id]
     /// to hold a `LegacyRoomId`.
     ///
@@ -3158,6 +3147,17 @@ impl Blurb {
         self.legacy_id =
             std::option::Option::Some(crate::model::blurb::LegacyId::LegacyRoomId(v.into()));
         self
+    }
+
+    /// The value of [legacy_id][crate::model::Blurb::legacy_id]
+    /// if it holds a `LegacyUserId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn legacy_user_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.legacy_id.as_ref().and_then(|v| match v {
+            crate::model::blurb::LegacyId::LegacyUserId(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [legacy_id][crate::model::Blurb::legacy_id]
@@ -3458,12 +3458,6 @@ impl ListBlurbsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBlurbsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [blurbs][crate::model::ListBlurbsResponse::blurbs].
     pub fn set_blurbs<T, V>(mut self, v: T) -> Self
     where
@@ -3472,6 +3466,12 @@ impl ListBlurbsResponse {
     {
         use std::iter::Iterator;
         self.blurbs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBlurbsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3629,12 +3629,6 @@ impl SearchBlurbsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchBlurbsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [blurbs][crate::model::SearchBlurbsResponse::blurbs].
     pub fn set_blurbs<T, V>(mut self, v: T) -> Self
     where
@@ -3643,6 +3637,12 @@ impl SearchBlurbsResponse {
     {
         use std::iter::Iterator;
         self.blurbs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchBlurbsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3975,17 +3975,6 @@ impl ConnectRequest {
         })
     }
 
-    /// The value of [request][crate::model::ConnectRequest::request]
-    /// if it holds a `Blurb`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn blurb(&self) -> std::option::Option<&std::boxed::Box<crate::model::Blurb>> {
-        #[allow(unreachable_patterns)]
-        self.request.as_ref().and_then(|v| match v {
-            crate::model::connect_request::Request::Blurb(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [request][crate::model::ConnectRequest::request]
     /// to hold a `Config`.
     ///
@@ -4000,6 +3989,17 @@ impl ConnectRequest {
         self.request =
             std::option::Option::Some(crate::model::connect_request::Request::Config(v.into()));
         self
+    }
+
+    /// The value of [request][crate::model::ConnectRequest::request]
+    /// if it holds a `Blurb`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn blurb(&self) -> std::option::Option<&std::boxed::Box<crate::model::Blurb>> {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::connect_request::Request::Blurb(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [request][crate::model::ConnectRequest::request]
@@ -5228,12 +5228,6 @@ impl ListSessionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSessionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [sessions][crate::model::ListSessionsResponse::sessions].
     pub fn set_sessions<T, V>(mut self, v: T) -> Self
     where
@@ -5242,6 +5236,12 @@ impl ListSessionsResponse {
     {
         use std::iter::Iterator;
         self.sessions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSessionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6286,12 +6286,6 @@ impl ListTestsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTestsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tests][crate::model::ListTestsResponse::tests].
     pub fn set_tests<T, V>(mut self, v: T) -> Self
     where
@@ -6300,6 +6294,12 @@ impl ListTestsResponse {
     {
         use std::iter::Iterator;
         self.tests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTestsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -186,21 +186,6 @@ impl Constraint {
         })
     }
 
-    /// The value of [constraint_type][crate::model::Constraint::constraint_type]
-    /// if it holds a `BooleanConstraint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn boolean_constraint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
-        #[allow(unreachable_patterns)]
-        self.constraint_type.as_ref().and_then(|v| match v {
-            crate::model::constraint::ConstraintType::BooleanConstraint(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type]
     /// to hold a `ListConstraint`.
     ///
@@ -216,6 +201,21 @@ impl Constraint {
             crate::model::constraint::ConstraintType::ListConstraint(v.into()),
         );
         self
+    }
+
+    /// The value of [constraint_type][crate::model::Constraint::constraint_type]
+    /// if it holds a `BooleanConstraint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn boolean_constraint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
+        #[allow(unreachable_patterns)]
+        self.constraint_type.as_ref().and_then(|v| match v {
+            crate::model::constraint::ConstraintType::BooleanConstraint(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type]
@@ -348,23 +348,6 @@ pub mod constraint {
             std::default::Default::default()
         }
 
-        /// Sets the value of [condition][crate::model::constraint::CustomConstraintDefinition::condition].
-        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.condition = v.into();
-            self
-        }
-
-        /// Sets the value of [action_type][crate::model::constraint::CustomConstraintDefinition::action_type].
-        pub fn set_action_type<
-            T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action_type = v.into();
-            self
-        }
-
         /// Sets the value of [resource_types][crate::model::constraint::CustomConstraintDefinition::resource_types].
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
@@ -386,6 +369,23 @@ pub mod constraint {
         {
             use std::iter::Iterator;
             self.method_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [condition][crate::model::constraint::CustomConstraintDefinition::condition].
+        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.condition = v.into();
+            self
+        }
+
+        /// Sets the value of [action_type][crate::model::constraint::CustomConstraintDefinition::action_type].
+        pub fn set_action_type<
+            T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action_type = v.into();
             self
         }
 
@@ -1273,6 +1273,28 @@ impl CustomConstraint {
         self
     }
 
+    /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
+    pub fn set_resource_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
+    pub fn set_method_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
+    {
+        use std::iter::Iterator;
+        self.method_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [condition][crate::model::CustomConstraint::condition].
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
@@ -1306,28 +1328,6 @@ impl CustomConstraint {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
-    pub fn set_resource_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
-    pub fn set_method_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
-    {
-        use std::iter::Iterator;
-        self.method_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1871,6 +1871,17 @@ impl PolicySpec {
         self
     }
 
+    /// Sets the value of [rules][crate::model::PolicySpec::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::policy_spec::PolicyRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [inherit_from_parent][crate::model::PolicySpec::inherit_from_parent].
     pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inherit_from_parent = v.into();
@@ -1880,17 +1891,6 @@ impl PolicySpec {
     /// Sets the value of [reset][crate::model::PolicySpec::reset].
     pub fn set_reset<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reset = v.into();
-        self
-    }
-
-    /// Sets the value of [rules][crate::model::PolicySpec::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::policy_spec::PolicyRule>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1999,45 +1999,6 @@ pub mod policy_spec {
             })
         }
 
-        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// if it holds a `AllowAll`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn allow_all(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// if it holds a `DenyAll`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn deny_all(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// if it holds a `Enforce`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn enforce(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::Enforce(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// to hold a `Values`.
         ///
@@ -2057,6 +2018,19 @@ pub mod policy_spec {
             self
         }
 
+        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
+        /// if it holds a `AllowAll`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn allow_all(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// to hold a `AllowAll`.
         ///
@@ -2069,6 +2043,19 @@ pub mod policy_spec {
             self
         }
 
+        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
+        /// if it holds a `DenyAll`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn deny_all(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// to hold a `DenyAll`.
         ///
@@ -2079,6 +2066,19 @@ pub mod policy_spec {
                 crate::model::policy_spec::policy_rule::Kind::DenyAll(v.into()),
             );
             self
+        }
+
+        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
+        /// if it holds a `Enforce`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn enforce(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::policy_spec::policy_rule::Kind::Enforce(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
@@ -2280,12 +2280,6 @@ impl ListConstraintsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConstraintsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [constraints][crate::model::ListConstraintsResponse::constraints].
     pub fn set_constraints<T, V>(mut self, v: T) -> Self
     where
@@ -2294,6 +2288,12 @@ impl ListConstraintsResponse {
     {
         use std::iter::Iterator;
         self.constraints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConstraintsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2408,12 +2408,6 @@ impl ListPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policies][crate::model::ListPoliciesResponse::policies].
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
@@ -2422,6 +2416,12 @@ impl ListPoliciesResponse {
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2839,12 +2839,6 @@ impl ListCustomConstraintsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCustomConstraintsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [custom_constraints][crate::model::ListCustomConstraintsResponse::custom_constraints].
     pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
     where
@@ -2853,6 +2847,12 @@ impl ListCustomConstraintsResponse {
     {
         use std::iter::Iterator;
         self.custom_constraints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCustomConstraintsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -80,6 +80,17 @@ impl CalendarAddOnManifest {
         self
     }
 
+    /// Sets the value of [conference_solution][crate::model::CalendarAddOnManifest::conference_solution].
+    pub fn set_conference_solution<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConferenceSolution>,
+    {
+        use std::iter::Iterator;
+        self.conference_solution = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_settings_url_function][crate::model::CalendarAddOnManifest::create_settings_url_function].
     pub fn set_create_settings_url_function<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -119,17 +130,6 @@ impl CalendarAddOnManifest {
         v: T,
     ) -> Self {
         self.current_event_access = v.into();
-        self
-    }
-
-    /// Sets the value of [conference_solution][crate::model::CalendarAddOnManifest::conference_solution].
-    pub fn set_conference_solution<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConferenceSolution>,
-    {
-        use std::iter::Iterator;
-        self.conference_solution = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

@@ -161,15 +161,14 @@ pub mod logging_service_v_2 {
             self
         }
 
-        /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
-        pub fn set_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.partial_success = v.into();
-            self
-        }
-
-        /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
-        pub fn set_dry_run<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.dry_run = v.into();
+        /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -186,14 +185,15 @@ pub mod logging_service_v_2 {
             self
         }
 
-        /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
+        pub fn set_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.partial_success = v.into();
+            self
+        }
+
+        /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
+        pub fn set_dry_run<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.dry_run = v.into();
             self
         }
     }
@@ -251,6 +251,19 @@ pub mod logging_service_v_2 {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::ListLogEntriesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -272,19 +285,6 @@ pub mod logging_service_v_2 {
         /// Sets the value of [page_token][crate::model::ListLogEntriesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -408,6 +408,17 @@ pub mod logging_service_v_2 {
             self
         }
 
+        /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
+        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::ListLogsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -417,17 +428,6 @@ pub mod logging_service_v_2 {
         /// Sets the value of [page_token][crate::model::ListLogsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
-        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

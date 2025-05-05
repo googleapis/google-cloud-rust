@@ -53,15 +53,6 @@ impl ListLocationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [locations][crate::model::ListLocationsResponse::locations].
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
@@ -70,6 +61,15 @@ impl ListLocationsResponse {
     {
         use std::iter::Iterator;
         self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -163,15 +163,6 @@ impl Location {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::Location::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Location::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -181,6 +172,15 @@ impl Location {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::Location::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -221,6 +221,17 @@ impl ListSecretsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
+    pub fn set_secrets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Secret>,
+    {
+        use std::iter::Iterator;
+        self.secrets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
@@ -233,17 +244,6 @@ impl ListSecretsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
-    pub fn set_secrets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Secret>,
-    {
-        use std::iter::Iterator;
-        self.secrets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -415,6 +415,29 @@ impl Secret {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Secret::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [topics][crate::model::Secret::topics].
+    pub fn set_topics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Topic>,
+    {
+        use std::iter::Iterator;
+        self.topics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [expire_time][crate::model::Secret::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -451,49 +474,6 @@ impl Secret {
         self
     }
 
-    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
-    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_destroy_ttl = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
-    pub fn set_customer_managed_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_managed_encryption = v.into();
-        self
-    }
-
-    /// Sets the value of [topics][crate::model::Secret::topics].
-    pub fn set_topics<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Topic>,
-    {
-        use std::iter::Iterator;
-        self.topics = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Secret::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [version_aliases][crate::model::Secret::version_aliases].
     pub fn set_version_aliases<T, K, V>(mut self, v: T) -> Self
     where
@@ -515,6 +495,26 @@ impl Secret {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_destroy_ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    pub fn set_customer_managed_encryption<
+        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
         self
     }
 }
@@ -1435,6 +1435,17 @@ impl ListSecretVersionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
+    pub fn set_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretVersion>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
@@ -1447,17 +1458,6 @@ impl ListSecretVersionsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
-    pub fn set_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretVersion>,
-    {
-        use std::iter::Iterator;
-        self.versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2004,15 +2004,6 @@ impl Policy {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<std::option::Option<::bytes::Bytes>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [bindings][crate::model::Policy::bindings].
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -2032,6 +2023,15 @@ impl Policy {
     {
         use std::iter::Iterator;
         self.audit_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Policy::etag].
+    pub fn set_etag<T: std::convert::Into<std::option::Option<::bytes::Bytes>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -2172,15 +2172,6 @@ impl Binding {
         self
     }
 
-    /// Sets the value of [condition][crate::model::Binding::condition].
-    pub fn set_condition<T: std::convert::Into<std::option::Option<crate::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
-        self
-    }
-
     /// Sets the value of [members][crate::model::Binding::members].
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
@@ -2189,6 +2180,15 @@ impl Binding {
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::Binding::condition].
+    pub fn set_condition<T: std::convert::Into<std::option::Option<crate::model::Expr>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.condition = v.into();
         self
     }
 }
@@ -2532,6 +2532,17 @@ impl TestIamPermissionsRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
@@ -2547,17 +2558,6 @@ impl TestIamPermissionsRequest {
     /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
-    pub fn set_permissions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

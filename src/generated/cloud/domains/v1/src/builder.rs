@@ -263,23 +263,6 @@ pub mod domains {
             self
         }
 
-        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [domain_notices][crate::model::RegisterDomainRequest::domain_notices].
         pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
         where
@@ -299,6 +282,23 @@ pub mod domains {
         {
             use std::iter::Iterator;
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.yearly_price = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
@@ -454,6 +454,17 @@ pub mod domains {
             self
         }
 
+        /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
+        pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ContactNotice>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
         ///
         /// This is a **required** field for requests.
@@ -479,17 +490,6 @@ pub mod domains {
         /// Sets the value of [validate_only][crate::model::TransferDomainRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
-            self
-        }
-
-        /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
-        pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ContactNotice>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1047,12 +1047,6 @@ pub mod domains {
             self
         }
 
-        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [contact_notices][crate::model::ConfigureContactSettingsRequest::contact_notices].
         pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
         where
@@ -1061,6 +1055,12 @@ pub mod domains {
         {
             use std::iter::Iterator;
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }

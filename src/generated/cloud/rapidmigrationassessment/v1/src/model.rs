@@ -197,6 +197,18 @@ impl Collector {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Collector::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Collector::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -273,18 +285,6 @@ impl Collector {
     /// Sets the value of [eula_uri][crate::model::Collector::eula_uri].
     pub fn set_eula_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.eula_uri = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Collector::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -541,12 +541,6 @@ impl Annotation {
         self
     }
 
-    /// Sets the value of [r#type][crate::model::Annotation::type].
-    pub fn set_type<T: std::convert::Into<crate::model::annotation::Type>>(mut self, v: T) -> Self {
-        self.r#type = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Annotation::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -556,6 +550,12 @@ impl Annotation {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::Annotation::type].
+    pub fn set_type<T: std::convert::Into<crate::model::annotation::Type>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
         self
     }
 }
@@ -958,12 +958,6 @@ impl ListCollectorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCollectorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [collectors][crate::model::ListCollectorsResponse::collectors].
     pub fn set_collectors<T, V>(mut self, v: T) -> Self
     where
@@ -972,6 +966,12 @@ impl ListCollectorsResponse {
     {
         use std::iter::Iterator;
         self.collectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCollectorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

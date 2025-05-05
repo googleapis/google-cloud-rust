@@ -509,6 +509,17 @@ pub mod completion {
             self
         }
 
+        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::CompleteQueryRequest::page_size].
         ///
         /// This is a **required** field for requests.
@@ -538,17 +549,6 @@ pub mod completion {
             v: T,
         ) -> Self {
             self.0.request.r#type = v.into();
-            self
-        }
-
-        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
-        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1166,15 +1166,6 @@ pub mod job_service {
             self
         }
 
-        /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
-            self
-        }
-
         /// Sets the value of [jobs][crate::model::BatchUpdateJobsRequest::jobs].
         ///
         /// This is a **required** field for requests.
@@ -1185,6 +1176,15 @@ pub mod job_service {
         {
             use std::iter::Iterator;
             self.0.request.jobs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
             self
         }
     }
@@ -1504,6 +1504,17 @@ pub mod job_service {
             self
         }
 
+        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
+        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::HistogramQuery>,
+        {
+            use std::iter::Iterator;
+            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [job_view][crate::model::SearchJobsRequest::job_view].
         pub fn set_job_view<T: Into<crate::model::JobView>>(mut self, v: T) -> Self {
             self.0.request.job_view = v.into();
@@ -1582,17 +1593,6 @@ pub mod job_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_threshold = v.into();
-            self
-        }
-
-        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
-        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::HistogramQuery>,
-        {
-            use std::iter::Iterator;
-            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1678,6 +1678,17 @@ pub mod job_service {
             self
         }
 
+        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
+        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::HistogramQuery>,
+        {
+            use std::iter::Iterator;
+            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [job_view][crate::model::SearchJobsRequest::job_view].
         pub fn set_job_view<T: Into<crate::model::JobView>>(mut self, v: T) -> Self {
             self.0.request.job_view = v.into();
@@ -1756,17 +1767,6 @@ pub mod job_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_threshold = v.into();
-            self
-        }
-
-        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
-        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::HistogramQuery>,
-        {
-            use std::iter::Iterator;
-            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

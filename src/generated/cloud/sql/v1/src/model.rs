@@ -508,12 +508,6 @@ impl BackupRunsListResponse {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::BackupRunsListResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [items][crate::model::BackupRunsListResponse::items].
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
@@ -522,6 +516,12 @@ impl BackupRunsListResponse {
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::BackupRunsListResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -661,6 +661,17 @@ impl ConnectSettings {
         self
     }
 
+    /// Sets the value of [ip_addresses][crate::model::ConnectSettings::ip_addresses].
+    pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IpMapping>
+    {
+        use std::iter::Iterator;
+        self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [region][crate::model::ConnectSettings::region].
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
@@ -694,17 +705,6 @@ impl ConnectSettings {
     /// Sets the value of [server_ca_mode][crate::model::ConnectSettings::server_ca_mode].
     pub fn set_server_ca_mode<T: std::convert::Into<crate::model::connect_settings::CaMode>>(mut self, v: T) -> Self {
         self.server_ca_mode = v.into();
-        self
-    }
-
-    /// Sets the value of [ip_addresses][crate::model::ConnectSettings::ip_addresses].
-    pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IpMapping>
-    {
-        use std::iter::Iterator;
-        self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1447,6 +1447,28 @@ impl Flag {
         self
     }
 
+    /// Sets the value of [applies_to][crate::model::Flag::applies_to].
+    pub fn set_applies_to<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SqlDatabaseVersion>
+    {
+        use std::iter::Iterator;
+        self.applies_to = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [allowed_string_values][crate::model::Flag::allowed_string_values].
+    pub fn set_allowed_string_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.allowed_string_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [min_value][crate::model::Flag::min_value].
     pub fn set_min_value<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
         self.min_value = v.into();
@@ -1474,28 +1496,6 @@ impl Flag {
     /// Sets the value of [in_beta][crate::model::Flag::in_beta].
     pub fn set_in_beta<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
         self.in_beta = v.into();
-        self
-    }
-
-    /// Sets the value of [applies_to][crate::model::Flag::applies_to].
-    pub fn set_applies_to<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlDatabaseVersion>
-    {
-        use std::iter::Iterator;
-        self.applies_to = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [allowed_string_values][crate::model::Flag::allowed_string_values].
-    pub fn set_allowed_string_values<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
-    {
-        use std::iter::Iterator;
-        self.allowed_string_values = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3994,12 +3994,6 @@ impl InstancesListResponse {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::InstancesListResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [warnings][crate::model::InstancesListResponse::warnings].
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
@@ -4019,6 +4013,12 @@ impl InstancesListResponse {
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::InstancesListResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4056,6 +4056,17 @@ impl InstancesListServerCasResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [certs][crate::model::InstancesListServerCasResponse::certs].
+    pub fn set_certs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SslCert>
+    {
+        use std::iter::Iterator;
+        self.certs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [active_version][crate::model::InstancesListServerCasResponse::active_version].
     pub fn set_active_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_version = v.into();
@@ -4065,17 +4076,6 @@ impl InstancesListServerCasResponse {
     /// Sets the value of [kind][crate::model::InstancesListServerCasResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
-        self
-    }
-
-    /// Sets the value of [certs][crate::model::InstancesListServerCasResponse::certs].
-    pub fn set_certs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SslCert>
-    {
-        use std::iter::Iterator;
-        self.certs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4518,12 +4518,6 @@ impl CloneContext {
         self
     }
 
-    /// Sets the value of [preferred_zone][crate::model::CloneContext::preferred_zone].
-    pub fn set_preferred_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-        self.preferred_zone = v.into();
-        self
-    }
-
     /// Sets the value of [database_names][crate::model::CloneContext::database_names].
     pub fn set_database_names<T, V>(mut self, v: T) -> Self
     where
@@ -4532,6 +4526,12 @@ impl CloneContext {
     {
         use std::iter::Iterator;
         self.database_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [preferred_zone][crate::model::CloneContext::preferred_zone].
+    pub fn set_preferred_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
+        self.preferred_zone = v.into();
         self
     }
 }
@@ -4887,6 +4887,17 @@ impl DatabaseInstance {
         self
     }
 
+    /// Sets the value of [replica_names][crate::model::DatabaseInstance::replica_names].
+    pub fn set_replica_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.replica_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [max_disk_size][crate::model::DatabaseInstance::max_disk_size].
     #[deprecated]
     pub fn set_max_disk_size<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
@@ -4898,6 +4909,17 @@ impl DatabaseInstance {
     #[deprecated]
     pub fn set_current_disk_size<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
         self.current_disk_size = v.into();
+        self
+    }
+
+    /// Sets the value of [ip_addresses][crate::model::DatabaseInstance::ip_addresses].
+    pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IpMapping>
+    {
+        use std::iter::Iterator;
+        self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4953,6 +4975,17 @@ impl DatabaseInstance {
     /// Sets the value of [self_link][crate::model::DatabaseInstance::self_link].
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
+        self
+    }
+
+    /// Sets the value of [suspension_reason][crate::model::DatabaseInstance::suspension_reason].
+    pub fn set_suspension_reason<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SqlSuspensionReason>
+    {
+        use std::iter::Iterator;
+        self.suspension_reason = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5034,9 +5067,31 @@ impl DatabaseInstance {
         self
     }
 
+    /// Sets the value of [available_maintenance_versions][crate::model::DatabaseInstance::available_maintenance_versions].
+    pub fn set_available_maintenance_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.available_maintenance_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [maintenance_version][crate::model::DatabaseInstance::maintenance_version].
     pub fn set_maintenance_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.maintenance_version = v.into();
+        self
+    }
+
+    /// Sets the value of [upgradable_database_versions][crate::model::DatabaseInstance::upgradable_database_versions].
+    pub fn set_upgradable_database_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AvailableDatabaseVersion>
+    {
+        use std::iter::Iterator;
+        self.upgradable_database_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5092,61 +5147,6 @@ impl DatabaseInstance {
     /// Sets the value of [switch_transaction_logs_to_cloud_storage_enabled][crate::model::DatabaseInstance::switch_transaction_logs_to_cloud_storage_enabled].
     pub fn set_switch_transaction_logs_to_cloud_storage_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
         self.switch_transaction_logs_to_cloud_storage_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [replica_names][crate::model::DatabaseInstance::replica_names].
-    pub fn set_replica_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
-    {
-        use std::iter::Iterator;
-        self.replica_names = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [ip_addresses][crate::model::DatabaseInstance::ip_addresses].
-    pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IpMapping>
-    {
-        use std::iter::Iterator;
-        self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [suspension_reason][crate::model::DatabaseInstance::suspension_reason].
-    pub fn set_suspension_reason<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlSuspensionReason>
-    {
-        use std::iter::Iterator;
-        self.suspension_reason = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [available_maintenance_versions][crate::model::DatabaseInstance::available_maintenance_versions].
-    pub fn set_available_maintenance_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
-    {
-        use std::iter::Iterator;
-        self.available_maintenance_versions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [upgradable_database_versions][crate::model::DatabaseInstance::upgradable_database_versions].
-    pub fn set_upgradable_database_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AvailableDatabaseVersion>
-    {
-        use std::iter::Iterator;
-        self.upgradable_database_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7530,12 +7530,6 @@ impl OperationsListResponse {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::OperationsListResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [items][crate::model::OperationsListResponse::items].
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
@@ -7544,6 +7538,12 @@ impl OperationsListResponse {
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::OperationsListResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8988,6 +8988,17 @@ impl ExportContext {
         self
     }
 
+    /// Sets the value of [databases][crate::model::ExportContext::databases].
+    pub fn set_databases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [kind][crate::model::ExportContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
@@ -9021,17 +9032,6 @@ impl ExportContext {
     /// Sets the value of [bak_export_options][crate::model::ExportContext::bak_export_options].
     pub fn set_bak_export_options<T: std::convert::Into<std::option::Option<crate::model::export_context::SqlBakExportOptions>>>(mut self, v: T) -> Self {
         self.bak_export_options = v.into();
-        self
-    }
-
-    /// Sets the value of [databases][crate::model::ExportContext::databases].
-    pub fn set_databases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
-    {
-        use std::iter::Iterator;
-        self.databases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9163,6 +9163,17 @@ pub mod export_context {
             std::default::Default::default()
         }
 
+        /// Sets the value of [tables][crate::model::export_context::SqlExportOptions::tables].
+        pub fn set_tables<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>
+        {
+            use std::iter::Iterator;
+            self.tables = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
         pub fn set_schema_only<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
             self.schema_only = v.into();
@@ -9190,17 +9201,6 @@ pub mod export_context {
         /// Sets the value of [postgres_export_options][crate::model::export_context::SqlExportOptions::postgres_export_options].
         pub fn set_postgres_export_options<T: std::convert::Into<std::option::Option<crate::model::export_context::sql_export_options::PostgresExportOptions>>>(mut self, v: T) -> Self {
             self.postgres_export_options = v.into();
-            self
-        }
-
-        /// Sets the value of [tables][crate::model::export_context::SqlExportOptions::tables].
-        pub fn set_tables<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
-        {
-            use std::iter::Iterator;
-            self.tables = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -9647,6 +9647,17 @@ pub mod import_context {
             self
         }
 
+        /// Sets the value of [columns][crate::model::import_context::SqlCsvImportOptions::columns].
+        pub fn set_columns<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>
+        {
+            use std::iter::Iterator;
+            self.columns = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [escape_character][crate::model::import_context::SqlCsvImportOptions::escape_character].
         pub fn set_escape_character<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.escape_character = v.into();
@@ -9668,17 +9679,6 @@ pub mod import_context {
         /// Sets the value of [lines_terminated_by][crate::model::import_context::SqlCsvImportOptions::lines_terminated_by].
         pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.lines_terminated_by = v.into();
-            self
-        }
-
-        /// Sets the value of [columns][crate::model::import_context::SqlCsvImportOptions::columns].
-        pub fn set_columns<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
-        {
-            use std::iter::Iterator;
-            self.columns = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -9963,6 +9963,17 @@ impl IpConfiguration {
         self
     }
 
+    /// Sets the value of [authorized_networks][crate::model::IpConfiguration::authorized_networks].
+    pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclEntry>
+    {
+        use std::iter::Iterator;
+        self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [allocated_ip_range][crate::model::IpConfiguration::allocated_ip_range].
     pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.allocated_ip_range = v.into();
@@ -9990,17 +10001,6 @@ impl IpConfiguration {
     /// Sets the value of [server_ca_mode][crate::model::IpConfiguration::server_ca_mode].
     pub fn set_server_ca_mode<T: std::convert::Into<std::option::Option<crate::model::ip_configuration::CaMode>>>(mut self, v: T) -> Self {
         self.server_ca_mode = v.into();
-        self
-    }
-
-    /// Sets the value of [authorized_networks][crate::model::IpConfiguration::authorized_networks].
-    pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AclEntry>
-    {
-        use std::iter::Iterator;
-        self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -12299,6 +12299,18 @@ impl Settings {
         self
     }
 
+    /// Sets the value of [authorized_gae_applications][crate::model::Settings::authorized_gae_applications].
+    #[deprecated]
+    pub fn set_authorized_gae_applications<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.authorized_gae_applications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [tier][crate::model::Settings::tier].
     pub fn set_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tier = v.into();
@@ -12308,6 +12320,18 @@ impl Settings {
     /// Sets the value of [kind][crate::model::Settings::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [user_labels][crate::model::Settings::user_labels].
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -12360,6 +12384,17 @@ impl Settings {
         self
     }
 
+    /// Sets the value of [database_flags][crate::model::Settings::database_flags].
+    pub fn set_database_flags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DatabaseFlags>
+    {
+        use std::iter::Iterator;
+        self.database_flags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [data_disk_type][crate::model::Settings::data_disk_type].
     pub fn set_data_disk_type<T: std::convert::Into<crate::model::SqlDataDiskType>>(mut self, v: T) -> Self {
         self.data_disk_type = v.into();
@@ -12406,6 +12441,17 @@ impl Settings {
     /// Sets the value of [collation][crate::model::Settings::collation].
     pub fn set_collation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collation = v.into();
+        self
+    }
+
+    /// Sets the value of [deny_maintenance_periods][crate::model::Settings::deny_maintenance_periods].
+    pub fn set_deny_maintenance_periods<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DenyMaintenancePeriod>
+    {
+        use std::iter::Iterator;
+        self.deny_maintenance_periods = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -12472,52 +12518,6 @@ impl Settings {
     /// Sets the value of [enable_dataplex_integration][crate::model::Settings::enable_dataplex_integration].
     pub fn set_enable_dataplex_integration<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
         self.enable_dataplex_integration = v.into();
-        self
-    }
-
-    /// Sets the value of [authorized_gae_applications][crate::model::Settings::authorized_gae_applications].
-    #[deprecated]
-    pub fn set_authorized_gae_applications<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
-    {
-        use std::iter::Iterator;
-        self.authorized_gae_applications = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [database_flags][crate::model::Settings::database_flags].
-    pub fn set_database_flags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DatabaseFlags>
-    {
-        use std::iter::Iterator;
-        self.database_flags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [deny_maintenance_periods][crate::model::Settings::deny_maintenance_periods].
-    pub fn set_deny_maintenance_periods<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DenyMaintenancePeriod>
-    {
-        use std::iter::Iterator;
-        self.deny_maintenance_periods = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [user_labels][crate::model::Settings::user_labels].
-    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -14758,13 +14758,6 @@ impl UsersListResponse {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::UsersListResponse::next_page_token].
-    #[deprecated]
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [items][crate::model::UsersListResponse::items].
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
@@ -14773,6 +14766,13 @@ impl UsersListResponse {
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::UsersListResponse::next_page_token].
+    #[deprecated]
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

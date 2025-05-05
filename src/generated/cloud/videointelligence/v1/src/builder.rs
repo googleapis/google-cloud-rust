@@ -152,6 +152,19 @@ pub mod video_intelligence_service {
             self
         }
 
+        /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_features<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Feature>,
+        {
+            use std::iter::Iterator;
+            self.0.request.features = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
         pub fn set_video_context<T: Into<std::option::Option<crate::model::VideoContext>>>(
             mut self,
@@ -170,19 +183,6 @@ pub mod video_intelligence_service {
         /// Sets the value of [location_id][crate::model::AnnotateVideoRequest::location_id].
         pub fn set_location_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location_id = v.into();
-            self
-        }
-
-        /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_features<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Feature>,
-        {
-            use std::iter::Iterator;
-            self.0.request.features = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
