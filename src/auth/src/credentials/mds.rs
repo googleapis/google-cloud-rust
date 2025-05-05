@@ -500,6 +500,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_default_service_account_info_success() {
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
@@ -531,6 +532,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_info_server_error() {
         let (endpoint, _server) = start(Handlers::from([(
             MDS_DEFAULT_URI.to_string(),
@@ -554,6 +556,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success_with_quota_project() -> TestResult {
         let scopes = ["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
