@@ -2851,6 +2851,18 @@ pub mod conversations {
             self
         }
 
+        /// Sets the value of [context_references][crate::model::GenerateStatelessSuggestionRequest::context_references].
+        pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::conversation::ContextReference>,
+        {
+            self.0.request.context_references =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [conversation_context][crate::model::GenerateStatelessSuggestionRequest::conversation_context].
         pub fn set_conversation_context<
             T: Into<std::option::Option<crate::model::ConversationContext>>,
@@ -2870,18 +2882,6 @@ pub mod conversations {
         {
             use std::iter::Iterator;
             self.0.request.trigger_events = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [context_references][crate::model::GenerateStatelessSuggestionRequest::context_references].
-        pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<crate::model::conversation::ContextReference>,
-        {
-            self.0.request.context_references =
-                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -8585,12 +8585,6 @@ pub mod entity_types {
             self
         }
 
-        /// Sets the value of [language_code][crate::model::BatchCreateEntitiesRequest::language_code].
-        pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.language_code = v.into();
-            self
-        }
-
         /// Sets the value of [entities][crate::model::BatchCreateEntitiesRequest::entities].
         ///
         /// This is a **required** field for requests.
@@ -8601,6 +8595,12 @@ pub mod entity_types {
         {
             use std::iter::Iterator;
             self.0.request.entities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [language_code][crate::model::BatchCreateEntitiesRequest::language_code].
+        pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.language_code = v.into();
             self
         }
     }
@@ -8689,6 +8689,19 @@ pub mod entity_types {
             self
         }
 
+        /// Sets the value of [entities][crate::model::BatchUpdateEntitiesRequest::entities].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entities<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::entity_type::Entity>,
+        {
+            use std::iter::Iterator;
+            self.0.request.entities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [language_code][crate::model::BatchUpdateEntitiesRequest::language_code].
         pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.language_code = v.into();
@@ -8701,19 +8714,6 @@ pub mod entity_types {
             v: T,
         ) -> Self {
             self.0.request.update_mask = v.into();
-            self
-        }
-
-        /// Sets the value of [entities][crate::model::BatchUpdateEntitiesRequest::entities].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_entities<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::entity_type::Entity>,
-        {
-            use std::iter::Iterator;
-            self.0.request.entities = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -8802,12 +8802,6 @@ pub mod entity_types {
             self
         }
 
-        /// Sets the value of [language_code][crate::model::BatchDeleteEntitiesRequest::language_code].
-        pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.language_code = v.into();
-            self
-        }
-
         /// Sets the value of [entity_values][crate::model::BatchDeleteEntitiesRequest::entity_values].
         ///
         /// This is a **required** field for requests.
@@ -8818,6 +8812,12 @@ pub mod entity_types {
         {
             use std::iter::Iterator;
             self.0.request.entity_values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [language_code][crate::model::BatchDeleteEntitiesRequest::language_code].
+        pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.language_code = v.into();
             self
         }
     }

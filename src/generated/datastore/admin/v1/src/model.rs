@@ -94,15 +94,6 @@ impl CommonMetadata {
         self
     }
 
-    /// Sets the value of [state][crate::model::CommonMetadata::state].
-    pub fn set_state<T: std::convert::Into<crate::model::common_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::CommonMetadata::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -112,6 +103,15 @@ impl CommonMetadata {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::CommonMetadata::state].
+    pub fn set_state<T: std::convert::Into<crate::model::common_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
         self
     }
 }
@@ -402,6 +402,18 @@ impl ExportEntitiesRequest {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
     pub fn set_entity_filter<
         T: std::convert::Into<std::option::Option<crate::model::EntityFilter>>,
@@ -419,18 +431,6 @@ impl ExportEntitiesRequest {
         v: T,
     ) -> Self {
         self.output_url_prefix = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -499,6 +499,18 @@ impl ImportEntitiesRequest {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [input_url][crate::model::ImportEntitiesRequest::input_url].
     pub fn set_input_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_url = v.into();
@@ -513,18 +525,6 @@ impl ImportEntitiesRequest {
         v: T,
     ) -> Self {
         self.entity_filter = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1076,12 +1076,6 @@ impl ListIndexesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [indexes][crate::model::ListIndexesResponse::indexes].
     pub fn set_indexes<T, V>(mut self, v: T) -> Self
     where
@@ -1090,6 +1084,12 @@ impl ListIndexesResponse {
     {
         use std::iter::Iterator;
         self.indexes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1298,12 +1298,6 @@ impl Index {
         self
     }
 
-    /// Sets the value of [state][crate::model::Index::state].
-    pub fn set_state<T: std::convert::Into<crate::model::index::State>>(mut self, v: T) -> Self {
-        self.state = v.into();
-        self
-    }
-
     /// Sets the value of [properties][crate::model::Index::properties].
     pub fn set_properties<T, V>(mut self, v: T) -> Self
     where
@@ -1312,6 +1306,12 @@ impl Index {
     {
         use std::iter::Iterator;
         self.properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Index::state].
+    pub fn set_state<T: std::convert::Into<crate::model::index::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
         self
     }
 }
@@ -1898,23 +1898,6 @@ impl MigrationProgressEvent {
         })
     }
 
-    /// The value of [step_details][crate::model::MigrationProgressEvent::step_details]
-    /// if it holds a `RedirectWritesStepDetails`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn redirect_writes_step_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.step_details.as_ref().and_then(|v| match v {
-            crate::model::migration_progress_event::StepDetails::RedirectWritesStepDetails(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [step_details][crate::model::MigrationProgressEvent::step_details]
     /// to hold a `PrepareStepDetails`.
     ///
@@ -1932,6 +1915,23 @@ impl MigrationProgressEvent {
             crate::model::migration_progress_event::StepDetails::PrepareStepDetails(v.into()),
         );
         self
+    }
+
+    /// The value of [step_details][crate::model::MigrationProgressEvent::step_details]
+    /// if it holds a `RedirectWritesStepDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn redirect_writes_step_details(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.step_details.as_ref().and_then(|v| match v {
+            crate::model::migration_progress_event::StepDetails::RedirectWritesStepDetails(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [step_details][crate::model::MigrationProgressEvent::step_details]

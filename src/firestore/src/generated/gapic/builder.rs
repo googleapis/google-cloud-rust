@@ -530,12 +530,6 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.transaction = v.into();
-            self
-        }
-
         /// Sets the value of [writes][crate::model::CommitRequest::writes].
         pub fn set_writes<T, V>(mut self, v: T) -> Self
         where
@@ -544,6 +538,12 @@ pub mod firestore {
         {
             use std::iter::Iterator;
             self.0.request.writes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.transaction = v.into();
             self
         }
     }

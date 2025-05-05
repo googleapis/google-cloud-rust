@@ -487,15 +487,60 @@ impl InstanceConfig {
         self
     }
 
+    /// Sets the value of [replicas][crate::model::InstanceConfig::replicas].
+    pub fn set_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReplicaInfo>,
+    {
+        use std::iter::Iterator;
+        self.replicas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [optional_replicas][crate::model::InstanceConfig::optional_replicas].
+    pub fn set_optional_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReplicaInfo>,
+    {
+        use std::iter::Iterator;
+        self.optional_replicas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [base_config][crate::model::InstanceConfig::base_config].
     pub fn set_base_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_config = v.into();
         self
     }
 
+    /// Sets the value of [labels][crate::model::InstanceConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::InstanceConfig::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [leader_options][crate::model::InstanceConfig::leader_options].
+    pub fn set_leader_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.leader_options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -540,51 +585,6 @@ impl InstanceConfig {
         v: T,
     ) -> Self {
         self.storage_limit_per_processing_unit = v.into();
-        self
-    }
-
-    /// Sets the value of [replicas][crate::model::InstanceConfig::replicas].
-    pub fn set_replicas<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReplicaInfo>,
-    {
-        use std::iter::Iterator;
-        self.replicas = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [optional_replicas][crate::model::InstanceConfig::optional_replicas].
-    pub fn set_optional_replicas<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReplicaInfo>,
-    {
-        use std::iter::Iterator;
-        self.optional_replicas = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [leader_options][crate::model::InstanceConfig::leader_options].
-    pub fn set_leader_options<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.leader_options = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::InstanceConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1239,6 +1239,18 @@ impl ReplicaComputeCapacity {
         })
     }
 
+    /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
+    /// to hold a `NodeCount`.
+    ///
+    /// Note that all the setters affecting `compute_capacity` are
+    /// mutually exclusive.
+    pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.compute_capacity = std::option::Option::Some(
+            crate::model::replica_compute_capacity::ComputeCapacity::NodeCount(v.into()),
+        );
+        self
+    }
+
     /// The value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
     /// if it holds a `ProcessingUnits`, `None` if the field is not set or
     /// holds a different branch.
@@ -1250,18 +1262,6 @@ impl ReplicaComputeCapacity {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
-    /// to hold a `NodeCount`.
-    ///
-    /// Note that all the setters affecting `compute_capacity` are
-    /// mutually exclusive.
-    pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.compute_capacity = std::option::Option::Some(
-            crate::model::replica_compute_capacity::ComputeCapacity::NodeCount(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
@@ -1459,17 +1459,6 @@ pub mod autoscaling_config {
             })
         }
 
-        /// The value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
-        /// if it holds a `MinProcessingUnits`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn min_processing_units(&self) -> std::option::Option<&i32> {
-            #[allow(unreachable_patterns)]
-            self.min_limit.as_ref().and_then(|v| match v {
-                crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinProcessingUnits(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
         /// to hold a `MinNodes`.
         ///
@@ -1480,6 +1469,17 @@ pub mod autoscaling_config {
                 crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinNodes(v.into()),
             );
             self
+        }
+
+        /// The value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
+        /// if it holds a `MinProcessingUnits`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn min_processing_units(&self) -> std::option::Option<&i32> {
+            #[allow(unreachable_patterns)]
+            self.min_limit.as_ref().and_then(|v| match v {
+                crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinProcessingUnits(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
@@ -1527,17 +1527,6 @@ pub mod autoscaling_config {
             })
         }
 
-        /// The value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
-        /// if it holds a `MaxProcessingUnits`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn max_processing_units(&self) -> std::option::Option<&i32> {
-            #[allow(unreachable_patterns)]
-            self.max_limit.as_ref().and_then(|v| match v {
-                crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxProcessingUnits(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
         /// to hold a `MaxNodes`.
         ///
@@ -1548,6 +1537,17 @@ pub mod autoscaling_config {
                 crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxNodes(v.into()),
             );
             self
+        }
+
+        /// The value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
+        /// if it holds a `MaxProcessingUnits`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn max_processing_units(&self) -> std::option::Option<&i32> {
+            #[allow(unreachable_patterns)]
+            self.max_limit.as_ref().and_then(|v| match v {
+                crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxProcessingUnits(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
@@ -1961,6 +1961,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [replica_compute_capacity][crate::model::Instance::replica_compute_capacity].
+    pub fn set_replica_compute_capacity<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReplicaComputeCapacity>,
+    {
+        use std::iter::Iterator;
+        self.replica_compute_capacity = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [autoscaling_config][crate::model::Instance::autoscaling_config].
     pub fn set_autoscaling_config<
         T: std::convert::Into<std::option::Option<crate::model::AutoscalingConfig>>,
@@ -1978,12 +1989,35 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [instance_type][crate::model::Instance::instance_type].
     pub fn set_instance_type<T: std::convert::Into<crate::model::instance::InstanceType>>(
         mut self,
         v: T,
     ) -> Self {
         self.instance_type = v.into();
+        self
+    }
+
+    /// Sets the value of [endpoint_uris][crate::model::Instance::endpoint_uris].
+    pub fn set_endpoint_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.endpoint_uris = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2033,40 +2067,6 @@ impl Instance {
         v: T,
     ) -> Self {
         self.default_backup_schedule_type = v.into();
-        self
-    }
-
-    /// Sets the value of [replica_compute_capacity][crate::model::Instance::replica_compute_capacity].
-    pub fn set_replica_compute_capacity<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReplicaComputeCapacity>,
-    {
-        use std::iter::Iterator;
-        self.replica_compute_capacity = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [endpoint_uris][crate::model::Instance::endpoint_uris].
-    pub fn set_endpoint_uris<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.endpoint_uris = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2733,12 +2733,6 @@ impl ListInstanceConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstanceConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instance_configs][crate::model::ListInstanceConfigsResponse::instance_configs].
     pub fn set_instance_configs<T, V>(mut self, v: T) -> Self
     where
@@ -2747,6 +2741,12 @@ impl ListInstanceConfigsResponse {
     {
         use std::iter::Iterator;
         self.instance_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstanceConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3184,12 +3184,6 @@ impl ListInstanceConfigOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstanceConfigOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [operations][crate::model::ListInstanceConfigOperationsResponse::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -3198,6 +3192,12 @@ impl ListInstanceConfigOperationsResponse {
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstanceConfigOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3489,12 +3489,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -3503,6 +3497,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4320,12 +4320,6 @@ impl InstancePartition {
         self
     }
 
-    /// Sets the value of [etag][crate::model::InstancePartition::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [referencing_databases][crate::model::InstancePartition::referencing_databases].
     pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
     where
@@ -4346,6 +4340,12 @@ impl InstancePartition {
     {
         use std::iter::Iterator;
         self.referencing_backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::InstancePartition::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 
@@ -4376,6 +4376,18 @@ impl InstancePartition {
         })
     }
 
+    /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
+    /// to hold a `NodeCount`.
+    ///
+    /// Note that all the setters affecting `compute_capacity` are
+    /// mutually exclusive.
+    pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.compute_capacity = std::option::Option::Some(
+            crate::model::instance_partition::ComputeCapacity::NodeCount(v.into()),
+        );
+        self
+    }
+
     /// The value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
     /// if it holds a `ProcessingUnits`, `None` if the field is not set or
     /// holds a different branch.
@@ -4387,18 +4399,6 @@ impl InstancePartition {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
-    /// to hold a `NodeCount`.
-    ///
-    /// Note that all the setters affecting `compute_capacity` are
-    /// mutually exclusive.
-    pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.compute_capacity = std::option::Option::Some(
-            crate::model::instance_partition::ComputeCapacity::NodeCount(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
@@ -5107,12 +5107,6 @@ impl ListInstancePartitionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancePartitionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instance_partitions][crate::model::ListInstancePartitionsResponse::instance_partitions].
     pub fn set_instance_partitions<T, V>(mut self, v: T) -> Self
     where
@@ -5121,6 +5115,12 @@ impl ListInstancePartitionsResponse {
     {
         use std::iter::Iterator;
         self.instance_partitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancePartitionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5339,12 +5339,6 @@ impl ListInstancePartitionOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancePartitionOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [operations][crate::model::ListInstancePartitionOperationsResponse::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -5353,6 +5347,12 @@ impl ListInstancePartitionOperationsResponse {
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancePartitionOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

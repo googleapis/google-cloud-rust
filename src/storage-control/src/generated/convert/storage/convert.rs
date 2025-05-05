@@ -108,11 +108,11 @@ impl gaxi::prost::ToProto<ListBucketsResponse> for crate::generated::gapic::mode
     type Output = ListBucketsResponse;
     fn to_proto(self) -> std::result::Result<ListBucketsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            next_page_token: self.next_page_token.to_proto()?,
             buckets: self.buckets
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
         })
     }
 }
@@ -120,8 +120,8 @@ impl gaxi::prost::ToProto<ListBucketsResponse> for crate::generated::gapic::mode
 impl gaxi::prost::FromProto<crate::generated::gapic::model::ListBucketsResponse> for ListBucketsResponse {
     fn cnv(self) -> crate::generated::gapic::model::ListBucketsResponse {
         crate::generated::gapic::model::ListBucketsResponse::new()
-            .set_next_page_token(self.next_page_token)
             .set_buckets(self.buckets.into_iter().map(|v| v.cnv()))
+            .set_next_page_token(self.next_page_token)
     }
 }
 
@@ -210,16 +210,16 @@ impl gaxi::prost::ToProto<ComposeObjectRequest> for crate::generated::gapic::mod
     fn to_proto(self) -> std::result::Result<ComposeObjectRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             destination: self.destination.map(|v| v.to_proto()).transpose()?,
+            source_objects: self.source_objects
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             destination_predefined_acl: self.destination_predefined_acl.to_proto()?,
             if_generation_match: self.if_generation_match.map(|v| v.to_proto()).transpose()?,
             if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
             kms_key: self.kms_key.to_proto()?,
             common_object_request_params: self.common_object_request_params.map(|v| v.to_proto()).transpose()?,
             object_checksums: self.object_checksums.map(|v| v.to_proto()).transpose()?,
-            source_objects: self.source_objects
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
 }
@@ -228,13 +228,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ComposeObjectRequest
     fn cnv(self) -> crate::generated::gapic::model::ComposeObjectRequest {
         crate::generated::gapic::model::ComposeObjectRequest::new()
             .set_destination(self.destination.map(|v| v.cnv()))
+            .set_source_objects(self.source_objects.into_iter().map(|v| v.cnv()))
             .set_destination_predefined_acl(self.destination_predefined_acl)
             .set_if_generation_match(self.if_generation_match.map(|v| v.cnv()))
             .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()))
             .set_kms_key(self.kms_key)
             .set_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()))
             .set_object_checksums(self.object_checksums.map(|v| v.cnv()))
-            .set_source_objects(self.source_objects.into_iter().map(|v| v.cnv()))
     }
 }
 
@@ -589,7 +589,6 @@ impl gaxi::prost::ToProto<bucket::Cors> for crate::generated::gapic::model::buck
     type Output = bucket::Cors;
     fn to_proto(self) -> std::result::Result<bucket::Cors, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            max_age_seconds: self.max_age_seconds.to_proto()?,
             origin: self.origin
                 .into_iter()
                 .map(|v| v.to_proto())
@@ -602,6 +601,7 @@ impl gaxi::prost::ToProto<bucket::Cors> for crate::generated::gapic::model::buck
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            max_age_seconds: self.max_age_seconds.to_proto()?,
         })
     }
 }
@@ -609,10 +609,10 @@ impl gaxi::prost::ToProto<bucket::Cors> for crate::generated::gapic::model::buck
 impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::Cors> for bucket::Cors {
     fn cnv(self) -> crate::generated::gapic::model::bucket::Cors {
         crate::generated::gapic::model::bucket::Cors::new()
-            .set_max_age_seconds(self.max_age_seconds)
             .set_origin(self.origin.into_iter().map(|v| v.cnv()))
             .set_method(self.method.into_iter().map(|v| v.cnv()))
             .set_response_header(self.response_header.into_iter().map(|v| v.cnv()))
+            .set_max_age_seconds(self.max_age_seconds)
     }
 }
 
@@ -694,14 +694,14 @@ impl gaxi::prost::ToProto<bucket::lifecycle::rule::Condition> for crate::generat
             created_before: self.created_before.map(|v| v.to_proto()).transpose()?,
             is_live: self.is_live.map(|v| v.to_proto()).transpose()?,
             num_newer_versions: self.num_newer_versions.map(|v| v.to_proto()).transpose()?,
-            days_since_custom_time: self.days_since_custom_time.map(|v| v.to_proto()).transpose()?,
-            custom_time_before: self.custom_time_before.map(|v| v.to_proto()).transpose()?,
-            days_since_noncurrent_time: self.days_since_noncurrent_time.map(|v| v.to_proto()).transpose()?,
-            noncurrent_time_before: self.noncurrent_time_before.map(|v| v.to_proto()).transpose()?,
             matches_storage_class: self.matches_storage_class
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            days_since_custom_time: self.days_since_custom_time.map(|v| v.to_proto()).transpose()?,
+            custom_time_before: self.custom_time_before.map(|v| v.to_proto()).transpose()?,
+            days_since_noncurrent_time: self.days_since_noncurrent_time.map(|v| v.to_proto()).transpose()?,
+            noncurrent_time_before: self.noncurrent_time_before.map(|v| v.to_proto()).transpose()?,
             matches_prefix: self.matches_prefix
                 .into_iter()
                 .map(|v| v.to_proto())
@@ -721,11 +721,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::lifecycle::r
             .set_created_before(self.created_before.map(|v| v.cnv()))
             .set_is_live(self.is_live.map(|v| v.cnv()))
             .set_num_newer_versions(self.num_newer_versions.map(|v| v.cnv()))
+            .set_matches_storage_class(self.matches_storage_class.into_iter().map(|v| v.cnv()))
             .set_days_since_custom_time(self.days_since_custom_time.map(|v| v.cnv()))
             .set_custom_time_before(self.custom_time_before.map(|v| v.cnv()))
             .set_days_since_noncurrent_time(self.days_since_noncurrent_time.map(|v| v.cnv()))
             .set_noncurrent_time_before(self.noncurrent_time_before.map(|v| v.cnv()))
-            .set_matches_storage_class(self.matches_storage_class.into_iter().map(|v| v.cnv()))
             .set_matches_prefix(self.matches_prefix.into_iter().map(|v| v.cnv()))
             .set_matches_suffix(self.matches_suffix.into_iter().map(|v| v.cnv()))
     }
@@ -928,10 +928,27 @@ impl gaxi::prost::ToProto<Bucket> for crate::generated::gapic::model::Bucket {
             location_type: self.location_type.to_proto()?,
             storage_class: self.storage_class.to_proto()?,
             rpo: self.rpo.to_proto()?,
+            acl: self.acl
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            default_object_acl: self.default_object_acl
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             lifecycle: self.lifecycle.map(|v| v.to_proto()).transpose()?,
             create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            cors: self.cors
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
             default_event_based_hold: self.default_event_based_hold.to_proto()?,
+            labels: self.labels
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             website: self.website.map(|v| v.to_proto()).transpose()?,
             versioning: self.versioning.map(|v| v.to_proto()).transpose()?,
             logging: self.logging.map(|v| v.to_proto()).transpose()?,
@@ -945,23 +962,6 @@ impl gaxi::prost::ToProto<Bucket> for crate::generated::gapic::model::Bucket {
             autoclass: self.autoclass.map(|v| v.to_proto()).transpose()?,
             hierarchical_namespace: self.hierarchical_namespace.map(|v| v.to_proto()).transpose()?,
             soft_delete_policy: self.soft_delete_policy.map(|v| v.to_proto()).transpose()?,
-            acl: self.acl
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            default_object_acl: self.default_object_acl
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            cors: self.cors
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            labels: self.labels
-                .into_iter()
-                .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
-                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
 }
@@ -978,10 +978,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Bucket> for Bucket {
             .set_location_type(self.location_type)
             .set_storage_class(self.storage_class)
             .set_rpo(self.rpo)
+            .set_acl(self.acl.into_iter().map(|v| v.cnv()))
+            .set_default_object_acl(self.default_object_acl.into_iter().map(|v| v.cnv()))
             .set_lifecycle(self.lifecycle.map(|v| v.cnv()))
             .set_create_time(self.create_time.map(|v| v.cnv()))
+            .set_cors(self.cors.into_iter().map(|v| v.cnv()))
             .set_update_time(self.update_time.map(|v| v.cnv()))
             .set_default_event_based_hold(self.default_event_based_hold)
+            .set_labels(self.labels.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
             .set_website(self.website.map(|v| v.cnv()))
             .set_versioning(self.versioning.map(|v| v.cnv()))
             .set_logging(self.logging.map(|v| v.cnv()))
@@ -995,10 +999,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Bucket> for Bucket {
             .set_autoclass(self.autoclass.map(|v| v.cnv()))
             .set_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()))
             .set_soft_delete_policy(self.soft_delete_policy.map(|v| v.cnv()))
-            .set_acl(self.acl.into_iter().map(|v| v.cnv()))
-            .set_default_object_acl(self.default_object_acl.into_iter().map(|v| v.cnv()))
-            .set_cors(self.cors.into_iter().map(|v| v.cnv()))
-            .set_labels(self.labels.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
     }
 }
 
@@ -1085,6 +1085,10 @@ impl gaxi::prost::ToProto<Object> for crate::generated::gapic::model::Object {
             content_encoding: self.content_encoding.to_proto()?,
             content_disposition: self.content_disposition.to_proto()?,
             cache_control: self.cache_control.to_proto()?,
+            acl: self.acl
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             content_language: self.content_language.to_proto()?,
             delete_time: self.delete_time.map(|v| v.to_proto()).transpose()?,
             finalize_time: self.finalize_time.map(|v| v.to_proto()).transpose()?,
@@ -1097,21 +1101,17 @@ impl gaxi::prost::ToProto<Object> for crate::generated::gapic::model::Object {
             update_storage_class_time: self.update_storage_class_time.map(|v| v.to_proto()).transpose()?,
             temporary_hold: self.temporary_hold.to_proto()?,
             retention_expire_time: self.retention_expire_time.map(|v| v.to_proto()).transpose()?,
+            metadata: self.metadata
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             event_based_hold: self.event_based_hold.map(|v| v.to_proto()).transpose()?,
             owner: self.owner.map(|v| v.to_proto()).transpose()?,
             customer_encryption: self.customer_encryption.map(|v| v.to_proto()).transpose()?,
             custom_time: self.custom_time.map(|v| v.to_proto()).transpose()?,
             soft_delete_time: self.soft_delete_time.map(|v| v.to_proto()).transpose()?,
             hard_delete_time: self.hard_delete_time.map(|v| v.to_proto()).transpose()?,
-            acl: self.acl
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            metadata: self.metadata
-                .into_iter()
-                .map(|(k, v)| {
-                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
-                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
         })
     }
 }
@@ -1130,6 +1130,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Object> for Object {
             .set_content_encoding(self.content_encoding)
             .set_content_disposition(self.content_disposition)
             .set_cache_control(self.cache_control)
+            .set_acl(self.acl.into_iter().map(|v| v.cnv()))
             .set_content_language(self.content_language)
             .set_delete_time(self.delete_time.map(|v| v.cnv()))
             .set_finalize_time(self.finalize_time.map(|v| v.cnv()))
@@ -1142,14 +1143,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Object> for Object {
             .set_update_storage_class_time(self.update_storage_class_time.map(|v| v.cnv()))
             .set_temporary_hold(self.temporary_hold)
             .set_retention_expire_time(self.retention_expire_time.map(|v| v.cnv()))
+            .set_metadata(self.metadata.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
             .set_event_based_hold(self.event_based_hold.map(|v| v.cnv()))
             .set_owner(self.owner.map(|v| v.cnv()))
             .set_customer_encryption(self.customer_encryption.map(|v| v.cnv()))
             .set_custom_time(self.custom_time.map(|v| v.cnv()))
             .set_soft_delete_time(self.soft_delete_time.map(|v| v.cnv()))
             .set_hard_delete_time(self.hard_delete_time.map(|v| v.cnv()))
-            .set_acl(self.acl.into_iter().map(|v| v.cnv()))
-            .set_metadata(self.metadata.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
     }
 }
 
@@ -1189,7 +1189,6 @@ impl gaxi::prost::ToProto<ListObjectsResponse> for crate::generated::gapic::mode
     type Output = ListObjectsResponse;
     fn to_proto(self) -> std::result::Result<ListObjectsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            next_page_token: self.next_page_token.to_proto()?,
             objects: self.objects
                 .into_iter()
                 .map(|v| v.to_proto())
@@ -1198,6 +1197,7 @@ impl gaxi::prost::ToProto<ListObjectsResponse> for crate::generated::gapic::mode
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
         })
     }
 }
@@ -1205,9 +1205,9 @@ impl gaxi::prost::ToProto<ListObjectsResponse> for crate::generated::gapic::mode
 impl gaxi::prost::FromProto<crate::generated::gapic::model::ListObjectsResponse> for ListObjectsResponse {
     fn cnv(self) -> crate::generated::gapic::model::ListObjectsResponse {
         crate::generated::gapic::model::ListObjectsResponse::new()
-            .set_next_page_token(self.next_page_token)
             .set_objects(self.objects.into_iter().map(|v| v.cnv()))
             .set_prefixes(self.prefixes.into_iter().map(|v| v.cnv()))
+            .set_next_page_token(self.next_page_token)
     }
 }
 

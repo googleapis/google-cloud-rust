@@ -154,6 +154,17 @@ pub mod asset_service {
             self
         }
 
+        /// Sets the value of [asset_types][crate::model::ExportAssetsRequest::asset_types].
+        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [content_type][crate::model::ExportAssetsRequest::content_type].
         pub fn set_content_type<T: Into<crate::model::ContentType>>(mut self, v: T) -> Self {
             self.0.request.content_type = v.into();
@@ -168,17 +179,6 @@ pub mod asset_service {
             v: T,
         ) -> Self {
             self.0.request.output_config = v.into();
-            self
-        }
-
-        /// Sets the value of [asset_types][crate::model::ExportAssetsRequest::asset_types].
-        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -261,6 +261,17 @@ pub mod asset_service {
             self
         }
 
+        /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
+        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [content_type][crate::model::ListAssetsRequest::content_type].
         pub fn set_content_type<T: Into<crate::model::ContentType>>(mut self, v: T) -> Self {
             self.0.request.content_type = v.into();
@@ -276,17 +287,6 @@ pub mod asset_service {
         /// Sets the value of [page_token][crate::model::ListAssetsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
-        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -351,6 +351,17 @@ pub mod asset_service {
             self
         }
 
+        /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
+        pub fn set_asset_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [content_type][crate::model::BatchGetAssetsHistoryRequest::content_type].
         pub fn set_content_type<T: Into<crate::model::ContentType>>(mut self, v: T) -> Self {
             self.0.request.content_type = v.into();
@@ -363,17 +374,6 @@ pub mod asset_service {
             v: T,
         ) -> Self {
             self.0.request.read_time_window = v.into();
-            self
-        }
-
-        /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
-        pub fn set_asset_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -721,6 +721,17 @@ pub mod asset_service {
             self
         }
 
+        /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
+        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::SearchAllResourcesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -742,17 +753,6 @@ pub mod asset_service {
         /// Sets the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
         pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
             self.0.request.read_mask = v.into();
-            self
-        }
-
-        /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
-        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -839,12 +839,6 @@ pub mod asset_service {
             self
         }
 
-        /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
-        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.order_by = v.into();
-            self
-        }
-
         /// Sets the value of [asset_types][crate::model::SearchAllIamPoliciesRequest::asset_types].
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
@@ -853,6 +847,12 @@ pub mod asset_service {
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
             self
         }
     }

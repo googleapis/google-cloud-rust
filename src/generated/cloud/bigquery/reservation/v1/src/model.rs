@@ -1061,12 +1061,6 @@ impl ListReservationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReservationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [reservations][crate::model::ListReservationsResponse::reservations].
     pub fn set_reservations<T, V>(mut self, v: T) -> Self
     where
@@ -1075,6 +1069,12 @@ impl ListReservationsResponse {
     {
         use std::iter::Iterator;
         self.reservations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReservationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1422,12 +1422,6 @@ impl ListCapacityCommitmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCapacityCommitmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [capacity_commitments][crate::model::ListCapacityCommitmentsResponse::capacity_commitments].
     pub fn set_capacity_commitments<T, V>(mut self, v: T) -> Self
     where
@@ -1436,6 +1430,12 @@ impl ListCapacityCommitmentsResponse {
     {
         use std::iter::Iterator;
         self.capacity_commitments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCapacityCommitmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2291,12 +2291,6 @@ impl ListAssignmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAssignmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [assignments][crate::model::ListAssignmentsResponse::assignments].
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
@@ -2305,6 +2299,12 @@ impl ListAssignmentsResponse {
     {
         use std::iter::Iterator;
         self.assignments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAssignmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2544,12 +2544,6 @@ impl SearchAssignmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchAssignmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [assignments][crate::model::SearchAssignmentsResponse::assignments].
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
@@ -2558,6 +2552,12 @@ impl SearchAssignmentsResponse {
     {
         use std::iter::Iterator;
         self.assignments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchAssignmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2609,12 +2609,6 @@ impl SearchAllAssignmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchAllAssignmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [assignments][crate::model::SearchAllAssignmentsResponse::assignments].
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
@@ -2623,6 +2617,12 @@ impl SearchAllAssignmentsResponse {
     {
         use std::iter::Iterator;
         self.assignments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchAllAssignmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

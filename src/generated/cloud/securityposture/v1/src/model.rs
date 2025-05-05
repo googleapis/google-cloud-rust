@@ -101,39 +101,6 @@ impl PolicyRule {
         })
     }
 
-    /// The value of [kind][crate::model::PolicyRule::kind]
-    /// if it holds a `AllowAll`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn allow_all(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::policy_rule::Kind::AllowAll(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::PolicyRule::kind]
-    /// if it holds a `DenyAll`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deny_all(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::policy_rule::Kind::DenyAll(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::PolicyRule::kind]
-    /// if it holds a `Enforce`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn enforce(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::policy_rule::Kind::Enforce(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [kind][crate::model::PolicyRule::kind]
     /// to hold a `Values`.
     ///
@@ -149,6 +116,17 @@ impl PolicyRule {
         self
     }
 
+    /// The value of [kind][crate::model::PolicyRule::kind]
+    /// if it holds a `AllowAll`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn allow_all(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::policy_rule::Kind::AllowAll(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::PolicyRule::kind]
     /// to hold a `AllowAll`.
     ///
@@ -159,6 +137,17 @@ impl PolicyRule {
         self
     }
 
+    /// The value of [kind][crate::model::PolicyRule::kind]
+    /// if it holds a `DenyAll`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deny_all(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::policy_rule::Kind::DenyAll(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::PolicyRule::kind]
     /// to hold a `DenyAll`.
     ///
@@ -167,6 +156,17 @@ impl PolicyRule {
     pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::DenyAll(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::PolicyRule::kind]
+    /// if it holds a `Enforce`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn enforce(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::policy_rule::Kind::Enforce(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::PolicyRule::kind]
@@ -356,6 +356,28 @@ impl CustomConstraint {
         self
     }
 
+    /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
+    pub fn set_resource_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
+    pub fn set_method_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
+    {
+        use std::iter::Iterator;
+        self.method_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [condition][crate::model::CustomConstraint::condition].
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
@@ -389,28 +411,6 @@ impl CustomConstraint {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
-    pub fn set_resource_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
-    pub fn set_method_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
-    {
-        use std::iter::Iterator;
-        self.method_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1035,18 +1035,6 @@ impl Posture {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Posture::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [reconciling][crate::model::Posture::reconciling].
-    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.reconciling = v.into();
-        self
-    }
-
     /// Sets the value of [policy_sets][crate::model::Posture::policy_sets].
     pub fn set_policy_sets<T, V>(mut self, v: T) -> Self
     where
@@ -1055,6 +1043,12 @@ impl Posture {
     {
         use std::iter::Iterator;
         self.policy_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Posture::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 
@@ -1067,6 +1061,12 @@ impl Posture {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::Posture::reconciling].
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
         self
     }
 }
@@ -1317,6 +1317,17 @@ impl Policy {
         self
     }
 
+    /// Sets the value of [compliance_standards][crate::model::Policy::compliance_standards].
+    pub fn set_compliance_standards<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::policy::ComplianceStandard>,
+    {
+        use std::iter::Iterator;
+        self.compliance_standards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [constraint][crate::model::Policy::constraint].
     pub fn set_constraint<T: std::convert::Into<std::option::Option<crate::model::Constraint>>>(
         mut self,
@@ -1329,17 +1340,6 @@ impl Policy {
     /// Sets the value of [description][crate::model::Policy::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [compliance_standards][crate::model::Policy::compliance_standards].
-    pub fn set_compliance_standards<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::policy::ComplianceStandard>,
-    {
-        use std::iter::Iterator;
-        self.compliance_standards = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1445,52 +1445,6 @@ impl Constraint {
         })
     }
 
-    /// The value of [implementation][crate::model::Constraint::implementation]
-    /// if it holds a `SecurityHealthAnalyticsCustomModule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn security_health_analytics_custom_module(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>
-    {
-        #[allow(unreachable_patterns)]
-        self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [implementation][crate::model::Constraint::implementation]
-    /// if it holds a `OrgPolicyConstraint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn org_policy_constraint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraint>> {
-        #[allow(unreachable_patterns)]
-        self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::OrgPolicyConstraint(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [implementation][crate::model::Constraint::implementation]
-    /// if it holds a `OrgPolicyConstraintCustom`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn org_policy_constraint_custom(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraintCustom>> {
-        #[allow(unreachable_patterns)]
-        self.implementation.as_ref().and_then(|v| match v {
-            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [implementation][crate::model::Constraint::implementation]
     /// to hold a `SecurityHealthAnalyticsModule`.
     ///
@@ -1506,6 +1460,22 @@ impl Constraint {
             crate::model::constraint::Implementation::SecurityHealthAnalyticsModule(v.into()),
         );
         self
+    }
+
+    /// The value of [implementation][crate::model::Constraint::implementation]
+    /// if it holds a `SecurityHealthAnalyticsCustomModule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn security_health_analytics_custom_module(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>
+    {
+        #[allow(unreachable_patterns)]
+        self.implementation.as_ref().and_then(|v| match v {
+            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [implementation][crate::model::Constraint::implementation]
@@ -1525,6 +1495,21 @@ impl Constraint {
         self
     }
 
+    /// The value of [implementation][crate::model::Constraint::implementation]
+    /// if it holds a `OrgPolicyConstraint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn org_policy_constraint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraint>> {
+        #[allow(unreachable_patterns)]
+        self.implementation.as_ref().and_then(|v| match v {
+            crate::model::constraint::Implementation::OrgPolicyConstraint(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [implementation][crate::model::Constraint::implementation]
     /// to hold a `OrgPolicyConstraint`.
     ///
@@ -1540,6 +1525,21 @@ impl Constraint {
             crate::model::constraint::Implementation::OrgPolicyConstraint(v.into()),
         );
         self
+    }
+
+    /// The value of [implementation][crate::model::Constraint::implementation]
+    /// if it holds a `OrgPolicyConstraintCustom`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn org_policy_constraint_custom(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OrgPolicyConstraintCustom>> {
+        #[allow(unreachable_patterns)]
+        self.implementation.as_ref().and_then(|v| match v {
+            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [implementation][crate::model::Constraint::implementation]
@@ -1668,12 +1668,6 @@ impl ListPosturesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPosturesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [postures][crate::model::ListPosturesResponse::postures].
     pub fn set_postures<T, V>(mut self, v: T) -> Self
     where
@@ -1682,6 +1676,12 @@ impl ListPosturesResponse {
     {
         use std::iter::Iterator;
         self.postures = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPosturesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1793,12 +1793,6 @@ impl ListPostureRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPostureRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [revisions][crate::model::ListPostureRevisionsResponse::revisions].
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
@@ -1807,6 +1801,12 @@ impl ListPostureRevisionsResponse {
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPostureRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2255,6 +2255,18 @@ impl PostureDeployment {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::PostureDeployment::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [reconciling][crate::model::PostureDeployment::reconciling].
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
@@ -2282,18 +2294,6 @@ impl PostureDeployment {
     /// Sets the value of [failure_message][crate::model::PostureDeployment::failure_message].
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::PostureDeployment::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2568,12 +2568,6 @@ impl ListPostureDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPostureDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [posture_deployments][crate::model::ListPostureDeploymentsResponse::posture_deployments].
     pub fn set_posture_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -2582,6 +2576,12 @@ impl ListPostureDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.posture_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPostureDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3115,12 +3115,6 @@ impl ListPostureTemplatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPostureTemplatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [posture_templates][crate::model::ListPostureTemplatesResponse::posture_templates].
     pub fn set_posture_templates<T, V>(mut self, v: T) -> Self
     where
@@ -3129,6 +3123,12 @@ impl ListPostureTemplatesResponse {
     {
         use std::iter::Iterator;
         self.posture_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPostureTemplatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

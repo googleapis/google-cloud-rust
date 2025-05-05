@@ -130,12 +130,6 @@ type messageAnnotation struct {
 	HasNestedTypes    bool
 	// All the fields except OneOfs.
 	BasicFields []*api.Field
-	// The subset of `BasicFields` that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of `BasicFields` that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of `BasicFields` that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
@@ -205,12 +199,6 @@ type oneOfAnnotation struct {
 	StructQualifiedName string
 	FieldType           string
 	DocLines            []string
-	// The subset of the oneof fields that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If set, this enum is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
@@ -468,38 +456,6 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 	s.Codec = ann
 }
 
-type fieldPartition struct {
-	singularFields []*api.Field
-	repeatedFields []*api.Field
-	mapFields      []*api.Field
-}
-
-func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
-	isMap := func(f *api.Field) bool {
-		if f.Typez != api.MESSAGE_TYPE {
-			return false
-		}
-		if m, ok := state.MessageByID[f.TypezID]; ok {
-			return m.IsMap
-		}
-		return false
-	}
-	isRepeated := func(f *api.Field) bool {
-		return f.Repeated && !isMap(f)
-	}
-	return fieldPartition{
-		singularFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return !isRepeated(f) && !isMap(f)
-		}),
-		repeatedFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isRepeated(f)
-		}),
-		mapFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isMap(f)
-		}),
-	}
-}
-
 // annotateMessage annotates the message, its fields, its nested
 // messages, and its nested enums.
 func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
@@ -525,7 +481,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	basicFields := language.FilterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
-	partition := partitionFields(basicFields, state)
 	qualifiedName := fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	m.Codec = &messageAnnotation{
@@ -539,9 +494,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		MessageAttributes:  messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
-		SingularFields:     partition.singularFields,
-		RepeatedFields:     partition.repeatedFields,
-		MapFields:          partition.mapFields,
 		HasSyntheticFields: hasSyntheticFields,
 	}
 }
@@ -665,7 +617,6 @@ func annotateSegments(segments []string) []string {
 }
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
-	partition := partitionFields(oneof.Fields, state)
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	enumName := toPascal(oneof.Name)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
@@ -680,9 +631,6 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		StructQualifiedName: structQualifiedName,
 		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
-		SingularFields:      partition.singularFields,
-		RepeatedFields:      partition.repeatedFields,
-		MapFields:           partition.mapFields,
 	}
 }
 

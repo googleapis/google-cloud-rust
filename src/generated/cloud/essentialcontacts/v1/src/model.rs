@@ -89,6 +89,17 @@ impl Contact {
         self
     }
 
+    /// Sets the value of [notification_category_subscriptions][crate::model::Contact::notification_category_subscriptions].
+    pub fn set_notification_category_subscriptions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NotificationCategory>,
+    {
+        use std::iter::Iterator;
+        self.notification_category_subscriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [language_tag][crate::model::Contact::language_tag].
     pub fn set_language_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_tag = v.into();
@@ -110,17 +121,6 @@ impl Contact {
         v: T,
     ) -> Self {
         self.validate_time = v.into();
-        self
-    }
-
-    /// Sets the value of [notification_category_subscriptions][crate::model::Contact::notification_category_subscriptions].
-    pub fn set_notification_category_subscriptions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationCategory>,
-    {
-        use std::iter::Iterator;
-        self.notification_category_subscriptions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -217,12 +217,6 @@ impl ListContactsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListContactsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [contacts][crate::model::ListContactsResponse::contacts].
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
@@ -231,6 +225,12 @@ impl ListContactsResponse {
     {
         use std::iter::Iterator;
         self.contacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListContactsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -471,6 +471,17 @@ impl ComputeContactsRequest {
         self
     }
 
+    /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
+    pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NotificationCategory>,
+    {
+        use std::iter::Iterator;
+        self.notification_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::ComputeContactsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -480,17 +491,6 @@ impl ComputeContactsRequest {
     /// Sets the value of [page_token][crate::model::ComputeContactsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
-    pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationCategory>,
-    {
-        use std::iter::Iterator;
-        self.notification_categories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -529,12 +529,6 @@ impl ComputeContactsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ComputeContactsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [contacts][crate::model::ComputeContactsResponse::contacts].
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
@@ -543,6 +537,12 @@ impl ComputeContactsResponse {
     {
         use std::iter::Iterator;
         self.contacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ComputeContactsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -601,6 +601,17 @@ impl SendTestMessageRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
+    pub fn set_contacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.contacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [resource][crate::model::SendTestMessageRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -613,17 +624,6 @@ impl SendTestMessageRequest {
         v: T,
     ) -> Self {
         self.notification_category = v.into();
-        self
-    }
-
-    /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
-    pub fn set_contacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.contacts = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

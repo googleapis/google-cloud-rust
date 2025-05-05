@@ -95,32 +95,6 @@ impl ElementaryStream {
         })
     }
 
-    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// if it holds a `AudioStream`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn audio_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
-        #[allow(unreachable_patterns)]
-        self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::AudioStream(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// if it holds a `TextStream`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn text_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
-        #[allow(unreachable_patterns)]
-        self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::TextStream(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// to hold a `VideoStream`.
     ///
@@ -136,6 +110,19 @@ impl ElementaryStream {
         self
     }
 
+    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
+    /// if it holds a `AudioStream`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn audio_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
+        #[allow(unreachable_patterns)]
+        self.elementary_stream.as_ref().and_then(|v| match v {
+            crate::model::elementary_stream::ElementaryStream::AudioStream(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// to hold a `AudioStream`.
     ///
@@ -149,6 +136,19 @@ impl ElementaryStream {
             crate::model::elementary_stream::ElementaryStream::AudioStream(v.into()),
         );
         self
+    }
+
+    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
+    /// if it holds a `TextStream`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
+        #[allow(unreachable_patterns)]
+        self.elementary_stream.as_ref().and_then(|v| match v {
+            crate::model::elementary_stream::ElementaryStream::TextStream(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
@@ -255,6 +255,17 @@ impl MuxStream {
         self
     }
 
+    /// Sets the value of [elementary_streams][crate::model::MuxStream::elementary_streams].
+    pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [segment_settings][crate::model::MuxStream::segment_settings].
     pub fn set_segment_settings<
         T: std::convert::Into<std::option::Option<crate::model::SegmentSettings>>,
@@ -269,17 +280,6 @@ impl MuxStream {
     /// Sets the value of [encryption_id][crate::model::MuxStream::encryption_id].
     pub fn set_encryption_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_id = v.into();
-        self
-    }
-
-    /// Sets the value of [elementary_streams][crate::model::MuxStream::elementary_streams].
-    pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -383,6 +383,17 @@ impl Manifest {
         self
     }
 
+    /// Sets the value of [mux_streams][crate::model::Manifest::mux_streams].
+    pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.mux_streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [max_segment_count][crate::model::Manifest::max_segment_count].
     pub fn set_max_segment_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_segment_count = v.into();
@@ -407,17 +418,6 @@ impl Manifest {
     /// Sets the value of [key][crate::model::Manifest::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
-        self
-    }
-
-    /// Sets the value of [mux_streams][crate::model::Manifest::mux_streams].
-    pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.mux_streams = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1238,6 +1238,18 @@ pub mod video_stream {
             })
         }
 
+        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
+        /// to hold a `GopFrameCount`.
+        ///
+        /// Note that all the setters affecting `gop_mode` are
+        /// mutually exclusive.
+        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.gop_mode = std::option::Option::Some(
+                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
+            );
+            self
+        }
+
         /// The value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -1249,18 +1261,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
@@ -1410,12 +1410,6 @@ impl AudioStream {
         self
     }
 
-    /// Sets the value of [sample_rate_hertz][crate::model::AudioStream::sample_rate_hertz].
-    pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.sample_rate_hertz = v.into();
-        self
-    }
-
     /// Sets the value of [channel_layout][crate::model::AudioStream::channel_layout].
     pub fn set_channel_layout<T, V>(mut self, v: T) -> Self
     where
@@ -1435,6 +1429,12 @@ impl AudioStream {
     {
         use std::iter::Iterator;
         self.mapping = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [sample_rate_hertz][crate::model::AudioStream::sample_rate_hertz].
+    pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.sample_rate_hertz = v.into();
         self
     }
 }
@@ -1683,17 +1683,6 @@ impl TimecodeConfig {
         })
     }
 
-    /// The value of [time_offset][crate::model::TimecodeConfig::time_offset]
-    /// if it holds a `TimeZone`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeZone>> {
-        #[allow(unreachable_patterns)]
-        self.time_offset.as_ref().and_then(|v| match v {
-            crate::model::timecode_config::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [time_offset][crate::model::TimecodeConfig::time_offset]
     /// to hold a `UtcOffset`.
     ///
@@ -1707,6 +1696,17 @@ impl TimecodeConfig {
             crate::model::timecode_config::TimeOffset::UtcOffset(v.into()),
         );
         self
+    }
+
+    /// The value of [time_offset][crate::model::TimecodeConfig::time_offset]
+    /// if it holds a `TimeZone`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeZone>> {
+        #[allow(unreachable_patterns)]
+        self.time_offset.as_ref().and_then(|v| match v {
+            crate::model::timecode_config::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [time_offset][crate::model::TimecodeConfig::time_offset]
@@ -1973,6 +1973,18 @@ impl Input {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Input::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [r#type][crate::model::Input::type].
     pub fn set_type<T: std::convert::Into<crate::model::input::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -2021,18 +2033,6 @@ impl Input {
         v: T,
     ) -> Self {
         self.input_stream_property = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Input::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2503,6 +2503,29 @@ impl Channel {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Channel::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [input_attachments][crate::model::Channel::input_attachments].
+    pub fn set_input_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InputAttachment>,
+    {
+        use std::iter::Iterator;
+        self.input_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [active_input][crate::model::Channel::active_input].
     pub fn set_active_input<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_input = v.into();
@@ -2515,77 +2538,6 @@ impl Channel {
         v: T,
     ) -> Self {
         self.output = v.into();
-        self
-    }
-
-    /// Sets the value of [streaming_state][crate::model::Channel::streaming_state].
-    pub fn set_streaming_state<T: std::convert::Into<crate::model::channel::StreamingState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_state = v.into();
-        self
-    }
-
-    /// Sets the value of [streaming_error][crate::model::Channel::streaming_error].
-    pub fn set_streaming_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_error = v.into();
-        self
-    }
-
-    /// Sets the value of [log_config][crate::model::Channel::log_config].
-    pub fn set_log_config<T: std::convert::Into<std::option::Option<crate::model::LogConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.log_config = v.into();
-        self
-    }
-
-    /// Sets the value of [timecode_config][crate::model::Channel::timecode_config].
-    pub fn set_timecode_config<
-        T: std::convert::Into<std::option::Option<crate::model::TimecodeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.timecode_config = v.into();
-        self
-    }
-
-    /// Sets the value of [input_config][crate::model::Channel::input_config].
-    pub fn set_input_config<
-        T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_config = v.into();
-        self
-    }
-
-    /// Sets the value of [retention_config][crate::model::Channel::retention_config].
-    pub fn set_retention_config<
-        T: std::convert::Into<std::option::Option<crate::model::RetentionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retention_config = v.into();
-        self
-    }
-
-    /// Sets the value of [input_attachments][crate::model::Channel::input_attachments].
-    pub fn set_input_attachments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InputAttachment>,
-    {
-        use std::iter::Iterator;
-        self.input_attachments = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2633,6 +2585,44 @@ impl Channel {
         self
     }
 
+    /// Sets the value of [streaming_state][crate::model::Channel::streaming_state].
+    pub fn set_streaming_state<T: std::convert::Into<crate::model::channel::StreamingState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.streaming_state = v.into();
+        self
+    }
+
+    /// Sets the value of [streaming_error][crate::model::Channel::streaming_error].
+    pub fn set_streaming_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.streaming_error = v.into();
+        self
+    }
+
+    /// Sets the value of [log_config][crate::model::Channel::log_config].
+    pub fn set_log_config<T: std::convert::Into<std::option::Option<crate::model::LogConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.log_config = v.into();
+        self
+    }
+
+    /// Sets the value of [timecode_config][crate::model::Channel::timecode_config].
+    pub fn set_timecode_config<
+        T: std::convert::Into<std::option::Option<crate::model::TimecodeConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timecode_config = v.into();
+        self
+    }
+
     /// Sets the value of [encryptions][crate::model::Channel::encryptions].
     pub fn set_encryptions<T, V>(mut self, v: T) -> Self
     where
@@ -2644,6 +2634,28 @@ impl Channel {
         self
     }
 
+    /// Sets the value of [input_config][crate::model::Channel::input_config].
+    pub fn set_input_config<
+        T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_config = v.into();
+        self
+    }
+
+    /// Sets the value of [retention_config][crate::model::Channel::retention_config].
+    pub fn set_retention_config<
+        T: std::convert::Into<std::option::Option<crate::model::RetentionConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.retention_config = v.into();
+        self
+    }
+
     /// Sets the value of [static_overlays][crate::model::Channel::static_overlays].
     pub fn set_static_overlays<T, V>(mut self, v: T) -> Self
     where
@@ -2652,18 +2664,6 @@ impl Channel {
     {
         use std::iter::Iterator;
         self.static_overlays = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Channel::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3974,6 +3974,18 @@ impl Event {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Event::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [execute_now][crate::model::Event::execute_now].
     pub fn set_execute_now<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.execute_now = v.into();
@@ -4004,18 +4016,6 @@ impl Event {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Event::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [task][crate::model::Event::task].
     ///
     /// Note that all the setters affecting `task` are mutually
@@ -4041,65 +4041,6 @@ impl Event {
         })
     }
 
-    /// The value of [task][crate::model::Event::task]
-    /// if it holds a `AdBreak`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ad_break(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::event::AdBreakTask>> {
-        #[allow(unreachable_patterns)]
-        self.task.as_ref().and_then(|v| match v {
-            crate::model::event::Task::AdBreak(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [task][crate::model::Event::task]
-    /// if it holds a `ReturnToProgram`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn return_to_program(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::event::ReturnToProgramTask>> {
-        #[allow(unreachable_patterns)]
-        self.task.as_ref().and_then(|v| match v {
-            crate::model::event::Task::ReturnToProgram(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [task][crate::model::Event::task]
-    /// if it holds a `Slate`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn slate(&self) -> std::option::Option<&std::boxed::Box<crate::model::event::SlateTask>> {
-        #[allow(unreachable_patterns)]
-        self.task.as_ref().and_then(|v| match v {
-            crate::model::event::Task::Slate(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [task][crate::model::Event::task]
-    /// if it holds a `Mute`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mute(&self) -> std::option::Option<&std::boxed::Box<crate::model::event::MuteTask>> {
-        #[allow(unreachable_patterns)]
-        self.task.as_ref().and_then(|v| match v {
-            crate::model::event::Task::Mute(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [task][crate::model::Event::task]
-    /// if it holds a `Unmute`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn unmute(&self) -> std::option::Option<&std::boxed::Box<crate::model::event::UnmuteTask>> {
-        #[allow(unreachable_patterns)]
-        self.task.as_ref().and_then(|v| match v {
-            crate::model::event::Task::Unmute(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [task][crate::model::Event::task]
     /// to hold a `InputSwitch`.
     ///
@@ -4113,6 +4054,19 @@ impl Event {
     ) -> Self {
         self.task = std::option::Option::Some(crate::model::event::Task::InputSwitch(v.into()));
         self
+    }
+
+    /// The value of [task][crate::model::Event::task]
+    /// if it holds a `AdBreak`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ad_break(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::event::AdBreakTask>> {
+        #[allow(unreachable_patterns)]
+        self.task.as_ref().and_then(|v| match v {
+            crate::model::event::Task::AdBreak(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [task][crate::model::Event::task]
@@ -4130,6 +4084,19 @@ impl Event {
         self
     }
 
+    /// The value of [task][crate::model::Event::task]
+    /// if it holds a `ReturnToProgram`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn return_to_program(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::event::ReturnToProgramTask>> {
+        #[allow(unreachable_patterns)]
+        self.task.as_ref().and_then(|v| match v {
+            crate::model::event::Task::ReturnToProgram(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [task][crate::model::Event::task]
     /// to hold a `ReturnToProgram`.
     ///
@@ -4145,6 +4112,17 @@ impl Event {
         self
     }
 
+    /// The value of [task][crate::model::Event::task]
+    /// if it holds a `Slate`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn slate(&self) -> std::option::Option<&std::boxed::Box<crate::model::event::SlateTask>> {
+        #[allow(unreachable_patterns)]
+        self.task.as_ref().and_then(|v| match v {
+            crate::model::event::Task::Slate(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [task][crate::model::Event::task]
     /// to hold a `Slate`.
     ///
@@ -4158,6 +4136,17 @@ impl Event {
         self
     }
 
+    /// The value of [task][crate::model::Event::task]
+    /// if it holds a `Mute`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mute(&self) -> std::option::Option<&std::boxed::Box<crate::model::event::MuteTask>> {
+        #[allow(unreachable_patterns)]
+        self.task.as_ref().and_then(|v| match v {
+            crate::model::event::Task::Mute(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [task][crate::model::Event::task]
     /// to hold a `Mute`.
     ///
@@ -4169,6 +4158,17 @@ impl Event {
     ) -> Self {
         self.task = std::option::Option::Some(crate::model::event::Task::Mute(v.into()));
         self
+    }
+
+    /// The value of [task][crate::model::Event::task]
+    /// if it holds a `Unmute`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn unmute(&self) -> std::option::Option<&std::boxed::Box<crate::model::event::UnmuteTask>> {
+        #[allow(unreachable_patterns)]
+        self.task.as_ref().and_then(|v| match v {
+            crate::model::event::Task::Unmute(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [task][crate::model::Event::task]
@@ -4681,6 +4681,18 @@ impl Clip {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Clip::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Clip::state].
     pub fn set_state<T: std::convert::Into<crate::model::clip::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4721,18 +4733,6 @@ impl Clip {
     {
         use std::iter::Iterator;
         self.clip_manifests = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Clip::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5170,6 +5170,18 @@ impl Asset {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Asset::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [crc32c][crate::model::Asset::crc32c].
     pub fn set_crc32c<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crc32c = v.into();
@@ -5188,18 +5200,6 @@ impl Asset {
         v: T,
     ) -> Self {
         self.error = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Asset::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5228,17 +5228,6 @@ impl Asset {
         })
     }
 
-    /// The value of [resource][crate::model::Asset::resource]
-    /// if it holds a `Image`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::asset::ImageAsset>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::asset::Resource::Image(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resource][crate::model::Asset::resource]
     /// to hold a `Video`.
     ///
@@ -5250,6 +5239,17 @@ impl Asset {
     ) -> Self {
         self.resource = std::option::Option::Some(crate::model::asset::Resource::Video(v.into()));
         self
+    }
+
+    /// The value of [resource][crate::model::Asset::resource]
+    /// if it holds a `Image`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::asset::ImageAsset>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::asset::Resource::Image(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::Asset::resource]
@@ -5626,32 +5626,6 @@ impl Encryption {
         })
     }
 
-    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// if it holds a `SampleAes`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sample_aes(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
-        #[allow(unreachable_patterns)]
-        self.encryption_mode.as_ref().and_then(|v| match v {
-            crate::model::encryption::EncryptionMode::SampleAes(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// if it holds a `MpegCenc`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mpeg_cenc(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
-        #[allow(unreachable_patterns)]
-        self.encryption_mode.as_ref().and_then(|v| match v {
-            crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// to hold a `Aes128`.
     ///
@@ -5666,6 +5640,19 @@ impl Encryption {
         self.encryption_mode =
             std::option::Option::Some(crate::model::encryption::EncryptionMode::Aes128(v.into()));
         self
+    }
+
+    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
+    /// if it holds a `SampleAes`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sample_aes(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
+        #[allow(unreachable_patterns)]
+        self.encryption_mode.as_ref().and_then(|v| match v {
+            crate::model::encryption::EncryptionMode::SampleAes(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
@@ -5683,6 +5670,19 @@ impl Encryption {
             crate::model::encryption::EncryptionMode::SampleAes(v.into()),
         );
         self
+    }
+
+    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
+    /// if it holds a `MpegCenc`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mpeg_cenc(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
+        #[allow(unreachable_patterns)]
+        self.encryption_mode.as_ref().and_then(|v| match v {
+            crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
@@ -6085,17 +6085,6 @@ impl Pool {
         self
     }
 
-    /// Sets the value of [network_config][crate::model::Pool::network_config].
-    pub fn set_network_config<
-        T: std::convert::Into<std::option::Option<crate::model::pool::NetworkConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_config = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Pool::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -6105,6 +6094,17 @@ impl Pool {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network_config][crate::model::Pool::network_config].
+    pub fn set_network_config<
+        T: std::convert::Into<std::option::Option<crate::model::pool::NetworkConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_config = v.into();
         self
     }
 }
@@ -6398,12 +6398,6 @@ impl ListAssetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [assets][crate::model::ListAssetsResponse::assets].
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
@@ -6412,6 +6406,12 @@ impl ListAssetsResponse {
     {
         use std::iter::Iterator;
         self.assets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6668,12 +6668,6 @@ impl ListChannelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [channels][crate::model::ListChannelsResponse::channels].
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
@@ -6682,6 +6676,12 @@ impl ListChannelsResponse {
     {
         use std::iter::Iterator;
         self.channels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7205,12 +7205,6 @@ impl ListInputsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInputsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [inputs][crate::model::ListInputsResponse::inputs].
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
@@ -7219,6 +7213,12 @@ impl ListInputsResponse {
     {
         use std::iter::Iterator;
         self.inputs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInputsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7611,12 +7611,6 @@ impl ListEventsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [events][crate::model::ListEventsResponse::events].
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
@@ -7625,6 +7619,12 @@ impl ListEventsResponse {
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7870,12 +7870,6 @@ impl ListClipsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClipsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clips][crate::model::ListClipsResponse::clips].
     pub fn set_clips<T, V>(mut self, v: T) -> Self
     where
@@ -7884,6 +7878,12 @@ impl ListClipsResponse {
     {
         use std::iter::Iterator;
         self.clips = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClipsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

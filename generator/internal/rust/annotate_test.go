@@ -274,9 +274,6 @@ func TestOneOfAnnotations(t *testing.T) {
 		StructQualifiedName: "crate::model::Message",
 		FieldType:           "crate::model::message::Type",
 		DocLines:            []string{"/// Say something clever about this oneof."},
-		SingularFields:      []*api.Field{singular},
-		RepeatedFields:      []*api.Field{repeated},
-		MapFields:           []*api.Field{map_field},
 	}, group.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in oneof annotations (-want, +got)\n:%s", diff)
 	}
@@ -667,9 +664,6 @@ func TestMessageAnnotations(t *testing.T) {
 		DocLines:       []string{"/// A test message."},
 		HasNestedTypes: true,
 		BasicFields:    []*api.Field{},
-		SingularFields: []*api.Field{},
-		RepeatedFields: []*api.Field{},
-		MapFields:      []*api.Field{},
 	}
 	if diff := cmp.Diff(want, message.Codec); diff != "" {
 		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)
@@ -691,9 +685,6 @@ func TestMessageAnnotations(t *testing.T) {
 		DocLines:       []string{"/// A nested message."},
 		HasNestedTypes: false,
 		BasicFields:    []*api.Field{},
-		SingularFields: []*api.Field{},
-		RepeatedFields: []*api.Field{},
-		MapFields:      []*api.Field{},
 	}
 	if diff := cmp.Diff(want, nested.Codec); diff != "" {
 		t.Errorf("mismatch in nested message annotations (-want, +got)\n:%s", diff)
@@ -769,11 +760,8 @@ func TestFieldAnnotations(t *testing.T) {
 			`#[serde(default, rename_all = "camelCase")]`,
 			`#[non_exhaustive]`,
 		},
-		DocLines:       []string{"/// A test message."},
-		BasicFields:    []*api.Field{singular_field, repeated_field, map_field, boxed_field},
-		SingularFields: []*api.Field{singular_field, boxed_field},
-		RepeatedFields: []*api.Field{repeated_field},
-		MapFields:      []*api.Field{map_field},
+		DocLines:    []string{"/// A test message."},
+		BasicFields: []*api.Field{singular_field, repeated_field, map_field, boxed_field},
 	}
 	if diff := cmp.Diff(wantMessage, message.Codec); diff != "" {
 		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)
@@ -945,11 +933,8 @@ func TestEnumFieldAnnotations(t *testing.T) {
 			`#[serde(default, rename_all = "camelCase")]`,
 			`#[non_exhaustive]`,
 		},
-		DocLines:       []string{"/// A test message."},
-		BasicFields:    []*api.Field{singular_field, repeated_field, optional_field, null_value_field, map_field},
-		SingularFields: []*api.Field{singular_field, optional_field, null_value_field},
-		RepeatedFields: []*api.Field{repeated_field},
-		MapFields:      []*api.Field{map_field},
+		DocLines:    []string{"/// A test message."},
+		BasicFields: []*api.Field{singular_field, repeated_field, optional_field, null_value_field, map_field},
 	}
 	if diff := cmp.Diff(wantMessage, message.Codec); diff != "" {
 		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)

@@ -18,11 +18,11 @@ limitations under the License.
 
 The Google Cloud client libraries for Rust can automatically retry operations
 that fail due to transient errors. However, the clients do not automatically
-enable the retry loop. The application must set the retry policy to enable
-this feature.
+enable the retry loop. The application must set the retry policy to enable this
+feature.
 
-This guide will show you how to enable the retry loop. First we will show how
-to enable a common retry policy for all requests in a client, and then how to
+This guide will show you how to enable the retry loop. First we will show how to
+enable a common retry policy for all requests in a client, and then how to
 override this default for a specific request.
 
 ## Prerequisites
@@ -37,8 +37,8 @@ and that your account has the necessary permissions.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:secretmanager}}
@@ -66,8 +66,8 @@ Then use the service as usual:
 {{#include ../samples/src/retry_policies.rs:client-retry-request}}
 ```
 
-See [below](#configuring-the-default-retry-policy-complete-code)
-for the complete code.
+See [below](#configuring-the-default-retry-policy-complete-code) for the
+complete code.
 
 ## Configuring the default retry policy with limits
 
@@ -86,8 +86,8 @@ Requests work as usual too:
 {{#include ../samples/src/retry_policies.rs:client-retry-full-request}}
 ```
 
-See [below](#configuring-the-default-retry-policy-with-limits-complete-code)
-for the complete code.
+See [below](#configuring-the-default-retry-policy-with-limits-complete-code) for
+the complete code.
 
 ## Override the retry policy for one request
 
@@ -103,8 +103,8 @@ can override the policy for one request:
 {{#include ../samples/src/retry_policies.rs:request-retry-request}}
 ```
 
-See [below](#configuring-the-default-retry-policy-with-limits-complete-code)
-for the complete code.
+See [below](#configuring-the-default-retry-policy-with-limits-complete-code) for
+the complete code.
 
 ## Configuring the default retry policy: complete code
 

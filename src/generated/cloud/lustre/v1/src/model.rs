@@ -167,18 +167,6 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [per_unit_storage_throughput][crate::model::Instance::per_unit_storage_throughput].
-    pub fn set_per_unit_storage_throughput<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.per_unit_storage_throughput = v.into();
-        self
-    }
-
-    /// Sets the value of [gke_support_enabled][crate::model::Instance::gke_support_enabled].
-    pub fn set_gke_support_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.gke_support_enabled = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Instance::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -188,6 +176,18 @@ impl Instance {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [per_unit_storage_throughput][crate::model::Instance::per_unit_storage_throughput].
+    pub fn set_per_unit_storage_throughput<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.per_unit_storage_throughput = v.into();
+        self
+    }
+
+    /// Sets the value of [gke_support_enabled][crate::model::Instance::gke_support_enabled].
+    pub fn set_gke_support_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.gke_support_enabled = v.into();
         self
     }
 }
@@ -470,12 +470,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -484,6 +478,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1870,19 +1870,6 @@ impl TransferOperationMetadata {
         })
     }
 
-    /// The value of [source][crate::model::TransferOperationMetadata::source]
-    /// if it holds a `SourceGcsPath`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_gcs_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPath>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Source::SourceGcsPath(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::TransferOperationMetadata::source]
     /// to hold a `SourceLustrePath`.
     ///
@@ -1898,6 +1885,19 @@ impl TransferOperationMetadata {
             crate::model::transfer_operation_metadata::Source::SourceLustrePath(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::TransferOperationMetadata::source]
+    /// if it holds a `SourceGcsPath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_gcs_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPath>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::transfer_operation_metadata::Source::SourceGcsPath(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::TransferOperationMetadata::source]
@@ -1946,21 +1946,6 @@ impl TransferOperationMetadata {
         })
     }
 
-    /// The value of [destination][crate::model::TransferOperationMetadata::destination]
-    /// if it holds a `DestinationLustrePath`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn destination_lustre_path(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination]
     /// to hold a `DestinationGcsPath`.
     ///
@@ -1976,6 +1961,21 @@ impl TransferOperationMetadata {
             crate::model::transfer_operation_metadata::Destination::DestinationGcsPath(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::TransferOperationMetadata::destination]
+    /// if it holds a `DestinationLustrePath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn destination_lustre_path(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination]

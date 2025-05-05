@@ -571,15 +571,6 @@ pub mod search_uris_response {
             std::default::Default::default()
         }
 
-        /// Sets the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
-        pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.expire_time = v.into();
-            self
-        }
-
         /// Sets the value of [threat_types][crate::model::search_uris_response::ThreatUri::threat_types].
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
@@ -588,6 +579,15 @@ pub mod search_uris_response {
         {
             use std::iter::Iterator;
             self.threat_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
+        pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.expire_time = v.into();
             self
         }
     }
@@ -675,15 +675,6 @@ impl SearchHashesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
-    pub fn set_negative_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.negative_expire_time = v.into();
-        self
-    }
-
     /// Sets the value of [threats][crate::model::SearchHashesResponse::threats].
     pub fn set_threats<T, V>(mut self, v: T) -> Self
     where
@@ -692,6 +683,15 @@ impl SearchHashesResponse {
     {
         use std::iter::Iterator;
         self.threats = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
+    pub fn set_negative_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.negative_expire_time = v.into();
         self
     }
 }
@@ -738,6 +738,17 @@ pub mod search_hashes_response {
             std::default::Default::default()
         }
 
+        /// Sets the value of [threat_types][crate::model::search_hashes_response::ThreatHash::threat_types].
+        pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ThreatType>,
+        {
+            use std::iter::Iterator;
+            self.threat_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [hash][crate::model::search_hashes_response::ThreatHash::hash].
         pub fn set_hash<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.hash = v.into();
@@ -750,17 +761,6 @@ pub mod search_hashes_response {
             v: T,
         ) -> Self {
             self.expire_time = v.into();
-            self
-        }
-
-        /// Sets the value of [threat_types][crate::model::search_hashes_response::ThreatHash::threat_types].
-        pub fn set_threat_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ThreatType>,
-        {
-            use std::iter::Iterator;
-            self.threat_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -799,17 +799,6 @@ impl ThreatEntryAdditions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
-    pub fn set_rice_hashes<
-        T: std::convert::Into<std::option::Option<crate::model::RiceDeltaEncoding>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rice_hashes = v.into();
-        self
-    }
-
     /// Sets the value of [raw_hashes][crate::model::ThreatEntryAdditions::raw_hashes].
     pub fn set_raw_hashes<T, V>(mut self, v: T) -> Self
     where
@@ -818,6 +807,17 @@ impl ThreatEntryAdditions {
     {
         use std::iter::Iterator;
         self.raw_hashes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
+    pub fn set_rice_hashes<
+        T: std::convert::Into<std::option::Option<crate::model::RiceDeltaEncoding>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rice_hashes = v.into();
         self
     }
 }
@@ -1207,6 +1207,18 @@ pub mod threat_info {
             })
         }
 
+        /// Sets the value of [value][crate::model::threat_info::Confidence::value]
+        /// to hold a `Score`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::threat_info::confidence::Value::Score(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::threat_info::Confidence::value]
         /// if it holds a `Level`, `None` if the field is not set or
         /// holds a different branch.
@@ -1220,18 +1232,6 @@ pub mod threat_info {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::threat_info::Confidence::value]
-        /// to hold a `Score`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::threat_info::confidence::Value::Score(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [value][crate::model::threat_info::Confidence::value]

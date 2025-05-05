@@ -1716,12 +1716,6 @@ pub mod artifact_registry {
             self
         }
 
-        /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [names][crate::model::BatchDeleteVersionsRequest::names].
         ///
         /// This is a **required** field for requests.
@@ -1732,6 +1726,12 @@ pub mod artifact_registry {
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }

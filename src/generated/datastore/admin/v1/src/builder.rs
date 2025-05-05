@@ -148,6 +148,17 @@ pub mod datastore_admin {
             self
         }
 
+        /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [entity_filter][crate::model::ExportEntitiesRequest::entity_filter].
         pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
             mut self,
@@ -162,17 +173,6 @@ pub mod datastore_admin {
         /// This is a **required** field for requests.
         pub fn set_output_url_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.output_url_prefix = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -258,6 +258,17 @@ pub mod datastore_admin {
             self
         }
 
+        /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [input_url][crate::model::ImportEntitiesRequest::input_url].
         ///
         /// This is a **required** field for requests.
@@ -272,17 +283,6 @@ pub mod datastore_admin {
             v: T,
         ) -> Self {
             self.0.request.entity_filter = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }

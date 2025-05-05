@@ -261,12 +261,6 @@ impl ListAttachmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attachments][crate::model::ListAttachmentsResponse::attachments].
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
@@ -275,6 +269,12 @@ impl ListAttachmentsResponse {
     {
         use std::iter::Iterator;
         self.attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -422,6 +422,17 @@ impl Case {
         self
     }
 
+    /// Sets the value of [subscriber_email_addresses][crate::model::Case::subscriber_email_addresses].
+    pub fn set_subscriber_email_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.subscriber_email_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Case::state].
     pub fn set_state<T: std::convert::Into<crate::model::case::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -485,17 +496,6 @@ impl Case {
         v: T,
     ) -> Self {
         self.priority = v.into();
-        self
-    }
-
-    /// Sets the value of [subscriber_email_addresses][crate::model::Case::subscriber_email_addresses].
-    pub fn set_subscriber_email_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.subscriber_email_addresses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1051,12 +1051,6 @@ impl ListCasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cases][crate::model::ListCasesResponse::cases].
     pub fn set_cases<T, V>(mut self, v: T) -> Self
     where
@@ -1065,6 +1059,12 @@ impl ListCasesResponse {
     {
         use std::iter::Iterator;
         self.cases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1213,12 +1213,6 @@ impl SearchCasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchCasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cases][crate::model::SearchCasesResponse::cases].
     pub fn set_cases<T, V>(mut self, v: T) -> Self
     where
@@ -1227,6 +1221,12 @@ impl SearchCasesResponse {
     {
         use std::iter::Iterator;
         self.cases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchCasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1464,12 +1464,6 @@ impl SearchCaseClassificationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchCaseClassificationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [case_classifications][crate::model::SearchCaseClassificationsResponse::case_classifications].
     pub fn set_case_classifications<T, V>(mut self, v: T) -> Self
     where
@@ -1478,6 +1472,12 @@ impl SearchCaseClassificationsResponse {
     {
         use std::iter::Iterator;
         self.case_classifications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchCaseClassificationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1661,12 +1661,6 @@ impl ListCommentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCommentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [comments][crate::model::ListCommentsResponse::comments].
     pub fn set_comments<T, V>(mut self, v: T) -> Self
     where
@@ -1675,6 +1669,12 @@ impl ListCommentsResponse {
     {
         use std::iter::Iterator;
         self.comments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCommentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

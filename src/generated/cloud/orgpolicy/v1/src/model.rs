@@ -146,32 +146,6 @@ impl Policy {
         })
     }
 
-    /// The value of [policy_type][crate::model::Policy::policy_type]
-    /// if it holds a `BooleanPolicy`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn boolean_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
-        #[allow(unreachable_patterns)]
-        self.policy_type.as_ref().and_then(|v| match v {
-            crate::model::policy::PolicyType::BooleanPolicy(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [policy_type][crate::model::Policy::policy_type]
-    /// if it holds a `RestoreDefault`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn restore_default(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
-        #[allow(unreachable_patterns)]
-        self.policy_type.as_ref().and_then(|v| match v {
-            crate::model::policy::PolicyType::RestoreDefault(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [policy_type][crate::model::Policy::policy_type]
     /// to hold a `ListPolicy`.
     ///
@@ -188,6 +162,19 @@ impl Policy {
         self
     }
 
+    /// The value of [policy_type][crate::model::Policy::policy_type]
+    /// if it holds a `BooleanPolicy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn boolean_policy(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
+        #[allow(unreachable_patterns)]
+        self.policy_type.as_ref().and_then(|v| match v {
+            crate::model::policy::PolicyType::BooleanPolicy(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [policy_type][crate::model::Policy::policy_type]
     /// to hold a `BooleanPolicy`.
     ///
@@ -202,6 +189,19 @@ impl Policy {
         self.policy_type =
             std::option::Option::Some(crate::model::policy::PolicyType::BooleanPolicy(v.into()));
         self
+    }
+
+    /// The value of [policy_type][crate::model::Policy::policy_type]
+    /// if it holds a `RestoreDefault`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn restore_default(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
+        #[allow(unreachable_patterns)]
+        self.policy_type.as_ref().and_then(|v| match v {
+            crate::model::policy::PolicyType::RestoreDefault(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [policy_type][crate::model::Policy::policy_type]
@@ -387,6 +387,28 @@ pub mod policy {
             std::default::Default::default()
         }
 
+        /// Sets the value of [allowed_values][crate::model::policy::ListPolicy::allowed_values].
+        pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.allowed_values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [denied_values][crate::model::policy::ListPolicy::denied_values].
+        pub fn set_denied_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.denied_values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [all_values][crate::model::policy::ListPolicy::all_values].
         pub fn set_all_values<
             T: std::convert::Into<crate::model::policy::list_policy::AllValues>,
@@ -410,28 +432,6 @@ pub mod policy {
         /// Sets the value of [inherit_from_parent][crate::model::policy::ListPolicy::inherit_from_parent].
         pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.inherit_from_parent = v.into();
-            self
-        }
-
-        /// Sets the value of [allowed_values][crate::model::policy::ListPolicy::allowed_values].
-        pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.allowed_values = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [denied_values][crate::model::policy::ListPolicy::denied_values].
-        pub fn set_denied_values<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.denied_values = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

@@ -133,26 +133,6 @@ impl Policy {
         self
     }
 
-    /// Sets the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
-    pub fn set_default_admission_rule<
-        T: std::convert::Into<std::option::Option<crate::model::AdmissionRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_admission_rule = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::Policy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [admission_whitelist_patterns][crate::model::Policy::admission_whitelist_patterns].
     pub fn set_admission_whitelist_patterns<T, V>(mut self, v: T) -> Self
     where
@@ -212,6 +192,26 @@ impl Policy {
         use std::iter::Iterator;
         self.istio_service_identity_admission_rules =
             v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
+    pub fn set_default_admission_rule<
+        T: std::convert::Into<std::option::Option<crate::model::AdmissionRule>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_admission_rule = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Policy::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -455,17 +455,6 @@ impl AdmissionRule {
         self
     }
 
-    /// Sets the value of [enforcement_mode][crate::model::AdmissionRule::enforcement_mode].
-    pub fn set_enforcement_mode<
-        T: std::convert::Into<crate::model::admission_rule::EnforcementMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enforcement_mode = v.into();
-        self
-    }
-
     /// Sets the value of [require_attestations_by][crate::model::AdmissionRule::require_attestations_by].
     pub fn set_require_attestations_by<T, V>(mut self, v: T) -> Self
     where
@@ -474,6 +463,17 @@ impl AdmissionRule {
     {
         use std::iter::Iterator;
         self.require_attestations_by = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enforcement_mode][crate::model::AdmissionRule::enforcement_mode].
+    pub fn set_enforcement_mode<
+        T: std::convert::Into<crate::model::admission_rule::EnforcementMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enforcement_mode = v.into();
         self
     }
 }
@@ -949,15 +949,6 @@ impl UserOwnedGrafeasNote {
         self
     }
 
-    /// Sets the value of [delegation_service_account_email][crate::model::UserOwnedGrafeasNote::delegation_service_account_email].
-    pub fn set_delegation_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delegation_service_account_email = v.into();
-        self
-    }
-
     /// Sets the value of [public_keys][crate::model::UserOwnedGrafeasNote::public_keys].
     pub fn set_public_keys<T, V>(mut self, v: T) -> Self
     where
@@ -966,6 +957,15 @@ impl UserOwnedGrafeasNote {
     {
         use std::iter::Iterator;
         self.public_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [delegation_service_account_email][crate::model::UserOwnedGrafeasNote::delegation_service_account_email].
+    pub fn set_delegation_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.delegation_service_account_email = v.into();
         self
     }
 }
@@ -1336,21 +1336,6 @@ impl AttestorPublicKey {
         })
     }
 
-    /// The value of [public_key][crate::model::AttestorPublicKey::public_key]
-    /// if it holds a `PkixPublicKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn pkix_public_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PkixPublicKey>> {
-        #[allow(unreachable_patterns)]
-        self.public_key.as_ref().and_then(|v| match v {
-            crate::model::attestor_public_key::PublicKey::PkixPublicKey(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [public_key][crate::model::AttestorPublicKey::public_key]
     /// to hold a `AsciiArmoredPgpPublicKey`.
     ///
@@ -1364,6 +1349,21 @@ impl AttestorPublicKey {
             crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(v.into()),
         );
         self
+    }
+
+    /// The value of [public_key][crate::model::AttestorPublicKey::public_key]
+    /// if it holds a `PkixPublicKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pkix_public_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PkixPublicKey>> {
+        #[allow(unreachable_patterns)]
+        self.public_key.as_ref().and_then(|v| match v {
+            crate::model::attestor_public_key::PublicKey::PkixPublicKey(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [public_key][crate::model::AttestorPublicKey::public_key]
@@ -1721,12 +1721,6 @@ impl ListAttestorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttestorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attestors][crate::model::ListAttestorsResponse::attestors].
     pub fn set_attestors<T, V>(mut self, v: T) -> Self
     where
@@ -1735,6 +1729,12 @@ impl ListAttestorsResponse {
     {
         use std::iter::Iterator;
         self.attestors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttestorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

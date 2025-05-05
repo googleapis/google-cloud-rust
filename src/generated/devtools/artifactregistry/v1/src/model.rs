@@ -284,12 +284,6 @@ impl ImportAptArtifactsGcsSource {
         std::default::Default::default()
     }
 
-    /// Sets the value of [use_wildcards][crate::model::ImportAptArtifactsGcsSource::use_wildcards].
-    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.use_wildcards = v.into();
-        self
-    }
-
     /// Sets the value of [uris][crate::model::ImportAptArtifactsGcsSource::uris].
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
@@ -298,6 +292,12 @@ impl ImportAptArtifactsGcsSource {
     {
         use std::iter::Iterator;
         self.uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [use_wildcards][crate::model::ImportAptArtifactsGcsSource::use_wildcards].
+    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_wildcards = v.into();
         self
     }
 }
@@ -667,6 +667,17 @@ impl DockerImage {
         self
     }
 
+    /// Sets the value of [tags][crate::model::DockerImage::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [image_size_bytes][crate::model::DockerImage::image_size_bytes].
     pub fn set_image_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.image_size_bytes = v.into();
@@ -703,17 +714,6 @@ impl DockerImage {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::DockerImage::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -811,12 +811,6 @@ impl ListDockerImagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDockerImagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [docker_images][crate::model::ListDockerImagesResponse::docker_images].
     pub fn set_docker_images<T, V>(mut self, v: T) -> Self
     where
@@ -825,6 +819,12 @@ impl ListDockerImagesResponse {
     {
         use std::iter::Iterator;
         self.docker_images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDockerImagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1067,12 +1067,6 @@ impl ListMavenArtifactsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMavenArtifactsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [maven_artifacts][crate::model::ListMavenArtifactsResponse::maven_artifacts].
     pub fn set_maven_artifacts<T, V>(mut self, v: T) -> Self
     where
@@ -1081,6 +1075,12 @@ impl ListMavenArtifactsResponse {
     {
         use std::iter::Iterator;
         self.maven_artifacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMavenArtifactsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1200,6 +1200,17 @@ impl NpmPackage {
         self
     }
 
+    /// Sets the value of [tags][crate::model::NpmPackage::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::NpmPackage::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1215,17 +1226,6 @@ impl NpmPackage {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::NpmPackage::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1313,12 +1313,6 @@ impl ListNpmPackagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNpmPackagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [npm_packages][crate::model::ListNpmPackagesResponse::npm_packages].
     pub fn set_npm_packages<T, V>(mut self, v: T) -> Self
     where
@@ -1327,6 +1321,12 @@ impl ListNpmPackagesResponse {
     {
         use std::iter::Iterator;
         self.npm_packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNpmPackagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1558,12 +1558,6 @@ impl ListPythonPackagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPythonPackagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [python_packages][crate::model::ListPythonPackagesResponse::python_packages].
     pub fn set_python_packages<T, V>(mut self, v: T) -> Self
     where
@@ -1572,6 +1566,12 @@ impl ListPythonPackagesResponse {
     {
         use std::iter::Iterator;
         self.python_packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPythonPackagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1721,6 +1721,18 @@ impl Attachment {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Attachment::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Attachment::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1739,15 +1751,6 @@ impl Attachment {
         self
     }
 
-    /// Sets the value of [oci_version_name][crate::model::Attachment::oci_version_name].
-    pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oci_version_name = v.into();
-        self
-    }
-
     /// Sets the value of [files][crate::model::Attachment::files].
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
@@ -1759,15 +1762,12 @@ impl Attachment {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::Attachment::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [oci_version_name][crate::model::Attachment::oci_version_name].
+    pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.oci_version_name = v.into();
         self
     }
 }
@@ -1869,12 +1869,6 @@ impl ListAttachmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attachments][crate::model::ListAttachmentsResponse::attachments].
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
@@ -1883,6 +1877,12 @@ impl ListAttachmentsResponse {
     {
         use std::iter::Iterator;
         self.attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2271,6 +2271,17 @@ impl File {
         self
     }
 
+    /// Sets the value of [hashes][crate::model::File::hashes].
+    pub fn set_hashes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Hash>,
+    {
+        use std::iter::Iterator;
+        self.hashes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::File::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2301,17 +2312,6 @@ impl File {
         v: T,
     ) -> Self {
         self.fetch_time = v.into();
-        self
-    }
-
-    /// Sets the value of [hashes][crate::model::File::hashes].
-    pub fn set_hashes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Hash>,
-    {
-        use std::iter::Iterator;
-        self.hashes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2480,12 +2480,6 @@ impl ListFilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [files][crate::model::ListFilesResponse::files].
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
@@ -2494,6 +2488,12 @@ impl ListFilesResponse {
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3046,12 +3046,6 @@ impl ListPackagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPackagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [packages][crate::model::ListPackagesResponse::packages].
     pub fn set_packages<T, V>(mut self, v: T) -> Self
     where
@@ -3060,6 +3054,12 @@ impl ListPackagesResponse {
     {
         use std::iter::Iterator;
         self.packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPackagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3303,24 +3303,6 @@ impl CleanupPolicyCondition {
         self
     }
 
-    /// Sets the value of [older_than][crate::model::CleanupPolicyCondition::older_than].
-    pub fn set_older_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.older_than = v.into();
-        self
-    }
-
-    /// Sets the value of [newer_than][crate::model::CleanupPolicyCondition::newer_than].
-    pub fn set_newer_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.newer_than = v.into();
-        self
-    }
-
     /// Sets the value of [tag_prefixes][crate::model::CleanupPolicyCondition::tag_prefixes].
     pub fn set_tag_prefixes<T, V>(mut self, v: T) -> Self
     where
@@ -3351,6 +3333,24 @@ impl CleanupPolicyCondition {
     {
         use std::iter::Iterator;
         self.package_name_prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [older_than][crate::model::CleanupPolicyCondition::older_than].
+    pub fn set_older_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.older_than = v.into();
+        self
+    }
+
+    /// Sets the value of [newer_than][crate::model::CleanupPolicyCondition::newer_than].
+    pub fn set_newer_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.newer_than = v.into();
         self
     }
 }
@@ -3530,12 +3530,6 @@ impl CleanupPolicyMostRecentVersions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [keep_count][crate::model::CleanupPolicyMostRecentVersions::keep_count].
-    pub fn set_keep_count<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-        self.keep_count = v.into();
-        self
-    }
-
     /// Sets the value of [package_name_prefixes][crate::model::CleanupPolicyMostRecentVersions::package_name_prefixes].
     pub fn set_package_name_prefixes<T, V>(mut self, v: T) -> Self
     where
@@ -3544,6 +3538,12 @@ impl CleanupPolicyMostRecentVersions {
     {
         use std::iter::Iterator;
         self.package_name_prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [keep_count][crate::model::CleanupPolicyMostRecentVersions::keep_count].
+    pub fn set_keep_count<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
+        self.keep_count = v.into();
         self
     }
 }
@@ -3623,21 +3623,6 @@ impl CleanupPolicy {
         })
     }
 
-    /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
-    /// if it holds a `MostRecentVersions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn most_recent_versions(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>> {
-        #[allow(unreachable_patterns)]
-        self.condition_type.as_ref().and_then(|v| match v {
-            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type]
     /// to hold a `Condition`.
     ///
@@ -3653,6 +3638,21 @@ impl CleanupPolicy {
             crate::model::cleanup_policy::ConditionType::Condition(v.into()),
         );
         self
+    }
+
+    /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
+    /// if it holds a `MostRecentVersions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn most_recent_versions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>> {
+        #[allow(unreachable_patterns)]
+        self.condition_type.as_ref().and_then(|v| match v {
+            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type]
@@ -3957,105 +3957,6 @@ impl RemoteRepositoryConfig {
         })
     }
 
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `MavenRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn maven_repository(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::MavenRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `NpmRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn npm_repository(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>
-    {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::NpmRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `PythonRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn python_repository(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::PythonRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `AptRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn apt_repository(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::AptRepository>>
-    {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::AptRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `YumRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn yum_repository(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::YumRepository>>
-    {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::YumRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `CommonRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn common_repository(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::CommonRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `DockerRepository`.
     ///
@@ -4073,6 +3974,23 @@ impl RemoteRepositoryConfig {
             crate::model::remote_repository_config::RemoteSource::DockerRepository(v.into()),
         );
         self
+    }
+
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `MavenRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn maven_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::MavenRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -4094,6 +4012,22 @@ impl RemoteRepositoryConfig {
         self
     }
 
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `NpmRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn npm_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>
+    {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::NpmRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `NpmRepository`.
     ///
@@ -4109,6 +4043,23 @@ impl RemoteRepositoryConfig {
             crate::model::remote_repository_config::RemoteSource::NpmRepository(v.into()),
         );
         self
+    }
+
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `PythonRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn python_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::PythonRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -4130,6 +4081,22 @@ impl RemoteRepositoryConfig {
         self
     }
 
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `AptRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn apt_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::AptRepository>>
+    {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::AptRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `AptRepository`.
     ///
@@ -4147,6 +4114,22 @@ impl RemoteRepositoryConfig {
         self
     }
 
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `YumRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn yum_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::YumRepository>>
+    {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::YumRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `YumRepository`.
     ///
@@ -4162,6 +4145,23 @@ impl RemoteRepositoryConfig {
             crate::model::remote_repository_config::RemoteSource::YumRepository(v.into()),
         );
         self
+    }
+
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `CommonRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn common_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::CommonRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -4383,23 +4383,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::docker_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -4419,6 +4402,23 @@ pub mod remote_repository_config {
                 )
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::docker_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
@@ -4689,23 +4689,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::maven_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -4725,6 +4708,23 @@ pub mod remote_repository_config {
                 )
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::maven_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
@@ -4995,23 +4995,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::npm_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -5031,6 +5014,23 @@ pub mod remote_repository_config {
                 ),
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::npm_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
@@ -5301,23 +5301,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::python_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -5337,6 +5320,23 @@ pub mod remote_repository_config {
                 )
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::python_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
@@ -5608,23 +5608,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::apt_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -5646,6 +5629,23 @@ pub mod remote_repository_config {
                 ),
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::apt_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
@@ -5987,23 +5987,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::yum_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -6025,6 +6008,23 @@ pub mod remote_repository_config {
                 ),
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::yum_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
@@ -6517,6 +6517,18 @@ impl Repository {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Repository::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Repository::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -6544,6 +6556,18 @@ impl Repository {
     /// Sets the value of [mode][crate::model::Repository::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::repository::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
+        self
+    }
+
+    /// Sets the value of [cleanup_policies][crate::model::Repository::cleanup_policies].
+    pub fn set_cleanup_policies<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::CleanupPolicy>,
+    {
+        use std::iter::Iterator;
+        self.cleanup_policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -6596,30 +6620,6 @@ impl Repository {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Repository::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [cleanup_policies][crate::model::Repository::cleanup_policies].
-    pub fn set_cleanup_policies<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::CleanupPolicy>,
-    {
-        use std::iter::Iterator;
-        self.cleanup_policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [format_config][crate::model::Repository::format_config].
     ///
     /// Note that all the setters affecting `format_config` are mutually
@@ -6648,20 +6648,6 @@ impl Repository {
         })
     }
 
-    /// The value of [format_config][crate::model::Repository::format_config]
-    /// if it holds a `DockerConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn docker_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>
-    {
-        #[allow(unreachable_patterns)]
-        self.format_config.as_ref().and_then(|v| match v {
-            crate::model::repository::FormatConfig::DockerConfig(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [format_config][crate::model::Repository::format_config]
     /// to hold a `MavenConfig`.
     ///
@@ -6677,6 +6663,20 @@ impl Repository {
             crate::model::repository::FormatConfig::MavenConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [format_config][crate::model::Repository::format_config]
+    /// if it holds a `DockerConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn docker_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.format_config.as_ref().and_then(|v| match v {
+            crate::model::repository::FormatConfig::DockerConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [format_config][crate::model::Repository::format_config]
@@ -6725,21 +6725,6 @@ impl Repository {
         })
     }
 
-    /// The value of [mode_config][crate::model::Repository::mode_config]
-    /// if it holds a `RemoteRepositoryConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn remote_repository_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RemoteRepositoryConfig>> {
-        #[allow(unreachable_patterns)]
-        self.mode_config.as_ref().and_then(|v| match v {
-            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode_config][crate::model::Repository::mode_config]
     /// to hold a `VirtualRepositoryConfig`.
     ///
@@ -6755,6 +6740,21 @@ impl Repository {
             crate::model::repository::ModeConfig::VirtualRepositoryConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [mode_config][crate::model::Repository::mode_config]
+    /// if it holds a `RemoteRepositoryConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remote_repository_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RemoteRepositoryConfig>> {
+        #[allow(unreachable_patterns)]
+        self.mode_config.as_ref().and_then(|v| match v {
+            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode_config][crate::model::Repository::mode_config]
@@ -7843,12 +7843,6 @@ impl ListRepositoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
@@ -7857,6 +7851,12 @@ impl ListRepositoriesResponse {
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8472,12 +8472,6 @@ impl ListRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::ListRulesResponse::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -8486,6 +8480,12 @@ impl ListRulesResponse {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9184,12 +9184,6 @@ impl ListTagsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTagsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tags][crate::model::ListTagsResponse::tags].
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
@@ -9198,6 +9192,12 @@ impl ListTagsResponse {
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTagsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9477,15 +9477,6 @@ impl Version {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::Version::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [related_tags][crate::model::Version::related_tags].
     pub fn set_related_tags<T, V>(mut self, v: T) -> Self
     where
@@ -9494,6 +9485,15 @@ impl Version {
     {
         use std::iter::Iterator;
         self.related_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::Version::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 
@@ -9665,12 +9665,6 @@ impl ListVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
@@ -9679,6 +9673,12 @@ impl ListVersionsResponse {
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9822,12 +9822,6 @@ impl BatchDeleteVersionsRequest {
         self
     }
 
-    /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
-    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.validate_only = v.into();
-        self
-    }
-
     /// Sets the value of [names][crate::model::BatchDeleteVersionsRequest::names].
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
@@ -9836,6 +9830,12 @@ impl BatchDeleteVersionsRequest {
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 }
@@ -10433,12 +10433,6 @@ impl ImportYumArtifactsGcsSource {
         std::default::Default::default()
     }
 
-    /// Sets the value of [use_wildcards][crate::model::ImportYumArtifactsGcsSource::use_wildcards].
-    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.use_wildcards = v.into();
-        self
-    }
-
     /// Sets the value of [uris][crate::model::ImportYumArtifactsGcsSource::uris].
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
@@ -10447,6 +10441,12 @@ impl ImportYumArtifactsGcsSource {
     {
         use std::iter::Iterator;
         self.uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [use_wildcards][crate::model::ImportYumArtifactsGcsSource::use_wildcards].
+    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_wildcards = v.into();
         self
     }
 }

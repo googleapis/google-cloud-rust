@@ -294,6 +294,30 @@ impl DeliveryPipeline {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::DeliveryPipeline::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DeliveryPipeline::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::DeliveryPipeline::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -332,30 +356,6 @@ impl DeliveryPipeline {
     /// Sets the value of [suspended][crate::model::DeliveryPipeline::suspended].
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::DeliveryPipeline::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::DeliveryPipeline::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -509,15 +509,6 @@ impl Stage {
         self
     }
 
-    /// Sets the value of [strategy][crate::model::Stage::strategy].
-    pub fn set_strategy<T: std::convert::Into<std::option::Option<crate::model::Strategy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.strategy = v.into();
-        self
-    }
-
     /// Sets the value of [profiles][crate::model::Stage::profiles].
     pub fn set_profiles<T, V>(mut self, v: T) -> Self
     where
@@ -526,6 +517,15 @@ impl Stage {
     {
         use std::iter::Iterator;
         self.profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [strategy][crate::model::Stage::strategy].
+    pub fn set_strategy<T: std::convert::Into<std::option::Option<crate::model::Strategy>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.strategy = v.into();
         self
     }
 
@@ -647,17 +647,6 @@ impl Strategy {
         })
     }
 
-    /// The value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
-    /// if it holds a `Canary`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn canary(&self) -> std::option::Option<&std::boxed::Box<crate::model::Canary>> {
-        #[allow(unreachable_patterns)]
-        self.deployment_strategy.as_ref().and_then(|v| match v {
-            crate::model::strategy::DeploymentStrategy::Canary(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
     /// to hold a `Standard`.
     ///
@@ -671,6 +660,17 @@ impl Strategy {
             crate::model::strategy::DeploymentStrategy::Standard(v.into()),
         );
         self
+    }
+
+    /// The value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
+    /// if it holds a `Canary`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn canary(&self) -> std::option::Option<&std::boxed::Box<crate::model::Canary>> {
+        #[allow(unreachable_patterns)]
+        self.deployment_strategy.as_ref().and_then(|v| match v {
+            crate::model::strategy::DeploymentStrategy::Canary(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
@@ -910,19 +910,6 @@ impl Canary {
         })
     }
 
-    /// The value of [mode][crate::model::Canary::mode]
-    /// if it holds a `CustomCanaryDeployment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom_canary_deployment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomCanaryDeployment>> {
-        #[allow(unreachable_patterns)]
-        self.mode.as_ref().and_then(|v| match v {
-            crate::model::canary::Mode::CustomCanaryDeployment(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode][crate::model::Canary::mode]
     /// to hold a `CanaryDeployment`.
     ///
@@ -937,6 +924,19 @@ impl Canary {
         self.mode =
             std::option::Option::Some(crate::model::canary::Mode::CanaryDeployment(v.into()));
         self
+    }
+
+    /// The value of [mode][crate::model::Canary::mode]
+    /// if it holds a `CustomCanaryDeployment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom_canary_deployment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomCanaryDeployment>> {
+        #[allow(unreachable_patterns)]
+        self.mode.as_ref().and_then(|v| match v {
+            crate::model::canary::Mode::CustomCanaryDeployment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode][crate::model::Canary::mode]
@@ -1018,6 +1018,17 @@ impl CanaryDeployment {
         std::default::Default::default()
     }
 
+    /// Sets the value of [percentages][crate::model::CanaryDeployment::percentages].
+    pub fn set_percentages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.percentages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [verify][crate::model::CanaryDeployment::verify].
     pub fn set_verify<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verify = v.into();
@@ -1039,17 +1050,6 @@ impl CanaryDeployment {
         v: T,
     ) -> Self {
         self.postdeploy = v.into();
-        self
-    }
-
-    /// Sets the value of [percentages][crate::model::CanaryDeployment::percentages].
-    pub fn set_percentages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.percentages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1164,6 +1164,17 @@ pub mod custom_canary_deployment {
             self
         }
 
+        /// Sets the value of [profiles][crate::model::custom_canary_deployment::PhaseConfig::profiles].
+        pub fn set_profiles<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.profiles = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [verify][crate::model::custom_canary_deployment::PhaseConfig::verify].
         pub fn set_verify<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.verify = v.into();
@@ -1189,17 +1200,6 @@ pub mod custom_canary_deployment {
             v: T,
         ) -> Self {
             self.postdeploy = v.into();
-            self
-        }
-
-        /// Sets the value of [profiles][crate::model::custom_canary_deployment::PhaseConfig::profiles].
-        pub fn set_profiles<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.profiles = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1260,22 +1260,6 @@ impl KubernetesConfig {
         })
     }
 
-    /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
-    /// if it holds a `ServiceNetworking`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn service_networking(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>
-    {
-        #[allow(unreachable_patterns)]
-        self.service_definition.as_ref().and_then(|v| match v {
-            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [service_definition][crate::model::KubernetesConfig::service_definition]
     /// to hold a `GatewayServiceMesh`.
     ///
@@ -1291,6 +1275,22 @@ impl KubernetesConfig {
             crate::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(v.into()),
         );
         self
+    }
+
+    /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
+    /// if it holds a `ServiceNetworking`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_networking(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>
+    {
+        #[allow(unreachable_patterns)]
+        self.service_definition.as_ref().and_then(|v| match v {
+            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [service_definition][crate::model::KubernetesConfig::service_definition]
@@ -1484,12 +1484,6 @@ pub mod kubernetes_config {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [propagate_service][crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations::propagate_service].
-            pub fn set_propagate_service<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-                self.propagate_service = v.into();
-                self
-            }
-
             /// Sets the value of [destination_ids][crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations::destination_ids].
             pub fn set_destination_ids<T, V>(mut self, v: T) -> Self
             where
@@ -1498,6 +1492,12 @@ pub mod kubernetes_config {
             {
                 use std::iter::Iterator;
                 self.destination_ids = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [propagate_service][crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations::propagate_service].
+            pub fn set_propagate_service<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.propagate_service = v.into();
                 self
             }
         }
@@ -1726,19 +1726,6 @@ impl RuntimeConfig {
         })
     }
 
-    /// The value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
-    /// if it holds a `CloudRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunConfig>> {
-        #[allow(unreachable_patterns)]
-        self.runtime_config.as_ref().and_then(|v| match v {
-            crate::model::runtime_config::RuntimeConfig::CloudRun(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
     /// to hold a `Kubernetes`.
     ///
@@ -1754,6 +1741,19 @@ impl RuntimeConfig {
             crate::model::runtime_config::RuntimeConfig::Kubernetes(v.into()),
         );
         self
+    }
+
+    /// The value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
+    /// if it holds a `CloudRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunConfig>> {
+        #[allow(unreachable_patterns)]
+        self.runtime_config.as_ref().and_then(|v| match v {
+            crate::model::runtime_config::RuntimeConfig::CloudRun(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
@@ -1879,15 +1879,6 @@ impl TargetsPresentCondition {
         self
     }
 
-    /// Sets the value of [update_time][crate::model::TargetsPresentCondition::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [missing_targets][crate::model::TargetsPresentCondition::missing_targets].
     pub fn set_missing_targets<T, V>(mut self, v: T) -> Self
     where
@@ -1896,6 +1887,15 @@ impl TargetsPresentCondition {
     {
         use std::iter::Iterator;
         self.missing_targets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::TargetsPresentCondition::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -2128,12 +2128,6 @@ impl ListDeliveryPipelinesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeliveryPipelinesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [delivery_pipelines][crate::model::ListDeliveryPipelinesResponse::delivery_pipelines].
     pub fn set_delivery_pipelines<T, V>(mut self, v: T) -> Self
     where
@@ -2142,6 +2136,12 @@ impl ListDeliveryPipelinesResponse {
     {
         use std::iter::Iterator;
         self.delivery_pipelines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeliveryPipelinesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2841,47 +2841,6 @@ impl Target {
         self
     }
 
-    /// Sets the value of [require_approval][crate::model::Target::require_approval].
-    pub fn set_require_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_approval = v.into();
-        self
-    }
-
-    /// Sets the value of [create_time][crate::model::Target::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::Target::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::Target::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [execution_configs][crate::model::Target::execution_configs].
-    pub fn set_execution_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExecutionConfig>,
-    {
-        use std::iter::Iterator;
-        self.execution_configs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::Target::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -2906,6 +2865,30 @@ impl Target {
         self
     }
 
+    /// Sets the value of [require_approval][crate::model::Target::require_approval].
+    pub fn set_require_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_approval = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Target::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Target::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
     /// Sets the value of [associated_entities][crate::model::Target::associated_entities].
     pub fn set_associated_entities<T, K, V>(mut self, v: T) -> Self
     where
@@ -2915,6 +2898,23 @@ impl Target {
     {
         use std::iter::Iterator;
         self.associated_entities = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Target::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [execution_configs][crate::model::Target::execution_configs].
+    pub fn set_execution_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExecutionConfig>,
+    {
+        use std::iter::Iterator;
+        self.execution_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2955,6 +2955,20 @@ impl Target {
         })
     }
 
+    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
+    /// to hold a `Gke`.
+    ///
+    /// Note that all the setters affecting `deployment_target` are
+    /// mutually exclusive.
+    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::GkeCluster>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_target =
+            std::option::Option::Some(crate::model::target::DeploymentTarget::Gke(v.into()));
+        self
+    }
+
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `AnthosCluster`, `None` if the field is not set or
     /// holds a different branch.
@@ -2968,55 +2982,6 @@ impl Target {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [deployment_target][crate::model::Target::deployment_target]
-    /// if it holds a `Run`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunLocation>> {
-        #[allow(unreachable_patterns)]
-        self.deployment_target.as_ref().and_then(|v| match v {
-            crate::model::target::DeploymentTarget::Run(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [deployment_target][crate::model::Target::deployment_target]
-    /// if it holds a `MultiTarget`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn multi_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiTarget>> {
-        #[allow(unreachable_patterns)]
-        self.deployment_target.as_ref().and_then(|v| match v {
-            crate::model::target::DeploymentTarget::MultiTarget(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [deployment_target][crate::model::Target::deployment_target]
-    /// if it holds a `CustomTarget`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom_target(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomTarget>> {
-        #[allow(unreachable_patterns)]
-        self.deployment_target.as_ref().and_then(|v| match v {
-            crate::model::target::DeploymentTarget::CustomTarget(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
-    /// to hold a `Gke`.
-    ///
-    /// Note that all the setters affecting `deployment_target` are
-    /// mutually exclusive.
-    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::GkeCluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target =
-            std::option::Option::Some(crate::model::target::DeploymentTarget::Gke(v.into()));
-        self
     }
 
     /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
@@ -3036,6 +3001,17 @@ impl Target {
         self
     }
 
+    /// The value of [deployment_target][crate::model::Target::deployment_target]
+    /// if it holds a `Run`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunLocation>> {
+        #[allow(unreachable_patterns)]
+        self.deployment_target.as_ref().and_then(|v| match v {
+            crate::model::target::DeploymentTarget::Run(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
     /// to hold a `Run`.
     ///
@@ -3048,6 +3024,17 @@ impl Target {
         self.deployment_target =
             std::option::Option::Some(crate::model::target::DeploymentTarget::Run(v.into()));
         self
+    }
+
+    /// The value of [deployment_target][crate::model::Target::deployment_target]
+    /// if it holds a `MultiTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn multi_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiTarget>> {
+        #[allow(unreachable_patterns)]
+        self.deployment_target.as_ref().and_then(|v| match v {
+            crate::model::target::DeploymentTarget::MultiTarget(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
@@ -3063,6 +3050,19 @@ impl Target {
             crate::model::target::DeploymentTarget::MultiTarget(v.into()),
         );
         self
+    }
+
+    /// The value of [deployment_target][crate::model::Target::deployment_target]
+    /// if it holds a `CustomTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom_target(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomTarget>> {
+        #[allow(unreachable_patterns)]
+        self.deployment_target.as_ref().and_then(|v| match v {
+            crate::model::target::DeploymentTarget::CustomTarget(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
@@ -3166,6 +3166,17 @@ impl ExecutionConfig {
         std::default::Default::default()
     }
 
+    /// Sets the value of [usages][crate::model::ExecutionConfig::usages].
+    pub fn set_usages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::execution_config::ExecutionEnvironmentUsage>,
+    {
+        use std::iter::Iterator;
+        self.usages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [worker_pool][crate::model::ExecutionConfig::worker_pool].
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
@@ -3202,17 +3213,6 @@ impl ExecutionConfig {
         self
     }
 
-    /// Sets the value of [usages][crate::model::ExecutionConfig::usages].
-    pub fn set_usages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::execution_config::ExecutionEnvironmentUsage>,
-    {
-        use std::iter::Iterator;
-        self.usages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment].
     ///
     /// Note that all the setters affecting `execution_environment` are mutually
@@ -3242,19 +3242,6 @@ impl ExecutionConfig {
         })
     }
 
-    /// The value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
-    /// if it holds a `PrivatePool`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn private_pool(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePool>> {
-        #[allow(unreachable_patterns)]
-        self.execution_environment.as_ref().and_then(|v| match v {
-            crate::model::execution_config::ExecutionEnvironment::PrivatePool(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
     /// to hold a `DefaultPool`.
     ///
@@ -3268,6 +3255,19 @@ impl ExecutionConfig {
             crate::model::execution_config::ExecutionEnvironment::DefaultPool(v.into()),
         );
         self
+    }
+
+    /// The value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
+    /// if it holds a `PrivatePool`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn private_pool(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePool>> {
+        #[allow(unreachable_patterns)]
+        self.execution_environment.as_ref().and_then(|v| match v {
+            crate::model::execution_config::ExecutionEnvironment::PrivatePool(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
@@ -3953,12 +3953,6 @@ impl ListTargetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTargetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [targets][crate::model::ListTargetsResponse::targets].
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
@@ -3967,6 +3961,12 @@ impl ListTargetsResponse {
     {
         use std::iter::Iterator;
         self.targets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTargetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4415,30 +4415,6 @@ impl CustomTargetType {
         self
     }
 
-    /// Sets the value of [create_time][crate::model::CustomTargetType::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::CustomTargetType::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::CustomTargetType::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::CustomTargetType::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -4460,6 +4436,30 @@ impl CustomTargetType {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::CustomTargetType::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::CustomTargetType::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::CustomTargetType::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 
@@ -4655,38 +4655,6 @@ impl SkaffoldModules {
         })
     }
 
-    /// The value of [source][crate::model::SkaffoldModules::source]
-    /// if it holds a `GoogleCloudStorage`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn google_cloud_storage(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>
-    {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::skaffold_modules::Source::GoogleCloudStorage(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source][crate::model::SkaffoldModules::source]
-    /// if it holds a `GoogleCloudBuildRepo`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn google_cloud_build_repo(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>
-    {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::SkaffoldModules::source]
     /// to hold a `Git`.
     ///
@@ -4701,6 +4669,22 @@ impl SkaffoldModules {
         self.source =
             std::option::Option::Some(crate::model::skaffold_modules::Source::Git(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::SkaffoldModules::source]
+    /// if it holds a `GoogleCloudStorage`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_cloud_storage(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>
+    {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::skaffold_modules::Source::GoogleCloudStorage(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::SkaffoldModules::source]
@@ -4718,6 +4702,22 @@ impl SkaffoldModules {
             crate::model::skaffold_modules::Source::GoogleCloudStorage(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::SkaffoldModules::source]
+    /// if it holds a `GoogleCloudBuildRepo`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_cloud_build_repo(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>
+    {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::SkaffoldModules::source]
@@ -5029,12 +5029,6 @@ impl ListCustomTargetTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCustomTargetTypesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [custom_target_types][crate::model::ListCustomTargetTypesResponse::custom_target_types].
     pub fn set_custom_target_types<T, V>(mut self, v: T) -> Self
     where
@@ -5043,6 +5037,12 @@ impl ListCustomTargetTypesResponse {
     {
         use std::iter::Iterator;
         self.custom_target_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCustomTargetTypesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5507,6 +5507,30 @@ impl DeployPolicy {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::DeployPolicy::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DeployPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::DeployPolicy::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -5528,12 +5552,6 @@ impl DeployPolicy {
     /// Sets the value of [suspended][crate::model::DeployPolicy::suspended].
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::DeployPolicy::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
         self
     }
 
@@ -5559,27 +5577,9 @@ impl DeployPolicy {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::DeployPolicy::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::DeployPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [etag][crate::model::DeployPolicy::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -6010,17 +6010,6 @@ impl RolloutRestriction {
         self
     }
 
-    /// Sets the value of [time_windows][crate::model::RolloutRestriction::time_windows].
-    pub fn set_time_windows<
-        T: std::convert::Into<std::option::Option<crate::model::TimeWindows>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_windows = v.into();
-        self
-    }
-
     /// Sets the value of [invokers][crate::model::RolloutRestriction::invokers].
     pub fn set_invokers<T, V>(mut self, v: T) -> Self
     where
@@ -6040,6 +6029,17 @@ impl RolloutRestriction {
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [time_windows][crate::model::RolloutRestriction::time_windows].
+    pub fn set_time_windows<
+        T: std::convert::Into<std::option::Option<crate::model::TimeWindows>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_windows = v.into();
         self
     }
 }
@@ -6403,6 +6403,17 @@ impl WeeklyWindow {
         std::default::Default::default()
     }
 
+    /// Sets the value of [days_of_week][crate::model::WeeklyWindow::days_of_week].
+    pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<gtype::model::DayOfWeek>,
+    {
+        use std::iter::Iterator;
+        self.days_of_week = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [start_time][crate::model::WeeklyWindow::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>>(
         mut self,
@@ -6418,17 +6429,6 @@ impl WeeklyWindow {
         v: T,
     ) -> Self {
         self.end_time = v.into();
-        self
-    }
-
-    /// Sets the value of [days_of_week][crate::model::WeeklyWindow::days_of_week].
-    pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<gtype::model::DayOfWeek>,
-    {
-        use std::iter::Iterator;
-        self.days_of_week = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6684,6 +6684,30 @@ impl Release {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Release::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Release::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [abandoned][crate::model::Release::abandoned].
     pub fn set_abandoned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.abandoned = v.into();
@@ -6735,6 +6759,17 @@ impl Release {
         self
     }
 
+    /// Sets the value of [build_artifacts][crate::model::Release::build_artifacts].
+    pub fn set_build_artifacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BuildArtifact>,
+    {
+        use std::iter::Iterator;
+        self.build_artifacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [delivery_pipeline_snapshot][crate::model::Release::delivery_pipeline_snapshot].
     pub fn set_delivery_pipeline_snapshot<
         T: std::convert::Into<std::option::Option<crate::model::DeliveryPipeline>>,
@@ -6743,6 +6778,28 @@ impl Release {
         v: T,
     ) -> Self {
         self.delivery_pipeline_snapshot = v.into();
+        self
+    }
+
+    /// Sets the value of [target_snapshots][crate::model::Release::target_snapshots].
+    pub fn set_target_snapshots<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Target>,
+    {
+        use std::iter::Iterator;
+        self.target_snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [custom_target_type_snapshots][crate::model::Release::custom_target_type_snapshots].
+    pub fn set_custom_target_type_snapshots<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CustomTargetType>,
+    {
+        use std::iter::Iterator;
+        self.custom_target_type_snapshots = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -6770,74 +6827,6 @@ impl Release {
         self
     }
 
-    /// Sets the value of [condition][crate::model::Release::condition].
-    pub fn set_condition<
-        T: std::convert::Into<std::option::Option<crate::model::release::ReleaseCondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
-        self
-    }
-
-    /// Sets the value of [build_artifacts][crate::model::Release::build_artifacts].
-    pub fn set_build_artifacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BuildArtifact>,
-    {
-        use std::iter::Iterator;
-        self.build_artifacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [target_snapshots][crate::model::Release::target_snapshots].
-    pub fn set_target_snapshots<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Target>,
-    {
-        use std::iter::Iterator;
-        self.target_snapshots = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [custom_target_type_snapshots][crate::model::Release::custom_target_type_snapshots].
-    pub fn set_custom_target_type_snapshots<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomTargetType>,
-    {
-        use std::iter::Iterator;
-        self.custom_target_type_snapshots = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Release::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Release::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [target_artifacts][crate::model::Release::target_artifacts].
     pub fn set_target_artifacts<T, K, V>(mut self, v: T) -> Self
     where
@@ -6859,6 +6848,17 @@ impl Release {
     {
         use std::iter::Iterator;
         self.target_renders = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::Release::condition].
+    pub fn set_condition<
+        T: std::convert::Into<std::option::Option<crate::model::release::ReleaseCondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.condition = v.into();
         self
     }
 
@@ -8025,12 +8025,6 @@ impl ListDeployPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeployPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deploy_policies][crate::model::ListDeployPoliciesResponse::deploy_policies].
     pub fn set_deploy_policies<T, V>(mut self, v: T) -> Self
     where
@@ -8039,6 +8033,12 @@ impl ListDeployPoliciesResponse {
     {
         use std::iter::Iterator;
         self.deploy_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeployPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8578,12 +8578,6 @@ impl ListReleasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReleasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [releases][crate::model::ListReleasesResponse::releases].
     pub fn set_releases<T, V>(mut self, v: T) -> Self
     where
@@ -8592,6 +8586,12 @@ impl ListReleasesResponse {
     {
         use std::iter::Iterator;
         self.releases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReleasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8914,6 +8914,30 @@ impl Rollout {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Rollout::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Rollout::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Rollout::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -9007,6 +9031,17 @@ impl Rollout {
         self
     }
 
+    /// Sets the value of [phases][crate::model::Rollout::phases].
+    pub fn set_phases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Phase>,
+    {
+        use std::iter::Iterator;
+        self.phases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [metadata][crate::model::Rollout::metadata].
     pub fn set_metadata<T: std::convert::Into<std::option::Option<crate::model::Metadata>>>(
         mut self,
@@ -9034,26 +9069,6 @@ impl Rollout {
         self
     }
 
-    /// Sets the value of [active_repair_automation_run][crate::model::Rollout::active_repair_automation_run].
-    pub fn set_active_repair_automation_run<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.active_repair_automation_run = v.into();
-        self
-    }
-
-    /// Sets the value of [phases][crate::model::Rollout::phases].
-    pub fn set_phases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Phase>,
-    {
-        use std::iter::Iterator;
-        self.phases = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [rolled_back_by_rollouts][crate::model::Rollout::rolled_back_by_rollouts].
     pub fn set_rolled_back_by_rollouts<T, V>(mut self, v: T) -> Self
     where
@@ -9065,27 +9080,12 @@ impl Rollout {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::Rollout::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Rollout::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [active_repair_automation_run][crate::model::Rollout::active_repair_automation_run].
+    pub fn set_active_repair_automation_run<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.active_repair_automation_run = v.into();
         self
     }
 }
@@ -9797,6 +9797,17 @@ impl CloudRunMetadata {
         self
     }
 
+    /// Sets the value of [service_urls][crate::model::CloudRunMetadata::service_urls].
+    pub fn set_service_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.service_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [revision][crate::model::CloudRunMetadata::revision].
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -9806,17 +9817,6 @@ impl CloudRunMetadata {
     /// Sets the value of [job][crate::model::CloudRunMetadata::job].
     pub fn set_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job = v.into();
-        self
-    }
-
-    /// Sets the value of [service_urls][crate::model::CloudRunMetadata::service_urls].
-    pub fn set_service_urls<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.service_urls = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -10043,19 +10043,6 @@ impl Phase {
         })
     }
 
-    /// The value of [jobs][crate::model::Phase::jobs]
-    /// if it holds a `ChildRolloutJobs`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn child_rollout_jobs(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ChildRolloutJobs>> {
-        #[allow(unreachable_patterns)]
-        self.jobs.as_ref().and_then(|v| match v {
-            crate::model::phase::Jobs::ChildRolloutJobs(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [jobs][crate::model::Phase::jobs]
     /// to hold a `DeploymentJobs`.
     ///
@@ -10069,6 +10056,19 @@ impl Phase {
     ) -> Self {
         self.jobs = std::option::Option::Some(crate::model::phase::Jobs::DeploymentJobs(v.into()));
         self
+    }
+
+    /// The value of [jobs][crate::model::Phase::jobs]
+    /// if it holds a `ChildRolloutJobs`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn child_rollout_jobs(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ChildRolloutJobs>> {
+        #[allow(unreachable_patterns)]
+        self.jobs.as_ref().and_then(|v| match v {
+            crate::model::phase::Jobs::ChildRolloutJobs(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [jobs][crate::model::Phase::jobs]
@@ -10480,69 +10480,6 @@ impl Job {
         })
     }
 
-    /// The value of [job_type][crate::model::Job::job_type]
-    /// if it holds a `VerifyJob`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn verify_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJob>> {
-        #[allow(unreachable_patterns)]
-        self.job_type.as_ref().and_then(|v| match v {
-            crate::model::job::JobType::VerifyJob(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_type][crate::model::Job::job_type]
-    /// if it holds a `PredeployJob`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn predeploy_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJob>> {
-        #[allow(unreachable_patterns)]
-        self.job_type.as_ref().and_then(|v| match v {
-            crate::model::job::JobType::PredeployJob(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_type][crate::model::Job::job_type]
-    /// if it holds a `PostdeployJob`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postdeploy_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJob>> {
-        #[allow(unreachable_patterns)]
-        self.job_type.as_ref().and_then(|v| match v {
-            crate::model::job::JobType::PostdeployJob(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_type][crate::model::Job::job_type]
-    /// if it holds a `CreateChildRolloutJob`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn create_child_rollout_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJob>> {
-        #[allow(unreachable_patterns)]
-        self.job_type.as_ref().and_then(|v| match v {
-            crate::model::job::JobType::CreateChildRolloutJob(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_type][crate::model::Job::job_type]
-    /// if it holds a `AdvanceChildRolloutJob`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn advance_child_rollout_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJob>> {
-        #[allow(unreachable_patterns)]
-        self.job_type.as_ref().and_then(|v| match v {
-            crate::model::job::JobType::AdvanceChildRolloutJob(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [job_type][crate::model::Job::job_type]
     /// to hold a `DeployJob`.
     ///
@@ -10554,6 +10491,17 @@ impl Job {
     ) -> Self {
         self.job_type = std::option::Option::Some(crate::model::job::JobType::DeployJob(v.into()));
         self
+    }
+
+    /// The value of [job_type][crate::model::Job::job_type]
+    /// if it holds a `VerifyJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn verify_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJob>> {
+        #[allow(unreachable_patterns)]
+        self.job_type.as_ref().and_then(|v| match v {
+            crate::model::job::JobType::VerifyJob(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_type][crate::model::Job::job_type]
@@ -10569,6 +10517,19 @@ impl Job {
         self
     }
 
+    /// The value of [job_type][crate::model::Job::job_type]
+    /// if it holds a `PredeployJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn predeploy_job(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJob>> {
+        #[allow(unreachable_patterns)]
+        self.job_type.as_ref().and_then(|v| match v {
+            crate::model::job::JobType::PredeployJob(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [job_type][crate::model::Job::job_type]
     /// to hold a `PredeployJob`.
     ///
@@ -10581,6 +10542,19 @@ impl Job {
         self.job_type =
             std::option::Option::Some(crate::model::job::JobType::PredeployJob(v.into()));
         self
+    }
+
+    /// The value of [job_type][crate::model::Job::job_type]
+    /// if it holds a `PostdeployJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postdeploy_job(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJob>> {
+        #[allow(unreachable_patterns)]
+        self.job_type.as_ref().and_then(|v| match v {
+            crate::model::job::JobType::PostdeployJob(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_type][crate::model::Job::job_type]
@@ -10599,6 +10573,19 @@ impl Job {
         self
     }
 
+    /// The value of [job_type][crate::model::Job::job_type]
+    /// if it holds a `CreateChildRolloutJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_child_rollout_job(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJob>> {
+        #[allow(unreachable_patterns)]
+        self.job_type.as_ref().and_then(|v| match v {
+            crate::model::job::JobType::CreateChildRolloutJob(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [job_type][crate::model::Job::job_type]
     /// to hold a `CreateChildRolloutJob`.
     ///
@@ -10613,6 +10600,19 @@ impl Job {
         self.job_type =
             std::option::Option::Some(crate::model::job::JobType::CreateChildRolloutJob(v.into()));
         self
+    }
+
+    /// The value of [job_type][crate::model::Job::job_type]
+    /// if it holds a `AdvanceChildRolloutJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn advance_child_rollout_job(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJob>> {
+        #[allow(unreachable_patterns)]
+        self.job_type.as_ref().and_then(|v| match v {
+            crate::model::job::JobType::AdvanceChildRolloutJob(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_type][crate::model::Job::job_type]
@@ -11108,12 +11108,6 @@ impl ListRolloutsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRolloutsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rollouts][crate::model::ListRolloutsResponse::rollouts].
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
@@ -11122,6 +11116,12 @@ impl ListRolloutsResponse {
     {
         use std::iter::Iterator;
         self.rollouts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRolloutsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -11283,15 +11283,6 @@ impl CreateRolloutRequest {
         self
     }
 
-    /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
-    pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.starting_phase_id = v.into();
-        self
-    }
-
     /// Sets the value of [override_deploy_policy][crate::model::CreateRolloutRequest::override_deploy_policy].
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
@@ -11300,6 +11291,15 @@ impl CreateRolloutRequest {
     {
         use std::iter::Iterator;
         self.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
+    pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.starting_phase_id = v.into();
         self
     }
 }
@@ -12035,75 +12035,6 @@ impl JobRun {
         })
     }
 
-    /// The value of [job_run][crate::model::JobRun::job_run]
-    /// if it holds a `VerifyJobRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn verify_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJobRun>> {
-        #[allow(unreachable_patterns)]
-        self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::VerifyJobRun(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_run][crate::model::JobRun::job_run]
-    /// if it holds a `PredeployJobRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn predeploy_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJobRun>> {
-        #[allow(unreachable_patterns)]
-        self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::PredeployJobRun(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_run][crate::model::JobRun::job_run]
-    /// if it holds a `PostdeployJobRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postdeploy_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJobRun>> {
-        #[allow(unreachable_patterns)]
-        self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::PostdeployJobRun(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_run][crate::model::JobRun::job_run]
-    /// if it holds a `CreateChildRolloutJobRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn create_child_rollout_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJobRun>> {
-        #[allow(unreachable_patterns)]
-        self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::CreateChildRolloutJobRun(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_run][crate::model::JobRun::job_run]
-    /// if it holds a `AdvanceChildRolloutJobRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn advance_child_rollout_job_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>> {
-        #[allow(unreachable_patterns)]
-        self.job_run.as_ref().and_then(|v| match v {
-            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [job_run][crate::model::JobRun::job_run]
     /// to hold a `DeployJobRun`.
     ///
@@ -12118,6 +12049,19 @@ impl JobRun {
         self.job_run =
             std::option::Option::Some(crate::model::job_run::JobRun::DeployJobRun(v.into()));
         self
+    }
+
+    /// The value of [job_run][crate::model::JobRun::job_run]
+    /// if it holds a `VerifyJobRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn verify_job_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJobRun>> {
+        #[allow(unreachable_patterns)]
+        self.job_run.as_ref().and_then(|v| match v {
+            crate::model::job_run::JobRun::VerifyJobRun(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_run][crate::model::JobRun::job_run]
@@ -12136,6 +12080,19 @@ impl JobRun {
         self
     }
 
+    /// The value of [job_run][crate::model::JobRun::job_run]
+    /// if it holds a `PredeployJobRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn predeploy_job_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJobRun>> {
+        #[allow(unreachable_patterns)]
+        self.job_run.as_ref().and_then(|v| match v {
+            crate::model::job_run::JobRun::PredeployJobRun(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [job_run][crate::model::JobRun::job_run]
     /// to hold a `PredeployJobRun`.
     ///
@@ -12150,6 +12107,19 @@ impl JobRun {
         self.job_run =
             std::option::Option::Some(crate::model::job_run::JobRun::PredeployJobRun(v.into()));
         self
+    }
+
+    /// The value of [job_run][crate::model::JobRun::job_run]
+    /// if it holds a `PostdeployJobRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postdeploy_job_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJobRun>> {
+        #[allow(unreachable_patterns)]
+        self.job_run.as_ref().and_then(|v| match v {
+            crate::model::job_run::JobRun::PostdeployJobRun(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_run][crate::model::JobRun::job_run]
@@ -12168,6 +12138,21 @@ impl JobRun {
         self
     }
 
+    /// The value of [job_run][crate::model::JobRun::job_run]
+    /// if it holds a `CreateChildRolloutJobRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_child_rollout_job_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJobRun>> {
+        #[allow(unreachable_patterns)]
+        self.job_run.as_ref().and_then(|v| match v {
+            crate::model::job_run::JobRun::CreateChildRolloutJobRun(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [job_run][crate::model::JobRun::job_run]
     /// to hold a `CreateChildRolloutJobRun`.
     ///
@@ -12183,6 +12168,21 @@ impl JobRun {
             crate::model::job_run::JobRun::CreateChildRolloutJobRun(v.into()),
         );
         self
+    }
+
+    /// The value of [job_run][crate::model::JobRun::job_run]
+    /// if it holds a `AdvanceChildRolloutJobRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn advance_child_rollout_job_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>> {
+        #[allow(unreachable_patterns)]
+        self.job_run.as_ref().and_then(|v| match v {
+            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_run][crate::model::JobRun::job_run]
@@ -13536,12 +13536,6 @@ impl ListJobRunsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListJobRunsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [job_runs][crate::model::ListJobRunsResponse::job_runs].
     pub fn set_job_runs<T, V>(mut self, v: T) -> Self
     where
@@ -13550,6 +13544,12 @@ impl ListJobRunsResponse {
     {
         use std::iter::Iterator;
         self.job_runs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListJobRunsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -13723,15 +13723,6 @@ impl Config {
         self
     }
 
-    /// Sets the value of [default_skaffold_version][crate::model::Config::default_skaffold_version].
-    pub fn set_default_skaffold_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_skaffold_version = v.into();
-        self
-    }
-
     /// Sets the value of [supported_versions][crate::model::Config::supported_versions].
     pub fn set_supported_versions<T, V>(mut self, v: T) -> Self
     where
@@ -13740,6 +13731,15 @@ impl Config {
     {
         use std::iter::Iterator;
         self.supported_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [default_skaffold_version][crate::model::Config::default_skaffold_version].
+    pub fn set_default_skaffold_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_skaffold_version = v.into();
         self
     }
 }
@@ -13994,6 +13994,30 @@ impl Automation {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Automation::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Automation::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Automation::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -14031,30 +14055,6 @@ impl Automation {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Automation::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Automation::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -14151,51 +14151,6 @@ impl AutomationRule {
         })
     }
 
-    /// The value of [rule][crate::model::AutomationRule::rule]
-    /// if it holds a `AdvanceRolloutRule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn advance_rollout_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutRule>> {
-        #[allow(unreachable_patterns)]
-        self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::AdvanceRolloutRule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [rule][crate::model::AutomationRule::rule]
-    /// if it holds a `RepairRolloutRule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn repair_rollout_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutRule>> {
-        #[allow(unreachable_patterns)]
-        self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::RepairRolloutRule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [rule][crate::model::AutomationRule::rule]
-    /// if it holds a `TimedPromoteReleaseRule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn timed_promote_release_rule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseRule>> {
-        #[allow(unreachable_patterns)]
-        self.rule.as_ref().and_then(|v| match v {
-            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [rule][crate::model::AutomationRule::rule]
     /// to hold a `PromoteReleaseRule`.
     ///
@@ -14211,6 +14166,21 @@ impl AutomationRule {
             crate::model::automation_rule::Rule::PromoteReleaseRule(v.into()),
         );
         self
+    }
+
+    /// The value of [rule][crate::model::AutomationRule::rule]
+    /// if it holds a `AdvanceRolloutRule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn advance_rollout_rule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutRule>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::automation_rule::Rule::AdvanceRolloutRule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [rule][crate::model::AutomationRule::rule]
@@ -14230,6 +14200,21 @@ impl AutomationRule {
         self
     }
 
+    /// The value of [rule][crate::model::AutomationRule::rule]
+    /// if it holds a `RepairRolloutRule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn repair_rollout_rule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutRule>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::automation_rule::Rule::RepairRolloutRule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [rule][crate::model::AutomationRule::rule]
     /// to hold a `RepairRolloutRule`.
     ///
@@ -14245,6 +14230,21 @@ impl AutomationRule {
             crate::model::automation_rule::Rule::RepairRolloutRule(v.into()),
         );
         self
+    }
+
+    /// The value of [rule][crate::model::AutomationRule::rule]
+    /// if it holds a `TimedPromoteReleaseRule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn timed_promote_release_rule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseRule>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [rule][crate::model::AutomationRule::rule]
@@ -14541,6 +14541,17 @@ impl AdvanceRolloutRule {
         self
     }
 
+    /// Sets the value of [source_phases][crate::model::AdvanceRolloutRule::source_phases].
+    pub fn set_source_phases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.source_phases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [wait][crate::model::AdvanceRolloutRule::wait].
     pub fn set_wait<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -14558,17 +14569,6 @@ impl AdvanceRolloutRule {
         v: T,
     ) -> Self {
         self.condition = v.into();
-        self
-    }
-
-    /// Sets the value of [source_phases][crate::model::AdvanceRolloutRule::source_phases].
-    pub fn set_source_phases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.source_phases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -14634,17 +14634,6 @@ impl RepairRolloutRule {
         self
     }
 
-    /// Sets the value of [condition][crate::model::RepairRolloutRule::condition].
-    pub fn set_condition<
-        T: std::convert::Into<std::option::Option<crate::model::AutomationRuleCondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
-        self
-    }
-
     /// Sets the value of [phases][crate::model::RepairRolloutRule::phases].
     pub fn set_phases<T, V>(mut self, v: T) -> Self
     where
@@ -14664,6 +14653,17 @@ impl RepairRolloutRule {
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::RepairRolloutRule::condition].
+    pub fn set_condition<
+        T: std::convert::Into<std::option::Option<crate::model::AutomationRuleCondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.condition = v.into();
         self
     }
 
@@ -14731,19 +14731,6 @@ impl RepairPhaseConfig {
         })
     }
 
-    /// The value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
-    /// if it holds a `Rollback`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rollback>> {
-        #[allow(unreachable_patterns)]
-        self.repair_phase.as_ref().and_then(|v| match v {
-            crate::model::repair_phase_config::RepairPhase::Rollback(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
     /// to hold a `Retry`.
     ///
@@ -14757,6 +14744,19 @@ impl RepairPhaseConfig {
             crate::model::repair_phase_config::RepairPhase::Retry(v.into()),
         );
         self
+    }
+
+    /// The value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
+    /// if it holds a `Rollback`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rollback>> {
+        #[allow(unreachable_patterns)]
+        self.repair_phase.as_ref().and_then(|v| match v {
+            crate::model::repair_phase_config::RepairPhase::Rollback(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
@@ -15507,12 +15507,6 @@ impl ListAutomationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAutomationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [automations][crate::model::ListAutomationsResponse::automations].
     pub fn set_automations<T, V>(mut self, v: T) -> Self
     where
@@ -15521,6 +15515,12 @@ impl ListAutomationsResponse {
     {
         use std::iter::Iterator;
         self.automations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutomationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -15819,51 +15819,6 @@ impl AutomationRun {
         })
     }
 
-    /// The value of [operation][crate::model::AutomationRun::operation]
-    /// if it holds a `AdvanceRolloutOperation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn advance_rollout_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutOperation>> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::AdvanceRolloutOperation(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [operation][crate::model::AutomationRun::operation]
-    /// if it holds a `RepairRolloutOperation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn repair_rollout_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutOperation>> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::RepairRolloutOperation(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [operation][crate::model::AutomationRun::operation]
-    /// if it holds a `TimedPromoteReleaseOperation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn timed_promote_release_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseOperation>> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [operation][crate::model::AutomationRun::operation]
     /// to hold a `PromoteReleaseOperation`.
     ///
@@ -15879,6 +15834,21 @@ impl AutomationRun {
             crate::model::automation_run::Operation::PromoteReleaseOperation(v.into()),
         );
         self
+    }
+
+    /// The value of [operation][crate::model::AutomationRun::operation]
+    /// if it holds a `AdvanceRolloutOperation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn advance_rollout_operation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutOperation>> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::automation_run::Operation::AdvanceRolloutOperation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [operation][crate::model::AutomationRun::operation]
@@ -15898,6 +15868,21 @@ impl AutomationRun {
         self
     }
 
+    /// The value of [operation][crate::model::AutomationRun::operation]
+    /// if it holds a `RepairRolloutOperation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn repair_rollout_operation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutOperation>> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::automation_run::Operation::RepairRolloutOperation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [operation][crate::model::AutomationRun::operation]
     /// to hold a `RepairRolloutOperation`.
     ///
@@ -15913,6 +15898,21 @@ impl AutomationRun {
             crate::model::automation_run::Operation::RepairRolloutOperation(v.into()),
         );
         self
+    }
+
+    /// The value of [operation][crate::model::AutomationRun::operation]
+    /// if it holds a `TimedPromoteReleaseOperation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn timed_promote_release_operation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseOperation>> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [operation][crate::model::AutomationRun::operation]
@@ -16306,6 +16306,17 @@ impl RepairRolloutOperation {
         self
     }
 
+    /// Sets the value of [repair_phases][crate::model::RepairRolloutOperation::repair_phases].
+    pub fn set_repair_phases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RepairPhase>,
+    {
+        use std::iter::Iterator;
+        self.repair_phases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [phase_id][crate::model::RepairRolloutOperation::phase_id].
     pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase_id = v.into();
@@ -16315,17 +16326,6 @@ impl RepairRolloutOperation {
     /// Sets the value of [job_id][crate::model::RepairRolloutOperation::job_id].
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
-        self
-    }
-
-    /// Sets the value of [repair_phases][crate::model::RepairRolloutOperation::repair_phases].
-    pub fn set_repair_phases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RepairPhase>,
-    {
-        use std::iter::Iterator;
-        self.repair_phases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -16435,17 +16435,6 @@ impl RepairPhase {
         })
     }
 
-    /// The value of [repair_phase][crate::model::RepairPhase::repair_phase]
-    /// if it holds a `Rollback`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::RollbackAttempt>> {
-        #[allow(unreachable_patterns)]
-        self.repair_phase.as_ref().and_then(|v| match v {
-            crate::model::repair_phase::RepairPhase::Rollback(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [repair_phase][crate::model::RepairPhase::repair_phase]
     /// to hold a `Retry`.
     ///
@@ -16458,6 +16447,17 @@ impl RepairPhase {
         self.repair_phase =
             std::option::Option::Some(crate::model::repair_phase::RepairPhase::Retry(v.into()));
         self
+    }
+
+    /// The value of [repair_phase][crate::model::RepairPhase::repair_phase]
+    /// if it holds a `Rollback`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::RollbackAttempt>> {
+        #[allow(unreachable_patterns)]
+        self.repair_phase.as_ref().and_then(|v| match v {
+            crate::model::repair_phase::RepairPhase::Rollback(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [repair_phase][crate::model::RepairPhase::repair_phase]
@@ -16812,12 +16812,6 @@ impl ListAutomationRunsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAutomationRunsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [automation_runs][crate::model::ListAutomationRunsResponse::automation_runs].
     pub fn set_automation_runs<T, V>(mut self, v: T) -> Self
     where
@@ -16826,6 +16820,12 @@ impl ListAutomationRunsResponse {
     {
         use std::iter::Iterator;
         self.automation_runs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutomationRunsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

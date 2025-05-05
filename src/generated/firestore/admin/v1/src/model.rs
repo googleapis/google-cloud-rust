@@ -923,40 +923,6 @@ pub mod database {
             })
         }
 
-        /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
-        /// if it holds a `UseSourceEncryption`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn use_source_encryption(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::database::encryption_config::SourceEncryptionOptions>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.encryption_type.as_ref().and_then(|v| match v {
-                crate::model::database::encryption_config::EncryptionType::UseSourceEncryption(
-                    v,
-                ) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
-        /// if it holds a `CustomerManagedEncryption`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn customer_managed_encryption(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::database::encryption_config::CustomerManagedEncryptionOptions,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.encryption_type.as_ref().and_then(|v| match v {
-                crate::model::database::encryption_config::EncryptionType::CustomerManagedEncryption(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// to hold a `GoogleDefaultEncryption`.
         ///
@@ -980,6 +946,23 @@ pub mod database {
             self
         }
 
+        /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
+        /// if it holds a `UseSourceEncryption`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn use_source_encryption(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::database::encryption_config::SourceEncryptionOptions>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.encryption_type.as_ref().and_then(|v| match v {
+                crate::model::database::encryption_config::EncryptionType::UseSourceEncryption(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// to hold a `UseSourceEncryption`.
         ///
@@ -1001,6 +984,23 @@ pub mod database {
                 ),
             );
             self
+        }
+
+        /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
+        /// if it holds a `CustomerManagedEncryption`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn customer_managed_encryption(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::database::encryption_config::CustomerManagedEncryptionOptions,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.encryption_type.as_ref().and_then(|v| match v {
+                crate::model::database::encryption_config::EncryptionType::CustomerManagedEncryption(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
@@ -2139,6 +2139,17 @@ pub mod field {
             std::default::Default::default()
         }
 
+        /// Sets the value of [indexes][crate::model::field::IndexConfig::indexes].
+        pub fn set_indexes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Index>,
+        {
+            use std::iter::Iterator;
+            self.indexes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [uses_ancestor_config][crate::model::field::IndexConfig::uses_ancestor_config].
         pub fn set_uses_ancestor_config<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.uses_ancestor_config = v.into();
@@ -2157,17 +2168,6 @@ pub mod field {
         /// Sets the value of [reverting][crate::model::field::IndexConfig::reverting].
         pub fn set_reverting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.reverting = v.into();
-            self
-        }
-
-        /// Sets the value of [indexes][crate::model::field::IndexConfig::indexes].
-        pub fn set_indexes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Index>,
-        {
-            use std::iter::Iterator;
-            self.indexes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3466,12 +3466,6 @@ impl ListIndexesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [indexes][crate::model::ListIndexesResponse::indexes].
     pub fn set_indexes<T, V>(mut self, v: T) -> Self
     where
@@ -3480,6 +3474,12 @@ impl ListIndexesResponse {
     {
         use std::iter::Iterator;
         self.indexes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3769,12 +3769,6 @@ impl ListFieldsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFieldsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [fields][crate::model::ListFieldsResponse::fields].
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
@@ -3783,6 +3777,12 @@ impl ListFieldsResponse {
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFieldsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3873,24 +3873,6 @@ impl ExportDocumentsRequest {
         self
     }
 
-    /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
-    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_uri_prefix = v.into();
-        self
-    }
-
-    /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
-    pub fn set_snapshot_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.snapshot_time = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::ExportDocumentsRequest::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -3902,6 +3884,15 @@ impl ExportDocumentsRequest {
         self
     }
 
+    /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
+    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_uri_prefix = v.into();
+        self
+    }
+
     /// Sets the value of [namespace_ids][crate::model::ExportDocumentsRequest::namespace_ids].
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
@@ -3910,6 +3901,15 @@ impl ExportDocumentsRequest {
     {
         use std::iter::Iterator;
         self.namespace_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+    pub fn set_snapshot_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.snapshot_time = v.into();
         self
     }
 }
@@ -3973,15 +3973,6 @@ impl ImportDocumentsRequest {
         self
     }
 
-    /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
-    pub fn set_input_uri_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_uri_prefix = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::ImportDocumentsRequest::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -3990,6 +3981,15 @@ impl ImportDocumentsRequest {
     {
         use std::iter::Iterator;
         self.collection_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
+    pub fn set_input_uri_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_uri_prefix = v.into();
         self
     }
 
@@ -4505,6 +4505,17 @@ impl Index {
         self
     }
 
+    /// Sets the value of [fields][crate::model::Index::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::index::IndexField>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Index::state].
     pub fn set_state<T: std::convert::Into<crate::model::index::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4529,17 +4540,6 @@ impl Index {
     /// Sets the value of [shard_count][crate::model::Index::shard_count].
     pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.shard_count = v.into();
-        self
-    }
-
-    /// Sets the value of [fields][crate::model::Index::fields].
-    pub fn set_fields<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::index::IndexField>,
-    {
-        use std::iter::Iterator;
-        self.fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4615,37 +4615,6 @@ pub mod index {
             })
         }
 
-        /// The value of [value_mode][crate::model::index::IndexField::value_mode]
-        /// if it holds a `ArrayConfig`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn array_config(
-            &self,
-        ) -> std::option::Option<&crate::model::index::index_field::ArrayConfig> {
-            #[allow(unreachable_patterns)]
-            self.value_mode.as_ref().and_then(|v| match v {
-                crate::model::index::index_field::ValueMode::ArrayConfig(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [value_mode][crate::model::index::IndexField::value_mode]
-        /// if it holds a `VectorConfig`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn vector_config(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::index::index_field::VectorConfig>>
-        {
-            #[allow(unreachable_patterns)]
-            self.value_mode.as_ref().and_then(|v| match v {
-                crate::model::index::index_field::ValueMode::VectorConfig(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
         /// to hold a `Order`.
         ///
@@ -4659,6 +4628,21 @@ pub mod index {
                 crate::model::index::index_field::ValueMode::Order(v.into()),
             );
             self
+        }
+
+        /// The value of [value_mode][crate::model::index::IndexField::value_mode]
+        /// if it holds a `ArrayConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn array_config(
+            &self,
+        ) -> std::option::Option<&crate::model::index::index_field::ArrayConfig> {
+            #[allow(unreachable_patterns)]
+            self.value_mode.as_ref().and_then(|v| match v {
+                crate::model::index::index_field::ValueMode::ArrayConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
@@ -4676,6 +4660,22 @@ pub mod index {
                 crate::model::index::index_field::ValueMode::ArrayConfig(v.into()),
             );
             self
+        }
+
+        /// The value of [value_mode][crate::model::index::IndexField::value_mode]
+        /// if it holds a `VectorConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn vector_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::index::index_field::VectorConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.value_mode.as_ref().and_then(|v| match v {
+                crate::model::index::index_field::ValueMode::VectorConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
@@ -5911,6 +5911,17 @@ impl FieldOperationMetadata {
         self
     }
 
+    /// Sets the value of [index_config_deltas][crate::model::FieldOperationMetadata::index_config_deltas].
+    pub fn set_index_config_deltas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::field_operation_metadata::IndexConfigDelta>,
+    {
+        use std::iter::Iterator;
+        self.index_config_deltas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::FieldOperationMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -5949,17 +5960,6 @@ impl FieldOperationMetadata {
         v: T,
     ) -> Self {
         self.ttl_config_delta = v.into();
-        self
-    }
-
-    /// Sets the value of [index_config_deltas][crate::model::FieldOperationMetadata::index_config_deltas].
-    pub fn set_index_config_deltas<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::field_operation_metadata::IndexConfigDelta>,
-    {
-        use std::iter::Iterator;
-        self.index_config_deltas = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6454,24 +6454,6 @@ impl ExportDocumentsMetadata {
         self
     }
 
-    /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsMetadata::output_uri_prefix].
-    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_uri_prefix = v.into();
-        self
-    }
-
-    /// Sets the value of [snapshot_time][crate::model::ExportDocumentsMetadata::snapshot_time].
-    pub fn set_snapshot_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.snapshot_time = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::ExportDocumentsMetadata::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -6483,6 +6465,15 @@ impl ExportDocumentsMetadata {
         self
     }
 
+    /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsMetadata::output_uri_prefix].
+    pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_uri_prefix = v.into();
+        self
+    }
+
     /// Sets the value of [namespace_ids][crate::model::ExportDocumentsMetadata::namespace_ids].
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
@@ -6491,6 +6482,15 @@ impl ExportDocumentsMetadata {
     {
         use std::iter::Iterator;
         self.namespace_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [snapshot_time][crate::model::ExportDocumentsMetadata::snapshot_time].
+    pub fn set_snapshot_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.snapshot_time = v.into();
         self
     }
 }
@@ -6602,15 +6602,6 @@ impl ImportDocumentsMetadata {
         self
     }
 
-    /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsMetadata::input_uri_prefix].
-    pub fn set_input_uri_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_uri_prefix = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::ImportDocumentsMetadata::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -6619,6 +6610,15 @@ impl ImportDocumentsMetadata {
     {
         use std::iter::Iterator;
         self.collection_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsMetadata::input_uri_prefix].
+    pub fn set_input_uri_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_uri_prefix = v.into();
         self
     }
 
@@ -6744,15 +6744,6 @@ impl BulkDeleteDocumentsMetadata {
         self
     }
 
-    /// Sets the value of [snapshot_time][crate::model::BulkDeleteDocumentsMetadata::snapshot_time].
-    pub fn set_snapshot_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.snapshot_time = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::BulkDeleteDocumentsMetadata::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -6772,6 +6763,15 @@ impl BulkDeleteDocumentsMetadata {
     {
         use std::iter::Iterator;
         self.namespace_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [snapshot_time][crate::model::BulkDeleteDocumentsMetadata::snapshot_time].
+    pub fn set_snapshot_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.snapshot_time = v.into();
         self
     }
 }
@@ -7082,21 +7082,6 @@ impl BackupSchedule {
         })
     }
 
-    /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
-    /// if it holds a `WeeklyRecurrence`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn weekly_recurrence(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::WeeklyRecurrence>> {
-        #[allow(unreachable_patterns)]
-        self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::backup_schedule::Recurrence::WeeklyRecurrence(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [recurrence][crate::model::BackupSchedule::recurrence]
     /// to hold a `DailyRecurrence`.
     ///
@@ -7112,6 +7097,21 @@ impl BackupSchedule {
             crate::model::backup_schedule::Recurrence::DailyRecurrence(v.into()),
         );
         self
+    }
+
+    /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
+    /// if it holds a `WeeklyRecurrence`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn weekly_recurrence(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::WeeklyRecurrence>> {
+        #[allow(unreachable_patterns)]
+        self.recurrence.as_ref().and_then(|v| match v {
+            crate::model::backup_schedule::Recurrence::WeeklyRecurrence(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [recurrence][crate::model::BackupSchedule::recurrence]

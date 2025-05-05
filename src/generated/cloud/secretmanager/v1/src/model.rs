@@ -210,38 +210,15 @@ impl Secret {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Secret::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [rotation][crate::model::Secret::rotation].
-    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rotation = v.into();
-        self
-    }
-
-    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
-    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_destroy_ttl = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
-    pub fn set_customer_managed_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_managed_encryption = v.into();
+    /// Sets the value of [labels][crate::model::Secret::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -256,15 +233,18 @@ impl Secret {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Secret::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [etag][crate::model::Secret::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [rotation][crate::model::Secret::rotation].
+    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rotation = v.into();
         self
     }
 
@@ -289,6 +269,26 @@ impl Secret {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_destroy_ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    pub fn set_customer_managed_encryption<
+        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
         self
     }
 
@@ -317,17 +317,6 @@ impl Secret {
         })
     }
 
-    /// The value of [expiration][crate::model::Secret::expiration]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.expiration.as_ref().and_then(|v| match v {
-            crate::model::secret::Expiration::Ttl(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [expiration][crate::model::Secret::expiration]
     /// to hold a `ExpireTime`.
     ///
@@ -340,6 +329,17 @@ impl Secret {
         self.expiration =
             std::option::Option::Some(crate::model::secret::Expiration::ExpireTime(v.into()));
         self
+    }
+
+    /// The value of [expiration][crate::model::Secret::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::secret::Expiration::Ttl(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [expiration][crate::model::Secret::expiration]
@@ -793,19 +793,6 @@ impl Replication {
         })
     }
 
-    /// The value of [replication][crate::model::Replication::replication]
-    /// if it holds a `UserManaged`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn user_managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::replication::UserManaged>> {
-        #[allow(unreachable_patterns)]
-        self.replication.as_ref().and_then(|v| match v {
-            crate::model::replication::Replication::UserManaged(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [replication][crate::model::Replication::replication]
     /// to hold a `Automatic`.
     ///
@@ -820,6 +807,19 @@ impl Replication {
         self.replication =
             std::option::Option::Some(crate::model::replication::Replication::Automatic(v.into()));
         self
+    }
+
+    /// The value of [replication][crate::model::Replication::replication]
+    /// if it holds a `UserManaged`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::replication::UserManaged>> {
+        #[allow(unreachable_patterns)]
+        self.replication.as_ref().and_then(|v| match v {
+            crate::model::replication::Replication::UserManaged(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [replication][crate::model::Replication::replication]
@@ -1149,22 +1149,6 @@ impl ReplicationStatus {
         })
     }
 
-    /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
-    /// if it holds a `UserManaged`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn user_managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::replication_status::UserManagedStatus>>
-    {
-        #[allow(unreachable_patterns)]
-        self.replication_status.as_ref().and_then(|v| match v {
-            crate::model::replication_status::ReplicationStatus::UserManaged(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status]
     /// to hold a `Automatic`.
     ///
@@ -1180,6 +1164,22 @@ impl ReplicationStatus {
             crate::model::replication_status::ReplicationStatus::Automatic(v.into()),
         );
         self
+    }
+
+    /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
+    /// if it holds a `UserManaged`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::replication_status::UserManagedStatus>>
+    {
+        #[allow(unreachable_patterns)]
+        self.replication_status.as_ref().and_then(|v| match v {
+            crate::model::replication_status::ReplicationStatus::UserManaged(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status]
@@ -1759,6 +1759,17 @@ impl ListSecretsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
+    pub fn set_secrets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Secret>,
+    {
+        use std::iter::Iterator;
+        self.secrets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1768,17 +1779,6 @@ impl ListSecretsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
-    pub fn set_secrets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Secret>,
-    {
-        use std::iter::Iterator;
-        self.secrets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2090,6 +2090,17 @@ impl ListSecretVersionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
+    pub fn set_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretVersion>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2099,17 +2110,6 @@ impl ListSecretVersionsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
-    pub fn set_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretVersion>,
-    {
-        use std::iter::Iterator;
-        self.versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

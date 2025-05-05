@@ -816,6 +816,17 @@ impl Node {
         self
     }
 
+    /// Sets the value of [network_configs][crate::model::Node::network_configs].
+    pub fn set_network_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkConfig>,
+    {
+        use std::iter::Iterator;
+        self.network_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cidr_block][crate::model::Node::cidr_block].
     pub fn set_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr_block = v.into();
@@ -853,9 +864,55 @@ impl Node {
         self
     }
 
+    /// Sets the value of [network_endpoints][crate::model::Node::network_endpoints].
+    pub fn set_network_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkEndpoint>,
+    {
+        use std::iter::Iterator;
+        self.network_endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [health][crate::model::Node::health].
     pub fn set_health<T: std::convert::Into<crate::model::node::Health>>(mut self, v: T) -> Self {
         self.health = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Node::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::Node::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Node::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -865,12 +922,34 @@ impl Node {
         self
     }
 
+    /// Sets the value of [data_disks][crate::model::Node::data_disks].
+    pub fn set_data_disks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AttachedDisk>,
+    {
+        use std::iter::Iterator;
+        self.data_disks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [api_version][crate::model::Node::api_version].
     pub fn set_api_version<T: std::convert::Into<crate::model::node::ApiVersion>>(
         mut self,
         v: T,
     ) -> Self {
         self.api_version = v.into();
+        self
+    }
+
+    /// Sets the value of [symptoms][crate::model::Node::symptoms].
+    pub fn set_symptoms<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Symptom>,
+    {
+        use std::iter::Iterator;
+        self.symptoms = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -905,85 +984,6 @@ impl Node {
     /// Sets the value of [multislice_node][crate::model::Node::multislice_node].
     pub fn set_multislice_node<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multislice_node = v.into();
-        self
-    }
-
-    /// Sets the value of [network_configs][crate::model::Node::network_configs].
-    pub fn set_network_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
-    {
-        use std::iter::Iterator;
-        self.network_configs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [network_endpoints][crate::model::Node::network_endpoints].
-    pub fn set_network_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkEndpoint>,
-    {
-        use std::iter::Iterator;
-        self.network_endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::Node::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [data_disks][crate::model::Node::data_disks].
-    pub fn set_data_disks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedDisk>,
-    {
-        use std::iter::Iterator;
-        self.data_disks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [symptoms][crate::model::Node::symptoms].
-    pub fn set_symptoms<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Symptom>,
-    {
-        use std::iter::Iterator;
-        self.symptoms = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Node::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::Node::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1677,19 +1677,6 @@ impl QueuedResource {
         })
     }
 
-    /// The value of [tier][crate::model::QueuedResource::tier]
-    /// if it holds a `Guaranteed`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn guaranteed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Guaranteed>> {
-        #[allow(unreachable_patterns)]
-        self.tier.as_ref().and_then(|v| match v {
-            crate::model::queued_resource::Tier::Guaranteed(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [tier][crate::model::QueuedResource::tier]
     /// to hold a `Spot`.
     ///
@@ -1701,6 +1688,19 @@ impl QueuedResource {
     ) -> Self {
         self.tier = std::option::Option::Some(crate::model::queued_resource::Tier::Spot(v.into()));
         self
+    }
+
+    /// The value of [tier][crate::model::QueuedResource::tier]
+    /// if it holds a `Guaranteed`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn guaranteed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Guaranteed>> {
+        #[allow(unreachable_patterns)]
+        self.tier.as_ref().and_then(|v| match v {
+            crate::model::queued_resource::Tier::Guaranteed(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [tier][crate::model::QueuedResource::tier]
@@ -1849,6 +1849,18 @@ pub mod queued_resource {
                 })
             }
 
+            /// Sets the value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
+            /// to hold a `NodeId`.
+            ///
+            /// Note that all the setters affecting `name_strategy` are
+            /// mutually exclusive.
+            pub fn set_node_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.name_strategy = std::option::Option::Some(
+                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v.into()),
+                );
+                self
+            }
+
             /// The value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
             /// if it holds a `MultisliceParams`, `None` if the field is not set or
             /// holds a different branch.
@@ -1862,18 +1874,6 @@ pub mod queued_resource {
                     crate::model::queued_resource::tpu::node_spec::NameStrategy::MultisliceParams(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
-            /// to hold a `NodeId`.
-            ///
-            /// Note that all the setters affecting `name_strategy` are
-            /// mutually exclusive.
-            pub fn set_node_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.name_strategy = std::option::Option::Some(
-                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v.into()),
-                );
-                self
             }
 
             /// Sets the value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
@@ -2093,52 +2093,6 @@ pub mod queued_resource {
             })
         }
 
-        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// if it holds a `ValidUntilTime`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn valid_until_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-            #[allow(unreachable_patterns)]
-            self.start_timing_constraints.as_ref().and_then(|v| match v {
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilTime(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// if it holds a `ValidAfterDuration`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn valid_after_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-            #[allow(unreachable_patterns)]
-            self.start_timing_constraints.as_ref().and_then(|v| match v {
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterDuration(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// if it holds a `ValidAfterTime`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn valid_after_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-            #[allow(unreachable_patterns)]
-            self.start_timing_constraints.as_ref().and_then(|v| match v {
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterTime(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// if it holds a `ValidInterval`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn valid_interval(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<gtype::model::Interval>> {
-            #[allow(unreachable_patterns)]
-            self.start_timing_constraints.as_ref().and_then(|v| match v {
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// to hold a `ValidUntilDuration`.
         ///
@@ -2154,6 +2108,17 @@ pub mod queued_resource {
                 )
             );
             self
+        }
+
+        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
+        /// if it holds a `ValidUntilTime`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn valid_until_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+            #[allow(unreachable_patterns)]
+            self.start_timing_constraints.as_ref().and_then(|v| match v {
+                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilTime(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
@@ -2173,6 +2138,17 @@ pub mod queued_resource {
             self
         }
 
+        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
+        /// if it holds a `ValidAfterDuration`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn valid_after_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+            #[allow(unreachable_patterns)]
+            self.start_timing_constraints.as_ref().and_then(|v| match v {
+                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterDuration(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// to hold a `ValidAfterDuration`.
         ///
@@ -2190,6 +2166,17 @@ pub mod queued_resource {
             self
         }
 
+        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
+        /// if it holds a `ValidAfterTime`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn valid_after_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+            #[allow(unreachable_patterns)]
+            self.start_timing_constraints.as_ref().and_then(|v| match v {
+                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterTime(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// to hold a `ValidAfterTime`.
         ///
@@ -2205,6 +2192,19 @@ pub mod queued_resource {
                 )
             );
             self
+        }
+
+        /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
+        /// if it holds a `ValidInterval`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn valid_interval(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<gtype::model::Interval>> {
+            #[allow(unreachable_patterns)]
+            self.start_timing_constraints.as_ref().and_then(|v| match v {
+                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
@@ -2359,118 +2359,6 @@ impl QueuedResourceState {
         })
     }
 
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `AcceptedData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn accepted_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::AcceptedData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `ProvisioningData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn provisioning_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::ProvisioningData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `FailedData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn failed_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::FailedData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::FailedData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `DeletingData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deleting_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::DeletingData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::DeletingData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `ActiveData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn active_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ActiveData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::ActiveData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `SuspendingData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suspending_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::SuspendingData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// if it holds a `SuspendedData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn suspended_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.state_data.as_ref().and_then(|v| match v {
-            crate::model::queued_resource_state::StateData::SuspendedData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
     /// to hold a `CreatingData`.
     ///
@@ -2486,6 +2374,22 @@ impl QueuedResourceState {
             crate::model::queued_resource_state::StateData::CreatingData(v.into()),
         );
         self
+    }
+
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `AcceptedData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn accepted_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::AcceptedData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -2505,6 +2409,22 @@ impl QueuedResourceState {
         self
     }
 
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `ProvisioningData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn provisioning_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::ProvisioningData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
     /// to hold a `ProvisioningData`.
     ///
@@ -2520,6 +2440,22 @@ impl QueuedResourceState {
             crate::model::queued_resource_state::StateData::ProvisioningData(v.into()),
         );
         self
+    }
+
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `FailedData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn failed_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::FailedData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::FailedData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -2539,6 +2475,22 @@ impl QueuedResourceState {
         self
     }
 
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `DeletingData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deleting_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::DeletingData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::DeletingData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
     /// to hold a `DeletingData`.
     ///
@@ -2554,6 +2506,22 @@ impl QueuedResourceState {
             crate::model::queued_resource_state::StateData::DeletingData(v.into()),
         );
         self
+    }
+
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `ActiveData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn active_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ActiveData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::ActiveData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -2573,6 +2541,22 @@ impl QueuedResourceState {
         self
     }
 
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `SuspendingData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suspending_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::SuspendingData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
     /// to hold a `SuspendingData`.
     ///
@@ -2588,6 +2572,22 @@ impl QueuedResourceState {
             crate::model::queued_resource_state::StateData::SuspendingData(v.into()),
         );
         self
+    }
+
+    /// The value of [state_data][crate::model::QueuedResourceState::state_data]
+    /// if it holds a `SuspendedData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn suspended_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.state_data.as_ref().and_then(|v| match v {
+            crate::model::queued_resource_state::StateData::SuspendedData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -3248,12 +3248,6 @@ impl ListNodesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNodesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [nodes][crate::model::ListNodesResponse::nodes].
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
@@ -3262,6 +3256,12 @@ impl ListNodesResponse {
     {
         use std::iter::Iterator;
         self.nodes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNodesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3628,12 +3628,6 @@ impl ListQueuedResourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListQueuedResourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [queued_resources][crate::model::ListQueuedResourcesResponse::queued_resources].
     pub fn set_queued_resources<T, V>(mut self, v: T) -> Self
     where
@@ -3642,6 +3636,12 @@ impl ListQueuedResourcesResponse {
     {
         use std::iter::Iterator;
         self.queued_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQueuedResourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4183,12 +4183,6 @@ impl ListAcceleratorTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAcceleratorTypesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [accelerator_types][crate::model::ListAcceleratorTypesResponse::accelerator_types].
     pub fn set_accelerator_types<T, V>(mut self, v: T) -> Self
     where
@@ -4197,6 +4191,12 @@ impl ListAcceleratorTypesResponse {
     {
         use std::iter::Iterator;
         self.accelerator_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAcceleratorTypesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4413,12 +4413,6 @@ impl ListRuntimeVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuntimeVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [runtime_versions][crate::model::ListRuntimeVersionsResponse::runtime_versions].
     pub fn set_runtime_versions<T, V>(mut self, v: T) -> Self
     where
@@ -4427,6 +4421,12 @@ impl ListRuntimeVersionsResponse {
     {
         use std::iter::Iterator;
         self.runtime_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuntimeVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

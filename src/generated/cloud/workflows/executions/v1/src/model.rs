@@ -207,17 +207,6 @@ impl Execution {
         self
     }
 
-    /// Sets the value of [state_error][crate::model::Execution::state_error].
-    pub fn set_state_error<
-        T: std::convert::Into<std::option::Option<crate::model::execution::StateError>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_error = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Execution::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -227,6 +216,17 @@ impl Execution {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state_error][crate::model::Execution::state_error].
+    pub fn set_state_error<
+        T: std::convert::Into<std::option::Option<crate::model::execution::StateError>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state_error = v.into();
         self
     }
 }
@@ -1162,12 +1162,6 @@ impl ListExecutionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExecutionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [executions][crate::model::ListExecutionsResponse::executions].
     pub fn set_executions<T, V>(mut self, v: T) -> Self
     where
@@ -1176,6 +1170,12 @@ impl ListExecutionsResponse {
     {
         use std::iter::Iterator;
         self.executions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExecutionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

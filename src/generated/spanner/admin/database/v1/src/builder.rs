@@ -228,6 +228,17 @@ pub mod database_admin {
             self
         }
 
+        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
         pub fn set_encryption_config<
             T: Into<std::option::Option<crate::model::EncryptionConfig>>,
@@ -251,17 +262,6 @@ pub mod database_admin {
         /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
         pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
-            self
-        }
-
-        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
-        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -499,18 +499,6 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
-        pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.operation_id = v.into();
-            self
-        }
-
-        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
-        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.proto_descriptors = v.into();
-            self
-        }
-
         /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
         ///
         /// This is a **required** field for requests.
@@ -521,6 +509,18 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
+        pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation_id = v.into();
+            self
+        }
+
+        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
+        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.proto_descriptors = v.into();
             self
         }
     }
@@ -1695,12 +1695,6 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
-        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.initiator = v.into();
-            self
-        }
-
         /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
         ///
         /// This is a **required** field for requests.
@@ -1711,6 +1705,12 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.split_points = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.initiator = v.into();
             self
         }
     }

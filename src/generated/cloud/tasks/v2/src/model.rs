@@ -168,12 +168,6 @@ impl ListQueuesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListQueuesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [queues][crate::model::ListQueuesResponse::queues].
     pub fn set_queues<T, V>(mut self, v: T) -> Self
     where
@@ -182,6 +176,12 @@ impl ListQueuesResponse {
     {
         use std::iter::Iterator;
         self.queues = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQueuesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -642,12 +642,6 @@ impl ListTasksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tasks][crate::model::ListTasksResponse::tasks].
     pub fn set_tasks<T, V>(mut self, v: T) -> Self
     where
@@ -656,6 +650,12 @@ impl ListTasksResponse {
     {
         use std::iter::Iterator;
         self.tasks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1812,12 +1812,6 @@ impl HttpRequest {
         self
     }
 
-    /// Sets the value of [body][crate::model::HttpRequest::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::HttpRequest::headers].
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
@@ -1827,6 +1821,12 @@ impl HttpRequest {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::HttpRequest::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 
@@ -1857,19 +1857,6 @@ impl HttpRequest {
         })
     }
 
-    /// The value of [authorization_header][crate::model::HttpRequest::authorization_header]
-    /// if it holds a `OidcToken`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
-        #[allow(unreachable_patterns)]
-        self.authorization_header.as_ref().and_then(|v| match v {
-            crate::model::http_request::AuthorizationHeader::OidcToken(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [authorization_header][crate::model::HttpRequest::authorization_header]
     /// to hold a `OauthToken`.
     ///
@@ -1883,6 +1870,19 @@ impl HttpRequest {
             crate::model::http_request::AuthorizationHeader::OauthToken(v.into()),
         );
         self
+    }
+
+    /// The value of [authorization_header][crate::model::HttpRequest::authorization_header]
+    /// if it holds a `OidcToken`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
+        #[allow(unreachable_patterns)]
+        self.authorization_header.as_ref().and_then(|v| match v {
+            crate::model::http_request::AuthorizationHeader::OidcToken(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [authorization_header][crate::model::HttpRequest::authorization_header]
@@ -2148,12 +2148,6 @@ impl AppEngineHttpRequest {
         self
     }
 
-    /// Sets the value of [body][crate::model::AppEngineHttpRequest::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::AppEngineHttpRequest::headers].
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
@@ -2163,6 +2157,12 @@ impl AppEngineHttpRequest {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::AppEngineHttpRequest::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 }
@@ -2663,17 +2663,6 @@ impl Task {
         })
     }
 
-    /// The value of [message_type][crate::model::Task::message_type]
-    /// if it holds a `HttpRequest`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn http_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpRequest>> {
-        #[allow(unreachable_patterns)]
-        self.message_type.as_ref().and_then(|v| match v {
-            crate::model::task::MessageType::HttpRequest(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [message_type][crate::model::Task::message_type]
     /// to hold a `AppEngineHttpRequest`.
     ///
@@ -2689,6 +2678,17 @@ impl Task {
             crate::model::task::MessageType::AppEngineHttpRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [message_type][crate::model::Task::message_type]
+    /// if it holds a `HttpRequest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn http_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpRequest>> {
+        #[allow(unreachable_patterns)]
+        self.message_type.as_ref().and_then(|v| match v {
+            crate::model::task::MessageType::HttpRequest(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [message_type][crate::model::Task::message_type]

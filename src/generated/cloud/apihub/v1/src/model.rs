@@ -402,12 +402,6 @@ impl ListApisResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListApisResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [apis][crate::model::ListApisResponse::apis].
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
@@ -416,6 +410,12 @@ impl ListApisResponse {
     {
         use std::iter::Iterator;
         self.apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListApisResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -805,12 +805,6 @@ impl ListVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
@@ -819,6 +813,12 @@ impl ListVersionsResponse {
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1185,12 +1185,6 @@ impl ListSpecsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSpecsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [specs][crate::model::ListSpecsResponse::specs].
     pub fn set_specs<T, V>(mut self, v: T) -> Self
     where
@@ -1199,6 +1193,12 @@ impl ListSpecsResponse {
     {
         use std::iter::Iterator;
         self.specs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSpecsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1441,12 +1441,6 @@ impl ListApiOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListApiOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [api_operations][crate::model::ListApiOperationsResponse::api_operations].
     pub fn set_api_operations<T, V>(mut self, v: T) -> Self
     where
@@ -1455,6 +1449,12 @@ impl ListApiOperationsResponse {
     {
         use std::iter::Iterator;
         self.api_operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListApiOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1869,12 +1869,6 @@ impl ListDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -1883,6 +1877,12 @@ impl ListDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2246,12 +2246,6 @@ impl ListAttributesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttributesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attributes][crate::model::ListAttributesResponse::attributes].
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
@@ -2260,6 +2254,12 @@ impl ListAttributesResponse {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttributesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2439,61 +2439,6 @@ impl ApiHubResource {
         })
     }
 
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Operation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApiOperation>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Operation(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Deployment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Deployment>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Deployment(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Spec`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::Spec>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Spec(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Definition`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn definition(&self) -> std::option::Option<&std::boxed::Box<crate::model::Definition>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Definition(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Version`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn version(&self) -> std::option::Option<&std::boxed::Box<crate::model::Version>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Version(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
     /// to hold a `Api`.
     ///
@@ -2506,6 +2451,17 @@ impl ApiHubResource {
         self.resource =
             std::option::Option::Some(crate::model::api_hub_resource::Resource::Api(v.into()));
         self
+    }
+
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Operation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApiOperation>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Operation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
@@ -2523,6 +2479,17 @@ impl ApiHubResource {
         self
     }
 
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Deployment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Deployment>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Deployment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
     /// to hold a `Deployment`.
     ///
@@ -2536,6 +2503,17 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Deployment(v.into()),
         );
         self
+    }
+
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Spec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::Spec>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Spec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
@@ -2552,6 +2530,17 @@ impl ApiHubResource {
         self
     }
 
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Definition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn definition(&self) -> std::option::Option<&std::boxed::Box<crate::model::Definition>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Definition(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
     /// to hold a `Definition`.
     ///
@@ -2565,6 +2554,17 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Definition(v.into()),
         );
         self
+    }
+
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Version`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn version(&self) -> std::option::Option<&std::boxed::Box<crate::model::Version>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Version(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
@@ -2688,12 +2688,6 @@ impl SearchResourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchResourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [search_results][crate::model::SearchResourcesResponse::search_results].
     pub fn set_search_results<T, V>(mut self, v: T) -> Self
     where
@@ -2702,6 +2696,12 @@ impl SearchResourcesResponse {
     {
         use std::iter::Iterator;
         self.search_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchResourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3056,12 +3056,6 @@ impl ListDependenciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDependenciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [dependencies][crate::model::ListDependenciesResponse::dependencies].
     pub fn set_dependencies<T, V>(mut self, v: T) -> Self
     where
@@ -3070,6 +3064,12 @@ impl ListDependenciesResponse {
     {
         use std::iter::Iterator;
         self.dependencies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDependenciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3388,12 +3388,6 @@ impl ListExternalApisResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExternalApisResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [external_apis][crate::model::ListExternalApisResponse::external_apis].
     pub fn set_external_apis<T, V>(mut self, v: T) -> Self
     where
@@ -3402,6 +3396,12 @@ impl ListExternalApisResponse {
     {
         use std::iter::Iterator;
         self.external_apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExternalApisResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3586,6 +3586,17 @@ impl Api {
         self
     }
 
+    /// Sets the value of [versions][crate::model::Api::versions].
+    pub fn set_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Api::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3646,6 +3657,18 @@ impl Api {
         self
     }
 
+    /// Sets the value of [attributes][crate::model::Api::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::AttributeValues>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [api_style][crate::model::Api::api_style].
     pub fn set_api_style<
         T: std::convert::Into<std::option::Option<crate::model::AttributeValues>>,
@@ -3663,29 +3686,6 @@ impl Api {
         v: T,
     ) -> Self {
         self.selected_version = v.into();
-        self
-    }
-
-    /// Sets the value of [versions][crate::model::Api::versions].
-    pub fn set_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.versions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [attributes][crate::model::Api::attributes].
-    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::AttributeValues>,
-    {
-        use std::iter::Iterator;
-        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3845,6 +3845,50 @@ impl Version {
         self
     }
 
+    /// Sets the value of [specs][crate::model::Version::specs].
+    pub fn set_specs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.specs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [api_operations][crate::model::Version::api_operations].
+    pub fn set_api_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.api_operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [definitions][crate::model::Version::definitions].
+    pub fn set_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.definitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deployments][crate::model::Version::deployments].
+    pub fn set_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Version::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3896,59 +3940,6 @@ impl Version {
         self
     }
 
-    /// Sets the value of [selected_deployment][crate::model::Version::selected_deployment].
-    pub fn set_selected_deployment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.selected_deployment = v.into();
-        self
-    }
-
-    /// Sets the value of [specs][crate::model::Version::specs].
-    pub fn set_specs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.specs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [api_operations][crate::model::Version::api_operations].
-    pub fn set_api_operations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.api_operations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [definitions][crate::model::Version::definitions].
-    pub fn set_definitions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.definitions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [deployments][crate::model::Version::deployments].
-    pub fn set_deployments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.deployments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [attributes][crate::model::Version::attributes].
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -3958,6 +3949,15 @@ impl Version {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [selected_deployment][crate::model::Version::selected_deployment].
+    pub fn set_selected_deployment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.selected_deployment = v.into();
         self
     }
 }
@@ -4127,6 +4127,18 @@ impl Spec {
         self
     }
 
+    /// Sets the value of [attributes][crate::model::Spec::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::AttributeValues>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [documentation][crate::model::Spec::documentation].
     pub fn set_documentation<
         T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
@@ -4144,18 +4156,6 @@ impl Spec {
         v: T,
     ) -> Self {
         self.parsing_mode = v.into();
-        self
-    }
-
-    /// Sets the value of [attributes][crate::model::Spec::attributes].
-    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::AttributeValues>,
-    {
-        use std::iter::Iterator;
-        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4462,6 +4462,28 @@ impl Deployment {
         self
     }
 
+    /// Sets the value of [endpoints][crate::model::Deployment::endpoints].
+    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [api_versions][crate::model::Deployment::api_versions].
+    pub fn set_api_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.api_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Deployment::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -4497,28 +4519,6 @@ impl Deployment {
         v: T,
     ) -> Self {
         self.environment = v.into();
-        self
-    }
-
-    /// Sets the value of [endpoints][crate::model::Deployment::endpoints].
-    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [api_versions][crate::model::Deployment::api_versions].
-    pub fn set_api_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.api_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5056,6 +5056,17 @@ impl Attribute {
         self
     }
 
+    /// Sets the value of [allowed_values][crate::model::Attribute::allowed_values].
+    pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::attribute::AllowedValue>,
+    {
+        use std::iter::Iterator;
+        self.allowed_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cardinality][crate::model::Attribute::cardinality].
     pub fn set_cardinality<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cardinality = v.into();
@@ -5083,17 +5094,6 @@ impl Attribute {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [allowed_values][crate::model::Attribute::allowed_values].
-    pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::attribute::AllowedValue>,
-    {
-        use std::iter::Iterator;
-        self.allowed_values = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6569,34 +6569,6 @@ impl AttributeValues {
         })
     }
 
-    /// The value of [value][crate::model::AttributeValues::value]
-    /// if it holds a `StringValues`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
-    {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_values::Value::StringValues(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::AttributeValues::value]
-    /// if it holds a `JsonValues`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn json_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
-    {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_values::Value::JsonValues(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::AttributeValues::value]
     /// to hold a `EnumValues`.
     ///
@@ -6611,6 +6583,20 @@ impl AttributeValues {
         self.value =
             std::option::Option::Some(crate::model::attribute_values::Value::EnumValues(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::AttributeValues::value]
+    /// if it holds a `StringValues`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_values(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
+    {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_values::Value::StringValues(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::AttributeValues::value]
@@ -6628,6 +6614,20 @@ impl AttributeValues {
             crate::model::attribute_values::Value::StringValues(v.into()),
         );
         self
+    }
+
+    /// The value of [value][crate::model::AttributeValues::value]
+    /// if it holds a `JsonValues`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn json_values(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
+    {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_values::Value::JsonValues(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::AttributeValues::value]
@@ -7238,19 +7238,6 @@ impl DependencyEntityReference {
         })
     }
 
-    /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
-    /// if it holds a `ExternalApiResourceName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn external_api_resource_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::dependency_entity_reference::Identifier::ExternalApiResourceName(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier]
     /// to hold a `OperationResourceName`.
     ///
@@ -7264,6 +7251,19 @@ impl DependencyEntityReference {
             crate::model::dependency_entity_reference::Identifier::OperationResourceName(v.into()),
         );
         self
+    }
+
+    /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
+    /// if it holds a `ExternalApiResourceName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn external_api_resource_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::dependency_entity_reference::Identifier::ExternalApiResourceName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier]
@@ -7535,6 +7535,28 @@ impl LintResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [issues][crate::model::LintResponse::issues].
+    pub fn set_issues<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Issue>,
+    {
+        use std::iter::Iterator;
+        self.issues = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [summary][crate::model::LintResponse::summary].
+    pub fn set_summary<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::lint_response::SummaryEntry>,
+    {
+        use std::iter::Iterator;
+        self.summary = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::LintResponse::state].
     pub fn set_state<T: std::convert::Into<crate::model::LintState>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -7559,28 +7581,6 @@ impl LintResponse {
         v: T,
     ) -> Self {
         self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [issues][crate::model::LintResponse::issues].
-    pub fn set_issues<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Issue>,
-    {
-        use std::iter::Iterator;
-        self.issues = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [summary][crate::model::LintResponse::summary].
-    pub fn set_summary<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::lint_response::SummaryEntry>,
-    {
-        use std::iter::Iterator;
-        self.summary = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7679,6 +7679,17 @@ impl Issue {
         self
     }
 
+    /// Sets the value of [path][crate::model::Issue::path].
+    pub fn set_path<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.path = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [message][crate::model::Issue::message].
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
@@ -7697,17 +7708,6 @@ impl Issue {
         v: T,
     ) -> Self {
         self.range = v.into();
-        self
-    }
-
-    /// Sets the value of [path][crate::model::Issue::path].
-    pub fn set_path<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.path = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8013,12 +8013,6 @@ impl ApiHubInstance {
         self
     }
 
-    /// Sets the value of [description][crate::model::ApiHubInstance::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::ApiHubInstance::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -8028,6 +8022,12 @@ impl ApiHubInstance {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ApiHubInstance::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
         self
     }
 }
@@ -8318,35 +8318,6 @@ impl ExternalApi {
         self
     }
 
-    /// Sets the value of [documentation][crate::model::ExternalApi::documentation].
-    pub fn set_documentation<
-        T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.documentation = v.into();
-        self
-    }
-
-    /// Sets the value of [create_time][crate::model::ExternalApi::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::ExternalApi::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [endpoints][crate::model::ExternalApi::endpoints].
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -8369,6 +8340,17 @@ impl ExternalApi {
         self
     }
 
+    /// Sets the value of [documentation][crate::model::ExternalApi::documentation].
+    pub fn set_documentation<
+        T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.documentation = v.into();
+        self
+    }
+
     /// Sets the value of [attributes][crate::model::ExternalApi::attributes].
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -8378,6 +8360,24 @@ impl ExternalApi {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ExternalApi::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ExternalApi::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -8622,12 +8622,6 @@ impl ListHostProjectRegistrationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHostProjectRegistrationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [host_project_registrations][crate::model::ListHostProjectRegistrationsResponse::host_project_registrations].
     pub fn set_host_project_registrations<T, V>(mut self, v: T) -> Self
     where
@@ -8636,6 +8630,12 @@ impl ListHostProjectRegistrationsResponse {
     {
         use std::iter::Iterator;
         self.host_project_registrations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHostProjectRegistrationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9734,12 +9734,6 @@ impl ListRuntimeProjectAttachmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuntimeProjectAttachmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [runtime_project_attachments][crate::model::ListRuntimeProjectAttachmentsResponse::runtime_project_attachments].
     pub fn set_runtime_project_attachments<T, V>(mut self, v: T) -> Self
     where
@@ -9748,6 +9742,12 @@ impl ListRuntimeProjectAttachmentsResponse {
     {
         use std::iter::Iterator;
         self.runtime_project_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuntimeProjectAttachmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

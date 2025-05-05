@@ -3316,14 +3316,6 @@ pub mod net_app {
             self
         }
 
-        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.peer_volume_name = v.into();
-            self
-        }
-
         /// Sets the value of [peer_ip_addresses][crate::model::EstablishPeeringRequest::peer_ip_addresses].
         pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
         where
@@ -3332,6 +3324,14 @@ pub mod net_app {
         {
             use std::iter::Iterator;
             self.0.request.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_volume_name = v.into();
             self
         }
     }

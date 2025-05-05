@@ -436,12 +436,6 @@ impl ListFoldersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [folders][crate::model::ListFoldersResponse::folders].
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
@@ -450,6 +444,12 @@ impl ListFoldersResponse {
     {
         use std::iter::Iterator;
         self.folders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -584,12 +584,6 @@ impl SearchFoldersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchFoldersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [folders][crate::model::SearchFoldersResponse::folders].
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
@@ -598,6 +592,12 @@ impl SearchFoldersResponse {
     {
         use std::iter::Iterator;
         self.folders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchFoldersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1447,12 +1447,6 @@ impl SearchOrganizationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchOrganizationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [organizations][crate::model::SearchOrganizationsResponse::organizations].
     pub fn set_organizations<T, V>(mut self, v: T) -> Self
     where
@@ -1461,6 +1455,12 @@ impl SearchOrganizationsResponse {
     {
         use std::iter::Iterator;
         self.organizations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchOrganizationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2000,12 +2000,6 @@ impl ListProjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [projects][crate::model::ListProjectsResponse::projects].
     pub fn set_projects<T, V>(mut self, v: T) -> Self
     where
@@ -2014,6 +2008,12 @@ impl ListProjectsResponse {
     {
         use std::iter::Iterator;
         self.projects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2171,12 +2171,6 @@ impl SearchProjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchProjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [projects][crate::model::SearchProjectsResponse::projects].
     pub fn set_projects<T, V>(mut self, v: T) -> Self
     where
@@ -2185,6 +2179,12 @@ impl SearchProjectsResponse {
     {
         use std::iter::Iterator;
         self.projects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchProjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2875,12 +2875,6 @@ impl ListTagBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTagBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tag_bindings][crate::model::ListTagBindingsResponse::tag_bindings].
     pub fn set_tag_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -2889,6 +2883,12 @@ impl ListTagBindingsResponse {
     {
         use std::iter::Iterator;
         self.tag_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTagBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3003,12 +3003,6 @@ impl ListEffectiveTagsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEffectiveTagsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [effective_tags][crate::model::ListEffectiveTagsResponse::effective_tags].
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
@@ -3017,6 +3011,12 @@ impl ListEffectiveTagsResponse {
     {
         use std::iter::Iterator;
         self.effective_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEffectiveTagsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3494,12 +3494,6 @@ impl ListTagHoldsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTagHoldsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tag_holds][crate::model::ListTagHoldsResponse::tag_holds].
     pub fn set_tag_holds<T, V>(mut self, v: T) -> Self
     where
@@ -3508,6 +3502,12 @@ impl ListTagHoldsResponse {
     {
         use std::iter::Iterator;
         self.tag_holds = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTagHoldsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3771,12 +3771,6 @@ impl ListTagKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTagKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tag_keys][crate::model::ListTagKeysResponse::tag_keys].
     pub fn set_tag_keys<T, V>(mut self, v: T) -> Self
     where
@@ -3785,6 +3779,12 @@ impl ListTagKeysResponse {
     {
         use std::iter::Iterator;
         self.tag_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTagKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4316,12 +4316,6 @@ impl ListTagValuesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTagValuesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tag_values][crate::model::ListTagValuesResponse::tag_values].
     pub fn set_tag_values<T, V>(mut self, v: T) -> Self
     where
@@ -4330,6 +4324,12 @@ impl ListTagValuesResponse {
     {
         use std::iter::Iterator;
         self.tag_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTagValuesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

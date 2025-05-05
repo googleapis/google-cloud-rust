@@ -180,6 +180,17 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
+        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
+        pub fn set_reasons<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+        {
+            use std::iter::Iterator;
+            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [account_id][crate::model::AnnotateAssessmentRequest::account_id].
         pub fn set_account_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.account_id = v.into();
@@ -200,17 +211,6 @@ pub mod recaptcha_enterprise_service {
             v: T,
         ) -> Self {
             self.0.request.transaction_event = v.into();
-            self
-        }
-
-        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
-        pub fn set_reasons<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
-        {
-            use std::iter::Iterator;
-            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

@@ -12,15 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, RandomChars, Result};
+use crate::{Error, Result};
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::{ItemPaginator, Paginator};
-use rand::Rng;
 use std::time::Duration;
 use storage::model::Bucket;
-
-pub const BUCKET_ID_LENGTH: usize = 63;
 
 pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -42,7 +39,7 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
 
     cleanup_stale_buckets(&client, &project_id).await?;
 
-    let bucket_id = random_bucket_id();
+    let bucket_id = crate::random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
 
     println!("\nTesting create_bucket()");
@@ -182,19 +179,6 @@ async fn cleanup_bucket(client: storage::client::Storage, name: String) -> Resul
     }
     let _ = futures::future::join_all(pending).await;
     client.delete_bucket(&name).send().await
-}
-
-const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
-
-pub(crate) fn random_bucket_id() -> String {
-    let distr = RandomChars { chars: CHARSET };
-    const PREFIX: &str = "rust-sdk-testing-";
-    let bucket_id: String = rand::rng()
-        .sample_iter(distr)
-        .take(BUCKET_ID_LENGTH - PREFIX.len())
-        .map(char::from)
-        .collect();
-    format!("{PREFIX}{bucket_id}")
 }
 
 fn test_backoff() -> ExponentialBackoff {
