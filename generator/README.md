@@ -56,7 +56,8 @@ Or from `generator/`: `go test ./...`
 
 ### Installing `protoc`: the Protobuf Compiler
 
-The generator and its unit tests use `protoc`, the Protobuf compiler. Ensure you have `protoc >= v23.0` installed and it is found via your `$PATH`.
+The generator and its unit tests use `protoc`, the Protobuf compiler. Ensure you
+have `protoc >= v23.0` installed and it is found via your `$PATH`.
 
 ```bash
 protoc --version
