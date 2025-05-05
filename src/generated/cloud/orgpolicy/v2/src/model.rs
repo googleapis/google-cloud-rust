@@ -80,6 +80,7 @@ pub struct Constraint {
     pub constraint_default: crate::model::constraint::ConstraintDefault,
 
     /// Shows if dry run is supported for this constraint or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub supports_dry_run: bool,
 
     /// Managed constraint and canned constraint sometimes can have
@@ -88,6 +89,7 @@ pub struct Constraint {
     pub equivalent_constraint: std::string::String,
 
     /// Shows if simulation is supported for this constraint or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub supports_simulation: bool,
 
     /// The type of restrictions for this `Constraint`.
@@ -184,21 +186,6 @@ impl Constraint {
         })
     }
 
-    /// The value of [constraint_type][crate::model::Constraint::constraint_type]
-    /// if it holds a `BooleanConstraint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn boolean_constraint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
-        #[allow(unreachable_patterns)]
-        self.constraint_type.as_ref().and_then(|v| match v {
-            crate::model::constraint::ConstraintType::BooleanConstraint(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type]
     /// to hold a `ListConstraint`.
     ///
@@ -214,6 +201,21 @@ impl Constraint {
             crate::model::constraint::ConstraintType::ListConstraint(v.into()),
         );
         self
+    }
+
+    /// The value of [constraint_type][crate::model::Constraint::constraint_type]
+    /// if it holds a `BooleanConstraint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn boolean_constraint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
+        #[allow(unreachable_patterns)]
+        self.constraint_type.as_ref().and_then(|v| match v {
+            crate::model::constraint::ConstraintType::BooleanConstraint(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type]
@@ -258,12 +260,14 @@ pub mod constraint {
         /// Indicates whether values grouped into categories can be used in
         /// `Policy.allowed_values` and `Policy.denied_values`. For example,
         /// `"in:Python"` would match any value in the 'Python' group.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub supports_in: bool,
 
         /// Indicates whether subtrees of the Resource Manager resource hierarchy
         /// can be used in `Policy.allowed_values` and `Policy.denied_values`. For
         /// example, `"under:folders/123"` would match any resource under the
         /// 'folders/123' folder.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub supports_under: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -344,23 +348,6 @@ pub mod constraint {
             std::default::Default::default()
         }
 
-        /// Sets the value of [condition][crate::model::constraint::CustomConstraintDefinition::condition].
-        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.condition = v.into();
-            self
-        }
-
-        /// Sets the value of [action_type][crate::model::constraint::CustomConstraintDefinition::action_type].
-        pub fn set_action_type<
-            T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action_type = v.into();
-            self
-        }
-
         /// Sets the value of [resource_types][crate::model::constraint::CustomConstraintDefinition::resource_types].
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
@@ -382,6 +369,23 @@ pub mod constraint {
         {
             use std::iter::Iterator;
             self.method_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [condition][crate::model::constraint::CustomConstraintDefinition::condition].
+        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.condition = v.into();
+            self
+        }
+
+        /// Sets the value of [action_type][crate::model::constraint::CustomConstraintDefinition::action_type].
+        pub fn set_action_type<
+            T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action_type = v.into();
             self
         }
 
@@ -551,65 +555,144 @@ pub mod constraint {
             }
 
             /// All valid types of parameter.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(i32);
-
-            impl Type {
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Type {
                 /// This is only used for distinguishing unset values and should never be
                 /// used. Results in an error.
-                pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+                Unspecified,
                 /// List parameter type.
-                pub const LIST: Type = Type::new(1);
-
+                List,
                 /// String parameter type.
-                pub const STRING: Type = Type::new(2);
-
+                String,
                 /// Boolean parameter type.
-                pub const BOOLEAN: Type = Type::new(3);
+                Boolean,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [Type::value] or
+                /// [Type::name].
+                UnknownValue(r#type::UnknownValue),
+            }
 
-                /// Creates a new Type instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
+            #[doc(hidden)]
+            pub mod r#type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
+            impl Type {
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::List => std::option::Option::Some(1),
+                        Self::String => std::option::Option::Some(2),
+                        Self::Boolean => std::option::Option::Some(3),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("LIST"),
-                        2 => std::borrow::Cow::Borrowed("STRING"),
-                        3 => std::borrow::Cow::Borrowed("BOOLEAN"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                        Self::List => std::option::Option::Some("LIST"),
+                        Self::String => std::option::Option::Some("STRING"),
+                        Self::Boolean => std::option::Option::Some("BOOLEAN"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                        "LIST" => std::option::Option::Some(Self::LIST),
-                        "STRING" => std::option::Option::Some(Self::STRING),
-                        "BOOLEAN" => std::option::Option::Some(Self::BOOLEAN),
-                        _ => std::option::Option::None,
-                    }
-                }
-            }
-
-            impl std::convert::From<i32> for Type {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for Type {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for Type {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::List,
+                        2 => Self::String,
+                        3 => Self::Boolean,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for Type {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "LIST" => Self::List,
+                        "STRING" => Self::String,
+                        "BOOLEAN" => Self::Boolean,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::List => serializer.serialize_i32(1),
+                        Self::String => serializer.serialize_i32(2),
+                        Self::Boolean => serializer.serialize_i32(3),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                        ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter.Type"))
                 }
             }
         }
@@ -621,138 +704,296 @@ pub mod constraint {
         ///
         /// `UPDATE`-only custom constraints are not supported. Use `CREATE` or
         /// `CREATE, UPDATE`.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct MethodType(i32);
-
-        impl MethodType {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum MethodType {
             /// This is only used for distinguishing unset values and should never be
             /// used. Results in an error.
-            pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new(0);
-
+            Unspecified,
             /// Constraint applied when creating the resource.
-            pub const CREATE: MethodType = MethodType::new(1);
-
+            Create,
             /// Constraint applied when updating the resource.
-            pub const UPDATE: MethodType = MethodType::new(2);
-
+            Update,
             /// Constraint applied when deleting the resource.
             /// Not currently supported.
-            pub const DELETE: MethodType = MethodType::new(3);
-
+            Delete,
             /// Constraint applied when removing an IAM grant.
-            pub const REMOVE_GRANT: MethodType = MethodType::new(4);
-
+            RemoveGrant,
             /// Constraint applied when enforcing forced tagging.
-            pub const GOVERN_TAGS: MethodType = MethodType::new(5);
+            GovernTags,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [MethodType::value] or
+            /// [MethodType::name].
+            UnknownValue(method_type::UnknownValue),
+        }
 
-            /// Creates a new MethodType instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod method_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl MethodType {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Create => std::option::Option::Some(1),
+                    Self::Update => std::option::Option::Some(2),
+                    Self::Delete => std::option::Option::Some(3),
+                    Self::RemoveGrant => std::option::Option::Some(4),
+                    Self::GovernTags => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("METHOD_TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("CREATE"),
-                    2 => std::borrow::Cow::Borrowed("UPDATE"),
-                    3 => std::borrow::Cow::Borrowed("DELETE"),
-                    4 => std::borrow::Cow::Borrowed("REMOVE_GRANT"),
-                    5 => std::borrow::Cow::Borrowed("GOVERN_TAGS"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("METHOD_TYPE_UNSPECIFIED"),
+                    Self::Create => std::option::Option::Some("CREATE"),
+                    Self::Update => std::option::Option::Some("UPDATE"),
+                    Self::Delete => std::option::Option::Some("DELETE"),
+                    Self::RemoveGrant => std::option::Option::Some("REMOVE_GRANT"),
+                    Self::GovernTags => std::option::Option::Some("GOVERN_TAGS"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "METHOD_TYPE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::METHOD_TYPE_UNSPECIFIED)
-                    }
-                    "CREATE" => std::option::Option::Some(Self::CREATE),
-                    "UPDATE" => std::option::Option::Some(Self::UPDATE),
-                    "DELETE" => std::option::Option::Some(Self::DELETE),
-                    "REMOVE_GRANT" => std::option::Option::Some(Self::REMOVE_GRANT),
-                    "GOVERN_TAGS" => std::option::Option::Some(Self::GOVERN_TAGS),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for MethodType {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for MethodType {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for MethodType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for MethodType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Create,
+                    2 => Self::Update,
+                    3 => Self::Delete,
+                    4 => Self::RemoveGrant,
+                    5 => Self::GovernTags,
+                    _ => Self::UnknownValue(method_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for MethodType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "METHOD_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "CREATE" => Self::Create,
+                    "UPDATE" => Self::Update,
+                    "DELETE" => Self::Delete,
+                    "REMOVE_GRANT" => Self::RemoveGrant,
+                    "GOVERN_TAGS" => Self::GovernTags,
+                    _ => Self::UnknownValue(method_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for MethodType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Create => serializer.serialize_i32(1),
+                    Self::Update => serializer.serialize_i32(2),
+                    Self::Delete => serializer.serialize_i32(3),
+                    Self::RemoveGrant => serializer.serialize_i32(4),
+                    Self::GovernTags => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for MethodType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<MethodType>::new(
+                    ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.MethodType",
+                ))
             }
         }
 
         /// Allow or deny type.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ActionType(i32);
-
-        impl ActionType {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ActionType {
             /// This is only used for distinguishing unset values and should never be
             /// used. Results in an error.
-            pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new(0);
-
+            Unspecified,
             /// Allowed action type.
-            pub const ALLOW: ActionType = ActionType::new(1);
-
+            Allow,
             /// Deny action type.
-            pub const DENY: ActionType = ActionType::new(2);
+            Deny,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ActionType::value] or
+            /// [ActionType::name].
+            UnknownValue(action_type::UnknownValue),
+        }
 
-            /// Creates a new ActionType instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod action_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl ActionType {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Allow => std::option::Option::Some(1),
+                    Self::Deny => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("ACTION_TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("ALLOW"),
-                    2 => std::borrow::Cow::Borrowed("DENY"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("ACTION_TYPE_UNSPECIFIED"),
+                    Self::Allow => std::option::Option::Some("ALLOW"),
+                    Self::Deny => std::option::Option::Some("DENY"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "ACTION_TYPE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::ACTION_TYPE_UNSPECIFIED)
-                    }
-                    "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                    "DENY" => std::option::Option::Some(Self::DENY),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for ActionType {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for ActionType {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ActionType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ActionType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Allow,
+                    2 => Self::Deny,
+                    _ => Self::UnknownValue(action_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ActionType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "ACTION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "ALLOW" => Self::Allow,
+                    "DENY" => Self::Deny,
+                    _ => Self::UnknownValue(action_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ActionType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Allow => serializer.serialize_i32(1),
+                    Self::Deny => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ActionType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActionType>::new(
+                    ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.ActionType",
+                ))
             }
         }
     }
@@ -807,64 +1048,137 @@ pub mod constraint {
     /// constraint. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
     ///
     /// Immutable after creation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConstraintDefault(i32);
-
-    impl ConstraintDefault {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConstraintDefault {
         /// This is only used for distinguishing unset values and should never be
         /// used. Results in an error.
-        pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault = ConstraintDefault::new(0);
-
+        Unspecified,
         /// Indicate that all values are allowed for list constraints.
         /// Indicate that enforcement is off for boolean constraints.
-        pub const ALLOW: ConstraintDefault = ConstraintDefault::new(1);
-
+        Allow,
         /// Indicate that all values are denied for list constraints.
         /// Indicate that enforcement is on for boolean constraints.
-        pub const DENY: ConstraintDefault = ConstraintDefault::new(2);
+        Deny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConstraintDefault::value] or
+        /// [ConstraintDefault::name].
+        UnknownValue(constraint_default::UnknownValue),
+    }
 
-        /// Creates a new ConstraintDefault instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod constraint_default {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ConstraintDefault {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CONSTRAINT_DEFAULT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                2 => std::borrow::Cow::Borrowed("DENY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONSTRAINT_DEFAULT_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CONSTRAINT_DEFAULT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CONSTRAINT_DEFAULT_UNSPECIFIED)
-                }
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                "DENY" => std::option::Option::Some(Self::DENY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ConstraintDefault {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ConstraintDefault {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConstraintDefault {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConstraintDefault {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                _ => Self::UnknownValue(constraint_default::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConstraintDefault {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONSTRAINT_DEFAULT_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                _ => Self::UnknownValue(constraint_default::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConstraintDefault {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConstraintDefault {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConstraintDefault>::new(
+                ".google.cloud.orgpolicy.v2.Constraint.ConstraintDefault",
+            ))
         }
     }
 
@@ -959,6 +1273,28 @@ impl CustomConstraint {
         self
     }
 
+    /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
+    pub fn set_resource_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
+    pub fn set_method_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
+    {
+        use std::iter::Iterator;
+        self.method_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [condition][crate::model::CustomConstraint::condition].
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
@@ -994,28 +1330,6 @@ impl CustomConstraint {
         self.update_time = v.into();
         self
     }
-
-    /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
-    pub fn set_resource_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
-    pub fn set_method_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
-    {
-        use std::iter::Iterator;
-        self.method_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for CustomConstraint {
@@ -1036,138 +1350,290 @@ pub mod custom_constraint {
     ///
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MethodType(i32);
-
-    impl MethodType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MethodType {
         /// This is only used for distinguishing unset values and should never be
         /// used. Results in an error.
-        pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new(0);
-
+        Unspecified,
         /// Constraint applied when creating the resource.
-        pub const CREATE: MethodType = MethodType::new(1);
-
+        Create,
         /// Constraint applied when updating the resource.
-        pub const UPDATE: MethodType = MethodType::new(2);
-
+        Update,
         /// Constraint applied when deleting the resource.
         /// Not currently supported.
-        pub const DELETE: MethodType = MethodType::new(3);
-
+        Delete,
         /// Constraint applied when removing an IAM grant.
-        pub const REMOVE_GRANT: MethodType = MethodType::new(4);
-
+        RemoveGrant,
         /// Constraint applied when enforcing forced tagging.
-        pub const GOVERN_TAGS: MethodType = MethodType::new(5);
+        GovernTags,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MethodType::value] or
+        /// [MethodType::name].
+        UnknownValue(method_type::UnknownValue),
+    }
 
-        /// Creates a new MethodType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod method_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl MethodType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Create => std::option::Option::Some(1),
+                Self::Update => std::option::Option::Some(2),
+                Self::Delete => std::option::Option::Some(3),
+                Self::RemoveGrant => std::option::Option::Some(4),
+                Self::GovernTags => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METHOD_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATE"),
-                2 => std::borrow::Cow::Borrowed("UPDATE"),
-                3 => std::borrow::Cow::Borrowed("DELETE"),
-                4 => std::borrow::Cow::Borrowed("REMOVE_GRANT"),
-                5 => std::borrow::Cow::Borrowed("GOVERN_TAGS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METHOD_TYPE_UNSPECIFIED"),
+                Self::Create => std::option::Option::Some("CREATE"),
+                Self::Update => std::option::Option::Some("UPDATE"),
+                Self::Delete => std::option::Option::Some("DELETE"),
+                Self::RemoveGrant => std::option::Option::Some("REMOVE_GRANT"),
+                Self::GovernTags => std::option::Option::Some("GOVERN_TAGS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METHOD_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::METHOD_TYPE_UNSPECIFIED)
-                }
-                "CREATE" => std::option::Option::Some(Self::CREATE),
-                "UPDATE" => std::option::Option::Some(Self::UPDATE),
-                "DELETE" => std::option::Option::Some(Self::DELETE),
-                "REMOVE_GRANT" => std::option::Option::Some(Self::REMOVE_GRANT),
-                "GOVERN_TAGS" => std::option::Option::Some(Self::GOVERN_TAGS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for MethodType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for MethodType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MethodType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MethodType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Create,
+                2 => Self::Update,
+                3 => Self::Delete,
+                4 => Self::RemoveGrant,
+                5 => Self::GovernTags,
+                _ => Self::UnknownValue(method_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MethodType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METHOD_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CREATE" => Self::Create,
+                "UPDATE" => Self::Update,
+                "DELETE" => Self::Delete,
+                "REMOVE_GRANT" => Self::RemoveGrant,
+                "GOVERN_TAGS" => Self::GovernTags,
+                _ => Self::UnknownValue(method_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MethodType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Create => serializer.serialize_i32(1),
+                Self::Update => serializer.serialize_i32(2),
+                Self::Delete => serializer.serialize_i32(3),
+                Self::RemoveGrant => serializer.serialize_i32(4),
+                Self::GovernTags => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MethodType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MethodType>::new(
+                ".google.cloud.orgpolicy.v2.CustomConstraint.MethodType",
+            ))
         }
     }
 
     /// Allow or deny type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ActionType(i32);
-
-    impl ActionType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ActionType {
         /// This is only used for distinguishing unset values and should never be
         /// used. Results in an error.
-        pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new(0);
-
+        Unspecified,
         /// Allowed action type.
-        pub const ALLOW: ActionType = ActionType::new(1);
-
+        Allow,
         /// Deny action type.
-        pub const DENY: ActionType = ActionType::new(2);
+        Deny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ActionType::value] or
+        /// [ActionType::name].
+        UnknownValue(action_type::UnknownValue),
+    }
 
-        /// Creates a new ActionType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod action_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ActionType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ACTION_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                2 => std::borrow::Cow::Borrowed("DENY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ACTION_TYPE_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ACTION_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ACTION_TYPE_UNSPECIFIED)
-                }
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                "DENY" => std::option::Option::Some(Self::DENY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ActionType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ActionType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ActionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ActionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                _ => Self::UnknownValue(action_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ActionType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                _ => Self::UnknownValue(action_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ActionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ActionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActionType>::new(
+                ".google.cloud.orgpolicy.v2.CustomConstraint.ActionType",
+            ))
         }
     }
 }
@@ -1201,6 +1667,7 @@ pub struct Policy {
 
     /// Deprecated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub alternate: std::option::Option<crate::model::AlternatePolicySpec>,
 
     /// Dry-run policy.
@@ -1241,6 +1708,7 @@ impl Policy {
     }
 
     /// Sets the value of [alternate][crate::model::Policy::alternate].
+    #[deprecated]
     pub fn set_alternate<
         T: std::convert::Into<std::option::Option<crate::model::AlternatePolicySpec>>,
     >(
@@ -1367,6 +1835,7 @@ pub struct PolicySpec {
     /// effective policy. If it is false, then no rules are inherited, and this
     /// policy becomes the new root for evaluation.
     /// This field can be set only for policies which configure list constraints.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub inherit_from_parent: bool,
 
     /// Ignores policies set above this resource and restores the
@@ -1375,6 +1844,7 @@ pub struct PolicySpec {
     /// This field can be set in policies for either list or boolean
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reset: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1401,6 +1871,17 @@ impl PolicySpec {
         self
     }
 
+    /// Sets the value of [rules][crate::model::PolicySpec::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::policy_spec::PolicyRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [inherit_from_parent][crate::model::PolicySpec::inherit_from_parent].
     pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inherit_from_parent = v.into();
@@ -1410,17 +1891,6 @@ impl PolicySpec {
     /// Sets the value of [reset][crate::model::PolicySpec::reset].
     pub fn set_reset<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reset = v.into();
-        self
-    }
-
-    /// Sets the value of [rules][crate::model::PolicySpec::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::policy_spec::PolicyRule>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1529,45 +1999,6 @@ pub mod policy_spec {
             })
         }
 
-        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// if it holds a `AllowAll`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn allow_all(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// if it holds a `DenyAll`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn deny_all(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// if it holds a `Enforce`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn enforce(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::Enforce(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// to hold a `Values`.
         ///
@@ -1587,6 +2018,19 @@ pub mod policy_spec {
             self
         }
 
+        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
+        /// if it holds a `AllowAll`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn allow_all(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// to hold a `AllowAll`.
         ///
@@ -1599,6 +2043,19 @@ pub mod policy_spec {
             self
         }
 
+        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
+        /// if it holds a `DenyAll`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn deny_all(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// to hold a `DenyAll`.
         ///
@@ -1609,6 +2066,19 @@ pub mod policy_spec {
                 crate::model::policy_spec::policy_rule::Kind::DenyAll(v.into()),
             );
             self
+        }
+
+        /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
+        /// if it holds a `Enforce`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn enforce(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::policy_spec::policy_rule::Kind::Enforce(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
@@ -1744,6 +2214,7 @@ pub struct ListConstraintsRequest {
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -1809,12 +2280,6 @@ impl ListConstraintsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConstraintsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [constraints][crate::model::ListConstraintsResponse::constraints].
     pub fn set_constraints<T, V>(mut self, v: T) -> Self
     where
@@ -1823,6 +2288,12 @@ impl ListConstraintsResponse {
     {
         use std::iter::Iterator;
         self.constraints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConstraintsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1868,6 +2339,7 @@ pub struct ListPoliciesRequest {
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -1936,12 +2408,6 @@ impl ListPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policies][crate::model::ListPoliciesResponse::policies].
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
@@ -1950,6 +2416,12 @@ impl ListPoliciesResponse {
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2297,6 +2769,7 @@ pub struct ListCustomConstraintsRequest {
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -2366,12 +2839,6 @@ impl ListCustomConstraintsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCustomConstraintsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [custom_constraints][crate::model::ListCustomConstraintsResponse::custom_constraints].
     pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
     where
@@ -2380,6 +2847,12 @@ impl ListCustomConstraintsResponse {
     {
         use std::iter::Iterator;
         self.custom_constraints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCustomConstraintsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

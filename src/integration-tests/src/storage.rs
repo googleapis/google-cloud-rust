@@ -12,15 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, RandomChars, Result};
+use crate::{Error, Result};
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::{ItemPaginator, Paginator};
-use rand::Rng;
 use std::time::Duration;
 use storage::model::Bucket;
-
-pub const BUCKET_ID_LENGTH: usize = 63;
 
 pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -42,7 +39,7 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
 
     cleanup_stale_buckets(&client, &project_id).await?;
 
-    let bucket_id = random_bucket_id();
+    let bucket_id = crate::random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
 
     println!("\nTesting create_bucket()");
@@ -80,9 +77,44 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
         "missing bucket name {bucket_name} in {bucket_names:?}"
     );
 
+    buckets_iam(&client, &bucket_name).await?;
+
     println!("\nTesting delete_bucket()");
     client.delete_bucket(bucket_name).send().await?;
     println!("SUCCESS on delete_bucket");
+
+    Ok(())
+}
+
+async fn buckets_iam(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
+    let service_account = crate::service_account_for_iam_tests()?;
+
+    println!("\nTesting get_iam_policy()");
+    let policy = client.get_iam_policy(bucket_name).send().await?;
+    println!("SUCCESS on get_iam_policy = {policy:?}");
+
+    println!("\nTesting test_iam_permissions()");
+    let response = client
+        .test_iam_permissions(bucket_name)
+        .set_permissions(["storage.buckets.get"])
+        .send()
+        .await?;
+    println!("SUCCESS on test_iam_permissions = {response:?}");
+
+    println!("\nTesting set_iam_policy()");
+    let mut new_policy = policy.clone();
+    new_policy.bindings.push(
+        iam_v1::model::Binding::new()
+            .set_role("roles/storage.legacyBucketReader")
+            .set_members([format!("serviceAccount:{service_account}")]),
+    );
+    let policy = client
+        .set_iam_policy(bucket_name)
+        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+        .set_policy(new_policy)
+        .send()
+        .await?;
+    println!("SUCCESS on set_iam_policy = {policy:?}");
 
     Ok(())
 }
@@ -147,19 +179,6 @@ async fn cleanup_bucket(client: storage::client::Storage, name: String) -> Resul
     }
     let _ = futures::future::join_all(pending).await;
     client.delete_bucket(&name).send().await
-}
-
-const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
-
-pub(crate) fn random_bucket_id() -> String {
-    let distr = RandomChars { chars: CHARSET };
-    const PREFIX: &str = "rust-sdk-testing-";
-    let bucket_id: String = rand::rng()
-        .sample_iter(distr)
-        .take(BUCKET_ID_LENGTH - PREFIX.len())
-        .map(char::from)
-        .collect();
-    format!("{PREFIX}{bucket_id}")
 }
 
 fn test_backoff() -> ExponentialBackoff {

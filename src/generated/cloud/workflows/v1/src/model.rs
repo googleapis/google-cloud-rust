@@ -236,6 +236,18 @@ impl Workflow {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Workflow::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::Workflow::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -268,6 +280,18 @@ impl Workflow {
         self
     }
 
+    /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
+    pub fn set_user_env_vars<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_env_vars = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [execution_history_level][crate::model::Workflow::execution_history_level].
     pub fn set_execution_history_level<
         T: std::convert::Into<crate::model::ExecutionHistoryLevel>,
@@ -276,15 +300,6 @@ impl Workflow {
         v: T,
     ) -> Self {
         self.execution_history_level = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
-    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key_version = v.into();
         self
     }
 
@@ -310,27 +325,12 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Workflow::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
-    pub fn set_user_env_vars<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.user_env_vars = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.crypto_key_version = v.into();
         self
     }
 
@@ -445,178 +445,404 @@ pub mod workflow {
         use super::*;
 
         /// Describes the possibled types of a state error.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// No type specified.
+            Unspecified,
+            /// Caused by an issue with KMS.
+            KmsError,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl Type {
-            /// No type specified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-            /// Caused by an issue with KMS.
-            pub const KMS_ERROR: Type = Type::new(1);
-
-            /// Creates a new Type instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::KmsError => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("KMS_ERROR"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::KmsError => std::option::Option::Some("KMS_ERROR"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                    "KMS_ERROR" => std::option::Option::Some(Self::KMS_ERROR),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Type {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::KmsError,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "KMS_ERROR" => Self::KmsError,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::KmsError => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.workflows.v1.Workflow.StateError.Type",
+                ))
             }
         }
     }
 
     /// Describes the current state of workflow deployment.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Invalid state.
+        Unspecified,
+        /// The workflow has been deployed successfully and is serving.
+        Active,
+        /// Workflow data is unavailable. See the `state_error` field.
+        Unavailable,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Invalid state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The workflow has been deployed successfully and is serving.
-        pub const ACTIVE: State = State::new(1);
-
-        /// Workflow data is unavailable. See the `state_error` field.
-        pub const UNAVAILABLE: State = State::new(2);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Unavailable => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Unavailable => std::option::Option::Some("UNAVAILABLE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Unavailable,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "UNAVAILABLE" => Self::Unavailable,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Unavailable => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.workflows.v1.Workflow.State",
+            ))
         }
     }
 
     /// Describes the level of platform logging to apply to calls and call
     /// responses during workflow executions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallLogLevel(i32);
-
-    impl CallLogLevel {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CallLogLevel {
         /// No call logging level specified.
-        pub const CALL_LOG_LEVEL_UNSPECIFIED: CallLogLevel = CallLogLevel::new(0);
-
+        Unspecified,
         /// Log all call steps within workflows, all call returns, and all exceptions
         /// raised.
-        pub const LOG_ALL_CALLS: CallLogLevel = CallLogLevel::new(1);
-
+        LogAllCalls,
         /// Log only exceptions that are raised from call steps within workflows.
-        pub const LOG_ERRORS_ONLY: CallLogLevel = CallLogLevel::new(2);
-
+        LogErrorsOnly,
         /// Explicitly log nothing.
-        pub const LOG_NONE: CallLogLevel = CallLogLevel::new(3);
+        LogNone,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CallLogLevel::value] or
+        /// [CallLogLevel::name].
+        UnknownValue(call_log_level::UnknownValue),
+    }
 
-        /// Creates a new CallLogLevel instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod call_log_level {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CallLogLevel {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::LogAllCalls => std::option::Option::Some(1),
+                Self::LogErrorsOnly => std::option::Option::Some(2),
+                Self::LogNone => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CALL_LOG_LEVEL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("LOG_ALL_CALLS"),
-                2 => std::borrow::Cow::Borrowed("LOG_ERRORS_ONLY"),
-                3 => std::borrow::Cow::Borrowed("LOG_NONE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CALL_LOG_LEVEL_UNSPECIFIED"),
+                Self::LogAllCalls => std::option::Option::Some("LOG_ALL_CALLS"),
+                Self::LogErrorsOnly => std::option::Option::Some("LOG_ERRORS_ONLY"),
+                Self::LogNone => std::option::Option::Some("LOG_NONE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CALL_LOG_LEVEL_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CALL_LOG_LEVEL_UNSPECIFIED)
-                }
-                "LOG_ALL_CALLS" => std::option::Option::Some(Self::LOG_ALL_CALLS),
-                "LOG_ERRORS_ONLY" => std::option::Option::Some(Self::LOG_ERRORS_ONLY),
-                "LOG_NONE" => std::option::Option::Some(Self::LOG_NONE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for CallLogLevel {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CallLogLevel {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CallLogLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CallLogLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::LogAllCalls,
+                2 => Self::LogErrorsOnly,
+                3 => Self::LogNone,
+                _ => Self::UnknownValue(call_log_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CallLogLevel {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CALL_LOG_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                "LOG_ALL_CALLS" => Self::LogAllCalls,
+                "LOG_ERRORS_ONLY" => Self::LogErrorsOnly,
+                "LOG_NONE" => Self::LogNone,
+                _ => Self::UnknownValue(call_log_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CallLogLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::LogAllCalls => serializer.serialize_i32(1),
+                Self::LogErrorsOnly => serializer.serialize_i32(2),
+                Self::LogNone => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CallLogLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CallLogLevel>::new(
+                ".google.cloud.workflows.v1.Workflow.CallLogLevel",
+            ))
         }
     }
 
@@ -651,6 +877,7 @@ pub struct ListWorkflowsRequest {
     /// fewer than this value even if not at the end of the collection. If a value
     /// is not specified, a default value of 500 is used. The maximum permitted
     /// value is 1000 and values greater than 1000 are coerced down to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkflows` call.
@@ -760,12 +987,6 @@ impl ListWorkflowsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workflows][crate::model::ListWorkflowsResponse::workflows].
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
@@ -774,6 +995,12 @@ impl ListWorkflowsResponse {
     {
         use std::iter::Iterator;
         self.workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1112,6 +1339,7 @@ pub struct ListWorkflowRevisionsRequest {
     /// The maximum number of revisions to return per page. If a value is not
     /// specified, a default value of 20 is used. The maximum permitted value is
     /// 100. Values greater than 100 are coerced down to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token, received from a previous ListWorkflowRevisions call.
@@ -1181,12 +1409,6 @@ impl ListWorkflowRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workflows][crate::model::ListWorkflowRevisionsResponse::workflows].
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
@@ -1195,6 +1417,12 @@ impl ListWorkflowRevisionsResponse {
     {
         use std::iter::Iterator;
         self.workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1220,63 +1448,135 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowRevisionsRespons
 }
 
 /// Define possible options for enabling the execution history level.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExecutionHistoryLevel(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ExecutionHistoryLevel {
+    /// The default/unset value.
+    Unspecified,
+    /// Enable execution history basic feature.
+    ExecutionHistoryBasic,
+    /// Enable execution history detailed feature.
+    ExecutionHistoryDetailed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ExecutionHistoryLevel::value] or
+    /// [ExecutionHistoryLevel::name].
+    UnknownValue(execution_history_level::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod execution_history_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl ExecutionHistoryLevel {
-    /// The default/unset value.
-    pub const EXECUTION_HISTORY_LEVEL_UNSPECIFIED: ExecutionHistoryLevel =
-        ExecutionHistoryLevel::new(0);
-
-    /// Enable execution history basic feature.
-    pub const EXECUTION_HISTORY_BASIC: ExecutionHistoryLevel = ExecutionHistoryLevel::new(1);
-
-    /// Enable execution history detailed feature.
-    pub const EXECUTION_HISTORY_DETAILED: ExecutionHistoryLevel = ExecutionHistoryLevel::new(2);
-
-    /// Creates a new ExecutionHistoryLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ExecutionHistoryBasic => std::option::Option::Some(1),
+            Self::ExecutionHistoryDetailed => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("EXECUTION_HISTORY_LEVEL_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("EXECUTION_HISTORY_BASIC"),
-            2 => std::borrow::Cow::Borrowed("EXECUTION_HISTORY_DETAILED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "EXECUTION_HISTORY_LEVEL_UNSPECIFIED" => {
-                std::option::Option::Some(Self::EXECUTION_HISTORY_LEVEL_UNSPECIFIED)
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("EXECUTION_HISTORY_LEVEL_UNSPECIFIED"),
+            Self::ExecutionHistoryBasic => std::option::Option::Some("EXECUTION_HISTORY_BASIC"),
+            Self::ExecutionHistoryDetailed => {
+                std::option::Option::Some("EXECUTION_HISTORY_DETAILED")
             }
-            "EXECUTION_HISTORY_BASIC" => std::option::Option::Some(Self::EXECUTION_HISTORY_BASIC),
-            "EXECUTION_HISTORY_DETAILED" => {
-                std::option::Option::Some(Self::EXECUTION_HISTORY_DETAILED)
-            }
-            _ => std::option::Option::None,
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-}
-
-impl std::convert::From<i32> for ExecutionHistoryLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ExecutionHistoryLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ExecutionHistoryLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ExecutionHistoryLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ExecutionHistoryBasic,
+            2 => Self::ExecutionHistoryDetailed,
+            _ => Self::UnknownValue(execution_history_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ExecutionHistoryLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "EXECUTION_HISTORY_LEVEL_UNSPECIFIED" => Self::Unspecified,
+            "EXECUTION_HISTORY_BASIC" => Self::ExecutionHistoryBasic,
+            "EXECUTION_HISTORY_DETAILED" => Self::ExecutionHistoryDetailed,
+            _ => Self::UnknownValue(execution_history_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ExecutionHistoryLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ExecutionHistoryBasic => serializer.serialize_i32(1),
+            Self::ExecutionHistoryDetailed => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ExecutionHistoryLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionHistoryLevel>::new(
+            ".google.cloud.workflows.v1.ExecutionHistoryLevel",
+        ))
     }
 }

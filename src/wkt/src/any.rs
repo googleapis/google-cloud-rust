@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::message::MessageSerializer;
+
 /// `Any` contains an arbitrary serialized protocol buffer message along with a
 /// URL that describes the type of the serialized message.
 ///
@@ -101,16 +103,17 @@ impl Any {
     /// also supports serialization to JSON.
     pub fn try_from<T>(message: &T) -> Result<Self, Error>
     where
-        T: serde::ser::Serialize + crate::message::Message,
+        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        let value = message.to_map()?;
+        let serializer = T::serializer();
+        let value = serializer.serialize_to_map(message)?;
         Ok(Any(value))
     }
 
     /// Extracts (if possible) a `T` value from the [Any].
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
-        T: serde::de::DeserializeOwned + crate::message::Message,
+        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let map = &self.0;
         let r#type = map
@@ -119,7 +122,9 @@ impl Any {
             .ok_or_else(|| "@type field is missing or is not a string".to_string())
             .map_err(Error::deser)?;
         Self::check_typename(r#type, T::typename())?;
-        T::from_map(map)
+
+        let serializer = T::serializer();
+        serializer.deserialize_from_map(map)
     }
 
     fn check_typename(got: &str, want: &str) -> Result<(), Error> {
@@ -136,11 +141,10 @@ impl crate::message::Message for Any {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Any"
     }
-    fn to_map(&self) -> Result<crate::message::Map, AnyError> {
-        crate::message::to_json_other(self)
-    }
-    fn from_map(map: &crate::message::Map) -> Result<Self, AnyError> {
-        crate::message::from_other(map)
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 

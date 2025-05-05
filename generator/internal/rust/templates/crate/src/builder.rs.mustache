@@ -25,7 +25,6 @@ limitations under the License.
 {{/Codec.PerServiceFeatures}}
 pub mod {{Codec.ModuleName}} {
     use crate::Result;
-    use std::sync::Arc;
 
     {{^Codec.SkipBuilderDocs}}
     /// A builder for [{{Codec.Name}}][super::super::client::{{Codec.Name}}].
@@ -60,14 +59,14 @@ pub mod {{Codec.ModuleName}} {
     /// Common implementation for [super::super::client::{{Codec.Name}}] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -84,7 +83,7 @@ pub mod {{Codec.ModuleName}} {
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 
     impl {{Codec.BuilderName}} {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -173,17 +172,23 @@ pub mod {{Codec.ModuleName}} {
             lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
         {{/OperationInfo}}
-        {{#InputType.Codec.SingularFields}}
+        {{#InputType.Codec.BasicFields}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{#DocumentAsRequired}}
+        ///
+        /// This is a **required** field for requests.
+        {{/DocumentAsRequired}}
+        {{#Deprecated}}
+        #[deprecated]
+        {{/Deprecated}}
+        {{#Singular}}
         pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{/InputType.Codec.SingularFields}}
-        {{#InputType.Codec.RepeatedFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{/Singular}}
+        {{#Repeated}}
         pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -193,10 +198,8 @@ pub mod {{Codec.ModuleName}} {
             self.0.request.{{Codec.FieldName}} = v.into_iter().map(|i| i.into()).collect();
             self
         }
-        {{/InputType.Codec.RepeatedFields}}
-        {{#InputType.Codec.MapFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{/Repeated}}
+        {{#Map}}
         pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -206,7 +209,8 @@ pub mod {{Codec.ModuleName}} {
             self.0.request.{{Codec.FieldName}} = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
-        {{/InputType.Codec.MapFields}}
+        {{/Map}}
+        {{/InputType.Codec.BasicFields}}
         {{#InputType.OneOfs}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.StructQualifiedName}}::{{Codec.SetterName}}].
@@ -217,24 +221,23 @@ pub mod {{Codec.ModuleName}} {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{#Codec.SingularFields}}
+        {{#Fields}}
 
         /// Sets the value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
         /// to hold a `{{Codec.BranchName}}`.
         ///
         /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
         /// mutually exclusive.
+        {{#Deprecated}}
+        #[deprecated]
+        {{/Deprecated}}
+        {{#Singular}}
         pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_{{Codec.SetterName}}(v);
             self
         }
-        {{/Codec.SingularFields}}
-        {{#Codec.RepeatedFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
-        ///
-        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-        /// mutually exclusive.
+        {{/Singular}}
+        {{#Repeated}}
         pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -248,13 +251,8 @@ pub mod {{Codec.ModuleName}} {
             );
             self
         }
-        {{/Codec.RepeatedFields}}
-        {{#Codec.MapFields}}
-
-        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
-        ///
-        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-        /// mutually exclusive.
+        {{/Repeated}}
+        {{#Map}}
         pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -269,7 +267,8 @@ pub mod {{Codec.ModuleName}} {
             );
             self
         }
-        {{/Codec.MapFields}}
+        {{/Map}}
+        {{/Fields}}
         {{/InputType.OneOfs}}
     }
 

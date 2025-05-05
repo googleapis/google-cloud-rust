@@ -16,7 +16,6 @@
 
 pub mod autokey {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Autokey][super::super::client::Autokey].
     ///
@@ -49,7 +48,7 @@ pub mod autokey {
     /// Common implementation for [super::super::client::Autokey] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Autokey>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod autokey {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod autokey {
     pub struct CreateKeyHandle(RequestBuilder<crate::model::CreateKeyHandleRequest>);
 
     impl CreateKeyHandle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -136,6 +135,8 @@ pub mod autokey {
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -148,6 +149,8 @@ pub mod autokey {
         }
 
         /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key_handle<T: Into<std::option::Option<crate::model::KeyHandle>>>(
             mut self,
             v: T,
@@ -169,7 +172,7 @@ pub mod autokey {
     pub struct GetKeyHandle(RequestBuilder<crate::model::GetKeyHandleRequest>);
 
     impl GetKeyHandle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -194,6 +197,8 @@ pub mod autokey {
         }
 
         /// Sets the value of [name][crate::model::GetKeyHandleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -212,7 +217,7 @@ pub mod autokey {
     pub struct ListKeyHandles(RequestBuilder<crate::model::ListKeyHandlesRequest>);
 
     impl ListKeyHandles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -252,6 +257,8 @@ pub mod autokey {
         }
 
         /// Sets the value of [parent][crate::model::ListKeyHandlesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -288,7 +295,7 @@ pub mod autokey {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -367,7 +374,7 @@ pub mod autokey {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,7 +417,7 @@ pub mod autokey {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -435,12 +442,16 @@ pub mod autokey {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -471,7 +482,7 @@ pub mod autokey {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -496,6 +507,8 @@ pub mod autokey {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -523,7 +536,7 @@ pub mod autokey {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -551,12 +564,16 @@ pub mod autokey {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -580,7 +597,7 @@ pub mod autokey {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -624,7 +641,6 @@ pub mod autokey {
 
 pub mod autokey_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AutokeyAdmin][super::super::client::AutokeyAdmin].
     ///
@@ -657,7 +673,7 @@ pub mod autokey_admin {
     /// Common implementation for [super::super::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -666,7 +682,9 @@ pub mod autokey_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -680,7 +698,9 @@ pub mod autokey_admin {
     pub struct UpdateAutokeyConfig(RequestBuilder<crate::model::UpdateAutokeyConfigRequest>);
 
     impl UpdateAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,6 +728,8 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_autokey_config<T: Into<std::option::Option<crate::model::AutokeyConfig>>>(
             mut self,
             v: T,
@@ -717,6 +739,8 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -738,7 +762,9 @@ pub mod autokey_admin {
     pub struct GetAutokeyConfig(RequestBuilder<crate::model::GetAutokeyConfigRequest>);
 
     impl GetAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -766,6 +792,8 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [name][crate::model::GetAutokeyConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -786,7 +814,9 @@ pub mod autokey_admin {
     );
 
     impl ShowEffectiveAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -814,6 +844,8 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [parent][crate::model::ShowEffectiveAutokeyConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -832,7 +864,9 @@ pub mod autokey_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -911,7 +945,9 @@ pub mod autokey_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -954,7 +990,9 @@ pub mod autokey_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,12 +1017,16 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1015,7 +1057,9 @@ pub mod autokey_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1040,6 +1084,8 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1067,7 +1113,9 @@ pub mod autokey_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1095,12 +1143,16 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1124,7 +1176,9 @@ pub mod autokey_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1168,7 +1222,6 @@ pub mod autokey_admin {
 
 pub mod ekm_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [EkmService][super::super::client::EkmService].
     ///
@@ -1201,7 +1254,7 @@ pub mod ekm_service {
     /// Common implementation for [super::super::client::EkmService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EkmService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1210,7 +1263,9 @@ pub mod ekm_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1224,7 +1279,9 @@ pub mod ekm_service {
     pub struct ListEkmConnections(RequestBuilder<crate::model::ListEkmConnectionsRequest>);
 
     impl ListEkmConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1267,6 +1324,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [parent][crate::model::ListEkmConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1309,7 +1368,9 @@ pub mod ekm_service {
     pub struct GetEkmConnection(RequestBuilder<crate::model::GetEkmConnectionRequest>);
 
     impl GetEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1337,6 +1398,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1355,7 +1418,9 @@ pub mod ekm_service {
     pub struct CreateEkmConnection(RequestBuilder<crate::model::CreateEkmConnectionRequest>);
 
     impl CreateEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1383,18 +1448,24 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateEkmConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [ekm_connection_id][crate::model::CreateEkmConnectionRequest::ekm_connection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ekm_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.ekm_connection_id = v.into();
             self
         }
 
         /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
             mut self,
             v: T,
@@ -1416,7 +1487,9 @@ pub mod ekm_service {
     pub struct UpdateEkmConnection(RequestBuilder<crate::model::UpdateEkmConnectionRequest>);
 
     impl UpdateEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1444,6 +1517,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
             mut self,
             v: T,
@@ -1453,6 +1528,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1474,7 +1551,9 @@ pub mod ekm_service {
     pub struct GetEkmConfig(RequestBuilder<crate::model::GetEkmConfigRequest>);
 
     impl GetEkmConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1499,6 +1578,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [name][crate::model::GetEkmConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1517,7 +1598,9 @@ pub mod ekm_service {
     pub struct UpdateEkmConfig(RequestBuilder<crate::model::UpdateEkmConfigRequest>);
 
     impl UpdateEkmConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1542,6 +1625,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ekm_config<T: Into<std::option::Option<crate::model::EkmConfig>>>(
             mut self,
             v: T,
@@ -1551,6 +1636,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1572,7 +1659,9 @@ pub mod ekm_service {
     pub struct VerifyConnectivity(RequestBuilder<crate::model::VerifyConnectivityRequest>);
 
     impl VerifyConnectivity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1600,6 +1689,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [name][crate::model::VerifyConnectivityRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1618,7 +1709,9 @@ pub mod ekm_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1697,7 +1790,9 @@ pub mod ekm_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1740,7 +1835,9 @@ pub mod ekm_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1765,12 +1862,16 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1801,7 +1902,9 @@ pub mod ekm_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1826,6 +1929,8 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1853,7 +1958,9 @@ pub mod ekm_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1881,12 +1988,16 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1910,7 +2021,9 @@ pub mod ekm_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1954,7 +2067,6 @@ pub mod ekm_service {
 
 pub mod key_management_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [KeyManagementService][super::super::client::KeyManagementService].
     ///
@@ -1987,7 +2099,7 @@ pub mod key_management_service {
     /// Common implementation for [super::super::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1997,7 +2109,7 @@ pub mod key_management_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self {
                 stub,
@@ -2013,7 +2125,7 @@ pub mod key_management_service {
 
     impl ListKeyRings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2054,6 +2166,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::ListKeyRingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2097,7 +2211,7 @@ pub mod key_management_service {
 
     impl ListCryptoKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2138,6 +2252,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2190,7 +2306,7 @@ pub mod key_management_service {
 
     impl ListCryptoKeyVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2234,6 +2350,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeyVersionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2286,7 +2404,7 @@ pub mod key_management_service {
 
     impl ListImportJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2327,6 +2445,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2370,7 +2490,7 @@ pub mod key_management_service {
 
     impl GetKeyRing {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2396,6 +2516,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::GetKeyRingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2415,7 +2537,7 @@ pub mod key_management_service {
 
     impl GetCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2441,6 +2563,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::GetCryptoKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2460,7 +2584,7 @@ pub mod key_management_service {
 
     impl GetCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2489,6 +2613,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::GetCryptoKeyVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2508,7 +2634,7 @@ pub mod key_management_service {
 
     impl GetPublicKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2534,6 +2660,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2562,7 +2690,7 @@ pub mod key_management_service {
 
     impl GetImportJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2588,6 +2716,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::GetImportJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2607,7 +2737,7 @@ pub mod key_management_service {
 
     impl CreateKeyRing {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2633,18 +2763,24 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [key_ring_id][crate::model::CreateKeyRingRequest::key_ring_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key_ring_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.key_ring_id = v.into();
             self
         }
 
         /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key_ring<T: Into<std::option::Option<crate::model::KeyRing>>>(
             mut self,
             v: T,
@@ -2667,7 +2803,7 @@ pub mod key_management_service {
 
     impl CreateCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2693,18 +2829,24 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCryptoKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [crypto_key_id][crate::model::CreateCryptoKeyRequest::crypto_key_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key_id = v.into();
             self
         }
 
         /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
             mut self,
             v: T,
@@ -2733,7 +2875,7 @@ pub mod key_management_service {
 
     impl CreateCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2762,12 +2904,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCryptoKeyVersionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key_version<
             T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
         >(
@@ -2792,7 +2938,7 @@ pub mod key_management_service {
 
     impl ImportCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2821,6 +2967,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::ImportCryptoKeyVersionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2833,6 +2981,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [algorithm][crate::model::ImportCryptoKeyVersionRequest::algorithm].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_algorithm<
             T: Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
         >(
@@ -2844,6 +2994,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [import_job][crate::model::ImportCryptoKeyVersionRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_job<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.import_job = v.into();
             self
@@ -2896,7 +3048,7 @@ pub mod key_management_service {
 
     impl CreateImportJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2922,18 +3074,24 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [import_job_id][crate::model::CreateImportJobRequest::import_job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.import_job_id = v.into();
             self
         }
 
         /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
             mut self,
             v: T,
@@ -2956,7 +3114,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2982,6 +3140,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
             mut self,
             v: T,
@@ -2991,6 +3151,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3013,7 +3175,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3042,6 +3204,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key_version<
             T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
         >(
@@ -3053,6 +3217,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3077,7 +3243,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKeyPrimaryVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3106,12 +3272,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateCryptoKeyPrimaryVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [crypto_key_version_id][crate::model::UpdateCryptoKeyPrimaryVersionRequest::crypto_key_version_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key_version_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key_version_id = v.into();
             self
@@ -3133,7 +3303,7 @@ pub mod key_management_service {
 
     impl DestroyCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3162,6 +3332,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::DestroyCryptoKeyVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3183,7 +3355,7 @@ pub mod key_management_service {
 
     impl RestoreCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3212,6 +3384,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::RestoreCryptoKeyVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3231,7 +3405,7 @@ pub mod key_management_service {
 
     impl Encrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3257,12 +3431,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::EncryptRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [plaintext][crate::model::EncryptRequest::plaintext].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_plaintext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.plaintext = v.into();
             self
@@ -3308,7 +3486,7 @@ pub mod key_management_service {
 
     impl Decrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3334,12 +3512,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::DecryptRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ciphertext][crate::model::DecryptRequest::ciphertext].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
@@ -3385,7 +3567,7 @@ pub mod key_management_service {
 
     impl RawEncrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3411,12 +3593,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::RawEncryptRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [plaintext][crate::model::RawEncryptRequest::plaintext].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_plaintext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.plaintext = v.into();
             self
@@ -3477,7 +3663,7 @@ pub mod key_management_service {
 
     impl RawDecrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3503,12 +3689,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::RawDecryptRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ciphertext][crate::model::RawDecryptRequest::ciphertext].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
@@ -3521,6 +3711,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [initialization_vector][crate::model::RawDecryptRequest::initialization_vector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_initialization_vector<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.initialization_vector = v.into();
             self
@@ -3575,7 +3767,7 @@ pub mod key_management_service {
 
     impl AsymmetricSign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3601,6 +3793,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::AsymmetricSignRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3653,7 +3847,7 @@ pub mod key_management_service {
 
     impl AsymmetricDecrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3682,12 +3876,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::AsymmetricDecryptRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ciphertext][crate::model::AsymmetricDecryptRequest::ciphertext].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
@@ -3716,7 +3914,7 @@ pub mod key_management_service {
 
     impl MacSign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3742,12 +3940,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::MacSignRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [data][crate::model::MacSignRequest::data].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
@@ -3776,7 +3978,7 @@ pub mod key_management_service {
 
     impl MacVerify {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3802,12 +4004,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [name][crate::model::MacVerifyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [data][crate::model::MacVerifyRequest::data].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
@@ -3823,6 +4029,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [mac][crate::model::MacVerifyRequest::mac].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mac<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.mac = v.into();
             self
@@ -3851,7 +4059,7 @@ pub mod key_management_service {
 
     impl GenerateRandomBytes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3914,7 +4122,7 @@ pub mod key_management_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3995,7 +4203,7 @@ pub mod key_management_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4040,7 +4248,7 @@ pub mod key_management_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4066,12 +4274,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4103,7 +4315,7 @@ pub mod key_management_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4129,6 +4341,8 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4157,7 +4371,7 @@ pub mod key_management_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4186,12 +4400,16 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4216,7 +4434,7 @@ pub mod key_management_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

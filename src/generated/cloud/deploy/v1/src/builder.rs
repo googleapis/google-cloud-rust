@@ -16,7 +16,6 @@
 
 pub mod cloud_deploy {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudDeploy][super::super::client::CloudDeploy].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_deploy {
     /// Common implementation for [super::super::client::CloudDeploy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_deploy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_deploy {
     pub struct ListDeliveryPipelines(RequestBuilder<crate::model::ListDeliveryPipelinesRequest>);
 
     impl ListDeliveryPipelines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +118,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListDeliveryPipelinesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -157,7 +162,9 @@ pub mod cloud_deploy {
     pub struct GetDeliveryPipeline(RequestBuilder<crate::model::GetDeliveryPipelineRequest>);
 
     impl GetDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,6 +192,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetDeliveryPipelineRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -203,7 +212,9 @@ pub mod cloud_deploy {
     pub struct CreateDeliveryPipeline(RequestBuilder<crate::model::CreateDeliveryPipelineRequest>);
 
     impl CreateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -270,18 +281,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeliveryPipelineRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [delivery_pipeline_id][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_delivery_pipeline_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.delivery_pipeline_id = v.into();
             self
         }
 
         /// Sets the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_delivery_pipeline<
             T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
         >(
@@ -317,7 +334,9 @@ pub mod cloud_deploy {
     pub struct UpdateDeliveryPipeline(RequestBuilder<crate::model::UpdateDeliveryPipelineRequest>);
 
     impl UpdateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -384,6 +403,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -393,6 +414,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_delivery_pipeline<
             T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
         >(
@@ -434,7 +457,9 @@ pub mod cloud_deploy {
     pub struct DeleteDeliveryPipeline(RequestBuilder<crate::model::DeleteDeliveryPipelineRequest>);
 
     impl DeleteDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -497,6 +522,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteDeliveryPipelineRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -545,7 +572,9 @@ pub mod cloud_deploy {
     pub struct ListTargets(RequestBuilder<crate::model::ListTargetsRequest>);
 
     impl ListTargets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -585,6 +614,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListTargetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -627,7 +658,9 @@ pub mod cloud_deploy {
     pub struct RollbackTarget(RequestBuilder<crate::model::RollbackTargetRequest>);
 
     impl RollbackTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -652,18 +685,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::RollbackTargetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_id][crate::model::RollbackTargetRequest::target_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_id = v.into();
             self
         }
 
         /// Sets the value of [rollout_id][crate::model::RollbackTargetRequest::rollout_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout_id = v.into();
             self
@@ -722,7 +761,9 @@ pub mod cloud_deploy {
     pub struct GetTarget(RequestBuilder<crate::model::GetTargetRequest>);
 
     impl GetTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -747,6 +788,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetTargetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -765,7 +808,9 @@ pub mod cloud_deploy {
     pub struct CreateTarget(RequestBuilder<crate::model::CreateTargetRequest>);
 
     impl CreateTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -827,18 +872,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [target_id][crate::model::CreateTargetRequest::target_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_id = v.into();
             self
         }
 
         /// Sets the value of [target][crate::model::CreateTargetRequest::target].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
             mut self,
             v: T,
@@ -872,7 +923,9 @@ pub mod cloud_deploy {
     pub struct UpdateTarget(RequestBuilder<crate::model::UpdateTargetRequest>);
 
     impl UpdateTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -934,6 +987,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -943,6 +998,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [target][crate::model::UpdateTargetRequest::target].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
             mut self,
             v: T,
@@ -982,7 +1039,9 @@ pub mod cloud_deploy {
     pub struct DeleteTarget(RequestBuilder<crate::model::DeleteTargetRequest>);
 
     impl DeleteTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1042,6 +1101,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1084,7 +1145,9 @@ pub mod cloud_deploy {
     pub struct ListCustomTargetTypes(RequestBuilder<crate::model::ListCustomTargetTypesRequest>);
 
     impl ListCustomTargetTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1127,6 +1190,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListCustomTargetTypesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1169,7 +1234,9 @@ pub mod cloud_deploy {
     pub struct GetCustomTargetType(RequestBuilder<crate::model::GetCustomTargetTypeRequest>);
 
     impl GetCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1197,6 +1264,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetCustomTargetTypeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1215,7 +1284,9 @@ pub mod cloud_deploy {
     pub struct CreateCustomTargetType(RequestBuilder<crate::model::CreateCustomTargetTypeRequest>);
 
     impl CreateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1282,18 +1353,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomTargetTypeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [custom_target_type_id][crate::model::CreateCustomTargetTypeRequest::custom_target_type_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_target_type_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.custom_target_type_id = v.into();
             self
         }
 
         /// Sets the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_target_type<
             T: Into<std::option::Option<crate::model::CustomTargetType>>,
         >(
@@ -1329,7 +1406,9 @@ pub mod cloud_deploy {
     pub struct UpdateCustomTargetType(RequestBuilder<crate::model::UpdateCustomTargetTypeRequest>);
 
     impl UpdateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1396,6 +1475,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1405,6 +1486,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_target_type<
             T: Into<std::option::Option<crate::model::CustomTargetType>>,
         >(
@@ -1446,7 +1529,9 @@ pub mod cloud_deploy {
     pub struct DeleteCustomTargetType(RequestBuilder<crate::model::DeleteCustomTargetTypeRequest>);
 
     impl DeleteCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1509,6 +1594,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomTargetTypeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1551,7 +1638,9 @@ pub mod cloud_deploy {
     pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
 
     impl ListReleases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1591,6 +1680,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListReleasesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1633,7 +1724,9 @@ pub mod cloud_deploy {
     pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
 
     impl GetRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1658,6 +1751,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetReleaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1676,7 +1771,9 @@ pub mod cloud_deploy {
     pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
 
     impl CreateRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1738,18 +1835,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateReleaseRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [release_id][crate::model::CreateReleaseRequest::release_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_release_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.release_id = v.into();
             self
         }
 
         /// Sets the value of [release][crate::model::CreateReleaseRequest::release].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_release<T: Into<std::option::Option<crate::model::Release>>>(
             mut self,
             v: T,
@@ -1794,7 +1897,9 @@ pub mod cloud_deploy {
     pub struct AbandonRelease(RequestBuilder<crate::model::AbandonReleaseRequest>);
 
     impl AbandonRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1819,6 +1924,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::AbandonReleaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1837,7 +1944,9 @@ pub mod cloud_deploy {
     pub struct CreateDeployPolicy(RequestBuilder<crate::model::CreateDeployPolicyRequest>);
 
     impl CreateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1903,18 +2012,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeployPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [deploy_policy_id][crate::model::CreateDeployPolicyRequest::deploy_policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deploy_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.deploy_policy_id = v.into();
             self
         }
 
         /// Sets the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
             mut self,
             v: T,
@@ -1948,7 +2063,9 @@ pub mod cloud_deploy {
     pub struct UpdateDeployPolicy(RequestBuilder<crate::model::UpdateDeployPolicyRequest>);
 
     impl UpdateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2014,6 +2131,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2023,6 +2142,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
             mut self,
             v: T,
@@ -2062,7 +2183,9 @@ pub mod cloud_deploy {
     pub struct DeleteDeployPolicy(RequestBuilder<crate::model::DeleteDeployPolicyRequest>);
 
     impl DeleteDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2125,6 +2248,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteDeployPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2167,7 +2292,9 @@ pub mod cloud_deploy {
     pub struct ListDeployPolicies(RequestBuilder<crate::model::ListDeployPoliciesRequest>);
 
     impl ListDeployPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2210,6 +2337,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListDeployPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2252,7 +2381,9 @@ pub mod cloud_deploy {
     pub struct GetDeployPolicy(RequestBuilder<crate::model::GetDeployPolicyRequest>);
 
     impl GetDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2277,6 +2408,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetDeployPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2295,7 +2428,9 @@ pub mod cloud_deploy {
     pub struct ApproveRollout(RequestBuilder<crate::model::ApproveRolloutRequest>);
 
     impl ApproveRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2320,12 +2455,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::ApproveRolloutRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [approved][crate::model::ApproveRolloutRequest::approved].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_approved<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.approved = v.into();
             self
@@ -2355,7 +2494,9 @@ pub mod cloud_deploy {
     pub struct AdvanceRollout(RequestBuilder<crate::model::AdvanceRolloutRequest>);
 
     impl AdvanceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2380,12 +2521,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::AdvanceRolloutRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [phase_id][crate::model::AdvanceRolloutRequest::phase_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.phase_id = v.into();
             self
@@ -2415,7 +2560,9 @@ pub mod cloud_deploy {
     pub struct CancelRollout(RequestBuilder<crate::model::CancelRolloutRequest>);
 
     impl CancelRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2440,6 +2587,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::CancelRolloutRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2469,7 +2618,9 @@ pub mod cloud_deploy {
     pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
 
     impl ListRollouts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2509,6 +2660,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListRolloutsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2551,7 +2704,9 @@ pub mod cloud_deploy {
     pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
 
     impl GetRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2576,6 +2731,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetRolloutRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2594,7 +2751,9 @@ pub mod cloud_deploy {
     pub struct CreateRollout(RequestBuilder<crate::model::CreateRolloutRequest>);
 
     impl CreateRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2656,18 +2815,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateRolloutRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [rollout_id][crate::model::CreateRolloutRequest::rollout_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout_id = v.into();
             self
         }
 
         /// Sets the value of [rollout][crate::model::CreateRolloutRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
             mut self,
             v: T,
@@ -2688,12 +2853,6 @@ pub mod cloud_deploy {
             self
         }
 
-        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
-        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.starting_phase_id = v.into();
-            self
-        }
-
         /// Sets the value of [override_deploy_policy][crate::model::CreateRolloutRequest::override_deploy_policy].
         pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
         where
@@ -2702,6 +2861,12 @@ pub mod cloud_deploy {
         {
             use std::iter::Iterator;
             self.0.request.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
+        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.starting_phase_id = v.into();
             self
         }
     }
@@ -2718,7 +2883,9 @@ pub mod cloud_deploy {
     pub struct IgnoreJob(RequestBuilder<crate::model::IgnoreJobRequest>);
 
     impl IgnoreJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2743,18 +2910,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [rollout][crate::model::IgnoreJobRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout = v.into();
             self
         }
 
         /// Sets the value of [phase_id][crate::model::IgnoreJobRequest::phase_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.phase_id = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::IgnoreJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -2784,7 +2957,9 @@ pub mod cloud_deploy {
     pub struct RetryJob(RequestBuilder<crate::model::RetryJobRequest>);
 
     impl RetryJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2809,18 +2984,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [rollout][crate::model::RetryJobRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout = v.into();
             self
         }
 
         /// Sets the value of [phase_id][crate::model::RetryJobRequest::phase_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.phase_id = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::RetryJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -2850,7 +3031,9 @@ pub mod cloud_deploy {
     pub struct ListJobRuns(RequestBuilder<crate::model::ListJobRunsRequest>);
 
     impl ListJobRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2890,6 +3073,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListJobRunsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2932,7 +3117,9 @@ pub mod cloud_deploy {
     pub struct GetJobRun(RequestBuilder<crate::model::GetJobRunRequest>);
 
     impl GetJobRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2957,6 +3144,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetJobRunRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2975,7 +3164,9 @@ pub mod cloud_deploy {
     pub struct TerminateJobRun(RequestBuilder<crate::model::TerminateJobRunRequest>);
 
     impl TerminateJobRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3000,6 +3191,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::TerminateJobRunRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3029,7 +3222,9 @@ pub mod cloud_deploy {
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3054,6 +3249,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3072,7 +3269,9 @@ pub mod cloud_deploy {
     pub struct CreateAutomation(RequestBuilder<crate::model::CreateAutomationRequest>);
 
     impl CreateAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3138,18 +3337,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateAutomationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [automation_id][crate::model::CreateAutomationRequest::automation_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_automation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.automation_id = v.into();
             self
         }
 
         /// Sets the value of [automation][crate::model::CreateAutomationRequest::automation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
             mut self,
             v: T,
@@ -3183,7 +3388,9 @@ pub mod cloud_deploy {
     pub struct UpdateAutomation(RequestBuilder<crate::model::UpdateAutomationRequest>);
 
     impl UpdateAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3249,6 +3456,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3258,6 +3467,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [automation][crate::model::UpdateAutomationRequest::automation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
             mut self,
             v: T,
@@ -3297,7 +3508,9 @@ pub mod cloud_deploy {
     pub struct DeleteAutomation(RequestBuilder<crate::model::DeleteAutomationRequest>);
 
     impl DeleteAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3360,6 +3573,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteAutomationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3402,7 +3617,9 @@ pub mod cloud_deploy {
     pub struct GetAutomation(RequestBuilder<crate::model::GetAutomationRequest>);
 
     impl GetAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3427,6 +3644,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3445,7 +3664,9 @@ pub mod cloud_deploy {
     pub struct ListAutomations(RequestBuilder<crate::model::ListAutomationsRequest>);
 
     impl ListAutomations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3485,6 +3706,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListAutomationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3527,7 +3750,9 @@ pub mod cloud_deploy {
     pub struct GetAutomationRun(RequestBuilder<crate::model::GetAutomationRunRequest>);
 
     impl GetAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3555,6 +3780,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRunRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3573,7 +3800,9 @@ pub mod cloud_deploy {
     pub struct ListAutomationRuns(RequestBuilder<crate::model::ListAutomationRunsRequest>);
 
     impl ListAutomationRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3616,6 +3845,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListAutomationRunsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3658,7 +3889,9 @@ pub mod cloud_deploy {
     pub struct CancelAutomationRun(RequestBuilder<crate::model::CancelAutomationRunRequest>);
 
     impl CancelAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3686,6 +3919,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::CancelAutomationRunRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3704,7 +3939,9 @@ pub mod cloud_deploy {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3783,7 +4020,9 @@ pub mod cloud_deploy {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3826,7 +4065,9 @@ pub mod cloud_deploy {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3851,12 +4092,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3887,7 +4132,9 @@ pub mod cloud_deploy {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3912,6 +4159,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3939,7 +4188,9 @@ pub mod cloud_deploy {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3967,12 +4218,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3996,7 +4251,9 @@ pub mod cloud_deploy {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4075,7 +4332,9 @@ pub mod cloud_deploy {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4121,7 +4380,9 @@ pub mod cloud_deploy {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4167,7 +4428,9 @@ pub mod cloud_deploy {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

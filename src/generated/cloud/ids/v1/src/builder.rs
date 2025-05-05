@@ -16,7 +16,6 @@
 
 pub mod ids {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Ids][super::super::client::Ids].
     ///
@@ -49,7 +48,7 @@ pub mod ids {
     /// Common implementation for [super::super::client::Ids] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Ids>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod ids {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod ids {
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +111,8 @@ pub mod ids {
         }
 
         /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +155,7 @@ pub mod ids {
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +180,8 @@ pub mod ids {
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +200,7 @@ pub mod ids {
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -260,18 +263,24 @@ pub mod ids {
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [endpoint_id][crate::model::CreateEndpointRequest::endpoint_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.endpoint_id = v.into();
             self
         }
 
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
             mut self,
             v: T,
@@ -299,7 +308,7 @@ pub mod ids {
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -359,6 +368,8 @@ pub mod ids {
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -383,7 +394,7 @@ pub mod ids {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -462,7 +473,7 @@ pub mod ids {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -508,7 +519,7 @@ pub mod ids {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -554,7 +565,7 @@ pub mod ids {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

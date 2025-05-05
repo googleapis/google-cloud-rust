@@ -58,18 +58,19 @@ pub(crate) mod google {
     }
 }
 
-impl gaxi::prost::Convert<google::rpc::Status> for rpc::model::Status {
-    fn cnv(self) -> google::rpc::Status {
-        google::rpc::Status {
-            code: self.code.cnv(),
-            message: self.message.cnv(),
-            // TODO(#...) - detail with the error details
+impl gaxi::prost::ToProto<google::rpc::Status> for rpc::model::Status {
+    type Output = google::rpc::Status;
+    fn to_proto(self) -> std::result::Result<google::rpc::Status, gaxi::prost::ConvertError> {
+        Ok(google::rpc::Status {
+            code: self.code.to_proto()?,
+            message: self.message.to_proto()?,
+            // TODO(#) - detail with the error details
             ..Default::default()
-        }
+        })
     }
 }
 
-impl gaxi::prost::Convert<rpc::model::Status> for google::rpc::Status {
+impl gaxi::prost::FromProto<rpc::model::Status> for google::rpc::Status {
     fn cnv(self) -> rpc::model::Status {
         rpc::model::Status::new()
             .set_code(self.code)

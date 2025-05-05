@@ -16,7 +16,6 @@
 
 pub mod vpc_access_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VpcAccessService][super::super::client::VpcAccessService].
     ///
@@ -49,7 +48,7 @@ pub mod vpc_access_service {
     /// Common implementation for [super::super::client::VpcAccessService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod vpc_access_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod vpc_access_service {
     pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
 
     impl CreateConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,18 +138,24 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connector_id][crate::model::CreateConnectorRequest::connector_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connector_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connector_id = v.into();
             self
         }
 
         /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connector<T: Into<std::option::Option<crate::model::Connector>>>(
             mut self,
             v: T,
@@ -168,7 +177,9 @@ pub mod vpc_access_service {
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -193,6 +204,8 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [name][crate::model::GetConnectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -211,7 +224,9 @@ pub mod vpc_access_service {
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -251,6 +266,8 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -281,7 +298,9 @@ pub mod vpc_access_service {
     pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
 
     impl DeleteConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,6 +360,8 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -359,7 +380,9 @@ pub mod vpc_access_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +461,9 @@ pub mod vpc_access_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -517,7 +542,9 @@ pub mod vpc_access_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

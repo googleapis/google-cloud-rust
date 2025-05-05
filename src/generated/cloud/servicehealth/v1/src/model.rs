@@ -159,12 +159,34 @@ impl Event {
         self
     }
 
+    /// Sets the value of [event_impacts][crate::model::Event::event_impacts].
+    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventImpact>,
+    {
+        use std::iter::Iterator;
+        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::Event::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::event::Relevance>>(
         mut self,
         v: T,
     ) -> Self {
         self.relevance = v.into();
+        self
+    }
+
+    /// Sets the value of [updates][crate::model::Event::updates].
+    pub fn set_updates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventUpdate>,
+    {
+        use std::iter::Iterator;
+        self.updates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -209,28 +231,6 @@ impl Event {
         self.next_update_time = v.into();
         self
     }
-
-    /// Sets the value of [event_impacts][crate::model::Event::event_impacts].
-    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventImpact>,
-    {
-        use std::iter::Iterator;
-        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [updates][crate::model::Event::updates].
-    pub fn set_updates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventUpdate>,
-    {
-        use std::iter::Iterator;
-        self.updates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Event {
@@ -246,206 +246,433 @@ pub mod event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventCategory(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EventCategory {
+        /// Unspecified category.
+        Unspecified,
+        /// Event category for service outage or degradation.
+        Incident,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EventCategory::value] or
+        /// [EventCategory::name].
+        UnknownValue(event_category::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod event_category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl EventCategory {
-        /// Unspecified category.
-        pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory = EventCategory::new(0);
-
-        /// Event category for service outage or degradation.
-        pub const INCIDENT: EventCategory = EventCategory::new(2);
-
-        /// Creates a new EventCategory instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Incident => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EVENT_CATEGORY_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("INCIDENT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVENT_CATEGORY_UNSPECIFIED"),
+                Self::Incident => std::option::Option::Some("INCIDENT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EVENT_CATEGORY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::EVENT_CATEGORY_UNSPECIFIED)
-                }
-                "INCIDENT" => std::option::Option::Some(Self::INCIDENT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for EventCategory {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for EventCategory {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EventCategory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EventCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Incident,
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EventCategory {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVENT_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "INCIDENT" => Self::Incident,
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EventCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Incident => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventCategory>::new(
+                ".google.cloud.servicehealth.v1.Event.EventCategory",
+            ))
         }
     }
 
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedCategory(i32);
-
-    impl DetailedCategory {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DetailedCategory {
         /// Unspecified detailed category.
-        pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory = DetailedCategory::new(0);
-
+        Unspecified,
         /// Indicates an event with category INCIDENT has a confirmed impact to at
         /// least one Google Cloud product.
-        pub const CONFIRMED_INCIDENT: DetailedCategory = DetailedCategory::new(1);
-
+        ConfirmedIncident,
         /// Indicates an event with category INCIDENT is under investigation to
         /// determine if it has a confirmed impact on any Google Cloud products.
-        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new(2);
+        EmergingIncident,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DetailedCategory::value] or
+        /// [DetailedCategory::name].
+        UnknownValue(detailed_category::UnknownValue),
+    }
 
-        /// Creates a new DetailedCategory instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod detailed_category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl DetailedCategory {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ConfirmedIncident => std::option::Option::Some(1),
+                Self::EmergingIncident => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DETAILED_CATEGORY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CONFIRMED_INCIDENT"),
-                2 => std::borrow::Cow::Borrowed("EMERGING_INCIDENT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DETAILED_CATEGORY_UNSPECIFIED"),
+                Self::ConfirmedIncident => std::option::Option::Some("CONFIRMED_INCIDENT"),
+                Self::EmergingIncident => std::option::Option::Some("EMERGING_INCIDENT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DETAILED_CATEGORY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DETAILED_CATEGORY_UNSPECIFIED)
-                }
-                "CONFIRMED_INCIDENT" => std::option::Option::Some(Self::CONFIRMED_INCIDENT),
-                "EMERGING_INCIDENT" => std::option::Option::Some(Self::EMERGING_INCIDENT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DetailedCategory {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DetailedCategory {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DetailedCategory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ConfirmedIncident,
+                2 => Self::EmergingIncident,
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DetailedCategory {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DETAILED_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "CONFIRMED_INCIDENT" => Self::ConfirmedIncident,
+                "EMERGING_INCIDENT" => Self::EmergingIncident,
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ConfirmedIncident => serializer.serialize_i32(1),
+                Self::EmergingIncident => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedCategory>::new(
+                ".google.cloud.servicehealth.v1.Event.DetailedCategory",
+            ))
         }
     }
 
     /// The state of the event. This enum lists all possible states of event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Event is actively affecting a Google Cloud product and will continue to
         /// receive updates.
-        pub const ACTIVE: State = State::new(1);
-
+        Active,
         /// Event is no longer affecting the Google Cloud product or has been merged
         /// with another event.
-        pub const CLOSED: State = State::new(2);
+        Closed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Closed => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("CLOSED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "CLOSED" => std::option::Option::Some(Self::CLOSED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CLOSED" => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Closed => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.servicehealth.v1.Event.State",
+            ))
         }
     }
 
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedState(i32);
-
-    impl DetailedState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DetailedState {
         /// Unspecified detail state.
-        pub const DETAILED_STATE_UNSPECIFIED: DetailedState = DetailedState::new(0);
-
+        Unspecified,
         /// Google engineers are actively investigating the event to determine the
         /// impact.
-        pub const EMERGING: DetailedState = DetailedState::new(1);
-
+        Emerging,
         /// The incident is confirmed and impacting at least one Google Cloud
         /// product. Ongoing status updates will be provided until it is resolved.
-        pub const CONFIRMED: DetailedState = DetailedState::new(2);
-
+        Confirmed,
         /// The incident is no longer affecting any Google Cloud product, and there
         /// will be no further updates.
-        pub const RESOLVED: DetailedState = DetailedState::new(3);
-
+        Resolved,
         /// The incident was merged into a parent incident. All further updates will
         /// be published to the parent only. The `parent_event` field contains the
         /// name of the parent.
-        pub const MERGED: DetailedState = DetailedState::new(4);
-
+        Merged,
         /// The incident was automatically closed because of the following reasons:
         ///
         /// * The impact of the incident could not be confirmed.
@@ -453,140 +680,294 @@ pub mod event {
         ///
         /// The incident does not have a resolution because no action or
         /// investigation happened. If it is intermittent, the incident may reopen.
-        pub const AUTO_CLOSED: DetailedState = DetailedState::new(9);
-
+        AutoClosed,
         /// Upon investigation, Google engineers concluded that the incident is not
         /// affecting a Google Cloud product. This state can change if the incident
         /// is reviewed again.
-        pub const FALSE_POSITIVE: DetailedState = DetailedState::new(10);
+        FalsePositive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DetailedState::value] or
+        /// [DetailedState::name].
+        UnknownValue(detailed_state::UnknownValue),
+    }
 
-        /// Creates a new DetailedState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod detailed_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl DetailedState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Emerging => std::option::Option::Some(1),
+                Self::Confirmed => std::option::Option::Some(2),
+                Self::Resolved => std::option::Option::Some(3),
+                Self::Merged => std::option::Option::Some(4),
+                Self::AutoClosed => std::option::Option::Some(9),
+                Self::FalsePositive => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DETAILED_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("EMERGING"),
-                2 => std::borrow::Cow::Borrowed("CONFIRMED"),
-                3 => std::borrow::Cow::Borrowed("RESOLVED"),
-                4 => std::borrow::Cow::Borrowed("MERGED"),
-                9 => std::borrow::Cow::Borrowed("AUTO_CLOSED"),
-                10 => std::borrow::Cow::Borrowed("FALSE_POSITIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DETAILED_STATE_UNSPECIFIED"),
+                Self::Emerging => std::option::Option::Some("EMERGING"),
+                Self::Confirmed => std::option::Option::Some("CONFIRMED"),
+                Self::Resolved => std::option::Option::Some("RESOLVED"),
+                Self::Merged => std::option::Option::Some("MERGED"),
+                Self::AutoClosed => std::option::Option::Some("AUTO_CLOSED"),
+                Self::FalsePositive => std::option::Option::Some("FALSE_POSITIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DETAILED_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DETAILED_STATE_UNSPECIFIED)
-                }
-                "EMERGING" => std::option::Option::Some(Self::EMERGING),
-                "CONFIRMED" => std::option::Option::Some(Self::CONFIRMED),
-                "RESOLVED" => std::option::Option::Some(Self::RESOLVED),
-                "MERGED" => std::option::Option::Some(Self::MERGED),
-                "AUTO_CLOSED" => std::option::Option::Some(Self::AUTO_CLOSED),
-                "FALSE_POSITIVE" => std::option::Option::Some(Self::FALSE_POSITIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DetailedState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DetailedState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DetailedState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Emerging,
+                2 => Self::Confirmed,
+                3 => Self::Resolved,
+                4 => Self::Merged,
+                9 => Self::AutoClosed,
+                10 => Self::FalsePositive,
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DetailedState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DETAILED_STATE_UNSPECIFIED" => Self::Unspecified,
+                "EMERGING" => Self::Emerging,
+                "CONFIRMED" => Self::Confirmed,
+                "RESOLVED" => Self::Resolved,
+                "MERGED" => Self::Merged,
+                "AUTO_CLOSED" => Self::AutoClosed,
+                "FALSE_POSITIVE" => Self::FalsePositive,
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Emerging => serializer.serialize_i32(1),
+                Self::Confirmed => serializer.serialize_i32(2),
+                Self::Resolved => serializer.serialize_i32(3),
+                Self::Merged => serializer.serialize_i32(4),
+                Self::AutoClosed => serializer.serialize_i32(9),
+                Self::FalsePositive => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedState>::new(
+                ".google.cloud.servicehealth.v1.Event.DetailedState",
+            ))
         }
     }
 
     /// Communicates why a given incident is deemed relevant in the context of a
     /// given project. This enum lists all possible detailed states of relevance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Relevance(i32);
-
-    impl Relevance {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Relevance {
         /// Unspecified relevance.
-        pub const RELEVANCE_UNSPECIFIED: Relevance = Relevance::new(0);
-
+        Unspecified,
         /// The relevance of the incident to the project is unknown.
-        pub const UNKNOWN: Relevance = Relevance::new(2);
-
+        Unknown,
         /// The incident does not impact the project.
-        pub const NOT_IMPACTED: Relevance = Relevance::new(6);
-
+        NotImpacted,
         /// The incident is associated with a Google Cloud product your project uses,
         /// but the incident may not be impacting your project. For example, the
         /// incident may be impacting a Google Cloud product that your project uses,
         /// but in a location that your project does not use.
-        pub const PARTIALLY_RELATED: Relevance = Relevance::new(7);
-
+        PartiallyRelated,
         /// The incident has a direct connection with your project and impacts a
         /// Google Cloud product in a location your project uses.
-        pub const RELATED: Relevance = Relevance::new(8);
-
+        Related,
         /// The incident is verified to be impacting your project.
-        pub const IMPACTED: Relevance = Relevance::new(9);
+        Impacted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Relevance::value] or
+        /// [Relevance::name].
+        UnknownValue(relevance::UnknownValue),
+    }
 
-        /// Creates a new Relevance instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod relevance {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Relevance {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Unknown => std::option::Option::Some(2),
+                Self::NotImpacted => std::option::Option::Some(6),
+                Self::PartiallyRelated => std::option::Option::Some(7),
+                Self::Related => std::option::Option::Some(8),
+                Self::Impacted => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RELEVANCE_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("UNKNOWN"),
-                6 => std::borrow::Cow::Borrowed("NOT_IMPACTED"),
-                7 => std::borrow::Cow::Borrowed("PARTIALLY_RELATED"),
-                8 => std::borrow::Cow::Borrowed("RELATED"),
-                9 => std::borrow::Cow::Borrowed("IMPACTED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RELEVANCE_UNSPECIFIED"),
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::NotImpacted => std::option::Option::Some("NOT_IMPACTED"),
+                Self::PartiallyRelated => std::option::Option::Some("PARTIALLY_RELATED"),
+                Self::Related => std::option::Option::Some("RELATED"),
+                Self::Impacted => std::option::Option::Some("IMPACTED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RELEVANCE_UNSPECIFIED" => std::option::Option::Some(Self::RELEVANCE_UNSPECIFIED),
-                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-                "NOT_IMPACTED" => std::option::Option::Some(Self::NOT_IMPACTED),
-                "PARTIALLY_RELATED" => std::option::Option::Some(Self::PARTIALLY_RELATED),
-                "RELATED" => std::option::Option::Some(Self::RELATED),
-                "IMPACTED" => std::option::Option::Some(Self::IMPACTED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Relevance {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Relevance {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Relevance {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Relevance {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Unknown,
+                6 => Self::NotImpacted,
+                7 => Self::PartiallyRelated,
+                8 => Self::Related,
+                9 => Self::Impacted,
+                _ => Self::UnknownValue(relevance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Relevance {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RELEVANCE_UNSPECIFIED" => Self::Unspecified,
+                "UNKNOWN" => Self::Unknown,
+                "NOT_IMPACTED" => Self::NotImpacted,
+                "PARTIALLY_RELATED" => Self::PartiallyRelated,
+                "RELATED" => Self::Related,
+                "IMPACTED" => Self::Impacted,
+                _ => Self::UnknownValue(relevance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Relevance {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Unknown => serializer.serialize_i32(2),
+                Self::NotImpacted => serializer.serialize_i32(6),
+                Self::PartiallyRelated => serializer.serialize_i32(7),
+                Self::Related => serializer.serialize_i32(8),
+                Self::Impacted => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Relevance {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Relevance>::new(
+                ".google.cloud.servicehealth.v1.Event.Relevance",
+            ))
         }
     }
 }
@@ -730,6 +1111,28 @@ impl OrganizationEvent {
         self
     }
 
+    /// Sets the value of [event_impacts][crate::model::OrganizationEvent::event_impacts].
+    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventImpact>,
+    {
+        use std::iter::Iterator;
+        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [updates][crate::model::OrganizationEvent::updates].
+    pub fn set_updates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventUpdate>,
+    {
+        use std::iter::Iterator;
+        self.updates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [parent_event][crate::model::OrganizationEvent::parent_event].
     pub fn set_parent_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_event = v.into();
@@ -771,28 +1174,6 @@ impl OrganizationEvent {
         self.next_update_time = v.into();
         self
     }
-
-    /// Sets the value of [event_impacts][crate::model::OrganizationEvent::event_impacts].
-    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventImpact>,
-    {
-        use std::iter::Iterator;
-        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [updates][crate::model::OrganizationEvent::updates].
-    pub fn set_updates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventUpdate>,
-    {
-        use std::iter::Iterator;
-        self.updates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for OrganizationEvent {
@@ -808,207 +1189,434 @@ pub mod organization_event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventCategory(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EventCategory {
+        /// Unspecified category.
+        Unspecified,
+        /// Event category for service outage or degradation.
+        Incident,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EventCategory::value] or
+        /// [EventCategory::name].
+        UnknownValue(event_category::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod event_category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl EventCategory {
-        /// Unspecified category.
-        pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory = EventCategory::new(0);
-
-        /// Event category for service outage or degradation.
-        pub const INCIDENT: EventCategory = EventCategory::new(2);
-
-        /// Creates a new EventCategory instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Incident => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EVENT_CATEGORY_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("INCIDENT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVENT_CATEGORY_UNSPECIFIED"),
+                Self::Incident => std::option::Option::Some("INCIDENT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EVENT_CATEGORY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::EVENT_CATEGORY_UNSPECIFIED)
-                }
-                "INCIDENT" => std::option::Option::Some(Self::INCIDENT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for EventCategory {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for EventCategory {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EventCategory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EventCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Incident,
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EventCategory {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVENT_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "INCIDENT" => Self::Incident,
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EventCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Incident => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventCategory>::new(
+                ".google.cloud.servicehealth.v1.OrganizationEvent.EventCategory",
+            ))
         }
     }
 
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedCategory(i32);
-
-    impl DetailedCategory {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DetailedCategory {
         /// Unspecified detailed category.
-        pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory = DetailedCategory::new(0);
-
+        Unspecified,
         /// Indicates an event with category INCIDENT has a confirmed impact to at
         /// least one Google Cloud product.
-        pub const CONFIRMED_INCIDENT: DetailedCategory = DetailedCategory::new(1);
-
+        ConfirmedIncident,
         /// Indicates an event with category INCIDENT is under investigation to
         /// determine if it has a confirmed impact on any Google Cloud products.
-        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new(2);
+        EmergingIncident,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DetailedCategory::value] or
+        /// [DetailedCategory::name].
+        UnknownValue(detailed_category::UnknownValue),
+    }
 
-        /// Creates a new DetailedCategory instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod detailed_category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl DetailedCategory {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ConfirmedIncident => std::option::Option::Some(1),
+                Self::EmergingIncident => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DETAILED_CATEGORY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CONFIRMED_INCIDENT"),
-                2 => std::borrow::Cow::Borrowed("EMERGING_INCIDENT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DETAILED_CATEGORY_UNSPECIFIED"),
+                Self::ConfirmedIncident => std::option::Option::Some("CONFIRMED_INCIDENT"),
+                Self::EmergingIncident => std::option::Option::Some("EMERGING_INCIDENT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DETAILED_CATEGORY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DETAILED_CATEGORY_UNSPECIFIED)
-                }
-                "CONFIRMED_INCIDENT" => std::option::Option::Some(Self::CONFIRMED_INCIDENT),
-                "EMERGING_INCIDENT" => std::option::Option::Some(Self::EMERGING_INCIDENT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DetailedCategory {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DetailedCategory {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DetailedCategory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ConfirmedIncident,
+                2 => Self::EmergingIncident,
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DetailedCategory {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DETAILED_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "CONFIRMED_INCIDENT" => Self::ConfirmedIncident,
+                "EMERGING_INCIDENT" => Self::EmergingIncident,
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ConfirmedIncident => serializer.serialize_i32(1),
+                Self::EmergingIncident => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedCategory>::new(
+                ".google.cloud.servicehealth.v1.OrganizationEvent.DetailedCategory",
+            ))
         }
     }
 
     /// The state of the organization event. This enum lists all possible states of
     /// event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Event is actively affecting a Google Cloud product and will continue to
         /// receive updates.
-        pub const ACTIVE: State = State::new(1);
-
+        Active,
         /// Event is no longer affecting the Google Cloud product or has been merged
         /// with another event.
-        pub const CLOSED: State = State::new(2);
+        Closed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Closed => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("CLOSED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "CLOSED" => std::option::Option::Some(Self::CLOSED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CLOSED" => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Closed => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.servicehealth.v1.OrganizationEvent.State",
+            ))
         }
     }
 
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedState(i32);
-
-    impl DetailedState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DetailedState {
         /// Unspecified detail state.
-        pub const DETAILED_STATE_UNSPECIFIED: DetailedState = DetailedState::new(0);
-
+        Unspecified,
         /// Google engineers are actively investigating the incident to determine the
         /// impact.
-        pub const EMERGING: DetailedState = DetailedState::new(1);
-
+        Emerging,
         /// The incident is confirmed and impacting at least one Google Cloud
         /// product. Ongoing status updates will be provided until it is resolved.
-        pub const CONFIRMED: DetailedState = DetailedState::new(2);
-
+        Confirmed,
         /// The incident is no longer affecting any Google Cloud product, and there
         /// will be no further updates.
-        pub const RESOLVED: DetailedState = DetailedState::new(3);
-
+        Resolved,
         /// The incident was merged into a parent event. All further updates will be
         /// published to the parent only. The `parent_event` contains the name of the
         /// parent.
-        pub const MERGED: DetailedState = DetailedState::new(4);
-
+        Merged,
         /// The incident was automatically closed because of the following reasons:
         ///
         /// * The impact of the incident could not be confirmed.
@@ -1016,63 +1624,136 @@ pub mod organization_event {
         ///
         /// The incident does not have a resolution because no action or
         /// investigation happened. If it is intermittent, the incident may reopen.
-        pub const AUTO_CLOSED: DetailedState = DetailedState::new(9);
-
+        AutoClosed,
         /// Upon investigation, Google engineers concluded that the incident is not
         /// affecting a Google Cloud product. This state can change if the incident
         /// is reviewed again.
-        pub const FALSE_POSITIVE: DetailedState = DetailedState::new(10);
+        FalsePositive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DetailedState::value] or
+        /// [DetailedState::name].
+        UnknownValue(detailed_state::UnknownValue),
+    }
 
-        /// Creates a new DetailedState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod detailed_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl DetailedState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Emerging => std::option::Option::Some(1),
+                Self::Confirmed => std::option::Option::Some(2),
+                Self::Resolved => std::option::Option::Some(3),
+                Self::Merged => std::option::Option::Some(4),
+                Self::AutoClosed => std::option::Option::Some(9),
+                Self::FalsePositive => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DETAILED_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("EMERGING"),
-                2 => std::borrow::Cow::Borrowed("CONFIRMED"),
-                3 => std::borrow::Cow::Borrowed("RESOLVED"),
-                4 => std::borrow::Cow::Borrowed("MERGED"),
-                9 => std::borrow::Cow::Borrowed("AUTO_CLOSED"),
-                10 => std::borrow::Cow::Borrowed("FALSE_POSITIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DETAILED_STATE_UNSPECIFIED"),
+                Self::Emerging => std::option::Option::Some("EMERGING"),
+                Self::Confirmed => std::option::Option::Some("CONFIRMED"),
+                Self::Resolved => std::option::Option::Some("RESOLVED"),
+                Self::Merged => std::option::Option::Some("MERGED"),
+                Self::AutoClosed => std::option::Option::Some("AUTO_CLOSED"),
+                Self::FalsePositive => std::option::Option::Some("FALSE_POSITIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DETAILED_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DETAILED_STATE_UNSPECIFIED)
-                }
-                "EMERGING" => std::option::Option::Some(Self::EMERGING),
-                "CONFIRMED" => std::option::Option::Some(Self::CONFIRMED),
-                "RESOLVED" => std::option::Option::Some(Self::RESOLVED),
-                "MERGED" => std::option::Option::Some(Self::MERGED),
-                "AUTO_CLOSED" => std::option::Option::Some(Self::AUTO_CLOSED),
-                "FALSE_POSITIVE" => std::option::Option::Some(Self::FALSE_POSITIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DetailedState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DetailedState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DetailedState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Emerging,
+                2 => Self::Confirmed,
+                3 => Self::Resolved,
+                4 => Self::Merged,
+                9 => Self::AutoClosed,
+                10 => Self::FalsePositive,
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DetailedState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DETAILED_STATE_UNSPECIFIED" => Self::Unspecified,
+                "EMERGING" => Self::Emerging,
+                "CONFIRMED" => Self::Confirmed,
+                "RESOLVED" => Self::Resolved,
+                "MERGED" => Self::Merged,
+                "AUTO_CLOSED" => Self::AutoClosed,
+                "FALSE_POSITIVE" => Self::FalsePositive,
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Emerging => serializer.serialize_i32(1),
+                Self::Confirmed => serializer.serialize_i32(2),
+                Self::Resolved => serializer.serialize_i32(3),
+                Self::Merged => serializer.serialize_i32(4),
+                Self::AutoClosed => serializer.serialize_i32(9),
+                Self::FalsePositive => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedState>::new(
+                ".google.cloud.servicehealth.v1.OrganizationEvent.DetailedState",
+            ))
         }
     }
 }
@@ -1321,6 +2002,17 @@ impl OrganizationImpact {
         self
     }
 
+    /// Sets the value of [events][crate::model::OrganizationImpact::events].
+    pub fn set_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [asset][crate::model::OrganizationImpact::asset].
     pub fn set_asset<T: std::convert::Into<std::option::Option<crate::model::Asset>>>(
         mut self,
@@ -1336,17 +2028,6 @@ impl OrganizationImpact {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [events][crate::model::OrganizationImpact::events].
-    pub fn set_events<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.events = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1424,6 +2105,7 @@ pub struct ListEventsRequest {
     /// are available, the service returns a next_page_token that you can use to
     /// get the next page of results in subsequent list requests. The service may
     /// return fewer events than the requested page_size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1533,12 +2215,6 @@ impl ListEventsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [events][crate::model::ListEventsResponse::events].
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
@@ -1547,6 +2223,12 @@ impl ListEventsResponse {
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1644,6 +2326,7 @@ pub struct ListOrganizationEventsRequest {
     /// results are available, the service returns a `next_page_token` that you can
     /// use to get the next page of results in subsequent list requests. The
     /// service may return fewer events than the requested `page_size`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1758,12 +2441,6 @@ impl ListOrganizationEventsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrganizationEventsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [organization_events][crate::model::ListOrganizationEventsResponse::organization_events].
     pub fn set_organization_events<T, V>(mut self, v: T) -> Self
     where
@@ -1772,6 +2449,12 @@ impl ListOrganizationEventsResponse {
     {
         use std::iter::Iterator;
         self.organization_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrganizationEventsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1871,6 +2554,7 @@ pub struct ListOrganizationImpactsRequest {
     /// subsequent list requests. The service may return fewer
     /// [impacts](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact)
     /// than the requested `page_size`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1976,12 +2660,6 @@ impl ListOrganizationImpactsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrganizationImpactsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [organization_impacts][crate::model::ListOrganizationImpactsResponse::organization_impacts].
     pub fn set_organization_impacts<T, V>(mut self, v: T) -> Self
     where
@@ -1990,6 +2668,12 @@ impl ListOrganizationImpactsResponse {
     {
         use std::iter::Iterator;
         self.organization_impacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrganizationImpactsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2067,125 +2751,268 @@ impl wkt::message::Message for GetOrganizationImpactRequest {
 
 /// The event fields to include in ListEvents API response. This enum lists all
 /// possible event views.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EventView(i32);
-
-impl EventView {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum EventView {
     /// Unspecified event view. Default to `EVENT_VIEW_BASIC`.
-    pub const EVENT_VIEW_UNSPECIFIED: EventView = EventView::new(0);
-
+    Unspecified,
     /// Includes all fields except `updates`. This view is the default for
     /// ListEvents API.
-    pub const EVENT_VIEW_BASIC: EventView = EventView::new(1);
-
+    Basic,
     /// Includes all event fields.
-    pub const EVENT_VIEW_FULL: EventView = EventView::new(2);
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [EventView::value] or
+    /// [EventView::name].
+    UnknownValue(event_view::UnknownValue),
+}
 
-    /// Creates a new EventView instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod event_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl EventView {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("EVENT_VIEW_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("EVENT_VIEW_BASIC"),
-            2 => std::borrow::Cow::Borrowed("EVENT_VIEW_FULL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("EVENT_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("EVENT_VIEW_BASIC"),
+            Self::Full => std::option::Option::Some("EVENT_VIEW_FULL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "EVENT_VIEW_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_VIEW_UNSPECIFIED),
-            "EVENT_VIEW_BASIC" => std::option::Option::Some(Self::EVENT_VIEW_BASIC),
-            "EVENT_VIEW_FULL" => std::option::Option::Some(Self::EVENT_VIEW_FULL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for EventView {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for EventView {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for EventView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for EventView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for EventView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "EVENT_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "EVENT_VIEW_BASIC" => Self::Basic,
+            "EVENT_VIEW_FULL" => Self::Full,
+            _ => Self::UnknownValue(event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for EventView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EventView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventView>::new(
+            ".google.cloud.servicehealth.v1.EventView",
+        ))
     }
 }
 
 /// The organization event fields to include in ListOrganizationEvents API
 /// response. This enum lists all possible organization event views.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OrganizationEventView(i32);
-
-impl OrganizationEventView {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OrganizationEventView {
     /// Unspecified event view. Default to `ORGANIZATION_EVENT_VIEW_BASIC`.
-    pub const ORGANIZATION_EVENT_VIEW_UNSPECIFIED: OrganizationEventView =
-        OrganizationEventView::new(0);
-
+    Unspecified,
     /// Includes all organization event fields except `updates`. This view is the
     /// default for ListOrganizationEvents API.
-    pub const ORGANIZATION_EVENT_VIEW_BASIC: OrganizationEventView = OrganizationEventView::new(1);
-
+    Basic,
     /// Includes all organization event fields.
-    pub const ORGANIZATION_EVENT_VIEW_FULL: OrganizationEventView = OrganizationEventView::new(2);
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OrganizationEventView::value] or
+    /// [OrganizationEventView::name].
+    UnknownValue(organization_event_view::UnknownValue),
+}
 
-    /// Creates a new OrganizationEventView instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod organization_event_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl OrganizationEventView {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("ORGANIZATION_EVENT_VIEW_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ORGANIZATION_EVENT_VIEW_BASIC"),
-            2 => std::borrow::Cow::Borrowed("ORGANIZATION_EVENT_VIEW_FULL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ORGANIZATION_EVENT_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("ORGANIZATION_EVENT_VIEW_BASIC"),
+            Self::Full => std::option::Option::Some("ORGANIZATION_EVENT_VIEW_FULL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "ORGANIZATION_EVENT_VIEW_UNSPECIFIED" => {
-                std::option::Option::Some(Self::ORGANIZATION_EVENT_VIEW_UNSPECIFIED)
-            }
-            "ORGANIZATION_EVENT_VIEW_BASIC" => {
-                std::option::Option::Some(Self::ORGANIZATION_EVENT_VIEW_BASIC)
-            }
-            "ORGANIZATION_EVENT_VIEW_FULL" => {
-                std::option::Option::Some(Self::ORGANIZATION_EVENT_VIEW_FULL)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for OrganizationEventView {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for OrganizationEventView {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for OrganizationEventView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for OrganizationEventView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(organization_event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for OrganizationEventView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ORGANIZATION_EVENT_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "ORGANIZATION_EVENT_VIEW_BASIC" => Self::Basic,
+            "ORGANIZATION_EVENT_VIEW_FULL" => Self::Full,
+            _ => Self::UnknownValue(organization_event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for OrganizationEventView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OrganizationEventView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OrganizationEventView>::new(
+            ".google.cloud.servicehealth.v1.OrganizationEventView",
+        ))
     }
 }

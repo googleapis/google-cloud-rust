@@ -16,7 +16,6 @@
 
 pub mod developer_connect {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DeveloperConnect][super::super::client::DeveloperConnect].
     ///
@@ -49,7 +48,7 @@ pub mod developer_connect {
     /// Common implementation for [super::super::client::DeveloperConnect] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod developer_connect {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod developer_connect {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod developer_connect {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +206,9 @@ pub mod developer_connect {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -263,18 +274,24 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_id = v.into();
             self
         }
 
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -308,7 +325,9 @@ pub mod developer_connect {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,6 +393,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -383,6 +404,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -422,7 +445,9 @@ pub mod developer_connect {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -485,6 +510,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -523,7 +550,9 @@ pub mod developer_connect {
     );
 
     impl CreateGitRepositoryLink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,12 +619,16 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::CreateGitRepositoryLinkRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [git_repository_link][crate::model::CreateGitRepositoryLinkRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<
             T: Into<std::option::Option<crate::model::GitRepositoryLink>>,
         >(
@@ -607,6 +640,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link_id][crate::model::CreateGitRepositoryLinkRequest::git_repository_link_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link_id = v.into();
             self
@@ -639,7 +674,9 @@ pub mod developer_connect {
     );
 
     impl DeleteGitRepositoryLink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -702,6 +739,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::DeleteGitRepositoryLinkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -738,7 +777,9 @@ pub mod developer_connect {
     pub struct ListGitRepositoryLinks(RequestBuilder<crate::model::ListGitRepositoryLinksRequest>);
 
     impl ListGitRepositoryLinks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -783,6 +824,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::ListGitRepositoryLinksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -825,7 +868,9 @@ pub mod developer_connect {
     pub struct GetGitRepositoryLink(RequestBuilder<crate::model::GetGitRepositoryLinkRequest>);
 
     impl GetGitRepositoryLink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -853,6 +898,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::GetGitRepositoryLinkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -871,7 +918,9 @@ pub mod developer_connect {
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
     impl FetchReadWriteToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -899,6 +948,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchReadWriteTokenRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link = v.into();
             self
@@ -917,7 +968,9 @@ pub mod developer_connect {
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -942,6 +995,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchReadTokenRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link = v.into();
             self
@@ -962,7 +1017,9 @@ pub mod developer_connect {
     );
 
     impl FetchLinkableGitRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1007,6 +1064,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [connection][crate::model::FetchLinkableGitRepositoriesRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection = v.into();
             self
@@ -1039,7 +1098,9 @@ pub mod developer_connect {
     );
 
     impl FetchGitHubInstallations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1067,6 +1128,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [connection][crate::model::FetchGitHubInstallationsRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection = v.into();
             self
@@ -1085,7 +1148,9 @@ pub mod developer_connect {
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1110,12 +1175,16 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchGitRefsRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link = v.into();
             self
         }
 
         /// Sets the value of [ref_type][crate::model::FetchGitRefsRequest::ref_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ref_type<T: Into<crate::model::fetch_git_refs_request::RefType>>(
             mut self,
             v: T,
@@ -1149,7 +1218,9 @@ pub mod developer_connect {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1228,7 +1299,9 @@ pub mod developer_connect {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1271,7 +1344,9 @@ pub mod developer_connect {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1350,7 +1425,9 @@ pub mod developer_connect {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1396,7 +1473,9 @@ pub mod developer_connect {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1442,7 +1521,9 @@ pub mod developer_connect {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

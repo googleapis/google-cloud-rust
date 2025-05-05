@@ -56,9 +56,11 @@ pub struct Connector {
     pub state: crate::model::connector::State,
 
     /// Minimum throughput of the connector in Mbps. Default and min is 200.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_throughput: i32,
 
     /// Maximum throughput of the connector in Mbps. Default is 300, max is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_throughput: i32,
 
     /// Output only. List of projects using the connector.
@@ -74,9 +76,11 @@ pub struct Connector {
     pub machine_type: std::string::String,
 
     /// Minimum value of instances in autoscaling group underlying the connector.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_instances: i32,
 
     /// Maximum value of instances in autoscaling group underlying the connector.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -127,6 +131,17 @@ impl Connector {
         self
     }
 
+    /// Sets the value of [connected_projects][crate::model::Connector::connected_projects].
+    pub fn set_connected_projects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.connected_projects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [subnet][crate::model::Connector::subnet].
     pub fn set_subnet<
         T: std::convert::Into<std::option::Option<crate::model::connector::Subnet>>,
@@ -153,17 +168,6 @@ impl Connector {
     /// Sets the value of [max_instances][crate::model::Connector::max_instances].
     pub fn set_max_instances<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instances = v.into();
-        self
-    }
-
-    /// Sets the value of [connected_projects][crate::model::Connector::connected_projects].
-    pub fn set_connected_projects<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.connected_projects = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -227,74 +231,155 @@ pub mod connector {
     }
 
     /// State of a connector.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Invalid state.
+        Unspecified,
+        /// Connector is deployed and ready to receive traffic.
+        Ready,
+        /// An Insert operation is in progress. Transient condition.
+        Creating,
+        /// A Delete operation is in progress. Transient condition.
+        Deleting,
+        /// Connector is in a bad state, manual deletion recommended.
+        Error,
+        /// The connector is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Invalid state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Connector is deployed and ready to receive traffic.
-        pub const READY: State = State::new(1);
-
-        /// An Insert operation is in progress. Transient condition.
-        pub const CREATING: State = State::new(2);
-
-        /// A Delete operation is in progress. Transient condition.
-        pub const DELETING: State = State::new(3);
-
-        /// Connector is in a bad state, manual deletion recommended.
-        pub const ERROR: State = State::new(4);
-
-        /// The connector is being updated.
-        pub const UPDATING: State = State::new(5);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ready => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Error => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("READY"),
-                2 => std::borrow::Cow::Borrowed("CREATING"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                4 => std::borrow::Cow::Borrowed("ERROR"),
-                5 => std::borrow::Cow::Borrowed("UPDATING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "READY" => std::option::Option::Some(Self::READY),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                "UPDATING" => std::option::Option::Some(Self::UPDATING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ready,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                4 => Self::Error,
+                5 => Self::Updating,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "READY" => Self::Ready,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "ERROR" => Self::Error,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ready => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Error => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.vpcaccess.v1.Connector.State",
+            ))
         }
     }
 }
@@ -398,6 +483,7 @@ pub struct ListConnectorsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of functions to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token.
@@ -461,12 +547,6 @@ impl ListConnectorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connectors][crate::model::ListConnectorsResponse::connectors].
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
@@ -475,6 +555,12 @@ impl ListConnectorsResponse {
     {
         use std::iter::Iterator;
         self.connectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

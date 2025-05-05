@@ -16,7 +16,6 @@
 
 pub mod os_login_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [OsLoginService][super::super::client::OsLoginService].
     ///
@@ -49,7 +48,7 @@ pub mod os_login_service {
     /// Common implementation for [super::super::client::OsLoginService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod os_login_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod os_login_service {
     pub struct CreateSshPublicKey(RequestBuilder<crate::model::CreateSshPublicKeyRequest>);
 
     impl CreateSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,12 +103,16 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSshPublicKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ssh_public_key<
             T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
         >(
@@ -129,7 +136,9 @@ pub mod os_login_service {
     pub struct DeletePosixAccount(RequestBuilder<crate::model::DeletePosixAccountRequest>);
 
     impl DeletePosixAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -157,6 +166,8 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [name][crate::model::DeletePosixAccountRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -175,7 +186,9 @@ pub mod os_login_service {
     pub struct DeleteSshPublicKey(RequestBuilder<crate::model::DeleteSshPublicKeyRequest>);
 
     impl DeleteSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,6 +216,8 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteSshPublicKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -221,7 +236,9 @@ pub mod os_login_service {
     pub struct GetLoginProfile(RequestBuilder<crate::model::GetLoginProfileRequest>);
 
     impl GetLoginProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,6 +263,8 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [name][crate::model::GetLoginProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -276,7 +295,9 @@ pub mod os_login_service {
     pub struct GetSshPublicKey(RequestBuilder<crate::model::GetSshPublicKeyRequest>);
 
     impl GetSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -301,6 +322,8 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [name][crate::model::GetSshPublicKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -319,7 +342,9 @@ pub mod os_login_service {
     pub struct ImportSshPublicKey(RequestBuilder<crate::model::ImportSshPublicKeyRequest>);
 
     impl ImportSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -347,6 +372,8 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [parent][crate::model::ImportSshPublicKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -393,7 +420,9 @@ pub mod os_login_service {
     pub struct UpdateSshPublicKey(RequestBuilder<crate::model::UpdateSshPublicKeyRequest>);
 
     impl UpdateSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,12 +450,16 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateSshPublicKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ssh_public_key<
             T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
         >(

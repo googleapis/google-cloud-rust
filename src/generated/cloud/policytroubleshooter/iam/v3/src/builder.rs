@@ -16,7 +16,6 @@
 
 pub mod policy_troubleshooter {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PolicyTroubleshooter][super::super::client::PolicyTroubleshooter].
     ///
@@ -49,7 +48,7 @@ pub mod policy_troubleshooter {
     /// Common implementation for [super::super::client::PolicyTroubleshooter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod policy_troubleshooter {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod policy_troubleshooter {
 
     impl TroubleshootIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

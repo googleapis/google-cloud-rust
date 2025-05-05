@@ -16,7 +16,6 @@
 
 pub mod workflows {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Workflows][super::super::client::Workflows].
     ///
@@ -49,7 +48,7 @@ pub mod workflows {
     /// Common implementation for [super::super::client::Workflows] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Workflows>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod workflows {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod workflows {
     pub struct ListWorkflows(RequestBuilder<crate::model::ListWorkflowsRequest>);
 
     impl ListWorkflows {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod workflows {
     pub struct GetWorkflow(RequestBuilder<crate::model::GetWorkflowRequest>);
 
     impl GetWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -203,7 +212,9 @@ pub mod workflows {
     pub struct CreateWorkflow(RequestBuilder<crate::model::CreateWorkflowRequest>);
 
     impl CreateWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -266,12 +277,16 @@ pub mod workflows {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
             mut self,
             v: T,
@@ -281,6 +296,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [workflow_id][crate::model::CreateWorkflowRequest::workflow_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workflow_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workflow_id = v.into();
             self
@@ -299,7 +316,9 @@ pub mod workflows {
     pub struct DeleteWorkflow(RequestBuilder<crate::model::DeleteWorkflowRequest>);
 
     impl DeleteWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -359,6 +378,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -377,7 +398,9 @@ pub mod workflows {
     pub struct UpdateWorkflow(RequestBuilder<crate::model::UpdateWorkflowRequest>);
 
     impl UpdateWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -440,6 +463,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
             mut self,
             v: T,
@@ -470,7 +495,9 @@ pub mod workflows {
     pub struct ListWorkflowRevisions(RequestBuilder<crate::model::ListWorkflowRevisionsRequest>);
 
     impl ListWorkflowRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -513,6 +540,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -543,7 +572,9 @@ pub mod workflows {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -622,7 +653,9 @@ pub mod workflows {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -665,7 +698,9 @@ pub mod workflows {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -744,7 +779,9 @@ pub mod workflows {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -790,7 +827,9 @@ pub mod workflows {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -181,7 +181,7 @@ pub struct CertificateAuthority {
     /// state.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.DELETED]: crate::model::certificate_authority::state::DELETED
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.DELETED]: crate::model::certificate_authority::State::Deleted
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delete_time: std::option::Option<wkt::Timestamp>,
 
@@ -192,7 +192,7 @@ pub struct CertificateAuthority {
     /// state.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.DELETED]: crate::model::certificate_authority::state::DELETED
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.DELETED]: crate::model::certificate_authority::State::Deleted
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
@@ -283,6 +283,28 @@ impl CertificateAuthority {
         self
     }
 
+    /// Sets the value of [pem_ca_certificates][crate::model::CertificateAuthority::pem_ca_certificates].
+    pub fn set_pem_ca_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pem_ca_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ca_certificate_descriptions][crate::model::CertificateAuthority::ca_certificate_descriptions].
+    pub fn set_ca_certificate_descriptions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CertificateDescription>,
+    {
+        use std::iter::Iterator;
+        self.ca_certificate_descriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [gcs_bucket][crate::model::CertificateAuthority::gcs_bucket].
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_bucket = v.into();
@@ -333,28 +355,6 @@ impl CertificateAuthority {
         v: T,
     ) -> Self {
         self.expire_time = v.into();
-        self
-    }
-
-    /// Sets the value of [pem_ca_certificates][crate::model::CertificateAuthority::pem_ca_certificates].
-    pub fn set_pem_ca_certificates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.pem_ca_certificates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [ca_certificate_descriptions][crate::model::CertificateAuthority::ca_certificate_descriptions].
-    pub fn set_ca_certificate_descriptions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertificateDescription>,
-    {
-        use std::iter::Iterator;
-        self.ca_certificate_descriptions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -498,21 +498,6 @@ pub mod certificate_authority {
             })
         }
 
-        /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
-        /// if it holds a `Algorithm`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn algorithm(
-            &self,
-        ) -> std::option::Option<&crate::model::certificate_authority::SignHashAlgorithm> {
-            #[allow(unreachable_patterns)]
-            self.key_version.as_ref().and_then(|v| match v {
-                crate::model::certificate_authority::key_version_spec::KeyVersion::Algorithm(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
         /// to hold a `CloudKmsKeyVersion`.
         ///
@@ -528,6 +513,21 @@ pub mod certificate_authority {
                 )
             );
             self
+        }
+
+        /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
+        /// if it holds a `Algorithm`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn algorithm(
+            &self,
+        ) -> std::option::Option<&crate::model::certificate_authority::SignHashAlgorithm> {
+            #[allow(unreachable_patterns)]
+            self.key_version.as_ref().and_then(|v| match v {
+                crate::model::certificate_authority::key_version_spec::KeyVersion::Algorithm(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
@@ -583,63 +583,138 @@ pub mod certificate_authority {
     /// indicating its issuing chain.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
-
-    impl Type {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
         /// Not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+        Unspecified,
         /// Self-signed CA.
-        pub const SELF_SIGNED: Type = Type::new(1);
-
+        SelfSigned,
         /// Subordinate CA. Could be issued by a Private CA
         /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
         /// or an unmanaged CA.
         ///
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-        pub const SUBORDINATE: Type = Type::new(2);
+        Subordinate,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
 
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Type {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SelfSigned => std::option::Option::Some(1),
+                Self::Subordinate => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SELF_SIGNED"),
-                2 => std::borrow::Cow::Borrowed("SUBORDINATE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::SelfSigned => std::option::Option::Some("SELF_SIGNED"),
+                Self::Subordinate => std::option::Option::Some("SUBORDINATE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "SELF_SIGNED" => std::option::Option::Some(Self::SELF_SIGNED),
-                "SUBORDINATE" => std::option::Option::Some(Self::SUBORDINATE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SelfSigned,
+                2 => Self::Subordinate,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SELF_SIGNED" => Self::SelfSigned,
+                "SUBORDINATE" => Self::Subordinate,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SelfSigned => serializer.serialize_i32(1),
+                Self::Subordinate => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.security.privateca.v1.CertificateAuthority.Type",
+            ))
         }
     }
 
@@ -648,13 +723,25 @@ pub mod certificate_authority {
     /// indicating if it can be used.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Certificates can be issued from this CA. CRLs will be generated for this
         /// CA. The CA will be part of the
         /// [CaPool][google.cloud.security.privateca.v1.CaPool]'s trust anchor, and
@@ -662,8 +749,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const ENABLED: State = State::new(1);
-
+        Enabled,
         /// Certificates cannot be issued from this CA. CRLs will still be generated.
         /// The CA will be part of the
         /// [CaPool][google.cloud.security.privateca.v1.CaPool]'s trust anchor, but
@@ -671,8 +757,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const DISABLED: State = State::new(2);
-
+        Disabled,
         /// Certificates can be issued from this CA. CRLs will be generated for this
         /// CA. The CA will be part of the
         /// [CaPool][google.cloud.security.privateca.v1.CaPool]'s trust anchor, but
@@ -680,8 +765,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const STAGED: State = State::new(3);
-
+        Staged,
         /// Certificates cannot be issued from this CA. CRLs will not be generated.
         /// The CA will not be part of the
         /// [CaPool][google.cloud.security.privateca.v1.CaPool]'s trust anchor, and
@@ -689,8 +773,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const AWAITING_USER_ACTIVATION: State = State::new(4);
-
+        AwaitingUserActivation,
         /// Certificates cannot be issued from this CA. CRLs will not be generated.
         /// The CA may still be recovered by calling
         /// [CertificateAuthorityService.UndeleteCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.UndeleteCertificateAuthority]
@@ -704,56 +787,129 @@ pub mod certificate_authority {
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
         /// [google.cloud.security.privateca.v1.CertificateAuthority.expire_time]: crate::model::CertificateAuthority::expire_time
         /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UndeleteCertificateAuthority]: crate::client::CertificateAuthorityService::undelete_certificate_authority
-        pub const DELETED: State = State::new(5);
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::Staged => std::option::Option::Some(3),
+                Self::AwaitingUserActivation => std::option::Option::Some(4),
+                Self::Deleted => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                3 => std::borrow::Cow::Borrowed("STAGED"),
-                4 => std::borrow::Cow::Borrowed("AWAITING_USER_ACTIVATION"),
-                5 => std::borrow::Cow::Borrowed("DELETED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                "STAGED" => std::option::Option::Some(Self::STAGED),
-                "AWAITING_USER_ACTIVATION" => {
-                    std::option::Option::Some(Self::AWAITING_USER_ACTIVATION)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Staged => std::option::Option::Some("STAGED"),
+                Self::AwaitingUserActivation => {
+                    std::option::Option::Some("AWAITING_USER_ACTIVATION")
                 }
-                "DELETED" => std::option::Option::Some(Self::DELETED),
-                _ => std::option::Option::None,
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                3 => Self::Staged,
+                4 => Self::AwaitingUserActivation,
+                5 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                "STAGED" => Self::Staged,
+                "AWAITING_USER_ACTIVATION" => Self::AwaitingUserActivation,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::Staged => serializer.serialize_i32(3),
+                Self::AwaitingUserActivation => serializer.serialize_i32(4),
+                Self::Deleted => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.security.privateca.v1.CertificateAuthority.State",
+            ))
         }
     }
 
@@ -766,91 +922,176 @@ pub mod certificate_authority {
     /// use PKCS1 algorithms if required for compatibility. For further
     /// recommendations, see
     /// <https://cloud.google.com/kms/docs/algorithms#algorithm_recommendations>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SignHashAlgorithm(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SignHashAlgorithm {
+        /// Not specified.
+        Unspecified,
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256
+        RsaPss2048Sha256,
+        /// maps to CryptoKeyVersionAlgorithm. RSA_SIGN_PSS_3072_SHA256
+        RsaPss3072Sha256,
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_4096_SHA256
+        RsaPss4096Sha256,
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_2048_SHA256
+        RsaPkcs12048Sha256,
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_3072_SHA256
+        RsaPkcs13072Sha256,
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_4096_SHA256
+        RsaPkcs14096Sha256,
+        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P256_SHA256
+        EcP256Sha256,
+        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P384_SHA384
+        EcP384Sha384,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SignHashAlgorithm::value] or
+        /// [SignHashAlgorithm::name].
+        UnknownValue(sign_hash_algorithm::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod sign_hash_algorithm {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl SignHashAlgorithm {
-        /// Not specified.
-        pub const SIGN_HASH_ALGORITHM_UNSPECIFIED: SignHashAlgorithm = SignHashAlgorithm::new(0);
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256
-        pub const RSA_PSS_2048_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(1);
-
-        /// maps to CryptoKeyVersionAlgorithm. RSA_SIGN_PSS_3072_SHA256
-        pub const RSA_PSS_3072_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(2);
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_4096_SHA256
-        pub const RSA_PSS_4096_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(3);
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_2048_SHA256
-        pub const RSA_PKCS1_2048_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(6);
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_3072_SHA256
-        pub const RSA_PKCS1_3072_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(7);
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_4096_SHA256
-        pub const RSA_PKCS1_4096_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(8);
-
-        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P256_SHA256
-        pub const EC_P256_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(4);
-
-        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P384_SHA384
-        pub const EC_P384_SHA384: SignHashAlgorithm = SignHashAlgorithm::new(5);
-
-        /// Creates a new SignHashAlgorithm instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RsaPss2048Sha256 => std::option::Option::Some(1),
+                Self::RsaPss3072Sha256 => std::option::Option::Some(2),
+                Self::RsaPss4096Sha256 => std::option::Option::Some(3),
+                Self::RsaPkcs12048Sha256 => std::option::Option::Some(6),
+                Self::RsaPkcs13072Sha256 => std::option::Option::Some(7),
+                Self::RsaPkcs14096Sha256 => std::option::Option::Some(8),
+                Self::EcP256Sha256 => std::option::Option::Some(4),
+                Self::EcP384Sha384 => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SIGN_HASH_ALGORITHM_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RSA_PSS_2048_SHA256"),
-                2 => std::borrow::Cow::Borrowed("RSA_PSS_3072_SHA256"),
-                3 => std::borrow::Cow::Borrowed("RSA_PSS_4096_SHA256"),
-                4 => std::borrow::Cow::Borrowed("EC_P256_SHA256"),
-                5 => std::borrow::Cow::Borrowed("EC_P384_SHA384"),
-                6 => std::borrow::Cow::Borrowed("RSA_PKCS1_2048_SHA256"),
-                7 => std::borrow::Cow::Borrowed("RSA_PKCS1_3072_SHA256"),
-                8 => std::borrow::Cow::Borrowed("RSA_PKCS1_4096_SHA256"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SIGN_HASH_ALGORITHM_UNSPECIFIED"),
+                Self::RsaPss2048Sha256 => std::option::Option::Some("RSA_PSS_2048_SHA256"),
+                Self::RsaPss3072Sha256 => std::option::Option::Some("RSA_PSS_3072_SHA256"),
+                Self::RsaPss4096Sha256 => std::option::Option::Some("RSA_PSS_4096_SHA256"),
+                Self::RsaPkcs12048Sha256 => std::option::Option::Some("RSA_PKCS1_2048_SHA256"),
+                Self::RsaPkcs13072Sha256 => std::option::Option::Some("RSA_PKCS1_3072_SHA256"),
+                Self::RsaPkcs14096Sha256 => std::option::Option::Some("RSA_PKCS1_4096_SHA256"),
+                Self::EcP256Sha256 => std::option::Option::Some("EC_P256_SHA256"),
+                Self::EcP384Sha384 => std::option::Option::Some("EC_P384_SHA384"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SIGN_HASH_ALGORITHM_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::SIGN_HASH_ALGORITHM_UNSPECIFIED)
-                }
-                "RSA_PSS_2048_SHA256" => std::option::Option::Some(Self::RSA_PSS_2048_SHA256),
-                "RSA_PSS_3072_SHA256" => std::option::Option::Some(Self::RSA_PSS_3072_SHA256),
-                "RSA_PSS_4096_SHA256" => std::option::Option::Some(Self::RSA_PSS_4096_SHA256),
-                "RSA_PKCS1_2048_SHA256" => std::option::Option::Some(Self::RSA_PKCS1_2048_SHA256),
-                "RSA_PKCS1_3072_SHA256" => std::option::Option::Some(Self::RSA_PKCS1_3072_SHA256),
-                "RSA_PKCS1_4096_SHA256" => std::option::Option::Some(Self::RSA_PKCS1_4096_SHA256),
-                "EC_P256_SHA256" => std::option::Option::Some(Self::EC_P256_SHA256),
-                "EC_P384_SHA384" => std::option::Option::Some(Self::EC_P384_SHA384),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SignHashAlgorithm {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SignHashAlgorithm {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SignHashAlgorithm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SignHashAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RsaPss2048Sha256,
+                2 => Self::RsaPss3072Sha256,
+                3 => Self::RsaPss4096Sha256,
+                4 => Self::EcP256Sha256,
+                5 => Self::EcP384Sha384,
+                6 => Self::RsaPkcs12048Sha256,
+                7 => Self::RsaPkcs13072Sha256,
+                8 => Self::RsaPkcs14096Sha256,
+                _ => Self::UnknownValue(sign_hash_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SignHashAlgorithm {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SIGN_HASH_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                "RSA_PSS_2048_SHA256" => Self::RsaPss2048Sha256,
+                "RSA_PSS_3072_SHA256" => Self::RsaPss3072Sha256,
+                "RSA_PSS_4096_SHA256" => Self::RsaPss4096Sha256,
+                "RSA_PKCS1_2048_SHA256" => Self::RsaPkcs12048Sha256,
+                "RSA_PKCS1_3072_SHA256" => Self::RsaPkcs13072Sha256,
+                "RSA_PKCS1_4096_SHA256" => Self::RsaPkcs14096Sha256,
+                "EC_P256_SHA256" => Self::EcP256Sha256,
+                "EC_P384_SHA384" => Self::EcP384Sha384,
+                _ => Self::UnknownValue(sign_hash_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SignHashAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RsaPss2048Sha256 => serializer.serialize_i32(1),
+                Self::RsaPss3072Sha256 => serializer.serialize_i32(2),
+                Self::RsaPss4096Sha256 => serializer.serialize_i32(3),
+                Self::RsaPkcs12048Sha256 => serializer.serialize_i32(6),
+                Self::RsaPkcs13072Sha256 => serializer.serialize_i32(7),
+                Self::RsaPkcs14096Sha256 => serializer.serialize_i32(8),
+                Self::EcP256Sha256 => serializer.serialize_i32(4),
+                Self::EcP384Sha384 => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SignHashAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SignHashAlgorithm>::new(
+                ".google.cloud.security.privateca.v1.CertificateAuthority.SignHashAlgorithm",
+            ))
         }
     }
 }
@@ -1009,6 +1250,7 @@ pub mod ca_pool {
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub publish_ca_cert: bool,
 
         /// Optional. When true, publishes each
@@ -1023,6 +1265,7 @@ pub mod ca_pool {
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub publish_crl: bool,
 
         /// Optional. Specifies the encoding format of each
@@ -1078,69 +1321,145 @@ pub mod ca_pool {
         use super::*;
 
         /// Supported encoding formats for publishing.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EncodingFormat(i32);
-
-        impl EncodingFormat {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum EncodingFormat {
             /// Not specified. By default, PEM format will be used.
-            pub const ENCODING_FORMAT_UNSPECIFIED: EncodingFormat = EncodingFormat::new(0);
-
+            Unspecified,
             /// The
             /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]'s
             /// CA certificate and CRLs will be published in PEM format.
             ///
             /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-            pub const PEM: EncodingFormat = EncodingFormat::new(1);
-
+            Pem,
             /// The
             /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]'s
             /// CA certificate and CRLs will be published in DER format.
             ///
             /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-            pub const DER: EncodingFormat = EncodingFormat::new(2);
+            Der,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [EncodingFormat::value] or
+            /// [EncodingFormat::name].
+            UnknownValue(encoding_format::UnknownValue),
+        }
 
-            /// Creates a new EncodingFormat instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod encoding_format {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl EncodingFormat {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Pem => std::option::Option::Some(1),
+                    Self::Der => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("ENCODING_FORMAT_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PEM"),
-                    2 => std::borrow::Cow::Borrowed("DER"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("ENCODING_FORMAT_UNSPECIFIED"),
+                    Self::Pem => std::option::Option::Some("PEM"),
+                    Self::Der => std::option::Option::Some("DER"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "ENCODING_FORMAT_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::ENCODING_FORMAT_UNSPECIFIED)
-                    }
-                    "PEM" => std::option::Option::Some(Self::PEM),
-                    "DER" => std::option::Option::Some(Self::DER),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for EncodingFormat {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for EncodingFormat {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for EncodingFormat {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for EncodingFormat {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Pem,
+                    2 => Self::Der,
+                    _ => Self::UnknownValue(encoding_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for EncodingFormat {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "ENCODING_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                    "PEM" => Self::Pem,
+                    "DER" => Self::Der,
+                    _ => Self::UnknownValue(encoding_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for EncodingFormat {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Pem => serializer.serialize_i32(1),
+                    Self::Der => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for EncodingFormat {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncodingFormat>::new(
+                    ".google.cloud.security.privateca.v1.CaPool.PublishingOptions.EncodingFormat",
+                ))
             }
         }
     }
@@ -1252,6 +1571,17 @@ pub mod ca_pool {
             std::default::Default::default()
         }
 
+        /// Sets the value of [allowed_key_types][crate::model::ca_pool::IssuancePolicy::allowed_key_types].
+        pub fn set_allowed_key_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ca_pool::issuance_policy::AllowedKeyType>,
+        {
+            use std::iter::Iterator;
+            self.allowed_key_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
         pub fn set_maximum_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -1304,17 +1634,6 @@ pub mod ca_pool {
             v: T,
         ) -> Self {
             self.passthrough_extensions = v.into();
-            self
-        }
-
-        /// Sets the value of [allowed_key_types][crate::model::ca_pool::IssuancePolicy::allowed_key_types].
-        pub fn set_allowed_key_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ca_pool::issuance_policy::AllowedKeyType>,
-        {
-            use std::iter::Iterator;
-            self.allowed_key_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1396,23 +1715,6 @@ pub mod ca_pool {
                 })
             }
 
-            /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
-            /// if it holds a `EllipticCurve`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn elliptic_curve(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.key_type.as_ref().and_then(|v| match v {
-                    crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::EllipticCurve(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
             /// to hold a `Rsa`.
             ///
@@ -1434,6 +1736,23 @@ pub mod ca_pool {
                     ),
                 );
                 self
+            }
+
+            /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
+            /// if it holds a `EllipticCurve`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn elliptic_curve(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.key_type.as_ref().and_then(|v| match v {
+                    crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::EllipticCurve(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
@@ -1485,12 +1804,14 @@ pub mod ca_pool {
                 /// Optional. The minimum allowed RSA modulus size (inclusive), in bits.
                 /// If this is not set, or if set to zero, the service-level min RSA
                 /// modulus size will continue to apply.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub min_modulus_size: i64,
 
                 /// Optional. The maximum allowed RSA modulus size (inclusive), in bits.
                 /// If this is not set, or if set to zero, the service will not enforce
                 /// an explicit upper bound on RSA modulus sizes.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub max_modulus_size: i64,
 
@@ -1572,70 +1893,148 @@ pub mod ca_pool {
                 ///
                 /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
                 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-                pub struct EcSignatureAlgorithm(i32);
-
-                impl EcSignatureAlgorithm {
+                ///
+                /// # Working with unknown values
+                ///
+                /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                /// additional enum variants at any time. Adding new variants is not considered
+                /// a breaking change. Applications should write their code in anticipation of:
+                ///
+                /// - New values appearing in future releases of the client library, **and**
+                /// - New values received dynamically, without application changes.
+                ///
+                /// Please consult the [Working with enums] section in the user guide for some
+                /// guidelines.
+                ///
+                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum EcSignatureAlgorithm {
                     /// Not specified. Signifies that any signature algorithm may be used.
-                    pub const EC_SIGNATURE_ALGORITHM_UNSPECIFIED: EcSignatureAlgorithm =
-                        EcSignatureAlgorithm::new(0);
-
+                    Unspecified,
                     /// Refers to the Elliptic Curve Digital Signature Algorithm over the
                     /// NIST P-256 curve.
-                    pub const ECDSA_P256: EcSignatureAlgorithm = EcSignatureAlgorithm::new(1);
-
+                    EcdsaP256,
                     /// Refers to the Elliptic Curve Digital Signature Algorithm over the
                     /// NIST P-384 curve.
-                    pub const ECDSA_P384: EcSignatureAlgorithm = EcSignatureAlgorithm::new(2);
-
+                    EcdsaP384,
                     /// Refers to the Edwards-curve Digital Signature Algorithm over curve
                     /// 25519, as described in RFC 8410.
-                    pub const EDDSA_25519: EcSignatureAlgorithm = EcSignatureAlgorithm::new(3);
+                    Eddsa25519,
+                    /// If set, the enum was initialized with an unknown value.
+                    ///
+                    /// Applications can examine the value using [EcSignatureAlgorithm::value] or
+                    /// [EcSignatureAlgorithm::name].
+                    UnknownValue(ec_signature_algorithm::UnknownValue),
+                }
 
-                    /// Creates a new EcSignatureAlgorithm instance.
-                    pub(crate) const fn new(value: i32) -> Self {
-                        Self(value)
-                    }
+                #[doc(hidden)]
+                pub mod ec_signature_algorithm {
+                    #[allow(unused_imports)]
+                    use super::*;
+                    #[derive(Clone, Debug, PartialEq)]
+                    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+                }
 
+                impl EcSignatureAlgorithm {
                     /// Gets the enum value.
-                    pub fn value(&self) -> i32 {
-                        self.0
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the string representation of enums.
+                    pub fn value(&self) -> std::option::Option<i32> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some(0),
+                            Self::EcdsaP256 => std::option::Option::Some(1),
+                            Self::EcdsaP384 => std::option::Option::Some(2),
+                            Self::Eddsa25519 => std::option::Option::Some(3),
+                            Self::UnknownValue(u) => u.0.value(),
+                        }
                     }
 
                     /// Gets the enum value as a string.
-                    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                        match self.0 {
-                            0 => std::borrow::Cow::Borrowed("EC_SIGNATURE_ALGORITHM_UNSPECIFIED"),
-                            1 => std::borrow::Cow::Borrowed("ECDSA_P256"),
-                            2 => std::borrow::Cow::Borrowed("ECDSA_P384"),
-                            3 => std::borrow::Cow::Borrowed("EDDSA_25519"),
-                            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                        }
-                    }
-
-                    /// Creates an enum value from the value name.
-                    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                        match name {
-                            "EC_SIGNATURE_ALGORITHM_UNSPECIFIED" => {
-                                std::option::Option::Some(Self::EC_SIGNATURE_ALGORITHM_UNSPECIFIED)
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the integer representation of enums.
+                    pub fn name(&self) -> std::option::Option<&str> {
+                        match self {
+                            Self::Unspecified => {
+                                std::option::Option::Some("EC_SIGNATURE_ALGORITHM_UNSPECIFIED")
                             }
-                            "ECDSA_P256" => std::option::Option::Some(Self::ECDSA_P256),
-                            "ECDSA_P384" => std::option::Option::Some(Self::ECDSA_P384),
-                            "EDDSA_25519" => std::option::Option::Some(Self::EDDSA_25519),
-                            _ => std::option::Option::None,
+                            Self::EcdsaP256 => std::option::Option::Some("ECDSA_P256"),
+                            Self::EcdsaP384 => std::option::Option::Some("ECDSA_P384"),
+                            Self::Eddsa25519 => std::option::Option::Some("EDDSA_25519"),
+                            Self::UnknownValue(u) => u.0.name(),
                         }
-                    }
-                }
-
-                impl std::convert::From<i32> for EcSignatureAlgorithm {
-                    fn from(value: i32) -> Self {
-                        Self::new(value)
                     }
                 }
 
                 impl std::default::Default for EcSignatureAlgorithm {
                     fn default() -> Self {
-                        Self::new(0)
+                        use std::convert::From;
+                        Self::from(0)
+                    }
+                }
+
+                impl std::fmt::Display for EcSignatureAlgorithm {
+                    fn fmt(
+                        &self,
+                        f: &mut std::fmt::Formatter<'_>,
+                    ) -> std::result::Result<(), std::fmt::Error> {
+                        wkt::internal::display_enum(f, self.name(), self.value())
+                    }
+                }
+
+                impl std::convert::From<i32> for EcSignatureAlgorithm {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => Self::Unspecified,
+                            1 => Self::EcdsaP256,
+                            2 => Self::EcdsaP384,
+                            3 => Self::Eddsa25519,
+                            _ => Self::UnknownValue(ec_signature_algorithm::UnknownValue(
+                                wkt::internal::UnknownEnumValue::Integer(value),
+                            )),
+                        }
+                    }
+                }
+
+                impl std::convert::From<&str> for EcSignatureAlgorithm {
+                    fn from(value: &str) -> Self {
+                        use std::string::ToString;
+                        match value {
+                            "EC_SIGNATURE_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                            "ECDSA_P256" => Self::EcdsaP256,
+                            "ECDSA_P384" => Self::EcdsaP384,
+                            "EDDSA_25519" => Self::Eddsa25519,
+                            _ => Self::UnknownValue(ec_signature_algorithm::UnknownValue(
+                                wkt::internal::UnknownEnumValue::String(value.to_string()),
+                            )),
+                        }
+                    }
+                }
+
+                impl serde::ser::Serialize for EcSignatureAlgorithm {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::Serializer,
+                    {
+                        match self {
+                            Self::Unspecified => serializer.serialize_i32(0),
+                            Self::EcdsaP256 => serializer.serialize_i32(1),
+                            Self::EcdsaP384 => serializer.serialize_i32(2),
+                            Self::Eddsa25519 => serializer.serialize_i32(3),
+                            Self::UnknownValue(u) => u.0.serialize(serializer),
+                        }
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for EcSignatureAlgorithm {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EcSignatureAlgorithm>::new(
+                            ".google.cloud.security.privateca.v1.CaPool.IssuancePolicy.AllowedKeyType.EcKeyType.EcSignatureAlgorithm"))
                     }
                 }
             }
@@ -1677,6 +2076,7 @@ pub mod ca_pool {
             /// specifying a CSR.
             ///
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub allow_csr_based_issuance: bool,
 
             /// Optional. When true, allows callers to create
@@ -1686,6 +2086,7 @@ pub mod ca_pool {
             ///
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
             /// [google.cloud.security.privateca.v1.CertificateConfig]: crate::model::CertificateConfig
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub allow_config_based_issuance: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1727,59 +2128,134 @@ pub mod ca_pool {
     /// indicating its supported functionality and/or billing SKU.
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tier(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Tier {
+        /// Not specified.
+        Unspecified,
+        /// Enterprise tier.
+        Enterprise,
+        /// DevOps tier.
+        Devops,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Tier::value] or
+        /// [Tier::name].
+        UnknownValue(tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Tier {
-        /// Not specified.
-        pub const TIER_UNSPECIFIED: Tier = Tier::new(0);
-
-        /// Enterprise tier.
-        pub const ENTERPRISE: Tier = Tier::new(1);
-
-        /// DevOps tier.
-        pub const DEVOPS: Tier = Tier::new(2);
-
-        /// Creates a new Tier instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enterprise => std::option::Option::Some(1),
+                Self::Devops => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TIER_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENTERPRISE"),
-                2 => std::borrow::Cow::Borrowed("DEVOPS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TIER_UNSPECIFIED"),
+                Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
+                Self::Devops => std::option::Option::Some("DEVOPS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TIER_UNSPECIFIED" => std::option::Option::Some(Self::TIER_UNSPECIFIED),
-                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
-                "DEVOPS" => std::option::Option::Some(Self::DEVOPS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Tier {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Tier {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Tier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Tier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enterprise,
+                2 => Self::Devops,
+                _ => Self::UnknownValue(tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Tier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TIER_UNSPECIFIED" => Self::Unspecified,
+                "ENTERPRISE" => Self::Enterprise,
+                "DEVOPS" => Self::Devops,
+                _ => Self::UnknownValue(tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Tier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enterprise => serializer.serialize_i32(1),
+                Self::Devops => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Tier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Tier>::new(
+                ".google.cloud.security.privateca.v1.CaPool.Tier",
+            ))
         }
     }
 }
@@ -1805,6 +2281,7 @@ pub struct CertificateRevocationList {
     pub name: std::string::String,
 
     /// Output only. The CRL sequence number that appears in pem_crl.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub sequence_number: i64,
 
@@ -1880,6 +2357,17 @@ impl CertificateRevocationList {
         self
     }
 
+    /// Sets the value of [revoked_certificates][crate::model::CertificateRevocationList::revoked_certificates].
+    pub fn set_revoked_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::certificate_revocation_list::RevokedCertificate>,
+    {
+        use std::iter::Iterator;
+        self.revoked_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [pem_crl][crate::model::CertificateRevocationList::pem_crl].
     pub fn set_pem_crl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_crl = v.into();
@@ -1922,17 +2410,6 @@ impl CertificateRevocationList {
     /// Sets the value of [revision_id][crate::model::CertificateRevocationList::revision_id].
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
-        self
-    }
-
-    /// Sets the value of [revoked_certificates][crate::model::CertificateRevocationList::revoked_certificates].
-    pub fn set_revoked_certificates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::certificate_revocation_list::RevokedCertificate>,
-    {
-        use std::iter::Iterator;
-        self.revoked_certificates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2036,67 +2513,142 @@ pub mod certificate_revocation_list {
     /// indicating if it is current.
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The
         /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList]
         /// is up to date.
         ///
         /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-        pub const ACTIVE: State = State::new(1);
-
+        Active,
         /// The
         /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList]
         /// is no longer current.
         ///
         /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-        pub const SUPERSEDED: State = State::new(2);
+        Superseded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Superseded => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("SUPERSEDED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Superseded => std::option::Option::Some("SUPERSEDED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "SUPERSEDED" => std::option::Option::Some(Self::SUPERSEDED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Superseded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "SUPERSEDED" => Self::Superseded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Superseded => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.security.privateca.v1.CertificateRevocationList.State",
+            ))
         }
     }
 }
@@ -2280,6 +2832,17 @@ impl Certificate {
         self
     }
 
+    /// Sets the value of [pem_certificate_chain][crate::model::Certificate::pem_certificate_chain].
+    pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pem_certificate_chain = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Certificate::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2295,17 +2858,6 @@ impl Certificate {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [pem_certificate_chain][crate::model::Certificate::pem_certificate_chain].
-    pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.pem_certificate_chain = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2346,17 +2898,6 @@ impl Certificate {
         })
     }
 
-    /// The value of [certificate_config][crate::model::Certificate::certificate_config]
-    /// if it holds a `Config`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateConfig>> {
-        #[allow(unreachable_patterns)]
-        self.certificate_config.as_ref().and_then(|v| match v {
-            crate::model::certificate::CertificateConfig::Config(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config]
     /// to hold a `PemCsr`.
     ///
@@ -2367,6 +2908,17 @@ impl Certificate {
             crate::model::certificate::CertificateConfig::PemCsr(v.into()),
         );
         self
+    }
+
+    /// The value of [certificate_config][crate::model::Certificate::certificate_config]
+    /// if it holds a `Config`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateConfig>> {
+        #[allow(unreachable_patterns)]
+        self.certificate_config.as_ref().and_then(|v| match v {
+            crate::model::certificate::CertificateConfig::Config(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config]
@@ -2759,17 +3311,6 @@ impl X509Parameters {
         self
     }
 
-    /// Sets the value of [name_constraints][crate::model::X509Parameters::name_constraints].
-    pub fn set_name_constraints<
-        T: std::convert::Into<std::option::Option<crate::model::x_509_parameters::NameConstraints>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.name_constraints = v.into();
-        self
-    }
-
     /// Sets the value of [policy_ids][crate::model::X509Parameters::policy_ids].
     pub fn set_policy_ids<T, V>(mut self, v: T) -> Self
     where
@@ -2789,6 +3330,17 @@ impl X509Parameters {
     {
         use std::iter::Iterator;
         self.aia_ocsp_servers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [name_constraints][crate::model::X509Parameters::name_constraints].
+    pub fn set_name_constraints<
+        T: std::convert::Into<std::option::Option<crate::model::x_509_parameters::NameConstraints>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.name_constraints = v.into();
         self
     }
 
@@ -2875,6 +3427,7 @@ pub mod x_509_parameters {
     #[non_exhaustive]
     pub struct NameConstraints {
         /// Indicates whether or not the name constraints are marked critical.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub critical: bool,
 
         /// Contains permitted DNS names. Any DNS name that can be
@@ -3097,6 +3650,21 @@ impl SubordinateConfig {
         })
     }
 
+    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
+    /// to hold a `CertificateAuthority`.
+    ///
+    /// Note that all the setters affecting `subordinate_config` are
+    /// mutually exclusive.
+    pub fn set_certificate_authority<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subordinate_config = std::option::Option::Some(
+            crate::model::subordinate_config::SubordinateConfig::CertificateAuthority(v.into()),
+        );
+        self
+    }
+
     /// The value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
     /// if it holds a `PemIssuerChain`, `None` if the field is not set or
     /// holds a different branch.
@@ -3112,21 +3680,6 @@ impl SubordinateConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
-    /// to hold a `CertificateAuthority`.
-    ///
-    /// Note that all the setters affecting `subordinate_config` are
-    /// mutually exclusive.
-    pub fn set_certificate_authority<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subordinate_config = std::option::Option::Some(
-            crate::model::subordinate_config::SubordinateConfig::CertificateAuthority(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
@@ -3277,13 +3830,25 @@ pub mod public_key {
 
     /// Types of public keys formats that are supported. Currently, only `PEM`
     /// format is supported.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyFormat(i32);
-
-    impl KeyFormat {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyFormat {
         /// Default unspecified value.
-        pub const KEY_FORMAT_UNSPECIFIED: KeyFormat = KeyFormat::new(0);
-
+        Unspecified,
         /// The key is PEM-encoded as defined in [RFC
         /// 7468](https://tools.ietf.org/html/rfc7468). It can be any of the
         /// following: a PEM-encoded PKCS#1/RFC 3447 RSAPublicKey
@@ -3297,46 +3862,107 @@ pub mod public_key {
         /// generated by the service, it will always be an RFC 5280
         /// [SubjectPublicKeyInfo](https://tools.ietf.org/html/rfc5280#section-4.1)
         /// structure containing an algorithm identifier and a key.
-        pub const PEM: KeyFormat = KeyFormat::new(1);
+        Pem,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyFormat::value] or
+        /// [KeyFormat::name].
+        UnknownValue(key_format::UnknownValue),
+    }
 
-        /// Creates a new KeyFormat instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod key_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl KeyFormat {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pem => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("KEY_FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PEM"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("KEY_FORMAT_UNSPECIFIED"),
+                Self::Pem => std::option::Option::Some("PEM"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "KEY_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::KEY_FORMAT_UNSPECIFIED),
-                "PEM" => std::option::Option::Some(Self::PEM),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for KeyFormat {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for KeyFormat {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pem,
+                _ => Self::UnknownValue(key_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "PEM" => Self::Pem,
+                _ => Self::UnknownValue(key_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pem => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyFormat>::new(
+                ".google.cloud.security.privateca.v1.PublicKey.KeyFormat",
+            ))
         }
     }
 }
@@ -3647,19 +4273,6 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
-    pub fn set_cert_fingerprint<
-        T: std::convert::Into<
-                std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cert_fingerprint = v.into();
-        self
-    }
-
     /// Sets the value of [crl_distribution_points][crate::model::CertificateDescription::crl_distribution_points].
     pub fn set_crl_distribution_points<T, V>(mut self, v: T) -> Self
     where
@@ -3679,6 +4292,19 @@ impl CertificateDescription {
     {
         use std::iter::Iterator;
         self.aia_issuing_certificate_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
+    pub fn set_cert_fingerprint<
+        T: std::convert::Into<
+                std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cert_fingerprint = v.into();
         self
     }
 }
@@ -3927,6 +4553,7 @@ pub struct X509Extension {
     /// Optional. Indicates whether or not this extension is critical (i.e., if the
     /// client does not know how to handle this extension, the client should
     /// consider this to be an error).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub critical: bool,
 
     /// Required. The value of this X.509 extension.
@@ -4061,31 +4688,40 @@ pub mod key_usage {
     #[non_exhaustive]
     pub struct KeyUsageOptions {
         /// The key may be used for digital signatures.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub digital_signature: bool,
 
         /// The key may be used for cryptographic commitments. Note that this may
         /// also be referred to as "non-repudiation".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub content_commitment: bool,
 
         /// The key may be used to encipher other keys.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub key_encipherment: bool,
 
         /// The key may be used to encipher data.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub data_encipherment: bool,
 
         /// The key may be used in a key agreement protocol.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub key_agreement: bool,
 
         /// The key may be used to sign certificates.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cert_sign: bool,
 
         /// The key may be used sign certificate revocation lists.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub crl_sign: bool,
 
         /// The key may be used to encipher only.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub encipher_only: bool,
 
         /// The key may be used to decipher only.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub decipher_only: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4170,26 +4806,32 @@ pub mod key_usage {
     pub struct ExtendedKeyUsageOptions {
         /// Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially described as "TLS WWW
         /// server authentication", though regularly used for non-WWW TLS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub server_auth: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as "TLS WWW
         /// client authentication", though regularly used for non-WWW TLS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub client_auth: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially described as "Signing of
         /// downloadable executable code client authentication".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code_signing: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially described as "Email
         /// protection".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub email_protection: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially described as "Binding
         /// the hash of an object to a time".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub time_stamping: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially described as "Signing
         /// OCSP responses".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ocsp_signing: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4622,14 +5264,25 @@ pub mod certificate_extension_constraints {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KnownCertificateExtension(i32);
-
-    impl KnownCertificateExtension {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KnownCertificateExtension {
         /// Not specified.
-        pub const KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED: KnownCertificateExtension =
-            KnownCertificateExtension::new(0);
-
+        Unspecified,
         /// Refers to a certificate's Key Usage extension, as described in [RFC 5280
         /// section 4.2.1.3](https://tools.ietf.org/html/rfc5280#section-4.2.1.3).
         /// This corresponds to the
@@ -4637,8 +5290,7 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.KeyUsage.base_key_usage]: crate::model::KeyUsage::base_key_usage
-        pub const BASE_KEY_USAGE: KnownCertificateExtension = KnownCertificateExtension::new(1);
-
+        BaseKeyUsage,
         /// Refers to a certificate's Extended Key Usage extension, as described in
         /// [RFC 5280
         /// section 4.2.1.12](https://tools.ietf.org/html/rfc5280#section-4.2.1.12).
@@ -4647,8 +5299,7 @@ pub mod certificate_extension_constraints {
         /// message.
         ///
         /// [google.cloud.security.privateca.v1.KeyUsage.extended_key_usage]: crate::model::KeyUsage::extended_key_usage
-        pub const EXTENDED_KEY_USAGE: KnownCertificateExtension = KnownCertificateExtension::new(2);
-
+        ExtendedKeyUsage,
         /// Refers to a certificate's Basic Constraints extension, as described in
         /// [RFC 5280
         /// section 4.2.1.9](https://tools.ietf.org/html/rfc5280#section-4.2.1.9).
@@ -4657,8 +5308,7 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.X509Parameters.ca_options]: crate::model::X509Parameters::ca_options
-        pub const CA_OPTIONS: KnownCertificateExtension = KnownCertificateExtension::new(3);
-
+        CaOptions,
         /// Refers to a certificate's Policy object identifiers, as described in
         /// [RFC 5280
         /// section 4.2.1.4](https://tools.ietf.org/html/rfc5280#section-4.2.1.4).
@@ -4667,8 +5317,7 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.X509Parameters.policy_ids]: crate::model::X509Parameters::policy_ids
-        pub const POLICY_IDS: KnownCertificateExtension = KnownCertificateExtension::new(4);
-
+        PolicyIds,
         /// Refers to OCSP servers in a certificate's Authority Information Access
         /// extension, as described in
         /// [RFC 5280
@@ -4678,63 +5327,137 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.X509Parameters.aia_ocsp_servers]: crate::model::X509Parameters::aia_ocsp_servers
-        pub const AIA_OCSP_SERVERS: KnownCertificateExtension = KnownCertificateExtension::new(5);
-
+        AiaOcspServers,
         /// Refers to Name Constraints extension as described in
         /// [RFC 5280
         /// section 4.2.1.10](https://tools.ietf.org/html/rfc5280#section-4.2.1.10)
-        pub const NAME_CONSTRAINTS: KnownCertificateExtension = KnownCertificateExtension::new(6);
+        NameConstraints,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KnownCertificateExtension::value] or
+        /// [KnownCertificateExtension::name].
+        UnknownValue(known_certificate_extension::UnknownValue),
+    }
 
-        /// Creates a new KnownCertificateExtension instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod known_certificate_extension {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl KnownCertificateExtension {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::BaseKeyUsage => std::option::Option::Some(1),
+                Self::ExtendedKeyUsage => std::option::Option::Some(2),
+                Self::CaOptions => std::option::Option::Some(3),
+                Self::PolicyIds => std::option::Option::Some(4),
+                Self::AiaOcspServers => std::option::Option::Some(5),
+                Self::NameConstraints => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("BASE_KEY_USAGE"),
-                2 => std::borrow::Cow::Borrowed("EXTENDED_KEY_USAGE"),
-                3 => std::borrow::Cow::Borrowed("CA_OPTIONS"),
-                4 => std::borrow::Cow::Borrowed("POLICY_IDS"),
-                5 => std::borrow::Cow::Borrowed("AIA_OCSP_SERVERS"),
-                6 => std::borrow::Cow::Borrowed("NAME_CONSTRAINTS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED")
                 }
-                "BASE_KEY_USAGE" => std::option::Option::Some(Self::BASE_KEY_USAGE),
-                "EXTENDED_KEY_USAGE" => std::option::Option::Some(Self::EXTENDED_KEY_USAGE),
-                "CA_OPTIONS" => std::option::Option::Some(Self::CA_OPTIONS),
-                "POLICY_IDS" => std::option::Option::Some(Self::POLICY_IDS),
-                "AIA_OCSP_SERVERS" => std::option::Option::Some(Self::AIA_OCSP_SERVERS),
-                "NAME_CONSTRAINTS" => std::option::Option::Some(Self::NAME_CONSTRAINTS),
-                _ => std::option::Option::None,
+                Self::BaseKeyUsage => std::option::Option::Some("BASE_KEY_USAGE"),
+                Self::ExtendedKeyUsage => std::option::Option::Some("EXTENDED_KEY_USAGE"),
+                Self::CaOptions => std::option::Option::Some("CA_OPTIONS"),
+                Self::PolicyIds => std::option::Option::Some("POLICY_IDS"),
+                Self::AiaOcspServers => std::option::Option::Some("AIA_OCSP_SERVERS"),
+                Self::NameConstraints => std::option::Option::Some("NAME_CONSTRAINTS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for KnownCertificateExtension {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for KnownCertificateExtension {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KnownCertificateExtension {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KnownCertificateExtension {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::BaseKeyUsage,
+                2 => Self::ExtendedKeyUsage,
+                3 => Self::CaOptions,
+                4 => Self::PolicyIds,
+                5 => Self::AiaOcspServers,
+                6 => Self::NameConstraints,
+                _ => Self::UnknownValue(known_certificate_extension::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KnownCertificateExtension {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED" => Self::Unspecified,
+                "BASE_KEY_USAGE" => Self::BaseKeyUsage,
+                "EXTENDED_KEY_USAGE" => Self::ExtendedKeyUsage,
+                "CA_OPTIONS" => Self::CaOptions,
+                "POLICY_IDS" => Self::PolicyIds,
+                "AIA_OCSP_SERVERS" => Self::AiaOcspServers,
+                "NAME_CONSTRAINTS" => Self::NameConstraints,
+                _ => Self::UnknownValue(known_certificate_extension::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KnownCertificateExtension {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::BaseKeyUsage => serializer.serialize_i32(1),
+                Self::ExtendedKeyUsage => serializer.serialize_i32(2),
+                Self::CaOptions => serializer.serialize_i32(3),
+                Self::PolicyIds => serializer.serialize_i32(4),
+                Self::AiaOcspServers => serializer.serialize_i32(5),
+                Self::NameConstraints => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KnownCertificateExtension {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KnownCertificateExtension>::new(
+                ".google.cloud.security.privateca.v1.CertificateExtensionConstraints.KnownCertificateExtension"))
         }
     }
 }
@@ -4805,6 +5528,7 @@ pub struct CreateCertificateRequest {
     /// [google.cloud.security.privateca.v1.CaPool.tier]: crate::model::CaPool::tier
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.Certificate.pem_certificate]: crate::model::Certificate::pem_certificate
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The resource ID of the
@@ -4962,6 +5686,7 @@ pub struct ListCertificatesRequest {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.ListCertificatesResponse.next_page_token]: crate::model::ListCertificatesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -5063,12 +5788,6 @@ impl ListCertificatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificates][crate::model::ListCertificatesResponse::certificates].
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
@@ -5077,6 +5796,12 @@ impl ListCertificatesResponse {
     {
         use std::iter::Iterator;
         self.certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5493,6 +6218,7 @@ pub struct DisableCertificateAuthorityRequest {
     /// depended on by another resource. However, doing so may result in unintended
     /// and unrecoverable effects on any dependent resources since the CA will
     /// no longer be able to issue certificates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_dependent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5735,6 +6461,7 @@ pub struct ListCertificateAuthoritiesRequest {
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     /// [google.cloud.security.privateca.v1.ListCertificateAuthoritiesResponse.next_page_token]: crate::model::ListCertificateAuthoritiesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -5833,12 +6560,6 @@ impl ListCertificateAuthoritiesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateAuthoritiesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_authorities][crate::model::ListCertificateAuthoritiesResponse::certificate_authorities].
     pub fn set_certificate_authorities<T, V>(mut self, v: T) -> Self
     where
@@ -5847,6 +6568,12 @@ impl ListCertificateAuthoritiesResponse {
     {
         use std::iter::Iterator;
         self.certificate_authorities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateAuthoritiesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5978,17 +6705,20 @@ pub struct DeleteCertificateAuthorityRequest {
 
     /// Optional. This field allows the CA to be deleted even if the CA has
     /// active certs. Active certs include both unrevoked and unexpired certs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_active_certificates: bool,
 
     /// Optional. If this flag is set, the Certificate Authority will be deleted as
     /// soon as possible without a 30-day grace period where undeletion would have
     /// been allowed. If you proceed, there will be no way to recover this CA.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_grace_period: bool,
 
     /// Optional. This field allows this CA to be deleted even if it's being
     /// depended on by another resource. However, doing so may result in unintended
     /// and unrecoverable effects on any dependent resources since the CA will
     /// no longer be able to issue certificates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_dependent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6317,6 +7047,7 @@ pub struct DeleteCaPoolRequest {
     /// depended on by another resource. However, doing so may result in unintended
     /// and unrecoverable effects on any dependent resources since the pool will
     /// no longer be able to issue certificates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_dependent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6566,6 +7297,7 @@ pub struct ListCaPoolsRequest {
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.ListCaPoolsResponse.next_page_token]: crate::model::ListCaPoolsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -6663,12 +7395,6 @@ impl ListCaPoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCaPoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [ca_pools][crate::model::ListCaPoolsResponse::ca_pools].
     pub fn set_ca_pools<T, V>(mut self, v: T) -> Self
     where
@@ -6677,6 +7403,12 @@ impl ListCaPoolsResponse {
     {
         use std::iter::Iterator;
         self.ca_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCaPoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6782,6 +7514,7 @@ pub struct ListCertificateRevocationListsRequest {
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
     /// [google.cloud.security.privateca.v1.ListCertificateRevocationListsResponse.next_page_token]: crate::model::ListCertificateRevocationListsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -6880,12 +7613,6 @@ impl ListCertificateRevocationListsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateRevocationListsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_revocation_lists][crate::model::ListCertificateRevocationListsResponse::certificate_revocation_lists].
     pub fn set_certificate_revocation_lists<T, V>(mut self, v: T) -> Self
     where
@@ -6894,6 +7621,12 @@ impl ListCertificateRevocationListsResponse {
     {
         use std::iter::Iterator;
         self.certificate_revocation_lists = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateRevocationListsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7232,6 +7965,7 @@ pub struct ListCertificateTemplatesRequest {
     ///
     /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
     /// [google.cloud.security.privateca.v1.ListCertificateTemplatesResponse.next_page_token]: crate::model::ListCertificateTemplatesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -7330,12 +8064,6 @@ impl ListCertificateTemplatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateTemplatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_templates][crate::model::ListCertificateTemplatesResponse::certificate_templates].
     pub fn set_certificate_templates<T, V>(mut self, v: T) -> Self
     where
@@ -7344,6 +8072,12 @@ impl ListCertificateTemplatesResponse {
     {
         use std::iter::Iterator;
         self.certificate_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateTemplatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7491,6 +8225,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -7571,124 +8306,209 @@ impl wkt::message::Message for OperationMetadata {
 ///
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.RevocationReason]: crate::model::RevocationReason
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RevocationReason(i32);
-
-impl RevocationReason {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum RevocationReason {
     /// Default unspecified value. This value does indicate that a
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] has been
     /// revoked, but that a reason has not been recorded.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const REVOCATION_REASON_UNSPECIFIED: RevocationReason = RevocationReason::new(0);
-
+    Unspecified,
     /// Key material for this
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] may have
     /// leaked.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const KEY_COMPROMISE: RevocationReason = RevocationReason::new(1);
-
+    KeyCompromise,
     /// The key material for a certificate authority in the issuing path may have
     /// leaked.
-    pub const CERTIFICATE_AUTHORITY_COMPROMISE: RevocationReason = RevocationReason::new(2);
-
+    CertificateAuthorityCompromise,
     /// The subject or other attributes in this
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] have changed.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const AFFILIATION_CHANGED: RevocationReason = RevocationReason::new(3);
-
+    AffiliationChanged,
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] has been
     /// superseded.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const SUPERSEDED: RevocationReason = RevocationReason::new(4);
-
+    Superseded,
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] or
     /// entities in the issuing path have ceased to operate.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const CESSATION_OF_OPERATION: RevocationReason = RevocationReason::new(5);
-
+    CessationOfOperation,
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] should
     /// not be considered valid, it is expected that it may become valid in the
     /// future.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const CERTIFICATE_HOLD: RevocationReason = RevocationReason::new(6);
-
+    CertificateHold,
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] no
     /// longer has permission to assert the listed attributes.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const PRIVILEGE_WITHDRAWN: RevocationReason = RevocationReason::new(7);
-
+    PrivilegeWithdrawn,
     /// The authority which determines appropriate attributes for a
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] may have been
     /// compromised.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const ATTRIBUTE_AUTHORITY_COMPROMISE: RevocationReason = RevocationReason::new(8);
+    AttributeAuthorityCompromise,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [RevocationReason::value] or
+    /// [RevocationReason::name].
+    UnknownValue(revocation_reason::UnknownValue),
+}
 
-    /// Creates a new RevocationReason instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod revocation_reason {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl RevocationReason {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::KeyCompromise => std::option::Option::Some(1),
+            Self::CertificateAuthorityCompromise => std::option::Option::Some(2),
+            Self::AffiliationChanged => std::option::Option::Some(3),
+            Self::Superseded => std::option::Option::Some(4),
+            Self::CessationOfOperation => std::option::Option::Some(5),
+            Self::CertificateHold => std::option::Option::Some(6),
+            Self::PrivilegeWithdrawn => std::option::Option::Some(7),
+            Self::AttributeAuthorityCompromise => std::option::Option::Some(8),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("REVOCATION_REASON_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("KEY_COMPROMISE"),
-            2 => std::borrow::Cow::Borrowed("CERTIFICATE_AUTHORITY_COMPROMISE"),
-            3 => std::borrow::Cow::Borrowed("AFFILIATION_CHANGED"),
-            4 => std::borrow::Cow::Borrowed("SUPERSEDED"),
-            5 => std::borrow::Cow::Borrowed("CESSATION_OF_OPERATION"),
-            6 => std::borrow::Cow::Borrowed("CERTIFICATE_HOLD"),
-            7 => std::borrow::Cow::Borrowed("PRIVILEGE_WITHDRAWN"),
-            8 => std::borrow::Cow::Borrowed("ATTRIBUTE_AUTHORITY_COMPROMISE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("REVOCATION_REASON_UNSPECIFIED"),
+            Self::KeyCompromise => std::option::Option::Some("KEY_COMPROMISE"),
+            Self::CertificateAuthorityCompromise => {
+                std::option::Option::Some("CERTIFICATE_AUTHORITY_COMPROMISE")
+            }
+            Self::AffiliationChanged => std::option::Option::Some("AFFILIATION_CHANGED"),
+            Self::Superseded => std::option::Option::Some("SUPERSEDED"),
+            Self::CessationOfOperation => std::option::Option::Some("CESSATION_OF_OPERATION"),
+            Self::CertificateHold => std::option::Option::Some("CERTIFICATE_HOLD"),
+            Self::PrivilegeWithdrawn => std::option::Option::Some("PRIVILEGE_WITHDRAWN"),
+            Self::AttributeAuthorityCompromise => {
+                std::option::Option::Some("ATTRIBUTE_AUTHORITY_COMPROMISE")
+            }
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "REVOCATION_REASON_UNSPECIFIED" => {
-                std::option::Option::Some(Self::REVOCATION_REASON_UNSPECIFIED)
-            }
-            "KEY_COMPROMISE" => std::option::Option::Some(Self::KEY_COMPROMISE),
-            "CERTIFICATE_AUTHORITY_COMPROMISE" => {
-                std::option::Option::Some(Self::CERTIFICATE_AUTHORITY_COMPROMISE)
-            }
-            "AFFILIATION_CHANGED" => std::option::Option::Some(Self::AFFILIATION_CHANGED),
-            "SUPERSEDED" => std::option::Option::Some(Self::SUPERSEDED),
-            "CESSATION_OF_OPERATION" => std::option::Option::Some(Self::CESSATION_OF_OPERATION),
-            "CERTIFICATE_HOLD" => std::option::Option::Some(Self::CERTIFICATE_HOLD),
-            "PRIVILEGE_WITHDRAWN" => std::option::Option::Some(Self::PRIVILEGE_WITHDRAWN),
-            "ATTRIBUTE_AUTHORITY_COMPROMISE" => {
-                std::option::Option::Some(Self::ATTRIBUTE_AUTHORITY_COMPROMISE)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for RevocationReason {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for RevocationReason {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for RevocationReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for RevocationReason {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::KeyCompromise,
+            2 => Self::CertificateAuthorityCompromise,
+            3 => Self::AffiliationChanged,
+            4 => Self::Superseded,
+            5 => Self::CessationOfOperation,
+            6 => Self::CertificateHold,
+            7 => Self::PrivilegeWithdrawn,
+            8 => Self::AttributeAuthorityCompromise,
+            _ => Self::UnknownValue(revocation_reason::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for RevocationReason {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "REVOCATION_REASON_UNSPECIFIED" => Self::Unspecified,
+            "KEY_COMPROMISE" => Self::KeyCompromise,
+            "CERTIFICATE_AUTHORITY_COMPROMISE" => Self::CertificateAuthorityCompromise,
+            "AFFILIATION_CHANGED" => Self::AffiliationChanged,
+            "SUPERSEDED" => Self::Superseded,
+            "CESSATION_OF_OPERATION" => Self::CessationOfOperation,
+            "CERTIFICATE_HOLD" => Self::CertificateHold,
+            "PRIVILEGE_WITHDRAWN" => Self::PrivilegeWithdrawn,
+            "ATTRIBUTE_AUTHORITY_COMPROMISE" => Self::AttributeAuthorityCompromise,
+            _ => Self::UnknownValue(revocation_reason::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for RevocationReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::KeyCompromise => serializer.serialize_i32(1),
+            Self::CertificateAuthorityCompromise => serializer.serialize_i32(2),
+            Self::AffiliationChanged => serializer.serialize_i32(3),
+            Self::Superseded => serializer.serialize_i32(4),
+            Self::CessationOfOperation => serializer.serialize_i32(5),
+            Self::CertificateHold => serializer.serialize_i32(6),
+            Self::PrivilegeWithdrawn => serializer.serialize_i32(7),
+            Self::AttributeAuthorityCompromise => serializer.serialize_i32(8),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RevocationReason {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RevocationReason>::new(
+            ".google.cloud.security.privateca.v1.RevocationReason",
+        ))
     }
 }
 
@@ -7701,13 +8521,25 @@ impl std::default::Default for RevocationReason {
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
 /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SubjectRequestMode(i32);
-
-impl SubjectRequestMode {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SubjectRequestMode {
     /// Not specified.
-    pub const SUBJECT_REQUEST_MODE_UNSPECIFIED: SubjectRequestMode = SubjectRequestMode::new(0);
-
+    Unspecified,
     /// The default mode used in most cases. Indicates that the certificate's
     /// [Subject][google.cloud.security.privateca.v1.Subject] and/or
     /// [SubjectAltNames][google.cloud.security.privateca.v1.SubjectAltNames] are
@@ -7716,8 +8548,7 @@ impl SubjectRequestMode {
     ///
     /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    pub const DEFAULT: SubjectRequestMode = SubjectRequestMode::new(1);
-
+    Default,
     /// A mode reserved for special cases. Indicates that the certificate should
     /// have one SPIFFE
     /// [SubjectAltNames][google.cloud.security.privateca.v1.SubjectAltNames] set
@@ -7730,49 +8561,111 @@ impl SubjectRequestMode {
     ///
     /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    pub const REFLECTED_SPIFFE: SubjectRequestMode = SubjectRequestMode::new(2);
+    ReflectedSpiffe,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SubjectRequestMode::value] or
+    /// [SubjectRequestMode::name].
+    UnknownValue(subject_request_mode::UnknownValue),
+}
 
-    /// Creates a new SubjectRequestMode instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod subject_request_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl SubjectRequestMode {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Default => std::option::Option::Some(1),
+            Self::ReflectedSpiffe => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SUBJECT_REQUEST_MODE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DEFAULT"),
-            2 => std::borrow::Cow::Borrowed("REFLECTED_SPIFFE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SUBJECT_REQUEST_MODE_UNSPECIFIED"),
+            Self::Default => std::option::Option::Some("DEFAULT"),
+            Self::ReflectedSpiffe => std::option::Option::Some("REFLECTED_SPIFFE"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SUBJECT_REQUEST_MODE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SUBJECT_REQUEST_MODE_UNSPECIFIED)
-            }
-            "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
-            "REFLECTED_SPIFFE" => std::option::Option::Some(Self::REFLECTED_SPIFFE),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SubjectRequestMode {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SubjectRequestMode {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SubjectRequestMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SubjectRequestMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Default,
+            2 => Self::ReflectedSpiffe,
+            _ => Self::UnknownValue(subject_request_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SubjectRequestMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SUBJECT_REQUEST_MODE_UNSPECIFIED" => Self::Unspecified,
+            "DEFAULT" => Self::Default,
+            "REFLECTED_SPIFFE" => Self::ReflectedSpiffe,
+            _ => Self::UnknownValue(subject_request_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SubjectRequestMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Default => serializer.serialize_i32(1),
+            Self::ReflectedSpiffe => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SubjectRequestMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SubjectRequestMode>::new(
+            ".google.cloud.security.privateca.v1.SubjectRequestMode",
+        ))
     }
 }

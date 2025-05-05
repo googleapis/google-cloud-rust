@@ -89,6 +89,18 @@ impl MigrationWorkflow {
         self
     }
 
+    /// Sets the value of [tasks][crate::model::MigrationWorkflow::tasks].
+    pub fn set_tasks<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::MigrationTask>,
+    {
+        use std::iter::Iterator;
+        self.tasks = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::MigrationWorkflow::state].
     pub fn set_state<T: std::convert::Into<crate::model::migration_workflow::State>>(
         mut self,
@@ -115,18 +127,6 @@ impl MigrationWorkflow {
         self.last_update_time = v.into();
         self
     }
-
-    /// Sets the value of [tasks][crate::model::MigrationWorkflow::tasks].
-    pub fn set_tasks<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::MigrationTask>,
-    {
-        use std::iter::Iterator;
-        self.tasks = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for MigrationWorkflow {
@@ -141,73 +141,152 @@ pub mod migration_workflow {
     use super::*;
 
     /// Possible migration workflow states.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Workflow state is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Workflow is in draft status, i.e. tasks are not yet eligible for
         /// execution.
-        pub const DRAFT: State = State::new(1);
-
+        Draft,
         /// Workflow is running (i.e. tasks are eligible for execution).
-        pub const RUNNING: State = State::new(2);
-
+        Running,
         /// Workflow is paused. Tasks currently in progress may continue, but no
         /// further tasks will be scheduled.
-        pub const PAUSED: State = State::new(3);
-
+        Paused,
         /// Workflow is complete. There should not be any task in a non-terminal
         /// state, but if they are (e.g. forced termination), they will not be
         /// scheduled.
-        pub const COMPLETED: State = State::new(4);
+        Completed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Draft => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Paused => std::option::Option::Some(3),
+                Self::Completed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DRAFT"),
-                2 => std::borrow::Cow::Borrowed("RUNNING"),
-                3 => std::borrow::Cow::Borrowed("PAUSED"),
-                4 => std::borrow::Cow::Borrowed("COMPLETED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Draft => std::option::Option::Some("DRAFT"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Paused => std::option::Option::Some("PAUSED"),
+                Self::Completed => std::option::Option::Some("COMPLETED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "DRAFT" => std::option::Option::Some(Self::DRAFT),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "PAUSED" => std::option::Option::Some(Self::PAUSED),
-                "COMPLETED" => std::option::Option::Some(Self::COMPLETED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Draft,
+                2 => Self::Running,
+                3 => Self::Paused,
+                4 => Self::Completed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "DRAFT" => Self::Draft,
+                "RUNNING" => Self::Running,
+                "PAUSED" => Self::Paused,
+                "COMPLETED" => Self::Completed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Draft => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Paused => serializer.serialize_i32(3),
+                Self::Completed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.migration.v2.MigrationWorkflow.State",
+            ))
         }
     }
 }
@@ -261,6 +340,7 @@ pub struct MigrationTask {
     /// number of errors as each resource can have more than one error.
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_error_count: i32,
 
     /// The metrics for the task.
@@ -272,9 +352,11 @@ pub struct MigrationTask {
     pub task_result: std::option::Option<crate::model::MigrationTaskResult>,
 
     /// Count of all the processing errors in this task and its subtasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_processing_error_count: i32,
 
     /// Count of all the resource errors in this task and its subtasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_resource_error_count: i32,
 
     /// The details of the task.
@@ -340,9 +422,31 @@ impl MigrationTask {
         self
     }
 
+    /// Sets the value of [resource_error_details][crate::model::MigrationTask::resource_error_details].
+    pub fn set_resource_error_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResourceErrorDetail>,
+    {
+        use std::iter::Iterator;
+        self.resource_error_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [resource_error_count][crate::model::MigrationTask::resource_error_count].
     pub fn set_resource_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resource_error_count = v.into();
+        self
+    }
+
+    /// Sets the value of [metrics][crate::model::MigrationTask::metrics].
+    pub fn set_metrics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TimeSeries>,
+    {
+        use std::iter::Iterator;
+        self.metrics = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -366,28 +470,6 @@ impl MigrationTask {
     /// Sets the value of [total_resource_error_count][crate::model::MigrationTask::total_resource_error_count].
     pub fn set_total_resource_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_resource_error_count = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_error_details][crate::model::MigrationTask::resource_error_details].
-    pub fn set_resource_error_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceErrorDetail>,
-    {
-        use std::iter::Iterator;
-        self.resource_error_details = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [metrics][crate::model::MigrationTask::metrics].
-    pub fn set_metrics<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimeSeries>,
-    {
-        use std::iter::Iterator;
-        self.metrics = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -420,21 +502,6 @@ impl MigrationTask {
         })
     }
 
-    /// The value of [task_details][crate::model::MigrationTask::task_details]
-    /// if it holds a `TranslationDetails`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn translation_details(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TranslationDetails>> {
-        #[allow(unreachable_patterns)]
-        self.task_details.as_ref().and_then(|v| match v {
-            crate::model::migration_task::TaskDetails::TranslationDetails(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [task_details][crate::model::MigrationTask::task_details]
     /// to hold a `TranslationConfigDetails`.
     ///
@@ -450,6 +517,21 @@ impl MigrationTask {
             crate::model::migration_task::TaskDetails::TranslationConfigDetails(v.into()),
         );
         self
+    }
+
+    /// The value of [task_details][crate::model::MigrationTask::task_details]
+    /// if it holds a `TranslationDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn translation_details(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TranslationDetails>> {
+        #[allow(unreachable_patterns)]
+        self.task_details.as_ref().and_then(|v| match v {
+            crate::model::migration_task::TaskDetails::TranslationDetails(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [task_details][crate::model::MigrationTask::task_details]
@@ -482,80 +564,163 @@ pub mod migration_task {
     use super::*;
 
     /// Possible states of a migration task.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The state is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The task is waiting for orchestration.
-        pub const PENDING: State = State::new(1);
-
+        Pending,
         /// The task is assigned to an orchestrator.
-        pub const ORCHESTRATING: State = State::new(2);
-
+        Orchestrating,
         /// The task is running, i.e. its subtasks are ready for execution.
-        pub const RUNNING: State = State::new(3);
-
+        Running,
         /// Tha task is paused. Assigned subtasks can continue, but no new subtasks
         /// will be scheduled.
-        pub const PAUSED: State = State::new(4);
-
+        Paused,
         /// The task finished successfully.
-        pub const SUCCEEDED: State = State::new(5);
-
+        Succeeded,
         /// The task finished unsuccessfully.
-        pub const FAILED: State = State::new(6);
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Orchestrating => std::option::Option::Some(2),
+                Self::Running => std::option::Option::Some(3),
+                Self::Paused => std::option::Option::Some(4),
+                Self::Succeeded => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING"),
-                2 => std::borrow::Cow::Borrowed("ORCHESTRATING"),
-                3 => std::borrow::Cow::Borrowed("RUNNING"),
-                4 => std::borrow::Cow::Borrowed("PAUSED"),
-                5 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                6 => std::borrow::Cow::Borrowed("FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Orchestrating => std::option::Option::Some("ORCHESTRATING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Paused => std::option::Option::Some("PAUSED"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "ORCHESTRATING" => std::option::Option::Some(Self::ORCHESTRATING),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "PAUSED" => std::option::Option::Some(Self::PAUSED),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Orchestrating,
+                3 => Self::Running,
+                4 => Self::Paused,
+                5 => Self::Succeeded,
+                6 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "ORCHESTRATING" => Self::Orchestrating,
+                "RUNNING" => Self::Running,
+                "PAUSED" => Self::Paused,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Orchestrating => serializer.serialize_i32(2),
+                Self::Running => serializer.serialize_i32(3),
+                Self::Paused => serializer.serialize_i32(4),
+                Self::Succeeded => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.migration.v2.MigrationTask.State",
+            ))
         }
     }
 
@@ -616,6 +781,7 @@ pub struct MigrationSubtask {
     /// number of errors as each resource can have more than one error.
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_error_count: i32,
 
     /// Time when the subtask was created.
@@ -677,6 +843,17 @@ impl MigrationSubtask {
         self
     }
 
+    /// Sets the value of [resource_error_details][crate::model::MigrationSubtask::resource_error_details].
+    pub fn set_resource_error_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResourceErrorDetail>,
+    {
+        use std::iter::Iterator;
+        self.resource_error_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [resource_error_count][crate::model::MigrationSubtask::resource_error_count].
     pub fn set_resource_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resource_error_count = v.into();
@@ -698,17 +875,6 @@ impl MigrationSubtask {
         v: T,
     ) -> Self {
         self.last_update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_error_details][crate::model::MigrationSubtask::resource_error_details].
-    pub fn set_resource_error_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceErrorDetail>,
-    {
-        use std::iter::Iterator;
-        self.resource_error_details = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -736,81 +902,164 @@ pub mod migration_subtask {
     use super::*;
 
     /// Possible states of a migration subtask.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The state is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The subtask is ready, i.e. it is ready for execution.
-        pub const ACTIVE: State = State::new(1);
-
+        Active,
         /// The subtask is running, i.e. it is assigned to a worker for execution.
-        pub const RUNNING: State = State::new(2);
-
+        Running,
         /// The subtask finished successfully.
-        pub const SUCCEEDED: State = State::new(3);
-
+        Succeeded,
         /// The subtask finished unsuccessfully.
-        pub const FAILED: State = State::new(4);
-
+        Failed,
         /// The subtask is paused, i.e., it will not be scheduled. If it was already
         /// assigned,it might still finish but no new lease renewals will be granted.
-        pub const PAUSED: State = State::new(5);
-
+        Paused,
         /// The subtask is pending a dependency. It will be scheduled once its
         /// dependencies are done.
-        pub const PENDING_DEPENDENCY: State = State::new(6);
+        PendingDependency,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Paused => std::option::Option::Some(5),
+                Self::PendingDependency => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("RUNNING"),
-                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("PAUSED"),
-                6 => std::borrow::Cow::Borrowed("PENDING_DEPENDENCY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Paused => std::option::Option::Some("PAUSED"),
+                Self::PendingDependency => std::option::Option::Some("PENDING_DEPENDENCY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "PAUSED" => std::option::Option::Some(Self::PAUSED),
-                "PENDING_DEPENDENCY" => std::option::Option::Some(Self::PENDING_DEPENDENCY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Running,
+                3 => Self::Succeeded,
+                4 => Self::Failed,
+                5 => Self::Paused,
+                6 => Self::PendingDependency,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "PAUSED" => Self::Paused,
+                "PENDING_DEPENDENCY" => Self::PendingDependency,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Paused => serializer.serialize_i32(5),
+                Self::PendingDependency => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.migration.v2.MigrationSubtask.State",
+            ))
         }
     }
 }
@@ -971,6 +1220,7 @@ pub struct ResourceErrorDetail {
     /// Required. How many errors there are in total for the resource. Truncation
     /// can be indicated by having an `error_count` that is higher than the size of
     /// `error_details`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -993,12 +1243,6 @@ impl ResourceErrorDetail {
         self
     }
 
-    /// Sets the value of [error_count][crate::model::ResourceErrorDetail::error_count].
-    pub fn set_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.error_count = v.into();
-        self
-    }
-
     /// Sets the value of [error_details][crate::model::ResourceErrorDetail::error_details].
     pub fn set_error_details<T, V>(mut self, v: T) -> Self
     where
@@ -1007,6 +1251,12 @@ impl ResourceErrorDetail {
     {
         use std::iter::Iterator;
         self.error_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error_count][crate::model::ResourceErrorDetail::error_count].
+    pub fn set_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.error_count = v.into();
         self
     }
 }
@@ -1074,10 +1324,12 @@ impl wkt::message::Message for ErrorDetail {
 pub struct ErrorLocation {
     /// Optional. If applicable, denotes the line where the error occurred. A zero
     /// value means that there is no line information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line: i32,
 
     /// Optional. If applicable, denotes the column where the error occurred. A
     /// zero value means that there is no columns information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub column: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1345,52 +1597,6 @@ impl TypedValue {
         })
     }
 
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `Int64Value`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int64_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `DoubleValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn double_value(&self) -> std::option::Option<&f64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::DoubleValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `StringValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `DistributionValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn distribution_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::TypedValue::value]
     /// to hold a `BoolValue`.
     ///
@@ -1400,6 +1606,17 @@ impl TypedValue {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `Int64Value`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::TypedValue::value]
@@ -1413,6 +1630,17 @@ impl TypedValue {
         self
     }
 
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `DoubleValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn double_value(&self) -> std::option::Option<&f64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::DoubleValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::TypedValue::value]
     /// to hold a `DoubleValue`.
     ///
@@ -1424,6 +1652,17 @@ impl TypedValue {
         self
     }
 
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::TypedValue::value]
     /// to hold a `StringValue`.
     ///
@@ -1433,6 +1672,19 @@ impl TypedValue {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `DistributionValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn distribution_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::TypedValue::value]
@@ -1595,6 +1847,7 @@ pub struct ListMigrationWorkflowsRequest {
 
     /// The maximum number of migration workflows to return. The service may return
     /// fewer than this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from previous `ListMigrationWorkflows` call.
@@ -1672,12 +1925,6 @@ impl ListMigrationWorkflowsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMigrationWorkflowsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [migration_workflows][crate::model::ListMigrationWorkflowsResponse::migration_workflows].
     pub fn set_migration_workflows<T, V>(mut self, v: T) -> Self
     where
@@ -1686,6 +1933,12 @@ impl ListMigrationWorkflowsResponse {
     {
         use std::iter::Iterator;
         self.migration_workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMigrationWorkflowsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1839,6 +2092,7 @@ pub struct ListMigrationSubtasksRequest {
 
     /// Optional. The maximum number of migration tasks to return. The service may
     /// return fewer than this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from previous `ListMigrationSubtasks`
@@ -1928,12 +2182,6 @@ impl ListMigrationSubtasksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMigrationSubtasksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [migration_subtasks][crate::model::ListMigrationSubtasksResponse::migration_subtasks].
     pub fn set_migration_subtasks<T, V>(mut self, v: T) -> Self
     where
@@ -1942,6 +2190,12 @@ impl ListMigrationSubtasksResponse {
     {
         use std::iter::Iterator;
         self.migration_subtasks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMigrationSubtasksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2282,222 +2536,6 @@ impl Dialect {
         })
     }
 
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `HiveqlDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn hiveql_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HiveQLDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::HiveqlDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `RedshiftDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn redshift_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RedshiftDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::RedshiftDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `TeradataDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn teradata_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TeradataDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::TeradataDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `OracleDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oracle_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::OracleDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `SparksqlDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sparksql_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSQLDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::SparksqlDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `SnowflakeDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn snowflake_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SnowflakeDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::SnowflakeDialect(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `NetezzaDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn netezza_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NetezzaDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::NetezzaDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `AzureSynapseDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn azure_synapse_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AzureSynapseDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::AzureSynapseDialect(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `VerticaDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn vertica_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VerticaDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::VerticaDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `SqlServerDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SQLServerDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::SqlServerDialect(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `PostgresqlDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::PostgresqlDialect(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `PrestoDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn presto_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrestoDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::PrestoDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `MysqlDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MySQLDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::MysqlDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `Db2Dialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn db2_dialect(&self) -> std::option::Option<&std::boxed::Box<crate::model::DB2Dialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::Db2Dialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `SqliteDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sqlite_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SQLiteDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::SqliteDialect(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// if it holds a `GreenplumDialect`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn greenplum_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GreenplumDialect>> {
-        #[allow(unreachable_patterns)]
-        self.dialect_value.as_ref().and_then(|v| match v {
-            crate::model::dialect::DialectValue::GreenplumDialect(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `BigqueryDialect`.
     ///
@@ -2515,6 +2553,19 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `HiveqlDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn hiveql_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HiveQLDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::HiveqlDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `HiveqlDialect`.
     ///
@@ -2529,6 +2580,19 @@ impl Dialect {
         self.dialect_value =
             std::option::Option::Some(crate::model::dialect::DialectValue::HiveqlDialect(v.into()));
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `RedshiftDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn redshift_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RedshiftDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::RedshiftDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2548,6 +2612,19 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `TeradataDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn teradata_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TeradataDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::TeradataDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `TeradataDialect`.
     ///
@@ -2565,6 +2642,19 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `OracleDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oracle_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::OracleDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `OracleDialect`.
     ///
@@ -2579,6 +2669,19 @@ impl Dialect {
         self.dialect_value =
             std::option::Option::Some(crate::model::dialect::DialectValue::OracleDialect(v.into()));
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `SparksqlDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sparksql_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSQLDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::SparksqlDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2598,6 +2701,21 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `SnowflakeDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn snowflake_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SnowflakeDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::SnowflakeDialect(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `SnowflakeDialect`.
     ///
@@ -2613,6 +2731,19 @@ impl Dialect {
             crate::model::dialect::DialectValue::SnowflakeDialect(v.into()),
         );
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `NetezzaDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn netezza_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NetezzaDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::NetezzaDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2632,6 +2763,21 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `AzureSynapseDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn azure_synapse_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AzureSynapseDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::AzureSynapseDialect(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `AzureSynapseDialect`.
     ///
@@ -2647,6 +2793,19 @@ impl Dialect {
             crate::model::dialect::DialectValue::AzureSynapseDialect(v.into()),
         );
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `VerticaDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vertica_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VerticaDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::VerticaDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2666,6 +2825,21 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `SqlServerDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SQLServerDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::SqlServerDialect(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `SqlServerDialect`.
     ///
@@ -2681,6 +2855,21 @@ impl Dialect {
             crate::model::dialect::DialectValue::SqlServerDialect(v.into()),
         );
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `PostgresqlDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::PostgresqlDialect(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2700,6 +2889,19 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `PrestoDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn presto_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrestoDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::PrestoDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `PrestoDialect`.
     ///
@@ -2716,6 +2918,19 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `MysqlDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MySQLDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::MysqlDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `MysqlDialect`.
     ///
@@ -2728,6 +2943,17 @@ impl Dialect {
         self.dialect_value =
             std::option::Option::Some(crate::model::dialect::DialectValue::MysqlDialect(v.into()));
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `Db2Dialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn db2_dialect(&self) -> std::option::Option<&std::boxed::Box<crate::model::DB2Dialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::Db2Dialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2744,6 +2970,19 @@ impl Dialect {
         self
     }
 
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `SqliteDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sqlite_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SQLiteDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::SqliteDialect(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
     /// to hold a `SqliteDialect`.
     ///
@@ -2758,6 +2997,21 @@ impl Dialect {
         self.dialect_value =
             std::option::Option::Some(crate::model::dialect::DialectValue::SqliteDialect(v.into()));
         self
+    }
+
+    /// The value of [dialect_value][crate::model::Dialect::dialect_value]
+    /// if it holds a `GreenplumDialect`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn greenplum_dialect(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GreenplumDialect>> {
+        #[allow(unreachable_patterns)]
+        self.dialect_value.as_ref().and_then(|v| match v {
+            crate::model::dialect::DialectValue::GreenplumDialect(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2937,59 +3191,134 @@ pub mod teradata_dialect {
     use super::*;
 
     /// The sub-dialect options for Teradata.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Unspecified mode.
+        Unspecified,
+        /// Teradata SQL mode.
+        Sql,
+        /// BTEQ mode (which includes SQL).
+        Bteq,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Mode {
-        /// Unspecified mode.
-        pub const MODE_UNSPECIFIED: Mode = Mode::new(0);
-
-        /// Teradata SQL mode.
-        pub const SQL: Mode = Mode::new(1);
-
-        /// BTEQ mode (which includes SQL).
-        pub const BTEQ: Mode = Mode::new(2);
-
-        /// Creates a new Mode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Sql => std::option::Option::Some(1),
+                Self::Bteq => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SQL"),
-                2 => std::borrow::Cow::Borrowed("BTEQ"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Sql => std::option::Option::Some("SQL"),
+                Self::Bteq => std::option::Option::Some("BTEQ"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MODE_UNSPECIFIED" => std::option::Option::Some(Self::MODE_UNSPECIFIED),
-                "SQL" => std::option::Option::Some(Self::SQL),
-                "BTEQ" => std::option::Option::Some(Self::BTEQ),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Mode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Mode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Sql,
+                2 => Self::Bteq,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "SQL" => Self::Sql,
+                "BTEQ" => Self::Bteq,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Sql => serializer.serialize_i32(1),
+                Self::Bteq => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.bigquery.migration.v2.TeradataDialect.Mode",
+            ))
         }
     }
 }
@@ -3454,84 +3783,169 @@ pub mod name_mapping_key {
     use super::*;
 
     /// The type of the object that is being mapped.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified name mapping type.
+        Unspecified,
+        /// The object being mapped is a database.
+        Database,
+        /// The object being mapped is a schema.
+        Schema,
+        /// The object being mapped is a relation.
+        Relation,
+        /// The object being mapped is an attribute.
+        Attribute,
+        /// The object being mapped is a relation alias.
+        RelationAlias,
+        /// The object being mapped is a an attribute alias.
+        AttributeAlias,
+        /// The object being mapped is a function.
+        Function,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Type {
-        /// Unspecified name mapping type.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-        /// The object being mapped is a database.
-        pub const DATABASE: Type = Type::new(1);
-
-        /// The object being mapped is a schema.
-        pub const SCHEMA: Type = Type::new(2);
-
-        /// The object being mapped is a relation.
-        pub const RELATION: Type = Type::new(3);
-
-        /// The object being mapped is an attribute.
-        pub const ATTRIBUTE: Type = Type::new(4);
-
-        /// The object being mapped is a relation alias.
-        pub const RELATION_ALIAS: Type = Type::new(5);
-
-        /// The object being mapped is a an attribute alias.
-        pub const ATTRIBUTE_ALIAS: Type = Type::new(6);
-
-        /// The object being mapped is a function.
-        pub const FUNCTION: Type = Type::new(7);
-
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Database => std::option::Option::Some(1),
+                Self::Schema => std::option::Option::Some(2),
+                Self::Relation => std::option::Option::Some(3),
+                Self::Attribute => std::option::Option::Some(4),
+                Self::RelationAlias => std::option::Option::Some(5),
+                Self::AttributeAlias => std::option::Option::Some(6),
+                Self::Function => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DATABASE"),
-                2 => std::borrow::Cow::Borrowed("SCHEMA"),
-                3 => std::borrow::Cow::Borrowed("RELATION"),
-                4 => std::borrow::Cow::Borrowed("ATTRIBUTE"),
-                5 => std::borrow::Cow::Borrowed("RELATION_ALIAS"),
-                6 => std::borrow::Cow::Borrowed("ATTRIBUTE_ALIAS"),
-                7 => std::borrow::Cow::Borrowed("FUNCTION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Database => std::option::Option::Some("DATABASE"),
+                Self::Schema => std::option::Option::Some("SCHEMA"),
+                Self::Relation => std::option::Option::Some("RELATION"),
+                Self::Attribute => std::option::Option::Some("ATTRIBUTE"),
+                Self::RelationAlias => std::option::Option::Some("RELATION_ALIAS"),
+                Self::AttributeAlias => std::option::Option::Some("ATTRIBUTE_ALIAS"),
+                Self::Function => std::option::Option::Some("FUNCTION"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "DATABASE" => std::option::Option::Some(Self::DATABASE),
-                "SCHEMA" => std::option::Option::Some(Self::SCHEMA),
-                "RELATION" => std::option::Option::Some(Self::RELATION),
-                "ATTRIBUTE" => std::option::Option::Some(Self::ATTRIBUTE),
-                "RELATION_ALIAS" => std::option::Option::Some(Self::RELATION_ALIAS),
-                "ATTRIBUTE_ALIAS" => std::option::Option::Some(Self::ATTRIBUTE_ALIAS),
-                "FUNCTION" => std::option::Option::Some(Self::FUNCTION),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Database,
+                2 => Self::Schema,
+                3 => Self::Relation,
+                4 => Self::Attribute,
+                5 => Self::RelationAlias,
+                6 => Self::AttributeAlias,
+                7 => Self::Function,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DATABASE" => Self::Database,
+                "SCHEMA" => Self::Schema,
+                "RELATION" => Self::Relation,
+                "ATTRIBUTE" => Self::Attribute,
+                "RELATION_ALIAS" => Self::RelationAlias,
+                "ATTRIBUTE_ALIAS" => Self::AttributeAlias,
+                "FUNCTION" => Self::Function,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Database => serializer.serialize_i32(1),
+                Self::Schema => serializer.serialize_i32(2),
+                Self::Relation => serializer.serialize_i32(3),
+                Self::Attribute => serializer.serialize_i32(4),
+                Self::RelationAlias => serializer.serialize_i32(5),
+                Self::AttributeAlias => serializer.serialize_i32(6),
+                Self::Function => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.bigquery.migration.v2.NameMappingKey.Type",
+            ))
         }
     }
 }
@@ -3645,15 +4059,6 @@ impl SourceEnv {
         self
     }
 
-    /// Sets the value of [metadata_store_dataset][crate::model::SourceEnv::metadata_store_dataset].
-    pub fn set_metadata_store_dataset<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata_store_dataset = v.into();
-        self
-    }
-
     /// Sets the value of [schema_search_path][crate::model::SourceEnv::schema_search_path].
     pub fn set_schema_search_path<T, V>(mut self, v: T) -> Self
     where
@@ -3662,6 +4067,15 @@ impl SourceEnv {
     {
         use std::iter::Iterator;
         self.schema_search_path = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata_store_dataset][crate::model::SourceEnv::metadata_store_dataset].
+    pub fn set_metadata_store_dataset<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata_store_dataset = v.into();
         self
     }
 }
@@ -3713,6 +4127,17 @@ impl TranslationDetails {
         std::default::Default::default()
     }
 
+    /// Sets the value of [source_target_mapping][crate::model::TranslationDetails::source_target_mapping].
+    pub fn set_source_target_mapping<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SourceTargetMapping>,
+    {
+        use std::iter::Iterator;
+        self.source_target_mapping = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [target_base_uri][crate::model::TranslationDetails::target_base_uri].
     pub fn set_target_base_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_base_uri = v.into();
@@ -3727,17 +4152,6 @@ impl TranslationDetails {
         v: T,
     ) -> Self {
         self.source_environment = v.into();
-        self
-    }
-
-    /// Sets the value of [source_target_mapping][crate::model::TranslationDetails::source_target_mapping].
-    pub fn set_source_target_mapping<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SourceTargetMapping>,
-    {
-        use std::iter::Iterator;
-        self.source_target_mapping = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3872,17 +4286,6 @@ impl SourceSpec {
         })
     }
 
-    /// The value of [source][crate::model::SourceSpec::source]
-    /// if it holds a `Literal`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn literal(&self) -> std::option::Option<&std::boxed::Box<crate::model::Literal>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::source_spec::Source::Literal(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::SourceSpec::source]
     /// to hold a `BaseUri`.
     ///
@@ -3892,6 +4295,17 @@ impl SourceSpec {
         self.source =
             std::option::Option::Some(crate::model::source_spec::Source::BaseUri(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::SourceSpec::source]
+    /// if it holds a `Literal`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn literal(&self) -> std::option::Option<&std::boxed::Box<crate::model::Literal>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source_spec::Source::Literal(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::SourceSpec::source]
@@ -4020,17 +4434,6 @@ impl Literal {
         })
     }
 
-    /// The value of [literal_data][crate::model::Literal::literal_data]
-    /// if it holds a `LiteralBytes`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn literal_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
-        #[allow(unreachable_patterns)]
-        self.literal_data.as_ref().and_then(|v| match v {
-            crate::model::literal::LiteralData::LiteralBytes(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [literal_data][crate::model::Literal::literal_data]
     /// to hold a `LiteralString`.
     ///
@@ -4040,6 +4443,17 @@ impl Literal {
         self.literal_data =
             std::option::Option::Some(crate::model::literal::LiteralData::LiteralString(v.into()));
         self
+    }
+
+    /// The value of [literal_data][crate::model::Literal::literal_data]
+    /// if it holds a `LiteralBytes`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn literal_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.literal_data.as_ref().and_then(|v| match v {
+            crate::model::literal::LiteralData::LiteralBytes(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [literal_data][crate::model::Literal::literal_data]
@@ -4120,15 +4534,6 @@ impl SourceEnvironment {
         self
     }
 
-    /// Sets the value of [metadata_store_dataset][crate::model::SourceEnvironment::metadata_store_dataset].
-    pub fn set_metadata_store_dataset<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata_store_dataset = v.into();
-        self
-    }
-
     /// Sets the value of [schema_search_path][crate::model::SourceEnvironment::schema_search_path].
     pub fn set_schema_search_path<T, V>(mut self, v: T) -> Self
     where
@@ -4137,6 +4542,15 @@ impl SourceEnvironment {
     {
         use std::iter::Iterator;
         self.schema_search_path = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata_store_dataset][crate::model::SourceEnvironment::metadata_store_dataset].
+    pub fn set_metadata_store_dataset<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata_store_dataset = v.into();
         self
     }
 }
@@ -4158,10 +4572,12 @@ pub struct TranslationReportRecord {
 
     /// Specifies the row from the source text where the error occurred (0 based).
     /// Example: 2
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub script_line: i32,
 
     /// Specifies the column from the source texts where the error occurred. (0
     /// based) example: 6
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub script_column: i32,
 
     /// Category of the error/warning. Example: SyntaxError
@@ -4229,65 +4645,142 @@ pub mod translation_report_record {
     use super::*;
 
     /// The severity type of the record.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(i32);
-
-    impl Severity {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Severity {
         /// SeverityType not specified.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
-
+        Unspecified,
         /// INFO type.
-        pub const INFO: Severity = Severity::new(1);
-
+        Info,
         /// WARNING type. The translated query may still provide useful information
         /// if all the report records are WARNING.
-        pub const WARNING: Severity = Severity::new(2);
-
+        Warning,
         /// ERROR type. Translation failed.
-        pub const ERROR: Severity = Severity::new(3);
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Severity::value] or
+        /// [Severity::name].
+        UnknownValue(severity::UnknownValue),
+    }
 
-        /// Creates a new Severity instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Severity {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Info => std::option::Option::Some(1),
+                Self::Warning => std::option::Option::Some(2),
+                Self::Error => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INFO"),
-                2 => std::borrow::Cow::Borrowed("WARNING"),
-                3 => std::borrow::Cow::Borrowed("ERROR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SEVERITY_UNSPECIFIED"),
+                Self::Info => std::option::Option::Some("INFO"),
+                Self::Warning => std::option::Option::Some("WARNING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
-                "INFO" => std::option::Option::Some(Self::INFO),
-                "WARNING" => std::option::Option::Some(Self::WARNING),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Severity {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Severity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Info,
+                2 => Self::Warning,
+                3 => Self::Error,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Severity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEVERITY_UNSPECIFIED" => Self::Unspecified,
+                "INFO" => Self::Info,
+                "WARNING" => Self::Warning,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Info => serializer.serialize_i32(1),
+                Self::Warning => serializer.serialize_i32(2),
+                Self::Error => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
+                ".google.cloud.bigquery.migration.v2.TranslationReportRecord.Severity",
+            ))
         }
     }
 }
@@ -4316,10 +4809,12 @@ pub struct GcsReportLogMessage {
 
     /// Specifies the row from the source text where the error occurred (0 based,
     /// -1 for messages without line location). Example: 2
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_script_line: i32,
 
     /// Specifies the column from the source texts where the error occurred. (0
     /// based, -1 for messages without column location) example: 6
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_script_column: i32,
 
     /// Detailed message of the record.

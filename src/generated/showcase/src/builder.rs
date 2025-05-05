@@ -16,7 +16,6 @@
 
 pub mod compliance {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Compliance][super::super::client::Compliance].
     ///
@@ -49,7 +48,7 @@ pub mod compliance {
     /// Common implementation for [super::super::client::Compliance] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Compliance>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod compliance {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod compliance {
     pub struct RepeatDataBody(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataBody {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -175,7 +178,9 @@ pub mod compliance {
     pub struct RepeatDataBodyInfo(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataBodyInfo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,7 +283,9 @@ pub mod compliance {
     pub struct RepeatDataQuery(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -381,7 +388,9 @@ pub mod compliance {
     pub struct RepeatDataSimplePath(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataSimplePath {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,7 +493,9 @@ pub mod compliance {
     pub struct RepeatDataPathResource(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataPathResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,7 +598,9 @@ pub mod compliance {
     pub struct RepeatDataPathTrailingResource(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataPathTrailingResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,7 +703,9 @@ pub mod compliance {
     pub struct RepeatDataBodyPut(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataBodyPut {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,7 +808,9 @@ pub mod compliance {
     pub struct RepeatDataBodyPatch(RequestBuilder<crate::model::RepeatRequest>);
 
     impl RepeatDataBodyPatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -896,7 +913,9 @@ pub mod compliance {
     pub struct GetEnum(RequestBuilder<crate::model::EnumRequest>);
 
     impl GetEnum {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -939,7 +958,9 @@ pub mod compliance {
     pub struct VerifyEnum(RequestBuilder<crate::model::EnumResponse>);
 
     impl VerifyEnum {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -991,7 +1012,9 @@ pub mod compliance {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1070,7 +1093,9 @@ pub mod compliance {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1113,7 +1138,9 @@ pub mod compliance {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1138,12 +1165,16 @@ pub mod compliance {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1174,7 +1205,9 @@ pub mod compliance {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1199,6 +1232,8 @@ pub mod compliance {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1226,7 +1261,9 @@ pub mod compliance {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1254,12 +1291,16 @@ pub mod compliance {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1283,7 +1324,9 @@ pub mod compliance {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1362,7 +1405,9 @@ pub mod compliance {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1408,7 +1453,9 @@ pub mod compliance {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1454,7 +1501,9 @@ pub mod compliance {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Compliance>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1498,7 +1547,6 @@ pub mod compliance {
 
 pub mod echo {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Echo][super::super::client::Echo].
     ///
@@ -1531,7 +1579,7 @@ pub mod echo {
     /// Common implementation for [super::super::client::Echo] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Echo>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1540,7 +1588,7 @@ pub mod echo {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1554,7 +1602,7 @@ pub mod echo {
     pub struct Echo(RequestBuilder<crate::model::EchoRequest>);
 
     impl Echo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1659,7 +1707,7 @@ pub mod echo {
     pub struct EchoErrorDetails(RequestBuilder<crate::model::EchoErrorDetailsRequest>);
 
     impl EchoErrorDetails {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1716,7 +1764,7 @@ pub mod echo {
     pub struct FailEchoWithDetails(RequestBuilder<crate::model::FailEchoWithDetailsRequest>);
 
     impl FailEchoWithDetails {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1762,7 +1810,7 @@ pub mod echo {
     pub struct PagedExpand(RequestBuilder<crate::model::PagedExpandRequest>);
 
     impl PagedExpand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1802,6 +1850,8 @@ pub mod echo {
         }
 
         /// Sets the value of [content][crate::model::PagedExpandRequest::content].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_content<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.content = v.into();
             self
@@ -1832,7 +1882,7 @@ pub mod echo {
     pub struct PagedExpandLegacy(RequestBuilder<crate::model::PagedExpandLegacyRequest>);
 
     impl PagedExpandLegacy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1860,6 +1910,8 @@ pub mod echo {
         }
 
         /// Sets the value of [content][crate::model::PagedExpandLegacyRequest::content].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_content<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.content = v.into();
             self
@@ -1890,7 +1942,7 @@ pub mod echo {
     pub struct PagedExpandLegacyMapped(RequestBuilder<crate::model::PagedExpandRequest>);
 
     impl PagedExpandLegacyMapped {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1915,6 +1967,8 @@ pub mod echo {
         }
 
         /// Sets the value of [content][crate::model::PagedExpandRequest::content].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_content<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.content = v.into();
             self
@@ -1945,7 +1999,7 @@ pub mod echo {
     pub struct Wait(RequestBuilder<crate::model::WaitRequest>);
 
     impl Wait {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2092,7 +2146,7 @@ pub mod echo {
     pub struct Block(RequestBuilder<crate::model::BlockRequest>);
 
     impl Block {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2176,7 +2230,7 @@ pub mod echo {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2255,7 +2309,7 @@ pub mod echo {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2298,7 +2352,7 @@ pub mod echo {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2323,12 +2377,16 @@ pub mod echo {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2359,7 +2417,7 @@ pub mod echo {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2384,6 +2442,8 @@ pub mod echo {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -2411,7 +2471,7 @@ pub mod echo {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2439,12 +2499,16 @@ pub mod echo {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2468,7 +2532,7 @@ pub mod echo {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2547,7 +2611,7 @@ pub mod echo {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2593,7 +2657,7 @@ pub mod echo {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2639,7 +2703,7 @@ pub mod echo {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2683,7 +2747,6 @@ pub mod echo {
 
 pub mod identity {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Identity][super::super::client::Identity].
     ///
@@ -2716,7 +2779,7 @@ pub mod identity {
     /// Common implementation for [super::super::client::Identity] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Identity>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2725,7 +2788,7 @@ pub mod identity {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2739,7 +2802,7 @@ pub mod identity {
     pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2782,7 +2845,7 @@ pub mod identity {
     pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2807,6 +2870,8 @@ pub mod identity {
         }
 
         /// Sets the value of [name][crate::model::GetUserRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2825,7 +2890,7 @@ pub mod identity {
     pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2877,7 +2942,7 @@ pub mod identity {
     pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2902,6 +2967,8 @@ pub mod identity {
         }
 
         /// Sets the value of [name][crate::model::DeleteUserRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2920,7 +2987,7 @@ pub mod identity {
     pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2984,7 +3051,7 @@ pub mod identity {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3063,7 +3130,7 @@ pub mod identity {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3106,7 +3173,7 @@ pub mod identity {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3131,12 +3198,16 @@ pub mod identity {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3167,7 +3238,7 @@ pub mod identity {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3192,6 +3263,8 @@ pub mod identity {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3219,7 +3292,7 @@ pub mod identity {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3247,12 +3320,16 @@ pub mod identity {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3276,7 +3353,7 @@ pub mod identity {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3355,7 +3432,7 @@ pub mod identity {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3401,7 +3478,7 @@ pub mod identity {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3447,7 +3524,7 @@ pub mod identity {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3491,7 +3568,6 @@ pub mod identity {
 
 pub mod messaging {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Messaging][super::super::client::Messaging].
     ///
@@ -3524,7 +3600,7 @@ pub mod messaging {
     /// Common implementation for [super::super::client::Messaging] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Messaging>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3533,7 +3609,9 @@ pub mod messaging {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3547,7 +3625,9 @@ pub mod messaging {
     pub struct CreateRoom(RequestBuilder<crate::model::CreateRoomRequest>);
 
     impl CreateRoom {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3590,7 +3670,9 @@ pub mod messaging {
     pub struct GetRoom(RequestBuilder<crate::model::GetRoomRequest>);
 
     impl GetRoom {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3615,6 +3697,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [name][crate::model::GetRoomRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3633,7 +3717,9 @@ pub mod messaging {
     pub struct UpdateRoom(RequestBuilder<crate::model::UpdateRoomRequest>);
 
     impl UpdateRoom {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3685,7 +3771,9 @@ pub mod messaging {
     pub struct DeleteRoom(RequestBuilder<crate::model::DeleteRoomRequest>);
 
     impl DeleteRoom {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3710,6 +3798,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [name][crate::model::DeleteRoomRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3728,7 +3818,9 @@ pub mod messaging {
     pub struct ListRooms(RequestBuilder<crate::model::ListRoomsRequest>);
 
     impl ListRooms {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3792,7 +3884,9 @@ pub mod messaging {
     pub struct CreateBlurb(RequestBuilder<crate::model::CreateBlurbRequest>);
 
     impl CreateBlurb {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3817,6 +3911,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [parent][crate::model::CreateBlurbRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3844,7 +3940,9 @@ pub mod messaging {
     pub struct GetBlurb(RequestBuilder<crate::model::GetBlurbRequest>);
 
     impl GetBlurb {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3869,6 +3967,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [name][crate::model::GetBlurbRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3887,7 +3987,9 @@ pub mod messaging {
     pub struct UpdateBlurb(RequestBuilder<crate::model::UpdateBlurbRequest>);
 
     impl UpdateBlurb {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3942,7 +4044,9 @@ pub mod messaging {
     pub struct DeleteBlurb(RequestBuilder<crate::model::DeleteBlurbRequest>);
 
     impl DeleteBlurb {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3967,6 +4071,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [name][crate::model::DeleteBlurbRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3985,7 +4091,9 @@ pub mod messaging {
     pub struct ListBlurbs(RequestBuilder<crate::model::ListBlurbsRequest>);
 
     impl ListBlurbs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4025,6 +4133,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [parent][crate::model::ListBlurbsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4055,7 +4165,9 @@ pub mod messaging {
     pub struct SearchBlurbs(RequestBuilder<crate::model::SearchBlurbsRequest>);
 
     impl SearchBlurbs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4121,6 +4233,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [query][crate::model::SearchBlurbsRequest::query].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
@@ -4157,7 +4271,9 @@ pub mod messaging {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4236,7 +4352,9 @@ pub mod messaging {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4279,7 +4397,9 @@ pub mod messaging {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4304,12 +4424,16 @@ pub mod messaging {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4340,7 +4464,9 @@ pub mod messaging {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4365,6 +4491,8 @@ pub mod messaging {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4392,7 +4520,9 @@ pub mod messaging {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4420,12 +4550,16 @@ pub mod messaging {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4449,7 +4583,9 @@ pub mod messaging {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4528,7 +4664,9 @@ pub mod messaging {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4574,7 +4712,9 @@ pub mod messaging {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4620,7 +4760,9 @@ pub mod messaging {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Messaging>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4664,7 +4806,6 @@ pub mod messaging {
 
 pub mod sequence_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SequenceService][super::super::client::SequenceService].
     ///
@@ -4697,7 +4838,7 @@ pub mod sequence_service {
     /// Common implementation for [super::super::client::SequenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SequenceService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4706,7 +4847,9 @@ pub mod sequence_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4720,7 +4863,9 @@ pub mod sequence_service {
     pub struct CreateSequence(RequestBuilder<crate::model::CreateSequenceRequest>);
 
     impl CreateSequence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4768,7 +4913,9 @@ pub mod sequence_service {
     );
 
     impl CreateStreamingSequence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4819,7 +4966,9 @@ pub mod sequence_service {
     pub struct GetSequenceReport(RequestBuilder<crate::model::GetSequenceReportRequest>);
 
     impl GetSequenceReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4847,6 +4996,8 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [name][crate::model::GetSequenceReportRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4867,7 +5018,9 @@ pub mod sequence_service {
     );
 
     impl GetStreamingSequenceReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4895,6 +5048,8 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [name][crate::model::GetStreamingSequenceReportRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4913,7 +5068,9 @@ pub mod sequence_service {
     pub struct AttemptSequence(RequestBuilder<crate::model::AttemptSequenceRequest>);
 
     impl AttemptSequence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4938,6 +5095,8 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [name][crate::model::AttemptSequenceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4956,7 +5115,9 @@ pub mod sequence_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5035,7 +5196,9 @@ pub mod sequence_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5078,7 +5241,9 @@ pub mod sequence_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5103,12 +5268,16 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -5139,7 +5308,9 @@ pub mod sequence_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5164,6 +5335,8 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -5191,7 +5364,9 @@ pub mod sequence_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5219,12 +5394,16 @@ pub mod sequence_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5248,7 +5427,9 @@ pub mod sequence_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5327,7 +5508,9 @@ pub mod sequence_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5373,7 +5556,9 @@ pub mod sequence_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5419,7 +5604,9 @@ pub mod sequence_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SequenceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5463,7 +5650,6 @@ pub mod sequence_service {
 
 pub mod testing {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Testing][super::super::client::Testing].
     ///
@@ -5496,7 +5682,7 @@ pub mod testing {
     /// Common implementation for [super::super::client::Testing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Testing>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5505,7 +5691,7 @@ pub mod testing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5519,7 +5705,7 @@ pub mod testing {
     pub struct CreateSession(RequestBuilder<crate::model::CreateSessionRequest>);
 
     impl CreateSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5565,7 +5751,7 @@ pub mod testing {
     pub struct GetSession(RequestBuilder<crate::model::GetSessionRequest>);
 
     impl GetSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5608,7 +5794,7 @@ pub mod testing {
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
     impl ListSessions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5672,7 +5858,7 @@ pub mod testing {
     pub struct DeleteSession(RequestBuilder<crate::model::DeleteSessionRequest>);
 
     impl DeleteSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5715,7 +5901,7 @@ pub mod testing {
     pub struct ReportSession(RequestBuilder<crate::model::ReportSessionRequest>);
 
     impl ReportSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5758,7 +5944,7 @@ pub mod testing {
     pub struct ListTests(RequestBuilder<crate::model::ListTestsRequest>);
 
     impl ListTests {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5828,7 +6014,7 @@ pub mod testing {
     pub struct DeleteTest(RequestBuilder<crate::model::DeleteTestRequest>);
 
     impl DeleteTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5871,7 +6057,7 @@ pub mod testing {
     pub struct VerifyTest(RequestBuilder<crate::model::VerifyTestRequest>);
 
     impl VerifyTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5931,7 +6117,7 @@ pub mod testing {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6010,7 +6196,7 @@ pub mod testing {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6053,7 +6239,7 @@ pub mod testing {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6078,12 +6264,16 @@ pub mod testing {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -6114,7 +6304,7 @@ pub mod testing {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6139,6 +6329,8 @@ pub mod testing {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -6166,7 +6358,7 @@ pub mod testing {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6194,12 +6386,16 @@ pub mod testing {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6223,7 +6419,7 @@ pub mod testing {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6302,7 +6498,7 @@ pub mod testing {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6348,7 +6544,7 @@ pub mod testing {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6394,7 +6590,7 @@ pub mod testing {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

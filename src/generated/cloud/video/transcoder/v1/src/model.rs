@@ -77,6 +77,7 @@ pub struct Job {
     /// Job time to live value in days, which will be effective after job
     /// completion. Job should be deleted automatically after the given TTL. Enter
     /// a value between 1 and 90. The default is 30.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ttl_after_completion_days: i32,
 
     /// The labels associated with this job. You can use these to organize and
@@ -97,6 +98,7 @@ pub struct Job {
     /// This field can only be set for batch mode jobs. The default value is 0.
     /// This value cannot be negative. Higher values correspond to higher
     /// priorities for the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub batch_mode_priority: i32,
 
     /// Optional. The optimization strategy of the job. The default is
@@ -179,6 +181,18 @@ impl Job {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Job::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [error][crate::model::Job::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -212,18 +226,6 @@ impl Job {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Job::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [job_config][crate::model::Job::job_config].
     ///
     /// Note that all the setters affecting `job_config` are mutually
@@ -249,17 +251,6 @@ impl Job {
         })
     }
 
-    /// The value of [job_config][crate::model::Job::job_config]
-    /// if it holds a `Config`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::JobConfig>> {
-        #[allow(unreachable_patterns)]
-        self.job_config.as_ref().and_then(|v| match v {
-            crate::model::job::JobConfig::Config(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [job_config][crate::model::Job::job_config]
     /// to hold a `TemplateId`.
     ///
@@ -269,6 +260,17 @@ impl Job {
         self.job_config =
             std::option::Option::Some(crate::model::job::JobConfig::TemplateId(v.into()));
         self
+    }
+
+    /// The value of [job_config][crate::model::Job::job_config]
+    /// if it holds a `Config`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::JobConfig>> {
+        #[allow(unreachable_patterns)]
+        self.job_config.as_ref().and_then(|v| match v {
+            crate::model::job::JobConfig::Config(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_config][crate::model::Job::job_config]
@@ -297,196 +299,416 @@ pub mod job {
     use super::*;
 
     /// The current state of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingState(i32);
-
-    impl ProcessingState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProcessingState {
         /// The processing state is not specified.
-        pub const PROCESSING_STATE_UNSPECIFIED: ProcessingState = ProcessingState::new(0);
-
+        Unspecified,
         /// The job is enqueued and will be picked up for processing soon.
-        pub const PENDING: ProcessingState = ProcessingState::new(1);
-
+        Pending,
         /// The job is being processed.
-        pub const RUNNING: ProcessingState = ProcessingState::new(2);
-
+        Running,
         /// The job has been completed successfully.
-        pub const SUCCEEDED: ProcessingState = ProcessingState::new(3);
-
+        Succeeded,
         /// The job has failed. For additional information, see `failure_reason` and
         /// `failure_details`
-        pub const FAILED: ProcessingState = ProcessingState::new(4);
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProcessingState::value] or
+        /// [ProcessingState::name].
+        UnknownValue(processing_state::UnknownValue),
+    }
 
-        /// Creates a new ProcessingState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod processing_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ProcessingState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PROCESSING_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING"),
-                2 => std::borrow::Cow::Borrowed("RUNNING"),
-                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROCESSING_STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PROCESSING_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PROCESSING_STATE_UNSPECIFIED)
-                }
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ProcessingState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ProcessingState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProcessingState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProcessingState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Running,
+                3 => Self::Succeeded,
+                4 => Self::Failed,
+                _ => Self::UnknownValue(processing_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProcessingState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROCESSING_STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(processing_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProcessingState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProcessingState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingState>::new(
+                ".google.cloud.video.transcoder.v1.Job.ProcessingState",
+            ))
         }
     }
 
     /// The processing mode of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingMode(i32);
-
-    impl ProcessingMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProcessingMode {
         /// The job processing mode is not specified.
-        pub const PROCESSING_MODE_UNSPECIFIED: ProcessingMode = ProcessingMode::new(0);
-
+        Unspecified,
         /// The job processing mode is interactive mode.
         /// Interactive job will either be ran or rejected if quota does not allow
         /// for it.
-        pub const PROCESSING_MODE_INTERACTIVE: ProcessingMode = ProcessingMode::new(1);
-
+        Interactive,
         /// The job processing mode is batch mode.
         /// Batch mode allows queuing of jobs.
-        pub const PROCESSING_MODE_BATCH: ProcessingMode = ProcessingMode::new(2);
+        Batch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProcessingMode::value] or
+        /// [ProcessingMode::name].
+        UnknownValue(processing_mode::UnknownValue),
+    }
 
-        /// Creates a new ProcessingMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod processing_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ProcessingMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Interactive => std::option::Option::Some(1),
+                Self::Batch => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PROCESSING_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PROCESSING_MODE_INTERACTIVE"),
-                2 => std::borrow::Cow::Borrowed("PROCESSING_MODE_BATCH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROCESSING_MODE_UNSPECIFIED"),
+                Self::Interactive => std::option::Option::Some("PROCESSING_MODE_INTERACTIVE"),
+                Self::Batch => std::option::Option::Some("PROCESSING_MODE_BATCH"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PROCESSING_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PROCESSING_MODE_UNSPECIFIED)
-                }
-                "PROCESSING_MODE_INTERACTIVE" => {
-                    std::option::Option::Some(Self::PROCESSING_MODE_INTERACTIVE)
-                }
-                "PROCESSING_MODE_BATCH" => std::option::Option::Some(Self::PROCESSING_MODE_BATCH),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ProcessingMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ProcessingMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProcessingMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProcessingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Interactive,
+                2 => Self::Batch,
+                _ => Self::UnknownValue(processing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProcessingMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROCESSING_MODE_UNSPECIFIED" => Self::Unspecified,
+                "PROCESSING_MODE_INTERACTIVE" => Self::Interactive,
+                "PROCESSING_MODE_BATCH" => Self::Batch,
+                _ => Self::UnknownValue(processing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProcessingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Interactive => serializer.serialize_i32(1),
+                Self::Batch => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProcessingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingMode>::new(
+                ".google.cloud.video.transcoder.v1.Job.ProcessingMode",
+            ))
         }
     }
 
     /// The optimization strategy of the job. The default is `AUTODETECT`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OptimizationStrategy(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OptimizationStrategy {
+        /// The optimization strategy is not specified.
+        Unspecified,
+        /// Prioritize job processing speed.
+        Autodetect,
+        /// Disable all optimizations.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OptimizationStrategy::value] or
+        /// [OptimizationStrategy::name].
+        UnknownValue(optimization_strategy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod optimization_strategy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl OptimizationStrategy {
-        /// The optimization strategy is not specified.
-        pub const OPTIMIZATION_STRATEGY_UNSPECIFIED: OptimizationStrategy =
-            OptimizationStrategy::new(0);
-
-        /// Prioritize job processing speed.
-        pub const AUTODETECT: OptimizationStrategy = OptimizationStrategy::new(1);
-
-        /// Disable all optimizations.
-        pub const DISABLED: OptimizationStrategy = OptimizationStrategy::new(2);
-
-        /// Creates a new OptimizationStrategy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Autodetect => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("OPTIMIZATION_STRATEGY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("AUTODETECT"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPTIMIZATION_STRATEGY_UNSPECIFIED"),
+                Self::Autodetect => std::option::Option::Some("AUTODETECT"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "OPTIMIZATION_STRATEGY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::OPTIMIZATION_STRATEGY_UNSPECIFIED)
-                }
-                "AUTODETECT" => std::option::Option::Some(Self::AUTODETECT),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for OptimizationStrategy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for OptimizationStrategy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OptimizationStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OptimizationStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Autodetect,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(optimization_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OptimizationStrategy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPTIMIZATION_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+                "AUTODETECT" => Self::Autodetect,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(optimization_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OptimizationStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Autodetect => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OptimizationStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OptimizationStrategy>::new(
+                ".google.cloud.video.transcoder.v1.Job.OptimizationStrategy",
+            ))
         }
     }
 
@@ -639,26 +861,6 @@ impl JobConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [output][crate::model::JobConfig::output].
-    pub fn set_output<T: std::convert::Into<std::option::Option<crate::model::Output>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output = v.into();
-        self
-    }
-
-    /// Sets the value of [pubsub_destination][crate::model::JobConfig::pubsub_destination].
-    pub fn set_pubsub_destination<
-        T: std::convert::Into<std::option::Option<crate::model::PubsubDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pubsub_destination = v.into();
-        self
-    }
-
     /// Sets the value of [inputs][crate::model::JobConfig::inputs].
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
@@ -714,6 +916,15 @@ impl JobConfig {
         self
     }
 
+    /// Sets the value of [output][crate::model::JobConfig::output].
+    pub fn set_output<T: std::convert::Into<std::option::Option<crate::model::Output>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output = v.into();
+        self
+    }
+
     /// Sets the value of [ad_breaks][crate::model::JobConfig::ad_breaks].
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
@@ -722,6 +933,17 @@ impl JobConfig {
     {
         use std::iter::Iterator;
         self.ad_breaks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [pubsub_destination][crate::model::JobConfig::pubsub_destination].
+    pub fn set_pubsub_destination<
+        T: std::convert::Into<std::option::Option<crate::model::PubsubDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pubsub_destination = v.into();
         self
     }
 
@@ -904,6 +1126,17 @@ impl EditAtom {
         self
     }
 
+    /// Sets the value of [inputs][crate::model::EditAtom::inputs].
+    pub fn set_inputs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.inputs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [end_time_offset][crate::model::EditAtom::end_time_offset].
     pub fn set_end_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -919,17 +1152,6 @@ impl EditAtom {
         v: T,
     ) -> Self {
         self.start_time_offset = v.into();
-        self
-    }
-
-    /// Sets the value of [inputs][crate::model::EditAtom::inputs].
-    pub fn set_inputs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.inputs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1034,32 +1256,6 @@ impl ElementaryStream {
         })
     }
 
-    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// if it holds a `AudioStream`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn audio_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
-        #[allow(unreachable_patterns)]
-        self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::AudioStream(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// if it holds a `TextStream`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn text_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
-        #[allow(unreachable_patterns)]
-        self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::TextStream(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// to hold a `VideoStream`.
     ///
@@ -1075,6 +1271,19 @@ impl ElementaryStream {
         self
     }
 
+    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
+    /// if it holds a `AudioStream`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn audio_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
+        #[allow(unreachable_patterns)]
+        self.elementary_stream.as_ref().and_then(|v| match v {
+            crate::model::elementary_stream::ElementaryStream::AudioStream(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// to hold a `AudioStream`.
     ///
@@ -1088,6 +1297,19 @@ impl ElementaryStream {
             crate::model::elementary_stream::ElementaryStream::AudioStream(v.into()),
         );
         self
+    }
+
+    /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
+    /// if it holds a `TextStream`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
+        #[allow(unreachable_patterns)]
+        self.elementary_stream.as_ref().and_then(|v| match v {
+            crate::model::elementary_stream::ElementaryStream::TextStream(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
@@ -1205,6 +1427,17 @@ impl MuxStream {
         self
     }
 
+    /// Sets the value of [elementary_streams][crate::model::MuxStream::elementary_streams].
+    pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [segment_settings][crate::model::MuxStream::segment_settings].
     pub fn set_segment_settings<
         T: std::convert::Into<std::option::Option<crate::model::SegmentSettings>>,
@@ -1219,17 +1452,6 @@ impl MuxStream {
     /// Sets the value of [encryption_id][crate::model::MuxStream::encryption_id].
     pub fn set_encryption_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_id = v.into();
-        self
-    }
-
-    /// Sets the value of [elementary_streams][crate::model::MuxStream::elementary_streams].
-    pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1399,125 +1621,273 @@ pub mod manifest {
         use super::*;
 
         /// The segment reference scheme for a `DASH` manifest.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SegmentReferenceScheme(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SegmentReferenceScheme {
+            /// The segment reference scheme is not specified.
+            Unspecified,
+            /// Lists the URLs of media files for each segment.
+            SegmentList,
+            /// Lists each segment from a template with $Number$ variable.
+            SegmentTemplateNumber,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SegmentReferenceScheme::value] or
+            /// [SegmentReferenceScheme::name].
+            UnknownValue(segment_reference_scheme::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod segment_reference_scheme {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl SegmentReferenceScheme {
-            /// The segment reference scheme is not specified.
-            pub const SEGMENT_REFERENCE_SCHEME_UNSPECIFIED: SegmentReferenceScheme =
-                SegmentReferenceScheme::new(0);
-
-            /// Lists the URLs of media files for each segment.
-            pub const SEGMENT_LIST: SegmentReferenceScheme = SegmentReferenceScheme::new(1);
-
-            /// Lists each segment from a template with $Number$ variable.
-            pub const SEGMENT_TEMPLATE_NUMBER: SegmentReferenceScheme =
-                SegmentReferenceScheme::new(2);
-
-            /// Creates a new SegmentReferenceScheme instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::SegmentList => std::option::Option::Some(1),
+                    Self::SegmentTemplateNumber => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("SEGMENT_LIST"),
-                    2 => std::borrow::Cow::Borrowed("SEGMENT_TEMPLATE_NUMBER"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED)
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED")
                     }
-                    "SEGMENT_LIST" => std::option::Option::Some(Self::SEGMENT_LIST),
-                    "SEGMENT_TEMPLATE_NUMBER" => {
-                        std::option::Option::Some(Self::SEGMENT_TEMPLATE_NUMBER)
+                    Self::SegmentList => std::option::Option::Some("SEGMENT_LIST"),
+                    Self::SegmentTemplateNumber => {
+                        std::option::Option::Some("SEGMENT_TEMPLATE_NUMBER")
                     }
-                    _ => std::option::Option::None,
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-        }
-
-        impl std::convert::From<i32> for SegmentReferenceScheme {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for SegmentReferenceScheme {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for SegmentReferenceScheme {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for SegmentReferenceScheme {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::SegmentList,
+                    2 => Self::SegmentTemplateNumber,
+                    _ => Self::UnknownValue(segment_reference_scheme::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for SegmentReferenceScheme {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED" => Self::Unspecified,
+                    "SEGMENT_LIST" => Self::SegmentList,
+                    "SEGMENT_TEMPLATE_NUMBER" => Self::SegmentTemplateNumber,
+                    _ => Self::UnknownValue(segment_reference_scheme::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for SegmentReferenceScheme {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::SegmentList => serializer.serialize_i32(1),
+                    Self::SegmentTemplateNumber => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for SegmentReferenceScheme {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SegmentReferenceScheme>::new(
+                    ".google.cloud.video.transcoder.v1.Manifest.DashConfig.SegmentReferenceScheme"))
             }
         }
     }
 
     /// The manifest type, which corresponds to the adaptive streaming format used.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ManifestType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ManifestType {
+        /// The manifest type is not specified.
+        Unspecified,
+        /// Create an HLS manifest. The corresponding file extension is `.m3u8`.
+        Hls,
+        /// Create an MPEG-DASH manifest. The corresponding file extension is `.mpd`.
+        Dash,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ManifestType::value] or
+        /// [ManifestType::name].
+        UnknownValue(manifest_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod manifest_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ManifestType {
-        /// The manifest type is not specified.
-        pub const MANIFEST_TYPE_UNSPECIFIED: ManifestType = ManifestType::new(0);
-
-        /// Create an HLS manifest. The corresponding file extension is `.m3u8`.
-        pub const HLS: ManifestType = ManifestType::new(1);
-
-        /// Create an MPEG-DASH manifest. The corresponding file extension is `.mpd`.
-        pub const DASH: ManifestType = ManifestType::new(2);
-
-        /// Creates a new ManifestType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Hls => std::option::Option::Some(1),
+                Self::Dash => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MANIFEST_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("HLS"),
-                2 => std::borrow::Cow::Borrowed("DASH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MANIFEST_TYPE_UNSPECIFIED"),
+                Self::Hls => std::option::Option::Some("HLS"),
+                Self::Dash => std::option::Option::Some("DASH"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MANIFEST_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::MANIFEST_TYPE_UNSPECIFIED)
-                }
-                "HLS" => std::option::Option::Some(Self::HLS),
-                "DASH" => std::option::Option::Some(Self::DASH),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ManifestType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ManifestType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ManifestType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ManifestType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Hls,
+                2 => Self::Dash,
+                _ => Self::UnknownValue(manifest_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ManifestType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MANIFEST_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "HLS" => Self::Hls,
+                "DASH" => Self::Dash,
+                _ => Self::UnknownValue(manifest_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ManifestType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Hls => serializer.serialize_i32(1),
+                Self::Dash => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ManifestType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ManifestType>::new(
+                ".google.cloud.video.transcoder.v1.Manifest.ManifestType",
+            ))
         }
     }
 
@@ -1600,6 +1970,7 @@ pub struct SpriteSheet {
     ///
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_height_pixels]: crate::model::SpriteSheet::sprite_height_pixels
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_width_pixels]: crate::model::SpriteSheet::sprite_width_pixels
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sprite_width_pixels: i32,
 
     /// Required. The height of sprite in pixels. Must be an even integer. To
@@ -1617,15 +1988,18 @@ pub struct SpriteSheet {
     ///
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_height_pixels]: crate::model::SpriteSheet::sprite_height_pixels
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_width_pixels]: crate::model::SpriteSheet::sprite_width_pixels
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sprite_height_pixels: i32,
 
     /// The maximum number of sprites per row in a sprite sheet. The default is 0,
     /// which indicates no maximum limit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub column_count: i32,
 
     /// The maximum number of rows per sprite sheet. When the sprite sheet is full,
     /// a new sprite sheet is created. The default is 0, which indicates no maximum
     /// limit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub row_count: i32,
 
     /// Start time in seconds, relative to the output file timeline. Determines the
@@ -1643,6 +2017,7 @@ pub struct SpriteSheet {
     /// and 100, where 1 is the lowest quality and 100 is the highest quality.
     /// The default is 100. A high quality value corresponds to a low image data
     /// compression ratio.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quality: i32,
 
     /// Specify either total number of sprites or interval to create sprites.
@@ -1745,6 +2120,18 @@ impl SpriteSheet {
         })
     }
 
+    /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
+    /// to hold a `TotalCount`.
+    ///
+    /// Note that all the setters affecting `extraction_strategy` are
+    /// mutually exclusive.
+    pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.extraction_strategy = std::option::Option::Some(
+            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v.into()),
+        );
+        self
+    }
+
     /// The value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
     /// if it holds a `Interval`, `None` if the field is not set or
     /// holds a different branch.
@@ -1756,18 +2143,6 @@ impl SpriteSheet {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
-    /// to hold a `TotalCount`.
-    ///
-    /// Note that all the setters affecting `extraction_strategy` are
-    /// mutually exclusive.
-    pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.extraction_strategy = std::option::Option::Some(
-            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
@@ -1875,9 +2250,11 @@ pub mod overlay {
     #[non_exhaustive]
     pub struct NormalizedCoordinate {
         /// Normalized x coordinate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub x: f64,
 
         /// Normalized y coordinate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub y: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1928,6 +2305,7 @@ pub mod overlay {
 
         /// Target image opacity. Valid values are from  `1.0` (solid, default) to
         /// `0.0` (transparent), exclusive. Set this to a value greater than `0.0`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub alpha: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2190,36 +2568,6 @@ pub mod overlay {
             })
         }
 
-        /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
-        /// if it holds a `AnimationFade`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn animation_fade(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationFade>> {
-            #[allow(unreachable_patterns)]
-            self.animation_type.as_ref().and_then(|v| match v {
-                crate::model::overlay::animation::AnimationType::AnimationFade(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
-        /// if it holds a `AnimationEnd`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn animation_end(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationEnd>> {
-            #[allow(unreachable_patterns)]
-            self.animation_type.as_ref().and_then(|v| match v {
-                crate::model::overlay::animation::AnimationType::AnimationEnd(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// to hold a `AnimationStatic`.
         ///
@@ -2237,6 +2585,21 @@ pub mod overlay {
             self
         }
 
+        /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
+        /// if it holds a `AnimationFade`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn animation_fade(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationFade>> {
+            #[allow(unreachable_patterns)]
+            self.animation_type.as_ref().and_then(|v| match v {
+                crate::model::overlay::animation::AnimationType::AnimationFade(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// to hold a `AnimationFade`.
         ///
@@ -2252,6 +2615,21 @@ pub mod overlay {
                 crate::model::overlay::animation::AnimationType::AnimationFade(v.into()),
             );
             self
+        }
+
+        /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
+        /// if it holds a `AnimationEnd`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn animation_end(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationEnd>> {
+            #[allow(unreachable_patterns)]
+            self.animation_type.as_ref().and_then(|v| match v {
+                crate::model::overlay::animation::AnimationType::AnimationEnd(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type]
@@ -2298,59 +2676,134 @@ pub mod overlay {
     }
 
     /// Fade type for the overlay: `FADE_IN` or `FADE_OUT`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FadeType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FadeType {
+        /// The fade type is not specified.
+        Unspecified,
+        /// Fade the overlay object into view.
+        FadeIn,
+        /// Fade the overlay object out of view.
+        FadeOut,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FadeType::value] or
+        /// [FadeType::name].
+        UnknownValue(fade_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod fade_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl FadeType {
-        /// The fade type is not specified.
-        pub const FADE_TYPE_UNSPECIFIED: FadeType = FadeType::new(0);
-
-        /// Fade the overlay object into view.
-        pub const FADE_IN: FadeType = FadeType::new(1);
-
-        /// Fade the overlay object out of view.
-        pub const FADE_OUT: FadeType = FadeType::new(2);
-
-        /// Creates a new FadeType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::FadeIn => std::option::Option::Some(1),
+                Self::FadeOut => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FADE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("FADE_IN"),
-                2 => std::borrow::Cow::Borrowed("FADE_OUT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FADE_TYPE_UNSPECIFIED"),
+                Self::FadeIn => std::option::Option::Some("FADE_IN"),
+                Self::FadeOut => std::option::Option::Some("FADE_OUT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FADE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::FADE_TYPE_UNSPECIFIED),
-                "FADE_IN" => std::option::Option::Some(Self::FADE_IN),
-                "FADE_OUT" => std::option::Option::Some(Self::FADE_OUT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for FadeType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for FadeType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FadeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FadeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::FadeIn,
+                2 => Self::FadeOut,
+                _ => Self::UnknownValue(fade_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FadeType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FADE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "FADE_IN" => Self::FadeIn,
+                "FADE_OUT" => Self::FadeOut,
+                _ => Self::UnknownValue(fade_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FadeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::FadeIn => serializer.serialize_i32(1),
+                Self::FadeOut => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FadeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FadeType>::new(
+                ".google.cloud.video.transcoder.v1.Overlay.FadeType",
+            ))
         }
     }
 }
@@ -2498,16 +2951,19 @@ pub mod preprocessing_config {
         /// Control color saturation of the video. Enter a value between -1 and 1,
         /// where -1 is fully desaturated and 1 is maximum saturation. 0 is no
         /// change. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub saturation: f64,
 
         /// Control black and white contrast of the video. Enter a value between -1
         /// and 1, where -1 is minimum contrast and 1 is maximum contrast. 0 is no
         /// change. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub contrast: f64,
 
         /// Control brightness of the video. Enter a value between -1 and 1, where -1
         /// is minimum brightness and 1 is maximum brightness. 0 is no change. The
         /// default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub brightness: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2554,6 +3010,7 @@ pub mod preprocessing_config {
     pub struct Denoise {
         /// Set strength of the denoise. Enter a value between 0 and 1. The higher
         /// the value, the smoother the image. 0 is no denoising. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strength: f64,
 
         /// Set the denoiser mode. The default is `standard`.
@@ -2604,9 +3061,11 @@ pub mod preprocessing_config {
         /// Set strength of the deblocker. Enter a value between 0 and 1. The higher
         /// the value, the stronger the block removal. 0 is no deblocking. The
         /// default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strength: f64,
 
         /// Enable deblocker. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2654,16 +3113,19 @@ pub mod preprocessing_config {
         /// * -14 is the new online audio standard recommended by Spotify, as well
         ///   as Amazon Echo
         /// * 0 disables normalization
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub lufs: f64,
 
         /// Enable boosting high frequency components. The default is `false`.
         ///
         /// **Note:** This field is not supported.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub high_boost: bool,
 
         /// Enable boosting low frequency components. The default is `false`.
         ///
         /// **Note:** This field is not supported.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub low_boost: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2708,15 +3170,19 @@ pub mod preprocessing_config {
     #[non_exhaustive]
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub top_pixels: i32,
 
         /// The number of pixels to crop from the bottom. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to crop from the left. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub left_pixels: i32,
 
         /// The number of pixels to crop from the right. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2767,15 +3233,19 @@ pub mod preprocessing_config {
     #[non_exhaustive]
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub top_pixels: i32,
 
         /// The number of pixels to add to the bottom. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to add to the left. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub left_pixels: i32,
 
         /// The number of pixels to add to the right. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2874,23 +3344,6 @@ pub mod preprocessing_config {
             })
         }
 
-        /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
-        /// if it holds a `Bwdif`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn bwdif(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.deinterlacing_filter.as_ref().and_then(|v| match v {
-                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Bwdif(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
         /// to hold a `Yadif`.
         ///
@@ -2910,6 +3363,23 @@ pub mod preprocessing_config {
                 ),
             );
             self
+        }
+
+        /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
+        /// if it holds a `Bwdif`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bwdif(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.deinterlacing_filter.as_ref().and_then(|v| match v {
+                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Bwdif(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
@@ -2962,6 +3432,7 @@ pub mod preprocessing_config {
 
             /// Disable spacial interlacing.
             /// The default is `false`.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_spatial_interlacing: bool,
 
             /// The picture field parity assumed for the input interlaced video.
@@ -2976,6 +3447,7 @@ pub mod preprocessing_config {
 
             /// Deinterlace all frames rather than just the frames identified as
             /// interlaced. The default is `false`.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub deinterlace_all_frames: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3048,6 +3520,7 @@ pub mod preprocessing_config {
 
             /// Deinterlace all frames rather than just the frames identified as
             /// interlaced. The default is `false`.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub deinterlace_all_frames: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3143,32 +3616,6 @@ impl VideoStream {
         })
     }
 
-    /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
-    /// if it holds a `H265`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn h265(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265CodecSettings>> {
-        #[allow(unreachable_patterns)]
-        self.codec_settings.as_ref().and_then(|v| match v {
-            crate::model::video_stream::CodecSettings::H265(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
-    /// if it holds a `Vp9`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn vp9(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>> {
-        #[allow(unreachable_patterns)]
-        self.codec_settings.as_ref().and_then(|v| match v {
-            crate::model::video_stream::CodecSettings::Vp9(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// to hold a `H264`.
     ///
@@ -3185,6 +3632,19 @@ impl VideoStream {
         self
     }
 
+    /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
+    /// if it holds a `H265`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn h265(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265CodecSettings>> {
+        #[allow(unreachable_patterns)]
+        self.codec_settings.as_ref().and_then(|v| match v {
+            crate::model::video_stream::CodecSettings::H265(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// to hold a `H265`.
     ///
@@ -3199,6 +3659,19 @@ impl VideoStream {
         self.codec_settings =
             std::option::Option::Some(crate::model::video_stream::CodecSettings::H265(v.into()));
         self
+    }
+
+    /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
+    /// if it holds a `Vp9`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vp9(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>> {
+        #[allow(unreachable_patterns)]
+        self.codec_settings.as_ref().and_then(|v| match v {
+            crate::model::video_stream::CodecSettings::Vp9(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
@@ -3243,6 +3716,7 @@ pub mod video_stream {
         /// provide the width, in pixels, per the horizontal ASR. The API calculates
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -3253,6 +3727,7 @@ pub mod video_stream {
         /// provide the height, in pixels, per the horizontal ASR. The API calculates
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -3262,10 +3737,12 @@ pub mod video_stream {
         /// [Calculating frame
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -3295,23 +3772,28 @@ pub mod video_stream {
 
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
         /// quality and 36 is the most efficient compression. The default is 21.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub crf_level: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
         /// allowed or not. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_open_gop: bool,
 
         /// Use two-pass encoding strategy to achieve better video quality.
         /// `VideoStream.rate_control_mode` must be `vbr`. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_two_pass: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
         /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
         /// `VideoStream.vbv_size_bits`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vbv_fullness_bits: i32,
 
         /// The entropy coder to use. The default is `cabac`.
@@ -3325,16 +3807,19 @@ pub mod video_stream {
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
         /// on all decoders. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
         /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
         /// is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -3529,6 +4014,18 @@ pub mod video_stream {
             })
         }
 
+        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
+        /// to hold a `GopFrameCount`.
+        ///
+        /// Note that all the setters affecting `gop_mode` are
+        /// mutually exclusive.
+        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.gop_mode = std::option::Option::Some(
+                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
+            );
+            self
+        }
+
         /// The value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -3540,18 +4037,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
@@ -3612,6 +4097,7 @@ pub mod video_stream {
         /// provide the width, in pixels, per the horizontal ASR. The API calculates
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -3622,6 +4108,7 @@ pub mod video_stream {
         /// provide the height, in pixels, per the horizontal ASR. The API calculates
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -3631,10 +4118,12 @@ pub mod video_stream {
         /// [Calculating frame
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -3664,37 +4153,45 @@ pub mod video_stream {
 
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
         /// quality and 36 is the most efficient compression. The default is 21.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub crf_level: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
         /// allowed or not. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_open_gop: bool,
 
         /// Use two-pass encoding strategy to achieve better video quality.
         /// `VideoStream.rate_control_mode` must be `vbr`. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_two_pass: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
         /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
         /// `VideoStream.vbv_size_bits`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vbv_fullness_bits: i32,
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
         /// on all decoders. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
         /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
         /// is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -3895,6 +4392,18 @@ pub mod video_stream {
             })
         }
 
+        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
+        /// to hold a `GopFrameCount`.
+        ///
+        /// Note that all the setters affecting `gop_mode` are
+        /// mutually exclusive.
+        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.gop_mode = std::option::Option::Some(
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
+            );
+            self
+        }
+
         /// The value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -3906,18 +4415,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
@@ -3978,6 +4475,7 @@ pub mod video_stream {
         /// provide the width, in pixels, per the horizontal ASR. The API calculates
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -3988,6 +4486,7 @@ pub mod video_stream {
         /// provide the height, in pixels, per the horizontal ASR. The API calculates
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -3997,10 +4496,12 @@ pub mod video_stream {
         /// [Calculating frame
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 480,000,000.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4031,6 +4532,7 @@ pub mod video_stream {
         /// quality and 36 is the most efficient compression. The default is 21.
         ///
         /// **Note:** This field is not supported.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub crf_level: i32,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4145,6 +4647,18 @@ pub mod video_stream {
             })
         }
 
+        /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
+        /// to hold a `GopFrameCount`.
+        ///
+        /// Note that all the setters affecting `gop_mode` are
+        /// mutually exclusive.
+        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.gop_mode = std::option::Option::Some(
+                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v.into()),
+            );
+            self
+        }
+
         /// The value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -4156,18 +4670,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
@@ -4249,9 +4751,11 @@ pub struct AudioStream {
 
     /// Required. Audio bitrate in bits per second. Must be between 1 and
     /// 10,000,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bitrate_bps: i32,
 
     /// Number of audio channels. Must be between 1 and 6. The default is 2.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_count: i32,
 
     /// A list of channel names specifying layout of the audio channels.
@@ -4274,6 +4778,7 @@ pub struct AudioStream {
     pub mapping: std::vec::Vec<crate::model::audio_stream::AudioMapping>,
 
     /// The audio sample rate in Hertz. The default is 48000 Hertz.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// The BCP-47 language code, such as `en-US` or `sr-Latn`. For more
@@ -4315,24 +4820,6 @@ impl AudioStream {
         self
     }
 
-    /// Sets the value of [sample_rate_hertz][crate::model::AudioStream::sample_rate_hertz].
-    pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.sample_rate_hertz = v.into();
-        self
-    }
-
-    /// Sets the value of [language_code][crate::model::AudioStream::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
-    /// Sets the value of [display_name][crate::model::AudioStream::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
     /// Sets the value of [channel_layout][crate::model::AudioStream::channel_layout].
     pub fn set_channel_layout<T, V>(mut self, v: T) -> Self
     where
@@ -4352,6 +4839,24 @@ impl AudioStream {
     {
         use std::iter::Iterator;
         self.mapping = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [sample_rate_hertz][crate::model::AudioStream::sample_rate_hertz].
+    pub fn set_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.sample_rate_hertz = v.into();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::AudioStream::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::AudioStream::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 }
@@ -4383,16 +4888,20 @@ pub mod audio_stream {
         pub input_key: std::string::String,
 
         /// Required. The zero-based index of the track in the input file.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub input_track: i32,
 
         /// Required. The zero-based index of the channel in the input audio stream.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub input_channel: i32,
 
         /// Required. The zero-based index of the channel in the output audio stream.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub output_channel: i32,
 
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub gain_db: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4503,12 +5012,6 @@ impl TextStream {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::TextStream::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
     /// Sets the value of [mapping][crate::model::TextStream::mapping].
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
@@ -4517,6 +5020,12 @@ impl TextStream {
     {
         use std::iter::Iterator;
         self.mapping = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::TextStream::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 }
@@ -4548,6 +5057,7 @@ pub mod text_stream {
         pub input_key: std::string::String,
 
         /// Required. The zero-based index of the track in the input file.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub input_track: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4599,6 +5109,7 @@ pub struct SegmentSettings {
     pub segment_duration: std::option::Option<wkt::Duration>,
 
     /// Required. Create an individual segment file. The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub individual_segments: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4708,32 +5219,6 @@ impl Encryption {
         })
     }
 
-    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// if it holds a `SampleAes`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sample_aes(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
-        #[allow(unreachable_patterns)]
-        self.encryption_mode.as_ref().and_then(|v| match v {
-            crate::model::encryption::EncryptionMode::SampleAes(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// if it holds a `MpegCenc`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mpeg_cenc(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
-        #[allow(unreachable_patterns)]
-        self.encryption_mode.as_ref().and_then(|v| match v {
-            crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// to hold a `Aes128`.
     ///
@@ -4748,6 +5233,19 @@ impl Encryption {
         self.encryption_mode =
             std::option::Option::Some(crate::model::encryption::EncryptionMode::Aes128(v.into()));
         self
+    }
+
+    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
+    /// if it holds a `SampleAes`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sample_aes(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
+        #[allow(unreachable_patterns)]
+        self.encryption_mode.as_ref().and_then(|v| match v {
+            crate::model::encryption::EncryptionMode::SampleAes(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
@@ -4765,6 +5263,19 @@ impl Encryption {
             crate::model::encryption::EncryptionMode::SampleAes(v.into()),
         );
         self
+    }
+
+    /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
+    /// if it holds a `MpegCenc`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mpeg_cenc(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
+        #[allow(unreachable_patterns)]
+        self.encryption_mode.as_ref().and_then(|v| match v {
+            crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
@@ -5213,6 +5724,7 @@ pub struct ListJobsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if
@@ -5322,6 +5834,7 @@ pub struct DeleteJobRequest {
 
     /// If set to true, and the job is not found, the request will succeed but no
     /// action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5379,12 +5892,6 @@ impl ListJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -5393,6 +5900,12 @@ impl ListJobsResponse {
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5502,6 +6015,7 @@ pub struct ListJobTemplatesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if
@@ -5612,6 +6126,7 @@ pub struct DeleteJobTemplateRequest {
 
     /// If set to true, and the job template is not found, the request will succeed
     /// but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5669,12 +6184,6 @@ impl ListJobTemplatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListJobTemplatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [job_templates][crate::model::ListJobTemplatesResponse::job_templates].
     pub fn set_job_templates<T, V>(mut self, v: T) -> Self
     where
@@ -5683,6 +6192,12 @@ impl ListJobTemplatesResponse {
     {
         use std::iter::Iterator;
         self.job_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListJobTemplatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

@@ -180,7 +180,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
             .notification_categories
             .iter()
             .fold(builder, |builder, p| {
-                builder.query(&[("notificationCategories", p.value())])
+                builder.query(&[("notificationCategories", p)])
             });
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);

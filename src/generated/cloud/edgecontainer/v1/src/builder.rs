@@ -16,7 +16,6 @@
 
 pub mod edge_container {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [EdgeContainer][super::super::client::EdgeContainer].
     ///
@@ -49,7 +48,7 @@ pub mod edge_container {
     /// Common implementation for [super::super::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod edge_container {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod edge_container {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod edge_container {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +206,9 @@ pub mod edge_container {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -259,18 +270,24 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -298,7 +315,9 @@ pub mod edge_container {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,7 +415,9 @@ pub mod edge_container {
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,12 +479,16 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_version][crate::model::UpgradeClusterRequest::target_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_version = v.into();
             self
@@ -497,7 +522,9 @@ pub mod edge_container {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -557,6 +584,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -581,7 +610,9 @@ pub mod edge_container {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -609,6 +640,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [cluster][crate::model::GenerateAccessTokenRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
@@ -629,7 +662,9 @@ pub mod edge_container {
     );
 
     impl GenerateOfflineCredential {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -657,6 +692,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [cluster][crate::model::GenerateOfflineCredentialRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
@@ -675,7 +712,9 @@ pub mod edge_container {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -715,6 +754,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListNodePoolsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -757,7 +798,9 @@ pub mod edge_container {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -782,6 +825,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetNodePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -800,7 +845,9 @@ pub mod edge_container {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -863,18 +910,24 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::CreateNodePoolRequest::node_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
             mut self,
             v: T,
@@ -902,7 +955,9 @@ pub mod edge_container {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1001,7 +1056,9 @@ pub mod edge_container {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1061,6 +1118,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1085,7 +1144,9 @@ pub mod edge_container {
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
     impl ListMachines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1125,6 +1186,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListMachinesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1167,7 +1230,9 @@ pub mod edge_container {
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
     impl GetMachine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1192,6 +1257,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetMachineRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1210,7 +1277,9 @@ pub mod edge_container {
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
     impl ListVpnConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1253,6 +1322,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListVpnConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1295,7 +1366,9 @@ pub mod edge_container {
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
     impl GetVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1323,6 +1396,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetVpnConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1341,7 +1416,9 @@ pub mod edge_container {
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
     impl CreateVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1408,18 +1485,24 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::CreateVpnConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vpn_connection_id][crate::model::CreateVpnConnectionRequest::vpn_connection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vpn_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.vpn_connection_id = v.into();
             self
         }
 
         /// Sets the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vpn_connection<T: Into<std::option::Option<crate::model::VpnConnection>>>(
             mut self,
             v: T,
@@ -1447,7 +1530,9 @@ pub mod edge_container {
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
     impl DeleteVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1510,6 +1595,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::DeleteVpnConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1534,7 +1621,9 @@ pub mod edge_container {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1559,6 +1648,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetServerConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1577,7 +1668,9 @@ pub mod edge_container {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1656,7 +1749,9 @@ pub mod edge_container {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1699,7 +1794,9 @@ pub mod edge_container {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1778,7 +1875,9 @@ pub mod edge_container {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1824,7 +1923,9 @@ pub mod edge_container {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1870,7 +1971,9 @@ pub mod edge_container {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

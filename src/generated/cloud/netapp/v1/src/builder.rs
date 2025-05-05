@@ -16,7 +16,6 @@
 
 pub mod net_app {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NetApp][super::super::client::NetApp].
     ///
@@ -49,7 +48,7 @@ pub mod net_app {
     /// Common implementation for [super::super::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetApp>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod net_app {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod net_app {
     pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
     impl ListStoragePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +114,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListStoragePoolsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -157,7 +158,7 @@ pub mod net_app {
     pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
     impl CreateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -223,18 +224,24 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateStoragePoolRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [storage_pool_id][crate::model::CreateStoragePoolRequest::storage_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_storage_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.storage_pool_id = v.into();
             self
         }
 
         /// Sets the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_storage_pool<T: Into<std::option::Option<crate::model::StoragePool>>>(
             mut self,
             v: T,
@@ -256,7 +263,7 @@ pub mod net_app {
     pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
 
     impl GetStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -281,6 +288,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetStoragePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -299,7 +308,7 @@ pub mod net_app {
     pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
     impl UpdateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -365,6 +374,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -374,6 +385,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_storage_pool<T: Into<std::option::Option<crate::model::StoragePool>>>(
             mut self,
             v: T,
@@ -395,7 +408,7 @@ pub mod net_app {
     pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
     impl DeleteStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,6 +471,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteStoragePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -478,7 +493,7 @@ pub mod net_app {
     );
 
     impl ValidateDirectoryService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -541,6 +556,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::ValidateDirectoryServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -570,7 +587,7 @@ pub mod net_app {
     );
 
     impl SwitchActiveReplicaZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -636,6 +653,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::SwitchActiveReplicaZoneRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -654,7 +673,7 @@ pub mod net_app {
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -694,6 +713,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListVolumesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -736,7 +757,7 @@ pub mod net_app {
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -761,6 +782,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -779,7 +802,7 @@ pub mod net_app {
     pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
 
     impl CreateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -841,18 +864,24 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [volume_id][crate::model::CreateVolumeRequest::volume_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_volume_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.volume_id = v.into();
             self
         }
 
         /// Sets the value of [volume][crate::model::CreateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
             mut self,
             v: T,
@@ -874,7 +903,7 @@ pub mod net_app {
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -936,6 +965,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -945,6 +976,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
             mut self,
             v: T,
@@ -966,7 +999,7 @@ pub mod net_app {
     pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
 
     impl DeleteVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1026,6 +1059,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1050,7 +1085,7 @@ pub mod net_app {
     pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
 
     impl RevertVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1112,12 +1147,16 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::RevertVolumeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [snapshot_id][crate::model::RevertVolumeRequest::snapshot_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.snapshot_id = v.into();
             self
@@ -1136,7 +1175,7 @@ pub mod net_app {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1176,6 +1215,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1218,7 +1259,7 @@ pub mod net_app {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1243,6 +1284,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1261,7 +1304,7 @@ pub mod net_app {
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1324,12 +1367,16 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
             mut self,
             v: T,
@@ -1339,6 +1386,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [snapshot_id][crate::model::CreateSnapshotRequest::snapshot_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.snapshot_id = v.into();
             self
@@ -1357,7 +1406,7 @@ pub mod net_app {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1417,6 +1466,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1435,7 +1486,7 @@ pub mod net_app {
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1498,6 +1549,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1507,6 +1560,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
             mut self,
             v: T,
@@ -1528,7 +1583,7 @@ pub mod net_app {
     pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
 
     impl ListActiveDirectories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1571,6 +1626,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListActiveDirectoriesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1613,7 +1670,7 @@ pub mod net_app {
     pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
 
     impl GetActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1641,6 +1698,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetActiveDirectoryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1659,7 +1718,7 @@ pub mod net_app {
     pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
 
     impl CreateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1726,12 +1785,16 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateActiveDirectoryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_active_directory<T: Into<std::option::Option<crate::model::ActiveDirectory>>>(
             mut self,
             v: T,
@@ -1741,6 +1804,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [active_directory_id][crate::model::CreateActiveDirectoryRequest::active_directory_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_active_directory_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.active_directory_id = v.into();
             self
@@ -1759,7 +1824,7 @@ pub mod net_app {
     pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
 
     impl UpdateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1826,6 +1891,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1835,6 +1902,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_active_directory<T: Into<std::option::Option<crate::model::ActiveDirectory>>>(
             mut self,
             v: T,
@@ -1856,7 +1925,7 @@ pub mod net_app {
     pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
 
     impl DeleteActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1919,6 +1988,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteActiveDirectoryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1937,7 +2008,7 @@ pub mod net_app {
     pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
     impl ListKmsConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1977,6 +2048,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListKmsConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2019,7 +2092,7 @@ pub mod net_app {
     pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
     impl CreateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2082,18 +2155,24 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateKmsConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [kms_config_id][crate::model::CreateKmsConfigRequest::kms_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_kms_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.kms_config_id = v.into();
             self
         }
 
         /// Sets the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_kms_config<T: Into<std::option::Option<crate::model::KmsConfig>>>(
             mut self,
             v: T,
@@ -2115,7 +2194,7 @@ pub mod net_app {
     pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
 
     impl GetKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2140,6 +2219,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetKmsConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2158,7 +2239,7 @@ pub mod net_app {
     pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
     impl UpdateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2221,6 +2302,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2230,6 +2313,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_kms_config<T: Into<std::option::Option<crate::model::KmsConfig>>>(
             mut self,
             v: T,
@@ -2251,7 +2336,7 @@ pub mod net_app {
     pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
 
     impl EncryptVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2314,6 +2399,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::EncryptVolumesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2332,7 +2419,7 @@ pub mod net_app {
     pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
     impl VerifyKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2357,6 +2444,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::VerifyKmsConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2375,7 +2464,7 @@ pub mod net_app {
     pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
     impl DeleteKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2435,6 +2524,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteKmsConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2453,7 +2544,7 @@ pub mod net_app {
     pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
 
     impl ListReplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2496,6 +2587,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListReplicationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2538,7 +2631,7 @@ pub mod net_app {
     pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
 
     impl GetReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2563,6 +2656,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetReplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2581,7 +2676,7 @@ pub mod net_app {
     pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
 
     impl CreateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2647,12 +2742,16 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateReplicationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [replication][crate::model::CreateReplicationRequest::replication].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_replication<T: Into<std::option::Option<crate::model::Replication>>>(
             mut self,
             v: T,
@@ -2662,6 +2761,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [replication_id][crate::model::CreateReplicationRequest::replication_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_replication_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.replication_id = v.into();
             self
@@ -2680,7 +2781,7 @@ pub mod net_app {
     pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
 
     impl DeleteReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2743,6 +2844,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteReplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2761,7 +2864,7 @@ pub mod net_app {
     pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
 
     impl UpdateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2827,6 +2930,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2836,6 +2941,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [replication][crate::model::UpdateReplicationRequest::replication].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_replication<T: Into<std::option::Option<crate::model::Replication>>>(
             mut self,
             v: T,
@@ -2857,7 +2964,7 @@ pub mod net_app {
     pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
 
     impl StopReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2920,6 +3027,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::StopReplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2944,7 +3053,7 @@ pub mod net_app {
     pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
 
     impl ResumeReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3010,6 +3119,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::ResumeReplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3030,7 +3141,7 @@ pub mod net_app {
     );
 
     impl ReverseReplicationDirection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3096,6 +3207,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::ReverseReplicationDirectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3114,7 +3227,7 @@ pub mod net_app {
     pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
 
     impl EstablishPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3180,26 +3293,26 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::EstablishPeeringRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [peer_cluster_name][crate::model::EstablishPeeringRequest::peer_cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_peer_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.peer_cluster_name = v.into();
             self
         }
 
         /// Sets the value of [peer_svm_name][crate::model::EstablishPeeringRequest::peer_svm_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_peer_svm_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.peer_svm_name = v.into();
-            self
-        }
-
-        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
-        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.peer_volume_name = v.into();
             self
         }
 
@@ -3211,6 +3324,14 @@ pub mod net_app {
         {
             use std::iter::Iterator;
             self.0.request.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_volume_name = v.into();
             self
         }
     }
@@ -3227,7 +3348,7 @@ pub mod net_app {
     pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
 
     impl SyncReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3290,6 +3411,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::SyncReplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3308,7 +3431,7 @@ pub mod net_app {
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3374,18 +3497,24 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_vault_id][crate::model::CreateBackupVaultRequest::backup_vault_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_vault_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_vault_id = v.into();
             self
         }
 
         /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
             mut self,
             v: T,
@@ -3407,7 +3536,7 @@ pub mod net_app {
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3432,6 +3561,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetBackupVaultRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3450,7 +3581,7 @@ pub mod net_app {
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3493,6 +3624,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupVaultsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3535,7 +3668,7 @@ pub mod net_app {
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3601,6 +3734,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3610,6 +3745,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
             mut self,
             v: T,
@@ -3631,7 +3768,7 @@ pub mod net_app {
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3694,6 +3831,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3712,7 +3851,7 @@ pub mod net_app {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3774,18 +3913,24 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -3807,7 +3952,7 @@ pub mod net_app {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3832,6 +3977,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3850,7 +3997,7 @@ pub mod net_app {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3890,6 +4037,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3932,7 +4081,7 @@ pub mod net_app {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3992,6 +4141,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4010,7 +4161,7 @@ pub mod net_app {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4072,6 +4223,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4081,6 +4234,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -4102,7 +4257,7 @@ pub mod net_app {
     pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
 
     impl CreateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4168,12 +4323,16 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_policy<T: Into<std::option::Option<crate::model::BackupPolicy>>>(
             mut self,
             v: T,
@@ -4183,6 +4342,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [backup_policy_id][crate::model::CreateBackupPolicyRequest::backup_policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_policy_id = v.into();
             self
@@ -4201,7 +4362,7 @@ pub mod net_app {
     pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
     impl GetBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4226,6 +4387,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetBackupPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4244,7 +4407,7 @@ pub mod net_app {
     pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
 
     impl ListBackupPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4287,6 +4450,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4329,7 +4494,7 @@ pub mod net_app {
     pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
 
     impl UpdateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4395,6 +4560,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4404,6 +4571,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_policy<T: Into<std::option::Option<crate::model::BackupPolicy>>>(
             mut self,
             v: T,
@@ -4425,7 +4594,7 @@ pub mod net_app {
     pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
 
     impl DeleteBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4488,6 +4657,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4506,7 +4677,7 @@ pub mod net_app {
     pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
     impl ListQuotaRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4546,6 +4717,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::ListQuotaRulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4588,7 +4761,7 @@ pub mod net_app {
     pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
     impl GetQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4613,6 +4786,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::GetQuotaRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4631,7 +4806,7 @@ pub mod net_app {
     pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
     impl CreateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4694,12 +4869,16 @@ pub mod net_app {
         }
 
         /// Sets the value of [parent][crate::model::CreateQuotaRuleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_quota_rule<T: Into<std::option::Option<crate::model::QuotaRule>>>(
             mut self,
             v: T,
@@ -4709,6 +4888,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [quota_rule_id][crate::model::CreateQuotaRuleRequest::quota_rule_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_quota_rule_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.quota_rule_id = v.into();
             self
@@ -4727,7 +4908,7 @@ pub mod net_app {
     pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
     impl UpdateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4799,6 +4980,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_quota_rule<T: Into<std::option::Option<crate::model::QuotaRule>>>(
             mut self,
             v: T,
@@ -4820,7 +5003,7 @@ pub mod net_app {
     pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
     impl DeleteQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4880,6 +5063,8 @@ pub mod net_app {
         }
 
         /// Sets the value of [name][crate::model::DeleteQuotaRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4898,7 +5083,7 @@ pub mod net_app {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4977,7 +5162,7 @@ pub mod net_app {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5020,7 +5205,7 @@ pub mod net_app {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5099,7 +5284,7 @@ pub mod net_app {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5145,7 +5330,7 @@ pub mod net_app {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5191,7 +5376,7 @@ pub mod net_app {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

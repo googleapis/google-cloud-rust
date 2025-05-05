@@ -210,38 +210,15 @@ impl Secret {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Secret::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [rotation][crate::model::Secret::rotation].
-    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rotation = v.into();
-        self
-    }
-
-    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
-    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_destroy_ttl = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
-    pub fn set_customer_managed_encryption<
-        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_managed_encryption = v.into();
+    /// Sets the value of [labels][crate::model::Secret::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -256,15 +233,18 @@ impl Secret {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Secret::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [etag][crate::model::Secret::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [rotation][crate::model::Secret::rotation].
+    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rotation = v.into();
         self
     }
 
@@ -289,6 +269,26 @@ impl Secret {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_destroy_ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    pub fn set_customer_managed_encryption<
+        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
         self
     }
 
@@ -317,17 +317,6 @@ impl Secret {
         })
     }
 
-    /// The value of [expiration][crate::model::Secret::expiration]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.expiration.as_ref().and_then(|v| match v {
-            crate::model::secret::Expiration::Ttl(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [expiration][crate::model::Secret::expiration]
     /// to hold a `ExpireTime`.
     ///
@@ -340,6 +329,17 @@ impl Secret {
         self.expiration =
             std::option::Option::Some(crate::model::secret::Expiration::ExpireTime(v.into()));
         self
+    }
+
+    /// The value of [expiration][crate::model::Secret::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::secret::Expiration::Ttl(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [expiration][crate::model::Secret::expiration]
@@ -430,7 +430,7 @@ pub struct SecretVersion {
     /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
+    /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::State::Destroyed
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub destroy_time: std::option::Option<wkt::Timestamp>,
@@ -465,6 +465,7 @@ pub struct SecretVersion {
     /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::client::SecretManagerService
     /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
     /// [google.cloud.secretmanager.v1.SecretPayload]: crate::model::SecretPayload
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_specified_payload_checksum: bool,
 
     /// Optional. Output only. Scheduled destroy time for secret version.
@@ -593,19 +594,30 @@ pub mod secret_version {
     /// it can be accessed.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Not specified. This value is unused and invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
         /// accessed.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const ENABLED: State = State::new(1);
-
+        Enabled,
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
         /// be accessed, but the secret data is still available and can be placed
         /// back into the
@@ -613,58 +625,124 @@ pub mod secret_version {
         /// state.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
-        pub const DISABLED: State = State::new(2);
-
+        /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::State::Enabled
+        Disabled,
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
         /// destroyed and the secret data is no longer stored. A version may not
         /// leave this state once entered.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const DESTROYED: State = State::new(3);
+        Destroyed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::Destroyed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                3 => std::borrow::Cow::Borrowed("DESTROYED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Destroyed => std::option::Option::Some("DESTROYED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                "DESTROYED" => std::option::Option::Some(Self::DESTROYED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                3 => Self::Destroyed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                "DESTROYED" => Self::Destroyed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::Destroyed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.secretmanager.v1.SecretVersion.State",
+            ))
         }
     }
 }
@@ -715,19 +793,6 @@ impl Replication {
         })
     }
 
-    /// The value of [replication][crate::model::Replication::replication]
-    /// if it holds a `UserManaged`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn user_managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::replication::UserManaged>> {
-        #[allow(unreachable_patterns)]
-        self.replication.as_ref().and_then(|v| match v {
-            crate::model::replication::Replication::UserManaged(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [replication][crate::model::Replication::replication]
     /// to hold a `Automatic`.
     ///
@@ -742,6 +807,19 @@ impl Replication {
         self.replication =
             std::option::Option::Some(crate::model::replication::Replication::Automatic(v.into()));
         self
+    }
+
+    /// The value of [replication][crate::model::Replication::replication]
+    /// if it holds a `UserManaged`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::replication::UserManaged>> {
+        #[allow(unreachable_patterns)]
+        self.replication.as_ref().and_then(|v| match v {
+            crate::model::replication::Replication::UserManaged(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [replication][crate::model::Replication::replication]
@@ -1071,22 +1149,6 @@ impl ReplicationStatus {
         })
     }
 
-    /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
-    /// if it holds a `UserManaged`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn user_managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::replication_status::UserManagedStatus>>
-    {
-        #[allow(unreachable_patterns)]
-        self.replication_status.as_ref().and_then(|v| match v {
-            crate::model::replication_status::ReplicationStatus::UserManaged(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status]
     /// to hold a `Automatic`.
     ///
@@ -1102,6 +1164,22 @@ impl ReplicationStatus {
             crate::model::replication_status::ReplicationStatus::Automatic(v.into()),
         );
         self
+    }
+
+    /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
+    /// if it holds a `UserManaged`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::replication_status::UserManagedStatus>>
+    {
+        #[allow(unreachable_patterns)]
+        self.replication_status.as_ref().and_then(|v| match v {
+            crate::model::replication_status::ReplicationStatus::UserManaged(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status]
@@ -1580,6 +1658,7 @@ pub struct ListSecretsRequest {
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -1668,6 +1747,7 @@ pub struct ListSecretsResponse {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1679,6 +1759,17 @@ impl ListSecretsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
+    pub fn set_secrets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Secret>,
+    {
+        use std::iter::Iterator;
+        self.secrets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1688,17 +1779,6 @@ impl ListSecretsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
-    pub fn set_secrets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Secret>,
-    {
-        use std::iter::Iterator;
-        self.secrets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1910,6 +1990,7 @@ pub struct ListSecretVersionsRequest {
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -1997,6 +2078,7 @@ pub struct ListSecretVersionsResponse {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2008,6 +2090,17 @@ impl ListSecretVersionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
+    pub fn set_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretVersion>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2017,17 +2110,6 @@ impl ListSecretVersionsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
-    pub fn set_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretVersion>,
-    {
-        use std::iter::Iterator;
-        self.versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

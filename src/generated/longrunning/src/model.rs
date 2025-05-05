@@ -54,6 +54,7 @@ pub struct Operation {
     /// If the value is `false`, it means the operation is still in progress.
     /// If `true`, the operation is completed, and either `error` or `response` is
     /// available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub done: bool,
 
     /// The operation result, which can be either an `error` or a valid `response`.
@@ -118,17 +119,6 @@ impl Operation {
         })
     }
 
-    /// The value of [result][crate::model::Operation::result]
-    /// if it holds a `Response`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn response(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::operation::Result::Response(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::Operation::result]
     /// to hold a `Error`.
     ///
@@ -140,6 +130,17 @@ impl Operation {
     ) -> Self {
         self.result = std::option::Option::Some(crate::model::operation::Result::Error(v.into()));
         self
+    }
+
+    /// The value of [result][crate::model::Operation::result]
+    /// if it holds a `Response`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn response(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::operation::Result::Response(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::Operation::result]
@@ -240,6 +241,7 @@ pub struct ListOperationsRequest {
     pub filter: std::string::String,
 
     /// The standard list page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The standard list page token.
@@ -312,12 +314,6 @@ impl ListOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [operations][crate::model::ListOperationsResponse::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -326,6 +322,12 @@ impl ListOperationsResponse {
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

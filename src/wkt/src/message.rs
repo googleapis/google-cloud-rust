@@ -20,28 +20,82 @@ use crate::AnyError as Error;
 /// A trait that must be implemented by all messages.
 ///
 /// Messages sent to and received from Google Cloud services may be wrapped in
-/// [Any][crate::any::Any]. `Any` uses a `@type` field to encoding the type
+/// [Any][crate::any::Any]. `Any` uses a `@type` field to encode the type
 /// name and then validates extraction and insertion against this type.
 pub trait Message {
     /// The typename of this message.
     fn typename() -> &'static str;
 
+    /// Returns the serializer for this message type.
     #[doc(hidden)]
-    /// Store the value into a JSON object.
-    fn to_map(&self) -> Result<Map, Error>
+    #[allow(private_interfaces)]
+    fn serializer() -> impl MessageSerializer<Self>
     where
-        Self: serde::ser::Serialize + Sized,
+        Self: serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        to_json_object(self)
+        DefaultSerializer::<Self>::new()
+    }
+}
+
+/// Internal API for message serialization.
+/// This is not intended for direct use by consumers of this crate.
+pub(crate) trait MessageSerializer<T> {
+    /// Store the value into a JSON object.
+    fn serialize_to_map(&self, message: &T) -> Result<Map, Error>;
+
+    /// Extract the value from a JSON object.
+    fn deserialize_from_map(&self, map: &Map) -> Result<T, Error>;
+}
+
+// Default serializer that most types can use.
+pub(crate) struct DefaultSerializer<T> {
+    _phantom: std::marker::PhantomData<T>,
+}
+
+impl<T> DefaultSerializer<T> {
+    pub fn new() -> Self {
+        Self {
+            _phantom: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<T> MessageSerializer<T> for DefaultSerializer<T>
+where
+    T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
+{
+    fn serialize_to_map(&self, message: &T) -> Result<Map, Error> {
+        to_json_object(message)
     }
 
-    #[doc(hidden)]
-    /// Extract the value from a JSON object.
-    fn from_map(map: &Map) -> Result<Self, Error>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
+    fn deserialize_from_map(&self, map: &Map) -> Result<T, Error> {
         from_object(map)
+    }
+}
+
+// Serializes the type `T` into the `value` field.
+pub(crate) struct ValueSerializer<T> {
+    _phantom: std::marker::PhantomData<T>,
+}
+
+impl<T> ValueSerializer<T> {
+    pub fn new() -> Self {
+        Self {
+            _phantom: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<T> MessageSerializer<T> for ValueSerializer<T>
+where
+    T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
+{
+    fn serialize_to_map(&self, message: &T) -> Result<Map, Error> {
+        to_json_other(message)
+    }
+
+    fn deserialize_from_map(&self, map: &Map) -> Result<T, Error> {
+        from_other(map)
     }
 }
 
@@ -150,7 +204,10 @@ mod test {
             "b": 2,
         });
         let map = input.as_object().cloned().unwrap();
-        let test = TestMessage::from_map(&map).unwrap();
+
+        let serializer = TestMessage::serializer();
+        let test = serializer.deserialize_from_map(&map).unwrap();
+
         assert!(test._unknown_fields.get("@type").is_none(), "{test:?}");
     }
 }

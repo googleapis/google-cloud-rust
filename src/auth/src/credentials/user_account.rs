@@ -363,8 +363,8 @@ struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
+    use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::token::test::MockTokenProvider;
     use axum::extract::Json;
     use http::StatusCode;
@@ -496,6 +496,17 @@ mod test {
             quota_project_id: None,
         };
         assert!(uc.token().await.is_err());
+    }
+
+    #[tokio::test]
+    async fn default_universe_domain_success() {
+        let mock = MockTokenProvider::new();
+
+        let uc = UserCredentials {
+            token_provider: mock,
+            quota_project_id: None,
+        };
+        assert_eq!(uc.universe_domain().await.unwrap(), DEFAULT_UNIVERSE_DOMAIN);
     }
 
     #[tokio::test]

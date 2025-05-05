@@ -16,7 +16,6 @@
 
 pub mod artifact_registry {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ArtifactRegistry][super::super::client::ArtifactRegistry].
     ///
@@ -49,7 +48,7 @@ pub mod artifact_registry {
     /// Common implementation for [super::super::client::ArtifactRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod artifact_registry {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod artifact_registry {
     pub struct ListDockerImages(RequestBuilder<crate::model::ListDockerImagesRequest>);
 
     impl ListDockerImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +118,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListDockerImagesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -151,7 +156,9 @@ pub mod artifact_registry {
     pub struct GetDockerImage(RequestBuilder<crate::model::GetDockerImageRequest>);
 
     impl GetDockerImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -176,6 +183,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetDockerImageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -194,7 +203,9 @@ pub mod artifact_registry {
     pub struct ListMavenArtifacts(RequestBuilder<crate::model::ListMavenArtifactsRequest>);
 
     impl ListMavenArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -237,6 +248,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListMavenArtifactsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -267,7 +280,9 @@ pub mod artifact_registry {
     pub struct GetMavenArtifact(RequestBuilder<crate::model::GetMavenArtifactRequest>);
 
     impl GetMavenArtifact {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -295,6 +310,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetMavenArtifactRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -313,7 +330,9 @@ pub mod artifact_registry {
     pub struct ListNpmPackages(RequestBuilder<crate::model::ListNpmPackagesRequest>);
 
     impl ListNpmPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -353,6 +372,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListNpmPackagesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -383,7 +404,9 @@ pub mod artifact_registry {
     pub struct GetNpmPackage(RequestBuilder<crate::model::GetNpmPackageRequest>);
 
     impl GetNpmPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -408,6 +431,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetNpmPackageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -426,7 +451,9 @@ pub mod artifact_registry {
     pub struct ListPythonPackages(RequestBuilder<crate::model::ListPythonPackagesRequest>);
 
     impl ListPythonPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,6 +496,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListPythonPackagesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -499,7 +528,9 @@ pub mod artifact_registry {
     pub struct GetPythonPackage(RequestBuilder<crate::model::GetPythonPackageRequest>);
 
     impl GetPythonPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -527,6 +558,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetPythonPackageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -545,7 +578,9 @@ pub mod artifact_registry {
     pub struct ImportAptArtifacts(RequestBuilder<crate::model::ImportAptArtifactsRequest>);
 
     impl ImportAptArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -661,7 +696,9 @@ pub mod artifact_registry {
     pub struct ImportYumArtifacts(RequestBuilder<crate::model::ImportYumArtifactsRequest>);
 
     impl ImportYumArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -777,7 +814,9 @@ pub mod artifact_registry {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -820,6 +859,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -862,7 +903,9 @@ pub mod artifact_registry {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -887,6 +930,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -905,7 +950,9 @@ pub mod artifact_registry {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -971,18 +1018,24 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_repository_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository_id = v.into();
             self
         }
 
         /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
             mut self,
             v: T,
@@ -1004,7 +1057,9 @@ pub mod artifact_registry {
     pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1062,7 +1117,9 @@ pub mod artifact_registry {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1125,6 +1182,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1143,7 +1202,9 @@ pub mod artifact_registry {
     pub struct ListPackages(RequestBuilder<crate::model::ListPackagesRequest>);
 
     impl ListPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1183,6 +1244,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListPackagesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1225,7 +1288,9 @@ pub mod artifact_registry {
     pub struct GetPackage(RequestBuilder<crate::model::GetPackageRequest>);
 
     impl GetPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1250,6 +1315,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetPackageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1268,7 +1335,9 @@ pub mod artifact_registry {
     pub struct DeletePackage(RequestBuilder<crate::model::DeletePackageRequest>);
 
     impl DeletePackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1328,6 +1397,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::DeletePackageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1346,7 +1417,9 @@ pub mod artifact_registry {
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1434,7 +1507,9 @@ pub mod artifact_registry {
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1483,7 +1558,9 @@ pub mod artifact_registry {
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1567,7 +1644,9 @@ pub mod artifact_registry {
     pub struct BatchDeleteVersions(RequestBuilder<crate::model::BatchDeleteVersionsRequest>);
 
     impl BatchDeleteVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1637,13 +1716,9 @@ pub mod artifact_registry {
             self
         }
 
-        /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [names][crate::model::BatchDeleteVersionsRequest::names].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1651,6 +1726,12 @@ pub mod artifact_registry {
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
@@ -1667,7 +1748,9 @@ pub mod artifact_registry {
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1692,6 +1775,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
             mut self,
             v: T,
@@ -1722,7 +1807,9 @@ pub mod artifact_registry {
     pub struct ListFiles(RequestBuilder<crate::model::ListFilesRequest>);
 
     impl ListFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1762,6 +1849,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListFilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1804,7 +1893,9 @@ pub mod artifact_registry {
     pub struct GetFile(RequestBuilder<crate::model::GetFileRequest>);
 
     impl GetFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1829,6 +1920,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetFileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1847,7 +1940,9 @@ pub mod artifact_registry {
     pub struct DeleteFile(RequestBuilder<crate::model::DeleteFileRequest>);
 
     impl DeleteFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1907,6 +2002,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::DeleteFileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1925,7 +2022,9 @@ pub mod artifact_registry {
     pub struct UpdateFile(RequestBuilder<crate::model::UpdateFileRequest>);
 
     impl UpdateFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1950,12 +2049,16 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [file][crate::model::UpdateFileRequest::file].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_file<T: Into<std::option::Option<crate::model::File>>>(mut self, v: T) -> Self {
             self.0.request.file = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1977,7 +2080,9 @@ pub mod artifact_registry {
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2053,7 +2158,9 @@ pub mod artifact_registry {
     pub struct GetTag(RequestBuilder<crate::model::GetTagRequest>);
 
     impl GetTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2096,7 +2203,9 @@ pub mod artifact_registry {
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2151,7 +2260,9 @@ pub mod artifact_registry {
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2203,7 +2314,9 @@ pub mod artifact_registry {
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2246,7 +2359,9 @@ pub mod artifact_registry {
     pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
 
     impl CreateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2271,6 +2386,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::CreateRuleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2301,7 +2418,9 @@ pub mod artifact_registry {
     pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
 
     impl ListRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2341,6 +2460,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListRulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2371,7 +2492,9 @@ pub mod artifact_registry {
     pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
 
     impl GetRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2396,6 +2519,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2414,7 +2539,9 @@ pub mod artifact_registry {
     pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
 
     impl UpdateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2466,7 +2593,9 @@ pub mod artifact_registry {
     pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
 
     impl DeleteRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2491,6 +2620,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::DeleteRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2509,7 +2640,9 @@ pub mod artifact_registry {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2534,12 +2667,16 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2570,7 +2707,9 @@ pub mod artifact_registry {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2595,6 +2734,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -2622,7 +2763,9 @@ pub mod artifact_registry {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2650,12 +2793,16 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2679,7 +2826,9 @@ pub mod artifact_registry {
     pub struct GetProjectSettings(RequestBuilder<crate::model::GetProjectSettingsRequest>);
 
     impl GetProjectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2707,6 +2856,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetProjectSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2725,7 +2876,9 @@ pub mod artifact_registry {
     pub struct UpdateProjectSettings(RequestBuilder<crate::model::UpdateProjectSettingsRequest>);
 
     impl UpdateProjectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2783,7 +2936,9 @@ pub mod artifact_registry {
     pub struct GetVPCSCConfig(RequestBuilder<crate::model::GetVPCSCConfigRequest>);
 
     impl GetVPCSCConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2808,6 +2963,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetVPCSCConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2826,7 +2983,9 @@ pub mod artifact_registry {
     pub struct UpdateVPCSCConfig(RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
 
     impl UpdateVPCSCConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2884,7 +3043,9 @@ pub mod artifact_registry {
     pub struct UpdatePackage(RequestBuilder<crate::model::UpdatePackageRequest>);
 
     impl UpdatePackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2939,7 +3100,9 @@ pub mod artifact_registry {
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2979,6 +3142,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3015,7 +3180,9 @@ pub mod artifact_registry {
     pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3040,6 +3207,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::GetAttachmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3058,7 +3227,9 @@ pub mod artifact_registry {
     pub struct CreateAttachment(RequestBuilder<crate::model::CreateAttachmentRequest>);
 
     impl CreateAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3124,18 +3295,24 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachmentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attachment_id][crate::model::CreateAttachmentRequest::attachment_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attachment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attachment_id = v.into();
             self
         }
 
         /// Sets the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attachment<T: Into<std::option::Option<crate::model::Attachment>>>(
             mut self,
             v: T,
@@ -3157,7 +3334,9 @@ pub mod artifact_registry {
     pub struct DeleteAttachment(RequestBuilder<crate::model::DeleteAttachmentRequest>);
 
     impl DeleteAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3220,6 +3399,8 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3238,7 +3419,9 @@ pub mod artifact_registry {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3317,7 +3500,9 @@ pub mod artifact_registry {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3360,7 +3545,9 @@ pub mod artifact_registry {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

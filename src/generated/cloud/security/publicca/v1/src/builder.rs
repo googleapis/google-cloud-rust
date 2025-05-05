@@ -16,7 +16,6 @@
 
 pub mod public_certificate_authority_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PublicCertificateAuthorityService][super::super::client::PublicCertificateAuthorityService].
     ///
@@ -49,7 +48,7 @@ pub mod public_certificate_authority_service {
     /// Common implementation for [super::super::client::PublicCertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,9 @@ pub mod public_certificate_authority_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::PublicCertificateAuthorityService,
+            >,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +78,9 @@ pub mod public_certificate_authority_service {
 
     impl CreateExternalAccountKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::PublicCertificateAuthorityService,
+            >,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -106,12 +109,16 @@ pub mod public_certificate_authority_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccountKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_account_key<
             T: Into<std::option::Option<crate::model::ExternalAccountKey>>,
         >(

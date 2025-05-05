@@ -16,7 +16,6 @@
 
 pub mod privileged_access_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PrivilegedAccessManager][super::super::client::PrivilegedAccessManager].
     ///
@@ -49,7 +48,7 @@ pub mod privileged_access_manager {
     /// Common implementation for [super::super::client::PrivilegedAccessManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod privileged_access_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod privileged_access_manager {
 
     impl CheckOnboardingStatus {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -104,6 +103,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::CheckOnboardingStatusRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -123,7 +124,7 @@ pub mod privileged_access_manager {
 
     impl ListEntitlements {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -167,6 +168,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -210,7 +213,7 @@ pub mod privileged_access_manager {
 
     impl SearchEntitlements {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -254,12 +257,16 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::SearchEntitlementsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [caller_access_type][crate::model::SearchEntitlementsRequest::caller_access_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_caller_access_type<
             T: Into<crate::model::search_entitlements_request::CallerAccessType>,
         >(
@@ -302,7 +309,7 @@ pub mod privileged_access_manager {
 
     impl GetEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -328,6 +335,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [name][crate::model::GetEntitlementRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -347,7 +356,7 @@ pub mod privileged_access_manager {
 
     impl CreateEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -414,18 +423,24 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateEntitlementRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [entitlement_id][crate::model::CreateEntitlementRequest::entitlement_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_entitlement_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.entitlement_id = v.into();
             self
         }
 
         /// Sets the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
             mut self,
             v: T,
@@ -454,7 +469,7 @@ pub mod privileged_access_manager {
 
     impl DeleteEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -521,6 +536,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteEntitlementRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -552,7 +569,7 @@ pub mod privileged_access_manager {
 
     impl UpdateEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -619,6 +636,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
             mut self,
             v: T,
@@ -628,6 +647,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -650,7 +671,7 @@ pub mod privileged_access_manager {
 
     impl ListGrants {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -691,6 +712,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListGrantsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -734,7 +757,7 @@ pub mod privileged_access_manager {
 
     impl SearchGrants {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -775,12 +798,16 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::SearchGrantsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [caller_relationship][crate::model::SearchGrantsRequest::caller_relationship].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_caller_relationship<
             T: Into<crate::model::search_grants_request::CallerRelationshipType>,
         >(
@@ -823,7 +850,7 @@ pub mod privileged_access_manager {
 
     impl GetGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -849,6 +876,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [name][crate::model::GetGrantRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -868,7 +897,7 @@ pub mod privileged_access_manager {
 
     impl CreateGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -894,12 +923,16 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateGrantRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [grant][crate::model::CreateGrantRequest::grant].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_grant<T: Into<std::option::Option<crate::model::Grant>>>(
             mut self,
             v: T,
@@ -928,7 +961,7 @@ pub mod privileged_access_manager {
 
     impl ApproveGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -954,6 +987,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [name][crate::model::ApproveGrantRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -979,7 +1014,7 @@ pub mod privileged_access_manager {
 
     impl DenyGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1005,6 +1040,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [name][crate::model::DenyGrantRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1030,7 +1067,7 @@ pub mod privileged_access_manager {
 
     impl RevokeGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1093,6 +1130,8 @@ pub mod privileged_access_manager {
         }
 
         /// Sets the value of [name][crate::model::RevokeGrantRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1118,7 +1157,7 @@ pub mod privileged_access_manager {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1199,7 +1238,7 @@ pub mod privileged_access_manager {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1244,7 +1283,7 @@ pub mod privileged_access_manager {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1325,7 +1364,7 @@ pub mod privileged_access_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1373,7 +1412,7 @@ pub mod privileged_access_manager {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

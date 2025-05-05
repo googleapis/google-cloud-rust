@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Certificate Authority API.
 ///
@@ -62,11 +61,11 @@ use std::sync::Arc;
 ///
 /// `CertificateAuthorityService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CertificateAuthorityService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CertificateAuthorityService {
-    inner: Arc<dyn super::stub::dynamic::CertificateAuthorityService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CertificateAuthorityService>,
 }
 
 impl CertificateAuthorityService {
@@ -93,7 +92,7 @@ impl CertificateAuthorityService {
         T: super::stub::CertificateAuthorityService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -104,11 +103,11 @@ impl CertificateAuthorityService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CertificateAuthorityService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CertificateAuthorityService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -198,8 +197,8 @@ impl CertificateAuthorityService {
     /// this method can complete the activation process.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::state::AWAITING_USER_ACTIVATION
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::r#type::SUBORDINATE
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::State::AwaitingUserActivation
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::Type::Subordinate
     /// [google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr]: crate::client::CertificateAuthorityService::fetch_certificate_authority_csr
     ///
     /// # Long running operations
@@ -307,8 +306,8 @@ impl CertificateAuthorityService {
     /// [ActivateCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority].
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::state::AWAITING_USER_ACTIVATION
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::r#type::SUBORDINATE
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::State::AwaitingUserActivation
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::Type::Subordinate
     /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority]: crate::client::CertificateAuthorityService::activate_certificate_authority
     pub fn fetch_certificate_authority_csr(
         &self,

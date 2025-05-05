@@ -129,61 +129,134 @@ pub mod apt_artifact {
     use super::*;
 
     /// Package type is either binary or source.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PackageType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PackageType {
+        /// Package type is not specified.
+        Unspecified,
+        /// Binary package.
+        Binary,
+        /// Source package.
+        Source,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PackageType::value] or
+        /// [PackageType::name].
+        UnknownValue(package_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod package_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PackageType {
-        /// Package type is not specified.
-        pub const PACKAGE_TYPE_UNSPECIFIED: PackageType = PackageType::new(0);
-
-        /// Binary package.
-        pub const BINARY: PackageType = PackageType::new(1);
-
-        /// Source package.
-        pub const SOURCE: PackageType = PackageType::new(2);
-
-        /// Creates a new PackageType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Binary => std::option::Option::Some(1),
+                Self::Source => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PACKAGE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("BINARY"),
-                2 => std::borrow::Cow::Borrowed("SOURCE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PACKAGE_TYPE_UNSPECIFIED"),
+                Self::Binary => std::option::Option::Some("BINARY"),
+                Self::Source => std::option::Option::Some("SOURCE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PACKAGE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PACKAGE_TYPE_UNSPECIFIED)
-                }
-                "BINARY" => std::option::Option::Some(Self::BINARY),
-                "SOURCE" => std::option::Option::Some(Self::SOURCE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PackageType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PackageType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PackageType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PackageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Binary,
+                2 => Self::Source,
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PackageType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PACKAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "BINARY" => Self::Binary,
+                "SOURCE" => Self::Source,
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PackageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Binary => serializer.serialize_i32(1),
+                Self::Source => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PackageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PackageType>::new(
+                ".google.devtools.artifactregistry.v1.AptArtifact.PackageType",
+            ))
         }
     }
 }
@@ -199,6 +272,7 @@ pub struct ImportAptArtifactsGcsSource {
     pub uris: std::vec::Vec<std::string::String>,
 
     /// Supports URI wildcards for matching multiple objects from a single URI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_wildcards: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -210,12 +284,6 @@ impl ImportAptArtifactsGcsSource {
         std::default::Default::default()
     }
 
-    /// Sets the value of [use_wildcards][crate::model::ImportAptArtifactsGcsSource::use_wildcards].
-    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.use_wildcards = v.into();
-        self
-    }
-
     /// Sets the value of [uris][crate::model::ImportAptArtifactsGcsSource::uris].
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
@@ -224,6 +292,12 @@ impl ImportAptArtifactsGcsSource {
     {
         use std::iter::Iterator;
         self.uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [use_wildcards][crate::model::ImportAptArtifactsGcsSource::use_wildcards].
+    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_wildcards = v.into();
         self
     }
 }
@@ -545,6 +619,7 @@ pub struct DockerImage {
     /// Calculated size of the image.
     /// This field is returned as the 'metadata.imageSizeBytes' field in the
     /// Version resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub image_size_bytes: i64,
 
@@ -592,6 +667,17 @@ impl DockerImage {
         self
     }
 
+    /// Sets the value of [tags][crate::model::DockerImage::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [image_size_bytes][crate::model::DockerImage::image_size_bytes].
     pub fn set_image_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.image_size_bytes = v.into();
@@ -630,17 +716,6 @@ impl DockerImage {
         self.update_time = v.into();
         self
     }
-
-    /// Sets the value of [tags][crate::model::DockerImage::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for DockerImage {
@@ -661,6 +736,7 @@ pub struct ListDockerImagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -735,12 +811,6 @@ impl ListDockerImagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDockerImagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [docker_images][crate::model::ListDockerImagesResponse::docker_images].
     pub fn set_docker_images<T, V>(mut self, v: T) -> Self
     where
@@ -749,6 +819,12 @@ impl ListDockerImagesResponse {
     {
         use std::iter::Iterator;
         self.docker_images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDockerImagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -926,6 +1002,7 @@ pub struct ListMavenArtifactsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -990,12 +1067,6 @@ impl ListMavenArtifactsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMavenArtifactsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [maven_artifacts][crate::model::ListMavenArtifactsResponse::maven_artifacts].
     pub fn set_maven_artifacts<T, V>(mut self, v: T) -> Self
     where
@@ -1004,6 +1075,12 @@ impl ListMavenArtifactsResponse {
     {
         use std::iter::Iterator;
         self.maven_artifacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMavenArtifactsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1123,6 +1200,17 @@ impl NpmPackage {
         self
     }
 
+    /// Sets the value of [tags][crate::model::NpmPackage::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::NpmPackage::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1138,17 +1226,6 @@ impl NpmPackage {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::NpmPackage::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1171,6 +1248,7 @@ pub struct ListNpmPackagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1235,12 +1313,6 @@ impl ListNpmPackagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNpmPackagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [npm_packages][crate::model::ListNpmPackagesResponse::npm_packages].
     pub fn set_npm_packages<T, V>(mut self, v: T) -> Self
     where
@@ -1249,6 +1321,12 @@ impl ListNpmPackagesResponse {
     {
         use std::iter::Iterator;
         self.npm_packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNpmPackagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1415,6 +1493,7 @@ pub struct ListPythonPackagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1479,12 +1558,6 @@ impl ListPythonPackagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPythonPackagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [python_packages][crate::model::ListPythonPackagesResponse::python_packages].
     pub fn set_python_packages<T, V>(mut self, v: T) -> Self
     where
@@ -1493,6 +1566,12 @@ impl ListPythonPackagesResponse {
     {
         use std::iter::Iterator;
         self.python_packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPythonPackagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1642,6 +1721,18 @@ impl Attachment {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Attachment::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Attachment::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1660,15 +1751,6 @@ impl Attachment {
         self
     }
 
-    /// Sets the value of [oci_version_name][crate::model::Attachment::oci_version_name].
-    pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oci_version_name = v.into();
-        self
-    }
-
     /// Sets the value of [files][crate::model::Attachment::files].
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
@@ -1680,15 +1762,12 @@ impl Attachment {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::Attachment::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [oci_version_name][crate::model::Attachment::oci_version_name].
+    pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.oci_version_name = v.into();
         self
     }
 }
@@ -1719,6 +1798,7 @@ pub struct ListAttachmentsRequest {
     pub filter: std::string::String,
 
     /// The maximum number of attachments to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1789,12 +1869,6 @@ impl ListAttachmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attachments][crate::model::ListAttachmentsResponse::attachments].
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
@@ -1803,6 +1877,12 @@ impl ListAttachmentsResponse {
     {
         use std::iter::Iterator;
         self.attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1996,59 +2076,134 @@ pub mod hash {
     use super::*;
 
     /// The algorithm used to compute the hash.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HashType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HashType {
+        /// Unspecified.
+        Unspecified,
+        /// SHA256 hash.
+        Sha256,
+        /// MD5 hash.
+        Md5,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HashType::value] or
+        /// [HashType::name].
+        UnknownValue(hash_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod hash_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl HashType {
-        /// Unspecified.
-        pub const HASH_TYPE_UNSPECIFIED: HashType = HashType::new(0);
-
-        /// SHA256 hash.
-        pub const SHA256: HashType = HashType::new(1);
-
-        /// MD5 hash.
-        pub const MD5: HashType = HashType::new(2);
-
-        /// Creates a new HashType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Sha256 => std::option::Option::Some(1),
+                Self::Md5 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("HASH_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SHA256"),
-                2 => std::borrow::Cow::Borrowed("MD5"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HASH_TYPE_UNSPECIFIED"),
+                Self::Sha256 => std::option::Option::Some("SHA256"),
+                Self::Md5 => std::option::Option::Some("MD5"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "HASH_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::HASH_TYPE_UNSPECIFIED),
-                "SHA256" => std::option::Option::Some(Self::SHA256),
-                "MD5" => std::option::Option::Some(Self::MD5),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for HashType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for HashType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HashType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HashType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Sha256,
+                2 => Self::Md5,
+                _ => Self::UnknownValue(hash_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HashType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HASH_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SHA256" => Self::Sha256,
+                "MD5" => Self::Md5,
+                _ => Self::UnknownValue(hash_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HashType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Sha256 => serializer.serialize_i32(1),
+                Self::Md5 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HashType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HashType>::new(
+                ".google.devtools.artifactregistry.v1.Hash.HashType",
+            ))
         }
     }
 }
@@ -2066,6 +2221,7 @@ pub struct File {
     pub name: std::string::String,
 
     /// The size of the File in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -2115,6 +2271,17 @@ impl File {
         self
     }
 
+    /// Sets the value of [hashes][crate::model::File::hashes].
+    pub fn set_hashes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Hash>,
+    {
+        use std::iter::Iterator;
+        self.hashes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::File::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2145,17 +2312,6 @@ impl File {
         v: T,
     ) -> Self {
         self.fetch_time = v.into();
-        self
-    }
-
-    /// Sets the value of [hashes][crate::model::File::hashes].
-    pub fn set_hashes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Hash>,
-    {
-        use std::iter::Iterator;
-        self.hashes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2243,6 +2399,7 @@ pub struct ListFilesRequest {
     pub filter: std::string::String,
 
     /// The maximum number of files to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -2323,12 +2480,6 @@ impl ListFilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [files][crate::model::ListFilesResponse::files].
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
@@ -2337,6 +2488,12 @@ impl ListFilesResponse {
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2760,6 +2917,7 @@ pub struct ListPackagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of packages to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -2888,12 +3046,6 @@ impl ListPackagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPackagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [packages][crate::model::ListPackagesResponse::packages].
     pub fn set_packages<T, V>(mut self, v: T) -> Self
     where
@@ -2902,6 +3054,12 @@ impl ListPackagesResponse {
     {
         use std::iter::Iterator;
         self.packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPackagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3056,6 +3214,7 @@ pub struct UpstreamPolicy {
     pub repository: std::string::String,
 
     /// Entries with a greater priority value take precedence in the pull order.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3144,24 +3303,6 @@ impl CleanupPolicyCondition {
         self
     }
 
-    /// Sets the value of [older_than][crate::model::CleanupPolicyCondition::older_than].
-    pub fn set_older_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.older_than = v.into();
-        self
-    }
-
-    /// Sets the value of [newer_than][crate::model::CleanupPolicyCondition::newer_than].
-    pub fn set_newer_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.newer_than = v.into();
-        self
-    }
-
     /// Sets the value of [tag_prefixes][crate::model::CleanupPolicyCondition::tag_prefixes].
     pub fn set_tag_prefixes<T, V>(mut self, v: T) -> Self
     where
@@ -3194,6 +3335,24 @@ impl CleanupPolicyCondition {
         self.package_name_prefixes = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [older_than][crate::model::CleanupPolicyCondition::older_than].
+    pub fn set_older_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.older_than = v.into();
+        self
+    }
+
+    /// Sets the value of [newer_than][crate::model::CleanupPolicyCondition::newer_than].
+    pub fn set_newer_than<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.newer_than = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CleanupPolicyCondition {
@@ -3208,64 +3367,141 @@ pub mod cleanup_policy_condition {
     use super::*;
 
     /// Statuses applying to versions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TagState(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TagState {
+        /// Tag status not specified.
+        Unspecified,
+        /// Applies to tagged versions only.
+        Tagged,
+        /// Applies to untagged versions only.
+        Untagged,
+        /// Applies to all versions.
+        Any,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TagState::value] or
+        /// [TagState::name].
+        UnknownValue(tag_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod tag_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl TagState {
-        /// Tag status not specified.
-        pub const TAG_STATE_UNSPECIFIED: TagState = TagState::new(0);
-
-        /// Applies to tagged versions only.
-        pub const TAGGED: TagState = TagState::new(1);
-
-        /// Applies to untagged versions only.
-        pub const UNTAGGED: TagState = TagState::new(2);
-
-        /// Applies to all versions.
-        pub const ANY: TagState = TagState::new(3);
-
-        /// Creates a new TagState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Tagged => std::option::Option::Some(1),
+                Self::Untagged => std::option::Option::Some(2),
+                Self::Any => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TAG_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("TAGGED"),
-                2 => std::borrow::Cow::Borrowed("UNTAGGED"),
-                3 => std::borrow::Cow::Borrowed("ANY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TAG_STATE_UNSPECIFIED"),
+                Self::Tagged => std::option::Option::Some("TAGGED"),
+                Self::Untagged => std::option::Option::Some("UNTAGGED"),
+                Self::Any => std::option::Option::Some("ANY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TAG_STATE_UNSPECIFIED" => std::option::Option::Some(Self::TAG_STATE_UNSPECIFIED),
-                "TAGGED" => std::option::Option::Some(Self::TAGGED),
-                "UNTAGGED" => std::option::Option::Some(Self::UNTAGGED),
-                "ANY" => std::option::Option::Some(Self::ANY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TagState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TagState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TagState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TagState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Tagged,
+                2 => Self::Untagged,
+                3 => Self::Any,
+                _ => Self::UnknownValue(tag_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TagState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TAG_STATE_UNSPECIFIED" => Self::Unspecified,
+                "TAGGED" => Self::Tagged,
+                "UNTAGGED" => Self::Untagged,
+                "ANY" => Self::Any,
+                _ => Self::UnknownValue(tag_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TagState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Tagged => serializer.serialize_i32(1),
+                Self::Untagged => serializer.serialize_i32(2),
+                Self::Any => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TagState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TagState>::new(
+                ".google.devtools.artifactregistry.v1.CleanupPolicyCondition.TagState",
+            ))
         }
     }
 }
@@ -3294,12 +3530,6 @@ impl CleanupPolicyMostRecentVersions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [keep_count][crate::model::CleanupPolicyMostRecentVersions::keep_count].
-    pub fn set_keep_count<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-        self.keep_count = v.into();
-        self
-    }
-
     /// Sets the value of [package_name_prefixes][crate::model::CleanupPolicyMostRecentVersions::package_name_prefixes].
     pub fn set_package_name_prefixes<T, V>(mut self, v: T) -> Self
     where
@@ -3308,6 +3538,12 @@ impl CleanupPolicyMostRecentVersions {
     {
         use std::iter::Iterator;
         self.package_name_prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [keep_count][crate::model::CleanupPolicyMostRecentVersions::keep_count].
+    pub fn set_keep_count<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
+        self.keep_count = v.into();
         self
     }
 }
@@ -3387,21 +3623,6 @@ impl CleanupPolicy {
         })
     }
 
-    /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
-    /// if it holds a `MostRecentVersions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn most_recent_versions(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>> {
-        #[allow(unreachable_patterns)]
-        self.condition_type.as_ref().and_then(|v| match v {
-            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type]
     /// to hold a `Condition`.
     ///
@@ -3417,6 +3638,21 @@ impl CleanupPolicy {
             crate::model::cleanup_policy::ConditionType::Condition(v.into()),
         );
         self
+    }
+
+    /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
+    /// if it holds a `MostRecentVersions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn most_recent_versions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>> {
+        #[allow(unreachable_patterns)]
+        self.condition_type.as_ref().and_then(|v| match v {
+            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type]
@@ -3449,59 +3685,134 @@ pub mod cleanup_policy {
     use super::*;
 
     /// Action type for a cleanup policy.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Action {
+        /// Action not specified.
+        Unspecified,
+        /// Delete action.
+        Delete,
+        /// Keep action.
+        Keep,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Action::value] or
+        /// [Action::name].
+        UnknownValue(action::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod action {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Action {
-        /// Action not specified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
-
-        /// Delete action.
-        pub const DELETE: Action = Action::new(1);
-
-        /// Keep action.
-        pub const KEEP: Action = Action::new(2);
-
-        /// Creates a new Action instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Delete => std::option::Option::Some(1),
+                Self::Keep => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DELETE"),
-                2 => std::borrow::Cow::Borrowed("KEEP"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ACTION_UNSPECIFIED"),
+                Self::Delete => std::option::Option::Some("DELETE"),
+                Self::Keep => std::option::Option::Some("KEEP"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
-                "DELETE" => std::option::Option::Some(Self::DELETE),
-                "KEEP" => std::option::Option::Some(Self::KEEP),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Action {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Delete,
+                2 => Self::Keep,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Action {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTION_UNSPECIFIED" => Self::Unspecified,
+                "DELETE" => Self::Delete,
+                "KEEP" => Self::Keep,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Delete => serializer.serialize_i32(1),
+                Self::Keep => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
+                ".google.devtools.artifactregistry.v1.CleanupPolicy.Action",
+            ))
         }
     }
 
@@ -3572,6 +3883,7 @@ pub struct RemoteRepositoryConfig {
 
     /// Input only. A create/update remote repo option to avoid making a HEAD/GET
     /// request to validate a remote repo and any supplied upstream credentials.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_upstream_validation: bool,
 
     /// Settings specific to the remote repository.
@@ -3645,105 +3957,6 @@ impl RemoteRepositoryConfig {
         })
     }
 
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `MavenRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn maven_repository(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::MavenRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `NpmRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn npm_repository(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>
-    {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::NpmRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `PythonRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn python_repository(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::PythonRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `AptRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn apt_repository(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::AptRepository>>
-    {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::AptRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `YumRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn yum_repository(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::YumRepository>>
-    {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::YumRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// if it holds a `CommonRepository`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn common_repository(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::CommonRepository(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `DockerRepository`.
     ///
@@ -3761,6 +3974,23 @@ impl RemoteRepositoryConfig {
             crate::model::remote_repository_config::RemoteSource::DockerRepository(v.into()),
         );
         self
+    }
+
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `MavenRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn maven_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::MavenRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -3782,6 +4012,22 @@ impl RemoteRepositoryConfig {
         self
     }
 
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `NpmRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn npm_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>
+    {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::NpmRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `NpmRepository`.
     ///
@@ -3797,6 +4043,23 @@ impl RemoteRepositoryConfig {
             crate::model::remote_repository_config::RemoteSource::NpmRepository(v.into()),
         );
         self
+    }
+
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `PythonRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn python_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::PythonRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -3818,6 +4081,22 @@ impl RemoteRepositoryConfig {
         self
     }
 
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `AptRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn apt_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::AptRepository>>
+    {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::AptRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `AptRepository`.
     ///
@@ -3835,6 +4114,22 @@ impl RemoteRepositoryConfig {
         self
     }
 
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `YumRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn yum_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::YumRepository>>
+    {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::YumRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// to hold a `YumRepository`.
     ///
@@ -3850,6 +4145,23 @@ impl RemoteRepositoryConfig {
             crate::model::remote_repository_config::RemoteSource::YumRepository(v.into()),
         );
         self
+    }
+
+    /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
+    /// if it holds a `CommonRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn common_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.remote_source.as_ref().and_then(|v| match v {
+            crate::model::remote_repository_config::RemoteSource::CommonRepository(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -4071,23 +4383,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::docker_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -4107,6 +4402,23 @@ pub mod remote_repository_config {
                 )
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::docker_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
@@ -4179,56 +4491,129 @@ pub mod remote_repository_config {
 
         /// Predefined list of publicly available Docker repositories like Docker
         /// Hub.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PublicRepository(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PublicRepository {
+            /// Unspecified repository.
+            Unspecified,
+            /// Docker Hub.
+            DockerHub,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PublicRepository::value] or
+            /// [PublicRepository::name].
+            UnknownValue(public_repository::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod public_repository {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl PublicRepository {
-            /// Unspecified repository.
-            pub const PUBLIC_REPOSITORY_UNSPECIFIED: PublicRepository = PublicRepository::new(0);
-
-            /// Docker Hub.
-            pub const DOCKER_HUB: PublicRepository = PublicRepository::new(1);
-
-            /// Creates a new PublicRepository instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::DockerHub => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("PUBLIC_REPOSITORY_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("DOCKER_HUB"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PUBLIC_REPOSITORY_UNSPECIFIED"),
+                    Self::DockerHub => std::option::Option::Some("DOCKER_HUB"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "PUBLIC_REPOSITORY_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::PUBLIC_REPOSITORY_UNSPECIFIED)
-                    }
-                    "DOCKER_HUB" => std::option::Option::Some(Self::DOCKER_HUB),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PublicRepository {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PublicRepository {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PublicRepository {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PublicRepository {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::DockerHub,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PublicRepository {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
+                    "DOCKER_HUB" => Self::DockerHub,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PublicRepository {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::DockerHub => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PublicRepository {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PublicRepository>::new(
+                    ".google.devtools.artifactregistry.v1.RemoteRepositoryConfig.DockerRepository.PublicRepository"))
             }
         }
 
@@ -4304,23 +4689,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::maven_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -4340,6 +4708,23 @@ pub mod remote_repository_config {
                 )
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::maven_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
@@ -4412,56 +4797,129 @@ pub mod remote_repository_config {
 
         /// Predefined list of publicly available Maven repositories like Maven
         /// Central.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PublicRepository(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PublicRepository {
+            /// Unspecified repository.
+            Unspecified,
+            /// Maven Central.
+            MavenCentral,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PublicRepository::value] or
+            /// [PublicRepository::name].
+            UnknownValue(public_repository::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod public_repository {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl PublicRepository {
-            /// Unspecified repository.
-            pub const PUBLIC_REPOSITORY_UNSPECIFIED: PublicRepository = PublicRepository::new(0);
-
-            /// Maven Central.
-            pub const MAVEN_CENTRAL: PublicRepository = PublicRepository::new(1);
-
-            /// Creates a new PublicRepository instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::MavenCentral => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("PUBLIC_REPOSITORY_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("MAVEN_CENTRAL"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PUBLIC_REPOSITORY_UNSPECIFIED"),
+                    Self::MavenCentral => std::option::Option::Some("MAVEN_CENTRAL"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "PUBLIC_REPOSITORY_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::PUBLIC_REPOSITORY_UNSPECIFIED)
-                    }
-                    "MAVEN_CENTRAL" => std::option::Option::Some(Self::MAVEN_CENTRAL),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PublicRepository {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PublicRepository {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PublicRepository {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PublicRepository {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::MavenCentral,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PublicRepository {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
+                    "MAVEN_CENTRAL" => Self::MavenCentral,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PublicRepository {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::MavenCentral => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PublicRepository {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PublicRepository>::new(
+                    ".google.devtools.artifactregistry.v1.RemoteRepositoryConfig.MavenRepository.PublicRepository"))
             }
         }
 
@@ -4537,23 +4995,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::npm_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -4573,6 +5014,23 @@ pub mod remote_repository_config {
                 ),
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::npm_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
@@ -4644,56 +5102,129 @@ pub mod remote_repository_config {
         }
 
         /// Predefined list of publicly available NPM repositories like npmjs.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PublicRepository(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PublicRepository {
+            /// Unspecified repository.
+            Unspecified,
+            /// npmjs.
+            Npmjs,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PublicRepository::value] or
+            /// [PublicRepository::name].
+            UnknownValue(public_repository::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod public_repository {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl PublicRepository {
-            /// Unspecified repository.
-            pub const PUBLIC_REPOSITORY_UNSPECIFIED: PublicRepository = PublicRepository::new(0);
-
-            /// npmjs.
-            pub const NPMJS: PublicRepository = PublicRepository::new(1);
-
-            /// Creates a new PublicRepository instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Npmjs => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("PUBLIC_REPOSITORY_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("NPMJS"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PUBLIC_REPOSITORY_UNSPECIFIED"),
+                    Self::Npmjs => std::option::Option::Some("NPMJS"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "PUBLIC_REPOSITORY_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::PUBLIC_REPOSITORY_UNSPECIFIED)
-                    }
-                    "NPMJS" => std::option::Option::Some(Self::NPMJS),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PublicRepository {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PublicRepository {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PublicRepository {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PublicRepository {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Npmjs,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PublicRepository {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
+                    "NPMJS" => Self::Npmjs,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PublicRepository {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Npmjs => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PublicRepository {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PublicRepository>::new(
+                    ".google.devtools.artifactregistry.v1.RemoteRepositoryConfig.NpmRepository.PublicRepository"))
             }
         }
 
@@ -4770,23 +5301,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::python_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -4806,6 +5320,23 @@ pub mod remote_repository_config {
                 )
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::python_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
@@ -4877,56 +5408,129 @@ pub mod remote_repository_config {
         }
 
         /// Predefined list of publicly available Python repositories like PyPI.org.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PublicRepository(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PublicRepository {
+            /// Unspecified repository.
+            Unspecified,
+            /// PyPI.
+            Pypi,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PublicRepository::value] or
+            /// [PublicRepository::name].
+            UnknownValue(public_repository::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod public_repository {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl PublicRepository {
-            /// Unspecified repository.
-            pub const PUBLIC_REPOSITORY_UNSPECIFIED: PublicRepository = PublicRepository::new(0);
-
-            /// PyPI.
-            pub const PYPI: PublicRepository = PublicRepository::new(1);
-
-            /// Creates a new PublicRepository instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Pypi => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("PUBLIC_REPOSITORY_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PYPI"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PUBLIC_REPOSITORY_UNSPECIFIED"),
+                    Self::Pypi => std::option::Option::Some("PYPI"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "PUBLIC_REPOSITORY_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::PUBLIC_REPOSITORY_UNSPECIFIED)
-                    }
-                    "PYPI" => std::option::Option::Some(Self::PYPI),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PublicRepository {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PublicRepository {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PublicRepository {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PublicRepository {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Pypi,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PublicRepository {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
+                    "PYPI" => Self::Pypi,
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PublicRepository {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Pypi => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PublicRepository {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PublicRepository>::new(
+                    ".google.devtools.artifactregistry.v1.RemoteRepositoryConfig.PythonRepository.PublicRepository"))
             }
         }
 
@@ -5004,23 +5608,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::apt_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -5042,6 +5629,23 @@ pub mod remote_repository_config {
                 ),
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::apt_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
@@ -5131,66 +5735,145 @@ pub mod remote_repository_config {
             use super::*;
 
             /// Predefined list of publicly available repository bases for Apt.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct RepositoryBase(i32);
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum RepositoryBase {
+                /// Unspecified repository base.
+                Unspecified,
+                /// Debian.
+                Debian,
+                /// Ubuntu LTS/Pro.
+                Ubuntu,
+                /// Archived Debian.
+                DebianSnapshot,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [RepositoryBase::value] or
+                /// [RepositoryBase::name].
+                UnknownValue(repository_base::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod repository_base {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
             impl RepositoryBase {
-                /// Unspecified repository base.
-                pub const REPOSITORY_BASE_UNSPECIFIED: RepositoryBase = RepositoryBase::new(0);
-
-                /// Debian.
-                pub const DEBIAN: RepositoryBase = RepositoryBase::new(1);
-
-                /// Ubuntu LTS/Pro.
-                pub const UBUNTU: RepositoryBase = RepositoryBase::new(2);
-
-                /// Archived Debian.
-                pub const DEBIAN_SNAPSHOT: RepositoryBase = RepositoryBase::new(3);
-
-                /// Creates a new RepositoryBase instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
-
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Debian => std::option::Option::Some(1),
+                        Self::Ubuntu => std::option::Option::Some(2),
+                        Self::DebianSnapshot => std::option::Option::Some(3),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("REPOSITORY_BASE_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("DEBIAN"),
-                        2 => std::borrow::Cow::Borrowed("UBUNTU"),
-                        3 => std::borrow::Cow::Borrowed("DEBIAN_SNAPSHOT"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                    }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "REPOSITORY_BASE_UNSPECIFIED" => {
-                            std::option::Option::Some(Self::REPOSITORY_BASE_UNSPECIFIED)
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("REPOSITORY_BASE_UNSPECIFIED")
                         }
-                        "DEBIAN" => std::option::Option::Some(Self::DEBIAN),
-                        "UBUNTU" => std::option::Option::Some(Self::UBUNTU),
-                        "DEBIAN_SNAPSHOT" => std::option::Option::Some(Self::DEBIAN_SNAPSHOT),
-                        _ => std::option::Option::None,
+                        Self::Debian => std::option::Option::Some("DEBIAN"),
+                        Self::Ubuntu => std::option::Option::Some("UBUNTU"),
+                        Self::DebianSnapshot => std::option::Option::Some("DEBIAN_SNAPSHOT"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-            }
-
-            impl std::convert::From<i32> for RepositoryBase {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for RepositoryBase {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for RepositoryBase {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for RepositoryBase {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Debian,
+                        2 => Self::Ubuntu,
+                        3 => Self::DebianSnapshot,
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for RepositoryBase {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "REPOSITORY_BASE_UNSPECIFIED" => Self::Unspecified,
+                        "DEBIAN" => Self::Debian,
+                        "UBUNTU" => Self::Ubuntu,
+                        "DEBIAN_SNAPSHOT" => Self::DebianSnapshot,
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for RepositoryBase {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Debian => serializer.serialize_i32(1),
+                        Self::Ubuntu => serializer.serialize_i32(2),
+                        Self::DebianSnapshot => serializer.serialize_i32(3),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for RepositoryBase {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<RepositoryBase>::new(
+                        ".google.devtools.artifactregistry.v1.RemoteRepositoryConfig.AptRepository.PublicRepository.RepositoryBase"))
                 }
             }
         }
@@ -5304,23 +5987,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
-        /// if it holds a `CustomRepository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn custom_repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::remote_repository_config::yum_repository::CustomRepository,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.upstream.as_ref().and_then(|v| match v {
-                crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
         /// to hold a `PublicRepository`.
         ///
@@ -5342,6 +6008,23 @@ pub mod remote_repository_config {
                 ),
             );
             self
+        }
+
+        /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
+        /// if it holds a `CustomRepository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::yum_repository::CustomRepository,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.upstream.as_ref().and_then(|v| match v {
+                crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
@@ -5431,81 +6114,166 @@ pub mod remote_repository_config {
             use super::*;
 
             /// Predefined list of publicly available repository bases for Yum.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct RepositoryBase(i32);
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum RepositoryBase {
+                /// Unspecified repository base.
+                Unspecified,
+                /// CentOS.
+                Centos,
+                /// CentOS Debug.
+                CentosDebug,
+                /// CentOS Vault.
+                CentosVault,
+                /// CentOS Stream.
+                CentosStream,
+                /// Rocky.
+                Rocky,
+                /// Fedora Extra Packages for Enterprise Linux (EPEL).
+                Epel,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [RepositoryBase::value] or
+                /// [RepositoryBase::name].
+                UnknownValue(repository_base::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod repository_base {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
             impl RepositoryBase {
-                /// Unspecified repository base.
-                pub const REPOSITORY_BASE_UNSPECIFIED: RepositoryBase = RepositoryBase::new(0);
-
-                /// CentOS.
-                pub const CENTOS: RepositoryBase = RepositoryBase::new(1);
-
-                /// CentOS Debug.
-                pub const CENTOS_DEBUG: RepositoryBase = RepositoryBase::new(2);
-
-                /// CentOS Vault.
-                pub const CENTOS_VAULT: RepositoryBase = RepositoryBase::new(3);
-
-                /// CentOS Stream.
-                pub const CENTOS_STREAM: RepositoryBase = RepositoryBase::new(4);
-
-                /// Rocky.
-                pub const ROCKY: RepositoryBase = RepositoryBase::new(5);
-
-                /// Fedora Extra Packages for Enterprise Linux (EPEL).
-                pub const EPEL: RepositoryBase = RepositoryBase::new(6);
-
-                /// Creates a new RepositoryBase instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
-
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Centos => std::option::Option::Some(1),
+                        Self::CentosDebug => std::option::Option::Some(2),
+                        Self::CentosVault => std::option::Option::Some(3),
+                        Self::CentosStream => std::option::Option::Some(4),
+                        Self::Rocky => std::option::Option::Some(5),
+                        Self::Epel => std::option::Option::Some(6),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("REPOSITORY_BASE_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("CENTOS"),
-                        2 => std::borrow::Cow::Borrowed("CENTOS_DEBUG"),
-                        3 => std::borrow::Cow::Borrowed("CENTOS_VAULT"),
-                        4 => std::borrow::Cow::Borrowed("CENTOS_STREAM"),
-                        5 => std::borrow::Cow::Borrowed("ROCKY"),
-                        6 => std::borrow::Cow::Borrowed("EPEL"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                    }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "REPOSITORY_BASE_UNSPECIFIED" => {
-                            std::option::Option::Some(Self::REPOSITORY_BASE_UNSPECIFIED)
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("REPOSITORY_BASE_UNSPECIFIED")
                         }
-                        "CENTOS" => std::option::Option::Some(Self::CENTOS),
-                        "CENTOS_DEBUG" => std::option::Option::Some(Self::CENTOS_DEBUG),
-                        "CENTOS_VAULT" => std::option::Option::Some(Self::CENTOS_VAULT),
-                        "CENTOS_STREAM" => std::option::Option::Some(Self::CENTOS_STREAM),
-                        "ROCKY" => std::option::Option::Some(Self::ROCKY),
-                        "EPEL" => std::option::Option::Some(Self::EPEL),
-                        _ => std::option::Option::None,
+                        Self::Centos => std::option::Option::Some("CENTOS"),
+                        Self::CentosDebug => std::option::Option::Some("CENTOS_DEBUG"),
+                        Self::CentosVault => std::option::Option::Some("CENTOS_VAULT"),
+                        Self::CentosStream => std::option::Option::Some("CENTOS_STREAM"),
+                        Self::Rocky => std::option::Option::Some("ROCKY"),
+                        Self::Epel => std::option::Option::Some("EPEL"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-            }
-
-            impl std::convert::From<i32> for RepositoryBase {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for RepositoryBase {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for RepositoryBase {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for RepositoryBase {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Centos,
+                        2 => Self::CentosDebug,
+                        3 => Self::CentosVault,
+                        4 => Self::CentosStream,
+                        5 => Self::Rocky,
+                        6 => Self::Epel,
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for RepositoryBase {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "REPOSITORY_BASE_UNSPECIFIED" => Self::Unspecified,
+                        "CENTOS" => Self::Centos,
+                        "CENTOS_DEBUG" => Self::CentosDebug,
+                        "CENTOS_VAULT" => Self::CentosVault,
+                        "CENTOS_STREAM" => Self::CentosStream,
+                        "ROCKY" => Self::Rocky,
+                        "EPEL" => Self::Epel,
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for RepositoryBase {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Centos => serializer.serialize_i32(1),
+                        Self::CentosDebug => serializer.serialize_i32(2),
+                        Self::CentosVault => serializer.serialize_i32(3),
+                        Self::CentosStream => serializer.serialize_i32(4),
+                        Self::Rocky => serializer.serialize_i32(5),
+                        Self::Epel => serializer.serialize_i32(6),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for RepositoryBase {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<RepositoryBase>::new(
+                        ".google.devtools.artifactregistry.v1.RemoteRepositoryConfig.YumRepository.PublicRepository.RepositoryBase"))
                 }
             }
         }
@@ -5677,14 +6445,17 @@ pub struct Repository {
     /// Output only. The size, in bytes, of all artifact storage in this
     /// repository. Repositories that are generally available or in public preview
     /// use this to calculate storage costs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
     /// Output only. If set, the repository satisfies physical zone separation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Optional. If true, the cleanup pipeline is prevented from deleting versions
     /// in this repository.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cleanup_policy_dry_run: bool,
 
     /// Optional. Config and state for vulnerability scanning of resources within
@@ -5695,9 +6466,11 @@ pub struct Repository {
 
     /// Optional. If this is true, an unspecified repo type will be treated as
     /// error rather than defaulting to standard.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disallow_unspecified_mode: bool,
 
     /// Output only. If set, the repository satisfies physical zone isolation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     /// Output only. The repository endpoint, for example:
@@ -5744,6 +6517,18 @@ impl Repository {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Repository::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Repository::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -5771,6 +6556,18 @@ impl Repository {
     /// Sets the value of [mode][crate::model::Repository::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::repository::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
+        self
+    }
+
+    /// Sets the value of [cleanup_policies][crate::model::Repository::cleanup_policies].
+    pub fn set_cleanup_policies<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::CleanupPolicy>,
+    {
+        use std::iter::Iterator;
+        self.cleanup_policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5823,30 +6620,6 @@ impl Repository {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Repository::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [cleanup_policies][crate::model::Repository::cleanup_policies].
-    pub fn set_cleanup_policies<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::CleanupPolicy>,
-    {
-        use std::iter::Iterator;
-        self.cleanup_policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [format_config][crate::model::Repository::format_config].
     ///
     /// Note that all the setters affecting `format_config` are mutually
@@ -5875,20 +6648,6 @@ impl Repository {
         })
     }
 
-    /// The value of [format_config][crate::model::Repository::format_config]
-    /// if it holds a `DockerConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn docker_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>
-    {
-        #[allow(unreachable_patterns)]
-        self.format_config.as_ref().and_then(|v| match v {
-            crate::model::repository::FormatConfig::DockerConfig(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [format_config][crate::model::Repository::format_config]
     /// to hold a `MavenConfig`.
     ///
@@ -5904,6 +6663,20 @@ impl Repository {
             crate::model::repository::FormatConfig::MavenConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [format_config][crate::model::Repository::format_config]
+    /// if it holds a `DockerConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn docker_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.format_config.as_ref().and_then(|v| match v {
+            crate::model::repository::FormatConfig::DockerConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [format_config][crate::model::Repository::format_config]
@@ -5952,21 +6725,6 @@ impl Repository {
         })
     }
 
-    /// The value of [mode_config][crate::model::Repository::mode_config]
-    /// if it holds a `RemoteRepositoryConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn remote_repository_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RemoteRepositoryConfig>> {
-        #[allow(unreachable_patterns)]
-        self.mode_config.as_ref().and_then(|v| match v {
-            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode_config][crate::model::Repository::mode_config]
     /// to hold a `VirtualRepositoryConfig`.
     ///
@@ -5982,6 +6740,21 @@ impl Repository {
             crate::model::repository::ModeConfig::VirtualRepositoryConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [mode_config][crate::model::Repository::mode_config]
+    /// if it holds a `RemoteRepositoryConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remote_repository_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RemoteRepositoryConfig>> {
+        #[allow(unreachable_patterns)]
+        self.mode_config.as_ref().and_then(|v| match v {
+            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode_config][crate::model::Repository::mode_config]
@@ -6023,6 +6796,7 @@ pub mod repository {
     pub struct MavenRepositoryConfig {
         /// The repository with this flag will allow publishing
         /// the same snapshot versions.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_snapshot_overwrites: bool,
 
         /// Version policy defines the versions that the registry will accept.
@@ -6067,63 +6841,138 @@ pub mod repository {
         use super::*;
 
         /// VersionPolicy is the version policy for the repository.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct VersionPolicy(i32);
-
-        impl VersionPolicy {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum VersionPolicy {
             /// VERSION_POLICY_UNSPECIFIED - the version policy is not defined.
             /// When the version policy is not defined, no validation is performed
             /// for the versions.
-            pub const VERSION_POLICY_UNSPECIFIED: VersionPolicy = VersionPolicy::new(0);
-
+            Unspecified,
             /// RELEASE - repository will accept only Release versions.
-            pub const RELEASE: VersionPolicy = VersionPolicy::new(1);
-
+            Release,
             /// SNAPSHOT - repository will accept only Snapshot versions.
-            pub const SNAPSHOT: VersionPolicy = VersionPolicy::new(2);
+            Snapshot,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [VersionPolicy::value] or
+            /// [VersionPolicy::name].
+            UnknownValue(version_policy::UnknownValue),
+        }
 
-            /// Creates a new VersionPolicy instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod version_policy {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl VersionPolicy {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Release => std::option::Option::Some(1),
+                    Self::Snapshot => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("VERSION_POLICY_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("RELEASE"),
-                    2 => std::borrow::Cow::Borrowed("SNAPSHOT"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("VERSION_POLICY_UNSPECIFIED"),
+                    Self::Release => std::option::Option::Some("RELEASE"),
+                    Self::Snapshot => std::option::Option::Some("SNAPSHOT"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "VERSION_POLICY_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::VERSION_POLICY_UNSPECIFIED)
-                    }
-                    "RELEASE" => std::option::Option::Some(Self::RELEASE),
-                    "SNAPSHOT" => std::option::Option::Some(Self::SNAPSHOT),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for VersionPolicy {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for VersionPolicy {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for VersionPolicy {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for VersionPolicy {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Release,
+                    2 => Self::Snapshot,
+                    _ => Self::UnknownValue(version_policy::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for VersionPolicy {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "VERSION_POLICY_UNSPECIFIED" => Self::Unspecified,
+                    "RELEASE" => Self::Release,
+                    "SNAPSHOT" => Self::Snapshot,
+                    _ => Self::UnknownValue(version_policy::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for VersionPolicy {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Release => serializer.serialize_i32(1),
+                    Self::Snapshot => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for VersionPolicy {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<VersionPolicy>::new(
+                    ".google.devtools.artifactregistry.v1.Repository.MavenRepositoryConfig.VersionPolicy"))
             }
         }
     }
@@ -6139,6 +6988,7 @@ pub mod repository {
         /// The repository which enabled this flag prevents all tags from being
         /// modified, moved or deleted. This does not prevent tags from being
         /// created.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub immutable_tags: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6254,283 +7104,601 @@ pub mod repository {
         use super::*;
 
         /// Config for vulnerability scanning of resources in this repository.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EnablementConfig(i32);
-
-        impl EnablementConfig {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum EnablementConfig {
             /// Not set. This will be treated as INHERITED.
-            pub const ENABLEMENT_CONFIG_UNSPECIFIED: EnablementConfig = EnablementConfig::new(0);
-
+            Unspecified,
             /// Scanning is Enabled, but dependent on API enablement.
-            pub const INHERITED: EnablementConfig = EnablementConfig::new(1);
-
+            Inherited,
             /// No automatic vulnerability scanning will be performed for this
             /// repository.
-            pub const DISABLED: EnablementConfig = EnablementConfig::new(2);
+            Disabled,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [EnablementConfig::value] or
+            /// [EnablementConfig::name].
+            UnknownValue(enablement_config::UnknownValue),
+        }
 
-            /// Creates a new EnablementConfig instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod enablement_config {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl EnablementConfig {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Inherited => std::option::Option::Some(1),
+                    Self::Disabled => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("ENABLEMENT_CONFIG_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("INHERITED"),
-                    2 => std::borrow::Cow::Borrowed("DISABLED"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("ENABLEMENT_CONFIG_UNSPECIFIED"),
+                    Self::Inherited => std::option::Option::Some("INHERITED"),
+                    Self::Disabled => std::option::Option::Some("DISABLED"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "ENABLEMENT_CONFIG_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::ENABLEMENT_CONFIG_UNSPECIFIED)
-                    }
-                    "INHERITED" => std::option::Option::Some(Self::INHERITED),
-                    "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for EnablementConfig {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for EnablementConfig {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for EnablementConfig {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for EnablementConfig {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Inherited,
+                    2 => Self::Disabled,
+                    _ => Self::UnknownValue(enablement_config::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for EnablementConfig {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "ENABLEMENT_CONFIG_UNSPECIFIED" => Self::Unspecified,
+                    "INHERITED" => Self::Inherited,
+                    "DISABLED" => Self::Disabled,
+                    _ => Self::UnknownValue(enablement_config::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for EnablementConfig {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Inherited => serializer.serialize_i32(1),
+                    Self::Disabled => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for EnablementConfig {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnablementConfig>::new(
+                    ".google.devtools.artifactregistry.v1.Repository.VulnerabilityScanningConfig.EnablementConfig"))
             }
         }
 
         /// Describes the state of vulnerability scanning in this repository,
         /// including both repository enablement and API enablement.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EnablementState(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum EnablementState {
+            /// Enablement state is unclear.
+            Unspecified,
+            /// Repository does not support vulnerability scanning.
+            ScanningUnsupported,
+            /// Vulnerability scanning is disabled for this repository.
+            ScanningDisabled,
+            /// Vulnerability scanning is active for this repository.
+            ScanningActive,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [EnablementState::value] or
+            /// [EnablementState::name].
+            UnknownValue(enablement_state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod enablement_state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl EnablementState {
-            /// Enablement state is unclear.
-            pub const ENABLEMENT_STATE_UNSPECIFIED: EnablementState = EnablementState::new(0);
-
-            /// Repository does not support vulnerability scanning.
-            pub const SCANNING_UNSUPPORTED: EnablementState = EnablementState::new(1);
-
-            /// Vulnerability scanning is disabled for this repository.
-            pub const SCANNING_DISABLED: EnablementState = EnablementState::new(2);
-
-            /// Vulnerability scanning is active for this repository.
-            pub const SCANNING_ACTIVE: EnablementState = EnablementState::new(3);
-
-            /// Creates a new EnablementState instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::ScanningUnsupported => std::option::Option::Some(1),
+                    Self::ScanningDisabled => std::option::Option::Some(2),
+                    Self::ScanningActive => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("ENABLEMENT_STATE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("SCANNING_UNSUPPORTED"),
-                    2 => std::borrow::Cow::Borrowed("SCANNING_DISABLED"),
-                    3 => std::borrow::Cow::Borrowed("SCANNING_ACTIVE"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("ENABLEMENT_STATE_UNSPECIFIED"),
+                    Self::ScanningUnsupported => std::option::Option::Some("SCANNING_UNSUPPORTED"),
+                    Self::ScanningDisabled => std::option::Option::Some("SCANNING_DISABLED"),
+                    Self::ScanningActive => std::option::Option::Some("SCANNING_ACTIVE"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "ENABLEMENT_STATE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::ENABLEMENT_STATE_UNSPECIFIED)
-                    }
-                    "SCANNING_UNSUPPORTED" => std::option::Option::Some(Self::SCANNING_UNSUPPORTED),
-                    "SCANNING_DISABLED" => std::option::Option::Some(Self::SCANNING_DISABLED),
-                    "SCANNING_ACTIVE" => std::option::Option::Some(Self::SCANNING_ACTIVE),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for EnablementState {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for EnablementState {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for EnablementState {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for EnablementState {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::ScanningUnsupported,
+                    2 => Self::ScanningDisabled,
+                    3 => Self::ScanningActive,
+                    _ => Self::UnknownValue(enablement_state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for EnablementState {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "ENABLEMENT_STATE_UNSPECIFIED" => Self::Unspecified,
+                    "SCANNING_UNSUPPORTED" => Self::ScanningUnsupported,
+                    "SCANNING_DISABLED" => Self::ScanningDisabled,
+                    "SCANNING_ACTIVE" => Self::ScanningActive,
+                    _ => Self::UnknownValue(enablement_state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for EnablementState {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::ScanningUnsupported => serializer.serialize_i32(1),
+                    Self::ScanningDisabled => serializer.serialize_i32(2),
+                    Self::ScanningActive => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for EnablementState {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnablementState>::new(
+                    ".google.devtools.artifactregistry.v1.Repository.VulnerabilityScanningConfig.EnablementState"))
             }
         }
     }
 
     /// A package format.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// Unspecified package format.
+        Unspecified,
+        /// Docker package format.
+        Docker,
+        /// Maven package format.
+        Maven,
+        /// NPM package format.
+        Npm,
+        /// APT package format.
+        Apt,
+        /// YUM package format.
+        Yum,
+        /// Python package format.
+        Python,
+        /// Kubeflow Pipelines package format.
+        Kfp,
+        /// Go package format.
+        Go,
+        /// Generic package format.
+        Generic,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Format::value] or
+        /// [Format::name].
+        UnknownValue(format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Format {
-        /// Unspecified package format.
-        pub const FORMAT_UNSPECIFIED: Format = Format::new(0);
-
-        /// Docker package format.
-        pub const DOCKER: Format = Format::new(1);
-
-        /// Maven package format.
-        pub const MAVEN: Format = Format::new(2);
-
-        /// NPM package format.
-        pub const NPM: Format = Format::new(3);
-
-        /// APT package format.
-        pub const APT: Format = Format::new(5);
-
-        /// YUM package format.
-        pub const YUM: Format = Format::new(6);
-
-        /// Python package format.
-        pub const PYTHON: Format = Format::new(8);
-
-        /// Kubeflow Pipelines package format.
-        pub const KFP: Format = Format::new(9);
-
-        /// Go package format.
-        pub const GO: Format = Format::new(10);
-
-        /// Generic package format.
-        pub const GENERIC: Format = Format::new(11);
-
-        /// Creates a new Format instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Docker => std::option::Option::Some(1),
+                Self::Maven => std::option::Option::Some(2),
+                Self::Npm => std::option::Option::Some(3),
+                Self::Apt => std::option::Option::Some(5),
+                Self::Yum => std::option::Option::Some(6),
+                Self::Python => std::option::Option::Some(8),
+                Self::Kfp => std::option::Option::Some(9),
+                Self::Go => std::option::Option::Some(10),
+                Self::Generic => std::option::Option::Some(11),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DOCKER"),
-                2 => std::borrow::Cow::Borrowed("MAVEN"),
-                3 => std::borrow::Cow::Borrowed("NPM"),
-                5 => std::borrow::Cow::Borrowed("APT"),
-                6 => std::borrow::Cow::Borrowed("YUM"),
-                8 => std::borrow::Cow::Borrowed("PYTHON"),
-                9 => std::borrow::Cow::Borrowed("KFP"),
-                10 => std::borrow::Cow::Borrowed("GO"),
-                11 => std::borrow::Cow::Borrowed("GENERIC"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FORMAT_UNSPECIFIED"),
+                Self::Docker => std::option::Option::Some("DOCKER"),
+                Self::Maven => std::option::Option::Some("MAVEN"),
+                Self::Npm => std::option::Option::Some("NPM"),
+                Self::Apt => std::option::Option::Some("APT"),
+                Self::Yum => std::option::Option::Some("YUM"),
+                Self::Python => std::option::Option::Some("PYTHON"),
+                Self::Kfp => std::option::Option::Some("KFP"),
+                Self::Go => std::option::Option::Some("GO"),
+                Self::Generic => std::option::Option::Some("GENERIC"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::FORMAT_UNSPECIFIED),
-                "DOCKER" => std::option::Option::Some(Self::DOCKER),
-                "MAVEN" => std::option::Option::Some(Self::MAVEN),
-                "NPM" => std::option::Option::Some(Self::NPM),
-                "APT" => std::option::Option::Some(Self::APT),
-                "YUM" => std::option::Option::Some(Self::YUM),
-                "PYTHON" => std::option::Option::Some(Self::PYTHON),
-                "KFP" => std::option::Option::Some(Self::KFP),
-                "GO" => std::option::Option::Some(Self::GO),
-                "GENERIC" => std::option::Option::Some(Self::GENERIC),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Format {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Format {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Format {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Docker,
+                2 => Self::Maven,
+                3 => Self::Npm,
+                5 => Self::Apt,
+                6 => Self::Yum,
+                8 => Self::Python,
+                9 => Self::Kfp,
+                10 => Self::Go,
+                11 => Self::Generic,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Format {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "DOCKER" => Self::Docker,
+                "MAVEN" => Self::Maven,
+                "NPM" => Self::Npm,
+                "APT" => Self::Apt,
+                "YUM" => Self::Yum,
+                "PYTHON" => Self::Python,
+                "KFP" => Self::Kfp,
+                "GO" => Self::Go,
+                "GENERIC" => Self::Generic,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Docker => serializer.serialize_i32(1),
+                Self::Maven => serializer.serialize_i32(2),
+                Self::Npm => serializer.serialize_i32(3),
+                Self::Apt => serializer.serialize_i32(5),
+                Self::Yum => serializer.serialize_i32(6),
+                Self::Python => serializer.serialize_i32(8),
+                Self::Kfp => serializer.serialize_i32(9),
+                Self::Go => serializer.serialize_i32(10),
+                Self::Generic => serializer.serialize_i32(11),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
+                ".google.devtools.artifactregistry.v1.Repository.Format",
+            ))
         }
     }
 
     /// The mode configures the repository to serve artifacts from different
     /// sources.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Unspecified mode.
+        Unspecified,
+        /// A standard repository storing artifacts.
+        StandardRepository,
+        /// A virtual repository to serve artifacts from one or more sources.
+        VirtualRepository,
+        /// A remote repository to serve artifacts from a remote source.
+        RemoteRepository,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Mode {
-        /// Unspecified mode.
-        pub const MODE_UNSPECIFIED: Mode = Mode::new(0);
-
-        /// A standard repository storing artifacts.
-        pub const STANDARD_REPOSITORY: Mode = Mode::new(1);
-
-        /// A virtual repository to serve artifacts from one or more sources.
-        pub const VIRTUAL_REPOSITORY: Mode = Mode::new(2);
-
-        /// A remote repository to serve artifacts from a remote source.
-        pub const REMOTE_REPOSITORY: Mode = Mode::new(3);
-
-        /// Creates a new Mode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::StandardRepository => std::option::Option::Some(1),
+                Self::VirtualRepository => std::option::Option::Some(2),
+                Self::RemoteRepository => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STANDARD_REPOSITORY"),
-                2 => std::borrow::Cow::Borrowed("VIRTUAL_REPOSITORY"),
-                3 => std::borrow::Cow::Borrowed("REMOTE_REPOSITORY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::StandardRepository => std::option::Option::Some("STANDARD_REPOSITORY"),
+                Self::VirtualRepository => std::option::Option::Some("VIRTUAL_REPOSITORY"),
+                Self::RemoteRepository => std::option::Option::Some("REMOTE_REPOSITORY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MODE_UNSPECIFIED" => std::option::Option::Some(Self::MODE_UNSPECIFIED),
-                "STANDARD_REPOSITORY" => std::option::Option::Some(Self::STANDARD_REPOSITORY),
-                "VIRTUAL_REPOSITORY" => std::option::Option::Some(Self::VIRTUAL_REPOSITORY),
-                "REMOTE_REPOSITORY" => std::option::Option::Some(Self::REMOTE_REPOSITORY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Mode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Mode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::StandardRepository,
+                2 => Self::VirtualRepository,
+                3 => Self::RemoteRepository,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "STANDARD_REPOSITORY" => Self::StandardRepository,
+                "VIRTUAL_REPOSITORY" => Self::VirtualRepository,
+                "REMOTE_REPOSITORY" => Self::RemoteRepository,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::StandardRepository => serializer.serialize_i32(1),
+                Self::VirtualRepository => serializer.serialize_i32(2),
+                Self::RemoteRepository => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.devtools.artifactregistry.v1.Repository.Mode",
+            ))
         }
     }
 
@@ -6572,6 +7740,7 @@ pub struct ListRepositoriesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of repositories to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -6674,12 +7843,6 @@ impl ListRepositoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
@@ -6688,6 +7851,12 @@ impl ListRepositoriesResponse {
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6968,111 +8137,259 @@ pub mod rule {
     use super::*;
 
     /// Defines the action of the rule.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Action {
+        /// Action not specified.
+        Unspecified,
+        /// Allow the operation.
+        Allow,
+        /// Deny the operation.
+        Deny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Action::value] or
+        /// [Action::name].
+        UnknownValue(action::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod action {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Action {
-        /// Action not specified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
-
-        /// Allow the operation.
-        pub const ALLOW: Action = Action::new(1);
-
-        /// Deny the operation.
-        pub const DENY: Action = Action::new(2);
-
-        /// Creates a new Action instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                2 => std::borrow::Cow::Borrowed("DENY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ACTION_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                "DENY" => std::option::Option::Some(Self::DENY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Action {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Action {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTION_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
+                ".google.devtools.artifactregistry.v1.Rule.Action",
+            ))
         }
     }
 
     /// The operation the rule applies to.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Operation(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Operation {
+        /// Operation not specified.
+        Unspecified,
+        /// Download operation.
+        Download,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Operation::value] or
+        /// [Operation::name].
+        UnknownValue(operation::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod operation {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Operation {
-        /// Operation not specified.
-        pub const OPERATION_UNSPECIFIED: Operation = Operation::new(0);
-
-        /// Download operation.
-        pub const DOWNLOAD: Operation = Operation::new(1);
-
-        /// Creates a new Operation instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Download => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("OPERATION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DOWNLOAD"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPERATION_UNSPECIFIED"),
+                Self::Download => std::option::Option::Some("DOWNLOAD"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "OPERATION_UNSPECIFIED" => std::option::Option::Some(Self::OPERATION_UNSPECIFIED),
-                "DOWNLOAD" => std::option::Option::Some(Self::DOWNLOAD),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Operation {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Operation {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Operation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Download,
+                _ => Self::UnknownValue(operation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Operation {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPERATION_UNSPECIFIED" => Self::Unspecified,
+                "DOWNLOAD" => Self::Download,
+                _ => Self::UnknownValue(operation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Operation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Download => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Operation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operation>::new(
+                ".google.devtools.artifactregistry.v1.Rule.Operation",
+            ))
         }
     }
 }
@@ -7090,6 +8407,7 @@ pub struct ListRulesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of rules to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -7154,12 +8472,6 @@ impl ListRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::ListRulesResponse::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -7168,6 +8480,12 @@ impl ListRulesResponse {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7404,6 +8722,7 @@ pub struct ProjectSettings {
 
     /// The percentage of pull traffic to redirect from GCR to AR when using
     /// partial redirection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pull_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7451,88 +8770,170 @@ pub mod project_settings {
     use super::*;
 
     /// The possible redirection states for legacy repositories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RedirectionState(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RedirectionState {
+        /// No redirection status has been set.
+        Unspecified,
+        /// Redirection is disabled.
+        RedirectionFromGcrIoDisabled,
+        /// Redirection is enabled.
+        RedirectionFromGcrIoEnabled,
+        /// Redirection is enabled, and has been finalized so cannot be reverted.
+        #[deprecated]
+        RedirectionFromGcrIoFinalized,
+        /// Redirection is enabled and missing images are copied from GCR
+        RedirectionFromGcrIoEnabledAndCopying,
+        /// Redirection is partially enabled and missing images are copied from GCR
+        RedirectionFromGcrIoPartialAndCopying,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RedirectionState::value] or
+        /// [RedirectionState::name].
+        UnknownValue(redirection_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod redirection_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RedirectionState {
-        /// No redirection status has been set.
-        pub const REDIRECTION_STATE_UNSPECIFIED: RedirectionState = RedirectionState::new(0);
-
-        /// Redirection is disabled.
-        pub const REDIRECTION_FROM_GCR_IO_DISABLED: RedirectionState = RedirectionState::new(1);
-
-        /// Redirection is enabled.
-        pub const REDIRECTION_FROM_GCR_IO_ENABLED: RedirectionState = RedirectionState::new(2);
-
-        /// Redirection is enabled, and has been finalized so cannot be reverted.
-        pub const REDIRECTION_FROM_GCR_IO_FINALIZED: RedirectionState = RedirectionState::new(3);
-
-        /// Redirection is enabled and missing images are copied from GCR
-        pub const REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING: RedirectionState =
-            RedirectionState::new(5);
-
-        /// Redirection is partially enabled and missing images are copied from GCR
-        pub const REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING: RedirectionState =
-            RedirectionState::new(6);
-
-        /// Creates a new RedirectionState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RedirectionFromGcrIoDisabled => std::option::Option::Some(1),
+                Self::RedirectionFromGcrIoEnabled => std::option::Option::Some(2),
+                Self::RedirectionFromGcrIoFinalized => std::option::Option::Some(3),
+                Self::RedirectionFromGcrIoEnabledAndCopying => std::option::Option::Some(5),
+                Self::RedirectionFromGcrIoPartialAndCopying => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("REDIRECTION_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("REDIRECTION_FROM_GCR_IO_DISABLED"),
-                2 => std::borrow::Cow::Borrowed("REDIRECTION_FROM_GCR_IO_ENABLED"),
-                3 => std::borrow::Cow::Borrowed("REDIRECTION_FROM_GCR_IO_FINALIZED"),
-                5 => std::borrow::Cow::Borrowed("REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING"),
-                6 => std::borrow::Cow::Borrowed("REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REDIRECTION_STATE_UNSPECIFIED"),
+                Self::RedirectionFromGcrIoDisabled => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_DISABLED")
+                }
+                Self::RedirectionFromGcrIoEnabled => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_ENABLED")
+                }
+                Self::RedirectionFromGcrIoFinalized => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_FINALIZED")
+                }
+                Self::RedirectionFromGcrIoEnabledAndCopying => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING")
+                }
+                Self::RedirectionFromGcrIoPartialAndCopying => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "REDIRECTION_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::REDIRECTION_STATE_UNSPECIFIED)
-                }
-                "REDIRECTION_FROM_GCR_IO_DISABLED" => {
-                    std::option::Option::Some(Self::REDIRECTION_FROM_GCR_IO_DISABLED)
-                }
-                "REDIRECTION_FROM_GCR_IO_ENABLED" => {
-                    std::option::Option::Some(Self::REDIRECTION_FROM_GCR_IO_ENABLED)
-                }
-                "REDIRECTION_FROM_GCR_IO_FINALIZED" => {
-                    std::option::Option::Some(Self::REDIRECTION_FROM_GCR_IO_FINALIZED)
-                }
-                "REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING" => {
-                    std::option::Option::Some(Self::REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING)
-                }
-                "REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING" => {
-                    std::option::Option::Some(Self::REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RedirectionState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RedirectionState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RedirectionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RedirectionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RedirectionFromGcrIoDisabled,
+                2 => Self::RedirectionFromGcrIoEnabled,
+                3 => Self::RedirectionFromGcrIoFinalized,
+                5 => Self::RedirectionFromGcrIoEnabledAndCopying,
+                6 => Self::RedirectionFromGcrIoPartialAndCopying,
+                _ => Self::UnknownValue(redirection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RedirectionState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REDIRECTION_STATE_UNSPECIFIED" => Self::Unspecified,
+                "REDIRECTION_FROM_GCR_IO_DISABLED" => Self::RedirectionFromGcrIoDisabled,
+                "REDIRECTION_FROM_GCR_IO_ENABLED" => Self::RedirectionFromGcrIoEnabled,
+                "REDIRECTION_FROM_GCR_IO_FINALIZED" => Self::RedirectionFromGcrIoFinalized,
+                "REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING" => {
+                    Self::RedirectionFromGcrIoEnabledAndCopying
+                }
+                "REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING" => {
+                    Self::RedirectionFromGcrIoPartialAndCopying
+                }
+                _ => Self::UnknownValue(redirection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RedirectionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RedirectionFromGcrIoDisabled => serializer.serialize_i32(1),
+                Self::RedirectionFromGcrIoEnabled => serializer.serialize_i32(2),
+                Self::RedirectionFromGcrIoFinalized => serializer.serialize_i32(3),
+                Self::RedirectionFromGcrIoEnabledAndCopying => serializer.serialize_i32(5),
+                Self::RedirectionFromGcrIoPartialAndCopying => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RedirectionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RedirectionState>::new(
+                ".google.devtools.artifactregistry.v1.ProjectSettings.RedirectionState",
+            ))
         }
     }
 }
@@ -7712,6 +9113,7 @@ pub struct ListTagsRequest {
     pub filter: std::string::String,
 
     /// The maximum number of tags to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -7782,12 +9184,6 @@ impl ListTagsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTagsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tags][crate::model::ListTagsResponse::tags].
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
@@ -7796,6 +9192,12 @@ impl ListTagsResponse {
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTagsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8075,15 +9477,6 @@ impl Version {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::Version::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [related_tags][crate::model::Version::related_tags].
     pub fn set_related_tags<T, V>(mut self, v: T) -> Self
     where
@@ -8092,6 +9485,15 @@ impl Version {
     {
         use std::iter::Iterator;
         self.related_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::Version::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 
@@ -8125,6 +9527,7 @@ pub struct ListVersionsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of versions to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -8262,12 +9665,6 @@ impl ListVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
@@ -8276,6 +9673,12 @@ impl ListVersionsResponse {
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8353,6 +9756,7 @@ pub struct DeleteVersionRequest {
 
     /// By default, a version that is tagged may not be deleted. If force=true, the
     /// version and any tags pointing to the version are deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8400,6 +9804,7 @@ pub struct BatchDeleteVersionsRequest {
     pub names: std::vec::Vec<std::string::String>,
 
     /// If true, the request is performed without deleting data, following AIP-163.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8417,12 +9822,6 @@ impl BatchDeleteVersionsRequest {
         self
     }
 
-    /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
-    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.validate_only = v.into();
-        self
-    }
-
     /// Sets the value of [names][crate::model::BatchDeleteVersionsRequest::names].
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
@@ -8431,6 +9830,12 @@ impl BatchDeleteVersionsRequest {
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 }
@@ -8585,65 +9990,138 @@ pub mod vpcsc_config {
     use super::*;
 
     /// VPCSCPolicy is the VPC SC policy for project and location.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VPCSCPolicy(i32);
-
-    impl VPCSCPolicy {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VPCSCPolicy {
         /// VPCSC_POLICY_UNSPECIFIED - the VPS SC policy is not defined.
         /// When VPS SC policy is not defined - the Service will use the default
         /// behavior (VPCSC_DENY).
-        pub const VPCSC_POLICY_UNSPECIFIED: VPCSCPolicy = VPCSCPolicy::new(0);
-
+        Unspecified,
         /// VPCSC_DENY - repository will block the requests to the Upstreams for the
         /// Remote Repositories if the resource is in the perimeter.
-        pub const DENY: VPCSCPolicy = VPCSCPolicy::new(1);
-
+        Deny,
         /// VPCSC_ALLOW - repository will allow the requests to the Upstreams for the
         /// Remote Repositories if the resource is in the perimeter.
-        pub const ALLOW: VPCSCPolicy = VPCSCPolicy::new(2);
+        Allow,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VPCSCPolicy::value] or
+        /// [VPCSCPolicy::name].
+        UnknownValue(vpcsc_policy::UnknownValue),
+    }
 
-        /// Creates a new VPCSCPolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod vpcsc_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl VPCSCPolicy {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Deny => std::option::Option::Some(1),
+                Self::Allow => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VPCSC_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DENY"),
-                2 => std::borrow::Cow::Borrowed("ALLOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VPCSC_POLICY_UNSPECIFIED"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VPCSC_POLICY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::VPCSC_POLICY_UNSPECIFIED)
-                }
-                "DENY" => std::option::Option::Some(Self::DENY),
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for VPCSCPolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for VPCSCPolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VPCSCPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VPCSCPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Deny,
+                2 => Self::Allow,
+                _ => Self::UnknownValue(vpcsc_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VPCSCPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VPCSC_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "DENY" => Self::Deny,
+                "ALLOW" => Self::Allow,
+                _ => Self::UnknownValue(vpcsc_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VPCSCPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Deny => serializer.serialize_i32(1),
+                Self::Allow => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VPCSCPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VPCSCPolicy>::new(
+                ".google.devtools.artifactregistry.v1.VPCSCConfig.VPCSCPolicy",
+            ))
         }
     }
 }
@@ -8800,61 +10278,134 @@ pub mod yum_artifact {
     use super::*;
 
     /// Package type is either binary or source.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PackageType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PackageType {
+        /// Package type is not specified.
+        Unspecified,
+        /// Binary package (.rpm).
+        Binary,
+        /// Source package (.srpm).
+        Source,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PackageType::value] or
+        /// [PackageType::name].
+        UnknownValue(package_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod package_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PackageType {
-        /// Package type is not specified.
-        pub const PACKAGE_TYPE_UNSPECIFIED: PackageType = PackageType::new(0);
-
-        /// Binary package (.rpm).
-        pub const BINARY: PackageType = PackageType::new(1);
-
-        /// Source package (.srpm).
-        pub const SOURCE: PackageType = PackageType::new(2);
-
-        /// Creates a new PackageType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Binary => std::option::Option::Some(1),
+                Self::Source => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PACKAGE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("BINARY"),
-                2 => std::borrow::Cow::Borrowed("SOURCE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PACKAGE_TYPE_UNSPECIFIED"),
+                Self::Binary => std::option::Option::Some("BINARY"),
+                Self::Source => std::option::Option::Some("SOURCE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PACKAGE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PACKAGE_TYPE_UNSPECIFIED)
-                }
-                "BINARY" => std::option::Option::Some(Self::BINARY),
-                "SOURCE" => std::option::Option::Some(Self::SOURCE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PackageType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PackageType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PackageType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PackageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Binary,
+                2 => Self::Source,
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PackageType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PACKAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "BINARY" => Self::Binary,
+                "SOURCE" => Self::Source,
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PackageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Binary => serializer.serialize_i32(1),
+                Self::Source => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PackageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PackageType>::new(
+                ".google.devtools.artifactregistry.v1.YumArtifact.PackageType",
+            ))
         }
     }
 }
@@ -8870,6 +10421,7 @@ pub struct ImportYumArtifactsGcsSource {
     pub uris: std::vec::Vec<std::string::String>,
 
     /// Supports URI wildcards for matching multiple objects from a single URI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_wildcards: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8881,12 +10433,6 @@ impl ImportYumArtifactsGcsSource {
         std::default::Default::default()
     }
 
-    /// Sets the value of [use_wildcards][crate::model::ImportYumArtifactsGcsSource::use_wildcards].
-    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.use_wildcards = v.into();
-        self
-    }
-
     /// Sets the value of [uris][crate::model::ImportYumArtifactsGcsSource::uris].
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
@@ -8895,6 +10441,12 @@ impl ImportYumArtifactsGcsSource {
     {
         use std::iter::Iterator;
         self.uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [use_wildcards][crate::model::ImportYumArtifactsGcsSource::use_wildcards].
+    pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_wildcards = v.into();
         self
     }
 }
@@ -9180,59 +10732,134 @@ impl wkt::message::Message for ImportYumArtifactsMetadata {
 
 /// The view, which determines what version information is returned in a
 /// response.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct VersionView(i32);
-
-impl VersionView {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum VersionView {
     /// The default / unset value.
     /// The API will default to the BASIC view.
-    pub const VERSION_VIEW_UNSPECIFIED: VersionView = VersionView::new(0);
-
+    Unspecified,
     /// Includes basic information about the version, but not any related tags.
-    pub const BASIC: VersionView = VersionView::new(1);
-
+    Basic,
     /// Include everything.
-    pub const FULL: VersionView = VersionView::new(2);
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [VersionView::value] or
+    /// [VersionView::name].
+    UnknownValue(version_view::UnknownValue),
+}
 
-    /// Creates a new VersionView instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod version_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl VersionView {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("VERSION_VIEW_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BASIC"),
-            2 => std::borrow::Cow::Borrowed("FULL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("VERSION_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("BASIC"),
+            Self::Full => std::option::Option::Some("FULL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "VERSION_VIEW_UNSPECIFIED" => std::option::Option::Some(Self::VERSION_VIEW_UNSPECIFIED),
-            "BASIC" => std::option::Option::Some(Self::BASIC),
-            "FULL" => std::option::Option::Some(Self::FULL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for VersionView {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for VersionView {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for VersionView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for VersionView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(version_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for VersionView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "VERSION_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "BASIC" => Self::Basic,
+            "FULL" => Self::Full,
+            _ => Self::UnknownValue(version_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for VersionView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for VersionView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<VersionView>::new(
+            ".google.devtools.artifactregistry.v1.VersionView",
+        ))
     }
 }

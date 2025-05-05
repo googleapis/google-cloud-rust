@@ -42,9 +42,11 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct Vertex {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: i32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -84,9 +86,13 @@ impl wkt::message::Message for Vertex {
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -178,12 +184,18 @@ impl wkt::message::Message for BoundingPoly {
 #[non_exhaustive]
 pub struct Position {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     /// Z coordinate (or depth).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub z: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -234,6 +246,7 @@ pub struct Feature {
 
     /// Maximum number of results of this type. Does not apply to
     /// `TEXT_DETECTION`, `DOCUMENT_TEXT_DETECTION`, or `CROP_HINTS`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_results: i32,
 
     /// Model to use for the feature.
@@ -283,116 +296,209 @@ pub mod feature {
     use super::*;
 
     /// Type of Google Cloud Vision API feature to be extracted.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
-
-    impl Type {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
         /// Unspecified feature type.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+        Unspecified,
         /// Run face detection.
-        pub const FACE_DETECTION: Type = Type::new(1);
-
+        FaceDetection,
         /// Run landmark detection.
-        pub const LANDMARK_DETECTION: Type = Type::new(2);
-
+        LandmarkDetection,
         /// Run logo detection.
-        pub const LOGO_DETECTION: Type = Type::new(3);
-
+        LogoDetection,
         /// Run label detection.
-        pub const LABEL_DETECTION: Type = Type::new(4);
-
+        LabelDetection,
         /// Run text detection / optical character recognition (OCR). Text detection
         /// is optimized for areas of text within a larger image; if the image is
         /// a document, use `DOCUMENT_TEXT_DETECTION` instead.
-        pub const TEXT_DETECTION: Type = Type::new(5);
-
+        TextDetection,
         /// Run dense text document OCR. Takes precedence when both
         /// `DOCUMENT_TEXT_DETECTION` and `TEXT_DETECTION` are present.
-        pub const DOCUMENT_TEXT_DETECTION: Type = Type::new(11);
-
+        DocumentTextDetection,
         /// Run Safe Search to detect potentially unsafe
         /// or undesirable content.
-        pub const SAFE_SEARCH_DETECTION: Type = Type::new(6);
-
+        SafeSearchDetection,
         /// Compute a set of image properties, such as the
         /// image's dominant colors.
-        pub const IMAGE_PROPERTIES: Type = Type::new(7);
-
+        ImageProperties,
         /// Run crop hints.
-        pub const CROP_HINTS: Type = Type::new(9);
-
+        CropHints,
         /// Run web detection.
-        pub const WEB_DETECTION: Type = Type::new(10);
-
+        WebDetection,
         /// Run Product Search.
-        pub const PRODUCT_SEARCH: Type = Type::new(12);
-
+        ProductSearch,
         /// Run localizer for object detection.
-        pub const OBJECT_LOCALIZATION: Type = Type::new(19);
+        ObjectLocalization,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
 
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Type {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::FaceDetection => std::option::Option::Some(1),
+                Self::LandmarkDetection => std::option::Option::Some(2),
+                Self::LogoDetection => std::option::Option::Some(3),
+                Self::LabelDetection => std::option::Option::Some(4),
+                Self::TextDetection => std::option::Option::Some(5),
+                Self::DocumentTextDetection => std::option::Option::Some(11),
+                Self::SafeSearchDetection => std::option::Option::Some(6),
+                Self::ImageProperties => std::option::Option::Some(7),
+                Self::CropHints => std::option::Option::Some(9),
+                Self::WebDetection => std::option::Option::Some(10),
+                Self::ProductSearch => std::option::Option::Some(12),
+                Self::ObjectLocalization => std::option::Option::Some(19),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("FACE_DETECTION"),
-                2 => std::borrow::Cow::Borrowed("LANDMARK_DETECTION"),
-                3 => std::borrow::Cow::Borrowed("LOGO_DETECTION"),
-                4 => std::borrow::Cow::Borrowed("LABEL_DETECTION"),
-                5 => std::borrow::Cow::Borrowed("TEXT_DETECTION"),
-                6 => std::borrow::Cow::Borrowed("SAFE_SEARCH_DETECTION"),
-                7 => std::borrow::Cow::Borrowed("IMAGE_PROPERTIES"),
-                9 => std::borrow::Cow::Borrowed("CROP_HINTS"),
-                10 => std::borrow::Cow::Borrowed("WEB_DETECTION"),
-                11 => std::borrow::Cow::Borrowed("DOCUMENT_TEXT_DETECTION"),
-                12 => std::borrow::Cow::Borrowed("PRODUCT_SEARCH"),
-                19 => std::borrow::Cow::Borrowed("OBJECT_LOCALIZATION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::FaceDetection => std::option::Option::Some("FACE_DETECTION"),
+                Self::LandmarkDetection => std::option::Option::Some("LANDMARK_DETECTION"),
+                Self::LogoDetection => std::option::Option::Some("LOGO_DETECTION"),
+                Self::LabelDetection => std::option::Option::Some("LABEL_DETECTION"),
+                Self::TextDetection => std::option::Option::Some("TEXT_DETECTION"),
+                Self::DocumentTextDetection => std::option::Option::Some("DOCUMENT_TEXT_DETECTION"),
+                Self::SafeSearchDetection => std::option::Option::Some("SAFE_SEARCH_DETECTION"),
+                Self::ImageProperties => std::option::Option::Some("IMAGE_PROPERTIES"),
+                Self::CropHints => std::option::Option::Some("CROP_HINTS"),
+                Self::WebDetection => std::option::Option::Some("WEB_DETECTION"),
+                Self::ProductSearch => std::option::Option::Some("PRODUCT_SEARCH"),
+                Self::ObjectLocalization => std::option::Option::Some("OBJECT_LOCALIZATION"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "FACE_DETECTION" => std::option::Option::Some(Self::FACE_DETECTION),
-                "LANDMARK_DETECTION" => std::option::Option::Some(Self::LANDMARK_DETECTION),
-                "LOGO_DETECTION" => std::option::Option::Some(Self::LOGO_DETECTION),
-                "LABEL_DETECTION" => std::option::Option::Some(Self::LABEL_DETECTION),
-                "TEXT_DETECTION" => std::option::Option::Some(Self::TEXT_DETECTION),
-                "DOCUMENT_TEXT_DETECTION" => {
-                    std::option::Option::Some(Self::DOCUMENT_TEXT_DETECTION)
-                }
-                "SAFE_SEARCH_DETECTION" => std::option::Option::Some(Self::SAFE_SEARCH_DETECTION),
-                "IMAGE_PROPERTIES" => std::option::Option::Some(Self::IMAGE_PROPERTIES),
-                "CROP_HINTS" => std::option::Option::Some(Self::CROP_HINTS),
-                "WEB_DETECTION" => std::option::Option::Some(Self::WEB_DETECTION),
-                "PRODUCT_SEARCH" => std::option::Option::Some(Self::PRODUCT_SEARCH),
-                "OBJECT_LOCALIZATION" => std::option::Option::Some(Self::OBJECT_LOCALIZATION),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::FaceDetection,
+                2 => Self::LandmarkDetection,
+                3 => Self::LogoDetection,
+                4 => Self::LabelDetection,
+                5 => Self::TextDetection,
+                6 => Self::SafeSearchDetection,
+                7 => Self::ImageProperties,
+                9 => Self::CropHints,
+                10 => Self::WebDetection,
+                11 => Self::DocumentTextDetection,
+                12 => Self::ProductSearch,
+                19 => Self::ObjectLocalization,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "FACE_DETECTION" => Self::FaceDetection,
+                "LANDMARK_DETECTION" => Self::LandmarkDetection,
+                "LOGO_DETECTION" => Self::LogoDetection,
+                "LABEL_DETECTION" => Self::LabelDetection,
+                "TEXT_DETECTION" => Self::TextDetection,
+                "DOCUMENT_TEXT_DETECTION" => Self::DocumentTextDetection,
+                "SAFE_SEARCH_DETECTION" => Self::SafeSearchDetection,
+                "IMAGE_PROPERTIES" => Self::ImageProperties,
+                "CROP_HINTS" => Self::CropHints,
+                "WEB_DETECTION" => Self::WebDetection,
+                "PRODUCT_SEARCH" => Self::ProductSearch,
+                "OBJECT_LOCALIZATION" => Self::ObjectLocalization,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::FaceDetection => serializer.serialize_i32(1),
+                Self::LandmarkDetection => serializer.serialize_i32(2),
+                Self::LogoDetection => serializer.serialize_i32(3),
+                Self::LabelDetection => serializer.serialize_i32(4),
+                Self::TextDetection => serializer.serialize_i32(5),
+                Self::DocumentTextDetection => serializer.serialize_i32(11),
+                Self::SafeSearchDetection => serializer.serialize_i32(6),
+                Self::ImageProperties => serializer.serialize_i32(7),
+                Self::CropHints => serializer.serialize_i32(9),
+                Self::WebDetection => serializer.serialize_i32(10),
+                Self::ProductSearch => serializer.serialize_i32(12),
+                Self::ObjectLocalization => serializer.serialize_i32(19),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.vision.v1.Feature.Type",
+            ))
         }
     }
 }
@@ -546,21 +652,31 @@ pub struct FaceAnnotation {
     /// Roll angle, which indicates the amount of clockwise/anti-clockwise rotation
     /// of the face relative to the image vertical about the axis perpendicular to
     /// the face. Range [-180,180].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub roll_angle: f32,
 
     /// Yaw angle, which indicates the leftward/rightward angle that the face is
     /// pointing relative to the vertical plane perpendicular to the image. Range
     /// [-180,180].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub pan_angle: f32,
 
     /// Pitch angle, which indicates the upwards/downwards angle that the face is
     /// pointing relative to the image's horizontal plane. Range [-180,180].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub tilt_angle: f32,
 
     /// Detection confidence. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub detection_confidence: f32,
 
     /// Face landmarking confidence. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub landmarking_confidence: f32,
 
     /// Joy likelihood.
@@ -612,6 +728,17 @@ impl FaceAnnotation {
         v: T,
     ) -> Self {
         self.fd_bounding_poly = v.into();
+        self
+    }
+
+    /// Sets the value of [landmarks][crate::model::FaceAnnotation::landmarks].
+    pub fn set_landmarks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::face_annotation::Landmark>,
+    {
+        use std::iter::Iterator;
+        self.landmarks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -707,17 +834,6 @@ impl FaceAnnotation {
         self.headwear_likelihood = v.into();
         self
     }
-
-    /// Sets the value of [landmarks][crate::model::FaceAnnotation::landmarks].
-    pub fn set_landmarks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::face_annotation::Landmark>,
-    {
-        use std::iter::Iterator;
-        self.landmarks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for FaceAnnotation {
@@ -788,255 +904,389 @@ pub mod face_annotation {
         /// Left and right are defined from the vantage of the viewer of the image
         /// without considering mirror projections typical of photos. So, `LEFT_EYE`,
         /// typically, is the person's right eye.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// Unknown face landmark detected. Should not be filled.
+            UnknownLandmark,
+            /// Left eye.
+            LeftEye,
+            /// Right eye.
+            RightEye,
+            /// Left of left eyebrow.
+            LeftOfLeftEyebrow,
+            /// Right of left eyebrow.
+            RightOfLeftEyebrow,
+            /// Left of right eyebrow.
+            LeftOfRightEyebrow,
+            /// Right of right eyebrow.
+            RightOfRightEyebrow,
+            /// Midpoint between eyes.
+            MidpointBetweenEyes,
+            /// Nose tip.
+            NoseTip,
+            /// Upper lip.
+            UpperLip,
+            /// Lower lip.
+            LowerLip,
+            /// Mouth left.
+            MouthLeft,
+            /// Mouth right.
+            MouthRight,
+            /// Mouth center.
+            MouthCenter,
+            /// Nose, bottom right.
+            NoseBottomRight,
+            /// Nose, bottom left.
+            NoseBottomLeft,
+            /// Nose, bottom center.
+            NoseBottomCenter,
+            /// Left eye, top boundary.
+            LeftEyeTopBoundary,
+            /// Left eye, right corner.
+            LeftEyeRightCorner,
+            /// Left eye, bottom boundary.
+            LeftEyeBottomBoundary,
+            /// Left eye, left corner.
+            LeftEyeLeftCorner,
+            /// Right eye, top boundary.
+            RightEyeTopBoundary,
+            /// Right eye, right corner.
+            RightEyeRightCorner,
+            /// Right eye, bottom boundary.
+            RightEyeBottomBoundary,
+            /// Right eye, left corner.
+            RightEyeLeftCorner,
+            /// Left eyebrow, upper midpoint.
+            LeftEyebrowUpperMidpoint,
+            /// Right eyebrow, upper midpoint.
+            RightEyebrowUpperMidpoint,
+            /// Left ear tragion.
+            LeftEarTragion,
+            /// Right ear tragion.
+            RightEarTragion,
+            /// Left eye pupil.
+            LeftEyePupil,
+            /// Right eye pupil.
+            RightEyePupil,
+            /// Forehead glabella.
+            ForeheadGlabella,
+            /// Chin gnathion.
+            ChinGnathion,
+            /// Chin left gonion.
+            ChinLeftGonion,
+            /// Chin right gonion.
+            ChinRightGonion,
+            /// Left cheek center.
+            LeftCheekCenter,
+            /// Right cheek center.
+            RightCheekCenter,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl Type {
-            /// Unknown face landmark detected. Should not be filled.
-            pub const UNKNOWN_LANDMARK: Type = Type::new(0);
-
-            /// Left eye.
-            pub const LEFT_EYE: Type = Type::new(1);
-
-            /// Right eye.
-            pub const RIGHT_EYE: Type = Type::new(2);
-
-            /// Left of left eyebrow.
-            pub const LEFT_OF_LEFT_EYEBROW: Type = Type::new(3);
-
-            /// Right of left eyebrow.
-            pub const RIGHT_OF_LEFT_EYEBROW: Type = Type::new(4);
-
-            /// Left of right eyebrow.
-            pub const LEFT_OF_RIGHT_EYEBROW: Type = Type::new(5);
-
-            /// Right of right eyebrow.
-            pub const RIGHT_OF_RIGHT_EYEBROW: Type = Type::new(6);
-
-            /// Midpoint between eyes.
-            pub const MIDPOINT_BETWEEN_EYES: Type = Type::new(7);
-
-            /// Nose tip.
-            pub const NOSE_TIP: Type = Type::new(8);
-
-            /// Upper lip.
-            pub const UPPER_LIP: Type = Type::new(9);
-
-            /// Lower lip.
-            pub const LOWER_LIP: Type = Type::new(10);
-
-            /// Mouth left.
-            pub const MOUTH_LEFT: Type = Type::new(11);
-
-            /// Mouth right.
-            pub const MOUTH_RIGHT: Type = Type::new(12);
-
-            /// Mouth center.
-            pub const MOUTH_CENTER: Type = Type::new(13);
-
-            /// Nose, bottom right.
-            pub const NOSE_BOTTOM_RIGHT: Type = Type::new(14);
-
-            /// Nose, bottom left.
-            pub const NOSE_BOTTOM_LEFT: Type = Type::new(15);
-
-            /// Nose, bottom center.
-            pub const NOSE_BOTTOM_CENTER: Type = Type::new(16);
-
-            /// Left eye, top boundary.
-            pub const LEFT_EYE_TOP_BOUNDARY: Type = Type::new(17);
-
-            /// Left eye, right corner.
-            pub const LEFT_EYE_RIGHT_CORNER: Type = Type::new(18);
-
-            /// Left eye, bottom boundary.
-            pub const LEFT_EYE_BOTTOM_BOUNDARY: Type = Type::new(19);
-
-            /// Left eye, left corner.
-            pub const LEFT_EYE_LEFT_CORNER: Type = Type::new(20);
-
-            /// Right eye, top boundary.
-            pub const RIGHT_EYE_TOP_BOUNDARY: Type = Type::new(21);
-
-            /// Right eye, right corner.
-            pub const RIGHT_EYE_RIGHT_CORNER: Type = Type::new(22);
-
-            /// Right eye, bottom boundary.
-            pub const RIGHT_EYE_BOTTOM_BOUNDARY: Type = Type::new(23);
-
-            /// Right eye, left corner.
-            pub const RIGHT_EYE_LEFT_CORNER: Type = Type::new(24);
-
-            /// Left eyebrow, upper midpoint.
-            pub const LEFT_EYEBROW_UPPER_MIDPOINT: Type = Type::new(25);
-
-            /// Right eyebrow, upper midpoint.
-            pub const RIGHT_EYEBROW_UPPER_MIDPOINT: Type = Type::new(26);
-
-            /// Left ear tragion.
-            pub const LEFT_EAR_TRAGION: Type = Type::new(27);
-
-            /// Right ear tragion.
-            pub const RIGHT_EAR_TRAGION: Type = Type::new(28);
-
-            /// Left eye pupil.
-            pub const LEFT_EYE_PUPIL: Type = Type::new(29);
-
-            /// Right eye pupil.
-            pub const RIGHT_EYE_PUPIL: Type = Type::new(30);
-
-            /// Forehead glabella.
-            pub const FOREHEAD_GLABELLA: Type = Type::new(31);
-
-            /// Chin gnathion.
-            pub const CHIN_GNATHION: Type = Type::new(32);
-
-            /// Chin left gonion.
-            pub const CHIN_LEFT_GONION: Type = Type::new(33);
-
-            /// Chin right gonion.
-            pub const CHIN_RIGHT_GONION: Type = Type::new(34);
-
-            /// Left cheek center.
-            pub const LEFT_CHEEK_CENTER: Type = Type::new(35);
-
-            /// Right cheek center.
-            pub const RIGHT_CHEEK_CENTER: Type = Type::new(36);
-
-            /// Creates a new Type instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::UnknownLandmark => std::option::Option::Some(0),
+                    Self::LeftEye => std::option::Option::Some(1),
+                    Self::RightEye => std::option::Option::Some(2),
+                    Self::LeftOfLeftEyebrow => std::option::Option::Some(3),
+                    Self::RightOfLeftEyebrow => std::option::Option::Some(4),
+                    Self::LeftOfRightEyebrow => std::option::Option::Some(5),
+                    Self::RightOfRightEyebrow => std::option::Option::Some(6),
+                    Self::MidpointBetweenEyes => std::option::Option::Some(7),
+                    Self::NoseTip => std::option::Option::Some(8),
+                    Self::UpperLip => std::option::Option::Some(9),
+                    Self::LowerLip => std::option::Option::Some(10),
+                    Self::MouthLeft => std::option::Option::Some(11),
+                    Self::MouthRight => std::option::Option::Some(12),
+                    Self::MouthCenter => std::option::Option::Some(13),
+                    Self::NoseBottomRight => std::option::Option::Some(14),
+                    Self::NoseBottomLeft => std::option::Option::Some(15),
+                    Self::NoseBottomCenter => std::option::Option::Some(16),
+                    Self::LeftEyeTopBoundary => std::option::Option::Some(17),
+                    Self::LeftEyeRightCorner => std::option::Option::Some(18),
+                    Self::LeftEyeBottomBoundary => std::option::Option::Some(19),
+                    Self::LeftEyeLeftCorner => std::option::Option::Some(20),
+                    Self::RightEyeTopBoundary => std::option::Option::Some(21),
+                    Self::RightEyeRightCorner => std::option::Option::Some(22),
+                    Self::RightEyeBottomBoundary => std::option::Option::Some(23),
+                    Self::RightEyeLeftCorner => std::option::Option::Some(24),
+                    Self::LeftEyebrowUpperMidpoint => std::option::Option::Some(25),
+                    Self::RightEyebrowUpperMidpoint => std::option::Option::Some(26),
+                    Self::LeftEarTragion => std::option::Option::Some(27),
+                    Self::RightEarTragion => std::option::Option::Some(28),
+                    Self::LeftEyePupil => std::option::Option::Some(29),
+                    Self::RightEyePupil => std::option::Option::Some(30),
+                    Self::ForeheadGlabella => std::option::Option::Some(31),
+                    Self::ChinGnathion => std::option::Option::Some(32),
+                    Self::ChinLeftGonion => std::option::Option::Some(33),
+                    Self::ChinRightGonion => std::option::Option::Some(34),
+                    Self::LeftCheekCenter => std::option::Option::Some(35),
+                    Self::RightCheekCenter => std::option::Option::Some(36),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("UNKNOWN_LANDMARK"),
-                    1 => std::borrow::Cow::Borrowed("LEFT_EYE"),
-                    2 => std::borrow::Cow::Borrowed("RIGHT_EYE"),
-                    3 => std::borrow::Cow::Borrowed("LEFT_OF_LEFT_EYEBROW"),
-                    4 => std::borrow::Cow::Borrowed("RIGHT_OF_LEFT_EYEBROW"),
-                    5 => std::borrow::Cow::Borrowed("LEFT_OF_RIGHT_EYEBROW"),
-                    6 => std::borrow::Cow::Borrowed("RIGHT_OF_RIGHT_EYEBROW"),
-                    7 => std::borrow::Cow::Borrowed("MIDPOINT_BETWEEN_EYES"),
-                    8 => std::borrow::Cow::Borrowed("NOSE_TIP"),
-                    9 => std::borrow::Cow::Borrowed("UPPER_LIP"),
-                    10 => std::borrow::Cow::Borrowed("LOWER_LIP"),
-                    11 => std::borrow::Cow::Borrowed("MOUTH_LEFT"),
-                    12 => std::borrow::Cow::Borrowed("MOUTH_RIGHT"),
-                    13 => std::borrow::Cow::Borrowed("MOUTH_CENTER"),
-                    14 => std::borrow::Cow::Borrowed("NOSE_BOTTOM_RIGHT"),
-                    15 => std::borrow::Cow::Borrowed("NOSE_BOTTOM_LEFT"),
-                    16 => std::borrow::Cow::Borrowed("NOSE_BOTTOM_CENTER"),
-                    17 => std::borrow::Cow::Borrowed("LEFT_EYE_TOP_BOUNDARY"),
-                    18 => std::borrow::Cow::Borrowed("LEFT_EYE_RIGHT_CORNER"),
-                    19 => std::borrow::Cow::Borrowed("LEFT_EYE_BOTTOM_BOUNDARY"),
-                    20 => std::borrow::Cow::Borrowed("LEFT_EYE_LEFT_CORNER"),
-                    21 => std::borrow::Cow::Borrowed("RIGHT_EYE_TOP_BOUNDARY"),
-                    22 => std::borrow::Cow::Borrowed("RIGHT_EYE_RIGHT_CORNER"),
-                    23 => std::borrow::Cow::Borrowed("RIGHT_EYE_BOTTOM_BOUNDARY"),
-                    24 => std::borrow::Cow::Borrowed("RIGHT_EYE_LEFT_CORNER"),
-                    25 => std::borrow::Cow::Borrowed("LEFT_EYEBROW_UPPER_MIDPOINT"),
-                    26 => std::borrow::Cow::Borrowed("RIGHT_EYEBROW_UPPER_MIDPOINT"),
-                    27 => std::borrow::Cow::Borrowed("LEFT_EAR_TRAGION"),
-                    28 => std::borrow::Cow::Borrowed("RIGHT_EAR_TRAGION"),
-                    29 => std::borrow::Cow::Borrowed("LEFT_EYE_PUPIL"),
-                    30 => std::borrow::Cow::Borrowed("RIGHT_EYE_PUPIL"),
-                    31 => std::borrow::Cow::Borrowed("FOREHEAD_GLABELLA"),
-                    32 => std::borrow::Cow::Borrowed("CHIN_GNATHION"),
-                    33 => std::borrow::Cow::Borrowed("CHIN_LEFT_GONION"),
-                    34 => std::borrow::Cow::Borrowed("CHIN_RIGHT_GONION"),
-                    35 => std::borrow::Cow::Borrowed("LEFT_CHEEK_CENTER"),
-                    36 => std::borrow::Cow::Borrowed("RIGHT_CHEEK_CENTER"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::UnknownLandmark => std::option::Option::Some("UNKNOWN_LANDMARK"),
+                    Self::LeftEye => std::option::Option::Some("LEFT_EYE"),
+                    Self::RightEye => std::option::Option::Some("RIGHT_EYE"),
+                    Self::LeftOfLeftEyebrow => std::option::Option::Some("LEFT_OF_LEFT_EYEBROW"),
+                    Self::RightOfLeftEyebrow => std::option::Option::Some("RIGHT_OF_LEFT_EYEBROW"),
+                    Self::LeftOfRightEyebrow => std::option::Option::Some("LEFT_OF_RIGHT_EYEBROW"),
+                    Self::RightOfRightEyebrow => {
+                        std::option::Option::Some("RIGHT_OF_RIGHT_EYEBROW")
+                    }
+                    Self::MidpointBetweenEyes => std::option::Option::Some("MIDPOINT_BETWEEN_EYES"),
+                    Self::NoseTip => std::option::Option::Some("NOSE_TIP"),
+                    Self::UpperLip => std::option::Option::Some("UPPER_LIP"),
+                    Self::LowerLip => std::option::Option::Some("LOWER_LIP"),
+                    Self::MouthLeft => std::option::Option::Some("MOUTH_LEFT"),
+                    Self::MouthRight => std::option::Option::Some("MOUTH_RIGHT"),
+                    Self::MouthCenter => std::option::Option::Some("MOUTH_CENTER"),
+                    Self::NoseBottomRight => std::option::Option::Some("NOSE_BOTTOM_RIGHT"),
+                    Self::NoseBottomLeft => std::option::Option::Some("NOSE_BOTTOM_LEFT"),
+                    Self::NoseBottomCenter => std::option::Option::Some("NOSE_BOTTOM_CENTER"),
+                    Self::LeftEyeTopBoundary => std::option::Option::Some("LEFT_EYE_TOP_BOUNDARY"),
+                    Self::LeftEyeRightCorner => std::option::Option::Some("LEFT_EYE_RIGHT_CORNER"),
+                    Self::LeftEyeBottomBoundary => {
+                        std::option::Option::Some("LEFT_EYE_BOTTOM_BOUNDARY")
+                    }
+                    Self::LeftEyeLeftCorner => std::option::Option::Some("LEFT_EYE_LEFT_CORNER"),
+                    Self::RightEyeTopBoundary => {
+                        std::option::Option::Some("RIGHT_EYE_TOP_BOUNDARY")
+                    }
+                    Self::RightEyeRightCorner => {
+                        std::option::Option::Some("RIGHT_EYE_RIGHT_CORNER")
+                    }
+                    Self::RightEyeBottomBoundary => {
+                        std::option::Option::Some("RIGHT_EYE_BOTTOM_BOUNDARY")
+                    }
+                    Self::RightEyeLeftCorner => std::option::Option::Some("RIGHT_EYE_LEFT_CORNER"),
+                    Self::LeftEyebrowUpperMidpoint => {
+                        std::option::Option::Some("LEFT_EYEBROW_UPPER_MIDPOINT")
+                    }
+                    Self::RightEyebrowUpperMidpoint => {
+                        std::option::Option::Some("RIGHT_EYEBROW_UPPER_MIDPOINT")
+                    }
+                    Self::LeftEarTragion => std::option::Option::Some("LEFT_EAR_TRAGION"),
+                    Self::RightEarTragion => std::option::Option::Some("RIGHT_EAR_TRAGION"),
+                    Self::LeftEyePupil => std::option::Option::Some("LEFT_EYE_PUPIL"),
+                    Self::RightEyePupil => std::option::Option::Some("RIGHT_EYE_PUPIL"),
+                    Self::ForeheadGlabella => std::option::Option::Some("FOREHEAD_GLABELLA"),
+                    Self::ChinGnathion => std::option::Option::Some("CHIN_GNATHION"),
+                    Self::ChinLeftGonion => std::option::Option::Some("CHIN_LEFT_GONION"),
+                    Self::ChinRightGonion => std::option::Option::Some("CHIN_RIGHT_GONION"),
+                    Self::LeftCheekCenter => std::option::Option::Some("LEFT_CHEEK_CENTER"),
+                    Self::RightCheekCenter => std::option::Option::Some("RIGHT_CHEEK_CENTER"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "UNKNOWN_LANDMARK" => std::option::Option::Some(Self::UNKNOWN_LANDMARK),
-                    "LEFT_EYE" => std::option::Option::Some(Self::LEFT_EYE),
-                    "RIGHT_EYE" => std::option::Option::Some(Self::RIGHT_EYE),
-                    "LEFT_OF_LEFT_EYEBROW" => std::option::Option::Some(Self::LEFT_OF_LEFT_EYEBROW),
-                    "RIGHT_OF_LEFT_EYEBROW" => {
-                        std::option::Option::Some(Self::RIGHT_OF_LEFT_EYEBROW)
-                    }
-                    "LEFT_OF_RIGHT_EYEBROW" => {
-                        std::option::Option::Some(Self::LEFT_OF_RIGHT_EYEBROW)
-                    }
-                    "RIGHT_OF_RIGHT_EYEBROW" => {
-                        std::option::Option::Some(Self::RIGHT_OF_RIGHT_EYEBROW)
-                    }
-                    "MIDPOINT_BETWEEN_EYES" => {
-                        std::option::Option::Some(Self::MIDPOINT_BETWEEN_EYES)
-                    }
-                    "NOSE_TIP" => std::option::Option::Some(Self::NOSE_TIP),
-                    "UPPER_LIP" => std::option::Option::Some(Self::UPPER_LIP),
-                    "LOWER_LIP" => std::option::Option::Some(Self::LOWER_LIP),
-                    "MOUTH_LEFT" => std::option::Option::Some(Self::MOUTH_LEFT),
-                    "MOUTH_RIGHT" => std::option::Option::Some(Self::MOUTH_RIGHT),
-                    "MOUTH_CENTER" => std::option::Option::Some(Self::MOUTH_CENTER),
-                    "NOSE_BOTTOM_RIGHT" => std::option::Option::Some(Self::NOSE_BOTTOM_RIGHT),
-                    "NOSE_BOTTOM_LEFT" => std::option::Option::Some(Self::NOSE_BOTTOM_LEFT),
-                    "NOSE_BOTTOM_CENTER" => std::option::Option::Some(Self::NOSE_BOTTOM_CENTER),
-                    "LEFT_EYE_TOP_BOUNDARY" => {
-                        std::option::Option::Some(Self::LEFT_EYE_TOP_BOUNDARY)
-                    }
-                    "LEFT_EYE_RIGHT_CORNER" => {
-                        std::option::Option::Some(Self::LEFT_EYE_RIGHT_CORNER)
-                    }
-                    "LEFT_EYE_BOTTOM_BOUNDARY" => {
-                        std::option::Option::Some(Self::LEFT_EYE_BOTTOM_BOUNDARY)
-                    }
-                    "LEFT_EYE_LEFT_CORNER" => std::option::Option::Some(Self::LEFT_EYE_LEFT_CORNER),
-                    "RIGHT_EYE_TOP_BOUNDARY" => {
-                        std::option::Option::Some(Self::RIGHT_EYE_TOP_BOUNDARY)
-                    }
-                    "RIGHT_EYE_RIGHT_CORNER" => {
-                        std::option::Option::Some(Self::RIGHT_EYE_RIGHT_CORNER)
-                    }
-                    "RIGHT_EYE_BOTTOM_BOUNDARY" => {
-                        std::option::Option::Some(Self::RIGHT_EYE_BOTTOM_BOUNDARY)
-                    }
-                    "RIGHT_EYE_LEFT_CORNER" => {
-                        std::option::Option::Some(Self::RIGHT_EYE_LEFT_CORNER)
-                    }
-                    "LEFT_EYEBROW_UPPER_MIDPOINT" => {
-                        std::option::Option::Some(Self::LEFT_EYEBROW_UPPER_MIDPOINT)
-                    }
-                    "RIGHT_EYEBROW_UPPER_MIDPOINT" => {
-                        std::option::Option::Some(Self::RIGHT_EYEBROW_UPPER_MIDPOINT)
-                    }
-                    "LEFT_EAR_TRAGION" => std::option::Option::Some(Self::LEFT_EAR_TRAGION),
-                    "RIGHT_EAR_TRAGION" => std::option::Option::Some(Self::RIGHT_EAR_TRAGION),
-                    "LEFT_EYE_PUPIL" => std::option::Option::Some(Self::LEFT_EYE_PUPIL),
-                    "RIGHT_EYE_PUPIL" => std::option::Option::Some(Self::RIGHT_EYE_PUPIL),
-                    "FOREHEAD_GLABELLA" => std::option::Option::Some(Self::FOREHEAD_GLABELLA),
-                    "CHIN_GNATHION" => std::option::Option::Some(Self::CHIN_GNATHION),
-                    "CHIN_LEFT_GONION" => std::option::Option::Some(Self::CHIN_LEFT_GONION),
-                    "CHIN_RIGHT_GONION" => std::option::Option::Some(Self::CHIN_RIGHT_GONION),
-                    "LEFT_CHEEK_CENTER" => std::option::Option::Some(Self::LEFT_CHEEK_CENTER),
-                    "RIGHT_CHEEK_CENTER" => std::option::Option::Some(Self::RIGHT_CHEEK_CENTER),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Type {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::UnknownLandmark,
+                    1 => Self::LeftEye,
+                    2 => Self::RightEye,
+                    3 => Self::LeftOfLeftEyebrow,
+                    4 => Self::RightOfLeftEyebrow,
+                    5 => Self::LeftOfRightEyebrow,
+                    6 => Self::RightOfRightEyebrow,
+                    7 => Self::MidpointBetweenEyes,
+                    8 => Self::NoseTip,
+                    9 => Self::UpperLip,
+                    10 => Self::LowerLip,
+                    11 => Self::MouthLeft,
+                    12 => Self::MouthRight,
+                    13 => Self::MouthCenter,
+                    14 => Self::NoseBottomRight,
+                    15 => Self::NoseBottomLeft,
+                    16 => Self::NoseBottomCenter,
+                    17 => Self::LeftEyeTopBoundary,
+                    18 => Self::LeftEyeRightCorner,
+                    19 => Self::LeftEyeBottomBoundary,
+                    20 => Self::LeftEyeLeftCorner,
+                    21 => Self::RightEyeTopBoundary,
+                    22 => Self::RightEyeRightCorner,
+                    23 => Self::RightEyeBottomBoundary,
+                    24 => Self::RightEyeLeftCorner,
+                    25 => Self::LeftEyebrowUpperMidpoint,
+                    26 => Self::RightEyebrowUpperMidpoint,
+                    27 => Self::LeftEarTragion,
+                    28 => Self::RightEarTragion,
+                    29 => Self::LeftEyePupil,
+                    30 => Self::RightEyePupil,
+                    31 => Self::ForeheadGlabella,
+                    32 => Self::ChinGnathion,
+                    33 => Self::ChinLeftGonion,
+                    34 => Self::ChinRightGonion,
+                    35 => Self::LeftCheekCenter,
+                    36 => Self::RightCheekCenter,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "UNKNOWN_LANDMARK" => Self::UnknownLandmark,
+                    "LEFT_EYE" => Self::LeftEye,
+                    "RIGHT_EYE" => Self::RightEye,
+                    "LEFT_OF_LEFT_EYEBROW" => Self::LeftOfLeftEyebrow,
+                    "RIGHT_OF_LEFT_EYEBROW" => Self::RightOfLeftEyebrow,
+                    "LEFT_OF_RIGHT_EYEBROW" => Self::LeftOfRightEyebrow,
+                    "RIGHT_OF_RIGHT_EYEBROW" => Self::RightOfRightEyebrow,
+                    "MIDPOINT_BETWEEN_EYES" => Self::MidpointBetweenEyes,
+                    "NOSE_TIP" => Self::NoseTip,
+                    "UPPER_LIP" => Self::UpperLip,
+                    "LOWER_LIP" => Self::LowerLip,
+                    "MOUTH_LEFT" => Self::MouthLeft,
+                    "MOUTH_RIGHT" => Self::MouthRight,
+                    "MOUTH_CENTER" => Self::MouthCenter,
+                    "NOSE_BOTTOM_RIGHT" => Self::NoseBottomRight,
+                    "NOSE_BOTTOM_LEFT" => Self::NoseBottomLeft,
+                    "NOSE_BOTTOM_CENTER" => Self::NoseBottomCenter,
+                    "LEFT_EYE_TOP_BOUNDARY" => Self::LeftEyeTopBoundary,
+                    "LEFT_EYE_RIGHT_CORNER" => Self::LeftEyeRightCorner,
+                    "LEFT_EYE_BOTTOM_BOUNDARY" => Self::LeftEyeBottomBoundary,
+                    "LEFT_EYE_LEFT_CORNER" => Self::LeftEyeLeftCorner,
+                    "RIGHT_EYE_TOP_BOUNDARY" => Self::RightEyeTopBoundary,
+                    "RIGHT_EYE_RIGHT_CORNER" => Self::RightEyeRightCorner,
+                    "RIGHT_EYE_BOTTOM_BOUNDARY" => Self::RightEyeBottomBoundary,
+                    "RIGHT_EYE_LEFT_CORNER" => Self::RightEyeLeftCorner,
+                    "LEFT_EYEBROW_UPPER_MIDPOINT" => Self::LeftEyebrowUpperMidpoint,
+                    "RIGHT_EYEBROW_UPPER_MIDPOINT" => Self::RightEyebrowUpperMidpoint,
+                    "LEFT_EAR_TRAGION" => Self::LeftEarTragion,
+                    "RIGHT_EAR_TRAGION" => Self::RightEarTragion,
+                    "LEFT_EYE_PUPIL" => Self::LeftEyePupil,
+                    "RIGHT_EYE_PUPIL" => Self::RightEyePupil,
+                    "FOREHEAD_GLABELLA" => Self::ForeheadGlabella,
+                    "CHIN_GNATHION" => Self::ChinGnathion,
+                    "CHIN_LEFT_GONION" => Self::ChinLeftGonion,
+                    "CHIN_RIGHT_GONION" => Self::ChinRightGonion,
+                    "LEFT_CHEEK_CENTER" => Self::LeftCheekCenter,
+                    "RIGHT_CHEEK_CENTER" => Self::RightCheekCenter,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::UnknownLandmark => serializer.serialize_i32(0),
+                    Self::LeftEye => serializer.serialize_i32(1),
+                    Self::RightEye => serializer.serialize_i32(2),
+                    Self::LeftOfLeftEyebrow => serializer.serialize_i32(3),
+                    Self::RightOfLeftEyebrow => serializer.serialize_i32(4),
+                    Self::LeftOfRightEyebrow => serializer.serialize_i32(5),
+                    Self::RightOfRightEyebrow => serializer.serialize_i32(6),
+                    Self::MidpointBetweenEyes => serializer.serialize_i32(7),
+                    Self::NoseTip => serializer.serialize_i32(8),
+                    Self::UpperLip => serializer.serialize_i32(9),
+                    Self::LowerLip => serializer.serialize_i32(10),
+                    Self::MouthLeft => serializer.serialize_i32(11),
+                    Self::MouthRight => serializer.serialize_i32(12),
+                    Self::MouthCenter => serializer.serialize_i32(13),
+                    Self::NoseBottomRight => serializer.serialize_i32(14),
+                    Self::NoseBottomLeft => serializer.serialize_i32(15),
+                    Self::NoseBottomCenter => serializer.serialize_i32(16),
+                    Self::LeftEyeTopBoundary => serializer.serialize_i32(17),
+                    Self::LeftEyeRightCorner => serializer.serialize_i32(18),
+                    Self::LeftEyeBottomBoundary => serializer.serialize_i32(19),
+                    Self::LeftEyeLeftCorner => serializer.serialize_i32(20),
+                    Self::RightEyeTopBoundary => serializer.serialize_i32(21),
+                    Self::RightEyeRightCorner => serializer.serialize_i32(22),
+                    Self::RightEyeBottomBoundary => serializer.serialize_i32(23),
+                    Self::RightEyeLeftCorner => serializer.serialize_i32(24),
+                    Self::LeftEyebrowUpperMidpoint => serializer.serialize_i32(25),
+                    Self::RightEyebrowUpperMidpoint => serializer.serialize_i32(26),
+                    Self::LeftEarTragion => serializer.serialize_i32(27),
+                    Self::RightEarTragion => serializer.serialize_i32(28),
+                    Self::LeftEyePupil => serializer.serialize_i32(29),
+                    Self::RightEyePupil => serializer.serialize_i32(30),
+                    Self::ForeheadGlabella => serializer.serialize_i32(31),
+                    Self::ChinGnathion => serializer.serialize_i32(32),
+                    Self::ChinLeftGonion => serializer.serialize_i32(33),
+                    Self::ChinRightGonion => serializer.serialize_i32(34),
+                    Self::LeftCheekCenter => serializer.serialize_i32(35),
+                    Self::RightCheekCenter => serializer.serialize_i32(36),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.vision.v1.FaceAnnotation.Landmark.Type",
+                ))
             }
         }
     }
@@ -1092,6 +1342,7 @@ pub struct Property {
     pub value: std::string::String,
 
     /// Value of numeric properties.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub uint64_value: u64,
 
@@ -1151,6 +1402,8 @@ pub struct EntityAnnotation {
     pub description: std::string::String,
 
     /// Overall score of the result. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// **Deprecated. Use `score` instead.**
@@ -1158,6 +1411,9 @@ pub struct EntityAnnotation {
     /// For example, for an image in which the "Eiffel Tower" entity is detected,
     /// this field represents the confidence that there is a tower in the query
     /// image. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
+    #[deprecated]
     pub confidence: f32,
 
     /// The relevancy of the ICA (Image Content Annotation) label to the
@@ -1165,6 +1421,8 @@ pub struct EntityAnnotation {
     /// containing the detected "Eiffel Tower" than to an image containing a
     /// detected distant towering building, even though the confidence that
     /// there is a tower in each image may be the same. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub topicality: f32,
 
     /// Image region to which this entity belongs. Not produced
@@ -1219,6 +1477,7 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [confidence][crate::model::EntityAnnotation::confidence].
+    #[deprecated]
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -1291,6 +1550,8 @@ pub struct LocalizedObjectAnnotation {
     pub name: std::string::String,
 
     /// Score of the result. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// Image region to which this object belongs. This must be populated.
@@ -1486,10 +1747,14 @@ pub struct ColorInfo {
     pub color: std::option::Option<gtype::model::Color>,
 
     /// Image-specific score for this color. Value in range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// The fraction of pixels the color occupies in the image.
     /// Value in range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub pixel_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1615,10 +1880,14 @@ pub struct CropHint {
     pub bounding_poly: std::option::Option<crate::model::BoundingPoly>,
 
     /// Confidence of this being a salient region.  Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Fraction of importance of this salient region with respect to the original
     /// image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub importance_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1710,6 +1979,7 @@ pub struct CropHintsParams {
     /// limited to a maximum of 16; any aspect ratios provided after the 16th are
     /// ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
     pub aspect_ratios: std::vec::Vec<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1746,6 +2016,8 @@ impl wkt::message::Message for CropHintsParams {
 #[non_exhaustive]
 pub struct WebDetectionParams {
     /// This field has no effect on results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub include_geo_results: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1758,6 +2030,7 @@ impl WebDetectionParams {
     }
 
     /// Sets the value of [include_geo_results][crate::model::WebDetectionParams::include_geo_results].
+    #[deprecated]
     pub fn set_include_geo_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_geo_results = v.into();
         self
@@ -1780,6 +2053,7 @@ pub struct TextDetectionParams {
     /// By default, Cloud Vision API only includes confidence score for
     /// DOCUMENT_TEXT_DETECTION result. Set the flag to true to include confidence
     /// score for TEXT_DETECTION as well.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_text_detection_confidence_score: bool,
 
     /// A list of advanced OCR options to further fine-tune OCR behavior.
@@ -1885,6 +2159,17 @@ impl ImageContext {
         self
     }
 
+    /// Sets the value of [language_hints][crate::model::ImageContext::language_hints].
+    pub fn set_language_hints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.language_hints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
     pub fn set_crop_hints_params<
         T: std::convert::Into<std::option::Option<crate::model::CropHintsParams>>,
@@ -1926,17 +2211,6 @@ impl ImageContext {
         v: T,
     ) -> Self {
         self.text_detection_params = v.into();
-        self
-    }
-
-    /// Sets the value of [language_hints][crate::model::ImageContext::language_hints].
-    pub fn set_language_hints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.language_hints = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1984,17 +2258,6 @@ impl AnnotateImageRequest {
         self
     }
 
-    /// Sets the value of [image_context][crate::model::AnnotateImageRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
-        self
-    }
-
     /// Sets the value of [features][crate::model::AnnotateImageRequest::features].
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
@@ -2003,6 +2266,17 @@ impl AnnotateImageRequest {
     {
         use std::iter::Iterator;
         self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [image_context][crate::model::AnnotateImageRequest::image_context].
+    pub fn set_image_context<
+        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_context = v.into();
         self
     }
 }
@@ -2026,6 +2300,7 @@ pub struct ImageAnnotationContext {
 
     /// If the file was a PDF or TIFF, this field gives the page number within
     /// the file used to produce the image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2134,6 +2409,72 @@ impl AnnotateImageResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [face_annotations][crate::model::AnnotateImageResponse::face_annotations].
+    pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FaceAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.face_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [landmark_annotations][crate::model::AnnotateImageResponse::landmark_annotations].
+    pub fn set_landmark_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.landmark_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [logo_annotations][crate::model::AnnotateImageResponse::logo_annotations].
+    pub fn set_logo_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.logo_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [label_annotations][crate::model::AnnotateImageResponse::label_annotations].
+    pub fn set_label_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.label_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [localized_object_annotations][crate::model::AnnotateImageResponse::localized_object_annotations].
+    pub fn set_localized_object_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LocalizedObjectAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.localized_object_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [text_annotations][crate::model::AnnotateImageResponse::text_annotations].
+    pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.text_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
     pub fn set_full_text_annotation<
         T: std::convert::Into<std::option::Option<crate::model::TextAnnotation>>,
@@ -2219,72 +2560,6 @@ impl AnnotateImageResponse {
         self.context = v.into();
         self
     }
-
-    /// Sets the value of [face_annotations][crate::model::AnnotateImageResponse::face_annotations].
-    pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaceAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.face_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [landmark_annotations][crate::model::AnnotateImageResponse::landmark_annotations].
-    pub fn set_landmark_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.landmark_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [logo_annotations][crate::model::AnnotateImageResponse::logo_annotations].
-    pub fn set_logo_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.logo_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [label_annotations][crate::model::AnnotateImageResponse::label_annotations].
-    pub fn set_label_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.label_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [localized_object_annotations][crate::model::AnnotateImageResponse::localized_object_annotations].
-    pub fn set_localized_object_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LocalizedObjectAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.localized_object_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [text_annotations][crate::model::AnnotateImageResponse::text_annotations].
-    pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.text_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for AnnotateImageResponse {
@@ -2336,12 +2611,6 @@ impl BatchAnnotateImagesRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
     /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
@@ -2350,6 +2619,12 @@ impl BatchAnnotateImagesRequest {
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
         self
     }
 
@@ -2464,17 +2739,6 @@ impl AnnotateFileRequest {
         self
     }
 
-    /// Sets the value of [image_context][crate::model::AnnotateFileRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
-        self
-    }
-
     /// Sets the value of [features][crate::model::AnnotateFileRequest::features].
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
@@ -2483,6 +2747,17 @@ impl AnnotateFileRequest {
     {
         use std::iter::Iterator;
         self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [image_context][crate::model::AnnotateFileRequest::image_context].
+    pub fn set_image_context<
+        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_context = v.into();
         self
     }
 
@@ -2521,6 +2796,7 @@ pub struct AnnotateFileResponse {
     pub responses: std::vec::Vec<crate::model::AnnotateImageResponse>,
 
     /// This field gives the total number of pages in the file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_pages: i32,
 
     /// If set, represents the error message for the failed request. The
@@ -2548,6 +2824,17 @@ impl AnnotateFileResponse {
         self
     }
 
+    /// Sets the value of [responses][crate::model::AnnotateFileResponse::responses].
+    pub fn set_responses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AnnotateImageResponse>,
+    {
+        use std::iter::Iterator;
+        self.responses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [total_pages][crate::model::AnnotateFileResponse::total_pages].
     pub fn set_total_pages<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
@@ -2560,17 +2847,6 @@ impl AnnotateFileResponse {
         v: T,
     ) -> Self {
         self.error = v.into();
-        self
-    }
-
-    /// Sets the value of [responses][crate::model::AnnotateFileResponse::responses].
-    pub fn set_responses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AnnotateImageResponse>,
-    {
-        use std::iter::Iterator;
-        self.responses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2625,12 +2901,6 @@ impl BatchAnnotateFilesRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
     /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
@@ -2639,6 +2909,12 @@ impl BatchAnnotateFilesRequest {
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
         self
     }
 
@@ -2741,6 +3017,17 @@ impl AsyncAnnotateFileRequest {
         self
     }
 
+    /// Sets the value of [features][crate::model::AsyncAnnotateFileRequest::features].
+    pub fn set_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Feature>,
+    {
+        use std::iter::Iterator;
+        self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
     pub fn set_image_context<
         T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
@@ -2760,17 +3047,6 @@ impl AsyncAnnotateFileRequest {
         v: T,
     ) -> Self {
         self.output_config = v.into();
-        self
-    }
-
-    /// Sets the value of [features][crate::model::AsyncAnnotateFileRequest::features].
-    pub fn set_features<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Feature>,
-    {
-        use std::iter::Iterator;
-        self.features = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2865,6 +3141,17 @@ impl AsyncBatchAnnotateImagesRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AnnotateImageRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
@@ -2879,17 +3166,6 @@ impl AsyncBatchAnnotateImagesRequest {
     /// Sets the value of [parent][crate::model::AsyncBatchAnnotateImagesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
-        self
-    }
-
-    /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
-    pub fn set_requests<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AnnotateImageRequest>,
-    {
-        use std::iter::Iterator;
-        self.requests = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2993,12 +3269,6 @@ impl AsyncBatchAnnotateFilesRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
     /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
@@ -3007,6 +3277,12 @@ impl AsyncBatchAnnotateFilesRequest {
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
         self
     }
 
@@ -3150,6 +3426,7 @@ pub struct OutputConfig {
     ///
     /// Currently, batch_size only applies to GcsDestination, with potential future
     /// support for other output configurations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub batch_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3338,69 +3615,148 @@ pub mod operation_metadata {
     use super::*;
 
     /// Batch operation states.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Invalid.
+        Unspecified,
+        /// Request is received.
+        Created,
+        /// Request is actively being processed.
+        Running,
+        /// The batch processing is done.
+        Done,
+        /// The batch processing was cancelled.
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Request is received.
-        pub const CREATED: State = State::new(1);
-
-        /// Request is actively being processed.
-        pub const RUNNING: State = State::new(2);
-
-        /// The batch processing is done.
-        pub const DONE: State = State::new(3);
-
-        /// The batch processing was cancelled.
-        pub const CANCELLED: State = State::new(4);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Created => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Done => std::option::Option::Some(3),
+                Self::Cancelled => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATED"),
-                2 => std::borrow::Cow::Borrowed("RUNNING"),
-                3 => std::borrow::Cow::Borrowed("DONE"),
-                4 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Created => std::option::Option::Some("CREATED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Done => std::option::Option::Some("DONE"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATED" => std::option::Option::Some(Self::CREATED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "DONE" => std::option::Option::Some(Self::DONE),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Created,
+                2 => Self::Running,
+                3 => Self::Done,
+                4 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATED" => Self::Created,
+                "RUNNING" => Self::Running,
+                "DONE" => Self::Done,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Created => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Done => serializer.serialize_i32(3),
+                Self::Cancelled => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.vision.v1.OperationMetadata.State",
+            ))
         }
     }
 }
@@ -3473,12 +3829,6 @@ impl ProductSearchParams {
         self
     }
 
-    /// Sets the value of [filter][crate::model::ProductSearchParams::filter].
-    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.filter = v.into();
-        self
-    }
-
     /// Sets the value of [product_categories][crate::model::ProductSearchParams::product_categories].
     pub fn set_product_categories<T, V>(mut self, v: T) -> Self
     where
@@ -3487,6 +3837,12 @@ impl ProductSearchParams {
     {
         use std::iter::Iterator;
         self.product_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ProductSearchParams::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -3584,6 +3940,8 @@ pub mod product_search_results {
 
         /// A confidence level on the match, ranging from 0 (no confidence) to
         /// 1 (full confidence).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// The resource name of the image from the product that is the closest match
@@ -3649,6 +4007,8 @@ pub mod product_search_results {
         pub name: std::string::String,
 
         /// Score of the result. Range [0, 1].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4148,6 +4508,7 @@ pub struct ListProductsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -4212,12 +4573,6 @@ impl ListProductsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [products][crate::model::ListProductsResponse::products].
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
@@ -4226,6 +4581,12 @@ impl ListProductsResponse {
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4448,6 +4809,7 @@ pub struct ListProductSetsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -4512,12 +4874,6 @@ impl ListProductSetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductSetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [product_sets][crate::model::ListProductSetsResponse::product_sets].
     pub fn set_product_sets<T, V>(mut self, v: T) -> Self
     where
@@ -4526,6 +4882,12 @@ impl ListProductSetsResponse {
     {
         use std::iter::Iterator;
         self.product_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductSetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4755,6 +5117,7 @@ pub struct ListReferenceImagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This is the value
@@ -4809,6 +5172,7 @@ pub struct ListReferenceImagesResponse {
     pub reference_images: std::vec::Vec<crate::model::ReferenceImage>,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -4824,6 +5188,17 @@ impl ListReferenceImagesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [reference_images][crate::model::ListReferenceImagesResponse::reference_images].
+    pub fn set_reference_images<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReferenceImage>,
+    {
+        use std::iter::Iterator;
+        self.reference_images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::ListReferenceImagesResponse::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -4833,17 +5208,6 @@ impl ListReferenceImagesResponse {
     /// Sets the value of [next_page_token][crate::model::ListReferenceImagesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [reference_images][crate::model::ListReferenceImagesResponse::reference_images].
-    pub fn set_reference_images<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReferenceImage>,
-    {
-        use std::iter::Iterator;
-        self.reference_images = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5049,6 +5413,7 @@ pub struct ListProductsInProductSetRequest {
     pub name: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -5113,12 +5478,6 @@ impl ListProductsInProductSetResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductsInProductSetResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [products][crate::model::ListProductsInProductSetResponse::products].
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
@@ -5127,6 +5486,12 @@ impl ListProductsInProductSetResponse {
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductsInProductSetResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5529,72 +5894,151 @@ pub mod batch_operation_metadata {
     use super::*;
 
     /// Enumerates the possible states that the batch request can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Request is actively being processed.
-        pub const PROCESSING: State = State::new(1);
-
+        Processing,
         /// The request is done and at least one item has been successfully
         /// processed.
-        pub const SUCCESSFUL: State = State::new(2);
-
+        Successful,
         /// The request is done and no item has been successfully processed.
-        pub const FAILED: State = State::new(3);
-
+        Failed,
         /// The request is done after the longrunning.Operations.CancelOperation has
         /// been called by the user.  Any records that were processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: State = State::new(4);
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Processing => std::option::Option::Some(1),
+                Self::Successful => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelled => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PROCESSING"),
-                2 => std::borrow::Cow::Borrowed("SUCCESSFUL"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("CANCELLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Processing => std::option::Option::Some("PROCESSING"),
+                Self::Successful => std::option::Option::Some("SUCCESSFUL"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "PROCESSING" => std::option::Option::Some(Self::PROCESSING),
-                "SUCCESSFUL" => std::option::Option::Some(Self::SUCCESSFUL),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Processing,
+                2 => Self::Successful,
+                3 => Self::Failed,
+                4 => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROCESSING" => Self::Processing,
+                "SUCCESSFUL" => Self::Successful,
+                "FAILED" => Self::Failed,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Processing => serializer.serialize_i32(1),
+                Self::Successful => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelled => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.vision.v1.BatchOperationMetadata.State",
+            ))
         }
     }
 }
@@ -5647,6 +6091,7 @@ pub struct PurgeProductsRequest {
 
     /// The default value is false. Override this value to true to actually perform
     /// the purge.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// The Products to delete.
@@ -5703,19 +6148,6 @@ impl PurgeProductsRequest {
         })
     }
 
-    /// The value of [target][crate::model::PurgeProductsRequest::target]
-    /// if it holds a `DeleteOrphanProducts`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete_orphan_products(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::purge_products_request::Target::DeleteOrphanProducts(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
     /// to hold a `ProductSetPurgeConfig`.
     ///
@@ -5731,6 +6163,19 @@ impl PurgeProductsRequest {
             crate::model::purge_products_request::Target::ProductSetPurgeConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [target][crate::model::PurgeProductsRequest::target]
+    /// if it holds a `DeleteOrphanProducts`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_orphan_products(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::purge_products_request::Target::DeleteOrphanProducts(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
@@ -5802,12 +6247,6 @@ impl TextAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [text][crate::model::TextAnnotation::text].
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.text = v.into();
-        self
-    }
-
     /// Sets the value of [pages][crate::model::TextAnnotation::pages].
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
@@ -5816,6 +6255,12 @@ impl TextAnnotation {
     {
         use std::iter::Iterator;
         self.pages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [text][crate::model::TextAnnotation::text].
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
         self
     }
 }
@@ -5844,6 +6289,8 @@ pub mod text_annotation {
         pub language_code: std::string::String,
 
         /// Confidence of detected language. Range [0, 1].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5888,6 +6335,7 @@ pub mod text_annotation {
         pub r#type: crate::model::text_annotation::detected_break::BreakType,
 
         /// True if break prepends the element.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_prefix: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5929,75 +6377,159 @@ pub mod text_annotation {
         use super::*;
 
         /// Enum to denote the type of break found. New line, space etc.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct BreakType(i32);
-
-        impl BreakType {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum BreakType {
             /// Unknown break label type.
-            pub const UNKNOWN: BreakType = BreakType::new(0);
-
+            Unknown,
             /// Regular space.
-            pub const SPACE: BreakType = BreakType::new(1);
-
+            Space,
             /// Sure space (very wide).
-            pub const SURE_SPACE: BreakType = BreakType::new(2);
-
+            SureSpace,
             /// Line-wrapping break.
-            pub const EOL_SURE_SPACE: BreakType = BreakType::new(3);
-
+            EolSureSpace,
             /// End-line hyphen that is not present in text; does not co-occur with
             /// `SPACE`, `LEADER_SPACE`, or `LINE_BREAK`.
-            pub const HYPHEN: BreakType = BreakType::new(4);
-
+            Hyphen,
             /// Line break that ends a paragraph.
-            pub const LINE_BREAK: BreakType = BreakType::new(5);
+            LineBreak,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [BreakType::value] or
+            /// [BreakType::name].
+            UnknownValue(break_type::UnknownValue),
+        }
 
-            /// Creates a new BreakType instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod break_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl BreakType {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unknown => std::option::Option::Some(0),
+                    Self::Space => std::option::Option::Some(1),
+                    Self::SureSpace => std::option::Option::Some(2),
+                    Self::EolSureSpace => std::option::Option::Some(3),
+                    Self::Hyphen => std::option::Option::Some(4),
+                    Self::LineBreak => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("UNKNOWN"),
-                    1 => std::borrow::Cow::Borrowed("SPACE"),
-                    2 => std::borrow::Cow::Borrowed("SURE_SPACE"),
-                    3 => std::borrow::Cow::Borrowed("EOL_SURE_SPACE"),
-                    4 => std::borrow::Cow::Borrowed("HYPHEN"),
-                    5 => std::borrow::Cow::Borrowed("LINE_BREAK"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                    Self::Space => std::option::Option::Some("SPACE"),
+                    Self::SureSpace => std::option::Option::Some("SURE_SPACE"),
+                    Self::EolSureSpace => std::option::Option::Some("EOL_SURE_SPACE"),
+                    Self::Hyphen => std::option::Option::Some("HYPHEN"),
+                    Self::LineBreak => std::option::Option::Some("LINE_BREAK"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-                    "SPACE" => std::option::Option::Some(Self::SPACE),
-                    "SURE_SPACE" => std::option::Option::Some(Self::SURE_SPACE),
-                    "EOL_SURE_SPACE" => std::option::Option::Some(Self::EOL_SURE_SPACE),
-                    "HYPHEN" => std::option::Option::Some(Self::HYPHEN),
-                    "LINE_BREAK" => std::option::Option::Some(Self::LINE_BREAK),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for BreakType {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for BreakType {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for BreakType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for BreakType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unknown,
+                    1 => Self::Space,
+                    2 => Self::SureSpace,
+                    3 => Self::EolSureSpace,
+                    4 => Self::Hyphen,
+                    5 => Self::LineBreak,
+                    _ => Self::UnknownValue(break_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for BreakType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "UNKNOWN" => Self::Unknown,
+                    "SPACE" => Self::Space,
+                    "SURE_SPACE" => Self::SureSpace,
+                    "EOL_SURE_SPACE" => Self::EolSureSpace,
+                    "HYPHEN" => Self::Hyphen,
+                    "LINE_BREAK" => Self::LineBreak,
+                    _ => Self::UnknownValue(break_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for BreakType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unknown => serializer.serialize_i32(0),
+                    Self::Space => serializer.serialize_i32(1),
+                    Self::SureSpace => serializer.serialize_i32(2),
+                    Self::EolSureSpace => serializer.serialize_i32(3),
+                    Self::Hyphen => serializer.serialize_i32(4),
+                    Self::LineBreak => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for BreakType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<BreakType>::new(
+                    ".google.cloud.vision.v1.TextAnnotation.DetectedBreak.BreakType",
+                ))
             }
         }
     }
@@ -6025,17 +6557,6 @@ pub mod text_annotation {
             std::default::Default::default()
         }
 
-        /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
-        pub fn set_detected_break<
-            T: std::convert::Into<std::option::Option<crate::model::text_annotation::DetectedBreak>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.detected_break = v.into();
-            self
-        }
-
         /// Sets the value of [detected_languages][crate::model::text_annotation::TextProperty::detected_languages].
         pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
         where
@@ -6044,6 +6565,17 @@ pub mod text_annotation {
         {
             use std::iter::Iterator;
             self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
+        pub fn set_detected_break<
+            T: std::convert::Into<std::option::Option<crate::model::text_annotation::DetectedBreak>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detected_break = v.into();
             self
         }
     }
@@ -6067,10 +6599,12 @@ pub struct Page {
 
     /// Page width. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width: i32,
 
     /// Page height. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height: i32,
 
     /// List of blocks of text, images etc on this page.
@@ -6078,6 +6612,8 @@ pub struct Page {
     pub blocks: std::vec::Vec<crate::model::Block>,
 
     /// Confidence of the OCR results on the page. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6112,12 +6648,6 @@ impl Page {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::Page::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
     /// Sets the value of [blocks][crate::model::Page::blocks].
     pub fn set_blocks<T, V>(mut self, v: T) -> Self
     where
@@ -6126,6 +6656,12 @@ impl Page {
     {
         use std::iter::Iterator;
         self.blocks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::Page::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 }
@@ -6182,6 +6718,8 @@ pub struct Block {
     pub block_type: crate::model::block::BlockType,
 
     /// Confidence of the OCR results on the block. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6215,6 +6753,17 @@ impl Block {
         self
     }
 
+    /// Sets the value of [paragraphs][crate::model::Block::paragraphs].
+    pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Paragraph>,
+    {
+        use std::iter::Iterator;
+        self.paragraphs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [block_type][crate::model::Block::block_type].
     pub fn set_block_type<T: std::convert::Into<crate::model::block::BlockType>>(
         mut self,
@@ -6227,17 +6776,6 @@ impl Block {
     /// Sets the value of [confidence][crate::model::Block::confidence].
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
-        self
-    }
-
-    /// Sets the value of [paragraphs][crate::model::Block::paragraphs].
-    pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Paragraph>,
-    {
-        use std::iter::Iterator;
-        self.paragraphs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6254,74 +6792,155 @@ pub mod block {
     use super::*;
 
     /// Type of a block (text, image etc) as identified by OCR.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BlockType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BlockType {
+        /// Unknown block type.
+        Unknown,
+        /// Regular text block.
+        Text,
+        /// Table block.
+        Table,
+        /// Image block.
+        Picture,
+        /// Horizontal/vertical line box.
+        Ruler,
+        /// Barcode block.
+        Barcode,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BlockType::value] or
+        /// [BlockType::name].
+        UnknownValue(block_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod block_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl BlockType {
-        /// Unknown block type.
-        pub const UNKNOWN: BlockType = BlockType::new(0);
-
-        /// Regular text block.
-        pub const TEXT: BlockType = BlockType::new(1);
-
-        /// Table block.
-        pub const TABLE: BlockType = BlockType::new(2);
-
-        /// Image block.
-        pub const PICTURE: BlockType = BlockType::new(3);
-
-        /// Horizontal/vertical line box.
-        pub const RULER: BlockType = BlockType::new(4);
-
-        /// Barcode block.
-        pub const BARCODE: BlockType = BlockType::new(5);
-
-        /// Creates a new BlockType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Text => std::option::Option::Some(1),
+                Self::Table => std::option::Option::Some(2),
+                Self::Picture => std::option::Option::Some(3),
+                Self::Ruler => std::option::Option::Some(4),
+                Self::Barcode => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
-                1 => std::borrow::Cow::Borrowed("TEXT"),
-                2 => std::borrow::Cow::Borrowed("TABLE"),
-                3 => std::borrow::Cow::Borrowed("PICTURE"),
-                4 => std::borrow::Cow::Borrowed("RULER"),
-                5 => std::borrow::Cow::Borrowed("BARCODE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::Text => std::option::Option::Some("TEXT"),
+                Self::Table => std::option::Option::Some("TABLE"),
+                Self::Picture => std::option::Option::Some("PICTURE"),
+                Self::Ruler => std::option::Option::Some("RULER"),
+                Self::Barcode => std::option::Option::Some("BARCODE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-                "TEXT" => std::option::Option::Some(Self::TEXT),
-                "TABLE" => std::option::Option::Some(Self::TABLE),
-                "PICTURE" => std::option::Option::Some(Self::PICTURE),
-                "RULER" => std::option::Option::Some(Self::RULER),
-                "BARCODE" => std::option::Option::Some(Self::BARCODE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for BlockType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for BlockType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BlockType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BlockType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Text,
+                2 => Self::Table,
+                3 => Self::Picture,
+                4 => Self::Ruler,
+                5 => Self::Barcode,
+                _ => Self::UnknownValue(block_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BlockType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNKNOWN" => Self::Unknown,
+                "TEXT" => Self::Text,
+                "TABLE" => Self::Table,
+                "PICTURE" => Self::Picture,
+                "RULER" => Self::Ruler,
+                "BARCODE" => Self::Barcode,
+                _ => Self::UnknownValue(block_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BlockType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Text => serializer.serialize_i32(1),
+                Self::Table => serializer.serialize_i32(2),
+                Self::Picture => serializer.serialize_i32(3),
+                Self::Ruler => serializer.serialize_i32(4),
+                Self::Barcode => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BlockType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BlockType>::new(
+                ".google.cloud.vision.v1.Block.BlockType",
+            ))
         }
     }
 }
@@ -6360,6 +6979,8 @@ pub struct Paragraph {
     pub words: std::vec::Vec<crate::model::Word>,
 
     /// Confidence of the OCR results for the paragraph. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6393,12 +7014,6 @@ impl Paragraph {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::Paragraph::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
     /// Sets the value of [words][crate::model::Paragraph::words].
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
@@ -6407,6 +7022,12 @@ impl Paragraph {
     {
         use std::iter::Iterator;
         self.words = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::Paragraph::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 }
@@ -6452,6 +7073,8 @@ pub struct Word {
     pub symbols: std::vec::Vec<crate::model::Symbol>,
 
     /// Confidence of the OCR results for the word. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6485,12 +7108,6 @@ impl Word {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::Word::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
     /// Sets the value of [symbols][crate::model::Word::symbols].
     pub fn set_symbols<T, V>(mut self, v: T) -> Self
     where
@@ -6499,6 +7116,12 @@ impl Word {
     {
         use std::iter::Iterator;
         self.symbols = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::Word::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 }
@@ -6543,6 +7166,8 @@ pub struct Symbol {
     pub text: std::string::String,
 
     /// Confidence of the OCR results for the symbol. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6728,6 +7353,8 @@ pub mod web_detection {
 
         /// Overall relevancy score for the entity.
         /// Not normalized and not comparable across different image queries.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// Canonical description of the entity, in English.
@@ -6779,6 +7406,8 @@ pub mod web_detection {
         pub url: std::string::String,
 
         /// (Deprecated) Overall relevancy score for the image.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6820,6 +7449,8 @@ pub mod web_detection {
         pub url: std::string::String,
 
         /// (Deprecated) Overall relevancy score for the web page.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// Title for the web page, may contain HTML markups.
@@ -6944,73 +7575,154 @@ pub mod web_detection {
 
 /// A bucketized representation of likelihood, which is intended to give clients
 /// highly stable results across model upgrades.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Likelihood(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Likelihood {
+    /// Unknown likelihood.
+    Unknown,
+    /// It is very unlikely.
+    VeryUnlikely,
+    /// It is unlikely.
+    Unlikely,
+    /// It is possible.
+    Possible,
+    /// It is likely.
+    Likely,
+    /// It is very likely.
+    VeryLikely,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Likelihood::value] or
+    /// [Likelihood::name].
+    UnknownValue(likelihood::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod likelihood {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Likelihood {
-    /// Unknown likelihood.
-    pub const UNKNOWN: Likelihood = Likelihood::new(0);
-
-    /// It is very unlikely.
-    pub const VERY_UNLIKELY: Likelihood = Likelihood::new(1);
-
-    /// It is unlikely.
-    pub const UNLIKELY: Likelihood = Likelihood::new(2);
-
-    /// It is possible.
-    pub const POSSIBLE: Likelihood = Likelihood::new(3);
-
-    /// It is likely.
-    pub const LIKELY: Likelihood = Likelihood::new(4);
-
-    /// It is very likely.
-    pub const VERY_LIKELY: Likelihood = Likelihood::new(5);
-
-    /// Creates a new Likelihood instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unknown => std::option::Option::Some(0),
+            Self::VeryUnlikely => std::option::Option::Some(1),
+            Self::Unlikely => std::option::Option::Some(2),
+            Self::Possible => std::option::Option::Some(3),
+            Self::Likely => std::option::Option::Some(4),
+            Self::VeryLikely => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("UNKNOWN"),
-            1 => std::borrow::Cow::Borrowed("VERY_UNLIKELY"),
-            2 => std::borrow::Cow::Borrowed("UNLIKELY"),
-            3 => std::borrow::Cow::Borrowed("POSSIBLE"),
-            4 => std::borrow::Cow::Borrowed("LIKELY"),
-            5 => std::borrow::Cow::Borrowed("VERY_LIKELY"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unknown => std::option::Option::Some("UNKNOWN"),
+            Self::VeryUnlikely => std::option::Option::Some("VERY_UNLIKELY"),
+            Self::Unlikely => std::option::Option::Some("UNLIKELY"),
+            Self::Possible => std::option::Option::Some("POSSIBLE"),
+            Self::Likely => std::option::Option::Some("LIKELY"),
+            Self::VeryLikely => std::option::Option::Some("VERY_LIKELY"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-            "VERY_UNLIKELY" => std::option::Option::Some(Self::VERY_UNLIKELY),
-            "UNLIKELY" => std::option::Option::Some(Self::UNLIKELY),
-            "POSSIBLE" => std::option::Option::Some(Self::POSSIBLE),
-            "LIKELY" => std::option::Option::Some(Self::LIKELY),
-            "VERY_LIKELY" => std::option::Option::Some(Self::VERY_LIKELY),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Likelihood {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Likelihood {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Likelihood {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Likelihood {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unknown,
+            1 => Self::VeryUnlikely,
+            2 => Self::Unlikely,
+            3 => Self::Possible,
+            4 => Self::Likely,
+            5 => Self::VeryLikely,
+            _ => Self::UnknownValue(likelihood::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Likelihood {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "UNKNOWN" => Self::Unknown,
+            "VERY_UNLIKELY" => Self::VeryUnlikely,
+            "UNLIKELY" => Self::Unlikely,
+            "POSSIBLE" => Self::Possible,
+            "LIKELY" => Self::Likely,
+            "VERY_LIKELY" => Self::VeryLikely,
+            _ => Self::UnknownValue(likelihood::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Likelihood {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unknown => serializer.serialize_i32(0),
+            Self::VeryUnlikely => serializer.serialize_i32(1),
+            Self::Unlikely => serializer.serialize_i32(2),
+            Self::Possible => serializer.serialize_i32(3),
+            Self::Likely => serializer.serialize_i32(4),
+            Self::VeryLikely => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Likelihood {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Likelihood>::new(
+            ".google.cloud.vision.v1.Likelihood",
+        ))
     }
 }

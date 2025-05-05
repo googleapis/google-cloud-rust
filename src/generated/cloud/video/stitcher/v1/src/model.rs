@@ -248,6 +248,7 @@ pub struct ResponseMetadata {
     pub status_code: std::string::String,
 
     /// Size in bytes of the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_bytes: i32,
 
     /// Total time elapsed for the response.
@@ -386,32 +387,6 @@ impl CdnKey {
         })
     }
 
-    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn akamai_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
-        #[allow(unreachable_patterns)]
-        self.cdn_key_config.as_ref().and_then(|v| match v {
-            crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// if it holds a `MediaCdnKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn media_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
-        #[allow(unreachable_patterns)]
-        self.cdn_key_config.as_ref().and_then(|v| match v {
-            crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// to hold a `GoogleCdnKey`.
     ///
@@ -428,6 +403,19 @@ impl CdnKey {
         self
     }
 
+    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
+    /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn akamai_cdn_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
+        #[allow(unreachable_patterns)]
+        self.cdn_key_config.as_ref().and_then(|v| match v {
+            crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// to hold a `AkamaiCdnKey`.
     ///
@@ -442,6 +430,19 @@ impl CdnKey {
         self.cdn_key_config =
             std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v.into()));
         self
+    }
+
+    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
+    /// if it holds a `MediaCdnKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn media_cdn_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
+        #[allow(unreachable_patterns)]
+        self.cdn_key_config.as_ref().and_then(|v| match v {
+            crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
@@ -724,66 +725,141 @@ pub mod companion_ads {
     use super::*;
 
     /// Indicates how many of the companions should be displayed with the ad.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DisplayRequirement(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DisplayRequirement {
+        /// Required companions are not specified. The default is ALL.
+        Unspecified,
+        /// All companions are required to be displayed.
+        All,
+        /// At least one of companions needs to be displayed.
+        Any,
+        /// All companions are optional for display.
+        None,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DisplayRequirement::value] or
+        /// [DisplayRequirement::name].
+        UnknownValue(display_requirement::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod display_requirement {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl DisplayRequirement {
-        /// Required companions are not specified. The default is ALL.
-        pub const DISPLAY_REQUIREMENT_UNSPECIFIED: DisplayRequirement = DisplayRequirement::new(0);
-
-        /// All companions are required to be displayed.
-        pub const ALL: DisplayRequirement = DisplayRequirement::new(1);
-
-        /// At least one of companions needs to be displayed.
-        pub const ANY: DisplayRequirement = DisplayRequirement::new(2);
-
-        /// All companions are optional for display.
-        pub const NONE: DisplayRequirement = DisplayRequirement::new(3);
-
-        /// Creates a new DisplayRequirement instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::All => std::option::Option::Some(1),
+                Self::Any => std::option::Option::Some(2),
+                Self::None => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DISPLAY_REQUIREMENT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALL"),
-                2 => std::borrow::Cow::Borrowed("ANY"),
-                3 => std::borrow::Cow::Borrowed("NONE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DISPLAY_REQUIREMENT_UNSPECIFIED"),
+                Self::All => std::option::Option::Some("ALL"),
+                Self::Any => std::option::Option::Some("ANY"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DISPLAY_REQUIREMENT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DISPLAY_REQUIREMENT_UNSPECIFIED)
-                }
-                "ALL" => std::option::Option::Some(Self::ALL),
-                "ANY" => std::option::Option::Some(Self::ANY),
-                "NONE" => std::option::Option::Some(Self::NONE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DisplayRequirement {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DisplayRequirement {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DisplayRequirement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DisplayRequirement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::All,
+                2 => Self::Any,
+                3 => Self::None,
+                _ => Self::UnknownValue(display_requirement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DisplayRequirement {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISPLAY_REQUIREMENT_UNSPECIFIED" => Self::Unspecified,
+                "ALL" => Self::All,
+                "ANY" => Self::Any,
+                "NONE" => Self::None,
+                _ => Self::UnknownValue(display_requirement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DisplayRequirement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::All => serializer.serialize_i32(1),
+                Self::Any => serializer.serialize_i32(2),
+                Self::None => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DisplayRequirement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DisplayRequirement>::new(
+                ".google.cloud.video.stitcher.v1.CompanionAds.DisplayRequirement",
+            ))
         }
     }
 }
@@ -799,21 +875,27 @@ pub struct Companion {
     pub api_framework: std::string::String,
 
     /// The pixel height of the placement slot for the intended creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height_px: i32,
 
     /// The pixel width of the placement slot for the intended creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width_px: i32,
 
     /// The pixel height of the creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub asset_height_px: i32,
 
     /// The maximum pixel height of the creative in its expanded state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expanded_height_px: i32,
 
     /// The pixel width of the creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub asset_width_px: i32,
 
     /// The maximum pixel width of the creative in its expanded state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expanded_width_px: i32,
 
     /// The ID used to identify the desired placement on a publisher's page.
@@ -927,34 +1009,6 @@ impl Companion {
         })
     }
 
-    /// The value of [ad_resource][crate::model::Companion::ad_resource]
-    /// if it holds a `StaticAdResource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn static_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
-        #[allow(unreachable_patterns)]
-        self.ad_resource.as_ref().and_then(|v| match v {
-            crate::model::companion::AdResource::StaticAdResource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [ad_resource][crate::model::Companion::ad_resource]
-    /// if it holds a `HtmlAdResource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn html_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
-        #[allow(unreachable_patterns)]
-        self.ad_resource.as_ref().and_then(|v| match v {
-            crate::model::companion::AdResource::HtmlAdResource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
     /// to hold a `IframeAdResource`.
     ///
@@ -972,6 +1026,21 @@ impl Companion {
         self
     }
 
+    /// The value of [ad_resource][crate::model::Companion::ad_resource]
+    /// if it holds a `StaticAdResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn static_ad_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
+        #[allow(unreachable_patterns)]
+        self.ad_resource.as_ref().and_then(|v| match v {
+            crate::model::companion::AdResource::StaticAdResource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
     /// to hold a `StaticAdResource`.
     ///
@@ -987,6 +1056,19 @@ impl Companion {
             crate::model::companion::AdResource::StaticAdResource(v.into()),
         );
         self
+    }
+
+    /// The value of [ad_resource][crate::model::Companion::ad_resource]
+    /// if it holds a `HtmlAdResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn html_ad_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
+        #[allow(unreachable_patterns)]
+        self.ad_resource.as_ref().and_then(|v| match v {
+            crate::model::companion::AdResource::HtmlAdResource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
@@ -1209,169 +1291,288 @@ pub mod event {
     use super::*;
 
     /// Describes the event that occurred.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EventType {
+        /// The event type is unspecified.
+        Unspecified,
+        /// First frame of creative ad viewed.
+        CreativeView,
+        /// Creative ad started.
+        Start,
+        /// Start of an ad break.
+        BreakStart,
+        /// End of an ad break.
+        BreakEnd,
+        /// Impression.
+        Impression,
+        /// First quartile progress.
+        FirstQuartile,
+        /// Midpoint progress.
+        Midpoint,
+        /// Third quartile progress.
+        ThirdQuartile,
+        /// Ad progress completed.
+        Complete,
+        /// Specific progress event with an offset.
+        Progress,
+        /// Player muted.
+        Mute,
+        /// Player unmuted.
+        Unmute,
+        /// Player paused.
+        Pause,
+        /// Click event.
+        Click,
+        /// Click-through event.
+        ClickThrough,
+        /// Player rewinding.
+        Rewind,
+        /// Player resumed.
+        Resume,
+        /// Error event.
+        Error,
+        /// Ad expanded to a larger size.
+        Expand,
+        /// Ad collapsed to a smaller size.
+        Collapse,
+        /// Non-linear ad closed.
+        Close,
+        /// Linear ad closed.
+        CloseLinear,
+        /// Ad skipped.
+        Skip,
+        /// Accept invitation event.
+        AcceptInvitation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EventType::value] or
+        /// [EventType::name].
+        UnknownValue(event_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod event_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl EventType {
-        /// The event type is unspecified.
-        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new(0);
-
-        /// First frame of creative ad viewed.
-        pub const CREATIVE_VIEW: EventType = EventType::new(1);
-
-        /// Creative ad started.
-        pub const START: EventType = EventType::new(2);
-
-        /// Start of an ad break.
-        pub const BREAK_START: EventType = EventType::new(3);
-
-        /// End of an ad break.
-        pub const BREAK_END: EventType = EventType::new(4);
-
-        /// Impression.
-        pub const IMPRESSION: EventType = EventType::new(5);
-
-        /// First quartile progress.
-        pub const FIRST_QUARTILE: EventType = EventType::new(6);
-
-        /// Midpoint progress.
-        pub const MIDPOINT: EventType = EventType::new(7);
-
-        /// Third quartile progress.
-        pub const THIRD_QUARTILE: EventType = EventType::new(8);
-
-        /// Ad progress completed.
-        pub const COMPLETE: EventType = EventType::new(9);
-
-        /// Specific progress event with an offset.
-        pub const PROGRESS: EventType = EventType::new(10);
-
-        /// Player muted.
-        pub const MUTE: EventType = EventType::new(11);
-
-        /// Player unmuted.
-        pub const UNMUTE: EventType = EventType::new(12);
-
-        /// Player paused.
-        pub const PAUSE: EventType = EventType::new(13);
-
-        /// Click event.
-        pub const CLICK: EventType = EventType::new(14);
-
-        /// Click-through event.
-        pub const CLICK_THROUGH: EventType = EventType::new(15);
-
-        /// Player rewinding.
-        pub const REWIND: EventType = EventType::new(16);
-
-        /// Player resumed.
-        pub const RESUME: EventType = EventType::new(17);
-
-        /// Error event.
-        pub const ERROR: EventType = EventType::new(18);
-
-        /// Ad expanded to a larger size.
-        pub const EXPAND: EventType = EventType::new(21);
-
-        /// Ad collapsed to a smaller size.
-        pub const COLLAPSE: EventType = EventType::new(22);
-
-        /// Non-linear ad closed.
-        pub const CLOSE: EventType = EventType::new(24);
-
-        /// Linear ad closed.
-        pub const CLOSE_LINEAR: EventType = EventType::new(25);
-
-        /// Ad skipped.
-        pub const SKIP: EventType = EventType::new(26);
-
-        /// Accept invitation event.
-        pub const ACCEPT_INVITATION: EventType = EventType::new(27);
-
-        /// Creates a new EventType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CreativeView => std::option::Option::Some(1),
+                Self::Start => std::option::Option::Some(2),
+                Self::BreakStart => std::option::Option::Some(3),
+                Self::BreakEnd => std::option::Option::Some(4),
+                Self::Impression => std::option::Option::Some(5),
+                Self::FirstQuartile => std::option::Option::Some(6),
+                Self::Midpoint => std::option::Option::Some(7),
+                Self::ThirdQuartile => std::option::Option::Some(8),
+                Self::Complete => std::option::Option::Some(9),
+                Self::Progress => std::option::Option::Some(10),
+                Self::Mute => std::option::Option::Some(11),
+                Self::Unmute => std::option::Option::Some(12),
+                Self::Pause => std::option::Option::Some(13),
+                Self::Click => std::option::Option::Some(14),
+                Self::ClickThrough => std::option::Option::Some(15),
+                Self::Rewind => std::option::Option::Some(16),
+                Self::Resume => std::option::Option::Some(17),
+                Self::Error => std::option::Option::Some(18),
+                Self::Expand => std::option::Option::Some(21),
+                Self::Collapse => std::option::Option::Some(22),
+                Self::Close => std::option::Option::Some(24),
+                Self::CloseLinear => std::option::Option::Some(25),
+                Self::Skip => std::option::Option::Some(26),
+                Self::AcceptInvitation => std::option::Option::Some(27),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EVENT_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATIVE_VIEW"),
-                2 => std::borrow::Cow::Borrowed("START"),
-                3 => std::borrow::Cow::Borrowed("BREAK_START"),
-                4 => std::borrow::Cow::Borrowed("BREAK_END"),
-                5 => std::borrow::Cow::Borrowed("IMPRESSION"),
-                6 => std::borrow::Cow::Borrowed("FIRST_QUARTILE"),
-                7 => std::borrow::Cow::Borrowed("MIDPOINT"),
-                8 => std::borrow::Cow::Borrowed("THIRD_QUARTILE"),
-                9 => std::borrow::Cow::Borrowed("COMPLETE"),
-                10 => std::borrow::Cow::Borrowed("PROGRESS"),
-                11 => std::borrow::Cow::Borrowed("MUTE"),
-                12 => std::borrow::Cow::Borrowed("UNMUTE"),
-                13 => std::borrow::Cow::Borrowed("PAUSE"),
-                14 => std::borrow::Cow::Borrowed("CLICK"),
-                15 => std::borrow::Cow::Borrowed("CLICK_THROUGH"),
-                16 => std::borrow::Cow::Borrowed("REWIND"),
-                17 => std::borrow::Cow::Borrowed("RESUME"),
-                18 => std::borrow::Cow::Borrowed("ERROR"),
-                21 => std::borrow::Cow::Borrowed("EXPAND"),
-                22 => std::borrow::Cow::Borrowed("COLLAPSE"),
-                24 => std::borrow::Cow::Borrowed("CLOSE"),
-                25 => std::borrow::Cow::Borrowed("CLOSE_LINEAR"),
-                26 => std::borrow::Cow::Borrowed("SKIP"),
-                27 => std::borrow::Cow::Borrowed("ACCEPT_INVITATION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVENT_TYPE_UNSPECIFIED"),
+                Self::CreativeView => std::option::Option::Some("CREATIVE_VIEW"),
+                Self::Start => std::option::Option::Some("START"),
+                Self::BreakStart => std::option::Option::Some("BREAK_START"),
+                Self::BreakEnd => std::option::Option::Some("BREAK_END"),
+                Self::Impression => std::option::Option::Some("IMPRESSION"),
+                Self::FirstQuartile => std::option::Option::Some("FIRST_QUARTILE"),
+                Self::Midpoint => std::option::Option::Some("MIDPOINT"),
+                Self::ThirdQuartile => std::option::Option::Some("THIRD_QUARTILE"),
+                Self::Complete => std::option::Option::Some("COMPLETE"),
+                Self::Progress => std::option::Option::Some("PROGRESS"),
+                Self::Mute => std::option::Option::Some("MUTE"),
+                Self::Unmute => std::option::Option::Some("UNMUTE"),
+                Self::Pause => std::option::Option::Some("PAUSE"),
+                Self::Click => std::option::Option::Some("CLICK"),
+                Self::ClickThrough => std::option::Option::Some("CLICK_THROUGH"),
+                Self::Rewind => std::option::Option::Some("REWIND"),
+                Self::Resume => std::option::Option::Some("RESUME"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::Expand => std::option::Option::Some("EXPAND"),
+                Self::Collapse => std::option::Option::Some("COLLAPSE"),
+                Self::Close => std::option::Option::Some("CLOSE"),
+                Self::CloseLinear => std::option::Option::Some("CLOSE_LINEAR"),
+                Self::Skip => std::option::Option::Some("SKIP"),
+                Self::AcceptInvitation => std::option::Option::Some("ACCEPT_INVITATION"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EVENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_TYPE_UNSPECIFIED),
-                "CREATIVE_VIEW" => std::option::Option::Some(Self::CREATIVE_VIEW),
-                "START" => std::option::Option::Some(Self::START),
-                "BREAK_START" => std::option::Option::Some(Self::BREAK_START),
-                "BREAK_END" => std::option::Option::Some(Self::BREAK_END),
-                "IMPRESSION" => std::option::Option::Some(Self::IMPRESSION),
-                "FIRST_QUARTILE" => std::option::Option::Some(Self::FIRST_QUARTILE),
-                "MIDPOINT" => std::option::Option::Some(Self::MIDPOINT),
-                "THIRD_QUARTILE" => std::option::Option::Some(Self::THIRD_QUARTILE),
-                "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
-                "PROGRESS" => std::option::Option::Some(Self::PROGRESS),
-                "MUTE" => std::option::Option::Some(Self::MUTE),
-                "UNMUTE" => std::option::Option::Some(Self::UNMUTE),
-                "PAUSE" => std::option::Option::Some(Self::PAUSE),
-                "CLICK" => std::option::Option::Some(Self::CLICK),
-                "CLICK_THROUGH" => std::option::Option::Some(Self::CLICK_THROUGH),
-                "REWIND" => std::option::Option::Some(Self::REWIND),
-                "RESUME" => std::option::Option::Some(Self::RESUME),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                "EXPAND" => std::option::Option::Some(Self::EXPAND),
-                "COLLAPSE" => std::option::Option::Some(Self::COLLAPSE),
-                "CLOSE" => std::option::Option::Some(Self::CLOSE),
-                "CLOSE_LINEAR" => std::option::Option::Some(Self::CLOSE_LINEAR),
-                "SKIP" => std::option::Option::Some(Self::SKIP),
-                "ACCEPT_INVITATION" => std::option::Option::Some(Self::ACCEPT_INVITATION),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for EventType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for EventType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EventType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CreativeView,
+                2 => Self::Start,
+                3 => Self::BreakStart,
+                4 => Self::BreakEnd,
+                5 => Self::Impression,
+                6 => Self::FirstQuartile,
+                7 => Self::Midpoint,
+                8 => Self::ThirdQuartile,
+                9 => Self::Complete,
+                10 => Self::Progress,
+                11 => Self::Mute,
+                12 => Self::Unmute,
+                13 => Self::Pause,
+                14 => Self::Click,
+                15 => Self::ClickThrough,
+                16 => Self::Rewind,
+                17 => Self::Resume,
+                18 => Self::Error,
+                21 => Self::Expand,
+                22 => Self::Collapse,
+                24 => Self::Close,
+                25 => Self::CloseLinear,
+                26 => Self::Skip,
+                27 => Self::AcceptInvitation,
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EventType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CREATIVE_VIEW" => Self::CreativeView,
+                "START" => Self::Start,
+                "BREAK_START" => Self::BreakStart,
+                "BREAK_END" => Self::BreakEnd,
+                "IMPRESSION" => Self::Impression,
+                "FIRST_QUARTILE" => Self::FirstQuartile,
+                "MIDPOINT" => Self::Midpoint,
+                "THIRD_QUARTILE" => Self::ThirdQuartile,
+                "COMPLETE" => Self::Complete,
+                "PROGRESS" => Self::Progress,
+                "MUTE" => Self::Mute,
+                "UNMUTE" => Self::Unmute,
+                "PAUSE" => Self::Pause,
+                "CLICK" => Self::Click,
+                "CLICK_THROUGH" => Self::ClickThrough,
+                "REWIND" => Self::Rewind,
+                "RESUME" => Self::Resume,
+                "ERROR" => Self::Error,
+                "EXPAND" => Self::Expand,
+                "COLLAPSE" => Self::Collapse,
+                "CLOSE" => Self::Close,
+                "CLOSE_LINEAR" => Self::CloseLinear,
+                "SKIP" => Self::Skip,
+                "ACCEPT_INVITATION" => Self::AcceptInvitation,
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CreativeView => serializer.serialize_i32(1),
+                Self::Start => serializer.serialize_i32(2),
+                Self::BreakStart => serializer.serialize_i32(3),
+                Self::BreakEnd => serializer.serialize_i32(4),
+                Self::Impression => serializer.serialize_i32(5),
+                Self::FirstQuartile => serializer.serialize_i32(6),
+                Self::Midpoint => serializer.serialize_i32(7),
+                Self::ThirdQuartile => serializer.serialize_i32(8),
+                Self::Complete => serializer.serialize_i32(9),
+                Self::Progress => serializer.serialize_i32(10),
+                Self::Mute => serializer.serialize_i32(11),
+                Self::Unmute => serializer.serialize_i32(12),
+                Self::Pause => serializer.serialize_i32(13),
+                Self::Click => serializer.serialize_i32(14),
+                Self::ClickThrough => serializer.serialize_i32(15),
+                Self::Rewind => serializer.serialize_i32(16),
+                Self::Resume => serializer.serialize_i32(17),
+                Self::Error => serializer.serialize_i32(18),
+                Self::Expand => serializer.serialize_i32(21),
+                Self::Collapse => serializer.serialize_i32(22),
+                Self::Close => serializer.serialize_i32(24),
+                Self::CloseLinear => serializer.serialize_i32(25),
+                Self::Skip => serializer.serialize_i32(26),
+                Self::AcceptInvitation => serializer.serialize_i32(27),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
+                ".google.cloud.video.stitcher.v1.Event.EventType",
+            ))
         }
     }
 }
@@ -1629,125 +1830,275 @@ pub mod live_config {
     use super::*;
 
     /// State of the live config.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is not specified.
+        Unspecified,
+        /// Live config is being created.
+        Creating,
+        /// Live config is ready for use.
+        Ready,
+        /// Live config is queued up for deletion.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Live config is being created.
-        pub const CREATING: State = State::new(1);
-
-        /// Live config is ready for use.
-        pub const READY: State = State::new(2);
-
-        /// Live config is queued up for deletion.
-        pub const DELETING: State = State::new(3);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("READY"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "READY" => std::option::Option::Some(Self::READY),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.video.stitcher.v1.LiveConfig.State",
+            ))
         }
     }
 
     /// Defines the ad stitching behavior in case the ad duration does not align
     /// exactly with the ad break boundaries. If not specified, the default is
     /// `CUT_CURRENT`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StitchingPolicy(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StitchingPolicy {
+        /// Stitching policy is not specified.
+        Unspecified,
+        /// Cuts an ad short and returns to content in the middle of the ad.
+        CutCurrent,
+        /// Finishes stitching the current ad before returning to content.
+        CompleteAd,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StitchingPolicy::value] or
+        /// [StitchingPolicy::name].
+        UnknownValue(stitching_policy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod stitching_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl StitchingPolicy {
-        /// Stitching policy is not specified.
-        pub const STITCHING_POLICY_UNSPECIFIED: StitchingPolicy = StitchingPolicy::new(0);
-
-        /// Cuts an ad short and returns to content in the middle of the ad.
-        pub const CUT_CURRENT: StitchingPolicy = StitchingPolicy::new(1);
-
-        /// Finishes stitching the current ad before returning to content.
-        pub const COMPLETE_AD: StitchingPolicy = StitchingPolicy::new(2);
-
-        /// Creates a new StitchingPolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CutCurrent => std::option::Option::Some(1),
+                Self::CompleteAd => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STITCHING_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CUT_CURRENT"),
-                2 => std::borrow::Cow::Borrowed("COMPLETE_AD"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STITCHING_POLICY_UNSPECIFIED"),
+                Self::CutCurrent => std::option::Option::Some("CUT_CURRENT"),
+                Self::CompleteAd => std::option::Option::Some("COMPLETE_AD"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STITCHING_POLICY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::STITCHING_POLICY_UNSPECIFIED)
-                }
-                "CUT_CURRENT" => std::option::Option::Some(Self::CUT_CURRENT),
-                "COMPLETE_AD" => std::option::Option::Some(Self::COMPLETE_AD),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for StitchingPolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for StitchingPolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StitchingPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StitchingPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CutCurrent,
+                2 => Self::CompleteAd,
+                _ => Self::UnknownValue(stitching_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StitchingPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STITCHING_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "CUT_CURRENT" => Self::CutCurrent,
+                "COMPLETE_AD" => Self::CompleteAd,
+                _ => Self::UnknownValue(stitching_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StitchingPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CutCurrent => serializer.serialize_i32(1),
+                Self::CompleteAd => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StitchingPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StitchingPolicy>::new(
+                ".google.cloud.video.stitcher.v1.LiveConfig.StitchingPolicy",
+            ))
         }
     }
 }
@@ -1759,6 +2110,7 @@ pub mod live_config {
 #[non_exhaustive]
 pub struct PrefetchConfig {
     /// Required. Indicates whether the option to prefetch ad requests is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// The duration in seconds of the part of the break to be prefetched.
@@ -1974,6 +2326,18 @@ impl VodSession {
         self
     }
 
+    /// Sets the value of [ad_tag_macro_map][crate::model::VodSession::ad_tag_macro_map].
+    pub fn set_ad_tag_macro_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ad_tag_macro_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [manifest_options][crate::model::VodSession::manifest_options].
     pub fn set_manifest_options<
         T: std::convert::Into<std::option::Option<crate::model::ManifestOptions>>,
@@ -2014,18 +2378,6 @@ impl VodSession {
     /// Sets the value of [vod_config][crate::model::VodSession::vod_config].
     pub fn set_vod_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vod_config = v.into();
-        self
-    }
-
-    /// Sets the value of [ad_tag_macro_map][crate::model::VodSession::ad_tag_macro_map].
-    pub fn set_ad_tag_macro_map<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ad_tag_macro_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2111,17 +2463,6 @@ impl Interstitials {
         std::default::Default::default()
     }
 
-    /// Sets the value of [session_content][crate::model::Interstitials::session_content].
-    pub fn set_session_content<
-        T: std::convert::Into<std::option::Option<crate::model::VodSessionContent>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.session_content = v.into();
-        self
-    }
-
     /// Sets the value of [ad_breaks][crate::model::Interstitials::ad_breaks].
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
@@ -2130,6 +2471,17 @@ impl Interstitials {
     {
         use std::iter::Iterator;
         self.ad_breaks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [session_content][crate::model::Interstitials::session_content].
+    pub fn set_session_content<
+        T: std::convert::Into<std::option::Option<crate::model::VodSessionContent>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.session_content = v.into();
         self
     }
 }
@@ -2276,24 +2628,6 @@ impl VodSessionAdBreak {
         std::default::Default::default()
     }
 
-    /// Sets the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
-    pub fn set_end_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time_offset = v.into();
-        self
-    }
-
-    /// Sets the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
-    pub fn set_start_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time_offset = v.into();
-        self
-    }
-
     /// Sets the value of [progress_events][crate::model::VodSessionAdBreak::progress_events].
     pub fn set_progress_events<T, V>(mut self, v: T) -> Self
     where
@@ -2313,6 +2647,24 @@ impl VodSessionAdBreak {
     {
         use std::iter::Iterator;
         self.ads = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
+    pub fn set_end_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time_offset = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
+    pub fn set_start_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time_offset = v.into();
         self
     }
 }
@@ -2394,6 +2746,18 @@ impl LiveSession {
         self
     }
 
+    /// Sets the value of [ad_tag_macros][crate::model::LiveSession::ad_tag_macros].
+    pub fn set_ad_tag_macros<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ad_tag_macros = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [manifest_options][crate::model::LiveSession::manifest_options].
     pub fn set_manifest_options<
         T: std::convert::Into<std::option::Option<crate::model::ManifestOptions>>,
@@ -2428,18 +2792,6 @@ impl LiveSession {
         v: T,
     ) -> Self {
         self.ad_tracking = v.into();
-        self
-    }
-
-    /// Sets the value of [ad_tag_macros][crate::model::LiveSession::ad_tag_macros].
-    pub fn set_ad_tag_macros<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ad_tag_macros = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2533,15 +2885,6 @@ impl ManifestOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [bitrate_order][crate::model::ManifestOptions::bitrate_order].
-    pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bitrate_order = v.into();
-        self
-    }
-
     /// Sets the value of [include_renditions][crate::model::ManifestOptions::include_renditions].
     pub fn set_include_renditions<T, V>(mut self, v: T) -> Self
     where
@@ -2550,6 +2893,15 @@ impl ManifestOptions {
     {
         use std::iter::Iterator;
         self.include_renditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [bitrate_order][crate::model::ManifestOptions::bitrate_order].
+    pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bitrate_order = v.into();
         self
     }
 }
@@ -2566,61 +2918,134 @@ pub mod manifest_options {
     use super::*;
 
     /// Defines the ordering policy during manifest generation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OrderPolicy(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OrderPolicy {
+        /// Ordering policy is not specified.
+        Unspecified,
+        /// Order by ascending.
+        Ascending,
+        /// Order by descending.
+        Descending,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OrderPolicy::value] or
+        /// [OrderPolicy::name].
+        UnknownValue(order_policy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod order_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl OrderPolicy {
-        /// Ordering policy is not specified.
-        pub const ORDER_POLICY_UNSPECIFIED: OrderPolicy = OrderPolicy::new(0);
-
-        /// Order by ascending.
-        pub const ASCENDING: OrderPolicy = OrderPolicy::new(1);
-
-        /// Order by descending.
-        pub const DESCENDING: OrderPolicy = OrderPolicy::new(2);
-
-        /// Creates a new OrderPolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ascending => std::option::Option::Some(1),
+                Self::Descending => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ORDER_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ASCENDING"),
-                2 => std::borrow::Cow::Borrowed("DESCENDING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ORDER_POLICY_UNSPECIFIED"),
+                Self::Ascending => std::option::Option::Some("ASCENDING"),
+                Self::Descending => std::option::Option::Some("DESCENDING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ORDER_POLICY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ORDER_POLICY_UNSPECIFIED)
-                }
-                "ASCENDING" => std::option::Option::Some(Self::ASCENDING),
-                "DESCENDING" => std::option::Option::Some(Self::DESCENDING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for OrderPolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for OrderPolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OrderPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OrderPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ascending,
+                2 => Self::Descending,
+                _ => Self::UnknownValue(order_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OrderPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ORDER_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "ASCENDING" => Self::Ascending,
+                "DESCENDING" => Self::Descending,
+                _ => Self::UnknownValue(order_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OrderPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ascending => serializer.serialize_i32(1),
+                Self::Descending => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OrderPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OrderPolicy>::new(
+                ".google.cloud.video.stitcher.v1.ManifestOptions.OrderPolicy",
+            ))
         }
     }
 }
@@ -2633,6 +3058,7 @@ pub mod manifest_options {
 pub struct RenditionFilter {
     /// Bitrate in bits per second for the rendition. If set, only renditions with
     /// the exact bitrate will match.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bitrate_bps: i32,
 
     /// Codecs for the rendition. If set, only renditions with the exact value
@@ -2744,6 +3170,7 @@ pub mod slate {
         pub network_code: std::string::String,
 
         /// Output only. The identifier generated for the slate by GAM.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub gam_slate_id: i64,
 
@@ -2984,6 +3411,7 @@ pub struct ListCdnKeysRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3071,12 +3499,6 @@ impl ListCdnKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCdnKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cdn_keys][crate::model::ListCdnKeysResponse::cdn_keys].
     pub fn set_cdn_keys<T, V>(mut self, v: T) -> Self
     where
@@ -3085,6 +3507,12 @@ impl ListCdnKeysResponse {
     {
         use std::iter::Iterator;
         self.cdn_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCdnKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3327,6 +3755,7 @@ pub struct ListVodStitchDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3390,12 +3819,6 @@ impl ListVodStitchDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVodStitchDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vod_stitch_details][crate::model::ListVodStitchDetailsResponse::vod_stitch_details].
     pub fn set_vod_stitch_details<T, V>(mut self, v: T) -> Self
     where
@@ -3404,6 +3827,12 @@ impl ListVodStitchDetailsResponse {
     {
         use std::iter::Iterator;
         self.vod_stitch_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVodStitchDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3474,6 +3903,7 @@ pub struct ListVodAdTagDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3537,12 +3967,6 @@ impl ListVodAdTagDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVodAdTagDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vod_ad_tag_details][crate::model::ListVodAdTagDetailsResponse::vod_ad_tag_details].
     pub fn set_vod_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
@@ -3551,6 +3975,12 @@ impl ListVodAdTagDetailsResponse {
     {
         use std::iter::Iterator;
         self.vod_ad_tag_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVodAdTagDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3621,6 +4051,7 @@ pub struct ListLiveAdTagDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The pagination token returned from a previous List request.
@@ -3684,12 +4115,6 @@ impl ListLiveAdTagDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLiveAdTagDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [live_ad_tag_details][crate::model::ListLiveAdTagDetailsResponse::live_ad_tag_details].
     pub fn set_live_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
@@ -3698,6 +4123,12 @@ impl ListLiveAdTagDetailsResponse {
     {
         use std::iter::Iterator;
         self.live_ad_tag_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLiveAdTagDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3882,6 +4313,7 @@ pub struct ListSlatesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3969,12 +4401,6 @@ impl ListSlatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSlatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [slates][crate::model::ListSlatesResponse::slates].
     pub fn set_slates<T, V>(mut self, v: T) -> Self
     where
@@ -3983,6 +4409,12 @@ impl ListSlatesResponse {
     {
         use std::iter::Iterator;
         self.slates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSlatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4270,6 +4702,7 @@ pub struct ListLiveConfigsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -4360,12 +4793,6 @@ impl ListLiveConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLiveConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [live_configs][crate::model::ListLiveConfigsResponse::live_configs].
     pub fn set_live_configs<T, V>(mut self, v: T) -> Self
     where
@@ -4374,6 +4801,12 @@ impl ListLiveConfigsResponse {
     {
         use std::iter::Iterator;
         self.live_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLiveConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4617,6 +5050,7 @@ pub struct ListVodConfigsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -4708,12 +5142,6 @@ impl ListVodConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVodConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vod_configs][crate::model::ListVodConfigsResponse::vod_configs].
     pub fn set_vod_configs<T, V>(mut self, v: T) -> Self
     where
@@ -4722,6 +5150,12 @@ impl ListVodConfigsResponse {
     {
         use std::iter::Iterator;
         self.vod_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVodConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5043,64 +5477,141 @@ pub mod vod_config {
     use super::*;
 
     /// State of the VOD config.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is not specified.
+        Unspecified,
+        /// VOD config is being created.
+        Creating,
+        /// VOD config is ready for use.
+        Ready,
+        /// VOD config is queued up for deletion.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// VOD config is being created.
-        pub const CREATING: State = State::new(1);
-
-        /// VOD config is ready for use.
-        pub const READY: State = State::new(2);
-
-        /// VOD config is queued up for deletion.
-        pub const DELETING: State = State::new(3);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("READY"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "READY" => std::option::Option::Some(Self::READY),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.video.stitcher.v1.VodConfig.State",
+            ))
         }
     }
 }
@@ -5138,60 +5649,135 @@ impl wkt::message::Message for GamVodConfig {
 }
 
 /// Determines the ad tracking policy.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AdTracking(i32);
-
-impl AdTracking {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AdTracking {
     /// The ad tracking policy is not specified.
-    pub const AD_TRACKING_UNSPECIFIED: AdTracking = AdTracking::new(0);
-
+    Unspecified,
     /// Client-side ad tracking is specified. The client player is expected to
     /// trigger playback and activity events itself.
-    pub const CLIENT: AdTracking = AdTracking::new(1);
-
+    Client,
     /// The Video Stitcher API will trigger playback events on behalf of
     /// the client player.
-    pub const SERVER: AdTracking = AdTracking::new(2);
+    Server,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AdTracking::value] or
+    /// [AdTracking::name].
+    UnknownValue(ad_tracking::UnknownValue),
+}
 
-    /// Creates a new AdTracking instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod ad_tracking {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl AdTracking {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Client => std::option::Option::Some(1),
+            Self::Server => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("AD_TRACKING_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("CLIENT"),
-            2 => std::borrow::Cow::Borrowed("SERVER"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("AD_TRACKING_UNSPECIFIED"),
+            Self::Client => std::option::Option::Some("CLIENT"),
+            Self::Server => std::option::Option::Some("SERVER"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "AD_TRACKING_UNSPECIFIED" => std::option::Option::Some(Self::AD_TRACKING_UNSPECIFIED),
-            "CLIENT" => std::option::Option::Some(Self::CLIENT),
-            "SERVER" => std::option::Option::Some(Self::SERVER),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for AdTracking {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for AdTracking {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AdTracking {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AdTracking {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Client,
+            2 => Self::Server,
+            _ => Self::UnknownValue(ad_tracking::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AdTracking {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "AD_TRACKING_UNSPECIFIED" => Self::Unspecified,
+            "CLIENT" => Self::Client,
+            "SERVER" => Self::Server,
+            _ => Self::UnknownValue(ad_tracking::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AdTracking {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Client => serializer.serialize_i32(1),
+            Self::Server => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AdTracking {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AdTracking>::new(
+            ".google.cloud.video.stitcher.v1.AdTracking",
+        ))
     }
 }

@@ -37,6 +37,10 @@ tracing               = "0.1"
 tracing-subscriber    = { version = "0.3", optional = true }
 wkt.workspace         = true
 
+[dependencies.bigquery]
+package = "google-cloud-bigquery-v2"
+path    = "../../src/generated/cloud/bigquery/v2"
+
 [dependencies.firestore]
 package = "google-cloud-firestore"
 path    = "../../src/firestore"
@@ -66,9 +70,9 @@ package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
-anyhow     = "1"
-mockall    = "0.13"
-serde      = { version = "1", features = ["serde_derive"] }
-serde_with = { version = "3", features = ["base64"] }
-test-case  = "3"
-tokio      = { version = "1", features = ["full", "macros"] }
+anyhow.workspace    = true
+mockall             = "0.13"
+serde               = { version = "1", features = ["serde_derive"] }
+serde_with          = { version = "3", features = ["base64"] }
+test-case.workspace = true
+tokio               = { version = "1", features = ["full", "macros"] }

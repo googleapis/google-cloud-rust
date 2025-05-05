@@ -16,7 +16,6 @@
 
 pub mod parameter_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ParameterManager][super::super::client::ParameterManager].
     ///
@@ -49,7 +48,7 @@ pub mod parameter_manager {
     /// Common implementation for [super::super::client::ParameterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod parameter_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod parameter_manager {
     pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
 
     impl ListParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListParametersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod parameter_manager {
     pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
 
     impl GetParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [name][crate::model::GetParameterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +206,9 @@ pub mod parameter_manager {
     pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
 
     impl CreateParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,18 +233,24 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [parameter_id][crate::model::CreateParameterRequest::parameter_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parameter_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parameter_id = v.into();
             self
         }
 
         /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
             mut self,
             v: T,
@@ -261,7 +278,9 @@ pub mod parameter_manager {
     pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
 
     impl UpdateParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -295,6 +314,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
             mut self,
             v: T,
@@ -322,7 +343,9 @@ pub mod parameter_manager {
     pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
 
     impl DeleteParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -347,6 +370,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -371,7 +396,9 @@ pub mod parameter_manager {
     pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
 
     impl ListParameterVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -414,6 +441,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListParameterVersionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -456,7 +485,9 @@ pub mod parameter_manager {
     pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
 
     impl GetParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,6 +515,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [name][crate::model::GetParameterVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -508,7 +541,9 @@ pub mod parameter_manager {
     pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
 
     impl RenderParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -536,6 +571,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [name][crate::model::RenderParameterVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -554,7 +591,9 @@ pub mod parameter_manager {
     pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
 
     impl CreateParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -582,18 +621,24 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterVersionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [parameter_version_id][crate::model::CreateParameterVersionRequest::parameter_version_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parameter_version_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parameter_version_id = v.into();
             self
         }
 
         /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parameter_version<
             T: Into<std::option::Option<crate::model::ParameterVersion>>,
         >(
@@ -623,7 +668,9 @@ pub mod parameter_manager {
     pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
 
     impl UpdateParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -660,6 +707,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parameter_version<
             T: Into<std::option::Option<crate::model::ParameterVersion>>,
         >(
@@ -689,7 +738,9 @@ pub mod parameter_manager {
     pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
 
     impl DeleteParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -717,6 +768,8 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -741,7 +794,9 @@ pub mod parameter_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -820,7 +875,9 @@ pub mod parameter_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

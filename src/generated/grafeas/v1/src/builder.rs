@@ -16,7 +16,6 @@
 
 pub mod grafeas {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Grafeas][super::super::client::Grafeas].
     ///
@@ -49,7 +48,7 @@ pub mod grafeas {
     /// Common implementation for [super::super::client::Grafeas] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Grafeas>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod grafeas {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod grafeas {
     pub struct GetOccurrence(RequestBuilder<crate::model::GetOccurrenceRequest>);
 
     impl GetOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +96,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -115,7 +116,7 @@ pub mod grafeas {
     pub struct ListOccurrences(RequestBuilder<crate::model::ListOccurrencesRequest>);
 
     impl ListOccurrences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -155,6 +156,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::ListOccurrencesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -191,7 +194,7 @@ pub mod grafeas {
     pub struct DeleteOccurrence(RequestBuilder<crate::model::DeleteOccurrenceRequest>);
 
     impl DeleteOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -219,6 +222,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::DeleteOccurrenceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -237,7 +242,7 @@ pub mod grafeas {
     pub struct CreateOccurrence(RequestBuilder<crate::model::CreateOccurrenceRequest>);
 
     impl CreateOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,12 +270,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::CreateOccurrenceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
             mut self,
             v: T,
@@ -292,7 +301,7 @@ pub mod grafeas {
     pub struct BatchCreateOccurrences(RequestBuilder<crate::model::BatchCreateOccurrencesRequest>);
 
     impl BatchCreateOccurrences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -320,12 +329,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateOccurrencesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [occurrences][crate::model::BatchCreateOccurrencesRequest::occurrences].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_occurrences<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -349,7 +362,7 @@ pub mod grafeas {
     pub struct UpdateOccurrence(RequestBuilder<crate::model::UpdateOccurrenceRequest>);
 
     impl UpdateOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -377,12 +390,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::UpdateOccurrenceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
             mut self,
             v: T,
@@ -413,7 +430,7 @@ pub mod grafeas {
     pub struct GetOccurrenceNote(RequestBuilder<crate::model::GetOccurrenceNoteRequest>);
 
     impl GetOccurrenceNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -441,6 +458,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceNoteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -459,7 +478,7 @@ pub mod grafeas {
     pub struct GetNote(RequestBuilder<crate::model::GetNoteRequest>);
 
     impl GetNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,6 +503,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::GetNoteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -502,7 +523,7 @@ pub mod grafeas {
     pub struct ListNotes(RequestBuilder<crate::model::ListNotesRequest>);
 
     impl ListNotes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -542,6 +563,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::ListNotesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -578,7 +601,7 @@ pub mod grafeas {
     pub struct DeleteNote(RequestBuilder<crate::model::DeleteNoteRequest>);
 
     impl DeleteNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -603,6 +626,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::DeleteNoteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -621,7 +646,7 @@ pub mod grafeas {
     pub struct CreateNote(RequestBuilder<crate::model::CreateNoteRequest>);
 
     impl CreateNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -646,18 +671,24 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::CreateNoteRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [note_id][crate::model::CreateNoteRequest::note_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_note_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.note_id = v.into();
             self
         }
 
         /// Sets the value of [note][crate::model::CreateNoteRequest::note].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
             self.0.request.note = v.into();
             self
@@ -676,7 +707,7 @@ pub mod grafeas {
     pub struct BatchCreateNotes(RequestBuilder<crate::model::BatchCreateNotesRequest>);
 
     impl BatchCreateNotes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -704,12 +735,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateNotesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [notes][crate::model::BatchCreateNotesRequest::notes].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_notes<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -733,7 +768,7 @@ pub mod grafeas {
     pub struct UpdateNote(RequestBuilder<crate::model::UpdateNoteRequest>);
 
     impl UpdateNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -758,12 +793,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::UpdateNoteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [note][crate::model::UpdateNoteRequest::note].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
             self.0.request.note = v.into();
             self
@@ -791,7 +830,7 @@ pub mod grafeas {
     pub struct ListNoteOccurrences(RequestBuilder<crate::model::ListNoteOccurrencesRequest>);
 
     impl ListNoteOccurrences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -834,6 +873,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::ListNoteOccurrencesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

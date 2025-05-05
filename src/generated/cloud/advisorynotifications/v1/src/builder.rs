@@ -16,7 +16,6 @@
 
 pub mod advisory_notifications_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AdvisoryNotificationsService][super::super::client::AdvisoryNotificationsService].
     ///
@@ -49,7 +48,7 @@ pub mod advisory_notifications_service {
     /// Common implementation for [super::super::client::AdvisoryNotificationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod advisory_notifications_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod advisory_notifications_service {
 
     impl ListNotifications {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -119,6 +118,8 @@ pub mod advisory_notifications_service {
         }
 
         /// Sets the value of [parent][crate::model::ListNotificationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -162,7 +163,7 @@ pub mod advisory_notifications_service {
 
     impl GetNotification {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -188,6 +189,8 @@ pub mod advisory_notifications_service {
         }
 
         /// Sets the value of [name][crate::model::GetNotificationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -213,7 +216,7 @@ pub mod advisory_notifications_service {
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -239,6 +242,8 @@ pub mod advisory_notifications_service {
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -258,7 +263,7 @@ pub mod advisory_notifications_service {
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -284,6 +289,8 @@ pub mod advisory_notifications_service {
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
             mut self,
             v: T,

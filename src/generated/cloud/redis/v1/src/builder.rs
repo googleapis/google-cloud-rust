@@ -16,7 +16,6 @@
 
 pub mod cloud_redis {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudRedis][super::super::client::CloudRedis].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_redis {
     /// Common implementation for [super::super::client::CloudRedis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_redis {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_redis {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -142,7 +147,9 @@ pub mod cloud_redis {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,6 +174,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -185,7 +194,9 @@ pub mod cloud_redis {
     pub struct GetInstanceAuthString(RequestBuilder<crate::model::GetInstanceAuthStringRequest>);
 
     impl GetInstanceAuthString {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,6 +224,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceAuthStringRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -231,7 +244,9 @@ pub mod cloud_redis {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -294,18 +309,24 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -327,7 +348,9 @@ pub mod cloud_redis {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -390,6 +413,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -399,6 +424,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -420,7 +447,9 @@ pub mod cloud_redis {
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
     impl UpgradeInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -483,12 +512,16 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::UpgradeInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [redis_version][crate::model::UpgradeInstanceRequest::redis_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_redis_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.redis_version = v.into();
             self
@@ -507,7 +540,9 @@ pub mod cloud_redis {
     pub struct ImportInstance(RequestBuilder<crate::model::ImportInstanceRequest>);
 
     impl ImportInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -570,12 +605,16 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::ImportInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [input_config][crate::model::ImportInstanceRequest::input_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input_config<T: Into<std::option::Option<crate::model::InputConfig>>>(
             mut self,
             v: T,
@@ -597,7 +636,9 @@ pub mod cloud_redis {
     pub struct ExportInstance(RequestBuilder<crate::model::ExportInstanceRequest>);
 
     impl ExportInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -660,12 +701,16 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::ExportInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [output_config][crate::model::ExportInstanceRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
             mut self,
             v: T,
@@ -687,7 +732,9 @@ pub mod cloud_redis {
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -753,6 +800,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::FailoverInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -782,7 +831,9 @@ pub mod cloud_redis {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -842,6 +893,8 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -860,7 +913,9 @@ pub mod cloud_redis {
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
 
     impl RescheduleMaintenance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -926,12 +981,16 @@ pub mod cloud_redis {
         }
 
         /// Sets the value of [name][crate::model::RescheduleMaintenanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [reschedule_type][crate::model::RescheduleMaintenanceRequest::reschedule_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_reschedule_type<
             T: Into<crate::model::reschedule_maintenance_request::RescheduleType>,
         >(
@@ -964,7 +1023,9 @@ pub mod cloud_redis {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1043,7 +1104,9 @@ pub mod cloud_redis {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1086,7 +1149,9 @@ pub mod cloud_redis {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1165,7 +1230,9 @@ pub mod cloud_redis {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1211,7 +1278,9 @@ pub mod cloud_redis {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1257,7 +1326,9 @@ pub mod cloud_redis {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

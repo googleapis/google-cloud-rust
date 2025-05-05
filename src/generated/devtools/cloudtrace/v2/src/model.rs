@@ -297,6 +297,7 @@ pub mod span {
         /// The number of attributes that were discarded. Attributes can be discarded
         /// because their keys are too long or because there are too many attributes.
         /// If this value is 0 then all attributes are valid.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_attributes_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -308,12 +309,6 @@ pub mod span {
             std::default::Default::default()
         }
 
-        /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
-        pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_attributes_count = v.into();
-            self
-        }
-
         /// Sets the value of [attribute_map][crate::model::span::Attributes::attribute_map].
         pub fn set_attribute_map<T, K, V>(mut self, v: T) -> Self
         where
@@ -323,6 +318,12 @@ pub mod span {
         {
             use std::iter::Iterator;
             self.attribute_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
+        pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_attributes_count = v.into();
             self
         }
     }
@@ -396,22 +397,6 @@ pub mod span {
             })
         }
 
-        /// The value of [value][crate::model::span::TimeEvent::value]
-        /// if it holds a `MessageEvent`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn message_event(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>>
-        {
-            #[allow(unreachable_patterns)]
-            self.value.as_ref().and_then(|v| match v {
-                crate::model::span::time_event::Value::MessageEvent(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [value][crate::model::span::TimeEvent::value]
         /// to hold a `Annotation`.
         ///
@@ -427,6 +412,22 @@ pub mod span {
                 crate::model::span::time_event::Value::Annotation(v.into()),
             );
             self
+        }
+
+        /// The value of [value][crate::model::span::TimeEvent::value]
+        /// if it holds a `MessageEvent`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn message_event(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>>
+        {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::span::time_event::Value::MessageEvent(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [value][crate::model::span::TimeEvent::value]
@@ -525,16 +526,19 @@ pub mod span {
 
             /// An identifier for the MessageEvent's message that can be used to match
             /// `SENT` and `RECEIVED` MessageEvents.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub id: i64,
 
             /// The number of uncompressed bytes sent or received.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub uncompressed_size_bytes: i64,
 
             /// The number of compressed bytes sent or received. If missing, the
             /// compressed size is assumed to be the same size as the uncompressed
             /// size.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub compressed_size_bytes: i64,
 
@@ -589,59 +593,137 @@ pub mod span {
             use super::*;
 
             /// Indicates whether the message was sent or received.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(i32);
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Type {
+                /// Unknown event type.
+                Unspecified,
+                /// Indicates a sent message.
+                Sent,
+                /// Indicates a received message.
+                Received,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [Type::value] or
+                /// [Type::name].
+                UnknownValue(r#type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod r#type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
             impl Type {
-                /// Unknown event type.
-                pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-                /// Indicates a sent message.
-                pub const SENT: Type = Type::new(1);
-
-                /// Indicates a received message.
-                pub const RECEIVED: Type = Type::new(2);
-
-                /// Creates a new Type instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
-
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Sent => std::option::Option::Some(1),
+                        Self::Received => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("SENT"),
-                        2 => std::borrow::Cow::Borrowed("RECEIVED"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                        Self::Sent => std::option::Option::Some("SENT"),
+                        Self::Received => std::option::Option::Some("RECEIVED"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                        "SENT" => std::option::Option::Some(Self::SENT),
-                        "RECEIVED" => std::option::Option::Some(Self::RECEIVED),
-                        _ => std::option::Option::None,
-                    }
-                }
-            }
-
-            impl std::convert::From<i32> for Type {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for Type {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for Type {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Sent,
+                        2 => Self::Received,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for Type {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "SENT" => Self::Sent,
+                        "RECEIVED" => Self::Received,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Sent => serializer.serialize_i32(1),
+                        Self::Received => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                        ".google.devtools.cloudtrace.v2.Span.TimeEvent.MessageEvent.Type",
+                    ))
                 }
             }
         }
@@ -673,10 +755,12 @@ pub mod span {
 
         /// The number of dropped annotations in all the included time events.
         /// If the value is 0, then no annotations were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_annotations_count: i32,
 
         /// The number of dropped message events in all the included time events.
         /// If the value is 0, then no message events were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_message_events_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -686,6 +770,17 @@ pub mod span {
     impl TimeEvents {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [time_event][crate::model::span::TimeEvents::time_event].
+        pub fn set_time_event<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::span::TimeEvent>,
+        {
+            use std::iter::Iterator;
+            self.time_event = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [dropped_annotations_count][crate::model::span::TimeEvents::dropped_annotations_count].
@@ -700,17 +795,6 @@ pub mod span {
             v: T,
         ) -> Self {
             self.dropped_message_events_count = v.into();
-            self
-        }
-
-        /// Sets the value of [time_event][crate::model::span::TimeEvents::time_event].
-        pub fn set_time_event<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::span::TimeEvent>,
-        {
-            use std::iter::Iterator;
-            self.time_event = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -802,59 +886,137 @@ pub mod span {
 
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// The relationship of the two spans is unknown.
+            Unspecified,
+            /// The linked span is a child of the current span.
+            ChildLinkedSpan,
+            /// The linked span is a parent of the current span.
+            ParentLinkedSpan,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl Type {
-            /// The relationship of the two spans is unknown.
-            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-            /// The linked span is a child of the current span.
-            pub const CHILD_LINKED_SPAN: Type = Type::new(1);
-
-            /// The linked span is a parent of the current span.
-            pub const PARENT_LINKED_SPAN: Type = Type::new(2);
-
-            /// Creates a new Type instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::ChildLinkedSpan => std::option::Option::Some(1),
+                    Self::ParentLinkedSpan => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("CHILD_LINKED_SPAN"),
-                    2 => std::borrow::Cow::Borrowed("PARENT_LINKED_SPAN"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::ChildLinkedSpan => std::option::Option::Some("CHILD_LINKED_SPAN"),
+                    Self::ParentLinkedSpan => std::option::Option::Some("PARENT_LINKED_SPAN"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                    "CHILD_LINKED_SPAN" => std::option::Option::Some(Self::CHILD_LINKED_SPAN),
-                    "PARENT_LINKED_SPAN" => std::option::Option::Some(Self::PARENT_LINKED_SPAN),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Type {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::ChildLinkedSpan,
+                    2 => Self::ParentLinkedSpan,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "CHILD_LINKED_SPAN" => Self::ChildLinkedSpan,
+                    "PARENT_LINKED_SPAN" => Self::ParentLinkedSpan,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::ChildLinkedSpan => serializer.serialize_i32(1),
+                    Self::ParentLinkedSpan => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.devtools.cloudtrace.v2.Span.Link.Type",
+                ))
             }
         }
     }
@@ -872,6 +1034,7 @@ pub mod span {
 
         /// The number of dropped links after the maximum size was enforced. If
         /// this value is 0, then no links were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_links_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -881,12 +1044,6 @@ pub mod span {
     impl Links {
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
-        pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_links_count = v.into();
-            self
         }
 
         /// Sets the value of [link][crate::model::span::Links::link].
@@ -899,6 +1056,12 @@ pub mod span {
             self.link = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
+        pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_links_count = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for Links {
@@ -909,83 +1072,164 @@ pub mod span {
 
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpanKind(i32);
-
-    impl SpanKind {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SpanKind {
         /// Unspecified. Do NOT use as default.
         /// Implementations MAY assume SpanKind.INTERNAL to be default.
-        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::new(0);
-
+        Unspecified,
         /// Indicates that the span is used internally. Default value.
-        pub const INTERNAL: SpanKind = SpanKind::new(1);
-
+        Internal,
         /// Indicates that the span covers server-side handling of an RPC or other
         /// remote network request.
-        pub const SERVER: SpanKind = SpanKind::new(2);
-
+        Server,
         /// Indicates that the span covers the client-side wrapper around an RPC or
         /// other remote request.
-        pub const CLIENT: SpanKind = SpanKind::new(3);
-
+        Client,
         /// Indicates that the span describes producer sending a message to a broker.
         /// Unlike client and  server, there is no direct critical path latency
         /// relationship between producer and consumer spans (e.g. publishing a
         /// message to a pubsub service).
-        pub const PRODUCER: SpanKind = SpanKind::new(4);
-
+        Producer,
         /// Indicates that the span describes consumer receiving a message from a
         /// broker. Unlike client and  server, there is no direct critical path
         /// latency relationship between producer and consumer spans (e.g. receiving
         /// a message from a pubsub service subscription).
-        pub const CONSUMER: SpanKind = SpanKind::new(5);
+        Consumer,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SpanKind::value] or
+        /// [SpanKind::name].
+        UnknownValue(span_kind::UnknownValue),
+    }
 
-        /// Creates a new SpanKind instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod span_kind {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl SpanKind {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Internal => std::option::Option::Some(1),
+                Self::Server => std::option::Option::Some(2),
+                Self::Client => std::option::Option::Some(3),
+                Self::Producer => std::option::Option::Some(4),
+                Self::Consumer => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SPAN_KIND_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INTERNAL"),
-                2 => std::borrow::Cow::Borrowed("SERVER"),
-                3 => std::borrow::Cow::Borrowed("CLIENT"),
-                4 => std::borrow::Cow::Borrowed("PRODUCER"),
-                5 => std::borrow::Cow::Borrowed("CONSUMER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SPAN_KIND_UNSPECIFIED"),
+                Self::Internal => std::option::Option::Some("INTERNAL"),
+                Self::Server => std::option::Option::Some("SERVER"),
+                Self::Client => std::option::Option::Some("CLIENT"),
+                Self::Producer => std::option::Option::Some("PRODUCER"),
+                Self::Consumer => std::option::Option::Some("CONSUMER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SPAN_KIND_UNSPECIFIED" => std::option::Option::Some(Self::SPAN_KIND_UNSPECIFIED),
-                "INTERNAL" => std::option::Option::Some(Self::INTERNAL),
-                "SERVER" => std::option::Option::Some(Self::SERVER),
-                "CLIENT" => std::option::Option::Some(Self::CLIENT),
-                "PRODUCER" => std::option::Option::Some(Self::PRODUCER),
-                "CONSUMER" => std::option::Option::Some(Self::CONSUMER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SpanKind {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SpanKind {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SpanKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SpanKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Internal,
+                2 => Self::Server,
+                3 => Self::Client,
+                4 => Self::Producer,
+                5 => Self::Consumer,
+                _ => Self::UnknownValue(span_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SpanKind {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SPAN_KIND_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL" => Self::Internal,
+                "SERVER" => Self::Server,
+                "CLIENT" => Self::Client,
+                "PRODUCER" => Self::Producer,
+                "CONSUMER" => Self::Consumer,
+                _ => Self::UnknownValue(span_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SpanKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Internal => serializer.serialize_i32(1),
+                Self::Server => serializer.serialize_i32(2),
+                Self::Client => serializer.serialize_i32(3),
+                Self::Producer => serializer.serialize_i32(4),
+                Self::Consumer => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SpanKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpanKind>::new(
+                ".google.devtools.cloudtrace.v2.Span.SpanKind",
+            ))
         }
     }
 }
@@ -1036,28 +1280,6 @@ impl AttributeValue {
         })
     }
 
-    /// The value of [value][crate::model::AttributeValue::value]
-    /// if it holds a `IntValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_value::Value::IntValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::AttributeValue::value]
-    /// if it holds a `BoolValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bool_value(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_value::Value::BoolValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::AttributeValue::value]
     /// to hold a `StringValue`.
     ///
@@ -1074,6 +1296,17 @@ impl AttributeValue {
         self
     }
 
+    /// The value of [value][crate::model::AttributeValue::value]
+    /// if it holds a `IntValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_value::Value::IntValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::AttributeValue::value]
     /// to hold a `IntValue`.
     ///
@@ -1083,6 +1316,17 @@ impl AttributeValue {
         self.value =
             std::option::Option::Some(crate::model::attribute_value::Value::IntValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::AttributeValue::value]
+    /// if it holds a `BoolValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_value::Value::BoolValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::AttributeValue::value]
@@ -1141,6 +1385,7 @@ pub struct StackTrace {
     ///
     /// Subsequent spans within the same request can refer
     /// to that stack trace by only setting `stackTraceHashId`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub stack_trace_hash_id: i64,
 
@@ -1206,11 +1451,13 @@ pub mod stack_trace {
         pub file_name: std::option::Option<crate::model::TruncatableString>,
 
         /// The line number in `file_name` where the function call appears.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub line_number: i64,
 
         /// The column number where the function call appears, if available.
         /// This is important in JavaScript because of its anonymous functions.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub column_number: i64,
 
@@ -1316,6 +1563,7 @@ pub mod stack_trace {
         /// The number of stack frames that were dropped because there
         /// were too many stack frames.
         /// If this value is 0, then no stack frames were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_frames_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1327,12 +1575,6 @@ pub mod stack_trace {
             std::default::Default::default()
         }
 
-        /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
-        pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_frames_count = v.into();
-            self
-        }
-
         /// Sets the value of [frame][crate::model::stack_trace::StackFrames::frame].
         pub fn set_frame<T, V>(mut self, v: T) -> Self
         where
@@ -1341,6 +1583,12 @@ pub mod stack_trace {
         {
             use std::iter::Iterator;
             self.frame = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
+        pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_frames_count = v.into();
             self
         }
     }
@@ -1424,6 +1672,7 @@ pub struct TruncatableString {
 
     /// The number of bytes removed from the original string. If this
     /// value is 0, then the string was not shortened.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub truncated_byte_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

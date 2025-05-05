@@ -450,7 +450,7 @@ impl super::stub::DlpService for DlpService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("type", &req.r#type.value())]);
+        let builder = builder.query(&[("type", &req.r#type)]);
         let builder = builder.query(&[("locationId", &req.location_id)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -635,7 +635,7 @@ impl super::stub::DlpService for DlpService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("type", &req.r#type.value())]);
+        let builder = builder.query(&[("type", &req.r#type)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("locationId", &req.location_id)]);
         self.inner

@@ -193,6 +193,7 @@ pub struct LogEntry {
     /// for storage when this log entry was written, or the sampling decision was
     /// unknown at the time. A non-sampled `trace` value is still useful as a
     /// request correlation identifier. The default is False.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trace_sampled: bool,
 
     /// Optional. Source code location information associated with the log entry,
@@ -279,6 +280,18 @@ impl LogEntry {
         self
     }
 
+    /// Sets the value of [labels][crate::model::LogEntry::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [operation][crate::model::LogEntry::operation].
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::LogEntryOperation>>,
@@ -328,18 +341,6 @@ impl LogEntry {
         self
     }
 
-    /// Sets the value of [labels][crate::model::LogEntry::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [payload][crate::model::LogEntry::payload].
     ///
     /// Note that all the setters affecting `payload` are mutually
@@ -365,28 +366,6 @@ impl LogEntry {
         })
     }
 
-    /// The value of [payload][crate::model::LogEntry::payload]
-    /// if it holds a `TextPayload`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.payload.as_ref().and_then(|v| match v {
-            crate::model::log_entry::Payload::TextPayload(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [payload][crate::model::LogEntry::payload]
-    /// if it holds a `JsonPayload`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn json_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
-        #[allow(unreachable_patterns)]
-        self.payload.as_ref().and_then(|v| match v {
-            crate::model::log_entry::Payload::JsonPayload(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [payload][crate::model::LogEntry::payload]
     /// to hold a `ProtoPayload`.
     ///
@@ -401,6 +380,17 @@ impl LogEntry {
         self
     }
 
+    /// The value of [payload][crate::model::LogEntry::payload]
+    /// if it holds a `TextPayload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.payload.as_ref().and_then(|v| match v {
+            crate::model::log_entry::Payload::TextPayload(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [payload][crate::model::LogEntry::payload]
     /// to hold a `TextPayload`.
     ///
@@ -410,6 +400,17 @@ impl LogEntry {
         self.payload =
             std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
         self
+    }
+
+    /// The value of [payload][crate::model::LogEntry::payload]
+    /// if it holds a `JsonPayload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn json_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+        #[allow(unreachable_patterns)]
+        self.payload.as_ref().and_then(|v| match v {
+            crate::model::log_entry::Payload::JsonPayload(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [payload][crate::model::LogEntry::payload]
@@ -479,9 +480,11 @@ pub struct LogEntryOperation {
     pub producer: std::string::String,
 
     /// Optional. Set this to True if this is the first log entry in the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub first: bool,
 
     /// Optional. Set this to True if this is the last log entry in the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub last: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -538,6 +541,7 @@ pub struct LogEntrySourceLocation {
 
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub line: i64,
 
@@ -601,9 +605,11 @@ pub struct LogSplit {
     /// The index of this LogEntry in the sequence of split log entries. Log
     /// entries are given |index| values 0, 1, ..., n-1 for a sequence of n log
     /// entries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// The total number of log entries that the original LogEntry was split into.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_splits: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -774,11 +780,13 @@ pub struct WriteLogEntriesRequest {
     /// error details in `WriteLogEntriesPartialErrors.log_entry_errors` keyed by
     /// the entries' zero-based index in the `entries`. Failed requests for which
     /// no entries are written will not include per-entry errors.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partial_success: bool,
 
     /// Optional. If true, the request should expect normal response, but the
     /// entries won't be persisted nor exported. Useful for checking whether the
     /// logging API endpoints are working properly before sending valuable data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dry_run: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -807,15 +815,15 @@ impl WriteLogEntriesRequest {
         self
     }
 
-    /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
-    pub fn set_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.partial_success = v.into();
-        self
-    }
-
-    /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
-    pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.dry_run = v.into();
+    /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -830,15 +838,15 @@ impl WriteLogEntriesRequest {
         self
     }
 
-    /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
+    pub fn set_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.partial_success = v.into();
+        self
+    }
+
+    /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
+    pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dry_run = v.into();
         self
     }
 }
@@ -961,6 +969,7 @@ pub struct ListLogEntriesRequest {
     /// Default is 50. If the value is negative or exceeds 1000, the request is
     /// rejected. The presence of `next_page_token` in the response indicates that
     /// more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -977,6 +986,17 @@ pub struct ListLogEntriesRequest {
 impl ListLogEntriesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
+    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_names = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [filter][crate::model::ListLogEntriesRequest::filter].
@@ -1000,17 +1020,6 @@ impl ListLogEntriesRequest {
     /// Sets the value of [page_token][crate::model::ListLogEntriesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
-    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1055,12 +1064,6 @@ impl ListLogEntriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogEntriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entries][crate::model::ListLogEntriesResponse::entries].
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
@@ -1069,6 +1072,12 @@ impl ListLogEntriesResponse {
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogEntriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1102,6 +1111,7 @@ pub struct ListMonitoredResourceDescriptorsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1164,12 +1174,6 @@ impl ListMonitoredResourceDescriptorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [resource_descriptors][crate::model::ListMonitoredResourceDescriptorsResponse::resource_descriptors].
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
@@ -1178,6 +1182,12 @@ impl ListMonitoredResourceDescriptorsResponse {
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1238,6 +1248,7 @@ pub struct ListLogsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1262,6 +1273,17 @@ impl ListLogsRequest {
         self
     }
 
+    /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
+    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::ListLogsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -1271,17 +1293,6 @@ impl ListLogsRequest {
     /// Sets the value of [page_token][crate::model::ListLogsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
-    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1319,12 +1330,6 @@ impl ListLogsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [log_names][crate::model::ListLogsResponse::log_names].
     pub fn set_log_names<T, V>(mut self, v: T) -> Self
     where
@@ -1333,6 +1338,12 @@ impl ListLogsResponse {
     {
         use std::iter::Iterator;
         self.log_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1389,6 +1400,17 @@ impl TailLogEntriesRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [resource_names][crate::model::TailLogEntriesRequest::resource_names].
+    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [filter][crate::model::TailLogEntriesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -1401,17 +1423,6 @@ impl TailLogEntriesRequest {
         v: T,
     ) -> Self {
         self.buffer_window = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_names][crate::model::TailLogEntriesRequest::resource_names].
-    pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1495,6 +1506,7 @@ pub mod tail_log_entries_response {
         pub reason: crate::model::tail_log_entries_response::suppression_info::Reason,
 
         /// A lower bound on the count of entries omitted due to `reason`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub suppressed_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1536,63 +1548,141 @@ pub mod tail_log_entries_response {
         use super::*;
 
         /// An indicator of why entries were omitted.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Reason(i32);
-
-        impl Reason {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Reason {
             /// Unexpected default.
-            pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
-
+            Unspecified,
             /// Indicates suppression occurred due to relevant entries being
             /// received in excess of rate limits. For quotas and limits, see
             /// [Logging API quotas and
             /// limits](https://cloud.google.com/logging/quotas#api-limits).
-            pub const RATE_LIMIT: Reason = Reason::new(1);
-
+            RateLimit,
             /// Indicates suppression occurred due to the client not consuming
             /// responses quickly enough.
-            pub const NOT_CONSUMED: Reason = Reason::new(2);
+            NotConsumed,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Reason::value] or
+            /// [Reason::name].
+            UnknownValue(reason::UnknownValue),
+        }
 
-            /// Creates a new Reason instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod reason {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl Reason {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::RateLimit => std::option::Option::Some(1),
+                    Self::NotConsumed => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("RATE_LIMIT"),
-                    2 => std::borrow::Cow::Borrowed("NOT_CONSUMED"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+                    Self::RateLimit => std::option::Option::Some("RATE_LIMIT"),
+                    Self::NotConsumed => std::option::Option::Some("NOT_CONSUMED"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
-                    "RATE_LIMIT" => std::option::Option::Some(Self::RATE_LIMIT),
-                    "NOT_CONSUMED" => std::option::Option::Some(Self::NOT_CONSUMED),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Reason {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Reason {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Reason {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Reason {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::RateLimit,
+                    2 => Self::NotConsumed,
+                    _ => Self::UnknownValue(reason::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Reason {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "REASON_UNSPECIFIED" => Self::Unspecified,
+                    "RATE_LIMIT" => Self::RateLimit,
+                    "NOT_CONSUMED" => Self::NotConsumed,
+                    _ => Self::UnknownValue(reason::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Reason {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::RateLimit => serializer.serialize_i32(1),
+                    Self::NotConsumed => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Reason {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
+                    ".google.logging.v2.TailLogEntriesResponse.SuppressionInfo.Reason",
+                ))
             }
         }
     }
@@ -1702,12 +1792,14 @@ pub struct LogBucket {
     /// will automatically be deleted. The minimum retention period is 1 day. If
     /// this value is set to zero at bucket creation time, the default time of 30
     /// days will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retention_days: i32,
 
     /// Whether the bucket is locked.
     ///
     /// The retention period on a locked bucket cannot be changed. Locked buckets
     /// may only be deleted if they are empty.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub locked: bool,
 
     /// Output only. The bucket lifecycle state.
@@ -1716,6 +1808,7 @@ pub struct LogBucket {
     /// Whether log analytics is enabled for this bucket.
     ///
     /// Once enabled, log analytics features cannot be disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analytics_enabled: bool,
 
     /// Log entry field paths that are denied access in this bucket.
@@ -1806,17 +1899,6 @@ impl LogBucket {
         self
     }
 
-    /// Sets the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
-    pub fn set_cmek_settings<
-        T: std::convert::Into<std::option::Option<crate::model::CmekSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cmek_settings = v.into();
-        self
-    }
-
     /// Sets the value of [restricted_fields][crate::model::LogBucket::restricted_fields].
     pub fn set_restricted_fields<T, V>(mut self, v: T) -> Self
     where
@@ -1836,6 +1918,17 @@ impl LogBucket {
     {
         use std::iter::Iterator;
         self.index_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cmek_settings][crate::model::LogBucket::cmek_settings].
+    pub fn set_cmek_settings<
+        T: std::convert::Into<std::option::Option<crate::model::CmekSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cmek_settings = v.into();
         self
     }
 }
@@ -1995,6 +2088,7 @@ pub struct LogSink {
 
     /// Optional. If set to true, then this sink is disabled and it does not export
     /// any log entries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Optional. Log entries that match any of these exclusion filters will not be
@@ -2006,6 +2100,7 @@ pub struct LogSink {
     pub exclusions: std::vec::Vec<crate::model::LogExclusion>,
 
     /// Deprecated. This field is unused.
+    #[deprecated]
     pub output_version_format: crate::model::log_sink::VersionFormat,
 
     /// Output only. An IAM identity&mdash;a service account or group&mdash;under
@@ -2049,6 +2144,7 @@ pub struct LogSink {
     ///
     /// logName:("projects/test-project1/" OR "projects/test-project2/") AND
     /// resource.type=gce_instance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_children: bool,
 
     /// Output only. The creation timestamp of the sink.
@@ -2106,7 +2202,19 @@ impl LogSink {
         self
     }
 
+    /// Sets the value of [exclusions][crate::model::LogSink::exclusions].
+    pub fn set_exclusions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LogExclusion>,
+    {
+        use std::iter::Iterator;
+        self.exclusions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [output_version_format][crate::model::LogSink::output_version_format].
+    #[deprecated]
     pub fn set_output_version_format<
         T: std::convert::Into<crate::model::log_sink::VersionFormat>,
     >(
@@ -2144,17 +2252,6 @@ impl LogSink {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [exclusions][crate::model::LogSink::exclusions].
-    pub fn set_exclusions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogExclusion>,
-    {
-        use std::iter::Iterator;
-        self.exclusions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2214,61 +2311,134 @@ pub mod log_sink {
     use super::*;
 
     /// Deprecated. This is unused.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VersionFormat(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VersionFormat {
+        /// An unspecified format version that will default to V2.
+        Unspecified,
+        /// `LogEntry` version 2 format.
+        V2,
+        /// `LogEntry` version 1 format.
+        V1,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VersionFormat::value] or
+        /// [VersionFormat::name].
+        UnknownValue(version_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod version_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl VersionFormat {
-        /// An unspecified format version that will default to V2.
-        pub const VERSION_FORMAT_UNSPECIFIED: VersionFormat = VersionFormat::new(0);
-
-        /// `LogEntry` version 2 format.
-        pub const V2: VersionFormat = VersionFormat::new(1);
-
-        /// `LogEntry` version 1 format.
-        pub const V1: VersionFormat = VersionFormat::new(2);
-
-        /// Creates a new VersionFormat instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::V2 => std::option::Option::Some(1),
+                Self::V1 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VERSION_FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("V2"),
-                2 => std::borrow::Cow::Borrowed("V1"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VERSION_FORMAT_UNSPECIFIED"),
+                Self::V2 => std::option::Option::Some("V2"),
+                Self::V1 => std::option::Option::Some("V1"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VERSION_FORMAT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::VERSION_FORMAT_UNSPECIFIED)
-                }
-                "V2" => std::option::Option::Some(Self::V2),
-                "V1" => std::option::Option::Some(Self::V1),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for VersionFormat {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for VersionFormat {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VersionFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VersionFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::V2,
+                2 => Self::V1,
+                _ => Self::UnknownValue(version_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VersionFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VERSION_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "V2" => Self::V2,
+                "V1" => Self::V1,
+                _ => Self::UnknownValue(version_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VersionFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::V2 => serializer.serialize_i32(1),
+                Self::V1 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VersionFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VersionFormat>::new(
+                ".google.logging.v2.LogSink.VersionFormat",
+            ))
         }
     }
 
@@ -2434,6 +2604,7 @@ pub struct BigQueryOptions {
     /// syntax](https://cloud.google.com/bigquery/docs/querying-partitioned-tables)
     /// has to be used instead. In both cases, tables are sharded based on UTC
     /// timezone.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_partitioned_tables: bool,
 
     /// Output only. True if new timestamp column based partitioning is in use,
@@ -2443,6 +2614,7 @@ pub struct BigQueryOptions {
     /// based partitioning. If use_partitioned_tables is false, this value has no
     /// meaning and will be false. Legacy sinks using partitioned tables will have
     /// this field set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uses_timestamp_column_partitioning: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2507,6 +2679,7 @@ pub struct ListBucketsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2568,12 +2741,6 @@ impl ListBucketsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [buckets][crate::model::ListBucketsResponse::buckets].
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
@@ -2582,6 +2749,12 @@ impl ListBucketsResponse {
     {
         use std::iter::Iterator;
         self.buckets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2903,6 +3076,7 @@ pub struct ListViewsRequest {
     ///
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2964,12 +3138,6 @@ impl ListViewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [views][crate::model::ListViewsResponse::views].
     pub fn set_views<T, V>(mut self, v: T) -> Self
     where
@@ -2978,6 +3146,12 @@ impl ListViewsResponse {
     {
         use std::iter::Iterator;
         self.views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3247,6 +3421,7 @@ pub struct ListSinksRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3308,12 +3483,6 @@ impl ListSinksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSinksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [sinks][crate::model::ListSinksResponse::sinks].
     pub fn set_sinks<T, V>(mut self, v: T) -> Self
     where
@@ -3322,6 +3491,12 @@ impl ListSinksResponse {
     {
         use std::iter::Iterator;
         self.sinks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSinksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3430,6 +3605,7 @@ pub struct CreateSinkRequest {
     /// [LogSink][google.logging.v2.LogSink].
     ///
     /// [google.logging.v2.LogSink]: crate::model::LogSink
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unique_writer_identity: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3509,6 +3685,7 @@ pub struct UpdateSinkRequest {
     ///   set to false or defaulted to false.
     ///
     /// [google.logging.v2.ConfigServiceV2.CreateSink]: crate::client::ConfigServiceV2::create_sink
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unique_writer_identity: bool,
 
     /// Optional. Field mask that specifies the fields in `sink` that need
@@ -3743,6 +3920,7 @@ pub struct ListLinksRequest {
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3804,12 +3982,6 @@ impl ListLinksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLinksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [links][crate::model::ListLinksResponse::links].
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
@@ -3818,6 +3990,12 @@ impl ListLinksResponse {
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLinksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3919,6 +4097,7 @@ pub struct LogExclusion {
     /// value of this field.
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateExclusion]: crate::client::ConfigServiceV2::update_exclusion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Output only. The creation timestamp of the exclusion.
@@ -4018,6 +4197,7 @@ pub struct ListExclusionsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4079,12 +4259,6 @@ impl ListExclusionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExclusionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [exclusions][crate::model::ListExclusionsResponse::exclusions].
     pub fn set_exclusions<T, V>(mut self, v: T) -> Self
     where
@@ -4093,6 +4267,12 @@ impl ListExclusionsResponse {
     {
         use std::iter::Iterator;
         self.exclusions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExclusionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4836,6 +5016,7 @@ pub struct Settings {
     /// folders will created in a disabled state. This can be used to automatically
     /// disable log ingestion if there is already an aggregated sink configured in
     /// the hierarchy. The _Default sink can be re-enabled manually if needed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_default_sink: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4965,6 +5146,7 @@ pub struct CopyLogEntriesMetadata {
     pub state: crate::model::OperationState,
 
     /// Identifies whether the user has requested cancellation of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancellation_requested: bool,
 
     /// CopyLogEntries RPC request.
@@ -4972,6 +5154,7 @@ pub struct CopyLogEntriesMetadata {
     pub request: std::option::Option<crate::model::CopyLogEntriesRequest>,
 
     /// Estimated progress of the operation (0 - 100%).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress: i32,
 
     /// The IAM identity of a service account that must be granted access to the
@@ -5060,6 +5243,7 @@ impl wkt::message::Message for CopyLogEntriesMetadata {
 #[non_exhaustive]
 pub struct CopyLogEntriesResponse {
     /// Number of log entries copied.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub log_entries_copied_count: i64,
 
@@ -5167,21 +5351,6 @@ impl BucketMetadata {
         })
     }
 
-    /// The value of [request][crate::model::BucketMetadata::request]
-    /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn update_bucket_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
-        #[allow(unreachable_patterns)]
-        self.request.as_ref().and_then(|v| match v {
-            crate::model::bucket_metadata::Request::UpdateBucketRequest(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [request][crate::model::BucketMetadata::request]
     /// to hold a `CreateBucketRequest`.
     ///
@@ -5197,6 +5366,21 @@ impl BucketMetadata {
             crate::model::bucket_metadata::Request::CreateBucketRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [request][crate::model::BucketMetadata::request]
+    /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_bucket_request(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::bucket_metadata::Request::UpdateBucketRequest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [request][crate::model::BucketMetadata::request]
@@ -5321,21 +5505,6 @@ impl LinkMetadata {
         })
     }
 
-    /// The value of [request][crate::model::LinkMetadata::request]
-    /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete_link_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
-        #[allow(unreachable_patterns)]
-        self.request.as_ref().and_then(|v| match v {
-            crate::model::link_metadata::Request::DeleteLinkRequest(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [request][crate::model::LinkMetadata::request]
     /// to hold a `CreateLinkRequest`.
     ///
@@ -5351,6 +5520,21 @@ impl LinkMetadata {
             crate::model::link_metadata::Request::CreateLinkRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [request][crate::model::LinkMetadata::request]
+    /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_link_request(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
+        #[allow(unreachable_patterns)]
+        self.request.as_ref().and_then(|v| match v {
+            crate::model::link_metadata::Request::DeleteLinkRequest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [request][crate::model::LinkMetadata::request]
@@ -5401,6 +5585,7 @@ pub mod link_metadata {
 pub struct LocationMetadata {
     /// Indicates whether or not Log Analytics features are supported in the given
     /// location.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_analytics_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5484,6 +5669,7 @@ pub struct LogMetric {
 
     /// Optional. If set to True, then this metric is disabled and it does not
     /// generate any points.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Optional. The metric descriptor associated with the logs-based metric.
@@ -5570,6 +5756,7 @@ pub struct LogMetric {
 
     /// Deprecated. The API version that created or updated this metric.
     /// The v2 format is used by default and cannot be changed.
+    #[deprecated]
     pub version: crate::model::log_metric::ApiVersion,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5628,6 +5815,18 @@ impl LogMetric {
         self
     }
 
+    /// Sets the value of [label_extractors][crate::model::LogMetric::label_extractors].
+    pub fn set_label_extractors<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.label_extractors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [bucket_options][crate::model::LogMetric::bucket_options].
     pub fn set_bucket_options<
         T: std::convert::Into<std::option::Option<api::model::distribution::BucketOptions>>,
@@ -5658,23 +5857,12 @@ impl LogMetric {
     }
 
     /// Sets the value of [version][crate::model::LogMetric::version].
+    #[deprecated]
     pub fn set_version<T: std::convert::Into<crate::model::log_metric::ApiVersion>>(
         mut self,
         v: T,
     ) -> Self {
         self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [label_extractors][crate::model::LogMetric::label_extractors].
-    pub fn set_label_extractors<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.label_extractors = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5691,54 +5879,127 @@ pub mod log_metric {
     use super::*;
 
     /// Logging API version.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ApiVersion(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ApiVersion {
+        /// Logging API v2.
+        V2,
+        /// Logging API v1.
+        V1,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ApiVersion::value] or
+        /// [ApiVersion::name].
+        UnknownValue(api_version::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod api_version {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ApiVersion {
-        /// Logging API v2.
-        pub const V2: ApiVersion = ApiVersion::new(0);
-
-        /// Logging API v1.
-        pub const V1: ApiVersion = ApiVersion::new(1);
-
-        /// Creates a new ApiVersion instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::V2 => std::option::Option::Some(0),
+                Self::V1 => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("V2"),
-                1 => std::borrow::Cow::Borrowed("V1"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::V2 => std::option::Option::Some("V2"),
+                Self::V1 => std::option::Option::Some("V1"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "V2" => std::option::Option::Some(Self::V2),
-                "V1" => std::option::Option::Some(Self::V1),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ApiVersion {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ApiVersion {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ApiVersion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ApiVersion {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::V2,
+                1 => Self::V1,
+                _ => Self::UnknownValue(api_version::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ApiVersion {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "V2" => Self::V2,
+                "V1" => Self::V1,
+                _ => Self::UnknownValue(api_version::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ApiVersion {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::V2 => serializer.serialize_i32(0),
+                Self::V1 => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ApiVersion {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ApiVersion>::new(
+                ".google.logging.v2.LogMetric.ApiVersion",
+            ))
         }
     }
 }
@@ -5767,6 +6028,7 @@ pub struct ListLogMetricsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5828,12 +6090,6 @@ impl ListLogMetricsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogMetricsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [metrics][crate::model::ListLogMetricsResponse::metrics].
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
@@ -5842,6 +6098,12 @@ impl ListLogMetricsResponse {
     {
         use std::iter::Iterator;
         self.metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogMetricsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6048,224 +6310,453 @@ impl wkt::message::Message for DeleteLogMetricRequest {
 /// current state to the user. Once a long running operation is created,
 /// the current state of the operation can be queried even before the
 /// operation is finished and the final result is available.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperationState(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OperationState {
+    /// Should not be used.
+    Unspecified,
+    /// The operation is scheduled.
+    Scheduled,
+    /// Waiting for necessary permissions.
+    WaitingForPermissions,
+    /// The operation is running.
+    Running,
+    /// The operation was completed successfully.
+    Succeeded,
+    /// The operation failed.
+    Failed,
+    /// The operation was cancelled by the user.
+    Cancelled,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OperationState::value] or
+    /// [OperationState::name].
+    UnknownValue(operation_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod operation_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl OperationState {
-    /// Should not be used.
-    pub const OPERATION_STATE_UNSPECIFIED: OperationState = OperationState::new(0);
-
-    /// The operation is scheduled.
-    pub const OPERATION_STATE_SCHEDULED: OperationState = OperationState::new(1);
-
-    /// Waiting for necessary permissions.
-    pub const OPERATION_STATE_WAITING_FOR_PERMISSIONS: OperationState = OperationState::new(2);
-
-    /// The operation is running.
-    pub const OPERATION_STATE_RUNNING: OperationState = OperationState::new(3);
-
-    /// The operation was completed successfully.
-    pub const OPERATION_STATE_SUCCEEDED: OperationState = OperationState::new(4);
-
-    /// The operation failed.
-    pub const OPERATION_STATE_FAILED: OperationState = OperationState::new(5);
-
-    /// The operation was cancelled by the user.
-    pub const OPERATION_STATE_CANCELLED: OperationState = OperationState::new(6);
-
-    /// Creates a new OperationState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Scheduled => std::option::Option::Some(1),
+            Self::WaitingForPermissions => std::option::Option::Some(2),
+            Self::Running => std::option::Option::Some(3),
+            Self::Succeeded => std::option::Option::Some(4),
+            Self::Failed => std::option::Option::Some(5),
+            Self::Cancelled => std::option::Option::Some(6),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("OPERATION_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("OPERATION_STATE_SCHEDULED"),
-            2 => std::borrow::Cow::Borrowed("OPERATION_STATE_WAITING_FOR_PERMISSIONS"),
-            3 => std::borrow::Cow::Borrowed("OPERATION_STATE_RUNNING"),
-            4 => std::borrow::Cow::Borrowed("OPERATION_STATE_SUCCEEDED"),
-            5 => std::borrow::Cow::Borrowed("OPERATION_STATE_FAILED"),
-            6 => std::borrow::Cow::Borrowed("OPERATION_STATE_CANCELLED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("OPERATION_STATE_UNSPECIFIED"),
+            Self::Scheduled => std::option::Option::Some("OPERATION_STATE_SCHEDULED"),
+            Self::WaitingForPermissions => {
+                std::option::Option::Some("OPERATION_STATE_WAITING_FOR_PERMISSIONS")
+            }
+            Self::Running => std::option::Option::Some("OPERATION_STATE_RUNNING"),
+            Self::Succeeded => std::option::Option::Some("OPERATION_STATE_SUCCEEDED"),
+            Self::Failed => std::option::Option::Some("OPERATION_STATE_FAILED"),
+            Self::Cancelled => std::option::Option::Some("OPERATION_STATE_CANCELLED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "OPERATION_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_UNSPECIFIED)
-            }
-            "OPERATION_STATE_SCHEDULED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_SCHEDULED)
-            }
-            "OPERATION_STATE_WAITING_FOR_PERMISSIONS" => {
-                std::option::Option::Some(Self::OPERATION_STATE_WAITING_FOR_PERMISSIONS)
-            }
-            "OPERATION_STATE_RUNNING" => std::option::Option::Some(Self::OPERATION_STATE_RUNNING),
-            "OPERATION_STATE_SUCCEEDED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_SUCCEEDED)
-            }
-            "OPERATION_STATE_FAILED" => std::option::Option::Some(Self::OPERATION_STATE_FAILED),
-            "OPERATION_STATE_CANCELLED" => {
-                std::option::Option::Some(Self::OPERATION_STATE_CANCELLED)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for OperationState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for OperationState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for OperationState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for OperationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Scheduled,
+            2 => Self::WaitingForPermissions,
+            3 => Self::Running,
+            4 => Self::Succeeded,
+            5 => Self::Failed,
+            6 => Self::Cancelled,
+            _ => Self::UnknownValue(operation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for OperationState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OPERATION_STATE_UNSPECIFIED" => Self::Unspecified,
+            "OPERATION_STATE_SCHEDULED" => Self::Scheduled,
+            "OPERATION_STATE_WAITING_FOR_PERMISSIONS" => Self::WaitingForPermissions,
+            "OPERATION_STATE_RUNNING" => Self::Running,
+            "OPERATION_STATE_SUCCEEDED" => Self::Succeeded,
+            "OPERATION_STATE_FAILED" => Self::Failed,
+            "OPERATION_STATE_CANCELLED" => Self::Cancelled,
+            _ => Self::UnknownValue(operation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for OperationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Scheduled => serializer.serialize_i32(1),
+            Self::WaitingForPermissions => serializer.serialize_i32(2),
+            Self::Running => serializer.serialize_i32(3),
+            Self::Succeeded => serializer.serialize_i32(4),
+            Self::Failed => serializer.serialize_i32(5),
+            Self::Cancelled => serializer.serialize_i32(6),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OperationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationState>::new(
+            ".google.logging.v2.OperationState",
+        ))
     }
 }
 
 /// LogBucket lifecycle states.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LifecycleState(i32);
-
-impl LifecycleState {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LifecycleState {
     /// Unspecified state. This is only used/useful for distinguishing unset
     /// values.
-    pub const LIFECYCLE_STATE_UNSPECIFIED: LifecycleState = LifecycleState::new(0);
-
+    Unspecified,
     /// The normal and active state.
-    pub const ACTIVE: LifecycleState = LifecycleState::new(1);
-
+    Active,
     /// The resource has been marked for deletion by the user. For some resources
     /// (e.g. buckets), this can be reversed by an un-delete operation.
-    pub const DELETE_REQUESTED: LifecycleState = LifecycleState::new(2);
-
+    DeleteRequested,
     /// The resource has been marked for an update by the user. It will remain in
     /// this state until the update is complete.
-    pub const UPDATING: LifecycleState = LifecycleState::new(3);
-
+    Updating,
     /// The resource has been marked for creation by the user. It will remain in
     /// this state until the creation is complete.
-    pub const CREATING: LifecycleState = LifecycleState::new(4);
-
+    Creating,
     /// The resource is in an INTERNAL error state.
-    pub const FAILED: LifecycleState = LifecycleState::new(5);
+    Failed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LifecycleState::value] or
+    /// [LifecycleState::name].
+    UnknownValue(lifecycle_state::UnknownValue),
+}
 
-    /// Creates a new LifecycleState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod lifecycle_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LifecycleState {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Active => std::option::Option::Some(1),
+            Self::DeleteRequested => std::option::Option::Some(2),
+            Self::Updating => std::option::Option::Some(3),
+            Self::Creating => std::option::Option::Some(4),
+            Self::Failed => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LIFECYCLE_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ACTIVE"),
-            2 => std::borrow::Cow::Borrowed("DELETE_REQUESTED"),
-            3 => std::borrow::Cow::Borrowed("UPDATING"),
-            4 => std::borrow::Cow::Borrowed("CREATING"),
-            5 => std::borrow::Cow::Borrowed("FAILED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LIFECYCLE_STATE_UNSPECIFIED"),
+            Self::Active => std::option::Option::Some("ACTIVE"),
+            Self::DeleteRequested => std::option::Option::Some("DELETE_REQUESTED"),
+            Self::Updating => std::option::Option::Some("UPDATING"),
+            Self::Creating => std::option::Option::Some("CREATING"),
+            Self::Failed => std::option::Option::Some("FAILED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LIFECYCLE_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LIFECYCLE_STATE_UNSPECIFIED)
-            }
-            "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-            "DELETE_REQUESTED" => std::option::Option::Some(Self::DELETE_REQUESTED),
-            "UPDATING" => std::option::Option::Some(Self::UPDATING),
-            "CREATING" => std::option::Option::Some(Self::CREATING),
-            "FAILED" => std::option::Option::Some(Self::FAILED),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LifecycleState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LifecycleState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LifecycleState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LifecycleState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Active,
+            2 => Self::DeleteRequested,
+            3 => Self::Updating,
+            4 => Self::Creating,
+            5 => Self::Failed,
+            _ => Self::UnknownValue(lifecycle_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LifecycleState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LIFECYCLE_STATE_UNSPECIFIED" => Self::Unspecified,
+            "ACTIVE" => Self::Active,
+            "DELETE_REQUESTED" => Self::DeleteRequested,
+            "UPDATING" => Self::Updating,
+            "CREATING" => Self::Creating,
+            "FAILED" => Self::Failed,
+            _ => Self::UnknownValue(lifecycle_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LifecycleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Active => serializer.serialize_i32(1),
+            Self::DeleteRequested => serializer.serialize_i32(2),
+            Self::Updating => serializer.serialize_i32(3),
+            Self::Creating => serializer.serialize_i32(4),
+            Self::Failed => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LifecycleState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LifecycleState>::new(
+            ".google.logging.v2.LifecycleState",
+        ))
     }
 }
 
 /// IndexType is used for custom indexing. It describes the type of an indexed
 /// field.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IndexType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum IndexType {
+    /// The index's type is unspecified.
+    Unspecified,
+    /// The index is a string-type index.
+    String,
+    /// The index is a integer-type index.
+    Integer,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [IndexType::value] or
+    /// [IndexType::name].
+    UnknownValue(index_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod index_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl IndexType {
-    /// The index's type is unspecified.
-    pub const INDEX_TYPE_UNSPECIFIED: IndexType = IndexType::new(0);
-
-    /// The index is a string-type index.
-    pub const INDEX_TYPE_STRING: IndexType = IndexType::new(1);
-
-    /// The index is a integer-type index.
-    pub const INDEX_TYPE_INTEGER: IndexType = IndexType::new(2);
-
-    /// Creates a new IndexType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::String => std::option::Option::Some(1),
+            Self::Integer => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("INDEX_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("INDEX_TYPE_STRING"),
-            2 => std::borrow::Cow::Borrowed("INDEX_TYPE_INTEGER"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("INDEX_TYPE_UNSPECIFIED"),
+            Self::String => std::option::Option::Some("INDEX_TYPE_STRING"),
+            Self::Integer => std::option::Option::Some("INDEX_TYPE_INTEGER"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "INDEX_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::INDEX_TYPE_UNSPECIFIED),
-            "INDEX_TYPE_STRING" => std::option::Option::Some(Self::INDEX_TYPE_STRING),
-            "INDEX_TYPE_INTEGER" => std::option::Option::Some(Self::INDEX_TYPE_INTEGER),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for IndexType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for IndexType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for IndexType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for IndexType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::String,
+            2 => Self::Integer,
+            _ => Self::UnknownValue(index_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for IndexType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "INDEX_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "INDEX_TYPE_STRING" => Self::String,
+            "INDEX_TYPE_INTEGER" => Self::Integer,
+            _ => Self::UnknownValue(index_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for IndexType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::String => serializer.serialize_i32(1),
+            Self::Integer => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for IndexType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<IndexType>::new(
+            ".google.logging.v2.IndexType",
+        ))
     }
 }

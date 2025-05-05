@@ -275,6 +275,7 @@ pub struct ListKeyHandlesRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     /// [google.cloud.kms.v1.ListKeyHandlesResponse.next_page_token]: crate::model::ListKeyHandlesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -364,12 +365,6 @@ impl ListKeyHandlesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListKeyHandlesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [key_handles][crate::model::ListKeyHandlesResponse::key_handles].
     pub fn set_key_handles<T, V>(mut self, v: T) -> Self
     where
@@ -378,6 +373,12 @@ impl ListKeyHandlesResponse {
     {
         use std::iter::Iterator;
         self.key_handles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListKeyHandlesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -577,66 +578,143 @@ pub mod autokey_config {
     use super::*;
 
     /// The states AutokeyConfig can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The state of the AutokeyConfig is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The AutokeyConfig is currently active.
-        pub const ACTIVE: State = State::new(1);
-
+        Active,
         /// A previously configured key project has been deleted and the current
         /// AutokeyConfig is unusable.
-        pub const KEY_PROJECT_DELETED: State = State::new(2);
-
+        KeyProjectDeleted,
         /// The AutokeyConfig is not yet initialized or has been reset to its default
         /// uninitialized state.
-        pub const UNINITIALIZED: State = State::new(3);
+        Uninitialized,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::KeyProjectDeleted => std::option::Option::Some(2),
+                Self::Uninitialized => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("KEY_PROJECT_DELETED"),
-                3 => std::borrow::Cow::Borrowed("UNINITIALIZED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::KeyProjectDeleted => std::option::Option::Some("KEY_PROJECT_DELETED"),
+                Self::Uninitialized => std::option::Option::Some("UNINITIALIZED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "KEY_PROJECT_DELETED" => std::option::Option::Some(Self::KEY_PROJECT_DELETED),
-                "UNINITIALIZED" => std::option::Option::Some(Self::UNINITIALIZED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::KeyProjectDeleted,
+                3 => Self::Uninitialized,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "KEY_PROJECT_DELETED" => Self::KeyProjectDeleted,
+                "UNINITIALIZED" => Self::Uninitialized,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::KeyProjectDeleted => serializer.serialize_i32(2),
+                Self::Uninitialized => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.kms.v1.AutokeyConfig.State",
+            ))
         }
     }
 }
@@ -741,6 +819,7 @@ pub struct ListEkmConnectionsRequest {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.ListEkmConnectionsResponse.next_page_token]: crate::model::ListEkmConnectionsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -837,6 +916,7 @@ pub struct ListEkmConnectionsResponse {
     /// that matched the query.
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -848,6 +928,17 @@ impl ListEkmConnectionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [ekm_connections][crate::model::ListEkmConnectionsResponse::ekm_connections].
+    pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EkmConnection>,
+    {
+        use std::iter::Iterator;
+        self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListEkmConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -857,17 +948,6 @@ impl ListEkmConnectionsResponse {
     /// Sets the value of [total_size][crate::model::ListEkmConnectionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [ekm_connections][crate::model::ListEkmConnectionsResponse::ekm_connections].
-    pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EkmConnection>,
-    {
-        use std::iter::Iterator;
-        self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1165,6 +1245,7 @@ pub struct Certificate {
     pub raw_der: ::bytes::Bytes,
 
     /// Output only. True if the certificate was parsed successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parsed: bool,
 
     /// Output only. The issuer distinguished name in RFC 2253 format. Only present
@@ -1249,6 +1330,17 @@ impl Certificate {
         self
     }
 
+    /// Sets the value of [subject_alternative_dns_names][crate::model::Certificate::subject_alternative_dns_names].
+    pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.subject_alternative_dns_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [not_before_time][crate::model::Certificate::not_before_time].
     pub fn set_not_before_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1281,17 +1373,6 @@ impl Certificate {
         self.sha256_fingerprint = v.into();
         self
     }
-
-    /// Sets the value of [subject_alternative_dns_names][crate::model::Certificate::subject_alternative_dns_names].
-    pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.subject_alternative_dns_names = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Certificate {
@@ -1313,7 +1394,7 @@ impl wkt::message::Message for Certificate {
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
+/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1356,7 +1437,7 @@ pub struct EkmConnection {
     /// unset, this defaults to
     /// [MANUAL][google.cloud.kms.v1.EkmConnection.KeyManagementMode.MANUAL].
     ///
-    /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.MANUAL]: crate::model::ekm_connection::key_management_mode::MANUAL
+    /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.MANUAL]: crate::model::ekm_connection::KeyManagementMode::Manual
     pub key_management_mode: crate::model::ekm_connection::KeyManagementMode,
 
     /// Optional. Identifies the EKM Crypto Space that this
@@ -1367,7 +1448,7 @@ pub struct EkmConnection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode]: crate::model::ekm_connection::KeyManagementMode
-    /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.CLOUD_KMS]: crate::model::ekm_connection::key_management_mode::CLOUD_KMS
+    /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.CLOUD_KMS]: crate::model::ekm_connection::KeyManagementMode::CloudKms
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub crypto_space_path: std::string::String,
 
@@ -1395,6 +1476,17 @@ impl EkmConnection {
         self
     }
 
+    /// Sets the value of [service_resolvers][crate::model::EkmConnection::service_resolvers].
+    pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>,
+    {
+        use std::iter::Iterator;
+        self.service_resolvers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::EkmConnection::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -1418,17 +1510,6 @@ impl EkmConnection {
         v: T,
     ) -> Self {
         self.crypto_space_path = v.into();
-        self
-    }
-
-    /// Sets the value of [service_resolvers][crate::model::EkmConnection::service_resolvers].
-    pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>,
-    {
-        use std::iter::Iterator;
-        self.service_resolvers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1539,13 +1620,25 @@ pub mod ekm_connection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode]: crate::model::ekm_connection::KeyManagementMode
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyManagementMode(i32);
-
-    impl KeyManagementMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyManagementMode {
         /// Not specified.
-        pub const KEY_MANAGEMENT_MODE_UNSPECIFIED: KeyManagementMode = KeyManagementMode::new(0);
-
+        Unspecified,
         /// EKM-side key management operations on
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] created with this
         /// [EkmConnection][google.cloud.kms.v1.EkmConnection] must be initiated from
@@ -1564,8 +1657,7 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-        pub const MANUAL: KeyManagementMode = KeyManagementMode::new(1);
-
+        Manual,
         /// All [CryptoKeys][google.cloud.kms.v1.CryptoKey] created with this
         /// [EkmConnection][google.cloud.kms.v1.EkmConnection] use EKM-side key
         /// management operations initiated from Cloud KMS. This means that:
@@ -1586,50 +1678,112 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
         /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
-        pub const CLOUD_KMS: KeyManagementMode = KeyManagementMode::new(2);
+        CloudKms,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyManagementMode::value] or
+        /// [KeyManagementMode::name].
+        UnknownValue(key_management_mode::UnknownValue),
+    }
 
-        /// Creates a new KeyManagementMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod key_management_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl KeyManagementMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Manual => std::option::Option::Some(1),
+                Self::CloudKms => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("KEY_MANAGEMENT_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MANUAL"),
-                2 => std::borrow::Cow::Borrowed("CLOUD_KMS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("KEY_MANAGEMENT_MODE_UNSPECIFIED"),
+                Self::Manual => std::option::Option::Some("MANUAL"),
+                Self::CloudKms => std::option::Option::Some("CLOUD_KMS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "KEY_MANAGEMENT_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::KEY_MANAGEMENT_MODE_UNSPECIFIED)
-                }
-                "MANUAL" => std::option::Option::Some(Self::MANUAL),
-                "CLOUD_KMS" => std::option::Option::Some(Self::CLOUD_KMS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for KeyManagementMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for KeyManagementMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyManagementMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyManagementMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Manual,
+                2 => Self::CloudKms,
+                _ => Self::UnknownValue(key_management_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyManagementMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_MANAGEMENT_MODE_UNSPECIFIED" => Self::Unspecified,
+                "MANUAL" => Self::Manual,
+                "CLOUD_KMS" => Self::CloudKms,
+                _ => Self::UnknownValue(key_management_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyManagementMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Manual => serializer.serialize_i32(1),
+                Self::CloudKms => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyManagementMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyManagementMode>::new(
+                ".google.cloud.kms.v1.EkmConnection.KeyManagementMode",
+            ))
         }
     }
 }
@@ -1646,7 +1800,7 @@ pub mod ekm_connection {
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
+/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1856,7 +2010,7 @@ pub struct CryptoKey {
     /// may have a primary. For other keys, this field will be omitted.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.EncryptRequest.name]: crate::model::EncryptRequest::name
@@ -1896,7 +2050,7 @@ pub struct CryptoKey {
     /// support automatic rotation. For other keys, this field must be omitted.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.next_rotation_time]: crate::model::CryptoKey::next_rotation_time
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
@@ -1922,6 +2076,7 @@ pub struct CryptoKey {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Immutable. Whether this key may contain imported versions only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_only: bool,
 
     /// Immutable. The period of time that versions of this key spend in the
@@ -1930,8 +2085,8 @@ pub struct CryptoKey {
     /// [DESTROYED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED].
     /// If not specified at creation time, the default duration is 30 days.
     ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROYED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::CryptoKeyVersionState::Destroyed
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::CryptoKeyVersionState::DestroyScheduled
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub destroy_scheduled_duration: std::option::Option<wkt::Duration>,
 
@@ -1949,7 +2104,7 @@ pub struct CryptoKey {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub crypto_key_backend: std::string::String,
 
@@ -2033,6 +2188,18 @@ impl CryptoKey {
         self
     }
 
+    /// Sets the value of [labels][crate::model::CryptoKey::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [import_only][crate::model::CryptoKey::import_only].
     pub fn set_import_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.import_only = v.into();
@@ -2067,18 +2234,6 @@ impl CryptoKey {
         v: T,
     ) -> Self {
         self.key_access_justifications_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::CryptoKey::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2144,13 +2299,25 @@ pub mod crypto_key {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]: crate::model::crypto_key::CryptoKeyPurpose
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyPurpose(i32);
-
-    impl CryptoKeyPurpose {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CryptoKeyPurpose {
         /// Not specified.
-        pub const CRYPTO_KEY_PURPOSE_UNSPECIFIED: CryptoKeyPurpose = CryptoKeyPurpose::new(0);
-
+        Unspecified,
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt] and
         /// [Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
@@ -2158,8 +2325,7 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
         /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-        pub const ENCRYPT_DECRYPT: CryptoKeyPurpose = CryptoKeyPurpose::new(1);
-
+        EncryptDecrypt,
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with
         /// [AsymmetricSign][google.cloud.kms.v1.KeyManagementService.AsymmetricSign]
@@ -2169,8 +2335,7 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
         /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-        pub const ASYMMETRIC_SIGN: CryptoKeyPurpose = CryptoKeyPurpose::new(5);
-
+        AsymmetricSign,
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with
         /// [AsymmetricDecrypt][google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]
@@ -2180,8 +2345,7 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
         /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-        pub const ASYMMETRIC_DECRYPT: CryptoKeyPurpose = CryptoKeyPurpose::new(6);
-
+        AsymmetricDecrypt,
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [RawEncrypt][google.cloud.kms.v1.KeyManagementService.RawEncrypt]
         /// and [RawDecrypt][google.cloud.kms.v1.KeyManagementService.RawDecrypt].
@@ -2191,63 +2355,133 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
         /// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
-        pub const RAW_ENCRYPT_DECRYPT: CryptoKeyPurpose = CryptoKeyPurpose::new(7);
-
+        RawEncryptDecrypt,
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
-        pub const MAC: CryptoKeyPurpose = CryptoKeyPurpose::new(9);
+        Mac,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CryptoKeyPurpose::value] or
+        /// [CryptoKeyPurpose::name].
+        UnknownValue(crypto_key_purpose::UnknownValue),
+    }
 
-        /// Creates a new CryptoKeyPurpose instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod crypto_key_purpose {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CryptoKeyPurpose {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::EncryptDecrypt => std::option::Option::Some(1),
+                Self::AsymmetricSign => std::option::Option::Some(5),
+                Self::AsymmetricDecrypt => std::option::Option::Some(6),
+                Self::RawEncryptDecrypt => std::option::Option::Some(7),
+                Self::Mac => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CRYPTO_KEY_PURPOSE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENCRYPT_DECRYPT"),
-                5 => std::borrow::Cow::Borrowed("ASYMMETRIC_SIGN"),
-                6 => std::borrow::Cow::Borrowed("ASYMMETRIC_DECRYPT"),
-                7 => std::borrow::Cow::Borrowed("RAW_ENCRYPT_DECRYPT"),
-                9 => std::borrow::Cow::Borrowed("MAC"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CRYPTO_KEY_PURPOSE_UNSPECIFIED"),
+                Self::EncryptDecrypt => std::option::Option::Some("ENCRYPT_DECRYPT"),
+                Self::AsymmetricSign => std::option::Option::Some("ASYMMETRIC_SIGN"),
+                Self::AsymmetricDecrypt => std::option::Option::Some("ASYMMETRIC_DECRYPT"),
+                Self::RawEncryptDecrypt => std::option::Option::Some("RAW_ENCRYPT_DECRYPT"),
+                Self::Mac => std::option::Option::Some("MAC"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CRYPTO_KEY_PURPOSE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CRYPTO_KEY_PURPOSE_UNSPECIFIED)
-                }
-                "ENCRYPT_DECRYPT" => std::option::Option::Some(Self::ENCRYPT_DECRYPT),
-                "ASYMMETRIC_SIGN" => std::option::Option::Some(Self::ASYMMETRIC_SIGN),
-                "ASYMMETRIC_DECRYPT" => std::option::Option::Some(Self::ASYMMETRIC_DECRYPT),
-                "RAW_ENCRYPT_DECRYPT" => std::option::Option::Some(Self::RAW_ENCRYPT_DECRYPT),
-                "MAC" => std::option::Option::Some(Self::MAC),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for CryptoKeyPurpose {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CryptoKeyPurpose {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CryptoKeyPurpose {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CryptoKeyPurpose {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::EncryptDecrypt,
+                5 => Self::AsymmetricSign,
+                6 => Self::AsymmetricDecrypt,
+                7 => Self::RawEncryptDecrypt,
+                9 => Self::Mac,
+                _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CryptoKeyPurpose {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CRYPTO_KEY_PURPOSE_UNSPECIFIED" => Self::Unspecified,
+                "ENCRYPT_DECRYPT" => Self::EncryptDecrypt,
+                "ASYMMETRIC_SIGN" => Self::AsymmetricSign,
+                "ASYMMETRIC_DECRYPT" => Self::AsymmetricDecrypt,
+                "RAW_ENCRYPT_DECRYPT" => Self::RawEncryptDecrypt,
+                "MAC" => Self::Mac,
+                _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CryptoKeyPurpose {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::EncryptDecrypt => serializer.serialize_i32(1),
+                Self::AsymmetricSign => serializer.serialize_i32(5),
+                Self::AsymmetricDecrypt => serializer.serialize_i32(6),
+                Self::RawEncryptDecrypt => serializer.serialize_i32(7),
+                Self::Mac => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CryptoKeyPurpose {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyPurpose>::new(
+                ".google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose",
+            ))
         }
     }
 
@@ -2269,7 +2503,7 @@ pub mod crypto_key {
         /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]
         /// support automatic rotation. For other keys, this field must be omitted.
         ///
-        /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+        /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
         /// [google.cloud.kms.v1.CryptoKey.next_rotation_time]: crate::model::CryptoKey::next_rotation_time
         /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
         /// [google.cloud.kms.v1.CryptoKey.rotation_period]: crate::model::CryptoKey::rotation_schedule
@@ -2299,7 +2533,7 @@ pub struct CryptoKeyVersionTemplate {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
+    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Required.
@@ -2313,7 +2547,7 @@ pub struct CryptoKeyVersionTemplate {
     /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] is
     /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
@@ -2498,66 +2732,139 @@ pub mod key_operation_attestation {
     }
 
     /// Attestation formats provided by the HSM.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttestationFormat(i32);
-
-    impl AttestationFormat {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AttestationFormat {
         /// Not specified.
-        pub const ATTESTATION_FORMAT_UNSPECIFIED: AttestationFormat = AttestationFormat::new(0);
-
+        Unspecified,
         /// Cavium HSM attestation compressed with gzip. Note that this format is
         /// defined by Cavium and subject to change at any time.
         ///
         /// See
         /// <https://www.marvell.com/products/security-solutions/nitrox-hs-adapters/software-key-attestation.html>.
-        pub const CAVIUM_V1_COMPRESSED: AttestationFormat = AttestationFormat::new(3);
-
+        CaviumV1Compressed,
         /// Cavium HSM attestation V2 compressed with gzip. This is a new format
         /// introduced in Cavium's version 3.2-08.
-        pub const CAVIUM_V2_COMPRESSED: AttestationFormat = AttestationFormat::new(4);
+        CaviumV2Compressed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AttestationFormat::value] or
+        /// [AttestationFormat::name].
+        UnknownValue(attestation_format::UnknownValue),
+    }
 
-        /// Creates a new AttestationFormat instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod attestation_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl AttestationFormat {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CaviumV1Compressed => std::option::Option::Some(3),
+                Self::CaviumV2Compressed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ATTESTATION_FORMAT_UNSPECIFIED"),
-                3 => std::borrow::Cow::Borrowed("CAVIUM_V1_COMPRESSED"),
-                4 => std::borrow::Cow::Borrowed("CAVIUM_V2_COMPRESSED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ATTESTATION_FORMAT_UNSPECIFIED"),
+                Self::CaviumV1Compressed => std::option::Option::Some("CAVIUM_V1_COMPRESSED"),
+                Self::CaviumV2Compressed => std::option::Option::Some("CAVIUM_V2_COMPRESSED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ATTESTATION_FORMAT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ATTESTATION_FORMAT_UNSPECIFIED)
-                }
-                "CAVIUM_V1_COMPRESSED" => std::option::Option::Some(Self::CAVIUM_V1_COMPRESSED),
-                "CAVIUM_V2_COMPRESSED" => std::option::Option::Some(Self::CAVIUM_V2_COMPRESSED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AttestationFormat {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AttestationFormat {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AttestationFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AttestationFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                3 => Self::CaviumV1Compressed,
+                4 => Self::CaviumV2Compressed,
+                _ => Self::UnknownValue(attestation_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AttestationFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ATTESTATION_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "CAVIUM_V1_COMPRESSED" => Self::CaviumV1Compressed,
+                "CAVIUM_V2_COMPRESSED" => Self::CaviumV2Compressed,
+                _ => Self::UnknownValue(attestation_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AttestationFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CaviumV1Compressed => serializer.serialize_i32(3),
+                Self::CaviumV2Compressed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AttestationFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttestationFormat>::new(
+                ".google.cloud.kms.v1.KeyOperationAttestation.AttestationFormat",
+            ))
         }
     }
 }
@@ -2575,7 +2882,7 @@ pub mod key_operation_attestation {
 /// authorized user or application invokes Cloud KMS.
 ///
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-/// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
+/// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2619,7 +2926,7 @@ pub struct CryptoKeyVersion {
     /// [HSM][google.cloud.kms.v1.ProtectionLevel.HSM].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion.protection_level]: crate::model::CryptoKeyVersion::protection_level
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attestation: std::option::Option<crate::model::KeyOperationAttestation>,
 
@@ -2645,7 +2952,7 @@ pub struct CryptoKeyVersion {
     /// [DESTROY_SCHEDULED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::CryptoKeyVersionState::DestroyScheduled
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub destroy_time: std::option::Option<wkt::Timestamp>,
@@ -2655,7 +2962,7 @@ pub struct CryptoKeyVersion {
     /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] is
     /// [DESTROYED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED].
     ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROYED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::CryptoKeyVersionState::Destroyed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub destroy_event_time: std::option::Option<wkt::Timestamp>,
@@ -2682,7 +2989,7 @@ pub struct CryptoKeyVersion {
     /// if [state][google.cloud.kms.v1.CryptoKeyVersion.state] is
     /// [IMPORT_FAILED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED].
     ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::crypto_key_version_state::IMPORT_FAILED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::ImportFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub import_failure_reason: std::string::String,
@@ -2691,7 +2998,7 @@ pub struct CryptoKeyVersion {
     /// present if [state][google.cloud.kms.v1.CryptoKeyVersion.state] is
     /// [GENERATION_FAILED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.GENERATION_FAILED].
     ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.GENERATION_FAILED]: crate::model::crypto_key_version::crypto_key_version_state::GENERATION_FAILED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.GENERATION_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::GenerationFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub generation_failure_reason: std::string::String,
@@ -2701,7 +3008,7 @@ pub struct CryptoKeyVersion {
     /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] is
     /// [EXTERNAL_DESTRUCTION_FAILED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.EXTERNAL_DESTRUCTION_FAILED].
     ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.EXTERNAL_DESTRUCTION_FAILED]: crate::model::crypto_key_version::crypto_key_version_state::EXTERNAL_DESTRUCTION_FAILED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.EXTERNAL_DESTRUCTION_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::ExternalDestructionFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub external_destruction_failure_reason: std::string::String,
@@ -2714,8 +3021,8 @@ pub struct CryptoKeyVersion {
     /// protection levels.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub external_protection_level_options:
         std::option::Option<crate::model::ExternalProtectionLevelOptions>,
@@ -2725,6 +3032,7 @@ pub struct CryptoKeyVersion {
     /// [ImportCryptoKeyVersionRequest.crypto_key_version][google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version].
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version]: crate::model::ImportCryptoKeyVersionRequest::crypto_key_version
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reimport_eligible: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2937,322 +3245,430 @@ pub mod crypto_key_version {
     /// For more information, see [Key purposes and algorithms]
     /// (<https://cloud.google.com/kms/docs/algorithms>).
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ASYMMETRIC_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]: crate::model::crypto_key::crypto_key_purpose::ASYMMETRIC_SIGN
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.MAC]: crate::model::crypto_key::crypto_key_purpose::MAC
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::AsymmetricDecrypt
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]: crate::model::crypto_key::CryptoKeyPurpose::AsymmetricSign
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.MAC]: crate::model::crypto_key::CryptoKeyPurpose::Mac
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.GOOGLE_SYMMETRIC_ENCRYPTION]: crate::model::crypto_key_version::crypto_key_version_algorithm::GOOGLE_SYMMETRIC_ENCRYPTION
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256]: crate::model::crypto_key_version::crypto_key_version_algorithm::RSA_SIGN_PSS_2048_SHA256
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyVersionAlgorithm(i32);
-
-    impl CryptoKeyVersionAlgorithm {
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.GOOGLE_SYMMETRIC_ENCRYPTION]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm::RsaSignPss2048Sha256
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CryptoKeyVersionAlgorithm {
         /// Not specified.
-        pub const CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(0);
-
+        Unspecified,
         /// Creates symmetric encryption keys.
-        pub const GOOGLE_SYMMETRIC_ENCRYPTION: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(1);
-
+        GoogleSymmetricEncryption,
         /// AES-GCM (Galois Counter Mode) using 128-bit keys.
-        pub const AES_128_GCM: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(41);
-
+        Aes128Gcm,
         /// AES-GCM (Galois Counter Mode) using 256-bit keys.
-        pub const AES_256_GCM: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(19);
-
+        Aes256Gcm,
         /// AES-CBC (Cipher Block Chaining Mode) using 128-bit keys.
-        pub const AES_128_CBC: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(42);
-
+        Aes128Cbc,
         /// AES-CBC (Cipher Block Chaining Mode) using 256-bit keys.
-        pub const AES_256_CBC: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(43);
-
+        Aes256Cbc,
         /// AES-CTR (Counter Mode) using 128-bit keys.
-        pub const AES_128_CTR: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(44);
-
+        Aes128Ctr,
         /// AES-CTR (Counter Mode) using 256-bit keys.
-        pub const AES_256_CTR: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(45);
-
+        Aes256Ctr,
         /// RSASSA-PSS 2048 bit key with a SHA256 digest.
-        pub const RSA_SIGN_PSS_2048_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(2);
-
+        RsaSignPss2048Sha256,
         /// RSASSA-PSS 3072 bit key with a SHA256 digest.
-        pub const RSA_SIGN_PSS_3072_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(3);
-
+        RsaSignPss3072Sha256,
         /// RSASSA-PSS 4096 bit key with a SHA256 digest.
-        pub const RSA_SIGN_PSS_4096_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(4);
-
+        RsaSignPss4096Sha256,
         /// RSASSA-PSS 4096 bit key with a SHA512 digest.
-        pub const RSA_SIGN_PSS_4096_SHA512: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(15);
-
+        RsaSignPss4096Sha512,
         /// RSASSA-PKCS1-v1_5 with a 2048 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_2048_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(5);
-
+        RsaSignPkcs12048Sha256,
         /// RSASSA-PKCS1-v1_5 with a 3072 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_3072_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(6);
-
+        RsaSignPkcs13072Sha256,
         /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_4096_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(7);
-
+        RsaSignPkcs14096Sha256,
         /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA512 digest.
-        pub const RSA_SIGN_PKCS1_4096_SHA512: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(16);
-
+        RsaSignPkcs14096Sha512,
         /// RSASSA-PKCS1-v1_5 signing without encoding, with a 2048 bit key.
-        pub const RSA_SIGN_RAW_PKCS1_2048: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(28);
-
+        RsaSignRawPkcs12048,
         /// RSASSA-PKCS1-v1_5 signing without encoding, with a 3072 bit key.
-        pub const RSA_SIGN_RAW_PKCS1_3072: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(29);
-
+        RsaSignRawPkcs13072,
         /// RSASSA-PKCS1-v1_5 signing without encoding, with a 4096 bit key.
-        pub const RSA_SIGN_RAW_PKCS1_4096: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(30);
-
+        RsaSignRawPkcs14096,
         /// RSAES-OAEP 2048 bit key with a SHA256 digest.
-        pub const RSA_DECRYPT_OAEP_2048_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(8);
-
+        RsaDecryptOaep2048Sha256,
         /// RSAES-OAEP 3072 bit key with a SHA256 digest.
-        pub const RSA_DECRYPT_OAEP_3072_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(9);
-
+        RsaDecryptOaep3072Sha256,
         /// RSAES-OAEP 4096 bit key with a SHA256 digest.
-        pub const RSA_DECRYPT_OAEP_4096_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(10);
-
+        RsaDecryptOaep4096Sha256,
         /// RSAES-OAEP 4096 bit key with a SHA512 digest.
-        pub const RSA_DECRYPT_OAEP_4096_SHA512: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(17);
-
+        RsaDecryptOaep4096Sha512,
         /// RSAES-OAEP 2048 bit key with a SHA1 digest.
-        pub const RSA_DECRYPT_OAEP_2048_SHA1: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(37);
-
+        RsaDecryptOaep2048Sha1,
         /// RSAES-OAEP 3072 bit key with a SHA1 digest.
-        pub const RSA_DECRYPT_OAEP_3072_SHA1: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(38);
-
+        RsaDecryptOaep3072Sha1,
         /// RSAES-OAEP 4096 bit key with a SHA1 digest.
-        pub const RSA_DECRYPT_OAEP_4096_SHA1: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(39);
-
+        RsaDecryptOaep4096Sha1,
         /// ECDSA on the NIST P-256 curve with a SHA256 digest.
         /// Other hash functions can also be used:
         /// <https://cloud.google.com/kms/docs/create-validate-signatures#ecdsa_support_for_other_hash_algorithms>
-        pub const EC_SIGN_P256_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(12);
-
+        EcSignP256Sha256,
         /// ECDSA on the NIST P-384 curve with a SHA384 digest.
         /// Other hash functions can also be used:
         /// <https://cloud.google.com/kms/docs/create-validate-signatures#ecdsa_support_for_other_hash_algorithms>
-        pub const EC_SIGN_P384_SHA384: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(13);
-
+        EcSignP384Sha384,
         /// ECDSA on the non-NIST secp256k1 curve. This curve is only supported for
         /// HSM protection level.
         /// Other hash functions can also be used:
         /// <https://cloud.google.com/kms/docs/create-validate-signatures#ecdsa_support_for_other_hash_algorithms>
-        pub const EC_SIGN_SECP256K1_SHA256: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(31);
-
+        EcSignSecp256K1Sha256,
         /// EdDSA on the Curve25519 in pure mode (taking data as input).
-        pub const EC_SIGN_ED25519: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(40);
-
+        EcSignEd25519,
         /// HMAC-SHA256 signing with a 256 bit key.
-        pub const HMAC_SHA256: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(32);
-
+        HmacSha256,
         /// HMAC-SHA1 signing with a 160 bit key.
-        pub const HMAC_SHA1: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(33);
-
+        HmacSha1,
         /// HMAC-SHA384 signing with a 384 bit key.
-        pub const HMAC_SHA384: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(34);
-
+        HmacSha384,
         /// HMAC-SHA512 signing with a 512 bit key.
-        pub const HMAC_SHA512: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(35);
-
+        HmacSha512,
         /// HMAC-SHA224 signing with a 224 bit key.
-        pub const HMAC_SHA224: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(36);
-
+        HmacSha224,
         /// Algorithm representing symmetric encryption by an external key manager.
-        pub const EXTERNAL_SYMMETRIC_ENCRYPTION: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(18);
-
+        ExternalSymmetricEncryption,
         /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
         /// security level 3. Randomized version.
-        pub const PQ_SIGN_ML_DSA_65: CryptoKeyVersionAlgorithm = CryptoKeyVersionAlgorithm::new(56);
-
+        PqSignMlDsa65,
         /// The post-quantum stateless hash-based digital signature algorithm, at
         /// security level 1. Randomized version.
-        pub const PQ_SIGN_SLH_DSA_SHA2_128S: CryptoKeyVersionAlgorithm =
-            CryptoKeyVersionAlgorithm::new(57);
+        PqSignSlhDsaSha2128S,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CryptoKeyVersionAlgorithm::value] or
+        /// [CryptoKeyVersionAlgorithm::name].
+        UnknownValue(crypto_key_version_algorithm::UnknownValue),
+    }
 
-        /// Creates a new CryptoKeyVersionAlgorithm instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod crypto_key_version_algorithm {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CryptoKeyVersionAlgorithm {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GoogleSymmetricEncryption => std::option::Option::Some(1),
+                Self::Aes128Gcm => std::option::Option::Some(41),
+                Self::Aes256Gcm => std::option::Option::Some(19),
+                Self::Aes128Cbc => std::option::Option::Some(42),
+                Self::Aes256Cbc => std::option::Option::Some(43),
+                Self::Aes128Ctr => std::option::Option::Some(44),
+                Self::Aes256Ctr => std::option::Option::Some(45),
+                Self::RsaSignPss2048Sha256 => std::option::Option::Some(2),
+                Self::RsaSignPss3072Sha256 => std::option::Option::Some(3),
+                Self::RsaSignPss4096Sha256 => std::option::Option::Some(4),
+                Self::RsaSignPss4096Sha512 => std::option::Option::Some(15),
+                Self::RsaSignPkcs12048Sha256 => std::option::Option::Some(5),
+                Self::RsaSignPkcs13072Sha256 => std::option::Option::Some(6),
+                Self::RsaSignPkcs14096Sha256 => std::option::Option::Some(7),
+                Self::RsaSignPkcs14096Sha512 => std::option::Option::Some(16),
+                Self::RsaSignRawPkcs12048 => std::option::Option::Some(28),
+                Self::RsaSignRawPkcs13072 => std::option::Option::Some(29),
+                Self::RsaSignRawPkcs14096 => std::option::Option::Some(30),
+                Self::RsaDecryptOaep2048Sha256 => std::option::Option::Some(8),
+                Self::RsaDecryptOaep3072Sha256 => std::option::Option::Some(9),
+                Self::RsaDecryptOaep4096Sha256 => std::option::Option::Some(10),
+                Self::RsaDecryptOaep4096Sha512 => std::option::Option::Some(17),
+                Self::RsaDecryptOaep2048Sha1 => std::option::Option::Some(37),
+                Self::RsaDecryptOaep3072Sha1 => std::option::Option::Some(38),
+                Self::RsaDecryptOaep4096Sha1 => std::option::Option::Some(39),
+                Self::EcSignP256Sha256 => std::option::Option::Some(12),
+                Self::EcSignP384Sha384 => std::option::Option::Some(13),
+                Self::EcSignSecp256K1Sha256 => std::option::Option::Some(31),
+                Self::EcSignEd25519 => std::option::Option::Some(40),
+                Self::HmacSha256 => std::option::Option::Some(32),
+                Self::HmacSha1 => std::option::Option::Some(33),
+                Self::HmacSha384 => std::option::Option::Some(34),
+                Self::HmacSha512 => std::option::Option::Some(35),
+                Self::HmacSha224 => std::option::Option::Some(36),
+                Self::ExternalSymmetricEncryption => std::option::Option::Some(18),
+                Self::PqSignMlDsa65 => std::option::Option::Some(56),
+                Self::PqSignSlhDsaSha2128S => std::option::Option::Some(57),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GOOGLE_SYMMETRIC_ENCRYPTION"),
-                2 => std::borrow::Cow::Borrowed("RSA_SIGN_PSS_2048_SHA256"),
-                3 => std::borrow::Cow::Borrowed("RSA_SIGN_PSS_3072_SHA256"),
-                4 => std::borrow::Cow::Borrowed("RSA_SIGN_PSS_4096_SHA256"),
-                5 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_2048_SHA256"),
-                6 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_3072_SHA256"),
-                7 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_4096_SHA256"),
-                8 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_2048_SHA256"),
-                9 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_3072_SHA256"),
-                10 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_4096_SHA256"),
-                12 => std::borrow::Cow::Borrowed("EC_SIGN_P256_SHA256"),
-                13 => std::borrow::Cow::Borrowed("EC_SIGN_P384_SHA384"),
-                15 => std::borrow::Cow::Borrowed("RSA_SIGN_PSS_4096_SHA512"),
-                16 => std::borrow::Cow::Borrowed("RSA_SIGN_PKCS1_4096_SHA512"),
-                17 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_4096_SHA512"),
-                18 => std::borrow::Cow::Borrowed("EXTERNAL_SYMMETRIC_ENCRYPTION"),
-                19 => std::borrow::Cow::Borrowed("AES_256_GCM"),
-                28 => std::borrow::Cow::Borrowed("RSA_SIGN_RAW_PKCS1_2048"),
-                29 => std::borrow::Cow::Borrowed("RSA_SIGN_RAW_PKCS1_3072"),
-                30 => std::borrow::Cow::Borrowed("RSA_SIGN_RAW_PKCS1_4096"),
-                31 => std::borrow::Cow::Borrowed("EC_SIGN_SECP256K1_SHA256"),
-                32 => std::borrow::Cow::Borrowed("HMAC_SHA256"),
-                33 => std::borrow::Cow::Borrowed("HMAC_SHA1"),
-                34 => std::borrow::Cow::Borrowed("HMAC_SHA384"),
-                35 => std::borrow::Cow::Borrowed("HMAC_SHA512"),
-                36 => std::borrow::Cow::Borrowed("HMAC_SHA224"),
-                37 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_2048_SHA1"),
-                38 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_3072_SHA1"),
-                39 => std::borrow::Cow::Borrowed("RSA_DECRYPT_OAEP_4096_SHA1"),
-                40 => std::borrow::Cow::Borrowed("EC_SIGN_ED25519"),
-                41 => std::borrow::Cow::Borrowed("AES_128_GCM"),
-                42 => std::borrow::Cow::Borrowed("AES_128_CBC"),
-                43 => std::borrow::Cow::Borrowed("AES_256_CBC"),
-                44 => std::borrow::Cow::Borrowed("AES_128_CTR"),
-                45 => std::borrow::Cow::Borrowed("AES_256_CTR"),
-                56 => std::borrow::Cow::Borrowed("PQ_SIGN_ML_DSA_65"),
-                57 => std::borrow::Cow::Borrowed("PQ_SIGN_SLH_DSA_SHA2_128S"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED")
+                }
+                Self::GoogleSymmetricEncryption => {
+                    std::option::Option::Some("GOOGLE_SYMMETRIC_ENCRYPTION")
+                }
+                Self::Aes128Gcm => std::option::Option::Some("AES_128_GCM"),
+                Self::Aes256Gcm => std::option::Option::Some("AES_256_GCM"),
+                Self::Aes128Cbc => std::option::Option::Some("AES_128_CBC"),
+                Self::Aes256Cbc => std::option::Option::Some("AES_256_CBC"),
+                Self::Aes128Ctr => std::option::Option::Some("AES_128_CTR"),
+                Self::Aes256Ctr => std::option::Option::Some("AES_256_CTR"),
+                Self::RsaSignPss2048Sha256 => std::option::Option::Some("RSA_SIGN_PSS_2048_SHA256"),
+                Self::RsaSignPss3072Sha256 => std::option::Option::Some("RSA_SIGN_PSS_3072_SHA256"),
+                Self::RsaSignPss4096Sha256 => std::option::Option::Some("RSA_SIGN_PSS_4096_SHA256"),
+                Self::RsaSignPss4096Sha512 => std::option::Option::Some("RSA_SIGN_PSS_4096_SHA512"),
+                Self::RsaSignPkcs12048Sha256 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256")
+                }
+                Self::RsaSignPkcs13072Sha256 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_3072_SHA256")
+                }
+                Self::RsaSignPkcs14096Sha256 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA256")
+                }
+                Self::RsaSignPkcs14096Sha512 => {
+                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA512")
+                }
+                Self::RsaSignRawPkcs12048 => std::option::Option::Some("RSA_SIGN_RAW_PKCS1_2048"),
+                Self::RsaSignRawPkcs13072 => std::option::Option::Some("RSA_SIGN_RAW_PKCS1_3072"),
+                Self::RsaSignRawPkcs14096 => std::option::Option::Some("RSA_SIGN_RAW_PKCS1_4096"),
+                Self::RsaDecryptOaep2048Sha256 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_2048_SHA256")
+                }
+                Self::RsaDecryptOaep3072Sha256 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_3072_SHA256")
+                }
+                Self::RsaDecryptOaep4096Sha256 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA256")
+                }
+                Self::RsaDecryptOaep4096Sha512 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA512")
+                }
+                Self::RsaDecryptOaep2048Sha1 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_2048_SHA1")
+                }
+                Self::RsaDecryptOaep3072Sha1 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_3072_SHA1")
+                }
+                Self::RsaDecryptOaep4096Sha1 => {
+                    std::option::Option::Some("RSA_DECRYPT_OAEP_4096_SHA1")
+                }
+                Self::EcSignP256Sha256 => std::option::Option::Some("EC_SIGN_P256_SHA256"),
+                Self::EcSignP384Sha384 => std::option::Option::Some("EC_SIGN_P384_SHA384"),
+                Self::EcSignSecp256K1Sha256 => {
+                    std::option::Option::Some("EC_SIGN_SECP256K1_SHA256")
+                }
+                Self::EcSignEd25519 => std::option::Option::Some("EC_SIGN_ED25519"),
+                Self::HmacSha256 => std::option::Option::Some("HMAC_SHA256"),
+                Self::HmacSha1 => std::option::Option::Some("HMAC_SHA1"),
+                Self::HmacSha384 => std::option::Option::Some("HMAC_SHA384"),
+                Self::HmacSha512 => std::option::Option::Some("HMAC_SHA512"),
+                Self::HmacSha224 => std::option::Option::Some("HMAC_SHA224"),
+                Self::ExternalSymmetricEncryption => {
+                    std::option::Option::Some("EXTERNAL_SYMMETRIC_ENCRYPTION")
+                }
+                Self::PqSignMlDsa65 => std::option::Option::Some("PQ_SIGN_ML_DSA_65"),
+                Self::PqSignSlhDsaSha2128S => {
+                    std::option::Option::Some("PQ_SIGN_SLH_DSA_SHA2_128S")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED)
-                }
-                "GOOGLE_SYMMETRIC_ENCRYPTION" => {
-                    std::option::Option::Some(Self::GOOGLE_SYMMETRIC_ENCRYPTION)
-                }
-                "AES_128_GCM" => std::option::Option::Some(Self::AES_128_GCM),
-                "AES_256_GCM" => std::option::Option::Some(Self::AES_256_GCM),
-                "AES_128_CBC" => std::option::Option::Some(Self::AES_128_CBC),
-                "AES_256_CBC" => std::option::Option::Some(Self::AES_256_CBC),
-                "AES_128_CTR" => std::option::Option::Some(Self::AES_128_CTR),
-                "AES_256_CTR" => std::option::Option::Some(Self::AES_256_CTR),
-                "RSA_SIGN_PSS_2048_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PSS_2048_SHA256)
-                }
-                "RSA_SIGN_PSS_3072_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PSS_3072_SHA256)
-                }
-                "RSA_SIGN_PSS_4096_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PSS_4096_SHA256)
-                }
-                "RSA_SIGN_PSS_4096_SHA512" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PSS_4096_SHA512)
-                }
-                "RSA_SIGN_PKCS1_2048_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_2048_SHA256)
-                }
-                "RSA_SIGN_PKCS1_3072_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_3072_SHA256)
-                }
-                "RSA_SIGN_PKCS1_4096_SHA256" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_4096_SHA256)
-                }
-                "RSA_SIGN_PKCS1_4096_SHA512" => {
-                    std::option::Option::Some(Self::RSA_SIGN_PKCS1_4096_SHA512)
-                }
-                "RSA_SIGN_RAW_PKCS1_2048" => {
-                    std::option::Option::Some(Self::RSA_SIGN_RAW_PKCS1_2048)
-                }
-                "RSA_SIGN_RAW_PKCS1_3072" => {
-                    std::option::Option::Some(Self::RSA_SIGN_RAW_PKCS1_3072)
-                }
-                "RSA_SIGN_RAW_PKCS1_4096" => {
-                    std::option::Option::Some(Self::RSA_SIGN_RAW_PKCS1_4096)
-                }
-                "RSA_DECRYPT_OAEP_2048_SHA256" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_2048_SHA256)
-                }
-                "RSA_DECRYPT_OAEP_3072_SHA256" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_3072_SHA256)
-                }
-                "RSA_DECRYPT_OAEP_4096_SHA256" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_4096_SHA256)
-                }
-                "RSA_DECRYPT_OAEP_4096_SHA512" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_4096_SHA512)
-                }
-                "RSA_DECRYPT_OAEP_2048_SHA1" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_2048_SHA1)
-                }
-                "RSA_DECRYPT_OAEP_3072_SHA1" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_3072_SHA1)
-                }
-                "RSA_DECRYPT_OAEP_4096_SHA1" => {
-                    std::option::Option::Some(Self::RSA_DECRYPT_OAEP_4096_SHA1)
-                }
-                "EC_SIGN_P256_SHA256" => std::option::Option::Some(Self::EC_SIGN_P256_SHA256),
-                "EC_SIGN_P384_SHA384" => std::option::Option::Some(Self::EC_SIGN_P384_SHA384),
-                "EC_SIGN_SECP256K1_SHA256" => {
-                    std::option::Option::Some(Self::EC_SIGN_SECP256K1_SHA256)
-                }
-                "EC_SIGN_ED25519" => std::option::Option::Some(Self::EC_SIGN_ED25519),
-                "HMAC_SHA256" => std::option::Option::Some(Self::HMAC_SHA256),
-                "HMAC_SHA1" => std::option::Option::Some(Self::HMAC_SHA1),
-                "HMAC_SHA384" => std::option::Option::Some(Self::HMAC_SHA384),
-                "HMAC_SHA512" => std::option::Option::Some(Self::HMAC_SHA512),
-                "HMAC_SHA224" => std::option::Option::Some(Self::HMAC_SHA224),
-                "EXTERNAL_SYMMETRIC_ENCRYPTION" => {
-                    std::option::Option::Some(Self::EXTERNAL_SYMMETRIC_ENCRYPTION)
-                }
-                "PQ_SIGN_ML_DSA_65" => std::option::Option::Some(Self::PQ_SIGN_ML_DSA_65),
-                "PQ_SIGN_SLH_DSA_SHA2_128S" => {
-                    std::option::Option::Some(Self::PQ_SIGN_SLH_DSA_SHA2_128S)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for CryptoKeyVersionAlgorithm {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CryptoKeyVersionAlgorithm {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CryptoKeyVersionAlgorithm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CryptoKeyVersionAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GoogleSymmetricEncryption,
+                2 => Self::RsaSignPss2048Sha256,
+                3 => Self::RsaSignPss3072Sha256,
+                4 => Self::RsaSignPss4096Sha256,
+                5 => Self::RsaSignPkcs12048Sha256,
+                6 => Self::RsaSignPkcs13072Sha256,
+                7 => Self::RsaSignPkcs14096Sha256,
+                8 => Self::RsaDecryptOaep2048Sha256,
+                9 => Self::RsaDecryptOaep3072Sha256,
+                10 => Self::RsaDecryptOaep4096Sha256,
+                12 => Self::EcSignP256Sha256,
+                13 => Self::EcSignP384Sha384,
+                15 => Self::RsaSignPss4096Sha512,
+                16 => Self::RsaSignPkcs14096Sha512,
+                17 => Self::RsaDecryptOaep4096Sha512,
+                18 => Self::ExternalSymmetricEncryption,
+                19 => Self::Aes256Gcm,
+                28 => Self::RsaSignRawPkcs12048,
+                29 => Self::RsaSignRawPkcs13072,
+                30 => Self::RsaSignRawPkcs14096,
+                31 => Self::EcSignSecp256K1Sha256,
+                32 => Self::HmacSha256,
+                33 => Self::HmacSha1,
+                34 => Self::HmacSha384,
+                35 => Self::HmacSha512,
+                36 => Self::HmacSha224,
+                37 => Self::RsaDecryptOaep2048Sha1,
+                38 => Self::RsaDecryptOaep3072Sha1,
+                39 => Self::RsaDecryptOaep4096Sha1,
+                40 => Self::EcSignEd25519,
+                41 => Self::Aes128Gcm,
+                42 => Self::Aes128Cbc,
+                43 => Self::Aes256Cbc,
+                44 => Self::Aes128Ctr,
+                45 => Self::Aes256Ctr,
+                56 => Self::PqSignMlDsa65,
+                57 => Self::PqSignSlhDsaSha2128S,
+                _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CryptoKeyVersionAlgorithm {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                "GOOGLE_SYMMETRIC_ENCRYPTION" => Self::GoogleSymmetricEncryption,
+                "AES_128_GCM" => Self::Aes128Gcm,
+                "AES_256_GCM" => Self::Aes256Gcm,
+                "AES_128_CBC" => Self::Aes128Cbc,
+                "AES_256_CBC" => Self::Aes256Cbc,
+                "AES_128_CTR" => Self::Aes128Ctr,
+                "AES_256_CTR" => Self::Aes256Ctr,
+                "RSA_SIGN_PSS_2048_SHA256" => Self::RsaSignPss2048Sha256,
+                "RSA_SIGN_PSS_3072_SHA256" => Self::RsaSignPss3072Sha256,
+                "RSA_SIGN_PSS_4096_SHA256" => Self::RsaSignPss4096Sha256,
+                "RSA_SIGN_PSS_4096_SHA512" => Self::RsaSignPss4096Sha512,
+                "RSA_SIGN_PKCS1_2048_SHA256" => Self::RsaSignPkcs12048Sha256,
+                "RSA_SIGN_PKCS1_3072_SHA256" => Self::RsaSignPkcs13072Sha256,
+                "RSA_SIGN_PKCS1_4096_SHA256" => Self::RsaSignPkcs14096Sha256,
+                "RSA_SIGN_PKCS1_4096_SHA512" => Self::RsaSignPkcs14096Sha512,
+                "RSA_SIGN_RAW_PKCS1_2048" => Self::RsaSignRawPkcs12048,
+                "RSA_SIGN_RAW_PKCS1_3072" => Self::RsaSignRawPkcs13072,
+                "RSA_SIGN_RAW_PKCS1_4096" => Self::RsaSignRawPkcs14096,
+                "RSA_DECRYPT_OAEP_2048_SHA256" => Self::RsaDecryptOaep2048Sha256,
+                "RSA_DECRYPT_OAEP_3072_SHA256" => Self::RsaDecryptOaep3072Sha256,
+                "RSA_DECRYPT_OAEP_4096_SHA256" => Self::RsaDecryptOaep4096Sha256,
+                "RSA_DECRYPT_OAEP_4096_SHA512" => Self::RsaDecryptOaep4096Sha512,
+                "RSA_DECRYPT_OAEP_2048_SHA1" => Self::RsaDecryptOaep2048Sha1,
+                "RSA_DECRYPT_OAEP_3072_SHA1" => Self::RsaDecryptOaep3072Sha1,
+                "RSA_DECRYPT_OAEP_4096_SHA1" => Self::RsaDecryptOaep4096Sha1,
+                "EC_SIGN_P256_SHA256" => Self::EcSignP256Sha256,
+                "EC_SIGN_P384_SHA384" => Self::EcSignP384Sha384,
+                "EC_SIGN_SECP256K1_SHA256" => Self::EcSignSecp256K1Sha256,
+                "EC_SIGN_ED25519" => Self::EcSignEd25519,
+                "HMAC_SHA256" => Self::HmacSha256,
+                "HMAC_SHA1" => Self::HmacSha1,
+                "HMAC_SHA384" => Self::HmacSha384,
+                "HMAC_SHA512" => Self::HmacSha512,
+                "HMAC_SHA224" => Self::HmacSha224,
+                "EXTERNAL_SYMMETRIC_ENCRYPTION" => Self::ExternalSymmetricEncryption,
+                "PQ_SIGN_ML_DSA_65" => Self::PqSignMlDsa65,
+                "PQ_SIGN_SLH_DSA_SHA2_128S" => Self::PqSignSlhDsaSha2128S,
+                _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CryptoKeyVersionAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GoogleSymmetricEncryption => serializer.serialize_i32(1),
+                Self::Aes128Gcm => serializer.serialize_i32(41),
+                Self::Aes256Gcm => serializer.serialize_i32(19),
+                Self::Aes128Cbc => serializer.serialize_i32(42),
+                Self::Aes256Cbc => serializer.serialize_i32(43),
+                Self::Aes128Ctr => serializer.serialize_i32(44),
+                Self::Aes256Ctr => serializer.serialize_i32(45),
+                Self::RsaSignPss2048Sha256 => serializer.serialize_i32(2),
+                Self::RsaSignPss3072Sha256 => serializer.serialize_i32(3),
+                Self::RsaSignPss4096Sha256 => serializer.serialize_i32(4),
+                Self::RsaSignPss4096Sha512 => serializer.serialize_i32(15),
+                Self::RsaSignPkcs12048Sha256 => serializer.serialize_i32(5),
+                Self::RsaSignPkcs13072Sha256 => serializer.serialize_i32(6),
+                Self::RsaSignPkcs14096Sha256 => serializer.serialize_i32(7),
+                Self::RsaSignPkcs14096Sha512 => serializer.serialize_i32(16),
+                Self::RsaSignRawPkcs12048 => serializer.serialize_i32(28),
+                Self::RsaSignRawPkcs13072 => serializer.serialize_i32(29),
+                Self::RsaSignRawPkcs14096 => serializer.serialize_i32(30),
+                Self::RsaDecryptOaep2048Sha256 => serializer.serialize_i32(8),
+                Self::RsaDecryptOaep3072Sha256 => serializer.serialize_i32(9),
+                Self::RsaDecryptOaep4096Sha256 => serializer.serialize_i32(10),
+                Self::RsaDecryptOaep4096Sha512 => serializer.serialize_i32(17),
+                Self::RsaDecryptOaep2048Sha1 => serializer.serialize_i32(37),
+                Self::RsaDecryptOaep3072Sha1 => serializer.serialize_i32(38),
+                Self::RsaDecryptOaep4096Sha1 => serializer.serialize_i32(39),
+                Self::EcSignP256Sha256 => serializer.serialize_i32(12),
+                Self::EcSignP384Sha384 => serializer.serialize_i32(13),
+                Self::EcSignSecp256K1Sha256 => serializer.serialize_i32(31),
+                Self::EcSignEd25519 => serializer.serialize_i32(40),
+                Self::HmacSha256 => serializer.serialize_i32(32),
+                Self::HmacSha1 => serializer.serialize_i32(33),
+                Self::HmacSha384 => serializer.serialize_i32(34),
+                Self::HmacSha512 => serializer.serialize_i32(35),
+                Self::HmacSha224 => serializer.serialize_i32(36),
+                Self::ExternalSymmetricEncryption => serializer.serialize_i32(18),
+                Self::PqSignMlDsa65 => serializer.serialize_i32(56),
+                Self::PqSignSlhDsaSha2128S => serializer.serialize_i32(57),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CryptoKeyVersionAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<CryptoKeyVersionAlgorithm>::new(
+                    ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm",
+                ),
+            )
         }
     }
 
@@ -3260,34 +3676,42 @@ pub mod crypto_key_version {
     /// indicating if it can be used.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyVersionState(i32);
-
-    impl CryptoKeyVersionState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CryptoKeyVersionState {
         /// Not specified.
-        pub const CRYPTO_KEY_VERSION_STATE_UNSPECIFIED: CryptoKeyVersionState =
-            CryptoKeyVersionState::new(0);
-
+        Unspecified,
         /// This version is still being generated. It may not be used, enabled,
         /// disabled, or destroyed yet. Cloud KMS will automatically mark this
         /// version
         /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]
         /// as soon as the version is ready.
         ///
-        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-        pub const PENDING_GENERATION: CryptoKeyVersionState = CryptoKeyVersionState::new(5);
-
+        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
+        PendingGeneration,
         /// This version may be used for cryptographic operations.
-        pub const ENABLED: CryptoKeyVersionState = CryptoKeyVersionState::new(1);
-
+        Enabled,
         /// This version may not be used, but the key material is still available,
         /// and the version can be placed back into the
         /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]
         /// state.
         ///
-        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-        pub const DISABLED: CryptoKeyVersionState = CryptoKeyVersionState::new(2);
-
+        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
+        Disabled,
         /// This version is destroyed, and the key material is no longer stored.
         /// This version may only become
         /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]
@@ -3296,11 +3720,10 @@ pub mod crypto_key_version {
         /// and the original key material is reimported with a call to
         /// [KeyManagementService.ImportCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion].
         ///
-        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
+        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
         /// [google.cloud.kms.v1.CryptoKeyVersion.reimport_eligible]: crate::model::CryptoKeyVersion::reimport_eligible
         /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
-        pub const DESTROYED: CryptoKeyVersionState = CryptoKeyVersionState::new(3);
-
+        Destroyed,
         /// This version is scheduled for destruction, and will be destroyed soon.
         /// Call
         /// [RestoreCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]
@@ -3308,40 +3731,34 @@ pub mod crypto_key_version {
         /// [DISABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]
         /// state.
         ///
-        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
+        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Disabled
         /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
-        pub const DESTROY_SCHEDULED: CryptoKeyVersionState = CryptoKeyVersionState::new(4);
-
+        DestroyScheduled,
         /// This version is still being imported. It may not be used, enabled,
         /// disabled, or destroyed yet. Cloud KMS will automatically mark this
         /// version
         /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]
         /// as soon as the version is ready.
         ///
-        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-        pub const PENDING_IMPORT: CryptoKeyVersionState = CryptoKeyVersionState::new(6);
-
+        /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
+        PendingImport,
         /// This version was not imported successfully. It may not be used, enabled,
         /// disabled, or destroyed. The submitted key material has been discarded.
         /// Additional details can be found in
         /// [CryptoKeyVersion.import_failure_reason][google.cloud.kms.v1.CryptoKeyVersion.import_failure_reason].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.import_failure_reason]: crate::model::CryptoKeyVersion::import_failure_reason
-        pub const IMPORT_FAILED: CryptoKeyVersionState = CryptoKeyVersionState::new(7);
-
+        ImportFailed,
         /// This version was not generated successfully. It may not be used, enabled,
         /// disabled, or destroyed. Additional details can be found in
         /// [CryptoKeyVersion.generation_failure_reason][google.cloud.kms.v1.CryptoKeyVersion.generation_failure_reason].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.generation_failure_reason]: crate::model::CryptoKeyVersion::generation_failure_reason
-        pub const GENERATION_FAILED: CryptoKeyVersionState = CryptoKeyVersionState::new(8);
-
+        GenerationFailed,
         /// This version was destroyed, and it may not be used or enabled again.
         /// Cloud KMS is waiting for the corresponding key material residing in an
         /// external key manager to be destroyed.
-        pub const PENDING_EXTERNAL_DESTRUCTION: CryptoKeyVersionState =
-            CryptoKeyVersionState::new(9);
-
+        PendingExternalDestruction,
         /// This version was destroyed, and it may not be used or enabled again.
         /// However, Cloud KMS could not confirm that the corresponding key material
         /// residing in an external key manager was destroyed. Additional details can
@@ -3349,71 +3766,158 @@ pub mod crypto_key_version {
         /// [CryptoKeyVersion.external_destruction_failure_reason][google.cloud.kms.v1.CryptoKeyVersion.external_destruction_failure_reason].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.external_destruction_failure_reason]: crate::model::CryptoKeyVersion::external_destruction_failure_reason
-        pub const EXTERNAL_DESTRUCTION_FAILED: CryptoKeyVersionState =
-            CryptoKeyVersionState::new(10);
+        ExternalDestructionFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CryptoKeyVersionState::value] or
+        /// [CryptoKeyVersionState::name].
+        UnknownValue(crypto_key_version_state::UnknownValue),
+    }
 
-        /// Creates a new CryptoKeyVersionState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod crypto_key_version_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CryptoKeyVersionState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingGeneration => std::option::Option::Some(5),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::Destroyed => std::option::Option::Some(3),
+                Self::DestroyScheduled => std::option::Option::Some(4),
+                Self::PendingImport => std::option::Option::Some(6),
+                Self::ImportFailed => std::option::Option::Some(7),
+                Self::GenerationFailed => std::option::Option::Some(8),
+                Self::PendingExternalDestruction => std::option::Option::Some(9),
+                Self::ExternalDestructionFailed => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CRYPTO_KEY_VERSION_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                3 => std::borrow::Cow::Borrowed("DESTROYED"),
-                4 => std::borrow::Cow::Borrowed("DESTROY_SCHEDULED"),
-                5 => std::borrow::Cow::Borrowed("PENDING_GENERATION"),
-                6 => std::borrow::Cow::Borrowed("PENDING_IMPORT"),
-                7 => std::borrow::Cow::Borrowed("IMPORT_FAILED"),
-                8 => std::borrow::Cow::Borrowed("GENERATION_FAILED"),
-                9 => std::borrow::Cow::Borrowed("PENDING_EXTERNAL_DESTRUCTION"),
-                10 => std::borrow::Cow::Borrowed("EXTERNAL_DESTRUCTION_FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CRYPTO_KEY_VERSION_STATE_UNSPECIFIED")
+                }
+                Self::PendingGeneration => std::option::Option::Some("PENDING_GENERATION"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Destroyed => std::option::Option::Some("DESTROYED"),
+                Self::DestroyScheduled => std::option::Option::Some("DESTROY_SCHEDULED"),
+                Self::PendingImport => std::option::Option::Some("PENDING_IMPORT"),
+                Self::ImportFailed => std::option::Option::Some("IMPORT_FAILED"),
+                Self::GenerationFailed => std::option::Option::Some("GENERATION_FAILED"),
+                Self::PendingExternalDestruction => {
+                    std::option::Option::Some("PENDING_EXTERNAL_DESTRUCTION")
+                }
+                Self::ExternalDestructionFailed => {
+                    std::option::Option::Some("EXTERNAL_DESTRUCTION_FAILED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CRYPTO_KEY_VERSION_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CRYPTO_KEY_VERSION_STATE_UNSPECIFIED)
-                }
-                "PENDING_GENERATION" => std::option::Option::Some(Self::PENDING_GENERATION),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                "DESTROYED" => std::option::Option::Some(Self::DESTROYED),
-                "DESTROY_SCHEDULED" => std::option::Option::Some(Self::DESTROY_SCHEDULED),
-                "PENDING_IMPORT" => std::option::Option::Some(Self::PENDING_IMPORT),
-                "IMPORT_FAILED" => std::option::Option::Some(Self::IMPORT_FAILED),
-                "GENERATION_FAILED" => std::option::Option::Some(Self::GENERATION_FAILED),
-                "PENDING_EXTERNAL_DESTRUCTION" => {
-                    std::option::Option::Some(Self::PENDING_EXTERNAL_DESTRUCTION)
-                }
-                "EXTERNAL_DESTRUCTION_FAILED" => {
-                    std::option::Option::Some(Self::EXTERNAL_DESTRUCTION_FAILED)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for CryptoKeyVersionState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CryptoKeyVersionState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CryptoKeyVersionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CryptoKeyVersionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                3 => Self::Destroyed,
+                4 => Self::DestroyScheduled,
+                5 => Self::PendingGeneration,
+                6 => Self::PendingImport,
+                7 => Self::ImportFailed,
+                8 => Self::GenerationFailed,
+                9 => Self::PendingExternalDestruction,
+                10 => Self::ExternalDestructionFailed,
+                _ => Self::UnknownValue(crypto_key_version_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CryptoKeyVersionState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CRYPTO_KEY_VERSION_STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_GENERATION" => Self::PendingGeneration,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                "DESTROYED" => Self::Destroyed,
+                "DESTROY_SCHEDULED" => Self::DestroyScheduled,
+                "PENDING_IMPORT" => Self::PendingImport,
+                "IMPORT_FAILED" => Self::ImportFailed,
+                "GENERATION_FAILED" => Self::GenerationFailed,
+                "PENDING_EXTERNAL_DESTRUCTION" => Self::PendingExternalDestruction,
+                "EXTERNAL_DESTRUCTION_FAILED" => Self::ExternalDestructionFailed,
+                _ => Self::UnknownValue(crypto_key_version_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CryptoKeyVersionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingGeneration => serializer.serialize_i32(5),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::Destroyed => serializer.serialize_i32(3),
+                Self::DestroyScheduled => serializer.serialize_i32(4),
+                Self::PendingImport => serializer.serialize_i32(6),
+                Self::ImportFailed => serializer.serialize_i32(7),
+                Self::GenerationFailed => serializer.serialize_i32(8),
+                Self::PendingExternalDestruction => serializer.serialize_i32(9),
+                Self::ExternalDestructionFailed => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CryptoKeyVersionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyVersionState>::new(
+                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState",
+            ))
         }
     }
 
@@ -3427,10 +3931,23 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyVersionView(i32);
-
-    impl CryptoKeyVersionView {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CryptoKeyVersionView {
         /// Default view for each
         /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. Does not
         /// include the
@@ -3438,57 +3955,116 @@ pub mod crypto_key_version {
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.CryptoKeyVersion.attestation]: crate::model::CryptoKeyVersion::attestation
-        pub const CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED: CryptoKeyVersionView =
-            CryptoKeyVersionView::new(0);
-
+        Unspecified,
         /// Provides all fields in each
         /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion], including the
         /// [attestation][google.cloud.kms.v1.CryptoKeyVersion.attestation].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.CryptoKeyVersion.attestation]: crate::model::CryptoKeyVersion::attestation
-        pub const FULL: CryptoKeyVersionView = CryptoKeyVersionView::new(1);
+        Full,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CryptoKeyVersionView::value] or
+        /// [CryptoKeyVersionView::name].
+        UnknownValue(crypto_key_version_view::UnknownValue),
+    }
 
-        /// Creates a new CryptoKeyVersionView instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod crypto_key_version_view {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CryptoKeyVersionView {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Full => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("FULL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED")
                 }
-                "FULL" => std::option::Option::Some(Self::FULL),
-                _ => std::option::Option::None,
+                Self::Full => std::option::Option::Some("FULL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for CryptoKeyVersionView {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CryptoKeyVersionView {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CryptoKeyVersionView {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CryptoKeyVersionView {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Full,
+                _ => Self::UnknownValue(crypto_key_version_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CryptoKeyVersionView {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED" => Self::Unspecified,
+                "FULL" => Self::Full,
+                _ => Self::UnknownValue(crypto_key_version_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CryptoKeyVersionView {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Full => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CryptoKeyVersionView {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CryptoKeyVersionView>::new(
+                ".google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionView",
+            ))
         }
     }
 }
@@ -3725,10 +4301,23 @@ pub mod public_key {
     /// The supported [PublicKey][google.cloud.kms.v1.PublicKey] formats.
     ///
     /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PublicKeyFormat(i32);
-
-    impl PublicKeyFormat {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PublicKeyFormat {
         /// If the
         /// [public_key_format][google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]
         /// field is not specified:
@@ -3744,62 +4333,122 @@ pub mod public_key {
         /// [google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]: crate::model::GetPublicKeyRequest::public_key_format
         /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
         /// [google.cloud.kms.v1.PublicKey.public_key]: crate::model::PublicKey::public_key
-        pub const PUBLIC_KEY_FORMAT_UNSPECIFIED: PublicKeyFormat = PublicKeyFormat::new(0);
-
+        Unspecified,
         /// The returned public key will be encoded in PEM format.
         /// See the [RFC7468](https://tools.ietf.org/html/rfc7468) sections for
         /// [General Considerations](https://tools.ietf.org/html/rfc7468#section-2)
         /// and [Textual Encoding of Subject Public Key Info]
         /// (<https://tools.ietf.org/html/rfc7468#section-13>) for more information.
-        pub const PEM: PublicKeyFormat = PublicKeyFormat::new(1);
-
+        Pem,
         /// This is supported only for PQC algorithms.
         /// The key material is returned in the format defined by NIST PQC
         /// standards (FIPS 203, FIPS 204, and FIPS 205).
-        pub const NIST_PQC: PublicKeyFormat = PublicKeyFormat::new(3);
+        NistPqc,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PublicKeyFormat::value] or
+        /// [PublicKeyFormat::name].
+        UnknownValue(public_key_format::UnknownValue),
+    }
 
-        /// Creates a new PublicKeyFormat instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod public_key_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl PublicKeyFormat {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pem => std::option::Option::Some(1),
+                Self::NistPqc => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PUBLIC_KEY_FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PEM"),
-                3 => std::borrow::Cow::Borrowed("NIST_PQC"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PUBLIC_KEY_FORMAT_UNSPECIFIED"),
+                Self::Pem => std::option::Option::Some("PEM"),
+                Self::NistPqc => std::option::Option::Some("NIST_PQC"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PUBLIC_KEY_FORMAT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PUBLIC_KEY_FORMAT_UNSPECIFIED)
-                }
-                "PEM" => std::option::Option::Some(Self::PEM),
-                "NIST_PQC" => std::option::Option::Some(Self::NIST_PQC),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PublicKeyFormat {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PublicKeyFormat {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PublicKeyFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PublicKeyFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pem,
+                3 => Self::NistPqc,
+                _ => Self::UnknownValue(public_key_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PublicKeyFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PUBLIC_KEY_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "PEM" => Self::Pem,
+                "NIST_PQC" => Self::NistPqc,
+                _ => Self::UnknownValue(public_key_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PublicKeyFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pem => serializer.serialize_i32(1),
+                Self::NistPqc => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PublicKeyFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PublicKeyFormat>::new(
+                ".google.cloud.kms.v1.PublicKey.PublicKeyFormat",
+            ))
         }
     }
 }
@@ -3841,7 +4490,7 @@ pub mod public_key {
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-/// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::import_job_state::ACTIVE
+/// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::ImportJobState::Active
 /// [google.cloud.kms.v1.ImportJob.import_method]: crate::model::ImportJob::import_method
 /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
 /// [google.cloud.kms.v1.ImportJob.state]: crate::model::ImportJob::state
@@ -3903,7 +4552,7 @@ pub struct ImportJob {
     /// [EXPIRED][google.cloud.kms.v1.ImportJob.ImportJobState.EXPIRED].
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    /// [google.cloud.kms.v1.ImportJob.ImportJobState.EXPIRED]: crate::model::import_job::import_job_state::EXPIRED
+    /// [google.cloud.kms.v1.ImportJob.ImportJobState.EXPIRED]: crate::model::import_job::ImportJobState::Expired
     /// [google.cloud.kms.v1.ImportJob.state]: crate::model::ImportJob::state
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_event_time: std::option::Option<wkt::Timestamp>,
@@ -3918,7 +4567,7 @@ pub struct ImportJob {
     /// import. Only returned if [state][google.cloud.kms.v1.ImportJob.state] is
     /// [ACTIVE][google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE].
     ///
-    /// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::import_job_state::ACTIVE
+    /// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::ImportJobState::Active
     /// [google.cloud.kms.v1.ImportJob.state]: crate::model::ImportJob::state
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub public_key: std::option::Option<crate::model::import_job::WrappingPublicKey>,
@@ -3931,7 +4580,7 @@ pub struct ImportJob {
     /// protection level of [HSM][google.cloud.kms.v1.ProtectionLevel.HSM].
     ///
     /// [google.cloud.kms.v1.ImportJob.ImportMethod]: crate::model::import_job::ImportMethod
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attestation: std::option::Option<crate::model::KeyOperationAttestation>,
 
@@ -4093,115 +4742,196 @@ pub mod import_job {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.ImportMethod]: crate::model::import_job::ImportMethod
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ImportMethod(i32);
-
-    impl ImportMethod {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ImportMethod {
         /// Not specified.
-        pub const IMPORT_METHOD_UNSPECIFIED: ImportMethod = ImportMethod::new(0);
-
+        Unspecified,
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
         /// wrapping the raw key with an ephemeral AES key, and wrapping the
         /// ephemeral AES key with a 3072 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_3072_SHA1_AES_256: ImportMethod = ImportMethod::new(1);
-
+        RsaOaep3072Sha1Aes256,
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
         /// wrapping the raw key with an ephemeral AES key, and wrapping the
         /// ephemeral AES key with a 4096 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_4096_SHA1_AES_256: ImportMethod = ImportMethod::new(2);
-
+        RsaOaep4096Sha1Aes256,
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
         /// wrapping the raw key with an ephemeral AES key, and wrapping the
         /// ephemeral AES key with a 3072 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_3072_SHA256_AES_256: ImportMethod = ImportMethod::new(3);
-
+        RsaOaep3072Sha256Aes256,
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
         /// wrapping the raw key with an ephemeral AES key, and wrapping the
         /// ephemeral AES key with a 4096 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_4096_SHA256_AES_256: ImportMethod = ImportMethod::new(4);
-
+        RsaOaep4096Sha256Aes256,
         /// This ImportMethod represents RSAES-OAEP with a 3072 bit RSA key. The
         /// key material to be imported is wrapped directly with the RSA key. Due
         /// to technical limitations of RSA wrapping, this method cannot be used to
         /// wrap RSA keys for import.
-        pub const RSA_OAEP_3072_SHA256: ImportMethod = ImportMethod::new(5);
-
+        RsaOaep3072Sha256,
         /// This ImportMethod represents RSAES-OAEP with a 4096 bit RSA key. The
         /// key material to be imported is wrapped directly with the RSA key. Due
         /// to technical limitations of RSA wrapping, this method cannot be used to
         /// wrap RSA keys for import.
-        pub const RSA_OAEP_4096_SHA256: ImportMethod = ImportMethod::new(6);
+        RsaOaep4096Sha256,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ImportMethod::value] or
+        /// [ImportMethod::name].
+        UnknownValue(import_method::UnknownValue),
+    }
 
-        /// Creates a new ImportMethod instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod import_method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ImportMethod {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RsaOaep3072Sha1Aes256 => std::option::Option::Some(1),
+                Self::RsaOaep4096Sha1Aes256 => std::option::Option::Some(2),
+                Self::RsaOaep3072Sha256Aes256 => std::option::Option::Some(3),
+                Self::RsaOaep4096Sha256Aes256 => std::option::Option::Some(4),
+                Self::RsaOaep3072Sha256 => std::option::Option::Some(5),
+                Self::RsaOaep4096Sha256 => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("IMPORT_METHOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RSA_OAEP_3072_SHA1_AES_256"),
-                2 => std::borrow::Cow::Borrowed("RSA_OAEP_4096_SHA1_AES_256"),
-                3 => std::borrow::Cow::Borrowed("RSA_OAEP_3072_SHA256_AES_256"),
-                4 => std::borrow::Cow::Borrowed("RSA_OAEP_4096_SHA256_AES_256"),
-                5 => std::borrow::Cow::Borrowed("RSA_OAEP_3072_SHA256"),
-                6 => std::borrow::Cow::Borrowed("RSA_OAEP_4096_SHA256"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IMPORT_METHOD_UNSPECIFIED"),
+                Self::RsaOaep3072Sha1Aes256 => {
+                    std::option::Option::Some("RSA_OAEP_3072_SHA1_AES_256")
+                }
+                Self::RsaOaep4096Sha1Aes256 => {
+                    std::option::Option::Some("RSA_OAEP_4096_SHA1_AES_256")
+                }
+                Self::RsaOaep3072Sha256Aes256 => {
+                    std::option::Option::Some("RSA_OAEP_3072_SHA256_AES_256")
+                }
+                Self::RsaOaep4096Sha256Aes256 => {
+                    std::option::Option::Some("RSA_OAEP_4096_SHA256_AES_256")
+                }
+                Self::RsaOaep3072Sha256 => std::option::Option::Some("RSA_OAEP_3072_SHA256"),
+                Self::RsaOaep4096Sha256 => std::option::Option::Some("RSA_OAEP_4096_SHA256"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "IMPORT_METHOD_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::IMPORT_METHOD_UNSPECIFIED)
-                }
-                "RSA_OAEP_3072_SHA1_AES_256" => {
-                    std::option::Option::Some(Self::RSA_OAEP_3072_SHA1_AES_256)
-                }
-                "RSA_OAEP_4096_SHA1_AES_256" => {
-                    std::option::Option::Some(Self::RSA_OAEP_4096_SHA1_AES_256)
-                }
-                "RSA_OAEP_3072_SHA256_AES_256" => {
-                    std::option::Option::Some(Self::RSA_OAEP_3072_SHA256_AES_256)
-                }
-                "RSA_OAEP_4096_SHA256_AES_256" => {
-                    std::option::Option::Some(Self::RSA_OAEP_4096_SHA256_AES_256)
-                }
-                "RSA_OAEP_3072_SHA256" => std::option::Option::Some(Self::RSA_OAEP_3072_SHA256),
-                "RSA_OAEP_4096_SHA256" => std::option::Option::Some(Self::RSA_OAEP_4096_SHA256),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ImportMethod {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ImportMethod {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ImportMethod {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ImportMethod {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RsaOaep3072Sha1Aes256,
+                2 => Self::RsaOaep4096Sha1Aes256,
+                3 => Self::RsaOaep3072Sha256Aes256,
+                4 => Self::RsaOaep4096Sha256Aes256,
+                5 => Self::RsaOaep3072Sha256,
+                6 => Self::RsaOaep4096Sha256,
+                _ => Self::UnknownValue(import_method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ImportMethod {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IMPORT_METHOD_UNSPECIFIED" => Self::Unspecified,
+                "RSA_OAEP_3072_SHA1_AES_256" => Self::RsaOaep3072Sha1Aes256,
+                "RSA_OAEP_4096_SHA1_AES_256" => Self::RsaOaep4096Sha1Aes256,
+                "RSA_OAEP_3072_SHA256_AES_256" => Self::RsaOaep3072Sha256Aes256,
+                "RSA_OAEP_4096_SHA256_AES_256" => Self::RsaOaep4096Sha256Aes256,
+                "RSA_OAEP_3072_SHA256" => Self::RsaOaep3072Sha256,
+                "RSA_OAEP_4096_SHA256" => Self::RsaOaep4096Sha256,
+                _ => Self::UnknownValue(import_method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ImportMethod {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RsaOaep3072Sha1Aes256 => serializer.serialize_i32(1),
+                Self::RsaOaep4096Sha1Aes256 => serializer.serialize_i32(2),
+                Self::RsaOaep3072Sha256Aes256 => serializer.serialize_i32(3),
+                Self::RsaOaep4096Sha256Aes256 => serializer.serialize_i32(4),
+                Self::RsaOaep3072Sha256 => serializer.serialize_i32(5),
+                Self::RsaOaep4096Sha256 => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ImportMethod {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ImportMethod>::new(
+                ".google.cloud.kms.v1.ImportJob.ImportMethod",
+            ))
         }
     }
 
@@ -4209,21 +4939,32 @@ pub mod import_job {
     /// it can be used.
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ImportJobState(i32);
-
-    impl ImportJobState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ImportJobState {
         /// Not specified.
-        pub const IMPORT_JOB_STATE_UNSPECIFIED: ImportJobState = ImportJobState::new(0);
-
+        Unspecified,
         /// The wrapping key for this job is still being generated. It may not be
         /// used. Cloud KMS will automatically mark this job as
         /// [ACTIVE][google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE] as soon as
         /// the wrapping key is generated.
         ///
-        /// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::import_job_state::ACTIVE
-        pub const PENDING_GENERATION: ImportJobState = ImportJobState::new(1);
-
+        /// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::ImportJobState::Active
+        PendingGeneration,
         /// This job may be used in
         /// [CreateCryptoKey][google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]
         /// and
@@ -4232,55 +4973,119 @@ pub mod import_job {
         ///
         /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::client::KeyManagementService::create_crypto_key
         /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
-        pub const ACTIVE: ImportJobState = ImportJobState::new(2);
-
+        Active,
         /// This job can no longer be used and may not leave this state once entered.
-        pub const EXPIRED: ImportJobState = ImportJobState::new(3);
+        Expired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ImportJobState::value] or
+        /// [ImportJobState::name].
+        UnknownValue(import_job_state::UnknownValue),
+    }
 
-        /// Creates a new ImportJobState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod import_job_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ImportJobState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingGeneration => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Expired => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("IMPORT_JOB_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING_GENERATION"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                3 => std::borrow::Cow::Borrowed("EXPIRED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IMPORT_JOB_STATE_UNSPECIFIED"),
+                Self::PendingGeneration => std::option::Option::Some("PENDING_GENERATION"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "IMPORT_JOB_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::IMPORT_JOB_STATE_UNSPECIFIED)
-                }
-                "PENDING_GENERATION" => std::option::Option::Some(Self::PENDING_GENERATION),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "EXPIRED" => std::option::Option::Some(Self::EXPIRED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ImportJobState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ImportJobState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ImportJobState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ImportJobState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PendingGeneration,
+                2 => Self::Active,
+                3 => Self::Expired,
+                _ => Self::UnknownValue(import_job_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ImportJobState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IMPORT_JOB_STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_GENERATION" => Self::PendingGeneration,
+                "ACTIVE" => Self::Active,
+                "EXPIRED" => Self::Expired,
+                _ => Self::UnknownValue(import_job_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ImportJobState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingGeneration => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Expired => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ImportJobState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ImportJobState>::new(
+                ".google.cloud.kms.v1.ImportJob.ImportJobState",
+            ))
         }
     }
 }
@@ -4293,8 +5098,8 @@ pub mod import_job {
 /// levels.
 ///
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
-/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
+/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
+/// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4428,6 +5233,7 @@ pub struct ListKeyRingsRequest {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.ListKeyRingsResponse.next_page_token]: crate::model::ListKeyRingsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4523,6 +5329,7 @@ pub struct ListCryptoKeysRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.ListCryptoKeysResponse.next_page_token]: crate::model::ListCryptoKeysResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4633,6 +5440,7 @@ pub struct ListCryptoKeyVersionsRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsResponse.next_page_token]: crate::model::ListCryptoKeyVersionsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4742,6 +5550,7 @@ pub struct ListImportJobsRequest {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ListImportJobsResponse.next_page_token]: crate::model::ListImportJobsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4838,6 +5647,7 @@ pub struct ListKeyRingsResponse {
     /// the query.
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4849,6 +5659,17 @@ impl ListKeyRingsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [key_rings][crate::model::ListKeyRingsResponse::key_rings].
+    pub fn set_key_rings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::KeyRing>,
+    {
+        use std::iter::Iterator;
+        self.key_rings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListKeyRingsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4858,17 +5679,6 @@ impl ListKeyRingsResponse {
     /// Sets the value of [total_size][crate::model::ListKeyRingsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [key_rings][crate::model::ListKeyRingsResponse::key_rings].
-    pub fn set_key_rings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::KeyRing>,
-    {
-        use std::iter::Iterator;
-        self.key_rings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4920,6 +5730,7 @@ pub struct ListCryptoKeysResponse {
     /// matched the query.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4931,6 +5742,17 @@ impl ListCryptoKeysResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
+    pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CryptoKey>,
+    {
+        use std::iter::Iterator;
+        self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4940,17 +5762,6 @@ impl ListCryptoKeysResponse {
     /// Sets the value of [total_size][crate::model::ListCryptoKeysResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
-    pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CryptoKey>,
-    {
-        use std::iter::Iterator;
-        self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5003,6 +5814,7 @@ pub struct ListCryptoKeyVersionsResponse {
     /// query.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5014,6 +5826,17 @@ impl ListCryptoKeyVersionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [crypto_key_versions][crate::model::ListCryptoKeyVersionsResponse::crypto_key_versions].
+    pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        use std::iter::Iterator;
+        self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeyVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5023,17 +5846,6 @@ impl ListCryptoKeyVersionsResponse {
     /// Sets the value of [total_size][crate::model::ListCryptoKeyVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_key_versions][crate::model::ListCryptoKeyVersionsResponse::crypto_key_versions].
-    pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CryptoKeyVersion>,
-    {
-        use std::iter::Iterator;
-        self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5085,6 +5897,7 @@ pub struct ListImportJobsResponse {
     /// matched the query.
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5096,6 +5909,17 @@ impl ListImportJobsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [import_jobs][crate::model::ListImportJobsResponse::import_jobs].
+    pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ImportJob>,
+    {
+        use std::iter::Iterator;
+        self.import_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListImportJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5105,17 +5929,6 @@ impl ListImportJobsResponse {
     /// Sets the value of [total_size][crate::model::ListImportJobsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [import_jobs][crate::model::ListImportJobsResponse::import_jobs].
-    pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImportJob>,
-    {
-        use std::iter::Iterator;
-        self.import_jobs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5467,6 +6280,7 @@ pub struct CreateCryptoKeyRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_initial_version_creation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5616,8 +6430,8 @@ pub struct ImportCryptoKeyVersionRequest {
     /// key material.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROYED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::crypto_key_version_state::IMPORT_FAILED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::CryptoKeyVersionState::Destroyed
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::ImportFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.parent]: crate::model::ImportCryptoKeyVersionRequest::parent
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
@@ -5674,12 +6488,12 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [public_key][google.cloud.kms.v1.ImportJob.public_key] using RSAES-OAEP
     /// with SHA-256, MGF1 with SHA-256, and an empty label.
     ///
-    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_3072_SHA1_AES_256]: crate::model::import_job::import_method::RSA_OAEP_3072_SHA1_AES_256
-    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_3072_SHA256]: crate::model::import_job::import_method::RSA_OAEP_3072_SHA256
-    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_3072_SHA256_AES_256]: crate::model::import_job::import_method::RSA_OAEP_3072_SHA256_AES_256
-    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA1_AES_256]: crate::model::import_job::import_method::RSA_OAEP_4096_SHA1_AES_256
-    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256]: crate::model::import_job::import_method::RSA_OAEP_4096_SHA256
-    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256_AES_256]: crate::model::import_job::import_method::RSA_OAEP_4096_SHA256_AES_256
+    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_3072_SHA1_AES_256]: crate::model::import_job::ImportMethod::RsaOaep3072Sha1Aes256
+    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_3072_SHA256]: crate::model::import_job::ImportMethod::RsaOaep3072Sha256
+    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_3072_SHA256_AES_256]: crate::model::import_job::ImportMethod::RsaOaep3072Sha256Aes256
+    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA1_AES_256]: crate::model::import_job::ImportMethod::RsaOaep4096Sha1Aes256
+    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256]: crate::model::import_job::ImportMethod::RsaOaep4096Sha256
+    /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256_AES_256]: crate::model::import_job::ImportMethod::RsaOaep4096Sha256Aes256
     /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
@@ -6158,10 +6972,10 @@ pub struct EncryptRequest {
     /// than 8KiB.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
-    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
+    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub plaintext: ::bytes::Bytes,
@@ -6182,10 +6996,10 @@ pub struct EncryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.DecryptRequest.additional_authenticated_data]: crate::model::DecryptRequest::additional_authenticated_data
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
-    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
+    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub additional_authenticated_data: ::bytes::Bytes,
@@ -6477,8 +7291,8 @@ pub struct RawEncryptRequest {
     /// than 8KiB.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
-    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
+    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub plaintext: ::bytes::Bytes,
@@ -6501,8 +7315,8 @@ pub struct RawEncryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion.algorithm]: crate::model::CryptoKeyVersion::algorithm
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
-    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
+    /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data]: crate::model::RawDecryptRequest::additional_authenticated_data
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
@@ -6711,6 +7525,7 @@ pub struct RawDecryptRequest {
     /// The length of the authentication tag that is appended to the end of
     /// the ciphertext. If unspecified (0), the default value for the key's
     /// algorithm will be used (for AES-GCM, the default value is 16).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tag_length: i32,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7346,6 +8161,7 @@ pub struct GenerateRandomBytesRequest {
 
     /// The length in bytes of the amount of randomness to retrieve.  Minimum 8
     /// bytes, maximum 1024 bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length_bytes: i32,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] to use when
@@ -7354,7 +8170,7 @@ pub struct GenerateRandomBytesRequest {
     /// supported.
     ///
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7456,6 +8272,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.EncryptRequest.plaintext_crc32c]: crate::model::EncryptRequest::plaintext_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedPlaintextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_plaintext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7477,6 +8294,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data_crc32c]: crate::model::EncryptRequest::additional_authenticated_data_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -7592,6 +8410,7 @@ pub struct DecryptResponse {
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Whether the Decryption was performed using the primary key version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub used_primary: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -7678,6 +8497,7 @@ pub struct RawEncryptResponse {
 
     /// The length of the authentication tag that is appended to
     /// the end of the ciphertext.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tag_length: i32,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -7731,6 +8551,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.plaintext_crc32c]: crate::model::RawEncryptRequest::plaintext_crc32c
     #[serde(rename = "verifiedPlaintextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_plaintext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7750,6 +8571,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data_crc32c]: crate::model::RawEncryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7769,6 +8591,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.initialization_vector_crc32c]: crate::model::RawEncryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_initialization_vector_crc32c: bool,
 
     /// The resource name of the
@@ -7947,6 +8770,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext_crc32c]: crate::model::RawDecryptRequest::ciphertext_crc32c
     #[serde(rename = "verifiedCiphertextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_ciphertext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7966,6 +8790,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data_crc32c]: crate::model::RawDecryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7985,6 +8810,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector_crc32c]: crate::model::RawDecryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_initialization_vector_crc32c: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8104,6 +8930,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest_crc32c]: crate::model::AsymmetricSignRequest::digest_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDigestCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_digest_crc32c: bool,
 
     /// The resource name of the
@@ -8133,6 +8960,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.AsymmetricSignRequest.data_crc32c]: crate::model::AsymmetricSignRequest::data_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8253,6 +9081,7 @@ pub struct AsymmetricDecryptResponse {
     /// [google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext_crc32c]: crate::model::AsymmetricDecryptRequest::ciphertext_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedCiphertextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_ciphertext_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8370,6 +9199,7 @@ pub struct MacSignResponse {
     /// [google.cloud.kms.v1.MacSignRequest.data]: crate::model::MacSignRequest::data
     /// [google.cloud.kms.v1.MacSignRequest.data_crc32c]: crate::model::MacSignRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8456,6 +9286,7 @@ pub struct MacVerifyResponse {
     ///
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub success: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -8477,6 +9308,7 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.data_crc32c]: crate::model::MacVerifyRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -8498,12 +9330,14 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
     /// [google.cloud.kms.v1.MacVerifyRequest.mac_crc32c]: crate::model::MacVerifyRequest::mac_crc32c
     #[serde(rename = "verifiedMacCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_mac_crc32c: bool,
 
     /// Integrity verification field. This value is used for the integrity
     /// verification of [MacVerifyResponse.success]. If the value of this field
     /// contradicts the value of [MacVerifyResponse.success], discard the response
     /// and perform a limited number of retries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_success_integrity: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8678,6 +9512,16 @@ impl Digest {
         })
     }
 
+    /// Sets the value of [digest][crate::model::Digest::digest]
+    /// to hold a `Sha256`.
+    ///
+    /// Note that all the setters affecting `digest` are
+    /// mutually exclusive.
+    pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
+        self
+    }
+
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha384`, `None` if the field is not set or
     /// holds a different branch.
@@ -8689,6 +9533,16 @@ impl Digest {
         })
     }
 
+    /// Sets the value of [digest][crate::model::Digest::digest]
+    /// to hold a `Sha384`.
+    ///
+    /// Note that all the setters affecting `digest` are
+    /// mutually exclusive.
+    pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
+        self
+    }
+
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha512`, `None` if the field is not set or
     /// holds a different branch.
@@ -8698,26 +9552,6 @@ impl Digest {
             crate::model::digest::Digest::Sha512(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha256`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
-        self
-    }
-
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha384`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
-        self
     }
 
     /// Sets the value of [digest][crate::model::Digest::digest]
@@ -8772,7 +9606,8 @@ pub struct LocationMetadata {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
-    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hsm_available: bool,
 
     /// Indicates whether [CryptoKeys][google.cloud.kms.v1.CryptoKey] with
@@ -8782,7 +9617,8 @@ pub struct LocationMetadata {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
-    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ekm_available: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8818,107 +9654,189 @@ impl wkt::message::Message for LocationMetadata {
 /// levels] (<https://cloud.google.com/kms/docs/algorithms#protection_levels>).
 ///
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ProtectionLevel(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ProtectionLevel {
+    /// Not specified.
+    Unspecified,
+    /// Crypto operations are performed in software.
+    Software,
+    /// Crypto operations are performed in a Hardware Security Module.
+    Hsm,
+    /// Crypto operations are performed by an external key manager.
+    External,
+    /// Crypto operations are performed in an EKM-over-VPC backend.
+    ExternalVpc,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ProtectionLevel::value] or
+    /// [ProtectionLevel::name].
+    UnknownValue(protection_level::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod protection_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl ProtectionLevel {
-    /// Not specified.
-    pub const PROTECTION_LEVEL_UNSPECIFIED: ProtectionLevel = ProtectionLevel::new(0);
-
-    /// Crypto operations are performed in software.
-    pub const SOFTWARE: ProtectionLevel = ProtectionLevel::new(1);
-
-    /// Crypto operations are performed in a Hardware Security Module.
-    pub const HSM: ProtectionLevel = ProtectionLevel::new(2);
-
-    /// Crypto operations are performed by an external key manager.
-    pub const EXTERNAL: ProtectionLevel = ProtectionLevel::new(3);
-
-    /// Crypto operations are performed in an EKM-over-VPC backend.
-    pub const EXTERNAL_VPC: ProtectionLevel = ProtectionLevel::new(4);
-
-    /// Creates a new ProtectionLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Software => std::option::Option::Some(1),
+            Self::Hsm => std::option::Option::Some(2),
+            Self::External => std::option::Option::Some(3),
+            Self::ExternalVpc => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("PROTECTION_LEVEL_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SOFTWARE"),
-            2 => std::borrow::Cow::Borrowed("HSM"),
-            3 => std::borrow::Cow::Borrowed("EXTERNAL"),
-            4 => std::borrow::Cow::Borrowed("EXTERNAL_VPC"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PROTECTION_LEVEL_UNSPECIFIED"),
+            Self::Software => std::option::Option::Some("SOFTWARE"),
+            Self::Hsm => std::option::Option::Some("HSM"),
+            Self::External => std::option::Option::Some("EXTERNAL"),
+            Self::ExternalVpc => std::option::Option::Some("EXTERNAL_VPC"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "PROTECTION_LEVEL_UNSPECIFIED" => {
-                std::option::Option::Some(Self::PROTECTION_LEVEL_UNSPECIFIED)
-            }
-            "SOFTWARE" => std::option::Option::Some(Self::SOFTWARE),
-            "HSM" => std::option::Option::Some(Self::HSM),
-            "EXTERNAL" => std::option::Option::Some(Self::EXTERNAL),
-            "EXTERNAL_VPC" => std::option::Option::Some(Self::EXTERNAL_VPC),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for ProtectionLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ProtectionLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ProtectionLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ProtectionLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Software,
+            2 => Self::Hsm,
+            3 => Self::External,
+            4 => Self::ExternalVpc,
+            _ => Self::UnknownValue(protection_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ProtectionLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PROTECTION_LEVEL_UNSPECIFIED" => Self::Unspecified,
+            "SOFTWARE" => Self::Software,
+            "HSM" => Self::Hsm,
+            "EXTERNAL" => Self::External,
+            "EXTERNAL_VPC" => Self::ExternalVpc,
+            _ => Self::UnknownValue(protection_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ProtectionLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Software => serializer.serialize_i32(1),
+            Self::Hsm => serializer.serialize_i32(2),
+            Self::External => serializer.serialize_i32(3),
+            Self::ExternalVpc => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ProtectionLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProtectionLevel>::new(
+            ".google.cloud.kms.v1.ProtectionLevel",
+        ))
     }
 }
 
 /// Describes the reason for a data access. Please refer to
 /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
 /// for the detailed semantic meaning of justification reason codes.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AccessReason(i32);
-
-impl AccessReason {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AccessReason {
     /// Unspecified access reason.
-    pub const REASON_UNSPECIFIED: AccessReason = AccessReason::new(0);
-
+    ReasonUnspecified,
     /// Customer-initiated support.
-    pub const CUSTOMER_INITIATED_SUPPORT: AccessReason = AccessReason::new(1);
-
+    CustomerInitiatedSupport,
     /// Google-initiated access for system management and troubleshooting.
-    pub const GOOGLE_INITIATED_SERVICE: AccessReason = AccessReason::new(2);
-
+    GoogleInitiatedService,
     /// Google-initiated access in response to a legal request or legal process.
-    pub const THIRD_PARTY_DATA_REQUEST: AccessReason = AccessReason::new(3);
-
+    ThirdPartyDataRequest,
     /// Google-initiated access for security, fraud, abuse, or compliance purposes.
-    pub const GOOGLE_INITIATED_REVIEW: AccessReason = AccessReason::new(4);
-
+    GoogleInitiatedReview,
     /// Customer uses their account to perform any access to their own data which
     /// their IAM policy authorizes.
-    pub const CUSTOMER_INITIATED_ACCESS: AccessReason = AccessReason::new(5);
-
+    CustomerInitiatedAccess,
     /// Google systems access customer data to help optimize the structure of the
     /// data or quality for future uses by the customer.
-    pub const GOOGLE_INITIATED_SYSTEM_OPERATION: AccessReason = AccessReason::new(6);
-
+    GoogleInitiatedSystemOperation,
     /// No reason is expected for this key request.
-    pub const REASON_NOT_EXPECTED: AccessReason = AccessReason::new(7);
-
+    ReasonNotExpected,
     /// Customer uses their account to perform any access to their own data which
     /// their IAM policy authorizes, and one of the following is true:
     ///
@@ -8927,8 +9845,7 @@ impl AccessReason {
     /// * A Google-initiated emergency access operation has interacted with a
     ///   resource in the same project or folder as the currently accessed resource
     ///   within the past 7 days.
-    pub const MODIFIED_CUSTOMER_INITIATED_ACCESS: AccessReason = AccessReason::new(8);
-
+    ModifiedCustomerInitiatedAccess,
     /// Google systems access customer data to help optimize the structure of the
     /// data or quality for future uses by the customer, and one of the following
     /// is true:
@@ -8938,11 +9855,9 @@ impl AccessReason {
     /// * A Google-initiated emergency access operation has interacted with a
     ///   resource in the same project or folder as the currently accessed resource
     ///   within the past 7 days.
-    pub const MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION: AccessReason = AccessReason::new(9);
-
+    ModifiedGoogleInitiatedSystemOperation,
     /// Google-initiated access to maintain system reliability.
-    pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: AccessReason = AccessReason::new(10);
-
+    GoogleResponseToProductionAlert,
     /// One of the following operations is being executed while simultaneously
     /// encountering an internal technical issue which prevented a more precise
     /// justification code from being generated:
@@ -8953,79 +9868,170 @@ impl AccessReason {
     ///   IAM policy authorizes.
     /// * Customer-initiated Google support access.
     /// * Google-initiated support access to protect system reliability.
-    pub const CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING: AccessReason = AccessReason::new(11);
+    CustomerAuthorizedWorkflowServicing,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AccessReason::value] or
+    /// [AccessReason::name].
+    UnknownValue(access_reason::UnknownValue),
+}
 
-    /// Creates a new AccessReason instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod access_reason {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl AccessReason {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::ReasonUnspecified => std::option::Option::Some(0),
+            Self::CustomerInitiatedSupport => std::option::Option::Some(1),
+            Self::GoogleInitiatedService => std::option::Option::Some(2),
+            Self::ThirdPartyDataRequest => std::option::Option::Some(3),
+            Self::GoogleInitiatedReview => std::option::Option::Some(4),
+            Self::CustomerInitiatedAccess => std::option::Option::Some(5),
+            Self::GoogleInitiatedSystemOperation => std::option::Option::Some(6),
+            Self::ReasonNotExpected => std::option::Option::Some(7),
+            Self::ModifiedCustomerInitiatedAccess => std::option::Option::Some(8),
+            Self::ModifiedGoogleInitiatedSystemOperation => std::option::Option::Some(9),
+            Self::GoogleResponseToProductionAlert => std::option::Option::Some(10),
+            Self::CustomerAuthorizedWorkflowServicing => std::option::Option::Some(11),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("CUSTOMER_INITIATED_SUPPORT"),
-            2 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_SERVICE"),
-            3 => std::borrow::Cow::Borrowed("THIRD_PARTY_DATA_REQUEST"),
-            4 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_REVIEW"),
-            5 => std::borrow::Cow::Borrowed("CUSTOMER_INITIATED_ACCESS"),
-            6 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_SYSTEM_OPERATION"),
-            7 => std::borrow::Cow::Borrowed("REASON_NOT_EXPECTED"),
-            8 => std::borrow::Cow::Borrowed("MODIFIED_CUSTOMER_INITIATED_ACCESS"),
-            9 => std::borrow::Cow::Borrowed("MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION"),
-            10 => std::borrow::Cow::Borrowed("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"),
-            11 => std::borrow::Cow::Borrowed("CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::ReasonUnspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+            Self::CustomerInitiatedSupport => {
+                std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT")
+            }
+            Self::GoogleInitiatedService => std::option::Option::Some("GOOGLE_INITIATED_SERVICE"),
+            Self::ThirdPartyDataRequest => std::option::Option::Some("THIRD_PARTY_DATA_REQUEST"),
+            Self::GoogleInitiatedReview => std::option::Option::Some("GOOGLE_INITIATED_REVIEW"),
+            Self::CustomerInitiatedAccess => std::option::Option::Some("CUSTOMER_INITIATED_ACCESS"),
+            Self::GoogleInitiatedSystemOperation => {
+                std::option::Option::Some("GOOGLE_INITIATED_SYSTEM_OPERATION")
+            }
+            Self::ReasonNotExpected => std::option::Option::Some("REASON_NOT_EXPECTED"),
+            Self::ModifiedCustomerInitiatedAccess => {
+                std::option::Option::Some("MODIFIED_CUSTOMER_INITIATED_ACCESS")
+            }
+            Self::ModifiedGoogleInitiatedSystemOperation => {
+                std::option::Option::Some("MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION")
+            }
+            Self::GoogleResponseToProductionAlert => {
+                std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT")
+            }
+            Self::CustomerAuthorizedWorkflowServicing => {
+                std::option::Option::Some("CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING")
+            }
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
-            "CUSTOMER_INITIATED_SUPPORT" => {
-                std::option::Option::Some(Self::CUSTOMER_INITIATED_SUPPORT)
-            }
-            "GOOGLE_INITIATED_SERVICE" => std::option::Option::Some(Self::GOOGLE_INITIATED_SERVICE),
-            "THIRD_PARTY_DATA_REQUEST" => std::option::Option::Some(Self::THIRD_PARTY_DATA_REQUEST),
-            "GOOGLE_INITIATED_REVIEW" => std::option::Option::Some(Self::GOOGLE_INITIATED_REVIEW),
-            "CUSTOMER_INITIATED_ACCESS" => {
-                std::option::Option::Some(Self::CUSTOMER_INITIATED_ACCESS)
-            }
-            "GOOGLE_INITIATED_SYSTEM_OPERATION" => {
-                std::option::Option::Some(Self::GOOGLE_INITIATED_SYSTEM_OPERATION)
-            }
-            "REASON_NOT_EXPECTED" => std::option::Option::Some(Self::REASON_NOT_EXPECTED),
-            "MODIFIED_CUSTOMER_INITIATED_ACCESS" => {
-                std::option::Option::Some(Self::MODIFIED_CUSTOMER_INITIATED_ACCESS)
-            }
-            "MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION" => {
-                std::option::Option::Some(Self::MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION)
-            }
-            "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => {
-                std::option::Option::Some(Self::GOOGLE_RESPONSE_TO_PRODUCTION_ALERT)
-            }
-            "CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING" => {
-                std::option::Option::Some(Self::CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for AccessReason {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for AccessReason {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AccessReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AccessReason {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::ReasonUnspecified,
+            1 => Self::CustomerInitiatedSupport,
+            2 => Self::GoogleInitiatedService,
+            3 => Self::ThirdPartyDataRequest,
+            4 => Self::GoogleInitiatedReview,
+            5 => Self::CustomerInitiatedAccess,
+            6 => Self::GoogleInitiatedSystemOperation,
+            7 => Self::ReasonNotExpected,
+            8 => Self::ModifiedCustomerInitiatedAccess,
+            9 => Self::ModifiedGoogleInitiatedSystemOperation,
+            10 => Self::GoogleResponseToProductionAlert,
+            11 => Self::CustomerAuthorizedWorkflowServicing,
+            _ => Self::UnknownValue(access_reason::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AccessReason {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "REASON_UNSPECIFIED" => Self::ReasonUnspecified,
+            "CUSTOMER_INITIATED_SUPPORT" => Self::CustomerInitiatedSupport,
+            "GOOGLE_INITIATED_SERVICE" => Self::GoogleInitiatedService,
+            "THIRD_PARTY_DATA_REQUEST" => Self::ThirdPartyDataRequest,
+            "GOOGLE_INITIATED_REVIEW" => Self::GoogleInitiatedReview,
+            "CUSTOMER_INITIATED_ACCESS" => Self::CustomerInitiatedAccess,
+            "GOOGLE_INITIATED_SYSTEM_OPERATION" => Self::GoogleInitiatedSystemOperation,
+            "REASON_NOT_EXPECTED" => Self::ReasonNotExpected,
+            "MODIFIED_CUSTOMER_INITIATED_ACCESS" => Self::ModifiedCustomerInitiatedAccess,
+            "MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION" => {
+                Self::ModifiedGoogleInitiatedSystemOperation
+            }
+            "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => Self::GoogleResponseToProductionAlert,
+            "CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING" => Self::CustomerAuthorizedWorkflowServicing,
+            _ => Self::UnknownValue(access_reason::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AccessReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::ReasonUnspecified => serializer.serialize_i32(0),
+            Self::CustomerInitiatedSupport => serializer.serialize_i32(1),
+            Self::GoogleInitiatedService => serializer.serialize_i32(2),
+            Self::ThirdPartyDataRequest => serializer.serialize_i32(3),
+            Self::GoogleInitiatedReview => serializer.serialize_i32(4),
+            Self::CustomerInitiatedAccess => serializer.serialize_i32(5),
+            Self::GoogleInitiatedSystemOperation => serializer.serialize_i32(6),
+            Self::ReasonNotExpected => serializer.serialize_i32(7),
+            Self::ModifiedCustomerInitiatedAccess => serializer.serialize_i32(8),
+            Self::ModifiedGoogleInitiatedSystemOperation => serializer.serialize_i32(9),
+            Self::GoogleResponseToProductionAlert => serializer.serialize_i32(10),
+            Self::CustomerAuthorizedWorkflowServicing => serializer.serialize_i32(11),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AccessReason {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccessReason>::new(
+            ".google.cloud.kms.v1.AccessReason",
+        ))
     }
 }

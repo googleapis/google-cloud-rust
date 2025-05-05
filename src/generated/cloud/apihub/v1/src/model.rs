@@ -203,6 +203,7 @@ pub struct DeleteApiRequest {
 
     /// Optional. If set to true, any versions from this API will also be deleted.
     /// Otherwise, the request will only work if the API has no versions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -324,6 +325,7 @@ pub struct ListApisRequest {
     /// return fewer than this value. If unspecified, at most 50 Apis will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListApis` call.
@@ -400,12 +402,6 @@ impl ListApisResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListApisResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [apis][crate::model::ListApisResponse::apis].
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
@@ -414,6 +410,12 @@ impl ListApisResponse {
     {
         use std::iter::Iterator;
         self.apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListApisResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -613,6 +615,7 @@ pub struct DeleteVersionRequest {
 
     /// Optional. If set to true, any specs from this version will also be deleted.
     /// Otherwise, the request will only work if the version has no specs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -724,6 +727,7 @@ pub struct ListVersionsRequest {
     /// fewer than this value. If unspecified, at most 50 versions will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListVersions` call.
@@ -801,12 +805,6 @@ impl ListVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
@@ -815,6 +813,12 @@ impl ListVersionsResponse {
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1104,6 +1108,7 @@ pub struct ListSpecsRequest {
     /// fewer than this value. If unspecified, at most 50 specs will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListSpecs` call.
@@ -1180,12 +1185,6 @@ impl ListSpecsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSpecsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [specs][crate::model::ListSpecsResponse::specs].
     pub fn set_specs<T, V>(mut self, v: T) -> Self
     where
@@ -1194,6 +1193,12 @@ impl ListSpecsResponse {
     {
         use std::iter::Iterator;
         self.specs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSpecsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1355,6 +1360,7 @@ pub struct ListApiOperationsRequest {
     /// return fewer than this value. If unspecified, at most 50 operations will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListApiOperations` call.
@@ -1435,12 +1441,6 @@ impl ListApiOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListApiOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [api_operations][crate::model::ListApiOperationsResponse::api_operations].
     pub fn set_api_operations<T, V>(mut self, v: T) -> Self
     where
@@ -1449,6 +1449,12 @@ impl ListApiOperationsResponse {
     {
         use std::iter::Iterator;
         self.api_operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListApiOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1785,6 +1791,7 @@ pub struct ListDeploymentsRequest {
     /// may return fewer than this value. If unspecified, at most 50 deployments
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDeployments` call.
@@ -1862,12 +1869,6 @@ impl ListDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -1876,6 +1877,12 @@ impl ListDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2161,6 +2168,7 @@ pub struct ListAttributesRequest {
     /// may return fewer than this value. If unspecified, at most 50 attributes
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListAttributes` call.
@@ -2238,12 +2246,6 @@ impl ListAttributesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAttributesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [attributes][crate::model::ListAttributesResponse::attributes].
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
@@ -2252,6 +2254,12 @@ impl ListAttributesResponse {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAttributesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2323,6 +2331,7 @@ pub struct SearchResourcesRequest {
     /// returned. The maximum value is 25; values above 25 will be coerced to 25.
     /// While paginating, you can specify a new page size parameter for each page
     /// of search results to be listed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -2430,61 +2439,6 @@ impl ApiHubResource {
         })
     }
 
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Operation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApiOperation>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Operation(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Deployment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Deployment>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Deployment(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Spec`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::Spec>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Spec(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Definition`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn definition(&self) -> std::option::Option<&std::boxed::Box<crate::model::Definition>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Definition(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::ApiHubResource::resource]
-    /// if it holds a `Version`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn version(&self) -> std::option::Option<&std::boxed::Box<crate::model::Version>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::api_hub_resource::Resource::Version(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
     /// to hold a `Api`.
     ///
@@ -2497,6 +2451,17 @@ impl ApiHubResource {
         self.resource =
             std::option::Option::Some(crate::model::api_hub_resource::Resource::Api(v.into()));
         self
+    }
+
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Operation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApiOperation>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Operation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
@@ -2514,6 +2479,17 @@ impl ApiHubResource {
         self
     }
 
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Deployment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Deployment>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Deployment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
     /// to hold a `Deployment`.
     ///
@@ -2527,6 +2503,17 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Deployment(v.into()),
         );
         self
+    }
+
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Spec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::Spec>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Spec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
@@ -2543,6 +2530,17 @@ impl ApiHubResource {
         self
     }
 
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Definition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn definition(&self) -> std::option::Option<&std::boxed::Box<crate::model::Definition>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Definition(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
     /// to hold a `Definition`.
     ///
@@ -2556,6 +2554,17 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Definition(v.into()),
         );
         self
+    }
+
+    /// The value of [resource][crate::model::ApiHubResource::resource]
+    /// if it holds a `Version`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn version(&self) -> std::option::Option<&std::boxed::Box<crate::model::Version>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::api_hub_resource::Resource::Version(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::ApiHubResource::resource]
@@ -2679,12 +2688,6 @@ impl SearchResourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchResourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [search_results][crate::model::SearchResourcesResponse::search_results].
     pub fn set_search_results<T, V>(mut self, v: T) -> Self
     where
@@ -2693,6 +2696,12 @@ impl SearchResourcesResponse {
     {
         use std::iter::Iterator;
         self.search_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchResourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2967,6 +2976,7 @@ pub struct ListDependenciesRequest {
     /// may return fewer than this value. If unspecified, at most 50 dependencies
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDependencies` call.
@@ -3046,12 +3056,6 @@ impl ListDependenciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDependenciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [dependencies][crate::model::ListDependenciesResponse::dependencies].
     pub fn set_dependencies<T, V>(mut self, v: T) -> Self
     where
@@ -3060,6 +3064,12 @@ impl ListDependenciesResponse {
     {
         use std::iter::Iterator;
         self.dependencies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDependenciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3304,6 +3314,7 @@ pub struct ListExternalApisRequest {
     /// service may return fewer than this value. If unspecified, at most 50
     /// ExternalApis will be returned. The maximum value is 1000; values above 1000
     /// will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListExternalApis` call.
@@ -3377,12 +3388,6 @@ impl ListExternalApisResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExternalApisResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [external_apis][crate::model::ListExternalApisResponse::external_apis].
     pub fn set_external_apis<T, V>(mut self, v: T) -> Self
     where
@@ -3391,6 +3396,12 @@ impl ListExternalApisResponse {
     {
         use std::iter::Iterator;
         self.external_apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExternalApisResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3575,6 +3586,17 @@ impl Api {
         self
     }
 
+    /// Sets the value of [versions][crate::model::Api::versions].
+    pub fn set_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Api::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3635,6 +3657,18 @@ impl Api {
         self
     }
 
+    /// Sets the value of [attributes][crate::model::Api::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::AttributeValues>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [api_style][crate::model::Api::api_style].
     pub fn set_api_style<
         T: std::convert::Into<std::option::Option<crate::model::AttributeValues>>,
@@ -3652,29 +3686,6 @@ impl Api {
         v: T,
     ) -> Self {
         self.selected_version = v.into();
-        self
-    }
-
-    /// Sets the value of [versions][crate::model::Api::versions].
-    pub fn set_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.versions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [attributes][crate::model::Api::attributes].
-    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::AttributeValues>,
-    {
-        use std::iter::Iterator;
-        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3834,6 +3845,50 @@ impl Version {
         self
     }
 
+    /// Sets the value of [specs][crate::model::Version::specs].
+    pub fn set_specs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.specs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [api_operations][crate::model::Version::api_operations].
+    pub fn set_api_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.api_operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [definitions][crate::model::Version::definitions].
+    pub fn set_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.definitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deployments][crate::model::Version::deployments].
+    pub fn set_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Version::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3885,59 +3940,6 @@ impl Version {
         self
     }
 
-    /// Sets the value of [selected_deployment][crate::model::Version::selected_deployment].
-    pub fn set_selected_deployment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.selected_deployment = v.into();
-        self
-    }
-
-    /// Sets the value of [specs][crate::model::Version::specs].
-    pub fn set_specs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.specs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [api_operations][crate::model::Version::api_operations].
-    pub fn set_api_operations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.api_operations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [definitions][crate::model::Version::definitions].
-    pub fn set_definitions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.definitions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [deployments][crate::model::Version::deployments].
-    pub fn set_deployments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.deployments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [attributes][crate::model::Version::attributes].
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -3947,6 +3949,15 @@ impl Version {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [selected_deployment][crate::model::Version::selected_deployment].
+    pub fn set_selected_deployment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.selected_deployment = v.into();
         self
     }
 }
@@ -4116,6 +4127,18 @@ impl Spec {
         self
     }
 
+    /// Sets the value of [attributes][crate::model::Spec::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::AttributeValues>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [documentation][crate::model::Spec::documentation].
     pub fn set_documentation<
         T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
@@ -4133,18 +4156,6 @@ impl Spec {
         v: T,
     ) -> Self {
         self.parsing_mode = v.into();
-        self
-    }
-
-    /// Sets the value of [attributes][crate::model::Spec::attributes].
-    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::AttributeValues>,
-    {
-        use std::iter::Iterator;
-        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4168,63 +4179,136 @@ pub mod spec {
     /// - `STRICT`: Parsing errors in the specification content result in failure
     ///   of the API call.
     ///   If not specified, defaults to `RELAXED`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ParsingMode(i32);
-
-    impl ParsingMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ParsingMode {
         /// Defaults to `RELAXED`.
-        pub const PARSING_MODE_UNSPECIFIED: ParsingMode = ParsingMode::new(0);
-
+        Unspecified,
         /// Parsing of the Spec on create and update is relaxed, meaning that
         /// parsing errors the spec contents will not fail the API call.
-        pub const RELAXED: ParsingMode = ParsingMode::new(1);
-
+        Relaxed,
         /// Parsing of the Spec on create and update is strict, meaning that
         /// parsing errors in the spec contents will fail the API call.
-        pub const STRICT: ParsingMode = ParsingMode::new(2);
+        Strict,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ParsingMode::value] or
+        /// [ParsingMode::name].
+        UnknownValue(parsing_mode::UnknownValue),
+    }
 
-        /// Creates a new ParsingMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod parsing_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ParsingMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Relaxed => std::option::Option::Some(1),
+                Self::Strict => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PARSING_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RELAXED"),
-                2 => std::borrow::Cow::Borrowed("STRICT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PARSING_MODE_UNSPECIFIED"),
+                Self::Relaxed => std::option::Option::Some("RELAXED"),
+                Self::Strict => std::option::Option::Some("STRICT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PARSING_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PARSING_MODE_UNSPECIFIED)
-                }
-                "RELAXED" => std::option::Option::Some(Self::RELAXED),
-                "STRICT" => std::option::Option::Some(Self::STRICT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ParsingMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ParsingMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ParsingMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ParsingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Relaxed,
+                2 => Self::Strict,
+                _ => Self::UnknownValue(parsing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ParsingMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PARSING_MODE_UNSPECIFIED" => Self::Unspecified,
+                "RELAXED" => Self::Relaxed,
+                "STRICT" => Self::Strict,
+                _ => Self::UnknownValue(parsing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ParsingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Relaxed => serializer.serialize_i32(1),
+                Self::Strict => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ParsingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ParsingMode>::new(
+                ".google.cloud.apihub.v1.Spec.ParsingMode",
+            ))
         }
     }
 }
@@ -4378,6 +4462,28 @@ impl Deployment {
         self
     }
 
+    /// Sets the value of [endpoints][crate::model::Deployment::endpoints].
+    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [api_versions][crate::model::Deployment::api_versions].
+    pub fn set_api_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.api_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Deployment::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -4413,28 +4519,6 @@ impl Deployment {
         v: T,
     ) -> Self {
         self.environment = v.into();
-        self
-    }
-
-    /// Sets the value of [endpoints][crate::model::Deployment::endpoints].
-    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [api_versions][crate::model::Deployment::api_versions].
-    pub fn set_api_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.api_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4723,54 +4807,127 @@ pub mod definition {
     use super::*;
 
     /// Enumeration of definition types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Definition type unspecified.
+        Unspecified,
+        /// Definition type schema.
+        Schema,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Type {
-        /// Definition type unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-        /// Definition type schema.
-        pub const SCHEMA: Type = Type::new(1);
-
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Schema => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SCHEMA"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Schema => std::option::Option::Some("SCHEMA"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "SCHEMA" => std::option::Option::Some(Self::SCHEMA),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Schema,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SCHEMA" => Self::Schema,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Schema => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.apihub.v1.Definition.Type",
+            ))
         }
     }
 
@@ -4828,11 +4985,13 @@ pub struct Attribute {
     /// single-valued attribute. It must not be less than 1 or greater than 20. If
     /// not specified, the cardinality would be set to 1 by default and represent a
     /// single-valued attribute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cardinality: i32,
 
     /// Output only. When mandatory is true, the attribute is mandatory for the
     /// resource specified in the scope. Only System defined attributes can be
     /// mandatory.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mandatory: bool,
 
     /// Output only. The time at which the attribute was created.
@@ -4897,6 +5056,17 @@ impl Attribute {
         self
     }
 
+    /// Sets the value of [allowed_values][crate::model::Attribute::allowed_values].
+    pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::attribute::AllowedValue>,
+    {
+        use std::iter::Iterator;
+        self.allowed_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cardinality][crate::model::Attribute::cardinality].
     pub fn set_cardinality<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cardinality = v.into();
@@ -4924,17 +5094,6 @@ impl Attribute {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [allowed_values][crate::model::Attribute::allowed_values].
-    pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::attribute::AllowedValue>,
-    {
-        use std::iter::Iterator;
-        self.allowed_values = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4981,6 +5140,7 @@ pub mod attribute {
 
         /// Optional. When set to true, the allowed value cannot be updated or
         /// deleted by the user. It can only be true for System defined attributes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub immutable: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5027,217 +5187,456 @@ pub mod attribute {
     }
 
     /// Enumeration of attribute definition types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DefinitionType(i32);
-
-    impl DefinitionType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DefinitionType {
         /// Attribute definition type unspecified.
-        pub const DEFINITION_TYPE_UNSPECIFIED: DefinitionType = DefinitionType::new(0);
-
+        Unspecified,
         /// The attribute is predefined by the API Hub. Note that only the list of
         /// allowed values can be updated in this case via UpdateAttribute method.
-        pub const SYSTEM_DEFINED: DefinitionType = DefinitionType::new(1);
-
+        SystemDefined,
         /// The attribute is defined by the user.
-        pub const USER_DEFINED: DefinitionType = DefinitionType::new(2);
+        UserDefined,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DefinitionType::value] or
+        /// [DefinitionType::name].
+        UnknownValue(definition_type::UnknownValue),
+    }
 
-        /// Creates a new DefinitionType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod definition_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl DefinitionType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SystemDefined => std::option::Option::Some(1),
+                Self::UserDefined => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DEFINITION_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SYSTEM_DEFINED"),
-                2 => std::borrow::Cow::Borrowed("USER_DEFINED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DEFINITION_TYPE_UNSPECIFIED"),
+                Self::SystemDefined => std::option::Option::Some("SYSTEM_DEFINED"),
+                Self::UserDefined => std::option::Option::Some("USER_DEFINED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DEFINITION_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DEFINITION_TYPE_UNSPECIFIED)
-                }
-                "SYSTEM_DEFINED" => std::option::Option::Some(Self::SYSTEM_DEFINED),
-                "USER_DEFINED" => std::option::Option::Some(Self::USER_DEFINED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DefinitionType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DefinitionType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DefinitionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DefinitionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SystemDefined,
+                2 => Self::UserDefined,
+                _ => Self::UnknownValue(definition_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DefinitionType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DEFINITION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SYSTEM_DEFINED" => Self::SystemDefined,
+                "USER_DEFINED" => Self::UserDefined,
+                _ => Self::UnknownValue(definition_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DefinitionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SystemDefined => serializer.serialize_i32(1),
+                Self::UserDefined => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DefinitionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DefinitionType>::new(
+                ".google.cloud.apihub.v1.Attribute.DefinitionType",
+            ))
         }
     }
 
     /// Enumeration for the scope of the attribute representing the resource in the
     /// API Hub to which the attribute can be linked.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Scope(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
+        /// Scope Unspecified.
+        Unspecified,
+        /// Attribute can be linked to an API.
+        Api,
+        /// Attribute can be linked to an API version.
+        Version,
+        /// Attribute can be linked to a Spec.
+        Spec,
+        /// Attribute can be linked to an API Operation.
+        ApiOperation,
+        /// Attribute can be linked to a Deployment.
+        Deployment,
+        /// Attribute can be linked to a Dependency.
+        Dependency,
+        /// Attribute can be linked to a definition.
+        Definition,
+        /// Attribute can be linked to a ExternalAPI.
+        ExternalApi,
+        /// Attribute can be linked to a Plugin.
+        Plugin,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scope::value] or
+        /// [Scope::name].
+        UnknownValue(scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Scope {
-        /// Scope Unspecified.
-        pub const SCOPE_UNSPECIFIED: Scope = Scope::new(0);
-
-        /// Attribute can be linked to an API.
-        pub const API: Scope = Scope::new(1);
-
-        /// Attribute can be linked to an API version.
-        pub const VERSION: Scope = Scope::new(2);
-
-        /// Attribute can be linked to a Spec.
-        pub const SPEC: Scope = Scope::new(3);
-
-        /// Attribute can be linked to an API Operation.
-        pub const API_OPERATION: Scope = Scope::new(4);
-
-        /// Attribute can be linked to a Deployment.
-        pub const DEPLOYMENT: Scope = Scope::new(5);
-
-        /// Attribute can be linked to a Dependency.
-        pub const DEPENDENCY: Scope = Scope::new(6);
-
-        /// Attribute can be linked to a definition.
-        pub const DEFINITION: Scope = Scope::new(7);
-
-        /// Attribute can be linked to a ExternalAPI.
-        pub const EXTERNAL_API: Scope = Scope::new(8);
-
-        /// Attribute can be linked to a Plugin.
-        pub const PLUGIN: Scope = Scope::new(9);
-
-        /// Creates a new Scope instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Api => std::option::Option::Some(1),
+                Self::Version => std::option::Option::Some(2),
+                Self::Spec => std::option::Option::Some(3),
+                Self::ApiOperation => std::option::Option::Some(4),
+                Self::Deployment => std::option::Option::Some(5),
+                Self::Dependency => std::option::Option::Some(6),
+                Self::Definition => std::option::Option::Some(7),
+                Self::ExternalApi => std::option::Option::Some(8),
+                Self::Plugin => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SCOPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("API"),
-                2 => std::borrow::Cow::Borrowed("VERSION"),
-                3 => std::borrow::Cow::Borrowed("SPEC"),
-                4 => std::borrow::Cow::Borrowed("API_OPERATION"),
-                5 => std::borrow::Cow::Borrowed("DEPLOYMENT"),
-                6 => std::borrow::Cow::Borrowed("DEPENDENCY"),
-                7 => std::borrow::Cow::Borrowed("DEFINITION"),
-                8 => std::borrow::Cow::Borrowed("EXTERNAL_API"),
-                9 => std::borrow::Cow::Borrowed("PLUGIN"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCOPE_UNSPECIFIED"),
+                Self::Api => std::option::Option::Some("API"),
+                Self::Version => std::option::Option::Some("VERSION"),
+                Self::Spec => std::option::Option::Some("SPEC"),
+                Self::ApiOperation => std::option::Option::Some("API_OPERATION"),
+                Self::Deployment => std::option::Option::Some("DEPLOYMENT"),
+                Self::Dependency => std::option::Option::Some("DEPENDENCY"),
+                Self::Definition => std::option::Option::Some("DEFINITION"),
+                Self::ExternalApi => std::option::Option::Some("EXTERNAL_API"),
+                Self::Plugin => std::option::Option::Some("PLUGIN"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SCOPE_UNSPECIFIED" => std::option::Option::Some(Self::SCOPE_UNSPECIFIED),
-                "API" => std::option::Option::Some(Self::API),
-                "VERSION" => std::option::Option::Some(Self::VERSION),
-                "SPEC" => std::option::Option::Some(Self::SPEC),
-                "API_OPERATION" => std::option::Option::Some(Self::API_OPERATION),
-                "DEPLOYMENT" => std::option::Option::Some(Self::DEPLOYMENT),
-                "DEPENDENCY" => std::option::Option::Some(Self::DEPENDENCY),
-                "DEFINITION" => std::option::Option::Some(Self::DEFINITION),
-                "EXTERNAL_API" => std::option::Option::Some(Self::EXTERNAL_API),
-                "PLUGIN" => std::option::Option::Some(Self::PLUGIN),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Scope {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Scope {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Api,
+                2 => Self::Version,
+                3 => Self::Spec,
+                4 => Self::ApiOperation,
+                5 => Self::Deployment,
+                6 => Self::Dependency,
+                7 => Self::Definition,
+                8 => Self::ExternalApi,
+                9 => Self::Plugin,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "API" => Self::Api,
+                "VERSION" => Self::Version,
+                "SPEC" => Self::Spec,
+                "API_OPERATION" => Self::ApiOperation,
+                "DEPLOYMENT" => Self::Deployment,
+                "DEPENDENCY" => Self::Dependency,
+                "DEFINITION" => Self::Definition,
+                "EXTERNAL_API" => Self::ExternalApi,
+                "PLUGIN" => Self::Plugin,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Api => serializer.serialize_i32(1),
+                Self::Version => serializer.serialize_i32(2),
+                Self::Spec => serializer.serialize_i32(3),
+                Self::ApiOperation => serializer.serialize_i32(4),
+                Self::Deployment => serializer.serialize_i32(5),
+                Self::Dependency => serializer.serialize_i32(6),
+                Self::Definition => serializer.serialize_i32(7),
+                Self::ExternalApi => serializer.serialize_i32(8),
+                Self::Plugin => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
+                ".google.cloud.apihub.v1.Attribute.Scope",
+            ))
         }
     }
 
     /// Enumeration of attribute's data type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataType {
+        /// Attribute data type unspecified.
+        Unspecified,
+        /// Attribute's value is of type enum.
+        Enum,
+        /// Attribute's value is of type json.
+        Json,
+        /// Attribute's value is of type string.
+        String,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataType::value] or
+        /// [DataType::name].
+        UnknownValue(data_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod data_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl DataType {
-        /// Attribute data type unspecified.
-        pub const DATA_TYPE_UNSPECIFIED: DataType = DataType::new(0);
-
-        /// Attribute's value is of type enum.
-        pub const ENUM: DataType = DataType::new(1);
-
-        /// Attribute's value is of type json.
-        pub const JSON: DataType = DataType::new(2);
-
-        /// Attribute's value is of type string.
-        pub const STRING: DataType = DataType::new(3);
-
-        /// Creates a new DataType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enum => std::option::Option::Some(1),
+                Self::Json => std::option::Option::Some(2),
+                Self::String => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DATA_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENUM"),
-                2 => std::borrow::Cow::Borrowed("JSON"),
-                3 => std::borrow::Cow::Borrowed("STRING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATA_TYPE_UNSPECIFIED"),
+                Self::Enum => std::option::Option::Some("ENUM"),
+                Self::Json => std::option::Option::Some("JSON"),
+                Self::String => std::option::Option::Some("STRING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DATA_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::DATA_TYPE_UNSPECIFIED),
-                "ENUM" => std::option::Option::Some(Self::ENUM),
-                "JSON" => std::option::Option::Some(Self::JSON),
-                "STRING" => std::option::Option::Some(Self::STRING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DataType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DataType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DataType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DataType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enum,
+                2 => Self::Json,
+                3 => Self::String,
+                _ => Self::UnknownValue(data_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DataType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ENUM" => Self::Enum,
+                "JSON" => Self::Json,
+                "STRING" => Self::String,
+                _ => Self::UnknownValue(data_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DataType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enum => serializer.serialize_i32(1),
+                Self::Json => serializer.serialize_i32(2),
+                Self::String => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataType>::new(
+                ".google.cloud.apihub.v1.Attribute.DataType",
+            ))
         }
     }
 }
@@ -5457,64 +5856,141 @@ pub mod open_api_spec_details {
     use super::*;
 
     /// Enumeration of spec formats.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// SpecFile type unspecified.
+        Unspecified,
+        /// OpenAPI Spec v2.0.
+        OpenApiSpec20,
+        /// OpenAPI Spec v3.0.
+        OpenApiSpec30,
+        /// OpenAPI Spec v3.1.
+        OpenApiSpec31,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Format::value] or
+        /// [Format::name].
+        UnknownValue(format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Format {
-        /// SpecFile type unspecified.
-        pub const FORMAT_UNSPECIFIED: Format = Format::new(0);
-
-        /// OpenAPI Spec v2.0.
-        pub const OPEN_API_SPEC_2_0: Format = Format::new(1);
-
-        /// OpenAPI Spec v3.0.
-        pub const OPEN_API_SPEC_3_0: Format = Format::new(2);
-
-        /// OpenAPI Spec v3.1.
-        pub const OPEN_API_SPEC_3_1: Format = Format::new(3);
-
-        /// Creates a new Format instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::OpenApiSpec20 => std::option::Option::Some(1),
+                Self::OpenApiSpec30 => std::option::Option::Some(2),
+                Self::OpenApiSpec31 => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("OPEN_API_SPEC_2_0"),
-                2 => std::borrow::Cow::Borrowed("OPEN_API_SPEC_3_0"),
-                3 => std::borrow::Cow::Borrowed("OPEN_API_SPEC_3_1"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FORMAT_UNSPECIFIED"),
+                Self::OpenApiSpec20 => std::option::Option::Some("OPEN_API_SPEC_2_0"),
+                Self::OpenApiSpec30 => std::option::Option::Some("OPEN_API_SPEC_3_0"),
+                Self::OpenApiSpec31 => std::option::Option::Some("OPEN_API_SPEC_3_1"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::FORMAT_UNSPECIFIED),
-                "OPEN_API_SPEC_2_0" => std::option::Option::Some(Self::OPEN_API_SPEC_2_0),
-                "OPEN_API_SPEC_3_0" => std::option::Option::Some(Self::OPEN_API_SPEC_3_0),
-                "OPEN_API_SPEC_3_1" => std::option::Option::Some(Self::OPEN_API_SPEC_3_1),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Format {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Format {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Format {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::OpenApiSpec20,
+                2 => Self::OpenApiSpec30,
+                3 => Self::OpenApiSpec31,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Format {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "OPEN_API_SPEC_2_0" => Self::OpenApiSpec20,
+                "OPEN_API_SPEC_3_0" => Self::OpenApiSpec30,
+                "OPEN_API_SPEC_3_1" => Self::OpenApiSpec31,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::OpenApiSpec20 => serializer.serialize_i32(1),
+                Self::OpenApiSpec30 => serializer.serialize_i32(2),
+                Self::OpenApiSpec31 => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
+                ".google.cloud.apihub.v1.OpenApiSpecDetails.Format",
+            ))
         }
     }
 }
@@ -5538,6 +6014,7 @@ pub struct OperationDetails {
 
     /// Output only. For OpenAPI spec, this will be set if `operation.deprecated`is
     /// marked as `true` in the spec.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5695,89 +6172,176 @@ pub mod http_operation {
     use super::*;
 
     /// Enumeration of Method types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Method {
+        /// Method unspecified.
+        Unspecified,
+        /// Get Operation type.
+        Get,
+        /// Put Operation type.
+        Put,
+        /// Post Operation type.
+        Post,
+        /// Delete Operation type.
+        Delete,
+        /// Options Operation type.
+        Options,
+        /// Head Operation type.
+        Head,
+        /// Patch Operation type.
+        Patch,
+        /// Trace Operation type.
+        Trace,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Method::value] or
+        /// [Method::name].
+        UnknownValue(method::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Method {
-        /// Method unspecified.
-        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
-
-        /// Get Operation type.
-        pub const GET: Method = Method::new(1);
-
-        /// Put Operation type.
-        pub const PUT: Method = Method::new(2);
-
-        /// Post Operation type.
-        pub const POST: Method = Method::new(3);
-
-        /// Delete Operation type.
-        pub const DELETE: Method = Method::new(4);
-
-        /// Options Operation type.
-        pub const OPTIONS: Method = Method::new(5);
-
-        /// Head Operation type.
-        pub const HEAD: Method = Method::new(6);
-
-        /// Patch Operation type.
-        pub const PATCH: Method = Method::new(7);
-
-        /// Trace Operation type.
-        pub const TRACE: Method = Method::new(8);
-
-        /// Creates a new Method instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Get => std::option::Option::Some(1),
+                Self::Put => std::option::Option::Some(2),
+                Self::Post => std::option::Option::Some(3),
+                Self::Delete => std::option::Option::Some(4),
+                Self::Options => std::option::Option::Some(5),
+                Self::Head => std::option::Option::Some(6),
+                Self::Patch => std::option::Option::Some(7),
+                Self::Trace => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GET"),
-                2 => std::borrow::Cow::Borrowed("PUT"),
-                3 => std::borrow::Cow::Borrowed("POST"),
-                4 => std::borrow::Cow::Borrowed("DELETE"),
-                5 => std::borrow::Cow::Borrowed("OPTIONS"),
-                6 => std::borrow::Cow::Borrowed("HEAD"),
-                7 => std::borrow::Cow::Borrowed("PATCH"),
-                8 => std::borrow::Cow::Borrowed("TRACE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METHOD_UNSPECIFIED"),
+                Self::Get => std::option::Option::Some("GET"),
+                Self::Put => std::option::Option::Some("PUT"),
+                Self::Post => std::option::Option::Some("POST"),
+                Self::Delete => std::option::Option::Some("DELETE"),
+                Self::Options => std::option::Option::Some("OPTIONS"),
+                Self::Head => std::option::Option::Some("HEAD"),
+                Self::Patch => std::option::Option::Some("PATCH"),
+                Self::Trace => std::option::Option::Some("TRACE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
-                "GET" => std::option::Option::Some(Self::GET),
-                "PUT" => std::option::Option::Some(Self::PUT),
-                "POST" => std::option::Option::Some(Self::POST),
-                "DELETE" => std::option::Option::Some(Self::DELETE),
-                "OPTIONS" => std::option::Option::Some(Self::OPTIONS),
-                "HEAD" => std::option::Option::Some(Self::HEAD),
-                "PATCH" => std::option::Option::Some(Self::PATCH),
-                "TRACE" => std::option::Option::Some(Self::TRACE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Method {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Method {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Get,
+                2 => Self::Put,
+                3 => Self::Post,
+                4 => Self::Delete,
+                5 => Self::Options,
+                6 => Self::Head,
+                7 => Self::Patch,
+                8 => Self::Trace,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Method {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METHOD_UNSPECIFIED" => Self::Unspecified,
+                "GET" => Self::Get,
+                "PUT" => Self::Put,
+                "POST" => Self::Post,
+                "DELETE" => Self::Delete,
+                "OPTIONS" => Self::Options,
+                "HEAD" => Self::Head,
+                "PATCH" => Self::Patch,
+                "TRACE" => Self::Trace,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Get => serializer.serialize_i32(1),
+                Self::Put => serializer.serialize_i32(2),
+                Self::Post => serializer.serialize_i32(3),
+                Self::Delete => serializer.serialize_i32(4),
+                Self::Options => serializer.serialize_i32(5),
+                Self::Head => serializer.serialize_i32(6),
+                Self::Patch => serializer.serialize_i32(7),
+                Self::Trace => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
+                ".google.cloud.apihub.v1.HttpOperation.Method",
+            ))
         }
     }
 }
@@ -6005,34 +6569,6 @@ impl AttributeValues {
         })
     }
 
-    /// The value of [value][crate::model::AttributeValues::value]
-    /// if it holds a `StringValues`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
-    {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_values::Value::StringValues(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::AttributeValues::value]
-    /// if it holds a `JsonValues`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn json_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
-    {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_values::Value::JsonValues(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::AttributeValues::value]
     /// to hold a `EnumValues`.
     ///
@@ -6047,6 +6583,20 @@ impl AttributeValues {
         self.value =
             std::option::Option::Some(crate::model::attribute_values::Value::EnumValues(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::AttributeValues::value]
+    /// if it holds a `StringValues`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_values(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
+    {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_values::Value::StringValues(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::AttributeValues::value]
@@ -6064,6 +6614,20 @@ impl AttributeValues {
             crate::model::attribute_values::Value::StringValues(v.into()),
         );
         self
+    }
+
+    /// The value of [value][crate::model::AttributeValues::value]
+    /// if it holds a `JsonValues`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn json_values(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
+    {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_values::Value::JsonValues(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::AttributeValues::value]
@@ -6357,115 +6921,261 @@ pub mod dependency {
     use super::*;
 
     /// Possible states for a dependency.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Dependency will be in a proposed state when it is newly identified by the
         /// API hub on its own.
-        pub const PROPOSED: State = State::new(1);
-
+        Proposed,
         /// Dependency will be in a validated state when it is validated by the
         /// admin or manually created in the API hub.
-        pub const VALIDATED: State = State::new(2);
+        Validated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Proposed => std::option::Option::Some(1),
+                Self::Validated => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PROPOSED"),
-                2 => std::borrow::Cow::Borrowed("VALIDATED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Proposed => std::option::Option::Some("PROPOSED"),
+                Self::Validated => std::option::Option::Some("VALIDATED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "PROPOSED" => std::option::Option::Some(Self::PROPOSED),
-                "VALIDATED" => std::option::Option::Some(Self::VALIDATED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Proposed,
+                2 => Self::Validated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROPOSED" => Self::Proposed,
+                "VALIDATED" => Self::Validated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Proposed => serializer.serialize_i32(1),
+                Self::Validated => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.apihub.v1.Dependency.State",
+            ))
         }
     }
 
     /// Possible modes of discovering the dependency.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DiscoveryMode(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DiscoveryMode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Manual mode of discovery when the dependency is defined by the user.
+        Manual,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DiscoveryMode::value] or
+        /// [DiscoveryMode::name].
+        UnknownValue(discovery_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod discovery_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl DiscoveryMode {
-        /// Default value. This value is unused.
-        pub const DISCOVERY_MODE_UNSPECIFIED: DiscoveryMode = DiscoveryMode::new(0);
-
-        /// Manual mode of discovery when the dependency is defined by the user.
-        pub const MANUAL: DiscoveryMode = DiscoveryMode::new(1);
-
-        /// Creates a new DiscoveryMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Manual => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DISCOVERY_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MANUAL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DISCOVERY_MODE_UNSPECIFIED"),
+                Self::Manual => std::option::Option::Some("MANUAL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DISCOVERY_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DISCOVERY_MODE_UNSPECIFIED)
-                }
-                "MANUAL" => std::option::Option::Some(Self::MANUAL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DiscoveryMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DiscoveryMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DiscoveryMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DiscoveryMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Manual,
+                _ => Self::UnknownValue(discovery_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DiscoveryMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISCOVERY_MODE_UNSPECIFIED" => Self::Unspecified,
+                "MANUAL" => Self::Manual,
+                _ => Self::UnknownValue(discovery_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DiscoveryMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Manual => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DiscoveryMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiscoveryMode>::new(
+                ".google.cloud.apihub.v1.Dependency.DiscoveryMode",
+            ))
         }
     }
 }
@@ -6528,19 +7238,6 @@ impl DependencyEntityReference {
         })
     }
 
-    /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
-    /// if it holds a `ExternalApiResourceName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn external_api_resource_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::dependency_entity_reference::Identifier::ExternalApiResourceName(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier]
     /// to hold a `OperationResourceName`.
     ///
@@ -6554,6 +7251,19 @@ impl DependencyEntityReference {
             crate::model::dependency_entity_reference::Identifier::OperationResourceName(v.into()),
         );
         self
+    }
+
+    /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
+    /// if it holds a `ExternalApiResourceName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn external_api_resource_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::dependency_entity_reference::Identifier::ExternalApiResourceName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier]
@@ -6656,59 +7366,134 @@ pub mod dependency_error_detail {
     use super::*;
 
     /// Possible values representing an error in the dependency.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Error(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Error {
+        /// Default value used for no error in the dependency.
+        Unspecified,
+        /// Supplier entity has been deleted.
+        SupplierNotFound,
+        /// Supplier entity has been recreated.
+        SupplierRecreated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Error::value] or
+        /// [Error::name].
+        UnknownValue(error::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod error {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Error {
-        /// Default value used for no error in the dependency.
-        pub const ERROR_UNSPECIFIED: Error = Error::new(0);
-
-        /// Supplier entity has been deleted.
-        pub const SUPPLIER_NOT_FOUND: Error = Error::new(1);
-
-        /// Supplier entity has been recreated.
-        pub const SUPPLIER_RECREATED: Error = Error::new(2);
-
-        /// Creates a new Error instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SupplierNotFound => std::option::Option::Some(1),
+                Self::SupplierRecreated => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ERROR_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SUPPLIER_NOT_FOUND"),
-                2 => std::borrow::Cow::Borrowed("SUPPLIER_RECREATED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ERROR_UNSPECIFIED"),
+                Self::SupplierNotFound => std::option::Option::Some("SUPPLIER_NOT_FOUND"),
+                Self::SupplierRecreated => std::option::Option::Some("SUPPLIER_RECREATED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ERROR_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_UNSPECIFIED),
-                "SUPPLIER_NOT_FOUND" => std::option::Option::Some(Self::SUPPLIER_NOT_FOUND),
-                "SUPPLIER_RECREATED" => std::option::Option::Some(Self::SUPPLIER_RECREATED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Error {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Error {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Error {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Error {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SupplierNotFound,
+                2 => Self::SupplierRecreated,
+                _ => Self::UnknownValue(error::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Error {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ERROR_UNSPECIFIED" => Self::Unspecified,
+                "SUPPLIER_NOT_FOUND" => Self::SupplierNotFound,
+                "SUPPLIER_RECREATED" => Self::SupplierRecreated,
+                _ => Self::UnknownValue(error::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Error {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SupplierNotFound => serializer.serialize_i32(1),
+                Self::SupplierRecreated => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Error {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Error>::new(
+                ".google.cloud.apihub.v1.DependencyErrorDetail.Error",
+            ))
         }
     }
 }
@@ -6750,6 +7535,28 @@ impl LintResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [issues][crate::model::LintResponse::issues].
+    pub fn set_issues<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Issue>,
+    {
+        use std::iter::Iterator;
+        self.issues = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [summary][crate::model::LintResponse::summary].
+    pub fn set_summary<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::lint_response::SummaryEntry>,
+    {
+        use std::iter::Iterator;
+        self.summary = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::LintResponse::state].
     pub fn set_state<T: std::convert::Into<crate::model::LintState>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -6776,28 +7583,6 @@ impl LintResponse {
         self.create_time = v.into();
         self
     }
-
-    /// Sets the value of [issues][crate::model::LintResponse::issues].
-    pub fn set_issues<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Issue>,
-    {
-        use std::iter::Iterator;
-        self.issues = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [summary][crate::model::LintResponse::summary].
-    pub fn set_summary<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::lint_response::SummaryEntry>,
-    {
-        use std::iter::Iterator;
-        self.summary = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for LintResponse {
@@ -6821,6 +7606,7 @@ pub mod lint_response {
         pub severity: crate::model::Severity,
 
         /// Required. Count of issues with the given severity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6893,6 +7679,17 @@ impl Issue {
         self
     }
 
+    /// Sets the value of [path][crate::model::Issue::path].
+    pub fn set_path<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.path = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [message][crate::model::Issue::message].
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
@@ -6911,17 +7708,6 @@ impl Issue {
         v: T,
     ) -> Self {
         self.range = v.into();
-        self
-    }
-
-    /// Sets the value of [path][crate::model::Issue::path].
-    pub fn set_path<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.path = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6987,9 +7773,11 @@ impl wkt::message::Message for Range {
 #[non_exhaustive]
 pub struct Point {
     /// Required. Line number (zero-indexed).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line: i32,
 
     /// Required. Character position within the line (zero-indexed).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub character: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7053,6 +7841,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -7224,12 +8013,6 @@ impl ApiHubInstance {
         self
     }
 
-    /// Sets the value of [description][crate::model::ApiHubInstance::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::ApiHubInstance::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -7239,6 +8022,12 @@ impl ApiHubInstance {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ApiHubInstance::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
         self
     }
 }
@@ -7293,79 +8082,162 @@ pub mod api_hub_instance {
     }
 
     /// State of the ApiHub Instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// The ApiHub instance has not been initialized or has been deleted.
+        Inactive,
+        /// The ApiHub instance is being created.
+        Creating,
+        /// The ApiHub instance has been created and is ready for use.
+        Active,
+        /// The ApiHub instance is being updated.
+        Updating,
+        /// The ApiHub instance is being deleted.
+        Deleting,
+        /// The ApiHub instance encountered an error during a state change.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The ApiHub instance has not been initialized or has been deleted.
-        pub const INACTIVE: State = State::new(1);
-
-        /// The ApiHub instance is being created.
-        pub const CREATING: State = State::new(2);
-
-        /// The ApiHub instance has been created and is ready for use.
-        pub const ACTIVE: State = State::new(3);
-
-        /// The ApiHub instance is being updated.
-        pub const UPDATING: State = State::new(4);
-
-        /// The ApiHub instance is being deleted.
-        pub const DELETING: State = State::new(5);
-
-        /// The ApiHub instance encountered an error during a state change.
-        pub const FAILED: State = State::new(6);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Inactive => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Active => std::option::Option::Some(3),
+                Self::Updating => std::option::Option::Some(4),
+                Self::Deleting => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INACTIVE"),
-                2 => std::borrow::Cow::Borrowed("CREATING"),
-                3 => std::borrow::Cow::Borrowed("ACTIVE"),
-                4 => std::borrow::Cow::Borrowed("UPDATING"),
-                5 => std::borrow::Cow::Borrowed("DELETING"),
-                6 => std::borrow::Cow::Borrowed("FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "UPDATING" => std::option::Option::Some(Self::UPDATING),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Inactive,
+                2 => Self::Creating,
+                3 => Self::Active,
+                4 => Self::Updating,
+                5 => Self::Deleting,
+                6 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "INACTIVE" => Self::Inactive,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Inactive => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Active => serializer.serialize_i32(3),
+                Self::Updating => serializer.serialize_i32(4),
+                Self::Deleting => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.apihub.v1.ApiHubInstance.State",
+            ))
         }
     }
 }
@@ -7446,35 +8318,6 @@ impl ExternalApi {
         self
     }
 
-    /// Sets the value of [documentation][crate::model::ExternalApi::documentation].
-    pub fn set_documentation<
-        T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.documentation = v.into();
-        self
-    }
-
-    /// Sets the value of [create_time][crate::model::ExternalApi::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::ExternalApi::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [endpoints][crate::model::ExternalApi::endpoints].
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -7497,6 +8340,17 @@ impl ExternalApi {
         self
     }
 
+    /// Sets the value of [documentation][crate::model::ExternalApi::documentation].
+    pub fn set_documentation<
+        T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.documentation = v.into();
+        self
+    }
+
     /// Sets the value of [attributes][crate::model::ExternalApi::attributes].
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -7506,6 +8360,24 @@ impl ExternalApi {
     {
         use std::iter::Iterator;
         self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ExternalApi::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ExternalApi::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -7640,6 +8512,7 @@ pub struct ListHostProjectRegistrationsRequest {
     /// service may return fewer than this value. If unspecified, at most 50 host
     /// project registrations will be returned. The maximum value is 1000; values
     /// above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -7749,12 +8622,6 @@ impl ListHostProjectRegistrationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHostProjectRegistrationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [host_project_registrations][crate::model::ListHostProjectRegistrationsResponse::host_project_registrations].
     pub fn set_host_project_registrations<T, V>(mut self, v: T) -> Self
     where
@@ -7763,6 +8630,12 @@ impl ListHostProjectRegistrationsResponse {
     {
         use std::iter::Iterator;
         self.host_project_registrations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHostProjectRegistrationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8198,59 +9071,134 @@ pub mod plugin {
     /// Possible states a plugin can have. Note that this enum may receive new
     /// values in the future. Consumers are advised to always code against the
     /// enum values expecting new states can be added later on.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// The plugin is enabled.
+        Enabled,
+        /// The plugin is disabled.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The plugin is enabled.
-        pub const ENABLED: State = State::new(1);
-
-        /// The plugin is disabled.
-        pub const DISABLED: State = State::new(2);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.apihub.v1.Plugin.State",
+            ))
         }
     }
 }
@@ -8676,6 +9624,7 @@ pub struct ListRuntimeProjectAttachmentsRequest {
     /// service may return fewer than this value. If unspecified, at most 50
     /// runtime project attachments will be returned. The maximum value is 1000;
     /// values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -8785,12 +9734,6 @@ impl ListRuntimeProjectAttachmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuntimeProjectAttachmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [runtime_project_attachments][crate::model::ListRuntimeProjectAttachmentsResponse::runtime_project_attachments].
     pub fn set_runtime_project_attachments<T, V>(mut self, v: T) -> Self
     where
@@ -8799,6 +9742,12 @@ impl ListRuntimeProjectAttachmentsResponse {
     {
         use std::iter::Iterator;
         self.runtime_project_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuntimeProjectAttachmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9003,182 +9952,411 @@ impl wkt::message::Message for RuntimeProjectAttachment {
 }
 
 /// Lint state represents success or failure for linting.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LintState(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LintState {
+    /// Lint state unspecified.
+    Unspecified,
+    /// Linting was completed successfully.
+    Success,
+    /// Linting encountered errors.
+    Error,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LintState::value] or
+    /// [LintState::name].
+    UnknownValue(lint_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod lint_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl LintState {
-    /// Lint state unspecified.
-    pub const LINT_STATE_UNSPECIFIED: LintState = LintState::new(0);
-
-    /// Linting was completed successfully.
-    pub const LINT_STATE_SUCCESS: LintState = LintState::new(1);
-
-    /// Linting encountered errors.
-    pub const LINT_STATE_ERROR: LintState = LintState::new(2);
-
-    /// Creates a new LintState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Success => std::option::Option::Some(1),
+            Self::Error => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LINT_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LINT_STATE_SUCCESS"),
-            2 => std::borrow::Cow::Borrowed("LINT_STATE_ERROR"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LINT_STATE_UNSPECIFIED"),
+            Self::Success => std::option::Option::Some("LINT_STATE_SUCCESS"),
+            Self::Error => std::option::Option::Some("LINT_STATE_ERROR"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LINT_STATE_UNSPECIFIED" => std::option::Option::Some(Self::LINT_STATE_UNSPECIFIED),
-            "LINT_STATE_SUCCESS" => std::option::Option::Some(Self::LINT_STATE_SUCCESS),
-            "LINT_STATE_ERROR" => std::option::Option::Some(Self::LINT_STATE_ERROR),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LintState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LintState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LintState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LintState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Success,
+            2 => Self::Error,
+            _ => Self::UnknownValue(lint_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LintState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LINT_STATE_UNSPECIFIED" => Self::Unspecified,
+            "LINT_STATE_SUCCESS" => Self::Success,
+            "LINT_STATE_ERROR" => Self::Error,
+            _ => Self::UnknownValue(lint_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LintState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Success => serializer.serialize_i32(1),
+            Self::Error => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LintState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LintState>::new(
+            ".google.cloud.apihub.v1.LintState",
+        ))
     }
 }
 
 /// Enumeration of linter types.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Linter(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Linter {
+    /// Linter type unspecified.
+    Unspecified,
+    /// Linter type spectral.
+    Spectral,
+    /// Linter type other.
+    Other,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Linter::value] or
+    /// [Linter::name].
+    UnknownValue(linter::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod linter {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Linter {
-    /// Linter type unspecified.
-    pub const LINTER_UNSPECIFIED: Linter = Linter::new(0);
-
-    /// Linter type spectral.
-    pub const SPECTRAL: Linter = Linter::new(1);
-
-    /// Linter type other.
-    pub const OTHER: Linter = Linter::new(2);
-
-    /// Creates a new Linter instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Spectral => std::option::Option::Some(1),
+            Self::Other => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LINTER_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SPECTRAL"),
-            2 => std::borrow::Cow::Borrowed("OTHER"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LINTER_UNSPECIFIED"),
+            Self::Spectral => std::option::Option::Some("SPECTRAL"),
+            Self::Other => std::option::Option::Some("OTHER"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LINTER_UNSPECIFIED" => std::option::Option::Some(Self::LINTER_UNSPECIFIED),
-            "SPECTRAL" => std::option::Option::Some(Self::SPECTRAL),
-            "OTHER" => std::option::Option::Some(Self::OTHER),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Linter {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Linter {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Linter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Linter {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Spectral,
+            2 => Self::Other,
+            _ => Self::UnknownValue(linter::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Linter {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LINTER_UNSPECIFIED" => Self::Unspecified,
+            "SPECTRAL" => Self::Spectral,
+            "OTHER" => Self::Other,
+            _ => Self::UnknownValue(linter::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Linter {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Spectral => serializer.serialize_i32(1),
+            Self::Other => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Linter {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Linter>::new(
+            ".google.cloud.apihub.v1.Linter",
+        ))
     }
 }
 
 /// Severity of the issue.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Severity(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Severity {
+    /// Severity unspecified.
+    Unspecified,
+    /// Severity error.
+    Error,
+    /// Severity warning.
+    Warning,
+    /// Severity info.
+    Info,
+    /// Severity hint.
+    Hint,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Severity::value] or
+    /// [Severity::name].
+    UnknownValue(severity::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod severity {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Severity {
-    /// Severity unspecified.
-    pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
-
-    /// Severity error.
-    pub const SEVERITY_ERROR: Severity = Severity::new(1);
-
-    /// Severity warning.
-    pub const SEVERITY_WARNING: Severity = Severity::new(2);
-
-    /// Severity info.
-    pub const SEVERITY_INFO: Severity = Severity::new(3);
-
-    /// Severity hint.
-    pub const SEVERITY_HINT: Severity = Severity::new(4);
-
-    /// Creates a new Severity instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Error => std::option::Option::Some(1),
+            Self::Warning => std::option::Option::Some(2),
+            Self::Info => std::option::Option::Some(3),
+            Self::Hint => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SEVERITY_ERROR"),
-            2 => std::borrow::Cow::Borrowed("SEVERITY_WARNING"),
-            3 => std::borrow::Cow::Borrowed("SEVERITY_INFO"),
-            4 => std::borrow::Cow::Borrowed("SEVERITY_HINT"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SEVERITY_UNSPECIFIED"),
+            Self::Error => std::option::Option::Some("SEVERITY_ERROR"),
+            Self::Warning => std::option::Option::Some("SEVERITY_WARNING"),
+            Self::Info => std::option::Option::Some("SEVERITY_INFO"),
+            Self::Hint => std::option::Option::Some("SEVERITY_HINT"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
-            "SEVERITY_ERROR" => std::option::Option::Some(Self::SEVERITY_ERROR),
-            "SEVERITY_WARNING" => std::option::Option::Some(Self::SEVERITY_WARNING),
-            "SEVERITY_INFO" => std::option::Option::Some(Self::SEVERITY_INFO),
-            "SEVERITY_HINT" => std::option::Option::Some(Self::SEVERITY_HINT),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Severity {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Severity {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Severity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Severity {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Error,
+            2 => Self::Warning,
+            3 => Self::Info,
+            4 => Self::Hint,
+            _ => Self::UnknownValue(severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Severity {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SEVERITY_UNSPECIFIED" => Self::Unspecified,
+            "SEVERITY_ERROR" => Self::Error,
+            "SEVERITY_WARNING" => Self::Warning,
+            "SEVERITY_INFO" => Self::Info,
+            "SEVERITY_HINT" => Self::Hint,
+            _ => Self::UnknownValue(severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Severity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Error => serializer.serialize_i32(1),
+            Self::Warning => serializer.serialize_i32(2),
+            Self::Info => serializer.serialize_i32(3),
+            Self::Hint => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Severity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
+            ".google.cloud.apihub.v1.Severity",
+        ))
     }
 }

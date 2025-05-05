@@ -71,15 +71,15 @@ rpc  = { workspace = true, optional = true }
 wkt  = { workspace = true, optional = true }
 
 [dev-dependencies]
-anyhow      = "1"
-axum        = "0.8"
-bytes       = "1"
-mockall     = "0.13"
-scoped-env  = "2"
-serde_with  = "3"
-serial_test = "3"
-test-case   = "3"
-tokio       = { version = "1", features = ["test-util"] }
+anyhow.workspace    = true
+axum                = "0.8"
+bytes               = "1"
+mockall             = "0.13"
+scoped-env          = "2"
+serde_with          = "3"
+serial_test         = "3"
+test-case.workspace = true
+tokio               = { version = "1", features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }

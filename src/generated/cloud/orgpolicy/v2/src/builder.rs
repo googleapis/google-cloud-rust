@@ -16,7 +16,6 @@
 
 pub mod org_policy {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [OrgPolicy][super::super::client::OrgPolicy].
     ///
@@ -49,7 +48,7 @@ pub mod org_policy {
     /// Common implementation for [super::super::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod org_policy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod org_policy {
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
     impl ListConstraints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::ListConstraintsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -142,7 +147,9 @@ pub mod org_policy {
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,6 +189,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -212,7 +221,9 @@ pub mod org_policy {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -237,6 +248,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -255,7 +268,9 @@ pub mod org_policy {
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
     impl GetEffectivePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -283,6 +298,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -301,7 +318,9 @@ pub mod org_policy {
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -326,12 +345,16 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -353,7 +376,9 @@ pub mod org_policy {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -378,6 +403,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -408,7 +435,9 @@ pub mod org_policy {
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,6 +462,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -457,7 +488,9 @@ pub mod org_policy {
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
     impl CreateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -485,12 +518,16 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_constraint<
             T: Into<std::option::Option<crate::model::CustomConstraint>>,
         >(
@@ -514,7 +551,9 @@ pub mod org_policy {
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
     impl UpdateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -542,6 +581,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_constraint<
             T: Into<std::option::Option<crate::model::CustomConstraint>>,
         >(
@@ -565,7 +606,9 @@ pub mod org_policy {
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
     impl GetCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -593,6 +636,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -611,7 +656,9 @@ pub mod org_policy {
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
     impl ListCustomConstraints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -654,6 +701,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::ListCustomConstraintsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -684,7 +733,9 @@ pub mod org_policy {
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 
     impl DeleteCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -712,6 +763,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -61,6 +61,7 @@ pub struct Endpoint {
     pub address: std::string::String,
 
     /// Optional. Service Directory rejects values outside of `[0, 65535]`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Optional. Annotations for the endpoint. This data can be consumed by
@@ -128,18 +129,6 @@ impl Endpoint {
         self
     }
 
-    /// Sets the value of [network][crate::model::Endpoint::network].
-    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network = v.into();
-        self
-    }
-
-    /// Sets the value of [uid][crate::model::Endpoint::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::Endpoint::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -149,6 +138,18 @@ impl Endpoint {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::Endpoint::network].
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Endpoint::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }
@@ -176,6 +177,7 @@ pub struct ResolveServiceRequest {
     /// Optional. The maximum number of endpoints to return. Defaults to 25.
     /// Maximum is 100. If a value less than one is specified, the Default is used.
     /// If a value greater than the Maximum is specified, the Maximum is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_endpoints: i32,
 
     /// Optional. The filter applied to the endpoints of the resolved service.
@@ -330,12 +332,6 @@ impl Namespace {
         self
     }
 
-    /// Sets the value of [uid][crate::model::Namespace::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Namespace::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -345,6 +341,12 @@ impl Namespace {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Namespace::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }
@@ -435,6 +437,7 @@ pub struct ListNamespacesRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -559,12 +562,6 @@ impl ListNamespacesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNamespacesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [namespaces][crate::model::ListNamespacesResponse::namespaces].
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
@@ -573,6 +570,12 @@ impl ListNamespacesResponse {
     {
         use std::iter::Iterator;
         self.namespaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNamespacesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -797,6 +800,7 @@ pub struct ListServicesRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -924,12 +928,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -938,6 +936,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1164,6 +1168,7 @@ pub struct ListEndpointsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -1294,12 +1299,6 @@ impl ListEndpointsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [endpoints][crate::model::ListEndpointsResponse::endpoints].
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -1308,6 +1307,12 @@ impl ListEndpointsResponse {
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1524,9 +1529,15 @@ impl Service {
         self
     }
 
-    /// Sets the value of [uid][crate::model::Service::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
+    /// Sets the value of [annotations][crate::model::Service::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1541,15 +1552,9 @@ impl Service {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::Service::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [uid][crate::model::Service::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }

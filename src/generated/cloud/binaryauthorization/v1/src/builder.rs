@@ -16,7 +16,6 @@
 
 pub mod binauthz_management_service_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BinauthzManagementServiceV1][super::super::client::BinauthzManagementServiceV1].
     ///
@@ -49,7 +48,7 @@ pub mod binauthz_management_service_v_1 {
     /// Common implementation for [super::super::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod binauthz_management_service_v_1 {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl GetPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -101,6 +100,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -120,7 +121,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl UpdatePolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -146,6 +147,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -168,7 +171,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl CreateAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -194,18 +197,24 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [parent][crate::model::CreateAttestorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attestor_id][crate::model::CreateAttestorRequest::attestor_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attestor_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attestor_id = v.into();
             self
         }
 
         /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
             mut self,
             v: T,
@@ -228,7 +237,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl GetAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -254,6 +263,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [name][crate::model::GetAttestorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -273,7 +284,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl UpdateAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -299,6 +310,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
             mut self,
             v: T,
@@ -321,7 +334,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl ListAttestors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -362,6 +375,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [parent][crate::model::ListAttestorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -393,7 +408,7 @@ pub mod binauthz_management_service_v_1 {
 
     impl DeleteAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -419,6 +434,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [name][crate::model::DeleteAttestorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -435,7 +452,6 @@ pub mod binauthz_management_service_v_1 {
 
 pub mod system_policy_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SystemPolicyV1][super::super::client::SystemPolicyV1].
     ///
@@ -468,7 +484,7 @@ pub mod system_policy_v_1 {
     /// Common implementation for [super::super::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -477,7 +493,9 @@ pub mod system_policy_v_1 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -491,7 +509,9 @@ pub mod system_policy_v_1 {
     pub struct GetSystemPolicy(RequestBuilder<crate::model::GetSystemPolicyRequest>);
 
     impl GetSystemPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -516,6 +536,8 @@ pub mod system_policy_v_1 {
         }
 
         /// Sets the value of [name][crate::model::GetSystemPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -532,7 +554,6 @@ pub mod system_policy_v_1 {
 
 pub mod validation_helper_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ValidationHelperV1][super::super::client::ValidationHelperV1].
     ///
@@ -565,7 +586,7 @@ pub mod validation_helper_v_1 {
     /// Common implementation for [super::super::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -574,7 +595,9 @@ pub mod validation_helper_v_1 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -590,7 +613,9 @@ pub mod validation_helper_v_1 {
     );
 
     impl ValidateAttestationOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,12 +643,16 @@ pub mod validation_helper_v_1 {
         }
 
         /// Sets the value of [attestor][crate::model::ValidateAttestationOccurrenceRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attestor<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attestor = v.into();
             self
         }
 
         /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attestation<
             T: Into<std::option::Option<grafeas::model::AttestationOccurrence>>,
         >(
@@ -635,12 +664,16 @@ pub mod validation_helper_v_1 {
         }
 
         /// Sets the value of [occurrence_note][crate::model::ValidateAttestationOccurrenceRequest::occurrence_note].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_occurrence_note<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.occurrence_note = v.into();
             self
         }
 
         /// Sets the value of [occurrence_resource_uri][crate::model::ValidateAttestationOccurrenceRequest::occurrence_resource_uri].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_occurrence_resource_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.occurrence_resource_uri = v.into();
             self

@@ -16,7 +16,6 @@
 
 pub mod simulator {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Simulator][super::super::client::Simulator].
     ///
@@ -49,7 +48,7 @@ pub mod simulator {
     /// Common implementation for [super::super::client::Simulator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Simulator>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod simulator {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod simulator {
     pub struct GetReplay(RequestBuilder<crate::model::GetReplayRequest>);
 
     impl GetReplay {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +100,8 @@ pub mod simulator {
         }
 
         /// Sets the value of [name][crate::model::GetReplayRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -115,7 +120,9 @@ pub mod simulator {
     pub struct CreateReplay(RequestBuilder<crate::model::CreateReplayRequest>);
 
     impl CreateReplay {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,12 +185,16 @@ pub mod simulator {
         }
 
         /// Sets the value of [parent][crate::model::CreateReplayRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [replay][crate::model::CreateReplayRequest::replay].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_replay<T: Into<std::option::Option<crate::model::Replay>>>(
             mut self,
             v: T,
@@ -205,7 +216,9 @@ pub mod simulator {
     pub struct ListReplayResults(RequestBuilder<crate::model::ListReplayResultsRequest>);
 
     impl ListReplayResults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -248,6 +261,8 @@ pub mod simulator {
         }
 
         /// Sets the value of [parent][crate::model::ListReplayResultsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -278,7 +293,9 @@ pub mod simulator {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -357,7 +374,9 @@ pub mod simulator {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

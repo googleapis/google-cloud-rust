@@ -130,12 +130,6 @@ type messageAnnotation struct {
 	HasNestedTypes    bool
 	// All the fields except OneOfs.
 	BasicFields []*api.Field
-	// The subset of `BasicFields` that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of `BasicFields` that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of `BasicFields` that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
@@ -205,12 +199,6 @@ type oneOfAnnotation struct {
 	StructQualifiedName string
 	FieldType           string
 	DocLines            []string
-	// The subset of the oneof fields that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If set, this enum is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
@@ -236,14 +224,12 @@ type fieldAnnotations struct {
 	AddQueryParameter  string
 	// For fields that are maps, these are the type of the key and value,
 	// respectively.
-	KeyType   string
-	ValueType string
+	KeyType    string
+	KeyField   *api.Field
+	ValueType  string
+	ValueField *api.Field
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
-	// Simplify the templates for Protobuf => sidekick type conversion.
-	ToProto      string
-	KeyToProto   string
-	ValueToProto string
 }
 
 type enumAnnotation struct {
@@ -264,9 +250,10 @@ type enumAnnotation struct {
 }
 
 type enumValueAnnotation struct {
-	Name     string
-	EnumType string
-	DocLines []string
+	Name        string
+	VariantName string
+	EnumType    string
+	DocLines    []string
 }
 
 // annotateModel creates a struct used as input for Mustache templates.
@@ -469,38 +456,6 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 	s.Codec = ann
 }
 
-type fieldPartition struct {
-	singularFields []*api.Field
-	repeatedFields []*api.Field
-	mapFields      []*api.Field
-}
-
-func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
-	isMap := func(f *api.Field) bool {
-		if f.Typez != api.MESSAGE_TYPE {
-			return false
-		}
-		if m, ok := state.MessageByID[f.TypezID]; ok {
-			return m.IsMap
-		}
-		return false
-	}
-	isRepeated := func(f *api.Field) bool {
-		return f.Repeated && !isMap(f)
-	}
-	return fieldPartition{
-		singularFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return !isRepeated(f) && !isMap(f)
-		}),
-		repeatedFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isRepeated(f)
-		}),
-		mapFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isMap(f)
-		}),
-	}
-}
-
 // annotateMessage annotates the message, its fields, its nested
 // messages, and its nested enums.
 func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
@@ -526,7 +481,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	basicFields := language.FilterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
-	partition := partitionFields(basicFields, state)
 	qualifiedName := fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	m.Codec = &messageAnnotation{
@@ -540,9 +494,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		MessageAttributes:  messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
-		SingularFields:     partition.singularFields,
-		RepeatedFields:     partition.repeatedFields,
-		MapFields:          partition.mapFields,
 		HasSyntheticFields: hasSyntheticFields,
 	}
 }
@@ -666,7 +617,6 @@ func annotateSegments(segments []string) []string {
 }
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
-	partition := partitionFields(oneof.Fields, state)
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	enumName := toPascal(oneof.Name)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
@@ -681,9 +631,6 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		StructQualifiedName: structQualifiedName,
 		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
-		SingularFields:      partition.singularFields,
-		RepeatedFields:      partition.repeatedFields,
-		MapFields:           partition.mapFields,
 	}
 }
 
@@ -698,7 +645,6 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
-		ToProto:            toProto(field),
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
@@ -711,10 +657,10 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 	if !ok || !mapMessage.IsMap {
 		return
 	}
+	ann.KeyField = mapMessage.Fields[0]
 	ann.KeyType = mapType(mapMessage.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+	ann.ValueField = mapMessage.Fields[1]
 	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-	ann.KeyToProto = toProto(mapMessage.Fields[0])
-	ann.ValueToProto = toProto(mapMessage.Fields[1])
 }
 
 func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) {
@@ -733,7 +679,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 	seen := map[string]*api.EnumValue{}
 	var unique []*api.EnumValue
 	for _, ev := range e.Values {
-		name := enumValueName(ev)
+		name := enumValueVariantName(ev)
 		if existing, ok := seen[name]; ok {
 			if existing.Number != ev.Number {
 				slog.Warn("conflicting names for enum values", "enum.ID", e.ID)
@@ -743,6 +689,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 			seen[name] = ev
 		}
 	}
+
 	qualifiedName := fullyQualifiedEnumName(e, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	e.Codec = &enumAnnotation{
@@ -757,9 +704,10 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 
 func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {
 	ev.Codec = &enumValueAnnotation{
-		DocLines: c.formatDocComments(ev.Documentation, ev.ID, state, ev.Scopes()),
-		Name:     enumValueName(ev),
-		EnumType: enumName(e),
+		DocLines:    c.formatDocComments(ev.Documentation, ev.ID, state, ev.Scopes()),
+		Name:        enumValueName(ev),
+		EnumType:    enumName(e),
+		VariantName: enumValueVariantName(ev),
 	}
 }
 

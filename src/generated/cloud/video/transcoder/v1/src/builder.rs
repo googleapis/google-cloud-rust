@@ -16,7 +16,6 @@
 
 pub mod transcoder_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TranscoderService][super::super::client::TranscoderService].
     ///
@@ -49,7 +48,7 @@ pub mod transcoder_service {
     /// Common implementation for [super::super::client::TranscoderService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod transcoder_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod transcoder_service {
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,12 +100,16 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
@@ -121,7 +128,9 @@ pub mod transcoder_service {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -161,6 +170,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -203,7 +214,9 @@ pub mod transcoder_service {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -228,6 +241,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -246,7 +261,9 @@ pub mod transcoder_service {
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -271,6 +288,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -295,7 +314,9 @@ pub mod transcoder_service {
     pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
     impl CreateJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,12 +344,16 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateJobTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_template<T: Into<std::option::Option<crate::model::JobTemplate>>>(
             mut self,
             v: T,
@@ -338,6 +363,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [job_template_id][crate::model::CreateJobTemplateRequest::job_template_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_template_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_template_id = v.into();
             self
@@ -356,7 +383,9 @@ pub mod transcoder_service {
     pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
     impl ListJobTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -399,6 +428,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [parent][crate::model::ListJobTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -441,7 +472,9 @@ pub mod transcoder_service {
     pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
 
     impl GetJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -466,6 +499,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [name][crate::model::GetJobTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -484,7 +519,9 @@ pub mod transcoder_service {
     pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 
     impl DeleteJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,6 +549,8 @@ pub mod transcoder_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteJobTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

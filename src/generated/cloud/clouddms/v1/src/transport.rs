@@ -865,11 +865,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("tree", &req.tree.value())]);
+        let builder = builder.query(&[("tree", &req.tree)]);
         let builder = builder.query(&[("uncommitted", &req.uncommitted)]);
         let builder = builder.query(&[("commitId", &req.commit_id)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

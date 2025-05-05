@@ -67,10 +67,12 @@ pub struct Connection {
     /// Optional. If disabled is set to true, functionality is disabled for this
     /// connection. Repository based API methods and webhooks processing for
     /// repositories in this connection will be disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Output only. Set to true when the connection is being set up or updated in
     /// the background.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Allows clients to store small amounts of arbitrary data.
@@ -139,6 +141,18 @@ impl Connection {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Connection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [installation_state][crate::model::Connection::installation_state].
     pub fn set_installation_state<
         T: std::convert::Into<std::option::Option<crate::model::InstallationState>>,
@@ -162,6 +176,18 @@ impl Connection {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Connection::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Connection::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -182,30 +208,6 @@ impl Connection {
         v: T,
     ) -> Self {
         self.crypto_key_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Connection::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Connection::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -238,51 +240,6 @@ impl Connection {
         })
     }
 
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn github_enterprise_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitHubEnterpriseConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::GithubEnterpriseConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `GitlabConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gitlab_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::GitlabConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_config][crate::model::Connection::connection_config]
-    /// if it holds a `GitlabEnterpriseConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gitlab_enterprise_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabEnterpriseConfig>> {
-        #[allow(unreachable_patterns)]
-        self.connection_config.as_ref().and_then(|v| match v {
-            crate::model::connection::ConnectionConfig::GitlabEnterpriseConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
     /// to hold a `GithubConfig`.
     ///
@@ -296,6 +253,21 @@ impl Connection {
             crate::model::connection::ConnectionConfig::GithubConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn github_enterprise_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GitHubEnterpriseConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::GithubEnterpriseConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
@@ -315,6 +287,21 @@ impl Connection {
         self
     }
 
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `GitlabConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gitlab_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::GitlabConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
     /// to hold a `GitlabConfig`.
     ///
@@ -328,6 +315,21 @@ impl Connection {
             crate::model::connection::ConnectionConfig::GitlabConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `GitlabEnterpriseConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gitlab_enterprise_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabEnterpriseConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::GitlabEnterpriseConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_config][crate::model::Connection::connection_config]
@@ -474,70 +476,149 @@ pub mod installation_state {
     use super::*;
 
     /// Stage of the installation process.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Stage(i32);
-
-    impl Stage {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Stage {
         /// No stage specified.
-        pub const STAGE_UNSPECIFIED: Stage = Stage::new(0);
-
+        Unspecified,
         /// Only for GitHub Enterprise. An App creation has been requested.
         /// The user needs to confirm the creation in their GitHub enterprise host.
-        pub const PENDING_CREATE_APP: Stage = Stage::new(1);
-
+        PendingCreateApp,
         /// User needs to authorize the GitHub (or Enterprise) App via OAuth.
-        pub const PENDING_USER_OAUTH: Stage = Stage::new(2);
-
+        PendingUserOauth,
         /// User needs to follow the link to install the GitHub (or Enterprise) App.
-        pub const PENDING_INSTALL_APP: Stage = Stage::new(3);
-
+        PendingInstallApp,
         /// Installation process has been completed.
-        pub const COMPLETE: Stage = Stage::new(10);
+        Complete,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Stage::value] or
+        /// [Stage::name].
+        UnknownValue(stage::UnknownValue),
+    }
 
-        /// Creates a new Stage instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod stage {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Stage {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingCreateApp => std::option::Option::Some(1),
+                Self::PendingUserOauth => std::option::Option::Some(2),
+                Self::PendingInstallApp => std::option::Option::Some(3),
+                Self::Complete => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STAGE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING_CREATE_APP"),
-                2 => std::borrow::Cow::Borrowed("PENDING_USER_OAUTH"),
-                3 => std::borrow::Cow::Borrowed("PENDING_INSTALL_APP"),
-                10 => std::borrow::Cow::Borrowed("COMPLETE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STAGE_UNSPECIFIED"),
+                Self::PendingCreateApp => std::option::Option::Some("PENDING_CREATE_APP"),
+                Self::PendingUserOauth => std::option::Option::Some("PENDING_USER_OAUTH"),
+                Self::PendingInstallApp => std::option::Option::Some("PENDING_INSTALL_APP"),
+                Self::Complete => std::option::Option::Some("COMPLETE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STAGE_UNSPECIFIED" => std::option::Option::Some(Self::STAGE_UNSPECIFIED),
-                "PENDING_CREATE_APP" => std::option::Option::Some(Self::PENDING_CREATE_APP),
-                "PENDING_USER_OAUTH" => std::option::Option::Some(Self::PENDING_USER_OAUTH),
-                "PENDING_INSTALL_APP" => std::option::Option::Some(Self::PENDING_INSTALL_APP),
-                "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Stage {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Stage {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Stage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Stage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PendingCreateApp,
+                2 => Self::PendingUserOauth,
+                3 => Self::PendingInstallApp,
+                10 => Self::Complete,
+                _ => Self::UnknownValue(stage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Stage {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STAGE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_CREATE_APP" => Self::PendingCreateApp,
+                "PENDING_USER_OAUTH" => Self::PendingUserOauth,
+                "PENDING_INSTALL_APP" => Self::PendingInstallApp,
+                "COMPLETE" => Self::Complete,
+                _ => Self::UnknownValue(stage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Stage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingCreateApp => serializer.serialize_i32(1),
+                Self::PendingUserOauth => serializer.serialize_i32(2),
+                Self::PendingInstallApp => serializer.serialize_i32(3),
+                Self::Complete => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Stage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Stage>::new(
+                ".google.cloud.developerconnect.v1.InstallationState.Stage",
+            ))
         }
     }
 }
@@ -559,6 +640,7 @@ pub struct GitHubConfig {
     pub authorizer_credential: std::option::Option<crate::model::OAuthCredential>,
 
     /// Optional. GitHub App installation id.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
 
@@ -625,61 +707,134 @@ pub mod git_hub_config {
 
     /// Represents the various GitHub Applications that can be installed to a
     /// GitHub user or organization and used with Developer Connect.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GitHubApp(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GitHubApp {
+        /// GitHub App not specified.
+        Unspecified,
+        /// The Developer Connect GitHub Application.
+        DeveloperConnect,
+        /// The Firebase GitHub Application.
+        Firebase,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GitHubApp::value] or
+        /// [GitHubApp::name].
+        UnknownValue(git_hub_app::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod git_hub_app {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl GitHubApp {
-        /// GitHub App not specified.
-        pub const GIT_HUB_APP_UNSPECIFIED: GitHubApp = GitHubApp::new(0);
-
-        /// The Developer Connect GitHub Application.
-        pub const DEVELOPER_CONNECT: GitHubApp = GitHubApp::new(1);
-
-        /// The Firebase GitHub Application.
-        pub const FIREBASE: GitHubApp = GitHubApp::new(2);
-
-        /// Creates a new GitHubApp instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DeveloperConnect => std::option::Option::Some(1),
+                Self::Firebase => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("GIT_HUB_APP_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DEVELOPER_CONNECT"),
-                2 => std::borrow::Cow::Borrowed("FIREBASE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("GIT_HUB_APP_UNSPECIFIED"),
+                Self::DeveloperConnect => std::option::Option::Some("DEVELOPER_CONNECT"),
+                Self::Firebase => std::option::Option::Some("FIREBASE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "GIT_HUB_APP_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::GIT_HUB_APP_UNSPECIFIED)
-                }
-                "DEVELOPER_CONNECT" => std::option::Option::Some(Self::DEVELOPER_CONNECT),
-                "FIREBASE" => std::option::Option::Some(Self::FIREBASE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for GitHubApp {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for GitHubApp {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for GitHubApp {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for GitHubApp {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DeveloperConnect,
+                2 => Self::Firebase,
+                _ => Self::UnknownValue(git_hub_app::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for GitHubApp {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GIT_HUB_APP_UNSPECIFIED" => Self::Unspecified,
+                "DEVELOPER_CONNECT" => Self::DeveloperConnect,
+                "FIREBASE" => Self::Firebase,
+                _ => Self::UnknownValue(git_hub_app::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for GitHubApp {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DeveloperConnect => serializer.serialize_i32(1),
+                Self::Firebase => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GitHubApp {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GitHubApp>::new(
+                ".google.cloud.developerconnect.v1.GitHubConfig.GitHubApp",
+            ))
         }
     }
 }
@@ -695,6 +850,7 @@ pub struct GitHubEnterpriseConfig {
     pub host_uri: std::string::String,
 
     /// Optional. ID of the GitHub App created from the manifest.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_id: i64,
 
@@ -713,6 +869,7 @@ pub struct GitHubEnterpriseConfig {
     pub webhook_secret_secret_version: std::string::String,
 
     /// Optional. ID of the installation of the GitHub App.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
 
@@ -1172,6 +1329,7 @@ pub struct ListConnectionsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1259,12 +1417,6 @@ impl ListConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
@@ -1273,6 +1425,12 @@ impl ListConnectionsResponse {
     {
         use std::iter::Iterator;
         self.connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1377,6 +1535,7 @@ pub struct CreateConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1467,9 +1626,11 @@ pub struct UpdateConnectionRequest {
     /// The creation will succeed only if the input connection has all the
     /// necessary information (e.g a github_config with both  user_oauth_token and
     /// installation_id properties).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1551,6 +1712,7 @@ pub struct DeleteConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The current etag of the Connection.
@@ -1634,6 +1796,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1743,6 +1906,7 @@ pub struct GitRepositoryLink {
 
     /// Output only. Set to true when the connection is being set up or updated in
     /// the background.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Allows clients to store small amounts of arbitrary data.
@@ -1806,30 +1970,6 @@ impl GitRepositoryLink {
         self
     }
 
-    /// Sets the value of [etag][crate::model::GitRepositoryLink::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [reconciling][crate::model::GitRepositoryLink::reconciling].
-    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.reconciling = v.into();
-        self
-    }
-
-    /// Sets the value of [uid][crate::model::GitRepositoryLink::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
-        self
-    }
-
-    /// Sets the value of [webhook_id][crate::model::GitRepositoryLink::webhook_id].
-    pub fn set_webhook_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.webhook_id = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::GitRepositoryLink::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -1842,6 +1982,18 @@ impl GitRepositoryLink {
         self
     }
 
+    /// Sets the value of [etag][crate::model::GitRepositoryLink::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::GitRepositoryLink::reconciling].
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
     /// Sets the value of [annotations][crate::model::GitRepositoryLink::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -1851,6 +2003,18 @@ impl GitRepositoryLink {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::GitRepositoryLink::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [webhook_id][crate::model::GitRepositoryLink::webhook_id].
+    pub fn set_webhook_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.webhook_id = v.into();
         self
     }
 }
@@ -1899,6 +2063,7 @@ pub struct CreateGitRepositoryLinkRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1982,6 +2147,7 @@ pub struct DeleteGitRepositoryLinkRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -2042,6 +2208,7 @@ pub struct ListGitRepositoryLinksRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2129,12 +2296,6 @@ impl ListGitRepositoryLinksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGitRepositoryLinksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [git_repository_links][crate::model::ListGitRepositoryLinksResponse::git_repository_links].
     pub fn set_git_repository_links<T, V>(mut self, v: T) -> Self
     where
@@ -2143,6 +2304,12 @@ impl ListGitRepositoryLinksResponse {
     {
         use std::iter::Iterator;
         self.git_repository_links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGitRepositoryLinksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2408,6 +2575,7 @@ pub struct FetchLinkableGitRepositoriesRequest {
     pub connection: std::string::String,
 
     /// Optional. Number of results to return in the list. Defaults to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page start.
@@ -2471,12 +2639,6 @@ impl FetchLinkableGitRepositoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchLinkableGitRepositoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [linkable_git_repositories][crate::model::FetchLinkableGitRepositoriesResponse::linkable_git_repositories].
     pub fn set_linkable_git_repositories<T, V>(mut self, v: T) -> Self
     where
@@ -2485,6 +2647,12 @@ impl FetchLinkableGitRepositoriesResponse {
     {
         use std::iter::Iterator;
         self.linkable_git_repositories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchLinkableGitRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2626,6 +2794,7 @@ pub mod fetch_git_hub_installations_response {
     #[non_exhaustive]
     pub struct Installation {
         /// ID of the installation in GitHub.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub id: i64,
 
@@ -2688,6 +2857,7 @@ pub struct FetchGitRefsRequest {
     pub ref_type: crate::model::fetch_git_refs_request::RefType,
 
     /// Optional. Number of results to return in the list. Default to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page start.
@@ -2746,59 +2916,134 @@ pub mod fetch_git_refs_request {
     use super::*;
 
     /// Type of refs.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RefType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RefType {
+        /// No type specified.
+        Unspecified,
+        /// To fetch tags.
+        Tag,
+        /// To fetch branches.
+        Branch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RefType::value] or
+        /// [RefType::name].
+        UnknownValue(ref_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod ref_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RefType {
-        /// No type specified.
-        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new(0);
-
-        /// To fetch tags.
-        pub const TAG: RefType = RefType::new(1);
-
-        /// To fetch branches.
-        pub const BRANCH: RefType = RefType::new(2);
-
-        /// Creates a new RefType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Tag => std::option::Option::Some(1),
+                Self::Branch => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("REF_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("TAG"),
-                2 => std::borrow::Cow::Borrowed("BRANCH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REF_TYPE_UNSPECIFIED"),
+                Self::Tag => std::option::Option::Some("TAG"),
+                Self::Branch => std::option::Option::Some("BRANCH"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "REF_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::REF_TYPE_UNSPECIFIED),
-                "TAG" => std::option::Option::Some(Self::TAG),
-                "BRANCH" => std::option::Option::Some(Self::BRANCH),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RefType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RefType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RefType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RefType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Tag,
+                2 => Self::Branch,
+                _ => Self::UnknownValue(ref_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RefType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REF_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "TAG" => Self::Tag,
+                "BRANCH" => Self::Branch,
+                _ => Self::UnknownValue(ref_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RefType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Tag => serializer.serialize_i32(1),
+                Self::Branch => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RefType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RefType>::new(
+                ".google.cloud.developerconnect.v1.FetchGitRefsRequest.RefType",
+            ))
         }
     }
 }
@@ -2826,12 +3071,6 @@ impl FetchGitRefsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchGitRefsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [ref_names][crate::model::FetchGitRefsResponse::ref_names].
     pub fn set_ref_names<T, V>(mut self, v: T) -> Self
     where
@@ -2840,6 +3079,12 @@ impl FetchGitRefsResponse {
     {
         use std::iter::Iterator;
         self.ref_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchGitRefsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

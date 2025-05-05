@@ -16,7 +16,6 @@
 
 pub mod quota_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [QuotaController][super::super::client::QuotaController].
     ///
@@ -49,7 +48,7 @@ pub mod quota_controller {
     /// Common implementation for [super::super::client::QuotaController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::QuotaController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod quota_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::QuotaController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod quota_controller {
     pub struct AllocateQuota(RequestBuilder<crate::model::AllocateQuotaRequest>);
 
     impl AllocateQuota {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::QuotaController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -130,7 +133,6 @@ pub mod quota_controller {
 
 pub mod service_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ServiceController][super::super::client::ServiceController].
     ///
@@ -163,7 +165,7 @@ pub mod service_controller {
     /// Common implementation for [super::super::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -172,7 +174,9 @@ pub mod service_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -186,7 +190,9 @@ pub mod service_controller {
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
     impl Check {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,7 +250,9 @@ pub mod service_controller {
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 
     impl Report {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -274,12 +282,6 @@ pub mod service_controller {
             self
         }
 
-        /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
-        pub fn set_service_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.service_config_id = v.into();
-            self
-        }
-
         /// Sets the value of [operations][crate::model::ReportRequest::operations].
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
@@ -288,6 +290,12 @@ pub mod service_controller {
         {
             use std::iter::Iterator;
             self.0.request.operations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
+        pub fn set_service_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.service_config_id = v.into();
             self
         }
     }

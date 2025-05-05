@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Dataplex API.
 ///
@@ -62,11 +61,11 @@ use std::sync::Arc;
 ///
 /// `CatalogService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CatalogService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CatalogService {
-    inner: Arc<dyn super::stub::dynamic::CatalogService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CatalogService>,
 }
 
 impl CatalogService {
@@ -91,7 +90,7 @@ impl CatalogService {
         T: super::stub::CatalogService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -102,11 +101,11 @@ impl CatalogService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CatalogService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -597,11 +596,11 @@ impl CatalogService {
 ///
 /// `CmekService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CmekService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CmekService {
-    inner: Arc<dyn super::stub::dynamic::CmekService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CmekService>,
 }
 
 impl CmekService {
@@ -626,7 +625,7 @@ impl CmekService {
         T: super::stub::CmekService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -637,11 +636,11 @@ impl CmekService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CmekService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CmekService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -867,11 +866,11 @@ impl CmekService {
 ///
 /// `ContentService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ContentService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ContentService {
-    inner: Arc<dyn super::stub::dynamic::ContentService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ContentService>,
 }
 
 impl ContentService {
@@ -896,7 +895,7 @@ impl ContentService {
         T: super::stub::ContentService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -907,11 +906,11 @@ impl ContentService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ContentService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ContentService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1118,11 +1117,12 @@ impl ContentService {
 ///
 /// `DataTaxonomyService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataTaxonomyService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct DataTaxonomyService {
-    inner: Arc<dyn super::stub::dynamic::DataTaxonomyService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataTaxonomyService>,
 }
 
 impl DataTaxonomyService {
@@ -1149,7 +1149,7 @@ impl DataTaxonomyService {
         T: super::stub::DataTaxonomyService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1160,11 +1160,11 @@ impl DataTaxonomyService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataTaxonomyService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataTaxonomyService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1192,6 +1192,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_data_taxonomy(
         &self,
         parent: impl Into<std::string::String>,
@@ -1211,6 +1212,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_data_taxonomy(
         &self,
         data_taxonomy: impl Into<crate::model::DataTaxonomy>,
@@ -1231,6 +1233,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_data_taxonomy(
         &self,
         name: impl Into<std::string::String>,
@@ -1240,6 +1243,7 @@ impl DataTaxonomyService {
     }
 
     /// Lists DataTaxonomy resources in a project and location.
+    #[deprecated]
     pub fn list_data_taxonomies(
         &self,
         parent: impl Into<std::string::String>,
@@ -1249,6 +1253,7 @@ impl DataTaxonomyService {
     }
 
     /// Retrieves a DataTaxonomy resource.
+    #[deprecated]
     pub fn get_data_taxonomy(
         &self,
         name: impl Into<std::string::String>,
@@ -1268,6 +1273,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_data_attribute_binding(
         &self,
         parent: impl Into<std::string::String>,
@@ -1287,6 +1293,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_data_attribute_binding(
         &self,
         data_attribute_binding: impl Into<crate::model::DataAttributeBinding>,
@@ -1308,6 +1315,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_data_attribute_binding(
         &self,
         name: impl Into<std::string::String>,
@@ -1317,6 +1325,7 @@ impl DataTaxonomyService {
     }
 
     /// Lists DataAttributeBinding resources in a project and location.
+    #[deprecated]
     pub fn list_data_attribute_bindings(
         &self,
         parent: impl Into<std::string::String>,
@@ -1326,6 +1335,7 @@ impl DataTaxonomyService {
     }
 
     /// Retrieves a DataAttributeBinding resource.
+    #[deprecated]
     pub fn get_data_attribute_binding(
         &self,
         name: impl Into<std::string::String>,
@@ -1345,6 +1355,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_data_attribute(
         &self,
         parent: impl Into<std::string::String>,
@@ -1364,6 +1375,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_data_attribute(
         &self,
         data_attribute: impl Into<crate::model::DataAttribute>,
@@ -1383,6 +1395,7 @@ impl DataTaxonomyService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_data_attribute(
         &self,
         name: impl Into<std::string::String>,
@@ -1392,6 +1405,7 @@ impl DataTaxonomyService {
     }
 
     /// Lists Data Attribute resources in a DataTaxonomy.
+    #[deprecated]
     pub fn list_data_attributes(
         &self,
         parent: impl Into<std::string::String>,
@@ -1401,6 +1415,7 @@ impl DataTaxonomyService {
     }
 
     /// Retrieves a Data Attribute resource.
+    #[deprecated]
     pub fn get_data_attribute(
         &self,
         name: impl Into<std::string::String>,
@@ -1551,11 +1566,11 @@ impl DataTaxonomyService {
 ///
 /// `DataScanService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataScanService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataScanService {
-    inner: Arc<dyn super::stub::dynamic::DataScanService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataScanService>,
 }
 
 impl DataScanService {
@@ -1582,7 +1597,7 @@ impl DataScanService {
         T: super::stub::DataScanService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1593,11 +1608,11 @@ impl DataScanService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataScanService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataScanService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1869,11 +1884,11 @@ impl DataScanService {
 ///
 /// `MetadataService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetadataService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct MetadataService {
-    inner: Arc<dyn super::stub::dynamic::MetadataService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::MetadataService>,
 }
 
 impl MetadataService {
@@ -1900,7 +1915,7 @@ impl MetadataService {
         T: super::stub::MetadataService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1911,11 +1926,11 @@ impl MetadataService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::MetadataService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MetadataService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -2155,11 +2170,11 @@ impl MetadataService {
 ///
 /// `DataplexService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataplexService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataplexService {
-    inner: Arc<dyn super::stub::dynamic::DataplexService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataplexService>,
 }
 
 impl DataplexService {
@@ -2186,7 +2201,7 @@ impl DataplexService {
         T: super::stub::DataplexService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -2197,11 +2212,11 @@ impl DataplexService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataplexService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataplexService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

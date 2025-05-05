@@ -16,7 +16,6 @@
 
 pub mod service_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ServiceManager][super::super::client::ServiceManager].
     ///
@@ -49,7 +48,7 @@ pub mod service_manager {
     /// Common implementation for [super::super::client::ServiceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod service_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod service_manager {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -130,6 +133,7 @@ pub mod service_manager {
         }
 
         /// Sets the value of [consumer_id][crate::model::ListServicesRequest::consumer_id].
+        #[deprecated]
         pub fn set_consumer_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.consumer_id = v.into();
             self
@@ -148,7 +152,9 @@ pub mod service_manager {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,6 +179,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::GetServiceRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -191,7 +199,9 @@ pub mod service_manager {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -255,6 +265,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::ManagedService>>>(
             mut self,
             v: T,
@@ -276,7 +288,9 @@ pub mod service_manager {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -336,6 +350,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -354,7 +370,9 @@ pub mod service_manager {
     pub struct UndeleteService(RequestBuilder<crate::model::UndeleteServiceRequest>);
 
     impl UndeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -420,6 +438,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -438,7 +458,9 @@ pub mod service_manager {
     pub struct ListServiceConfigs(RequestBuilder<crate::model::ListServiceConfigsRequest>);
 
     impl ListServiceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -481,6 +503,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::ListServiceConfigsRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -511,7 +535,9 @@ pub mod service_manager {
     pub struct GetServiceConfig(RequestBuilder<crate::model::GetServiceConfigRequest>);
 
     impl GetServiceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -539,12 +565,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::GetServiceConfigRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
         }
 
         /// Sets the value of [config_id][crate::model::GetServiceConfigRequest::config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.config_id = v.into();
             self
@@ -572,7 +602,9 @@ pub mod service_manager {
     pub struct CreateServiceConfig(RequestBuilder<crate::model::CreateServiceConfigRequest>);
 
     impl CreateServiceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,12 +632,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceConfigRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
         }
 
         /// Sets the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_config<T: Into<std::option::Option<api::model::Service>>>(
             mut self,
             v: T,
@@ -627,7 +663,9 @@ pub mod service_manager {
     pub struct SubmitConfigSource(RequestBuilder<crate::model::SubmitConfigSourceRequest>);
 
     impl SubmitConfigSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -696,12 +734,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
         }
 
         /// Sets the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_config_source<T: Into<std::option::Option<crate::model::ConfigSource>>>(
             mut self,
             v: T,
@@ -729,7 +771,9 @@ pub mod service_manager {
     pub struct ListServiceRollouts(RequestBuilder<crate::model::ListServiceRolloutsRequest>);
 
     impl ListServiceRollouts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -772,6 +816,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::ListServiceRolloutsRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -790,6 +836,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [filter][crate::model::ListServiceRolloutsRequest::filter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -808,7 +856,9 @@ pub mod service_manager {
     pub struct GetServiceRollout(RequestBuilder<crate::model::GetServiceRolloutRequest>);
 
     impl GetServiceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -836,12 +886,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::GetServiceRolloutRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
         }
 
         /// Sets the value of [rollout_id][crate::model::GetServiceRolloutRequest::rollout_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout_id = v.into();
             self
@@ -860,7 +914,9 @@ pub mod service_manager {
     pub struct CreateServiceRollout(RequestBuilder<crate::model::CreateServiceRolloutRequest>);
 
     impl CreateServiceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -925,12 +981,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
         }
 
         /// Sets the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
             mut self,
             v: T,
@@ -952,7 +1012,9 @@ pub mod service_manager {
     pub struct GenerateConfigReport(RequestBuilder<crate::model::GenerateConfigReportRequest>);
 
     impl GenerateConfigReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -980,6 +1042,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_new_config<T: Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
             self.0.request.new_config = v.into();
             self
@@ -1004,7 +1068,9 @@ pub mod service_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1029,12 +1095,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1065,7 +1135,9 @@ pub mod service_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1090,6 +1162,8 @@ pub mod service_manager {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1117,7 +1191,9 @@ pub mod service_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1145,12 +1221,16 @@ pub mod service_manager {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1174,7 +1254,9 @@ pub mod service_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1253,7 +1335,9 @@ pub mod service_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

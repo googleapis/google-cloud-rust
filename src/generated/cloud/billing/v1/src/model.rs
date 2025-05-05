@@ -51,6 +51,7 @@ pub struct BillingAccount {
     /// charged for any usage on associated projects. False if the billing account
     /// is closed, and therefore projects associated with it are unable to use paid
     /// services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub open: bool,
 
     /// The display name given to the billing account, such as `My Billing
@@ -175,6 +176,7 @@ pub struct ProjectBillingInfo {
     /// account, to which usage on the project is charged. False if the project is
     /// associated with a closed billing account, or no billing account at all, and
     /// therefore cannot use paid services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub billing_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -261,6 +263,7 @@ impl wkt::message::Message for GetBillingAccountRequest {
 pub struct ListBillingAccountsRequest {
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -354,12 +357,6 @@ impl ListBillingAccountsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBillingAccountsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [billing_accounts][crate::model::ListBillingAccountsResponse::billing_accounts].
     pub fn set_billing_accounts<T, V>(mut self, v: T) -> Self
     where
@@ -368,6 +365,12 @@ impl ListBillingAccountsResponse {
     {
         use std::iter::Iterator;
         self.billing_accounts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBillingAccountsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -520,6 +523,7 @@ pub struct ListProjectBillingInfoRequest {
 
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This should be a
@@ -588,12 +592,6 @@ impl ListProjectBillingInfoResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProjectBillingInfoResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [project_billing_info][crate::model::ListProjectBillingInfoResponse::project_billing_info].
     pub fn set_project_billing_info<T, V>(mut self, v: T) -> Self
     where
@@ -602,6 +600,12 @@ impl ListProjectBillingInfoResponse {
     {
         use std::iter::Iterator;
         self.project_billing_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProjectBillingInfoResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -908,26 +912,6 @@ impl Sku {
         self
     }
 
-    /// Sets the value of [service_provider_name][crate::model::Sku::service_provider_name].
-    pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_provider_name = v.into();
-        self
-    }
-
-    /// Sets the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
-    pub fn set_geo_taxonomy<
-        T: std::convert::Into<std::option::Option<crate::model::GeoTaxonomy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.geo_taxonomy = v.into();
-        self
-    }
-
     /// Sets the value of [service_regions][crate::model::Sku::service_regions].
     pub fn set_service_regions<T, V>(mut self, v: T) -> Self
     where
@@ -947,6 +931,26 @@ impl Sku {
     {
         use std::iter::Iterator;
         self.pricing_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [service_provider_name][crate::model::Sku::service_provider_name].
+    pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_provider_name = v.into();
+        self
+    }
+
+    /// Sets the value of [geo_taxonomy][crate::model::Sku::geo_taxonomy].
+    pub fn set_geo_taxonomy<
+        T: std::convert::Into<std::option::Option<crate::model::GeoTaxonomy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.geo_taxonomy = v.into();
         self
     }
 }
@@ -1059,6 +1063,7 @@ pub struct PricingInfo {
     /// in non USD currency. If a currency is not specified in the request this
     /// defaults to 1.0.
     /// Example: USD * currency_conversion_rate = JPY
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub currency_conversion_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1148,6 +1153,7 @@ pub struct PricingExpression {
     /// Example: If the unit_price is "0.0001 USD", the usage_unit is "GB" and
     /// the display_quantity is "1000" then the recommended way of displaying the
     /// pricing info is "0.10 USD per 1000 GB"
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub display_quantity: f64,
 
     /// The list of tiered rates for this pricing. The total cost is computed by
@@ -1176,6 +1182,7 @@ pub struct PricingExpression {
     /// unit_price / base_unit_conversion_factor = price per base_unit.
     /// start_usage_amount * base_unit_conversion_factor = start_usage_amount in
     /// base_unit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub base_unit_conversion_factor: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1196,6 +1203,17 @@ impl PricingExpression {
     /// Sets the value of [display_quantity][crate::model::PricingExpression::display_quantity].
     pub fn set_display_quantity<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.display_quantity = v.into();
+        self
+    }
+
+    /// Sets the value of [tiered_rates][crate::model::PricingExpression::tiered_rates].
+    pub fn set_tiered_rates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pricing_expression::TierRate>,
+    {
+        use std::iter::Iterator;
+        self.tiered_rates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1228,17 +1246,6 @@ impl PricingExpression {
         self.base_unit_conversion_factor = v.into();
         self
     }
-
-    /// Sets the value of [tiered_rates][crate::model::PricingExpression::tiered_rates].
-    pub fn set_tiered_rates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pricing_expression::TierRate>,
-    {
-        use std::iter::Iterator;
-        self.tiered_rates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for PricingExpression {
@@ -1261,6 +1268,7 @@ pub mod pricing_expression {
         /// Usage is priced at this rate only after this amount.
         /// Example: start_usage_amount of 10 indicates that the usage will be priced
         /// at the unit_price after the first 10 usage_units.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub start_usage_amount: f64,
 
         /// The price per unit of usage.
@@ -1313,6 +1321,7 @@ pub struct AggregationInfo {
     /// The number of intervals to aggregate over.
     /// Example: If aggregation_level is "DAILY" and aggregation_count is 14,
     /// aggregation will be over 14 days.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub aggregation_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1367,117 +1376,262 @@ pub mod aggregation_info {
     /// The level at which usage is aggregated to compute cost.
     /// Example: "ACCOUNT" aggregation level indicates that usage for tiered
     /// pricing is aggregated across all projects in a single account.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationLevel(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AggregationLevel {
+        Unspecified,
+        Account,
+        Project,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AggregationLevel::value] or
+        /// [AggregationLevel::name].
+        UnknownValue(aggregation_level::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod aggregation_level {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl AggregationLevel {
-        pub const AGGREGATION_LEVEL_UNSPECIFIED: AggregationLevel = AggregationLevel::new(0);
-
-        pub const ACCOUNT: AggregationLevel = AggregationLevel::new(1);
-
-        pub const PROJECT: AggregationLevel = AggregationLevel::new(2);
-
-        /// Creates a new AggregationLevel instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Account => std::option::Option::Some(1),
+                Self::Project => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AGGREGATION_LEVEL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACCOUNT"),
-                2 => std::borrow::Cow::Borrowed("PROJECT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AGGREGATION_LEVEL_UNSPECIFIED"),
+                Self::Account => std::option::Option::Some("ACCOUNT"),
+                Self::Project => std::option::Option::Some("PROJECT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AGGREGATION_LEVEL_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::AGGREGATION_LEVEL_UNSPECIFIED)
-                }
-                "ACCOUNT" => std::option::Option::Some(Self::ACCOUNT),
-                "PROJECT" => std::option::Option::Some(Self::PROJECT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AggregationLevel {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AggregationLevel {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AggregationLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Account,
+                2 => Self::Project,
+                _ => Self::UnknownValue(aggregation_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AggregationLevel {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AGGREGATION_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                "ACCOUNT" => Self::Account,
+                "PROJECT" => Self::Project,
+                _ => Self::UnknownValue(aggregation_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Account => serializer.serialize_i32(1),
+                Self::Project => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AggregationLevel>::new(
+                ".google.cloud.billing.v1.AggregationInfo.AggregationLevel",
+            ))
         }
     }
 
     /// The interval at which usage is aggregated to compute cost.
     /// Example: "MONTHLY" aggregation interval indicates that usage for tiered
     /// pricing is aggregated every month.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationInterval(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AggregationInterval {
+        Unspecified,
+        Daily,
+        Monthly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AggregationInterval::value] or
+        /// [AggregationInterval::name].
+        UnknownValue(aggregation_interval::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod aggregation_interval {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl AggregationInterval {
-        pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
-            AggregationInterval::new(0);
-
-        pub const DAILY: AggregationInterval = AggregationInterval::new(1);
-
-        pub const MONTHLY: AggregationInterval = AggregationInterval::new(2);
-
-        /// Creates a new AggregationInterval instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Daily => std::option::Option::Some(1),
+                Self::Monthly => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AGGREGATION_INTERVAL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DAILY"),
-                2 => std::borrow::Cow::Borrowed("MONTHLY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AGGREGATION_INTERVAL_UNSPECIFIED"),
+                Self::Daily => std::option::Option::Some("DAILY"),
+                Self::Monthly => std::option::Option::Some("MONTHLY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AGGREGATION_INTERVAL_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::AGGREGATION_INTERVAL_UNSPECIFIED)
-                }
-                "DAILY" => std::option::Option::Some(Self::DAILY),
-                "MONTHLY" => std::option::Option::Some(Self::MONTHLY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AggregationInterval {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AggregationInterval {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AggregationInterval {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationInterval {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Daily,
+                2 => Self::Monthly,
+                _ => Self::UnknownValue(aggregation_interval::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AggregationInterval {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AGGREGATION_INTERVAL_UNSPECIFIED" => Self::Unspecified,
+                "DAILY" => Self::Daily,
+                "MONTHLY" => Self::Monthly,
+                _ => Self::UnknownValue(aggregation_interval::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationInterval {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Daily => serializer.serialize_i32(1),
+                Self::Monthly => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationInterval {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AggregationInterval>::new(
+                ".google.cloud.billing.v1.AggregationInfo.AggregationInterval",
+            ))
         }
     }
 }
@@ -1539,66 +1693,143 @@ pub mod geo_taxonomy {
     use super::*;
 
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
-
-    impl Type {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
         /// The type is not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+        Unspecified,
         /// The sku is global in nature, e.g. a license sku. Global skus are
         /// available in all regions, and so have an empty region list.
-        pub const GLOBAL: Type = Type::new(1);
-
+        Global,
         /// The sku is available in a specific region, e.g. "us-west2".
-        pub const REGIONAL: Type = Type::new(2);
-
+        Regional,
         /// The sku is associated with multiple regions, e.g. "us-west2" and
         /// "us-east1".
-        pub const MULTI_REGIONAL: Type = Type::new(3);
+        MultiRegional,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
 
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Type {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Global => std::option::Option::Some(1),
+                Self::Regional => std::option::Option::Some(2),
+                Self::MultiRegional => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GLOBAL"),
-                2 => std::borrow::Cow::Borrowed("REGIONAL"),
-                3 => std::borrow::Cow::Borrowed("MULTI_REGIONAL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Global => std::option::Option::Some("GLOBAL"),
+                Self::Regional => std::option::Option::Some("REGIONAL"),
+                Self::MultiRegional => std::option::Option::Some("MULTI_REGIONAL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "GLOBAL" => std::option::Option::Some(Self::GLOBAL),
-                "REGIONAL" => std::option::Option::Some(Self::REGIONAL),
-                "MULTI_REGIONAL" => std::option::Option::Some(Self::MULTI_REGIONAL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Global,
+                2 => Self::Regional,
+                3 => Self::MultiRegional,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GLOBAL" => Self::Global,
+                "REGIONAL" => Self::Regional,
+                "MULTI_REGIONAL" => Self::MultiRegional,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Global => serializer.serialize_i32(1),
+                Self::Regional => serializer.serialize_i32(2),
+                Self::MultiRegional => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.billing.v1.GeoTaxonomy.Type",
+            ))
         }
     }
 }
@@ -1610,6 +1841,7 @@ pub mod geo_taxonomy {
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Requested page size. Defaults to 5000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -1671,12 +1903,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -1685,6 +1911,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1745,6 +1977,7 @@ pub struct ListSkusRequest {
     pub currency_code: std::string::String,
 
     /// Requested page size. Defaults to 5000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -1836,12 +2069,6 @@ impl ListSkusResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSkusResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [skus][crate::model::ListSkusResponse::skus].
     pub fn set_skus<T, V>(mut self, v: T) -> Self
     where
@@ -1850,6 +2077,12 @@ impl ListSkusResponse {
     {
         use std::iter::Iterator;
         self.skus = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSkusResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -65,6 +65,7 @@ pub struct Backup {
     /// Output only. This flag indicates whether this Backup resource was created
     /// manually by a user or via a schedule in the BackupPlan. A value of True
     /// means that the Backup was created manually.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub manual: bool,
 
     /// Optional. A set of custom labels supplied by user.
@@ -83,6 +84,7 @@ pub struct Backup {
     /// (either at creation time or in a subsequent update).
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]: crate::model::backup_plan::RetentionPolicy::backup_delete_lock_days
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub delete_lock_days: i32,
 
     /// Output only. The time at which an existing delete lock will expire for this
@@ -109,6 +111,7 @@ pub struct Backup {
     ///
     /// [google.cloud.gkebackup.v1.Backup.delete_lock_days]: crate::model::Backup::delete_lock_days
     /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_retain_days]: crate::model::backup_plan::RetentionPolicy::backup_retain_days
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retain_days: i32,
 
     /// Output only. The time at which this Backup will be automatically deleted
@@ -134,6 +137,7 @@ pub struct Backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_volume_data]: crate::model::backup_plan::BackupConfig::include_volume_data
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contains_volume_data: bool,
 
     /// Output only. Whether or not the Backup contains Kubernetes Secrets.
@@ -142,6 +146,7 @@ pub struct Backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_secrets]: crate::model::backup_plan::BackupConfig::include_secrets
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contains_secrets: bool,
 
     /// Output only. Information about the GKE cluster from which this Backup was
@@ -163,13 +168,16 @@ pub struct Backup {
 
     /// Output only. The total number of Kubernetes resources included in the
     /// Backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_count: i32,
 
     /// Output only. The total number of volume backups contained in the Backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_count: i32,
 
     /// Output only. The total size of the Backup in bytes = config backup size +
     /// sum(volume backup sizes)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -189,9 +197,11 @@ pub struct Backup {
     pub description: std::string::String,
 
     /// Output only. The total number of Kubernetes Pods contained in the Backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pod_count: i32,
 
     /// Output only. The size of the config backup in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub config_backup_size_bytes: i64,
 
@@ -204,6 +214,7 @@ pub struct Backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.permissive_mode]: crate::model::backup_plan::BackupConfig::permissive_mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub permissive_mode: bool,
 
     /// Defines the "scope" of the Backup - which namespaced resources in the
@@ -258,6 +269,18 @@ impl Backup {
     /// Sets the value of [manual][crate::model::Backup::manual].
     pub fn set_manual<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.manual = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Backup::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -396,18 +419,6 @@ impl Backup {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Backup::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [backup_scope][crate::model::Backup::backup_scope].
     ///
     /// Note that all the setters affecting `backup_scope` are mutually
@@ -433,6 +444,17 @@ impl Backup {
         })
     }
 
+    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
+    /// to hold a `AllNamespaces`.
+    ///
+    /// Note that all the setters affecting `backup_scope` are
+    /// mutually exclusive.
+    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.backup_scope =
+            std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
+        self
+    }
+
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -446,32 +468,6 @@ impl Backup {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [backup_scope][crate::model::Backup::backup_scope]
-    /// if it holds a `SelectedApplications`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn selected_applications(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
-        #[allow(unreachable_patterns)]
-        self.backup_scope.as_ref().and_then(|v| match v {
-            crate::model::backup::BackupScope::SelectedApplications(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
-    /// to hold a `AllNamespaces`.
-    ///
-    /// Note that all the setters affecting `backup_scope` are
-    /// mutually exclusive.
-    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.backup_scope =
-            std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
-        self
     }
 
     /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
@@ -489,6 +485,21 @@ impl Backup {
             crate::model::backup::BackupScope::SelectedNamespaces(v.into()),
         );
         self
+    }
+
+    /// The value of [backup_scope][crate::model::Backup::backup_scope]
+    /// if it holds a `SelectedApplications`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn selected_applications(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+        #[allow(unreachable_patterns)]
+        self.backup_scope.as_ref().and_then(|v| match v {
+            crate::model::backup::BackupScope::SelectedApplications(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
@@ -617,6 +628,18 @@ pub mod backup {
             })
         }
 
+        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
+        /// to hold a `GkeVersion`.
+        ///
+        /// Note that all the setters affecting `platform_version` are
+        /// mutually exclusive.
+        pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.platform_version = std::option::Option::Some(
+                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
+            );
+            self
+        }
+
         /// The value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
         /// if it holds a `AnthosVersion`, `None` if the field is not set or
         /// holds a different branch.
@@ -628,18 +651,6 @@ pub mod backup {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
-        /// to hold a `GkeVersion`.
-        ///
-        /// Note that all the setters affecting `platform_version` are
-        /// mutually exclusive.
-        pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.platform_version = std::option::Option::Some(
-                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
@@ -682,77 +693,158 @@ pub mod backup {
     }
 
     /// State
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The Backup resource is in the process of being created.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The Backup resource has been created and the associated BackupJob
         /// Kubernetes resource has been injected into the source cluster.
-        pub const CREATING: State = State::new(1);
-
+        Creating,
         /// The gkebackup agent in the cluster has begun executing the backup
         /// operation.
-        pub const IN_PROGRESS: State = State::new(2);
-
+        InProgress,
         /// The backup operation has completed successfully.
-        pub const SUCCEEDED: State = State::new(3);
-
+        Succeeded,
         /// The backup operation has failed.
-        pub const FAILED: State = State::new(4);
-
+        Failed,
         /// This Backup resource (and its associated artifacts) is in the process
         /// of being deleted.
-        pub const DELETING: State = State::new(5);
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::InProgress => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Deleting => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
-                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::InProgress,
+                3 => Self::Succeeded,
+                4 => Self::Failed,
+                5 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Deleting => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.gkebackup.v1.Backup.State",
+            ))
         }
     }
 
@@ -847,6 +939,7 @@ pub struct BackupPlan {
     /// BackupPlan (including scheduled Backups).
     ///
     /// Default: False
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deactivated: bool,
 
     /// Optional. Defines the configuration of Backups created via this BackupPlan.
@@ -855,6 +948,7 @@ pub struct BackupPlan {
 
     /// Output only. The number of Kubernetes Pods backed up in the
     /// last successful Backup created via this BackupPlan.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protected_pod_count: i32,
 
     /// Output only. State of the BackupPlan. This State field reflects the
@@ -871,6 +965,7 @@ pub struct BackupPlan {
     /// Output only. A number that represents the current risk level of this
     /// BackupPlan from RPO perspective with 1 being no risk and 5 being highest
     /// risk.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rpo_risk_level: i32,
 
     /// Output only. Human-readable description of why the BackupPlan is in the
@@ -940,6 +1035,18 @@ impl BackupPlan {
         self
     }
 
+    /// Sets the value of [labels][crate::model::BackupPlan::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [backup_schedule][crate::model::BackupPlan::backup_schedule].
     pub fn set_backup_schedule<
         T: std::convert::Into<std::option::Option<crate::model::backup_plan::Schedule>>,
@@ -1006,18 +1113,6 @@ impl BackupPlan {
         self.rpo_risk_reason = v.into();
         self
     }
-
-    /// Sets the value of [labels][crate::model::BackupPlan::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for BackupPlan {
@@ -1046,6 +1141,7 @@ pub mod backup_plan {
         /// the new value.
         ///
         /// Default: 0 (no delete blocking)
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub backup_delete_lock_days: i32,
 
         /// Optional. The default maximum age of a Backup created via this
@@ -1071,6 +1167,7 @@ pub mod backup_plan {
         /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]: crate::model::backup_plan::RetentionPolicy::backup_delete_lock_days
         /// [google.cloud.gkebackup.v1.BackupPlan.Schedule.cron_schedule]: crate::model::backup_plan::Schedule::cron_schedule
         /// [google.cloud.gkebackup.v1.BackupPlan.Schedule.rpo_config]: crate::model::backup_plan::Schedule::rpo_config
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub backup_retain_days: i32,
 
         /// Optional. This flag denotes whether the retention policy of this
@@ -1078,6 +1175,7 @@ pub mod backup_plan {
         /// this policy, including the `locked` field itself.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub locked: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1141,6 +1239,7 @@ pub mod backup_plan {
         /// for this BackupPlan.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub paused: bool,
 
         /// Optional. Defines the RPO schedule configuration for this BackupPlan.
@@ -1227,12 +1326,14 @@ pub mod backup_plan {
         /// when PVCs are included in the scope of a Backup.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_volume_data: bool,
 
         /// Optional. This flag specifies whether Kubernetes Secret resources should
         /// be included when they fall into the scope of Backups.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_secrets: bool,
 
         /// Optional. This defines a customer managed encryption key that will be
@@ -1248,6 +1349,7 @@ pub mod backup_plan {
         /// requires additional setup to restore.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub permissive_mode: bool,
 
         /// This defines the "scope" of the Backup - which namespaced
@@ -1324,6 +1426,18 @@ pub mod backup_plan {
             })
         }
 
+        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
+        /// to hold a `AllNamespaces`.
+        ///
+        /// Note that all the setters affecting `backup_scope` are
+        /// mutually exclusive.
+        pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.backup_scope = std::option::Option::Some(
+                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
+            );
+            self
+        }
+
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
         /// holds a different branch.
@@ -1337,33 +1451,6 @@ pub mod backup_plan {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// if it holds a `SelectedApplications`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn selected_applications(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
-            #[allow(unreachable_patterns)]
-            self.backup_scope.as_ref().and_then(|v| match v {
-                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// to hold a `AllNamespaces`.
-        ///
-        /// Note that all the setters affecting `backup_scope` are
-        /// mutually exclusive.
-        pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
@@ -1381,6 +1468,21 @@ pub mod backup_plan {
                 crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(v.into()),
             );
             self
+        }
+
+        /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
+        /// if it holds a `SelectedApplications`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn selected_applications(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+            #[allow(unreachable_patterns)]
+            self.backup_scope.as_ref().and_then(|v| match v {
+                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
@@ -1432,79 +1534,162 @@ pub mod backup_plan {
     }
 
     /// State
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default first value for Enums.
+        Unspecified,
+        /// Waiting for cluster state to be RUNNING.
+        ClusterPending,
+        /// The BackupPlan is in the process of being created.
+        Provisioning,
+        /// The BackupPlan has successfully been created and is ready for Backups.
+        Ready,
+        /// BackupPlan creation has failed.
+        Failed,
+        /// The BackupPlan has been deactivated.
+        Deactivated,
+        /// The BackupPlan is in the process of being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Default first value for Enums.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Waiting for cluster state to be RUNNING.
-        pub const CLUSTER_PENDING: State = State::new(1);
-
-        /// The BackupPlan is in the process of being created.
-        pub const PROVISIONING: State = State::new(2);
-
-        /// The BackupPlan has successfully been created and is ready for Backups.
-        pub const READY: State = State::new(3);
-
-        /// BackupPlan creation has failed.
-        pub const FAILED: State = State::new(4);
-
-        /// The BackupPlan has been deactivated.
-        pub const DEACTIVATED: State = State::new(5);
-
-        /// The BackupPlan is in the process of being deleted.
-        pub const DELETING: State = State::new(6);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ClusterPending => std::option::Option::Some(1),
+                Self::Provisioning => std::option::Option::Some(2),
+                Self::Ready => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Deactivated => std::option::Option::Some(5),
+                Self::Deleting => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CLUSTER_PENDING"),
-                2 => std::borrow::Cow::Borrowed("PROVISIONING"),
-                3 => std::borrow::Cow::Borrowed("READY"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("DEACTIVATED"),
-                6 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::ClusterPending => std::option::Option::Some("CLUSTER_PENDING"),
+                Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deactivated => std::option::Option::Some("DEACTIVATED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CLUSTER_PENDING" => std::option::Option::Some(Self::CLUSTER_PENDING),
-                "PROVISIONING" => std::option::Option::Some(Self::PROVISIONING),
-                "READY" => std::option::Option::Some(Self::READY),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DEACTIVATED" => std::option::Option::Some(Self::DEACTIVATED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ClusterPending,
+                2 => Self::Provisioning,
+                3 => Self::Ready,
+                4 => Self::Failed,
+                5 => Self::Deactivated,
+                6 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CLUSTER_PENDING" => Self::ClusterPending,
+                "PROVISIONING" => Self::Provisioning,
+                "READY" => Self::Ready,
+                "FAILED" => Self::Failed,
+                "DEACTIVATED" => Self::Deactivated,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ClusterPending => serializer.serialize_i32(1),
+                Self::Provisioning => serializer.serialize_i32(2),
+                Self::Ready => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Deactivated => serializer.serialize_i32(5),
+                Self::Deleting => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.gkebackup.v1.BackupPlan.State",
+            ))
         }
     }
 }
@@ -1520,6 +1705,7 @@ pub struct RpoConfig {
     /// the target maximum data loss in time that is acceptable for this
     /// BackupPlan. This must be at least 60, i.e., 1 hour, and at most 86400,
     /// i.e., 60 days.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_rpo_minutes: i32,
 
     /// Optional. User specified time windows during which backup can NOT happen
@@ -1655,32 +1841,6 @@ impl ExclusionWindow {
         })
     }
 
-    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// if it holds a `Daily`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn daily(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::exclusion_window::Recurrence::Daily(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// if it holds a `DaysOfWeek`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn days_of_week(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
-        #[allow(unreachable_patterns)]
-        self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::exclusion_window::Recurrence::DaysOfWeek(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// to hold a `SingleOccurrenceDate`.
     ///
@@ -1698,6 +1858,17 @@ impl ExclusionWindow {
         self
     }
 
+    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
+    /// if it holds a `Daily`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn daily(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.recurrence.as_ref().and_then(|v| match v {
+            crate::model::exclusion_window::Recurrence::Daily(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// to hold a `Daily`.
     ///
@@ -1707,6 +1878,21 @@ impl ExclusionWindow {
         self.recurrence =
             std::option::Option::Some(crate::model::exclusion_window::Recurrence::Daily(v.into()));
         self
+    }
+
+    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
+    /// if it holds a `DaysOfWeek`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn days_of_week(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
+        #[allow(unreachable_patterns)]
+        self.recurrence.as_ref().and_then(|v| match v {
+            crate::model::exclusion_window::Recurrence::DaysOfWeek(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
@@ -1973,56 +2159,127 @@ pub mod volume_type_enum {
     use super::*;
 
     /// Supported volume types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VolumeType {
+        /// Default
+        Unspecified,
+        /// Compute Engine Persistent Disk volume
+        GcePersistentDisk,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VolumeType::value] or
+        /// [VolumeType::name].
+        UnknownValue(volume_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod volume_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl VolumeType {
-        /// Default
-        pub const VOLUME_TYPE_UNSPECIFIED: VolumeType = VolumeType::new(0);
-
-        /// Compute Engine Persistent Disk volume
-        pub const GCE_PERSISTENT_DISK: VolumeType = VolumeType::new(1);
-
-        /// Creates a new VolumeType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GcePersistentDisk => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VOLUME_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GCE_PERSISTENT_DISK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VOLUME_TYPE_UNSPECIFIED"),
+                Self::GcePersistentDisk => std::option::Option::Some("GCE_PERSISTENT_DISK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VOLUME_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::VOLUME_TYPE_UNSPECIFIED)
-                }
-                "GCE_PERSISTENT_DISK" => std::option::Option::Some(Self::GCE_PERSISTENT_DISK),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for VolumeType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for VolumeType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VolumeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GcePersistentDisk,
+                _ => Self::UnknownValue(volume_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VolumeType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VOLUME_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GCE_PERSISTENT_DISK" => Self::GcePersistentDisk,
+                _ => Self::UnknownValue(volume_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GcePersistentDisk => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeType>::new(
+                ".google.cloud.gkebackup.v1.VolumeTypeEnum.VolumeType",
+            ))
         }
     }
 }
@@ -2060,6 +2317,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2212,6 +2470,7 @@ pub struct ListBackupPlansRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -2312,12 +2571,6 @@ impl ListBackupPlansResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_plans][crate::model::ListBackupPlansResponse::backup_plans].
     pub fn set_backup_plans<T, V>(mut self, v: T) -> Self
     where
@@ -2326,6 +2579,12 @@ impl ListBackupPlansResponse {
     {
         use std::iter::Iterator;
         self.backup_plans = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2580,6 +2839,7 @@ pub struct ListBackupsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -2675,12 +2935,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -2689,6 +2943,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2824,6 +3084,7 @@ pub struct DeleteBackupRequest {
     /// Optional. If set to true, any VolumeBackups below this Backup will also be
     /// deleted. Otherwise, the request will only succeed if the Backup has no
     /// VolumeBackups.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2879,6 +3140,7 @@ pub struct ListVolumeBackupsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListVolumeBackupsResponse.next_page_token]: crate::model::ListVolumeBackupsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -2975,12 +3237,6 @@ impl ListVolumeBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumeBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volume_backups][crate::model::ListVolumeBackupsResponse::volume_backups].
     pub fn set_volume_backups<T, V>(mut self, v: T) -> Self
     where
@@ -2989,6 +3245,12 @@ impl ListVolumeBackupsResponse {
     {
         use std::iter::Iterator;
         self.volume_backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumeBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3130,6 +3392,7 @@ pub struct ListRestorePlansRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListRestorePlansResponse.next_page_token]: crate::model::ListRestorePlansResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3230,12 +3493,6 @@ impl ListRestorePlansResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRestorePlansResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [restore_plans][crate::model::ListRestorePlansResponse::restore_plans].
     pub fn set_restore_plans<T, V>(mut self, v: T) -> Self
     where
@@ -3244,6 +3501,12 @@ impl ListRestorePlansResponse {
     {
         use std::iter::Iterator;
         self.restore_plans = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestorePlansResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3392,6 +3655,7 @@ pub struct DeleteRestorePlanRequest {
     /// Optional. If set to true, any Restores below this RestorePlan will also be
     /// deleted. Otherwise, the request will only succeed if the RestorePlan has no
     /// Restores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3510,6 +3774,7 @@ pub struct ListRestoresRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListRestoresResponse.next_page_token]: crate::model::ListRestoresResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3609,12 +3874,6 @@ impl ListRestoresResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRestoresResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [restores][crate::model::ListRestoresResponse::restores].
     pub fn set_restores<T, V>(mut self, v: T) -> Self
     where
@@ -3623,6 +3882,12 @@ impl ListRestoresResponse {
     {
         use std::iter::Iterator;
         self.restores = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoresResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3769,6 +4034,7 @@ pub struct DeleteRestoreRequest {
     /// Optional. If set to true, any VolumeRestores below this restore will also
     /// be deleted. Otherwise, the request will only succeed if the restore has no
     /// VolumeRestores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3824,6 +4090,7 @@ pub struct ListVolumeRestoresRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListVolumeRestoresResponse.next_page_token]: crate::model::ListVolumeRestoresResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3920,12 +4187,6 @@ impl ListVolumeRestoresResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumeRestoresResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volume_restores][crate::model::ListVolumeRestoresResponse::volume_restores].
     pub fn set_volume_restores<T, V>(mut self, v: T) -> Self
     where
@@ -3934,6 +4195,12 @@ impl ListVolumeRestoresResponse {
     {
         use std::iter::Iterator;
         self.volume_restores = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumeRestoresResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4136,16 +4403,20 @@ pub struct Restore {
     pub complete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Number of resources restored during the restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resources_restored_count: i32,
 
     /// Output only. Number of resources excluded during the restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resources_excluded_count: i32,
 
     /// Output only. Number of resources that failed to be restored during the
     /// restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resources_failed_count: i32,
 
     /// Output only. Number of volumes restored during the restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volumes_restored_count: i32,
 
     /// Output only. `etag` is used for optimistic concurrency control as a way to
@@ -4246,6 +4517,18 @@ impl Restore {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Restore::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Restore::state].
     pub fn set_state<T: std::convert::Into<crate::model::restore::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4314,18 +4597,6 @@ impl Restore {
     {
         use std::iter::Iterator;
         self.volume_data_restore_policy_overrides = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Restore::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4403,77 +4674,158 @@ pub mod restore {
     }
 
     /// Possible values for state of the Restore.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The Restore resource is in the process of being created.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The Restore resource has been created and the associated RestoreJob
         /// Kubernetes resource has been injected into target cluster.
-        pub const CREATING: State = State::new(1);
-
+        Creating,
         /// The gkebackup agent in the cluster has begun executing the restore
         /// operation.
-        pub const IN_PROGRESS: State = State::new(2);
-
+        InProgress,
         /// The restore operation has completed successfully. Restored workloads may
         /// not yet be operational.
-        pub const SUCCEEDED: State = State::new(3);
-
+        Succeeded,
         /// The restore operation has failed.
-        pub const FAILED: State = State::new(4);
-
+        Failed,
         /// This Restore resource is in the process of being deleted.
-        pub const DELETING: State = State::new(5);
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::InProgress => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Deleting => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
-                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::InProgress,
+                3 => Self::Succeeded,
+                4 => Self::Failed,
+                5 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Deleting => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.gkebackup.v1.Restore.State",
+            ))
         }
     }
 }
@@ -4610,17 +4962,6 @@ impl RestoreConfig {
         self
     }
 
-    /// Sets the value of [restore_order][crate::model::RestoreConfig::restore_order].
-    pub fn set_restore_order<
-        T: std::convert::Into<std::option::Option<crate::model::restore_config::RestoreOrder>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restore_order = v.into();
-        self
-    }
-
     /// Sets the value of [substitution_rules][crate::model::RestoreConfig::substitution_rules].
     pub fn set_substitution_rules<T, V>(mut self, v: T) -> Self
     where
@@ -4651,6 +4992,17 @@ impl RestoreConfig {
     {
         use std::iter::Iterator;
         self.volume_data_restore_policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [restore_order][crate::model::RestoreConfig::restore_order].
+    pub fn set_restore_order<
+        T: std::convert::Into<std::option::Option<crate::model::restore_config::RestoreOrder>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_order = v.into();
         self
     }
 
@@ -4685,6 +5037,18 @@ impl RestoreConfig {
             })
     }
 
+    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// to hold a `AllNamespaces`.
+    ///
+    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
+    /// mutually exclusive.
+    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.namespaced_resource_restore_scope = std::option::Option::Some(
+            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
+        );
+        self
+    }
+
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -4696,59 +5060,6 @@ impl RestoreConfig {
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedNamespaces(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// if it holds a `SelectedApplications`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn selected_applications(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
-        #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
-            crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// if it holds a `NoNamespaces`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn no_namespaces(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope
-            .as_ref()
-            .and_then(|v| match v {
-                crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-    }
-
-    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn excluded_namespaces(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
-        #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
-            crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `AllNamespaces`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -4770,6 +5081,19 @@ impl RestoreConfig {
         self
     }
 
+    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// if it holds a `SelectedApplications`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn selected_applications(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+        #[allow(unreachable_patterns)]
+        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
+            crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// to hold a `SelectedApplications`.
     ///
@@ -4789,6 +5113,21 @@ impl RestoreConfig {
         self
     }
 
+    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// if it holds a `NoNamespaces`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn no_namespaces(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.namespaced_resource_restore_scope
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+    }
+
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// to hold a `NoNamespaces`.
     ///
@@ -4799,6 +5138,19 @@ impl RestoreConfig {
             crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v.into()),
         );
         self
+    }
+
+    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn excluded_namespaces(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+        #[allow(unreachable_patterns)]
+        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
+            crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -4926,11 +5278,13 @@ pub mod restore_config {
 
         /// Optional. If True, all valid cluster-scoped resources will be restored.
         /// Mutually exclusive to any other field in the message.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub all_group_kinds: bool,
 
         /// Optional. If True, no cluster-scoped resources will be restored.
         /// This has the same restore scope as if the message is not defined.
         /// Mutually exclusive to any other field in the message.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub no_group_kinds: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4940,18 +5294,6 @@ pub mod restore_config {
     impl ClusterResourceRestoreScope {
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [all_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::all_group_kinds].
-        pub fn set_all_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.all_group_kinds = v.into();
-            self
-        }
-
-        /// Sets the value of [no_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::no_group_kinds].
-        pub fn set_no_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.no_group_kinds = v.into();
-            self
         }
 
         /// Sets the value of [selected_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::selected_group_kinds].
@@ -4973,6 +5315,18 @@ pub mod restore_config {
         {
             use std::iter::Iterator;
             self.excluded_group_kinds = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [all_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::all_group_kinds].
+        pub fn set_all_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.all_group_kinds = v.into();
+            self
+        }
+
+        /// Sets the value of [no_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::no_group_kinds].
+        pub fn set_no_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.no_group_kinds = v.into();
             self
         }
     }
@@ -5046,6 +5400,28 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
+        /// Sets the value of [target_namespaces][crate::model::restore_config::SubstitutionRule::target_namespaces].
+        pub fn set_target_namespaces<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.target_namespaces = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [target_group_kinds][crate::model::restore_config::SubstitutionRule::target_group_kinds].
+        pub fn set_target_group_kinds<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::restore_config::GroupKind>,
+        {
+            use std::iter::Iterator;
+            self.target_group_kinds = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [target_json_path][crate::model::restore_config::SubstitutionRule::target_json_path].
         pub fn set_target_json_path<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -5067,28 +5443,6 @@ pub mod restore_config {
         /// Sets the value of [new_value][crate::model::restore_config::SubstitutionRule::new_value].
         pub fn set_new_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.new_value = v.into();
-            self
-        }
-
-        /// Sets the value of [target_namespaces][crate::model::restore_config::SubstitutionRule::target_namespaces].
-        pub fn set_target_namespaces<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.target_namespaces = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [target_group_kinds][crate::model::restore_config::SubstitutionRule::target_group_kinds].
-        pub fn set_target_group_kinds<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::GroupKind>,
-        {
-            use std::iter::Iterator;
-            self.target_group_kinds = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5175,24 +5529,33 @@ pub mod restore_config {
         use super::*;
 
         /// Possible values for operations of a transformation rule action.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Op(i32);
-
-        impl Op {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Op {
             /// Unspecified operation
-            pub const OP_UNSPECIFIED: Op = Op::new(0);
-
+            Unspecified,
             /// The "remove" operation removes the value at the target location.
-            pub const REMOVE: Op = Op::new(1);
-
+            Remove,
             /// The "move" operation removes the value at a specified location and
             /// adds it to the target location.
-            pub const MOVE: Op = Op::new(2);
-
+            Move,
             /// The "copy" operation copies the value at a specified location to the
             /// target location.
-            pub const COPY: Op = Op::new(3);
-
+            Copy,
             /// The "add" operation performs one of the following functions,
             /// depending upon what the target location references:
             ///
@@ -5202,65 +5565,142 @@ pub mod restore_config {
             ///   already exist, a new member is added to the object.
             /// . If the target location specifies an object member that does exist,
             ///   that member's value is replaced.
-            pub const ADD: Op = Op::new(4);
-
+            Add,
             /// The "test" operation tests that a value at the target location is
             /// equal to a specified value.
-            pub const TEST: Op = Op::new(5);
-
+            Test,
             /// The "replace" operation replaces the value at the target location
             /// with a new value.  The operation object MUST contain a "value" member
             /// whose content specifies the replacement value.
-            pub const REPLACE: Op = Op::new(6);
+            Replace,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Op::value] or
+            /// [Op::name].
+            UnknownValue(op::UnknownValue),
+        }
 
-            /// Creates a new Op instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod op {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl Op {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Remove => std::option::Option::Some(1),
+                    Self::Move => std::option::Option::Some(2),
+                    Self::Copy => std::option::Option::Some(3),
+                    Self::Add => std::option::Option::Some(4),
+                    Self::Test => std::option::Option::Some(5),
+                    Self::Replace => std::option::Option::Some(6),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("OP_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("REMOVE"),
-                    2 => std::borrow::Cow::Borrowed("MOVE"),
-                    3 => std::borrow::Cow::Borrowed("COPY"),
-                    4 => std::borrow::Cow::Borrowed("ADD"),
-                    5 => std::borrow::Cow::Borrowed("TEST"),
-                    6 => std::borrow::Cow::Borrowed("REPLACE"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("OP_UNSPECIFIED"),
+                    Self::Remove => std::option::Option::Some("REMOVE"),
+                    Self::Move => std::option::Option::Some("MOVE"),
+                    Self::Copy => std::option::Option::Some("COPY"),
+                    Self::Add => std::option::Option::Some("ADD"),
+                    Self::Test => std::option::Option::Some("TEST"),
+                    Self::Replace => std::option::Option::Some("REPLACE"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "OP_UNSPECIFIED" => std::option::Option::Some(Self::OP_UNSPECIFIED),
-                    "REMOVE" => std::option::Option::Some(Self::REMOVE),
-                    "MOVE" => std::option::Option::Some(Self::MOVE),
-                    "COPY" => std::option::Option::Some(Self::COPY),
-                    "ADD" => std::option::Option::Some(Self::ADD),
-                    "TEST" => std::option::Option::Some(Self::TEST),
-                    "REPLACE" => std::option::Option::Some(Self::REPLACE),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Op {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Op {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Op {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Op {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Remove,
+                    2 => Self::Move,
+                    3 => Self::Copy,
+                    4 => Self::Add,
+                    5 => Self::Test,
+                    6 => Self::Replace,
+                    _ => Self::UnknownValue(op::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Op {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "OP_UNSPECIFIED" => Self::Unspecified,
+                    "REMOVE" => Self::Remove,
+                    "MOVE" => Self::Move,
+                    "COPY" => Self::Copy,
+                    "ADD" => Self::Add,
+                    "TEST" => Self::Test,
+                    "REPLACE" => Self::Replace,
+                    _ => Self::UnknownValue(op::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Op {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Remove => serializer.serialize_i32(1),
+                    Self::Move => serializer.serialize_i32(2),
+                    Self::Copy => serializer.serialize_i32(3),
+                    Self::Add => serializer.serialize_i32(4),
+                    Self::Test => serializer.serialize_i32(5),
+                    Self::Replace => serializer.serialize_i32(6),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Op {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Op>::new(
+                    ".google.cloud.gkebackup.v1.RestoreConfig.TransformationRuleAction.Op",
+                ))
             }
         }
     }
@@ -5306,12 +5746,6 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [json_path][crate::model::restore_config::ResourceFilter::json_path].
-        pub fn set_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.json_path = v.into();
-            self
-        }
-
         /// Sets the value of [namespaces][crate::model::restore_config::ResourceFilter::namespaces].
         pub fn set_namespaces<T, V>(mut self, v: T) -> Self
         where
@@ -5331,6 +5765,12 @@ pub mod restore_config {
         {
             use std::iter::Iterator;
             self.group_kinds = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [json_path][crate::model::restore_config::ResourceFilter::json_path].
+        pub fn set_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.json_path = v.into();
             self
         }
     }
@@ -5377,6 +5817,17 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
+        /// Sets the value of [field_actions][crate::model::restore_config::TransformationRule::field_actions].
+        pub fn set_field_actions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::restore_config::TransformationRuleAction>,
+        {
+            use std::iter::Iterator;
+            self.field_actions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [resource_filter][crate::model::restore_config::TransformationRule::resource_filter].
         pub fn set_resource_filter<
             T: std::convert::Into<std::option::Option<crate::model::restore_config::ResourceFilter>>,
@@ -5391,17 +5842,6 @@ pub mod restore_config {
         /// Sets the value of [description][crate::model::restore_config::TransformationRule::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
-            self
-        }
-
-        /// Sets the value of [field_actions][crate::model::restore_config::TransformationRule::field_actions].
-        pub fn set_field_actions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::TransformationRuleAction>,
-        {
-            use std::iter::Iterator;
-            self.field_actions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5621,162 +6061,322 @@ pub mod restore_config {
     }
 
     /// Defines how volume data should be restored.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeDataRestorePolicy(i32);
-
-    impl VolumeDataRestorePolicy {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VolumeDataRestorePolicy {
         /// Unspecified (illegal).
-        pub const VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new(0);
-
+        Unspecified,
         /// For each PVC to be restored, create a new underlying volume and PV
         /// from the corresponding VolumeBackup contained within the Backup.
-        pub const RESTORE_VOLUME_DATA_FROM_BACKUP: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new(1);
-
+        RestoreVolumeDataFromBackup,
         /// For each PVC to be restored, attempt to reuse the original PV contained
         /// in the Backup (with its original underlying volume). This option
         /// is likely only usable when restoring a workload to its original cluster.
-        pub const REUSE_VOLUME_HANDLE_FROM_BACKUP: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new(2);
-
+        ReuseVolumeHandleFromBackup,
         /// For each PVC to be restored, create PVC without any particular
         /// action to restore data. In this case, the normal Kubernetes provisioning
         /// logic would kick in, and this would likely result in either dynamically
         /// provisioning blank PVs or binding to statically provisioned PVs.
-        pub const NO_VOLUME_DATA_RESTORATION: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new(3);
+        NoVolumeDataRestoration,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VolumeDataRestorePolicy::value] or
+        /// [VolumeDataRestorePolicy::name].
+        UnknownValue(volume_data_restore_policy::UnknownValue),
+    }
 
-        /// Creates a new VolumeDataRestorePolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod volume_data_restore_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl VolumeDataRestorePolicy {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RestoreVolumeDataFromBackup => std::option::Option::Some(1),
+                Self::ReuseVolumeHandleFromBackup => std::option::Option::Some(2),
+                Self::NoVolumeDataRestoration => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RESTORE_VOLUME_DATA_FROM_BACKUP"),
-                2 => std::borrow::Cow::Borrowed("REUSE_VOLUME_HANDLE_FROM_BACKUP"),
-                3 => std::borrow::Cow::Borrowed("NO_VOLUME_DATA_RESTORATION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED")
+                }
+                Self::RestoreVolumeDataFromBackup => {
+                    std::option::Option::Some("RESTORE_VOLUME_DATA_FROM_BACKUP")
+                }
+                Self::ReuseVolumeHandleFromBackup => {
+                    std::option::Option::Some("REUSE_VOLUME_HANDLE_FROM_BACKUP")
+                }
+                Self::NoVolumeDataRestoration => {
+                    std::option::Option::Some("NO_VOLUME_DATA_RESTORATION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED)
-                }
-                "RESTORE_VOLUME_DATA_FROM_BACKUP" => {
-                    std::option::Option::Some(Self::RESTORE_VOLUME_DATA_FROM_BACKUP)
-                }
-                "REUSE_VOLUME_HANDLE_FROM_BACKUP" => {
-                    std::option::Option::Some(Self::REUSE_VOLUME_HANDLE_FROM_BACKUP)
-                }
-                "NO_VOLUME_DATA_RESTORATION" => {
-                    std::option::Option::Some(Self::NO_VOLUME_DATA_RESTORATION)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for VolumeDataRestorePolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for VolumeDataRestorePolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VolumeDataRestorePolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeDataRestorePolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RestoreVolumeDataFromBackup,
+                2 => Self::ReuseVolumeHandleFromBackup,
+                3 => Self::NoVolumeDataRestoration,
+                _ => Self::UnknownValue(volume_data_restore_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VolumeDataRestorePolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "RESTORE_VOLUME_DATA_FROM_BACKUP" => Self::RestoreVolumeDataFromBackup,
+                "REUSE_VOLUME_HANDLE_FROM_BACKUP" => Self::ReuseVolumeHandleFromBackup,
+                "NO_VOLUME_DATA_RESTORATION" => Self::NoVolumeDataRestoration,
+                _ => Self::UnknownValue(volume_data_restore_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeDataRestorePolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RestoreVolumeDataFromBackup => serializer.serialize_i32(1),
+                Self::ReuseVolumeHandleFromBackup => serializer.serialize_i32(2),
+                Self::NoVolumeDataRestoration => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeDataRestorePolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<VolumeDataRestorePolicy>::new(
+                    ".google.cloud.gkebackup.v1.RestoreConfig.VolumeDataRestorePolicy",
+                ),
+            )
         }
     }
 
     /// Defines the behavior for handling the situation where cluster-scoped
     /// resources being restored already exist in the target cluster.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ClusterResourceConflictPolicy(i32);
-
-    impl ClusterResourceConflictPolicy {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ClusterResourceConflictPolicy {
         /// Unspecified. Only allowed if no cluster-scoped resources will be
         /// restored.
-        pub const CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED: ClusterResourceConflictPolicy =
-            ClusterResourceConflictPolicy::new(0);
-
+        Unspecified,
         /// Do not attempt to restore the conflicting resource.
-        pub const USE_EXISTING_VERSION: ClusterResourceConflictPolicy =
-            ClusterResourceConflictPolicy::new(1);
-
+        UseExistingVersion,
         /// Delete the existing version before re-creating it from the Backup.
         /// This is a dangerous option which could cause unintentional
         /// data loss if used inappropriately. For example, deleting a CRD will
         /// cause Kubernetes to delete all CRs of that type.
-        pub const USE_BACKUP_VERSION: ClusterResourceConflictPolicy =
-            ClusterResourceConflictPolicy::new(2);
+        UseBackupVersion,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ClusterResourceConflictPolicy::value] or
+        /// [ClusterResourceConflictPolicy::name].
+        UnknownValue(cluster_resource_conflict_policy::UnknownValue),
+    }
 
-        /// Creates a new ClusterResourceConflictPolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod cluster_resource_conflict_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ClusterResourceConflictPolicy {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::UseExistingVersion => std::option::Option::Some(1),
+                Self::UseBackupVersion => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("USE_EXISTING_VERSION"),
-                2 => std::borrow::Cow::Borrowed("USE_BACKUP_VERSION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED")
                 }
-                "USE_EXISTING_VERSION" => std::option::Option::Some(Self::USE_EXISTING_VERSION),
-                "USE_BACKUP_VERSION" => std::option::Option::Some(Self::USE_BACKUP_VERSION),
-                _ => std::option::Option::None,
+                Self::UseExistingVersion => std::option::Option::Some("USE_EXISTING_VERSION"),
+                Self::UseBackupVersion => std::option::Option::Some("USE_BACKUP_VERSION"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ClusterResourceConflictPolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ClusterResourceConflictPolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ClusterResourceConflictPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ClusterResourceConflictPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::UseExistingVersion,
+                2 => Self::UseBackupVersion,
+                _ => Self::UnknownValue(cluster_resource_conflict_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ClusterResourceConflictPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "USE_EXISTING_VERSION" => Self::UseExistingVersion,
+                "USE_BACKUP_VERSION" => Self::UseBackupVersion,
+                _ => Self::UnknownValue(cluster_resource_conflict_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ClusterResourceConflictPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::UseExistingVersion => serializer.serialize_i32(1),
+                Self::UseBackupVersion => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClusterResourceConflictPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<ClusterResourceConflictPolicy>::new(
+                    ".google.cloud.gkebackup.v1.RestoreConfig.ClusterResourceConflictPolicy",
+                ),
+            )
         }
     }
 
     /// Defines the behavior for handling the situation where sets of namespaced
     /// resources being restored already exist in the target cluster.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NamespacedResourceRestoreMode(i32);
-
-    impl NamespacedResourceRestoreMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NamespacedResourceRestoreMode {
         /// Unspecified (invalid).
-        pub const NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new(0);
-
+        Unspecified,
         /// When conflicting top-level resources (either Namespaces or
         /// ProtectedApplications, depending upon the scope) are encountered, this
         /// will first trigger a delete of the conflicting resource AND ALL OF ITS
@@ -5784,24 +6384,18 @@ pub mod restore_config {
         /// resources referenced by the ProtectedApplication) before restoring the
         /// resources from the Backup. This mode should only be used when you are
         /// intending to revert some portion of a cluster to an earlier state.
-        pub const DELETE_AND_RESTORE: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new(1);
-
+        DeleteAndRestore,
         /// If conflicting top-level resources (either Namespaces or
         /// ProtectedApplications, depending upon the scope) are encountered at the
         /// beginning of a restore process, the Restore will fail.  If a conflict
         /// occurs during the restore process itself (e.g., because an out of band
         /// process creates conflicting resources), a conflict will be reported.
-        pub const FAIL_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new(2);
-
+        FailOnConflict,
         /// This mode merges the backup and the target cluster and skips the
         /// conflicting resources. If a single resource to restore exists in the
         /// cluster before restoration, the resource will be skipped, otherwise it
         /// will be restored.
-        pub const MERGE_SKIP_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new(3);
-
+        MergeSkipOnConflict,
         /// This mode merges the backup and the target cluster and skips the
         /// conflicting resources except volume data. If a PVC to restore already
         /// exists, this mode will restore/reconnect the volume without overwriting
@@ -5816,9 +6410,7 @@ pub mod restore_config {
         ///   policy of the original PV.
         ///   Note that this mode could cause data loss as the original PV can be
         ///   retained or deleted depending on its reclaim policy.
-        pub const MERGE_REPLACE_VOLUME_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new(4);
-
+        MergeReplaceVolumeOnConflict,
         /// This mode merges the backup and the target cluster and replaces the
         /// conflicting resources with the ones in the backup. If a single resource
         /// to restore exists in the cluster before restoration, the resource will be
@@ -5829,61 +6421,135 @@ pub mod restore_config {
         /// Note that this mode could cause data loss as it replaces the existing
         /// resources in the target cluster, and the original PV can be retained or
         /// deleted depending on its reclaim policy.
-        pub const MERGE_REPLACE_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new(5);
+        MergeReplaceOnConflict,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [NamespacedResourceRestoreMode::value] or
+        /// [NamespacedResourceRestoreMode::name].
+        UnknownValue(namespaced_resource_restore_mode::UnknownValue),
+    }
 
-        /// Creates a new NamespacedResourceRestoreMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod namespaced_resource_restore_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl NamespacedResourceRestoreMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DeleteAndRestore => std::option::Option::Some(1),
+                Self::FailOnConflict => std::option::Option::Some(2),
+                Self::MergeSkipOnConflict => std::option::Option::Some(3),
+                Self::MergeReplaceVolumeOnConflict => std::option::Option::Some(4),
+                Self::MergeReplaceOnConflict => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DELETE_AND_RESTORE"),
-                2 => std::borrow::Cow::Borrowed("FAIL_ON_CONFLICT"),
-                3 => std::borrow::Cow::Borrowed("MERGE_SKIP_ON_CONFLICT"),
-                4 => std::borrow::Cow::Borrowed("MERGE_REPLACE_VOLUME_ON_CONFLICT"),
-                5 => std::borrow::Cow::Borrowed("MERGE_REPLACE_ON_CONFLICT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED")
+                }
+                Self::DeleteAndRestore => std::option::Option::Some("DELETE_AND_RESTORE"),
+                Self::FailOnConflict => std::option::Option::Some("FAIL_ON_CONFLICT"),
+                Self::MergeSkipOnConflict => std::option::Option::Some("MERGE_SKIP_ON_CONFLICT"),
+                Self::MergeReplaceVolumeOnConflict => {
+                    std::option::Option::Some("MERGE_REPLACE_VOLUME_ON_CONFLICT")
+                }
+                Self::MergeReplaceOnConflict => {
+                    std::option::Option::Some("MERGE_REPLACE_ON_CONFLICT")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED)
-                }
-                "DELETE_AND_RESTORE" => std::option::Option::Some(Self::DELETE_AND_RESTORE),
-                "FAIL_ON_CONFLICT" => std::option::Option::Some(Self::FAIL_ON_CONFLICT),
-                "MERGE_SKIP_ON_CONFLICT" => std::option::Option::Some(Self::MERGE_SKIP_ON_CONFLICT),
-                "MERGE_REPLACE_VOLUME_ON_CONFLICT" => {
-                    std::option::Option::Some(Self::MERGE_REPLACE_VOLUME_ON_CONFLICT)
-                }
-                "MERGE_REPLACE_ON_CONFLICT" => {
-                    std::option::Option::Some(Self::MERGE_REPLACE_ON_CONFLICT)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for NamespacedResourceRestoreMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for NamespacedResourceRestoreMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for NamespacedResourceRestoreMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for NamespacedResourceRestoreMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DeleteAndRestore,
+                2 => Self::FailOnConflict,
+                3 => Self::MergeSkipOnConflict,
+                4 => Self::MergeReplaceVolumeOnConflict,
+                5 => Self::MergeReplaceOnConflict,
+                _ => Self::UnknownValue(namespaced_resource_restore_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for NamespacedResourceRestoreMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DELETE_AND_RESTORE" => Self::DeleteAndRestore,
+                "FAIL_ON_CONFLICT" => Self::FailOnConflict,
+                "MERGE_SKIP_ON_CONFLICT" => Self::MergeSkipOnConflict,
+                "MERGE_REPLACE_VOLUME_ON_CONFLICT" => Self::MergeReplaceVolumeOnConflict,
+                "MERGE_REPLACE_ON_CONFLICT" => Self::MergeReplaceOnConflict,
+                _ => Self::UnknownValue(namespaced_resource_restore_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for NamespacedResourceRestoreMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DeleteAndRestore => serializer.serialize_i32(1),
+                Self::FailOnConflict => serializer.serialize_i32(2),
+                Self::MergeSkipOnConflict => serializer.serialize_i32(3),
+                Self::MergeReplaceVolumeOnConflict => serializer.serialize_i32(4),
+                Self::MergeReplaceOnConflict => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NamespacedResourceRestoreMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<NamespacedResourceRestoreMode>::new(
+                    ".google.cloud.gkebackup.v1.RestoreConfig.NamespacedResourceRestoreMode",
+                ),
+            )
         }
     }
 
@@ -6259,6 +6925,18 @@ impl RestorePlan {
         self
     }
 
+    /// Sets the value of [labels][crate::model::RestorePlan::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::RestorePlan::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -6279,18 +6957,6 @@ impl RestorePlan {
         self.state_reason = v.into();
         self
     }
-
-    /// Sets the value of [labels][crate::model::RestorePlan::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for RestorePlan {
@@ -6305,69 +6971,148 @@ pub mod restore_plan {
     use super::*;
 
     /// State
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default first value for Enums.
+        Unspecified,
+        /// Waiting for cluster state to be RUNNING.
+        ClusterPending,
+        /// The RestorePlan has successfully been created and is ready for Restores.
+        Ready,
+        /// RestorePlan creation has failed.
+        Failed,
+        /// The RestorePlan is in the process of being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Default first value for Enums.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Waiting for cluster state to be RUNNING.
-        pub const CLUSTER_PENDING: State = State::new(1);
-
-        /// The RestorePlan has successfully been created and is ready for Restores.
-        pub const READY: State = State::new(2);
-
-        /// RestorePlan creation has failed.
-        pub const FAILED: State = State::new(3);
-
-        /// The RestorePlan is in the process of being deleted.
-        pub const DELETING: State = State::new(4);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ClusterPending => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CLUSTER_PENDING"),
-                2 => std::borrow::Cow::Borrowed("READY"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::ClusterPending => std::option::Option::Some("CLUSTER_PENDING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CLUSTER_PENDING" => std::option::Option::Some(Self::CLUSTER_PENDING),
-                "READY" => std::option::Option::Some(Self::READY),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ClusterPending,
+                2 => Self::Ready,
+                3 => Self::Failed,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CLUSTER_PENDING" => Self::ClusterPending,
+                "READY" => Self::Ready,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ClusterPending => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.gkebackup.v1.RestorePlan.State",
+            ))
         }
     }
 }
@@ -6418,11 +7163,13 @@ pub struct VolumeBackup {
     /// multiple backups of the same volume share the same backup storage
     /// location. In particular, this is likely to increase in size when
     /// the immediately preceding backup of the same volume is deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub storage_bytes: i64,
 
     /// Output only. The minimum size of the disk to which this VolumeBackup can be
     /// restored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_bytes: i64,
 
@@ -6570,139 +7317,293 @@ pub mod volume_backup {
     use super::*;
 
     /// Identifies the format used for the volume backup.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeBackupFormat(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VolumeBackupFormat {
+        /// Default value, not specified.
+        Unspecified,
+        /// Compute Engine Persistent Disk snapshot based volume backup.
+        GcePersistentDisk,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VolumeBackupFormat::value] or
+        /// [VolumeBackupFormat::name].
+        UnknownValue(volume_backup_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod volume_backup_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl VolumeBackupFormat {
-        /// Default value, not specified.
-        pub const VOLUME_BACKUP_FORMAT_UNSPECIFIED: VolumeBackupFormat = VolumeBackupFormat::new(0);
-
-        /// Compute Engine Persistent Disk snapshot based volume backup.
-        pub const GCE_PERSISTENT_DISK: VolumeBackupFormat = VolumeBackupFormat::new(1);
-
-        /// Creates a new VolumeBackupFormat instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GcePersistentDisk => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VOLUME_BACKUP_FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GCE_PERSISTENT_DISK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VOLUME_BACKUP_FORMAT_UNSPECIFIED"),
+                Self::GcePersistentDisk => std::option::Option::Some("GCE_PERSISTENT_DISK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VOLUME_BACKUP_FORMAT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::VOLUME_BACKUP_FORMAT_UNSPECIFIED)
-                }
-                "GCE_PERSISTENT_DISK" => std::option::Option::Some(Self::GCE_PERSISTENT_DISK),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for VolumeBackupFormat {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for VolumeBackupFormat {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VolumeBackupFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeBackupFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GcePersistentDisk,
+                _ => Self::UnknownValue(volume_backup_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VolumeBackupFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VOLUME_BACKUP_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "GCE_PERSISTENT_DISK" => Self::GcePersistentDisk,
+                _ => Self::UnknownValue(volume_backup_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeBackupFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GcePersistentDisk => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeBackupFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeBackupFormat>::new(
+                ".google.cloud.gkebackup.v1.VolumeBackup.VolumeBackupFormat",
+            ))
         }
     }
 
     /// The current state of a VolumeBackup
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// This is an illegal state and should not be encountered.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// A volume for the backup was identified and backup process is about to
         /// start.
-        pub const CREATING: State = State::new(1);
-
+        Creating,
         /// The volume backup operation has begun and is in the initial "snapshot"
         /// phase of the process. Any defined ProtectedApplication "pre" hooks will
         /// be executed before entering this state and "post" hooks will be executed
         /// upon leaving this state.
-        pub const SNAPSHOTTING: State = State::new(2);
-
+        Snapshotting,
         /// The snapshot phase of the volume backup operation has completed and
         /// the snapshot is now being uploaded to backup storage.
-        pub const UPLOADING: State = State::new(3);
-
+        Uploading,
         /// The volume backup operation has completed successfully.
-        pub const SUCCEEDED: State = State::new(4);
-
+        Succeeded,
         /// The volume backup operation has failed.
-        pub const FAILED: State = State::new(5);
-
+        Failed,
         /// This VolumeBackup resource (and its associated artifacts) is in the
         /// process of being deleted.
-        pub const DELETING: State = State::new(6);
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Snapshotting => std::option::Option::Some(2),
+                Self::Uploading => std::option::Option::Some(3),
+                Self::Succeeded => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::Deleting => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("SNAPSHOTTING"),
-                3 => std::borrow::Cow::Borrowed("UPLOADING"),
-                4 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                5 => std::borrow::Cow::Borrowed("FAILED"),
-                6 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Snapshotting => std::option::Option::Some("SNAPSHOTTING"),
+                Self::Uploading => std::option::Option::Some("UPLOADING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "SNAPSHOTTING" => std::option::Option::Some(Self::SNAPSHOTTING),
-                "UPLOADING" => std::option::Option::Some(Self::UPLOADING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Snapshotting,
+                3 => Self::Uploading,
+                4 => Self::Succeeded,
+                5 => Self::Failed,
+                6 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "SNAPSHOTTING" => Self::Snapshotting,
+                "UPLOADING" => Self::Uploading,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Snapshotting => serializer.serialize_i32(2),
+                Self::Uploading => serializer.serialize_i32(3),
+                Self::Succeeded => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::Deleting => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.gkebackup.v1.VolumeBackup.State",
+            ))
         }
     }
 }
@@ -6886,129 +7787,281 @@ pub mod volume_restore {
     use super::*;
 
     /// Supported volume types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VolumeType {
+        /// Default
+        Unspecified,
+        /// Compute Engine Persistent Disk volume
+        GcePersistentDisk,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VolumeType::value] or
+        /// [VolumeType::name].
+        UnknownValue(volume_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod volume_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl VolumeType {
-        /// Default
-        pub const VOLUME_TYPE_UNSPECIFIED: VolumeType = VolumeType::new(0);
-
-        /// Compute Engine Persistent Disk volume
-        pub const GCE_PERSISTENT_DISK: VolumeType = VolumeType::new(1);
-
-        /// Creates a new VolumeType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GcePersistentDisk => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VOLUME_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GCE_PERSISTENT_DISK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VOLUME_TYPE_UNSPECIFIED"),
+                Self::GcePersistentDisk => std::option::Option::Some("GCE_PERSISTENT_DISK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VOLUME_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::VOLUME_TYPE_UNSPECIFIED)
-                }
-                "GCE_PERSISTENT_DISK" => std::option::Option::Some(Self::GCE_PERSISTENT_DISK),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for VolumeType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for VolumeType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VolumeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GcePersistentDisk,
+                _ => Self::UnknownValue(volume_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VolumeType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VOLUME_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GCE_PERSISTENT_DISK" => Self::GcePersistentDisk,
+                _ => Self::UnknownValue(volume_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GcePersistentDisk => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeType>::new(
+                ".google.cloud.gkebackup.v1.VolumeRestore.VolumeType",
+            ))
         }
     }
 
     /// The current state of a VolumeRestore
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// This is an illegal state and should not be encountered.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// A volume for the restore was identified and restore process is about to
         /// start.
-        pub const CREATING: State = State::new(1);
-
+        Creating,
         /// The volume is currently being restored.
-        pub const RESTORING: State = State::new(2);
-
+        Restoring,
         /// The volume has been successfully restored.
-        pub const SUCCEEDED: State = State::new(3);
-
+        Succeeded,
         /// The volume restoration process failed.
-        pub const FAILED: State = State::new(4);
-
+        Failed,
         /// This VolumeRestore resource is in the process of being deleted.
-        pub const DELETING: State = State::new(5);
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Restoring => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Deleting => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("RESTORING"),
-                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Restoring => std::option::Option::Some("RESTORING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "RESTORING" => std::option::Option::Some(Self::RESTORING),
-                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Restoring,
+                3 => Self::Succeeded,
+                4 => Self::Failed,
+                5 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "RESTORING" => Self::Restoring,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Restoring => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Deleting => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.gkebackup.v1.VolumeRestore.State",
+            ))
         }
     }
 }

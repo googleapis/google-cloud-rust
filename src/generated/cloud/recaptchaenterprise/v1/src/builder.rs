@@ -16,7 +16,6 @@
 
 pub mod recaptcha_enterprise_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RecaptchaEnterpriseService][super::super::client::RecaptchaEnterpriseService].
     ///
@@ -49,7 +48,7 @@ pub mod recaptcha_enterprise_service {
     /// Common implementation for [super::super::client::RecaptchaEnterpriseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod recaptcha_enterprise_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod recaptcha_enterprise_service {
 
     impl CreateAssessment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -104,12 +103,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_assessment<T: Into<std::option::Option<crate::model::Assessment>>>(
             mut self,
             v: T,
@@ -132,7 +135,7 @@ pub mod recaptcha_enterprise_service {
 
     impl AnnotateAssessment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -161,6 +164,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -172,6 +177,17 @@ pub mod recaptcha_enterprise_service {
             v: T,
         ) -> Self {
             self.0.request.annotation = v.into();
+            self
+        }
+
+        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
+        pub fn set_reasons<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+        {
+            use std::iter::Iterator;
+            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -197,17 +213,6 @@ pub mod recaptcha_enterprise_service {
             self.0.request.transaction_event = v.into();
             self
         }
-
-        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
-        pub fn set_reasons<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
-        {
-            use std::iter::Iterator;
-            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -223,7 +228,7 @@ pub mod recaptcha_enterprise_service {
 
     impl CreateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -249,12 +254,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [key][crate::model::CreateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -274,7 +283,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -315,6 +324,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -348,7 +359,7 @@ pub mod recaptcha_enterprise_service {
 
     impl RetrieveLegacySecretKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -377,6 +388,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -396,7 +409,7 @@ pub mod recaptcha_enterprise_service {
 
     impl GetKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -422,6 +435,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -441,7 +456,7 @@ pub mod recaptcha_enterprise_service {
 
     impl UpdateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -467,6 +482,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -495,7 +512,7 @@ pub mod recaptcha_enterprise_service {
 
     impl DeleteKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -521,6 +538,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -540,7 +559,7 @@ pub mod recaptcha_enterprise_service {
 
     impl MigrateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -566,6 +585,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -591,7 +612,7 @@ pub mod recaptcha_enterprise_service {
 
     impl AddIpOverride {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -617,12 +638,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
             mut self,
             v: T,
@@ -645,7 +670,7 @@ pub mod recaptcha_enterprise_service {
 
     impl RemoveIpOverride {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -674,12 +699,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
             mut self,
             v: T,
@@ -702,7 +731,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListIpOverrides {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -743,6 +772,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListIpOverridesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -774,7 +805,7 @@ pub mod recaptcha_enterprise_service {
 
     impl GetMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -800,6 +831,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::GetMetricsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -819,7 +852,7 @@ pub mod recaptcha_enterprise_service {
 
     impl CreateFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -848,12 +881,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
             mut self,
             v: T,
@@ -876,7 +913,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListFirewallPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -920,6 +957,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListFirewallPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -951,7 +990,7 @@ pub mod recaptcha_enterprise_service {
 
     impl GetFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -980,6 +1019,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -999,7 +1040,7 @@ pub mod recaptcha_enterprise_service {
 
     impl UpdateFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1028,6 +1069,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
             mut self,
             v: T,
@@ -1059,7 +1102,7 @@ pub mod recaptcha_enterprise_service {
 
     impl DeleteFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1088,6 +1131,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1109,7 +1154,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ReorderFirewallPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1138,12 +1183,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [names][crate::model::ReorderFirewallPoliciesRequest::names].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1170,7 +1219,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListRelatedAccountGroups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1216,6 +1265,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1249,7 +1300,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListRelatedAccountGroupMemberships {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1297,6 +1348,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupMembershipsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1330,7 +1383,7 @@ pub mod recaptcha_enterprise_service {
 
     impl SearchRelatedAccountGroupMemberships {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1378,6 +1431,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [project][crate::model::SearchRelatedAccountGroupMembershipsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1390,6 +1445,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [hashed_account_id][crate::model::SearchRelatedAccountGroupMembershipsRequest::hashed_account_id].
+        #[deprecated]
         pub fn set_hashed_account_id<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.hashed_account_id = v.into();
             self

@@ -16,7 +16,6 @@
 
 pub mod service_health {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ServiceHealth][super::super::client::ServiceHealth].
     ///
@@ -49,7 +48,7 @@ pub mod service_health {
     /// Common implementation for [super::super::client::ServiceHealth] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod service_health {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod service_health {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod service_health {
         }
 
         /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod service_health {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod service_health {
         }
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +206,9 @@ pub mod service_health {
     pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
 
     impl ListOrganizationEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -242,6 +253,8 @@ pub mod service_health {
         }
 
         /// Sets the value of [parent][crate::model::ListOrganizationEventsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -284,7 +297,9 @@ pub mod service_health {
     pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
 
     impl GetOrganizationEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -312,6 +327,8 @@ pub mod service_health {
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -332,7 +349,9 @@ pub mod service_health {
     );
 
     impl ListOrganizationImpacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -377,6 +396,8 @@ pub mod service_health {
         }
 
         /// Sets the value of [parent][crate::model::ListOrganizationImpactsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -413,7 +434,9 @@ pub mod service_health {
     pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
 
     impl GetOrganizationImpact {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -441,6 +464,8 @@ pub mod service_health {
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationImpactRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -459,7 +484,9 @@ pub mod service_health {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -538,7 +565,9 @@ pub mod service_health {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -67,6 +67,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -390,64 +391,140 @@ pub mod endpoint_matcher {
         }
 
         /// Possible criteria values that define logic of how matching is made.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct MetadataLabelMatchCriteria(i32);
-
-        impl MetadataLabelMatchCriteria {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum MetadataLabelMatchCriteria {
             /// Default value. Should not be used.
-            pub const METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new(0);
-
+            Unspecified,
             /// At least one of the Labels specified in the matcher should match the
             /// metadata presented by xDS client.
-            pub const MATCH_ANY: MetadataLabelMatchCriteria = MetadataLabelMatchCriteria::new(1);
-
+            MatchAny,
             /// The metadata presented by the xDS client should contain all of the
             /// labels specified here.
-            pub const MATCH_ALL: MetadataLabelMatchCriteria = MetadataLabelMatchCriteria::new(2);
+            MatchAll,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [MetadataLabelMatchCriteria::value] or
+            /// [MetadataLabelMatchCriteria::name].
+            UnknownValue(metadata_label_match_criteria::UnknownValue),
+        }
 
-            /// Creates a new MetadataLabelMatchCriteria instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod metadata_label_match_criteria {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl MetadataLabelMatchCriteria {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::MatchAny => std::option::Option::Some(1),
+                    Self::MatchAll => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("MATCH_ANY"),
-                    2 => std::borrow::Cow::Borrowed("MATCH_ALL"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED)
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED")
                     }
-                    "MATCH_ANY" => std::option::Option::Some(Self::MATCH_ANY),
-                    "MATCH_ALL" => std::option::Option::Some(Self::MATCH_ALL),
-                    _ => std::option::Option::None,
+                    Self::MatchAny => std::option::Option::Some("MATCH_ANY"),
+                    Self::MatchAll => std::option::Option::Some("MATCH_ALL"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-        }
-
-        impl std::convert::From<i32> for MetadataLabelMatchCriteria {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for MetadataLabelMatchCriteria {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for MetadataLabelMatchCriteria {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for MetadataLabelMatchCriteria {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::MatchAny,
+                    2 => Self::MatchAll,
+                    _ => Self::UnknownValue(metadata_label_match_criteria::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for MetadataLabelMatchCriteria {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED" => Self::Unspecified,
+                    "MATCH_ANY" => Self::MatchAny,
+                    "MATCH_ALL" => Self::MatchAll,
+                    _ => Self::UnknownValue(metadata_label_match_criteria::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for MetadataLabelMatchCriteria {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::MatchAny => serializer.serialize_i32(1),
+                    Self::MatchAll => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for MetadataLabelMatchCriteria {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetadataLabelMatchCriteria>::new(
+                    ".google.cloud.networkservices.v1.EndpointMatcher.MetadataLabelMatcher.MetadataLabelMatchCriteria"))
             }
         }
     }
@@ -642,6 +719,7 @@ pub mod extension_chain {
         /// * If response headers have been delivered, then the HTTP stream to the
         ///   downstream client is reset.
         ///
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub fail_open: bool,
 
         /// Optional. List of the HTTP headers to forward to the extension
@@ -677,6 +755,17 @@ pub mod extension_chain {
             self
         }
 
+        /// Sets the value of [supported_events][crate::model::extension_chain::Extension::supported_events].
+        pub fn set_supported_events<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::EventType>,
+        {
+            use std::iter::Iterator;
+            self.supported_events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [timeout][crate::model::extension_chain::Extension::timeout].
         pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -689,17 +778,6 @@ pub mod extension_chain {
         /// Sets the value of [fail_open][crate::model::extension_chain::Extension::fail_open].
         pub fn set_fail_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.fail_open = v.into();
-            self
-        }
-
-        /// Sets the value of [supported_events][crate::model::extension_chain::Extension::supported_events].
-        pub fn set_supported_events<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::EventType>,
-        {
-            use std::iter::Iterator;
-            self.supported_events = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -829,21 +907,15 @@ impl LbTrafficExtension {
         self
     }
 
-    /// Sets the value of [load_balancing_scheme][crate::model::LbTrafficExtension::load_balancing_scheme].
-    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.load_balancing_scheme = v.into();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::LbTrafficExtension::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    /// Sets the value of [labels][crate::model::LbTrafficExtension::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -869,15 +941,21 @@ impl LbTrafficExtension {
         self
     }
 
-    /// Sets the value of [labels][crate::model::LbTrafficExtension::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [load_balancing_scheme][crate::model::LbTrafficExtension::load_balancing_scheme].
+    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_scheme = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::LbTrafficExtension::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -902,6 +980,7 @@ pub struct ListLbTrafficExtensionsRequest {
 
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
@@ -989,12 +1068,6 @@ impl ListLbTrafficExtensionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLbTrafficExtensionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [lb_traffic_extensions][crate::model::ListLbTrafficExtensionsResponse::lb_traffic_extensions].
     pub fn set_lb_traffic_extensions<T, V>(mut self, v: T) -> Self
     where
@@ -1003,6 +1076,12 @@ impl ListLbTrafficExtensionsResponse {
     {
         use std::iter::Iterator;
         self.lb_traffic_extensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLbTrafficExtensionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1394,21 +1473,15 @@ impl LbRouteExtension {
         self
     }
 
-    /// Sets the value of [load_balancing_scheme][crate::model::LbRouteExtension::load_balancing_scheme].
-    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.load_balancing_scheme = v.into();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::LbRouteExtension::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    /// Sets the value of [labels][crate::model::LbRouteExtension::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1434,15 +1507,21 @@ impl LbRouteExtension {
         self
     }
 
-    /// Sets the value of [labels][crate::model::LbRouteExtension::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [load_balancing_scheme][crate::model::LbRouteExtension::load_balancing_scheme].
+    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_scheme = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::LbRouteExtension::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -1467,6 +1546,7 @@ pub struct ListLbRouteExtensionsRequest {
 
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
@@ -1554,12 +1634,6 @@ impl ListLbRouteExtensionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLbRouteExtensionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [lb_route_extensions][crate::model::ListLbRouteExtensionsResponse::lb_route_extensions].
     pub fn set_lb_route_extensions<T, V>(mut self, v: T) -> Self
     where
@@ -1568,6 +1642,12 @@ impl ListLbRouteExtensionsResponse {
     {
         use std::iter::Iterator;
         self.lb_route_extensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLbRouteExtensionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1958,6 +2038,18 @@ impl EndpointPolicy {
         self
     }
 
+    /// Sets the value of [labels][crate::model::EndpointPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [r#type][crate::model::EndpointPolicy::type].
     pub fn set_type<T: std::convert::Into<crate::model::endpoint_policy::EndpointPolicyType>>(
         mut self,
@@ -2021,18 +2113,6 @@ impl EndpointPolicy {
         self.client_tls_policy = v.into();
         self
     }
-
-    /// Sets the value of [labels][crate::model::EndpointPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for EndpointPolicy {
@@ -2047,61 +2127,134 @@ pub mod endpoint_policy {
     use super::*;
 
     /// The type of endpoint policy.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EndpointPolicyType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EndpointPolicyType {
+        /// Default value. Must not be used.
+        Unspecified,
+        /// Represents a proxy deployed as a sidecar.
+        SidecarProxy,
+        /// Represents a proxyless gRPC backend.
+        GrpcServer,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EndpointPolicyType::value] or
+        /// [EndpointPolicyType::name].
+        UnknownValue(endpoint_policy_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod endpoint_policy_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl EndpointPolicyType {
-        /// Default value. Must not be used.
-        pub const ENDPOINT_POLICY_TYPE_UNSPECIFIED: EndpointPolicyType = EndpointPolicyType::new(0);
-
-        /// Represents a proxy deployed as a sidecar.
-        pub const SIDECAR_PROXY: EndpointPolicyType = EndpointPolicyType::new(1);
-
-        /// Represents a proxyless gRPC backend.
-        pub const GRPC_SERVER: EndpointPolicyType = EndpointPolicyType::new(2);
-
-        /// Creates a new EndpointPolicyType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SidecarProxy => std::option::Option::Some(1),
+                Self::GrpcServer => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ENDPOINT_POLICY_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SIDECAR_PROXY"),
-                2 => std::borrow::Cow::Borrowed("GRPC_SERVER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ENDPOINT_POLICY_TYPE_UNSPECIFIED"),
+                Self::SidecarProxy => std::option::Option::Some("SIDECAR_PROXY"),
+                Self::GrpcServer => std::option::Option::Some("GRPC_SERVER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ENDPOINT_POLICY_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ENDPOINT_POLICY_TYPE_UNSPECIFIED)
-                }
-                "SIDECAR_PROXY" => std::option::Option::Some(Self::SIDECAR_PROXY),
-                "GRPC_SERVER" => std::option::Option::Some(Self::GRPC_SERVER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for EndpointPolicyType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for EndpointPolicyType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EndpointPolicyType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EndpointPolicyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SidecarProxy,
+                2 => Self::GrpcServer,
+                _ => Self::UnknownValue(endpoint_policy_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EndpointPolicyType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENDPOINT_POLICY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SIDECAR_PROXY" => Self::SidecarProxy,
+                "GRPC_SERVER" => Self::GrpcServer,
+                _ => Self::UnknownValue(endpoint_policy_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EndpointPolicyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SidecarProxy => serializer.serialize_i32(1),
+                Self::GrpcServer => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EndpointPolicyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EndpointPolicyType>::new(
+                ".google.cloud.networkservices.v1.EndpointPolicy.EndpointPolicyType",
+            ))
         }
     }
 }
@@ -2118,6 +2271,7 @@ pub struct ListEndpointPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of EndpointPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListEndpointPoliciesResponse`
@@ -2186,12 +2340,6 @@ impl ListEndpointPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEndpointPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [endpoint_policies][crate::model::ListEndpointPoliciesResponse::endpoint_policies].
     pub fn set_endpoint_policies<T, V>(mut self, v: T) -> Self
     where
@@ -2200,6 +2348,12 @@ impl ListEndpointPoliciesResponse {
     {
         use std::iter::Iterator;
         self.endpoint_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEndpointPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2507,6 +2661,18 @@ impl Gateway {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Gateway::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Gateway::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -2516,6 +2682,17 @@ impl Gateway {
     /// Sets the value of [r#type][crate::model::Gateway::type].
     pub fn set_type<T: std::convert::Into<crate::model::gateway::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [ports][crate::model::Gateway::ports].
+    pub fn set_ports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.ports = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2531,29 +2708,6 @@ impl Gateway {
         v: T,
     ) -> Self {
         self.server_tls_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [ports][crate::model::Gateway::ports].
-    pub fn set_ports<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.ports = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Gateway::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2574,60 +2728,135 @@ pub mod gateway {
     ///
     /// * OPEN_MESH
     /// * SECURE_WEB_GATEWAY
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
-
-    impl Type {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
         /// The type of the customer managed gateway is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+        Unspecified,
         /// The type of the customer managed gateway is TrafficDirector Open
         /// Mesh.
-        pub const OPEN_MESH: Type = Type::new(1);
-
+        OpenMesh,
         /// The type of the customer managed gateway is SecureWebGateway (SWG).
-        pub const SECURE_WEB_GATEWAY: Type = Type::new(2);
+        SecureWebGateway,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
 
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Type {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::OpenMesh => std::option::Option::Some(1),
+                Self::SecureWebGateway => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("OPEN_MESH"),
-                2 => std::borrow::Cow::Borrowed("SECURE_WEB_GATEWAY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::OpenMesh => std::option::Option::Some("OPEN_MESH"),
+                Self::SecureWebGateway => std::option::Option::Some("SECURE_WEB_GATEWAY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "OPEN_MESH" => std::option::Option::Some(Self::OPEN_MESH),
-                "SECURE_WEB_GATEWAY" => std::option::Option::Some(Self::SECURE_WEB_GATEWAY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::OpenMesh,
+                2 => Self::SecureWebGateway,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "OPEN_MESH" => Self::OpenMesh,
+                "SECURE_WEB_GATEWAY" => Self::SecureWebGateway,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::OpenMesh => serializer.serialize_i32(1),
+                Self::SecureWebGateway => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.networkservices.v1.Gateway.Type",
+            ))
         }
     }
 }
@@ -2644,6 +2873,7 @@ pub struct ListGatewaysRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Gateways to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGatewaysResponse`
@@ -2711,12 +2941,6 @@ impl ListGatewaysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [gateways][crate::model::ListGatewaysResponse::gateways].
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
@@ -2725,6 +2949,12 @@ impl ListGatewaysResponse {
     {
         use std::iter::Iterator;
         self.gateways = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3055,6 +3285,18 @@ impl GrpcRoute {
         self
     }
 
+    /// Sets the value of [labels][crate::model::GrpcRoute::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::GrpcRoute::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -3102,18 +3344,6 @@ impl GrpcRoute {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::GrpcRoute::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3211,60 +3441,138 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of the match.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(i32);
-
-        impl Type {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
             /// Unspecified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+            Unspecified,
             /// Will only match the exact name provided.
-            pub const EXACT: Type = Type::new(1);
-
+            Exact,
             /// Will interpret grpc_method and grpc_service as regexes. RE2 syntax is
             /// supported.
-            pub const REGULAR_EXPRESSION: Type = Type::new(2);
+            RegularExpression,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
 
-            /// Creates a new Type instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl Type {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Exact => std::option::Option::Some(1),
+                    Self::RegularExpression => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("EXACT"),
-                    2 => std::borrow::Cow::Borrowed("REGULAR_EXPRESSION"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::Exact => std::option::Option::Some("EXACT"),
+                    Self::RegularExpression => std::option::Option::Some("REGULAR_EXPRESSION"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                    "EXACT" => std::option::Option::Some(Self::EXACT),
-                    "REGULAR_EXPRESSION" => std::option::Option::Some(Self::REGULAR_EXPRESSION),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Type {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Exact,
+                    2 => Self::RegularExpression,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "EXACT" => Self::Exact,
+                    "REGULAR_EXPRESSION" => Self::RegularExpression,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Exact => serializer.serialize_i32(1),
+                    Self::RegularExpression => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.networkservices.v1.GrpcRoute.MethodMatch.Type",
+                ))
             }
         }
     }
@@ -3331,60 +3639,138 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of match.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(i32);
-
-        impl Type {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
             /// Unspecified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+            Unspecified,
             /// Will only match the exact value provided.
-            pub const EXACT: Type = Type::new(1);
-
+            Exact,
             /// Will match paths conforming to the prefix specified by value. RE2
             /// syntax is supported.
-            pub const REGULAR_EXPRESSION: Type = Type::new(2);
+            RegularExpression,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
 
-            /// Creates a new Type instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl Type {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Exact => std::option::Option::Some(1),
+                    Self::RegularExpression => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("EXACT"),
-                    2 => std::borrow::Cow::Borrowed("REGULAR_EXPRESSION"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::Exact => std::option::Option::Some("EXACT"),
+                    Self::RegularExpression => std::option::Option::Some("REGULAR_EXPRESSION"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                    "EXACT" => std::option::Option::Some(Self::EXACT),
-                    "REGULAR_EXPRESSION" => std::option::Option::Some(Self::REGULAR_EXPRESSION),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Type {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Exact,
+                    2 => Self::RegularExpression,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "EXACT" => Self::Exact,
+                    "REGULAR_EXPRESSION" => Self::RegularExpression,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Exact => serializer.serialize_i32(1),
+                    Self::RegularExpression => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.networkservices.v1.GrpcRoute.HeaderMatch.Type",
+                ))
             }
         }
     }
@@ -3752,6 +4138,7 @@ pub mod grpc_route {
 
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub num_retries: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3763,12 +4150,6 @@ pub mod grpc_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [num_retries][crate::model::grpc_route::RetryPolicy::num_retries].
-        pub fn set_num_retries<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
-            self.num_retries = v.into();
-            self
-        }
-
         /// Sets the value of [retry_conditions][crate::model::grpc_route::RetryPolicy::retry_conditions].
         pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
         where
@@ -3777,6 +4158,12 @@ pub mod grpc_route {
         {
             use std::iter::Iterator;
             self.retry_conditions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [num_retries][crate::model::grpc_route::RetryPolicy::num_retries].
+        pub fn set_num_retries<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
+            self.num_retries = v.into();
             self
         }
     }
@@ -3832,6 +4219,17 @@ pub mod grpc_route {
             std::default::Default::default()
         }
 
+        /// Sets the value of [destinations][crate::model::grpc_route::RouteAction::destinations].
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::grpc_route::Destination>,
+        {
+            use std::iter::Iterator;
+            self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [fault_injection_policy][crate::model::grpc_route::RouteAction::fault_injection_policy].
         pub fn set_fault_injection_policy<
             T: std::convert::Into<std::option::Option<crate::model::grpc_route::FaultInjectionPolicy>>,
@@ -3860,17 +4258,6 @@ pub mod grpc_route {
             v: T,
         ) -> Self {
             self.retry_policy = v.into();
-            self
-        }
-
-        /// Sets the value of [destinations][crate::model::grpc_route::RouteAction::destinations].
-        pub fn set_destinations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::grpc_route::Destination>,
-        {
-            use std::iter::Iterator;
-            self.destinations = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3908,17 +4295,6 @@ pub mod grpc_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::grpc_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::grpc_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::grpc_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -3927,6 +4303,17 @@ pub mod grpc_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::grpc_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::grpc_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -3950,6 +4337,7 @@ pub struct ListGrpcRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of GrpcRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGrpcRoutesResponse`
@@ -4017,12 +4405,6 @@ impl ListGrpcRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGrpcRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [grpc_routes][crate::model::ListGrpcRoutesResponse::grpc_routes].
     pub fn set_grpc_routes<T, V>(mut self, v: T) -> Self
     where
@@ -4031,6 +4413,12 @@ impl ListGrpcRoutesResponse {
     {
         use std::iter::Iterator;
         self.grpc_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGrpcRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4393,17 +4781,6 @@ impl HttpRoute {
         self
     }
 
-    /// Sets the value of [rules][crate::model::HttpRoute::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::http_route::RouteRule>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::HttpRoute::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -4413,6 +4790,17 @@ impl HttpRoute {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::HttpRoute::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::http_route::RouteRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4440,6 +4828,7 @@ pub mod http_route {
 
         /// If specified, the match result will be inverted before checking. Default
         /// value is set to false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub invert_match: bool,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4495,6 +4884,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// to hold a `ExactMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::header_match::MatchType::ExactMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4508,6 +4909,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// to hold a `RegexMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::header_match::MatchType::RegexMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `PrefixMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4519,73 +4932,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// if it holds a `PresentMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn present_match(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.match_type.as_ref().and_then(|v| match v {
-                crate::model::http_route::header_match::MatchType::PresentMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// if it holds a `SuffixMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn suffix_match(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.match_type.as_ref().and_then(|v| match v {
-                crate::model::http_route::header_match::MatchType::SuffixMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// if it holds a `RangeMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn range_match(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.match_type.as_ref().and_then(|v| match v {
-                crate::model::http_route::header_match::MatchType::RangeMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `ExactMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::ExactMatch(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::RegexMatch(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -4603,6 +4949,19 @@ pub mod http_route {
             self
         }
 
+        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// if it holds a `PresentMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn present_match(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.match_type.as_ref().and_then(|v| match v {
+                crate::model::http_route::header_match::MatchType::PresentMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// to hold a `PresentMatch`.
         ///
@@ -4613,6 +4972,19 @@ pub mod http_route {
                 crate::model::http_route::header_match::MatchType::PresentMatch(v.into()),
             );
             self
+        }
+
+        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// if it holds a `SuffixMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn suffix_match(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.match_type.as_ref().and_then(|v| match v {
+                crate::model::http_route::header_match::MatchType::SuffixMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -4628,6 +5000,23 @@ pub mod http_route {
                 crate::model::http_route::header_match::MatchType::SuffixMatch(v.into()),
             );
             self
+        }
+
+        /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
+        /// if it holds a `RangeMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn range_match(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.match_type.as_ref().and_then(|v| match v {
+                crate::model::http_route::header_match::MatchType::RangeMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -4668,9 +5057,11 @@ pub mod http_route {
         #[non_exhaustive]
         pub struct IntegerRange {
             /// Start of the range (inclusive)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub start: i32,
 
             /// End of the range (exclusive)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub end: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4786,6 +5177,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
+        /// to hold a `ExactMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4799,6 +5202,18 @@ pub mod http_route {
             })
         }
 
+        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
+        /// to hold a `RegexMatch`.
+        ///
+        /// Note that all the setters affecting `match_type` are
+        /// mutually exclusive.
+        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.match_type = std::option::Option::Some(
+                crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v.into()),
+            );
+            self
+        }
+
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `PresentMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4810,30 +5225,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `ExactMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
@@ -4894,6 +5285,7 @@ pub mod http_route {
     pub struct RouteMatch {
         /// Specifies if prefix_match and full_path_match matches are case sensitive.
         /// The default value is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_case: bool,
 
         /// Specifies a list of HTTP request headers to match against. ALL of the
@@ -4975,32 +5367,6 @@ pub mod http_route {
             })
         }
 
-        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// if it holds a `PrefixMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn prefix_match(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.path_match.as_ref().and_then(|v| match v {
-                crate::model::http_route::route_match::PathMatch::PrefixMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// if it holds a `RegexMatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.path_match.as_ref().and_then(|v| match v {
-                crate::model::http_route::route_match::PathMatch::RegexMatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// to hold a `FullPathMatch`.
         ///
@@ -5016,6 +5382,19 @@ pub mod http_route {
             self
         }
 
+        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
+        /// if it holds a `PrefixMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn prefix_match(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.path_match.as_ref().and_then(|v| match v {
+                crate::model::http_route::route_match::PathMatch::PrefixMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// to hold a `PrefixMatch`.
         ///
@@ -5029,6 +5408,19 @@ pub mod http_route {
                 crate::model::http_route::route_match::PathMatch::PrefixMatch(v.into()),
             );
             self
+        }
+
+        /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
+        /// if it holds a `RegexMatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.path_match.as_ref().and_then(|v| match v {
+                crate::model::http_route::route_match::PathMatch::RegexMatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
@@ -5106,6 +5498,7 @@ pub mod http_route {
         ///
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5172,6 +5565,7 @@ pub mod http_route {
         /// same as that of the request.
         ///
         /// The default is set to false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub https_redirect: bool,
 
         /// if set to true, any accompanying query portion of the original URL is
@@ -5179,10 +5573,12 @@ pub mod http_route {
         /// portion of the original URL is retained.
         ///
         /// The default is set to false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strip_query: bool,
 
         /// The port that will be used in the redirected request instead of the one
         /// that was supplied in the request.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub port_redirect: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5263,78 +5659,160 @@ pub mod http_route {
         use super::*;
 
         /// Supported HTTP response code.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ResponseCode(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ResponseCode {
+            /// Default value
+            Unspecified,
+            /// Corresponds to 301.
+            MovedPermanentlyDefault,
+            /// Corresponds to 302.
+            Found,
+            /// Corresponds to 303.
+            SeeOther,
+            /// Corresponds to 307. In this case, the request method will be retained.
+            TemporaryRedirect,
+            /// Corresponds to 308. In this case, the request method will be retained.
+            PermanentRedirect,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ResponseCode::value] or
+            /// [ResponseCode::name].
+            UnknownValue(response_code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod response_code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl ResponseCode {
-            /// Default value
-            pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode = ResponseCode::new(0);
-
-            /// Corresponds to 301.
-            pub const MOVED_PERMANENTLY_DEFAULT: ResponseCode = ResponseCode::new(1);
-
-            /// Corresponds to 302.
-            pub const FOUND: ResponseCode = ResponseCode::new(2);
-
-            /// Corresponds to 303.
-            pub const SEE_OTHER: ResponseCode = ResponseCode::new(3);
-
-            /// Corresponds to 307. In this case, the request method will be retained.
-            pub const TEMPORARY_REDIRECT: ResponseCode = ResponseCode::new(4);
-
-            /// Corresponds to 308. In this case, the request method will be retained.
-            pub const PERMANENT_REDIRECT: ResponseCode = ResponseCode::new(5);
-
-            /// Creates a new ResponseCode instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::MovedPermanentlyDefault => std::option::Option::Some(1),
+                    Self::Found => std::option::Option::Some(2),
+                    Self::SeeOther => std::option::Option::Some(3),
+                    Self::TemporaryRedirect => std::option::Option::Some(4),
+                    Self::PermanentRedirect => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("RESPONSE_CODE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("MOVED_PERMANENTLY_DEFAULT"),
-                    2 => std::borrow::Cow::Borrowed("FOUND"),
-                    3 => std::borrow::Cow::Borrowed("SEE_OTHER"),
-                    4 => std::borrow::Cow::Borrowed("TEMPORARY_REDIRECT"),
-                    5 => std::borrow::Cow::Borrowed("PERMANENT_REDIRECT"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "RESPONSE_CODE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::RESPONSE_CODE_UNSPECIFIED)
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("RESPONSE_CODE_UNSPECIFIED"),
+                    Self::MovedPermanentlyDefault => {
+                        std::option::Option::Some("MOVED_PERMANENTLY_DEFAULT")
                     }
-                    "MOVED_PERMANENTLY_DEFAULT" => {
-                        std::option::Option::Some(Self::MOVED_PERMANENTLY_DEFAULT)
-                    }
-                    "FOUND" => std::option::Option::Some(Self::FOUND),
-                    "SEE_OTHER" => std::option::Option::Some(Self::SEE_OTHER),
-                    "TEMPORARY_REDIRECT" => std::option::Option::Some(Self::TEMPORARY_REDIRECT),
-                    "PERMANENT_REDIRECT" => std::option::Option::Some(Self::PERMANENT_REDIRECT),
-                    _ => std::option::Option::None,
+                    Self::Found => std::option::Option::Some("FOUND"),
+                    Self::SeeOther => std::option::Option::Some("SEE_OTHER"),
+                    Self::TemporaryRedirect => std::option::Option::Some("TEMPORARY_REDIRECT"),
+                    Self::PermanentRedirect => std::option::Option::Some("PERMANENT_REDIRECT"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-        }
-
-        impl std::convert::From<i32> for ResponseCode {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for ResponseCode {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ResponseCode {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ResponseCode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::MovedPermanentlyDefault,
+                    2 => Self::Found,
+                    3 => Self::SeeOther,
+                    4 => Self::TemporaryRedirect,
+                    5 => Self::PermanentRedirect,
+                    _ => Self::UnknownValue(response_code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ResponseCode {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RESPONSE_CODE_UNSPECIFIED" => Self::Unspecified,
+                    "MOVED_PERMANENTLY_DEFAULT" => Self::MovedPermanentlyDefault,
+                    "FOUND" => Self::Found,
+                    "SEE_OTHER" => Self::SeeOther,
+                    "TEMPORARY_REDIRECT" => Self::TemporaryRedirect,
+                    "PERMANENT_REDIRECT" => Self::PermanentRedirect,
+                    _ => Self::UnknownValue(response_code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ResponseCode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::MovedPermanentlyDefault => serializer.serialize_i32(1),
+                    Self::Found => serializer.serialize_i32(2),
+                    Self::SeeOther => serializer.serialize_i32(3),
+                    Self::TemporaryRedirect => serializer.serialize_i32(4),
+                    Self::PermanentRedirect => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ResponseCode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResponseCode>::new(
+                    ".google.cloud.networkservices.v1.HttpRoute.Redirect.ResponseCode",
+                ))
             }
         }
     }
@@ -5419,6 +5897,7 @@ pub mod http_route {
             /// The percentage of traffic on which delay will be injected.
             ///
             /// The value must be between [0, 100]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5462,11 +5941,13 @@ pub mod http_route {
             /// The HTTP status code used to abort the request.
             ///
             /// The value must be between 200 and 599 inclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub http_status: i32,
 
             /// The percentage of traffic which will be aborted.
             ///
             /// The value must be between [0, 100]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5528,17 +6009,6 @@ pub mod http_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [remove][crate::model::http_route::HeaderModifier::remove].
-        pub fn set_remove<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.remove = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [set][crate::model::http_route::HeaderModifier::set].
         pub fn set_set<T, K, V>(mut self, v: T) -> Self
         where
@@ -5560,6 +6030,17 @@ pub mod http_route {
         {
             use std::iter::Iterator;
             self.add = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [remove][crate::model::http_route::HeaderModifier::remove].
+        pub fn set_remove<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.remove = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5654,6 +6135,7 @@ pub mod http_route {
 
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub num_retries: i32,
 
         /// Specifies a non-zero timeout per retry attempt.
@@ -5669,6 +6151,17 @@ pub mod http_route {
             std::default::Default::default()
         }
 
+        /// Sets the value of [retry_conditions][crate::model::http_route::RetryPolicy::retry_conditions].
+        pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.retry_conditions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [num_retries][crate::model::http_route::RetryPolicy::num_retries].
         pub fn set_num_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.num_retries = v.into();
@@ -5681,17 +6174,6 @@ pub mod http_route {
             v: T,
         ) -> Self {
             self.per_try_timeout = v.into();
-            self
-        }
-
-        /// Sets the value of [retry_conditions][crate::model::http_route::RetryPolicy::retry_conditions].
-        pub fn set_retry_conditions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.retry_conditions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5783,10 +6265,12 @@ pub mod http_route {
         /// Access-Control-Allow-Credentials header.
         ///
         /// Default value is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_credentials: bool,
 
         /// If true, the CORS policy is disabled. The default value is false, which
         /// indicates that the CORS policy is in effect.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5796,24 +6280,6 @@ pub mod http_route {
     impl CorsPolicy {
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [max_age][crate::model::http_route::CorsPolicy::max_age].
-        pub fn set_max_age<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.max_age = v.into();
-            self
-        }
-
-        /// Sets the value of [allow_credentials][crate::model::http_route::CorsPolicy::allow_credentials].
-        pub fn set_allow_credentials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.allow_credentials = v.into();
-            self
-        }
-
-        /// Sets the value of [disabled][crate::model::http_route::CorsPolicy::disabled].
-        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.disabled = v.into();
-            self
         }
 
         /// Sets the value of [allow_origins][crate::model::http_route::CorsPolicy::allow_origins].
@@ -5868,6 +6334,24 @@ pub mod http_route {
         {
             use std::iter::Iterator;
             self.expose_headers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [max_age][crate::model::http_route::CorsPolicy::max_age].
+        pub fn set_max_age<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.max_age = v.into();
+            self
+        }
+
+        /// Sets the value of [allow_credentials][crate::model::http_route::CorsPolicy::allow_credentials].
+        pub fn set_allow_credentials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.allow_credentials = v.into();
+            self
+        }
+
+        /// Sets the value of [disabled][crate::model::http_route::CorsPolicy::disabled].
+        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disabled = v.into();
             self
         }
     }
@@ -5954,6 +6438,17 @@ pub mod http_route {
     impl RouteAction {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [destinations][crate::model::http_route::RouteAction::destinations].
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::http_route::Destination>,
+        {
+            use std::iter::Iterator;
+            self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [redirect][crate::model::http_route::RouteAction::redirect].
@@ -6052,17 +6547,6 @@ pub mod http_route {
             self.cors_policy = v.into();
             self
         }
-
-        /// Sets the value of [destinations][crate::model::http_route::RouteAction::destinations].
-        pub fn set_destinations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::http_route::Destination>,
-        {
-            use std::iter::Iterator;
-            self.destinations = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     impl wkt::message::Message for RouteAction {
@@ -6103,17 +6587,6 @@ pub mod http_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::http_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::http_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::http_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -6122,6 +6595,17 @@ pub mod http_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::http_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::http_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -6145,6 +6629,7 @@ pub struct ListHttpRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of HttpRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListHttpRoutesResponse`
@@ -6212,12 +6697,6 @@ impl ListHttpRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHttpRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [http_routes][crate::model::ListHttpRoutesResponse::http_routes].
     pub fn set_http_routes<T, V>(mut self, v: T) -> Self
     where
@@ -6226,6 +6705,12 @@ impl ListHttpRoutesResponse {
     {
         use std::iter::Iterator;
         self.http_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHttpRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6464,6 +6949,7 @@ pub struct Mesh {
     /// regardless of its actual ip:port destination. If unset, a port '15001' is
     /// used as the interception port. This is applicable only for sidecar proxy
     /// deployments.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interception_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6505,18 +6991,6 @@ impl Mesh {
         self
     }
 
-    /// Sets the value of [description][crate::model::Mesh::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [interception_port][crate::model::Mesh::interception_port].
-    pub fn set_interception_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.interception_port = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Mesh::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -6526,6 +7000,18 @@ impl Mesh {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Mesh::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [interception_port][crate::model::Mesh::interception_port].
+    pub fn set_interception_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.interception_port = v.into();
         self
     }
 }
@@ -6548,6 +7034,7 @@ pub struct ListMeshesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Meshes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListMeshesResponse`
@@ -6615,12 +7102,6 @@ impl ListMeshesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMeshesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [meshes][crate::model::ListMeshesResponse::meshes].
     pub fn set_meshes<T, V>(mut self, v: T) -> Self
     where
@@ -6629,6 +7110,12 @@ impl ListMeshesResponse {
     {
         use std::iter::Iterator;
         self.meshes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMeshesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6937,6 +7424,7 @@ pub struct ListServiceBindingsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of ServiceBindings to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServiceBindingsResponse`
@@ -7004,12 +7492,6 @@ impl ListServiceBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_bindings][crate::model::ListServiceBindingsResponse::service_bindings].
     pub fn set_service_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -7018,6 +7500,12 @@ impl ListServiceBindingsResponse {
     {
         use std::iter::Iterator;
         self.service_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7355,17 +7843,6 @@ pub mod tcp_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::tcp_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::tcp_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::tcp_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -7374,6 +7851,17 @@ pub mod tcp_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::tcp_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::tcp_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -7452,6 +7940,7 @@ pub mod tcp_route {
         /// Optional. If true, Router will use the destination IP and port of the
         /// original connection as the destination of the request. Default is false.
         /// Only one of route destinations or original destination can be set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub original_destination: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7463,12 +7952,6 @@ pub mod tcp_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [original_destination][crate::model::tcp_route::RouteAction::original_destination].
-        pub fn set_original_destination<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.original_destination = v.into();
-            self
-        }
-
         /// Sets the value of [destinations][crate::model::tcp_route::RouteAction::destinations].
         pub fn set_destinations<T, V>(mut self, v: T) -> Self
         where
@@ -7477,6 +7960,12 @@ pub mod tcp_route {
         {
             use std::iter::Iterator;
             self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [original_destination][crate::model::tcp_route::RouteAction::original_destination].
+        pub fn set_original_destination<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.original_destination = v.into();
             self
         }
     }
@@ -7512,6 +8001,7 @@ pub mod tcp_route {
         ///
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7558,6 +8048,7 @@ pub struct ListTcpRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of TcpRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTcpRoutesResponse`
@@ -7625,12 +8116,6 @@ impl ListTcpRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTcpRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tcp_routes][crate::model::ListTcpRoutesResponse::tcp_routes].
     pub fn set_tcp_routes<T, V>(mut self, v: T) -> Self
     where
@@ -7639,6 +8124,12 @@ impl ListTcpRoutesResponse {
     {
         use std::iter::Iterator;
         self.tcp_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTcpRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8005,17 +8496,6 @@ pub mod tls_route {
             std::default::Default::default()
         }
 
-        /// Sets the value of [action][crate::model::tls_route::RouteRule::action].
-        pub fn set_action<
-            T: std::convert::Into<std::option::Option<crate::model::tls_route::RouteAction>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.action = v.into();
-            self
-        }
-
         /// Sets the value of [matches][crate::model::tls_route::RouteRule::matches].
         pub fn set_matches<T, V>(mut self, v: T) -> Self
         where
@@ -8024,6 +8504,17 @@ pub mod tls_route {
         {
             use std::iter::Iterator;
             self.matches = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::tls_route::RouteRule::action].
+        pub fn set_action<
+            T: std::convert::Into<std::option::Option<crate::model::tls_route::RouteAction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
             self
         }
     }
@@ -8152,6 +8643,7 @@ pub mod tls_route {
         ///
         /// - weight/Sum(weights in destinations)
         ///   Weights in all destinations does not need to sum up to 100.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8198,6 +8690,7 @@ pub struct ListTlsRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of TlsRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTlsRoutesResponse`
@@ -8265,12 +8758,6 @@ impl ListTlsRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTlsRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tls_routes][crate::model::ListTlsRoutesResponse::tls_routes].
     pub fn set_tls_routes<T, V>(mut self, v: T) -> Self
     where
@@ -8279,6 +8766,12 @@ impl ListTlsRoutesResponse {
     {
         use std::iter::Iterator;
         self.tls_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTlsRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8478,85 +8971,168 @@ impl wkt::message::Message for DeleteTlsRouteRequest {
 }
 
 /// The part of the request or response for which the extension is called.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EventType(i32);
-
-impl EventType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum EventType {
     /// Unspecified value. Do not use.
-    pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new(0);
-
+    Unspecified,
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request headers arrive.
-    pub const REQUEST_HEADERS: EventType = EventType::new(1);
-
+    RequestHeaders,
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request body arrives.
-    pub const REQUEST_BODY: EventType = EventType::new(2);
-
+    RequestBody,
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response headers arrive.
-    pub const RESPONSE_HEADERS: EventType = EventType::new(3);
-
+    ResponseHeaders,
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response body arrives.
-    pub const RESPONSE_BODY: EventType = EventType::new(4);
-
+    ResponseBody,
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request trailers arrives.
-    pub const REQUEST_TRAILERS: EventType = EventType::new(5);
-
+    RequestTrailers,
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response trailers arrives.
-    pub const RESPONSE_TRAILERS: EventType = EventType::new(6);
+    ResponseTrailers,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [EventType::value] or
+    /// [EventType::name].
+    UnknownValue(event_type::UnknownValue),
+}
 
-    /// Creates a new EventType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod event_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl EventType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::RequestHeaders => std::option::Option::Some(1),
+            Self::RequestBody => std::option::Option::Some(2),
+            Self::ResponseHeaders => std::option::Option::Some(3),
+            Self::ResponseBody => std::option::Option::Some(4),
+            Self::RequestTrailers => std::option::Option::Some(5),
+            Self::ResponseTrailers => std::option::Option::Some(6),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("EVENT_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("REQUEST_HEADERS"),
-            2 => std::borrow::Cow::Borrowed("REQUEST_BODY"),
-            3 => std::borrow::Cow::Borrowed("RESPONSE_HEADERS"),
-            4 => std::borrow::Cow::Borrowed("RESPONSE_BODY"),
-            5 => std::borrow::Cow::Borrowed("REQUEST_TRAILERS"),
-            6 => std::borrow::Cow::Borrowed("RESPONSE_TRAILERS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("EVENT_TYPE_UNSPECIFIED"),
+            Self::RequestHeaders => std::option::Option::Some("REQUEST_HEADERS"),
+            Self::RequestBody => std::option::Option::Some("REQUEST_BODY"),
+            Self::ResponseHeaders => std::option::Option::Some("RESPONSE_HEADERS"),
+            Self::ResponseBody => std::option::Option::Some("RESPONSE_BODY"),
+            Self::RequestTrailers => std::option::Option::Some("REQUEST_TRAILERS"),
+            Self::ResponseTrailers => std::option::Option::Some("RESPONSE_TRAILERS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "EVENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_TYPE_UNSPECIFIED),
-            "REQUEST_HEADERS" => std::option::Option::Some(Self::REQUEST_HEADERS),
-            "REQUEST_BODY" => std::option::Option::Some(Self::REQUEST_BODY),
-            "RESPONSE_HEADERS" => std::option::Option::Some(Self::RESPONSE_HEADERS),
-            "RESPONSE_BODY" => std::option::Option::Some(Self::RESPONSE_BODY),
-            "REQUEST_TRAILERS" => std::option::Option::Some(Self::REQUEST_TRAILERS),
-            "RESPONSE_TRAILERS" => std::option::Option::Some(Self::RESPONSE_TRAILERS),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for EventType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for EventType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for EventType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for EventType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::RequestHeaders,
+            2 => Self::RequestBody,
+            3 => Self::ResponseHeaders,
+            4 => Self::ResponseBody,
+            5 => Self::RequestTrailers,
+            6 => Self::ResponseTrailers,
+            _ => Self::UnknownValue(event_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for EventType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "EVENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "REQUEST_HEADERS" => Self::RequestHeaders,
+            "REQUEST_BODY" => Self::RequestBody,
+            "RESPONSE_HEADERS" => Self::ResponseHeaders,
+            "RESPONSE_BODY" => Self::ResponseBody,
+            "REQUEST_TRAILERS" => Self::RequestTrailers,
+            "RESPONSE_TRAILERS" => Self::ResponseTrailers,
+            _ => Self::UnknownValue(event_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for EventType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::RequestHeaders => serializer.serialize_i32(1),
+            Self::RequestBody => serializer.serialize_i32(2),
+            Self::ResponseHeaders => serializer.serialize_i32(3),
+            Self::ResponseBody => serializer.serialize_i32(4),
+            Self::RequestTrailers => serializer.serialize_i32(5),
+            Self::ResponseTrailers => serializer.serialize_i32(6),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EventType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
+            ".google.cloud.networkservices.v1.EventType",
+        ))
     }
 }
 
@@ -8564,61 +9140,134 @@ impl std::default::Default for EventType {
 /// `LbRouteExtension` resource.
 /// For more information, refer to [Choosing a load
 /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LoadBalancingScheme(i32);
-
-impl LoadBalancingScheme {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LoadBalancingScheme {
     /// Default value. Do not use.
-    pub const LOAD_BALANCING_SCHEME_UNSPECIFIED: LoadBalancingScheme = LoadBalancingScheme::new(0);
-
+    Unspecified,
     /// Signifies that this is used for Internal HTTP(S) Load Balancing.
-    pub const INTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new(1);
-
+    InternalManaged,
     /// Signifies that this is used for External Managed HTTP(S) Load
     /// Balancing.
-    pub const EXTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new(2);
+    ExternalManaged,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LoadBalancingScheme::value] or
+    /// [LoadBalancingScheme::name].
+    UnknownValue(load_balancing_scheme::UnknownValue),
+}
 
-    /// Creates a new LoadBalancingScheme instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod load_balancing_scheme {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LoadBalancingScheme {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::InternalManaged => std::option::Option::Some(1),
+            Self::ExternalManaged => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LOAD_BALANCING_SCHEME_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("INTERNAL_MANAGED"),
-            2 => std::borrow::Cow::Borrowed("EXTERNAL_MANAGED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LOAD_BALANCING_SCHEME_UNSPECIFIED"),
+            Self::InternalManaged => std::option::Option::Some("INTERNAL_MANAGED"),
+            Self::ExternalManaged => std::option::Option::Some("EXTERNAL_MANAGED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LOAD_BALANCING_SCHEME_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LOAD_BALANCING_SCHEME_UNSPECIFIED)
-            }
-            "INTERNAL_MANAGED" => std::option::Option::Some(Self::INTERNAL_MANAGED),
-            "EXTERNAL_MANAGED" => std::option::Option::Some(Self::EXTERNAL_MANAGED),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LoadBalancingScheme {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LoadBalancingScheme {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LoadBalancingScheme {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LoadBalancingScheme {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::InternalManaged,
+            2 => Self::ExternalManaged,
+            _ => Self::UnknownValue(load_balancing_scheme::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LoadBalancingScheme {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LOAD_BALANCING_SCHEME_UNSPECIFIED" => Self::Unspecified,
+            "INTERNAL_MANAGED" => Self::InternalManaged,
+            "EXTERNAL_MANAGED" => Self::ExternalManaged,
+            _ => Self::UnknownValue(load_balancing_scheme::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LoadBalancingScheme {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::InternalManaged => serializer.serialize_i32(1),
+            Self::ExternalManaged => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LoadBalancingScheme {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancingScheme>::new(
+            ".google.cloud.networkservices.v1.LoadBalancingScheme",
+        ))
     }
 }

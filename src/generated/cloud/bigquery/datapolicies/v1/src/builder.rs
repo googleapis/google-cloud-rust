@@ -16,7 +16,6 @@
 
 pub mod data_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataPolicyService][super::super::client::DataPolicyService].
     ///
@@ -49,7 +48,7 @@ pub mod data_policy_service {
     /// Common implementation for [super::super::client::DataPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod data_policy_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod data_policy_service {
     pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
     impl CreateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,12 +103,16 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateDataPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_data_policy<T: Into<std::option::Option<crate::model::DataPolicy>>>(
             mut self,
             v: T,
@@ -127,7 +134,9 @@ pub mod data_policy_service {
     pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
     impl UpdateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -155,6 +164,8 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_data_policy<T: Into<std::option::Option<crate::model::DataPolicy>>>(
             mut self,
             v: T,
@@ -185,7 +196,9 @@ pub mod data_policy_service {
     pub struct RenameDataPolicy(RequestBuilder<crate::model::RenameDataPolicyRequest>);
 
     impl RenameDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,12 +226,16 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [name][crate::model::RenameDataPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [new_data_policy_id][crate::model::RenameDataPolicyRequest::new_data_policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_new_data_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.new_data_policy_id = v.into();
             self
@@ -237,7 +254,9 @@ pub mod data_policy_service {
     pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
     impl DeleteDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,6 +284,8 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDataPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -283,7 +304,9 @@ pub mod data_policy_service {
     pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
 
     impl GetDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -308,6 +331,8 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [name][crate::model::GetDataPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -326,7 +351,9 @@ pub mod data_policy_service {
     pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
     impl ListDataPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -369,6 +396,8 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDataPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -405,7 +434,9 @@ pub mod data_policy_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -430,6 +461,8 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -457,7 +490,9 @@ pub mod data_policy_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -482,12 +517,16 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -518,7 +557,9 @@ pub mod data_policy_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -546,12 +587,16 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

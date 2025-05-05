@@ -16,7 +16,6 @@
 
 pub mod app_hub {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AppHub][super::super::client::AppHub].
     ///
@@ -49,7 +48,7 @@ pub mod app_hub {
     /// Common implementation for [super::super::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AppHub>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod app_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +73,7 @@ pub mod app_hub {
     );
 
     impl LookupServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -102,6 +101,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::LookupServiceProjectAttachmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -122,7 +123,7 @@ pub mod app_hub {
     );
 
     impl ListServiceProjectAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,6 +168,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListServiceProjectAttachmentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -211,7 +214,7 @@ pub mod app_hub {
     );
 
     impl CreateServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -280,12 +283,16 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceProjectAttachmentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [service_project_attachment_id][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_project_attachment_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -295,6 +302,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_project_attachment<
             T: Into<std::option::Option<crate::model::ServiceProjectAttachment>>,
         >(
@@ -326,7 +335,7 @@ pub mod app_hub {
     );
 
     impl GetServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -354,6 +363,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::GetServiceProjectAttachmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -374,7 +385,7 @@ pub mod app_hub {
     );
 
     impl DeleteServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -437,6 +448,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceProjectAttachmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -463,7 +476,7 @@ pub mod app_hub {
     );
 
     impl DetachServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -491,6 +504,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::DetachServiceProjectAttachmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -509,7 +524,7 @@ pub mod app_hub {
     pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
 
     impl ListDiscoveredServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -554,6 +569,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveredServicesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -596,7 +613,7 @@ pub mod app_hub {
     pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
 
     impl GetDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -624,6 +641,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveredServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -644,7 +663,7 @@ pub mod app_hub {
     );
 
     impl LookupDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -672,12 +691,16 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::LookupDiscoveredServiceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [uri][crate::model::LookupDiscoveredServiceRequest::uri].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.uri = v.into();
             self
@@ -696,7 +719,7 @@ pub mod app_hub {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -736,6 +759,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -778,7 +803,7 @@ pub mod app_hub {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -840,18 +865,24 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_id = v.into();
             self
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -879,7 +910,7 @@ pub mod app_hub {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -904,6 +935,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -922,7 +955,7 @@ pub mod app_hub {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -984,6 +1017,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -993,6 +1028,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -1020,7 +1057,7 @@ pub mod app_hub {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1080,6 +1117,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1106,7 +1145,7 @@ pub mod app_hub {
     );
 
     impl ListDiscoveredWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1151,6 +1190,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveredWorkloadsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1193,7 +1234,7 @@ pub mod app_hub {
     pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
 
     impl GetDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1221,6 +1262,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveredWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1241,7 +1284,7 @@ pub mod app_hub {
     );
 
     impl LookupDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1269,12 +1312,16 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::LookupDiscoveredWorkloadRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [uri][crate::model::LookupDiscoveredWorkloadRequest::uri].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.uri = v.into();
             self
@@ -1293,7 +1340,7 @@ pub mod app_hub {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1333,6 +1380,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1375,7 +1424,7 @@ pub mod app_hub {
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1438,18 +1487,24 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workload_id][crate::model::CreateWorkloadRequest::workload_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workload_id = v.into();
             self
         }
 
         /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
             mut self,
             v: T,
@@ -1477,7 +1532,7 @@ pub mod app_hub {
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1502,6 +1557,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1520,7 +1577,7 @@ pub mod app_hub {
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1583,6 +1640,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1592,6 +1651,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
             mut self,
             v: T,
@@ -1619,7 +1680,7 @@ pub mod app_hub {
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1679,6 +1740,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1703,7 +1766,7 @@ pub mod app_hub {
     pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
 
     impl ListApplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1746,6 +1809,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListApplicationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1788,7 +1853,7 @@ pub mod app_hub {
     pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
 
     impl CreateApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1854,18 +1919,24 @@ pub mod app_hub {
         }
 
         /// Sets the value of [parent][crate::model::CreateApplicationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [application_id][crate::model::CreateApplicationRequest::application_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_application_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.application_id = v.into();
             self
         }
 
         /// Sets the value of [application][crate::model::CreateApplicationRequest::application].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
             mut self,
             v: T,
@@ -1893,7 +1964,7 @@ pub mod app_hub {
     pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
 
     impl GetApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1918,6 +1989,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::GetApplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1936,7 +2009,7 @@ pub mod app_hub {
     pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
 
     impl UpdateApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2002,6 +2075,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2011,6 +2086,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [application][crate::model::UpdateApplicationRequest::application].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
             mut self,
             v: T,
@@ -2038,7 +2115,7 @@ pub mod app_hub {
     pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
 
     impl DeleteApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2101,6 +2178,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [name][crate::model::DeleteApplicationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2125,7 +2204,7 @@ pub mod app_hub {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2204,7 +2283,7 @@ pub mod app_hub {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2247,7 +2326,7 @@ pub mod app_hub {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2272,12 +2351,16 @@ pub mod app_hub {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2308,7 +2391,7 @@ pub mod app_hub {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2333,6 +2416,8 @@ pub mod app_hub {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -2360,7 +2445,7 @@ pub mod app_hub {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2388,12 +2473,16 @@ pub mod app_hub {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2417,7 +2506,7 @@ pub mod app_hub {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2496,7 +2585,7 @@ pub mod app_hub {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2542,7 +2631,7 @@ pub mod app_hub {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2588,7 +2677,7 @@ pub mod app_hub {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

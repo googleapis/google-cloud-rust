@@ -16,7 +16,6 @@
 
 pub mod oracle_database {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [OracleDatabase][super::super::client::OracleDatabase].
     ///
@@ -49,7 +48,7 @@ pub mod oracle_database {
     /// Common implementation for [super::super::client::OracleDatabase] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod oracle_database {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +75,9 @@ pub mod oracle_database {
     );
 
     impl ListCloudExadataInfrastructures {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -119,6 +122,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListCloudExadataInfrastructuresRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -151,7 +156,9 @@ pub mod oracle_database {
     );
 
     impl GetCloudExadataInfrastructure {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::GetCloudExadataInfrastructureRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -199,7 +208,9 @@ pub mod oracle_database {
     );
 
     impl CreateCloudExadataInfrastructure {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -268,12 +279,16 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::CreateCloudExadataInfrastructureRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cloud_exadata_infrastructure_id][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cloud_exadata_infrastructure_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -283,6 +298,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cloud_exadata_infrastructure<
             T: Into<std::option::Option<crate::model::CloudExadataInfrastructure>>,
         >(
@@ -314,7 +331,9 @@ pub mod oracle_database {
     );
 
     impl DeleteCloudExadataInfrastructure {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -377,6 +396,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::DeleteCloudExadataInfrastructureRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -407,7 +428,9 @@ pub mod oracle_database {
     pub struct ListCloudVmClusters(RequestBuilder<crate::model::ListCloudVmClustersRequest>);
 
     impl ListCloudVmClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -450,6 +473,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListCloudVmClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -486,7 +511,9 @@ pub mod oracle_database {
     pub struct GetCloudVmCluster(RequestBuilder<crate::model::GetCloudVmClusterRequest>);
 
     impl GetCloudVmCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -514,6 +541,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::GetCloudVmClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -532,7 +561,9 @@ pub mod oracle_database {
     pub struct CreateCloudVmCluster(RequestBuilder<crate::model::CreateCloudVmClusterRequest>);
 
     impl CreateCloudVmCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -599,18 +630,24 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::CreateCloudVmClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cloud_vm_cluster_id][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cloud_vm_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cloud_vm_cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cloud_vm_cluster<T: Into<std::option::Option<crate::model::CloudVmCluster>>>(
             mut self,
             v: T,
@@ -638,7 +675,9 @@ pub mod oracle_database {
     pub struct DeleteCloudVmCluster(RequestBuilder<crate::model::DeleteCloudVmClusterRequest>);
 
     impl DeleteCloudVmCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,6 +740,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::DeleteCloudVmClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -731,7 +772,9 @@ pub mod oracle_database {
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -774,6 +817,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -804,7 +849,9 @@ pub mod oracle_database {
     pub struct ListDbServers(RequestBuilder<crate::model::ListDbServersRequest>);
 
     impl ListDbServers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -844,6 +891,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListDbServersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -874,7 +923,9 @@ pub mod oracle_database {
     pub struct ListDbNodes(RequestBuilder<crate::model::ListDbNodesRequest>);
 
     impl ListDbNodes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -914,6 +965,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListDbNodesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -944,7 +997,9 @@ pub mod oracle_database {
     pub struct ListGiVersions(RequestBuilder<crate::model::ListGiVersionsRequest>);
 
     impl ListGiVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -984,6 +1039,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListGiVersionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1014,7 +1071,9 @@ pub mod oracle_database {
     pub struct ListDbSystemShapes(RequestBuilder<crate::model::ListDbSystemShapesRequest>);
 
     impl ListDbSystemShapes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1057,6 +1116,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListDbSystemShapesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1089,7 +1150,9 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,6 +1197,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabasesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1176,7 +1241,9 @@ pub mod oracle_database {
     pub struct GetAutonomousDatabase(RequestBuilder<crate::model::GetAutonomousDatabaseRequest>);
 
     impl GetAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1204,6 +1271,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::GetAutonomousDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1224,7 +1293,9 @@ pub mod oracle_database {
     );
 
     impl CreateAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1291,18 +1362,24 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::CreateAutonomousDatabaseRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [autonomous_database_id][crate::model::CreateAutonomousDatabaseRequest::autonomous_database_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_autonomous_database_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.autonomous_database_id = v.into();
             self
         }
 
         /// Sets the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_autonomous_database<
             T: Into<std::option::Option<crate::model::AutonomousDatabase>>,
         >(
@@ -1334,7 +1411,9 @@ pub mod oracle_database {
     );
 
     impl DeleteAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1397,6 +1476,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::DeleteAutonomousDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1423,7 +1504,9 @@ pub mod oracle_database {
     );
 
     impl RestoreAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1490,12 +1573,16 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::RestoreAutonomousDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -1519,7 +1606,9 @@ pub mod oracle_database {
     );
 
     impl GenerateAutonomousDatabaseWallet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1547,6 +1636,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::GenerateAutonomousDatabaseWalletRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1565,6 +1656,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [password][crate::model::GenerateAutonomousDatabaseWalletRequest::password].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_password<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.password = v.into();
             self
@@ -1585,7 +1678,9 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDbVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1630,6 +1725,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDbVersionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1662,7 +1759,9 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDatabaseCharacterSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1709,6 +1808,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabaseCharacterSetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1747,7 +1848,9 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDatabaseBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1792,6 +1895,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabaseBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1828,7 +1933,9 @@ pub mod oracle_database {
     pub struct StopAutonomousDatabase(RequestBuilder<crate::model::StopAutonomousDatabaseRequest>);
 
     impl StopAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1895,6 +2002,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::StopAutonomousDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1915,7 +2024,9 @@ pub mod oracle_database {
     );
 
     impl StartAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1982,6 +2093,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::StartAutonomousDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2002,7 +2115,9 @@ pub mod oracle_database {
     );
 
     impl RestartAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2069,6 +2184,8 @@ pub mod oracle_database {
         }
 
         /// Sets the value of [name][crate::model::RestartAutonomousDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2087,7 +2204,9 @@ pub mod oracle_database {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2166,7 +2285,9 @@ pub mod oracle_database {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2209,7 +2330,9 @@ pub mod oracle_database {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2288,7 +2411,9 @@ pub mod oracle_database {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2334,7 +2459,9 @@ pub mod oracle_database {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2380,7 +2507,9 @@ pub mod oracle_database {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

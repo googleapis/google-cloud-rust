@@ -16,7 +16,6 @@
 
 pub mod backup_for_gke {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BackupForGKE][super::super::client::BackupForGKE].
     ///
@@ -49,7 +48,7 @@ pub mod backup_for_gke {
     /// Common implementation for [super::super::client::BackupForGKE] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod backup_for_gke {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod backup_for_gke {
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -138,12 +141,16 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_plan<T: Into<std::option::Option<crate::model::BackupPlan>>>(
             mut self,
             v: T,
@@ -153,6 +160,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [backup_plan_id][crate::model::CreateBackupPlanRequest::backup_plan_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_plan_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_plan_id = v.into();
             self
@@ -171,7 +180,9 @@ pub mod backup_for_gke {
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -211,6 +222,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupPlansRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -253,7 +266,9 @@ pub mod backup_for_gke {
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,6 +293,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::GetBackupPlanRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -296,7 +313,9 @@ pub mod backup_for_gke {
     pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
     impl UpdateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -362,6 +381,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_plan<T: Into<std::option::Option<crate::model::BackupPlan>>>(
             mut self,
             v: T,
@@ -392,7 +413,9 @@ pub mod backup_for_gke {
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -455,6 +478,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPlanRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -479,7 +504,9 @@ pub mod backup_for_gke {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -541,6 +568,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -574,7 +603,9 @@ pub mod backup_for_gke {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -614,6 +645,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -656,7 +689,9 @@ pub mod backup_for_gke {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -681,6 +716,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -699,7 +736,9 @@ pub mod backup_for_gke {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -761,6 +800,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -791,7 +832,9 @@ pub mod backup_for_gke {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -851,6 +894,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -881,7 +926,9 @@ pub mod backup_for_gke {
     pub struct ListVolumeBackups(RequestBuilder<crate::model::ListVolumeBackupsRequest>);
 
     impl ListVolumeBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -924,6 +971,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::ListVolumeBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -966,7 +1015,9 @@ pub mod backup_for_gke {
     pub struct GetVolumeBackup(RequestBuilder<crate::model::GetVolumeBackupRequest>);
 
     impl GetVolumeBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -991,6 +1042,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::GetVolumeBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1009,7 +1062,9 @@ pub mod backup_for_gke {
     pub struct CreateRestorePlan(RequestBuilder<crate::model::CreateRestorePlanRequest>);
 
     impl CreateRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1075,12 +1130,16 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::CreateRestorePlanRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [restore_plan][crate::model::CreateRestorePlanRequest::restore_plan].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore_plan<T: Into<std::option::Option<crate::model::RestorePlan>>>(
             mut self,
             v: T,
@@ -1090,6 +1149,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [restore_plan_id][crate::model::CreateRestorePlanRequest::restore_plan_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore_plan_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.restore_plan_id = v.into();
             self
@@ -1108,7 +1169,9 @@ pub mod backup_for_gke {
     pub struct ListRestorePlans(RequestBuilder<crate::model::ListRestorePlansRequest>);
 
     impl ListRestorePlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1151,6 +1214,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::ListRestorePlansRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1193,7 +1258,9 @@ pub mod backup_for_gke {
     pub struct GetRestorePlan(RequestBuilder<crate::model::GetRestorePlanRequest>);
 
     impl GetRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1218,6 +1285,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::GetRestorePlanRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1236,7 +1305,9 @@ pub mod backup_for_gke {
     pub struct UpdateRestorePlan(RequestBuilder<crate::model::UpdateRestorePlanRequest>);
 
     impl UpdateRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1302,6 +1373,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore_plan<T: Into<std::option::Option<crate::model::RestorePlan>>>(
             mut self,
             v: T,
@@ -1332,7 +1405,9 @@ pub mod backup_for_gke {
     pub struct DeleteRestorePlan(RequestBuilder<crate::model::DeleteRestorePlanRequest>);
 
     impl DeleteRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1395,6 +1470,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::DeleteRestorePlanRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1425,7 +1502,9 @@ pub mod backup_for_gke {
     pub struct CreateRestore(RequestBuilder<crate::model::CreateRestoreRequest>);
 
     impl CreateRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1487,12 +1566,16 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::CreateRestoreRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [restore][crate::model::CreateRestoreRequest::restore].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore<T: Into<std::option::Option<crate::model::Restore>>>(
             mut self,
             v: T,
@@ -1502,6 +1585,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [restore_id][crate::model::CreateRestoreRequest::restore_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.restore_id = v.into();
             self
@@ -1520,7 +1605,9 @@ pub mod backup_for_gke {
     pub struct ListRestores(RequestBuilder<crate::model::ListRestoresRequest>);
 
     impl ListRestores {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1560,6 +1647,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::ListRestoresRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1602,7 +1691,9 @@ pub mod backup_for_gke {
     pub struct GetRestore(RequestBuilder<crate::model::GetRestoreRequest>);
 
     impl GetRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1627,6 +1718,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::GetRestoreRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1645,7 +1738,9 @@ pub mod backup_for_gke {
     pub struct UpdateRestore(RequestBuilder<crate::model::UpdateRestoreRequest>);
 
     impl UpdateRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1707,6 +1802,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [restore][crate::model::UpdateRestoreRequest::restore].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restore<T: Into<std::option::Option<crate::model::Restore>>>(
             mut self,
             v: T,
@@ -1737,7 +1834,9 @@ pub mod backup_for_gke {
     pub struct DeleteRestore(RequestBuilder<crate::model::DeleteRestoreRequest>);
 
     impl DeleteRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1797,6 +1896,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::DeleteRestoreRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1827,7 +1928,9 @@ pub mod backup_for_gke {
     pub struct ListVolumeRestores(RequestBuilder<crate::model::ListVolumeRestoresRequest>);
 
     impl ListVolumeRestores {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1870,6 +1973,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [parent][crate::model::ListVolumeRestoresRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1912,7 +2017,9 @@ pub mod backup_for_gke {
     pub struct GetVolumeRestore(RequestBuilder<crate::model::GetVolumeRestoreRequest>);
 
     impl GetVolumeRestore {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1940,6 +2047,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRestoreRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1960,7 +2069,9 @@ pub mod backup_for_gke {
     );
 
     impl GetBackupIndexDownloadUrl {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1988,6 +2099,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [backup][crate::model::GetBackupIndexDownloadUrlRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup = v.into();
             self
@@ -2006,7 +2119,9 @@ pub mod backup_for_gke {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2085,7 +2200,9 @@ pub mod backup_for_gke {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2128,7 +2245,9 @@ pub mod backup_for_gke {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2153,12 +2272,16 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2189,7 +2312,9 @@ pub mod backup_for_gke {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2214,6 +2339,8 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -2241,7 +2368,9 @@ pub mod backup_for_gke {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2269,12 +2398,16 @@ pub mod backup_for_gke {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2298,7 +2431,9 @@ pub mod backup_for_gke {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2377,7 +2512,9 @@ pub mod backup_for_gke {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2423,7 +2560,9 @@ pub mod backup_for_gke {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2469,7 +2608,9 @@ pub mod backup_for_gke {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

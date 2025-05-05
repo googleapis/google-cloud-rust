@@ -9240,7 +9240,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         let builder = builder.query(&[("isHuggingFaceModel", &req.is_hugging_face_model)]);
         let builder = builder.query(&[("huggingFaceToken", &req.hugging_face_token)]);
         self.inner
@@ -10527,7 +10527,7 @@ impl super::stub::NotebookService for NotebookService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -10554,7 +10554,7 @@ impl super::stub::NotebookService for NotebookService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

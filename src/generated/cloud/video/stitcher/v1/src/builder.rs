@@ -16,7 +16,6 @@
 
 pub mod video_stitcher_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VideoStitcherService][super::super::client::VideoStitcherService].
     ///
@@ -49,7 +48,7 @@ pub mod video_stitcher_service {
     /// Common implementation for [super::super::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod video_stitcher_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod video_stitcher_service {
 
     impl CreateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -138,12 +137,16 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
             mut self,
             v: T,
@@ -153,6 +156,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [cdn_key_id][crate::model::CreateCdnKeyRequest::cdn_key_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cdn_key_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cdn_key_id = v.into();
             self
@@ -172,7 +177,7 @@ pub mod video_stitcher_service {
 
     impl ListCdnKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -213,6 +218,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCdnKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -256,7 +263,7 @@ pub mod video_stitcher_service {
 
     impl GetCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -282,6 +289,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetCdnKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -301,7 +310,7 @@ pub mod video_stitcher_service {
 
     impl DeleteCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -362,6 +371,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteCdnKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -381,7 +392,7 @@ pub mod video_stitcher_service {
 
     impl UpdateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -444,6 +455,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
             mut self,
             v: T,
@@ -453,6 +466,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -475,7 +490,7 @@ pub mod video_stitcher_service {
 
     impl CreateVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -504,12 +519,16 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateVodSessionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vod_session<T: Into<std::option::Option<crate::model::VodSession>>>(
             mut self,
             v: T,
@@ -532,7 +551,7 @@ pub mod video_stitcher_service {
 
     impl GetVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -558,6 +577,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -577,7 +598,7 @@ pub mod video_stitcher_service {
 
     impl ListVodStitchDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -621,6 +642,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVodStitchDetailsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -652,7 +675,7 @@ pub mod video_stitcher_service {
 
     impl GetVodStitchDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -681,6 +704,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodStitchDetailRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -700,7 +725,7 @@ pub mod video_stitcher_service {
 
     impl ListVodAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -744,6 +769,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVodAdTagDetailsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -775,7 +802,7 @@ pub mod video_stitcher_service {
 
     impl GetVodAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -804,6 +831,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodAdTagDetailRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -823,7 +852,7 @@ pub mod video_stitcher_service {
 
     impl ListLiveAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -867,6 +896,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListLiveAdTagDetailsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -898,7 +929,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -927,6 +958,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetLiveAdTagDetailRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -946,7 +979,7 @@ pub mod video_stitcher_service {
 
     impl CreateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1009,18 +1042,24 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [slate_id][crate::model::CreateSlateRequest::slate_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_slate_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.slate_id = v.into();
             self
         }
 
         /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
             mut self,
             v: T,
@@ -1049,7 +1088,7 @@ pub mod video_stitcher_service {
 
     impl ListSlates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1090,6 +1129,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListSlatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1133,7 +1174,7 @@ pub mod video_stitcher_service {
 
     impl GetSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1159,6 +1200,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetSlateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1178,7 +1221,7 @@ pub mod video_stitcher_service {
 
     impl UpdateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1241,6 +1284,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
             mut self,
             v: T,
@@ -1250,6 +1295,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1272,7 +1319,7 @@ pub mod video_stitcher_service {
 
     impl DeleteSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1333,6 +1380,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteSlateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1352,7 +1401,7 @@ pub mod video_stitcher_service {
 
     impl CreateLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1381,12 +1430,16 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveSessionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_live_session<T: Into<std::option::Option<crate::model::LiveSession>>>(
             mut self,
             v: T,
@@ -1409,7 +1462,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1435,6 +1488,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetLiveSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1454,7 +1509,7 @@ pub mod video_stitcher_service {
 
     impl CreateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1521,18 +1576,24 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [live_config_id][crate::model::CreateLiveConfigRequest::live_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_live_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.live_config_id = v.into();
             self
         }
 
         /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
             mut self,
             v: T,
@@ -1561,7 +1622,7 @@ pub mod video_stitcher_service {
 
     impl ListLiveConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1602,6 +1663,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListLiveConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1645,7 +1708,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1671,6 +1734,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetLiveConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1690,7 +1755,7 @@ pub mod video_stitcher_service {
 
     impl DeleteLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1754,6 +1819,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteLiveConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1773,7 +1840,7 @@ pub mod video_stitcher_service {
 
     impl UpdateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1840,6 +1907,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
             mut self,
             v: T,
@@ -1849,6 +1918,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1871,7 +1942,7 @@ pub mod video_stitcher_service {
 
     impl CreateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1935,18 +2006,24 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vod_config_id][crate::model::CreateVodConfigRequest::vod_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vod_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.vod_config_id = v.into();
             self
         }
 
         /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
             mut self,
             v: T,
@@ -1975,7 +2052,7 @@ pub mod video_stitcher_service {
 
     impl ListVodConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2016,6 +2093,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVodConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2059,7 +2138,7 @@ pub mod video_stitcher_service {
 
     impl GetVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2085,6 +2164,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2104,7 +2185,7 @@ pub mod video_stitcher_service {
 
     impl DeleteVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2165,6 +2246,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteVodConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2184,7 +2267,7 @@ pub mod video_stitcher_service {
 
     impl UpdateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2248,6 +2331,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
             mut self,
             v: T,
@@ -2257,6 +2342,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2279,7 +2366,7 @@ pub mod video_stitcher_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2360,7 +2447,7 @@ pub mod video_stitcher_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2408,7 +2495,7 @@ pub mod video_stitcher_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2456,7 +2543,7 @@ pub mod video_stitcher_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

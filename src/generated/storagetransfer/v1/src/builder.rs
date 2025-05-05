@@ -16,7 +16,6 @@
 
 pub mod storage_transfer_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [StorageTransferService][super::super::client::StorageTransferService].
     ///
@@ -49,7 +48,7 @@ pub mod storage_transfer_service {
     /// Common implementation for [super::super::client::StorageTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod storage_transfer_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +76,7 @@ pub mod storage_transfer_service {
 
     impl GetGoogleServiceAccount {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -106,6 +105,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetGoogleServiceAccountRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -125,7 +126,7 @@ pub mod storage_transfer_service {
 
     impl CreateTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -154,6 +155,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
             mut self,
             v: T,
@@ -176,7 +179,7 @@ pub mod storage_transfer_service {
 
     impl UpdateTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -205,18 +208,24 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::UpdateTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::UpdateTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
             mut self,
             v: T,
@@ -248,7 +257,7 @@ pub mod storage_transfer_service {
 
     impl GetTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -274,12 +283,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::GetTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::GetTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -299,7 +312,7 @@ pub mod storage_transfer_service {
 
     impl ListTransferJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -343,6 +356,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [filter][crate::model::ListTransferJobsRequest::filter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -374,7 +389,7 @@ pub mod storage_transfer_service {
 
     impl PauseTransferOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -403,6 +418,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::PauseTransferOperationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -424,7 +441,7 @@ pub mod storage_transfer_service {
 
     impl ResumeTransferOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -453,6 +470,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::ResumeTransferOperationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -472,7 +491,7 @@ pub mod storage_transfer_service {
 
     impl RunTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -533,12 +552,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::RunTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::RunTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -558,7 +581,7 @@ pub mod storage_transfer_service {
 
     impl DeleteTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -587,12 +610,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::DeleteTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::DeleteTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -612,7 +639,7 @@ pub mod storage_transfer_service {
 
     impl CreateAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -638,12 +665,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [project_id][crate::model::CreateAgentPoolRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
             mut self,
             v: T,
@@ -653,6 +684,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [agent_pool_id][crate::model::CreateAgentPoolRequest::agent_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_agent_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.agent_pool_id = v.into();
             self
@@ -672,7 +705,7 @@ pub mod storage_transfer_service {
 
     impl UpdateAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -698,6 +731,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
             mut self,
             v: T,
@@ -729,7 +764,7 @@ pub mod storage_transfer_service {
 
     impl GetAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -755,6 +790,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::GetAgentPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -774,7 +811,7 @@ pub mod storage_transfer_service {
 
     impl ListAgentPools {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -815,6 +852,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListAgentPoolsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -852,7 +891,7 @@ pub mod storage_transfer_service {
 
     impl DeleteAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -878,6 +917,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAgentPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -897,7 +938,7 @@ pub mod storage_transfer_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -978,7 +1019,7 @@ pub mod storage_transfer_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1026,7 +1067,7 @@ pub mod storage_transfer_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

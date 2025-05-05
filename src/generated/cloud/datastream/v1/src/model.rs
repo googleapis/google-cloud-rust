@@ -104,19 +104,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
-    /// if it holds a `ConnectionProfileName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn connection_profile_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
     /// to hold a `ConnectionProfile`.
     ///
@@ -132,6 +119,19 @@ impl DiscoverConnectionProfileRequest {
             crate::model::discover_connection_profile_request::Target::ConnectionProfile(v.into()),
         );
         self
+    }
+
+    /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
+    /// if it holds a `ConnectionProfileName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn connection_profile_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
@@ -180,6 +180,18 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
+    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
+    /// to hold a `FullHierarchy`.
+    ///
+    /// Note that all the setters affecting `hierarchy` are
+    /// mutually exclusive.
+    pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.hierarchy = std::option::Option::Some(
+            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
+        );
+        self
+    }
+
     /// The value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
     /// if it holds a `HierarchyDepth`, `None` if the field is not set or
     /// holds a different branch.
@@ -191,18 +203,6 @@ impl DiscoverConnectionProfileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
-    /// to hold a `FullHierarchy`.
-    ///
-    /// Note that all the setters affecting `hierarchy` are
-    /// mutually exclusive.
-    pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.hierarchy = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
@@ -246,49 +246,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// to hold a `OracleRdbms`.
     ///
@@ -304,6 +261,19 @@ impl DiscoverConnectionProfileRequest {
         self
     }
 
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// to hold a `MysqlRdbms`.
     ///
@@ -317,6 +287,21 @@ impl DiscoverConnectionProfileRequest {
             crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v.into()),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
@@ -336,6 +321,21 @@ impl DiscoverConnectionProfileRequest {
             ),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
@@ -455,49 +455,6 @@ impl DiscoverConnectionProfileResponse {
         })
     }
 
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// to hold a `OracleRdbms`.
     ///
@@ -513,6 +470,19 @@ impl DiscoverConnectionProfileResponse {
         self
     }
 
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// to hold a `MysqlRdbms`.
     ///
@@ -526,6 +496,21 @@ impl DiscoverConnectionProfileResponse {
             crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v.into()),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
@@ -545,6 +530,21 @@ impl DiscoverConnectionProfileResponse {
             ),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
@@ -606,6 +606,7 @@ pub struct FetchStaticIpsRequest {
     pub name: std::string::String,
 
     /// Maximum number of Ips to return, will likely not be specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListStaticIps` call.
@@ -671,12 +672,6 @@ impl FetchStaticIpsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [static_ips][crate::model::FetchStaticIpsResponse::static_ips].
     pub fn set_static_ips<T, V>(mut self, v: T) -> Self
     where
@@ -685,6 +680,12 @@ impl FetchStaticIpsResponse {
     {
         use std::iter::Iterator;
         self.static_ips = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -708,6 +709,7 @@ pub struct ListConnectionProfilesRequest {
     /// Maximum number of connection profiles to return.
     /// If unspecified, at most 50 connection profiles will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListConnectionProfiles` call.
@@ -800,12 +802,6 @@ impl ListConnectionProfilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connection_profiles][crate::model::ListConnectionProfilesResponse::connection_profiles].
     pub fn set_connection_profiles<T, V>(mut self, v: T) -> Self
     where
@@ -814,6 +810,12 @@ impl ListConnectionProfilesResponse {
     {
         use std::iter::Iterator;
         self.connection_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -917,9 +919,11 @@ pub struct CreateConnectionProfileRequest {
 
     /// Optional. Only validate the connection profile, but don't create any
     /// resources. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Create the connection profile without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1018,9 +1022,11 @@ pub struct UpdateConnectionProfileRequest {
 
     /// Optional. Only validate the connection profile, but don't update any
     /// resources. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Update the connection profile without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1144,6 +1150,7 @@ pub struct ListStreamsRequest {
     /// Maximum number of streams to return.
     /// If unspecified, at most 50 streams will  be returned. The maximum
     /// value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListStreams` call.
@@ -1236,12 +1243,6 @@ impl ListStreamsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListStreamsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [streams][crate::model::ListStreamsResponse::streams].
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
@@ -1250,6 +1251,12 @@ impl ListStreamsResponse {
     {
         use std::iter::Iterator;
         self.streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListStreamsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1353,9 +1360,11 @@ pub struct CreateStreamRequest {
 
     /// Optional. Only validate the stream, but don't create any resources.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Create the stream without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1449,9 +1458,11 @@ pub struct UpdateStreamRequest {
 
     /// Optional. Only validate the stream with the changes, without actually
     /// updating it. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Update the stream without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1577,6 +1588,7 @@ pub struct RunStreamRequest {
     pub cdc_strategy: std::option::Option<crate::model::CdcStrategy>,
 
     /// Optional. Update the stream without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1847,6 +1859,7 @@ pub struct ListStreamObjectsRequest {
 
     /// Maximum number of objects to return. Default is 50.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListStreamObjectsRequest` call.
@@ -1915,12 +1928,6 @@ impl ListStreamObjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListStreamObjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [stream_objects][crate::model::ListStreamObjectsResponse::stream_objects].
     pub fn set_stream_objects<T, V>(mut self, v: T) -> Self
     where
@@ -1929,6 +1936,12 @@ impl ListStreamObjectsResponse {
     {
         use std::iter::Iterator;
         self.stream_objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListStreamObjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1988,6 +2001,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2108,6 +2122,7 @@ pub struct CreatePrivateConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set to true, will skip validations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2179,6 +2194,7 @@ pub struct ListPrivateConnectionsRequest {
     /// If unspecified, at most 50 private connectivity configurations that will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListPrivateConnections` call.
@@ -2272,12 +2288,6 @@ impl ListPrivateConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [private_connections][crate::model::ListPrivateConnectionsResponse::private_connections].
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
@@ -2286,6 +2296,12 @@ impl ListPrivateConnectionsResponse {
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2349,6 +2365,7 @@ pub struct DeletePrivateConnectionRequest {
 
     /// Optional. If set to true, any child routes that belong to this
     /// PrivateConnection will also be deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2508,6 +2525,7 @@ pub struct ListRoutesRequest {
     /// fewer than this value. If unspecified, at most 50 Routes
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListRoutes` call.
@@ -2601,12 +2619,6 @@ impl ListRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [routes][crate::model::ListRoutesResponse::routes].
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
@@ -2615,6 +2627,12 @@ impl ListRoutesResponse {
     {
         use std::iter::Iterator;
         self.routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2747,6 +2765,7 @@ pub struct OracleProfile {
     pub hostname: std::string::String,
 
     /// Port for the Oracle connection, default value is 1521.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the Oracle connection.
@@ -2821,6 +2840,18 @@ impl OracleProfile {
         self
     }
 
+    /// Sets the value of [connection_attributes][crate::model::OracleProfile::connection_attributes].
+    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
     pub fn set_oracle_ssl_config<
         T: std::convert::Into<std::option::Option<crate::model::OracleSslConfig>>,
@@ -2851,18 +2882,6 @@ impl OracleProfile {
         self.secret_manager_stored_password = v.into();
         self
     }
-
-    /// Sets the value of [connection_attributes][crate::model::OracleProfile::connection_attributes].
-    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for OracleProfile {
@@ -2882,6 +2901,7 @@ pub struct OracleAsmConfig {
     pub hostname: std::string::String,
 
     /// Required. Port for the Oracle ASM connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the Oracle ASM connection.
@@ -2949,6 +2969,18 @@ impl OracleAsmConfig {
         self
     }
 
+    /// Sets the value of [connection_attributes][crate::model::OracleAsmConfig::connection_attributes].
+    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
     pub fn set_oracle_ssl_config<
         T: std::convert::Into<std::option::Option<crate::model::OracleSslConfig>>,
@@ -2966,18 +2998,6 @@ impl OracleAsmConfig {
         v: T,
     ) -> Self {
         self.secret_manager_stored_password = v.into();
-        self
-    }
-
-    /// Sets the value of [connection_attributes][crate::model::OracleAsmConfig::connection_attributes].
-    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2999,6 +3019,7 @@ pub struct MysqlProfile {
     pub hostname: std::string::String,
 
     /// Port for the MySQL connection, default value is 3306.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the MySQL connection.
@@ -3090,6 +3111,7 @@ pub struct PostgresqlProfile {
     pub hostname: std::string::String,
 
     /// Port for the PostgreSQL connection, default value is 5432.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the PostgreSQL connection.
@@ -3195,6 +3217,7 @@ pub struct SqlServerProfile {
     pub hostname: std::string::String,
 
     /// Port for the SQLServer connection, default value is 1433.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the SQLServer connection.
@@ -3330,23 +3353,6 @@ impl SalesforceProfile {
         })
     }
 
-    /// The value of [credentials][crate::model::SalesforceProfile::credentials]
-    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oauth2_client_credentials(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.credentials.as_ref().and_then(|v| match v {
-            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
     /// to hold a `UserCredentials`.
     ///
@@ -3362,6 +3368,23 @@ impl SalesforceProfile {
             crate::model::salesforce_profile::Credentials::UserCredentials(v.into()),
         );
         self
+    }
+
+    /// The value of [credentials][crate::model::SalesforceProfile::credentials]
+    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth2_client_credentials(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
@@ -3664,6 +3687,7 @@ pub struct ForwardSshTunnelConnectivity {
     pub username: std::string::String,
 
     /// Port for the SSH tunnel, default value is 22.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -3728,6 +3752,18 @@ impl ForwardSshTunnelConnectivity {
         })
     }
 
+    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
+    /// to hold a `Password`.
+    ///
+    /// Note that all the setters affecting `authentication_method` are
+    /// mutually exclusive.
+    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.authentication_method = std::option::Option::Some(
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
+        );
+        self
+    }
+
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `PrivateKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -3739,18 +3775,6 @@ impl ForwardSshTunnelConnectivity {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
-    /// to hold a `Password`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
@@ -3914,6 +3938,18 @@ impl PrivateConnection {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PrivateConnection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::PrivateConnection::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -3966,18 +4002,6 @@ impl PrivateConnection {
         self.vpc_peering_config = v.into();
         self
     }
-
-    /// Sets the value of [labels][crate::model::PrivateConnection::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for PrivateConnection {
@@ -3992,74 +4016,155 @@ pub mod private_connection {
     use super::*;
 
     /// Private Connection state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state.
+        Unspecified,
+        /// The private connection is in creation state - creating resources.
+        Creating,
+        /// The private connection has been created with all of its resources.
+        Created,
+        /// The private connection creation has failed.
+        Failed,
+        /// The private connection is being deleted.
+        Deleting,
+        /// Delete request has failed, resource is in invalid state.
+        FailedToDelete,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The private connection is in creation state - creating resources.
-        pub const CREATING: State = State::new(1);
-
-        /// The private connection has been created with all of its resources.
-        pub const CREATED: State = State::new(2);
-
-        /// The private connection creation has failed.
-        pub const FAILED: State = State::new(3);
-
-        /// The private connection is being deleted.
-        pub const DELETING: State = State::new(4);
-
-        /// Delete request has failed, resource is in invalid state.
-        pub const FAILED_TO_DELETE: State = State::new(5);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Created => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::FailedToDelete => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("CREATED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                4 => std::borrow::Cow::Borrowed("DELETING"),
-                5 => std::borrow::Cow::Borrowed("FAILED_TO_DELETE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Created => std::option::Option::Some("CREATED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::FailedToDelete => std::option::Option::Some("FAILED_TO_DELETE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "CREATED" => std::option::Option::Some(Self::CREATED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "FAILED_TO_DELETE" => std::option::Option::Some(Self::FAILED_TO_DELETE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Created,
+                3 => Self::Failed,
+                4 => Self::Deleting,
+                5 => Self::FailedToDelete,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "CREATED" => Self::Created,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                "FAILED_TO_DELETE" => Self::FailedToDelete,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Created => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::FailedToDelete => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.datastream.v1.PrivateConnection.State",
+            ))
         }
     }
 }
@@ -4132,6 +4237,7 @@ pub struct Route {
     pub destination_address: std::string::String,
 
     /// Destination port for connection
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub destination_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4167,6 +4273,18 @@ impl Route {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Route::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Route::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4185,18 +4303,6 @@ impl Route {
     /// Sets the value of [destination_port][crate::model::Route::destination_port].
     pub fn set_destination_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.destination_port = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Route::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4220,6 +4326,7 @@ pub struct MysqlSslConfig {
     pub client_key: std::string::String,
 
     /// Output only. Indicates whether the client_key field is set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_key_set: bool,
 
     /// Optional. Input only. PEM-encoded certificate that will be used by the
@@ -4230,6 +4337,7 @@ pub struct MysqlSslConfig {
     pub client_certificate: std::string::String,
 
     /// Output only. Indicates whether the client_certificate field is set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_certificate_set: bool,
 
     /// Input only. PEM-encoded certificate of the CA that signed the source
@@ -4238,6 +4346,7 @@ pub struct MysqlSslConfig {
     pub ca_certificate: std::string::String,
 
     /// Output only. Indicates whether the ca_certificate field is set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ca_certificate_set: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4308,6 +4417,7 @@ pub struct OracleSslConfig {
 
     /// Output only. Indicates whether the ca_certificate field has been set for
     /// this Connection-Profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ca_certificate_set: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4394,23 +4504,6 @@ impl PostgresqlSslConfig {
         })
     }
 
-    /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
-    /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn server_and_client_verification(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.encryption_setting.as_ref().and_then(|v| match v {
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// to hold a `ServerVerification`.
     ///
@@ -4428,6 +4521,23 @@ impl PostgresqlSslConfig {
             crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(v.into()),
         );
         self
+    }
+
+    /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
+    /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn server_and_client_verification(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.encryption_setting.as_ref().and_then(|v| match v {
+            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
@@ -4667,6 +4777,18 @@ impl ConnectionProfile {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::ConnectionProfile::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4688,18 +4810,6 @@ impl ConnectionProfile {
         v: T,
     ) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -4732,94 +4842,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `GcsProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gcs_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::GcsProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `MysqlProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::MysqlProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `BigqueryProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bigquery_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::BigqueryProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `PostgresqlProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::PostgresqlProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `SqlServerProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::SqlServerProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `SalesforceProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::SalesforceProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `OracleProfile`.
     ///
@@ -4837,6 +4859,19 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `GcsProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::GcsProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `GcsProfile`.
     ///
@@ -4852,6 +4887,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `MysqlProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::MysqlProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `MysqlProfile`.
     ///
@@ -4865,6 +4915,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::Profile::MysqlProfile(v.into()),
         );
         self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `BigqueryProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::BigqueryProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
@@ -4884,6 +4949,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `PostgresqlProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::PostgresqlProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `PostgresqlProfile`.
     ///
@@ -4901,6 +4981,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SqlServerProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SqlServerProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `SqlServerProfile`.
     ///
@@ -4916,6 +5011,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::Profile::SqlServerProfile(v.into()),
         );
         self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SalesforceProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SalesforceProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
@@ -4964,36 +5074,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn forward_ssh_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn private_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::PrivateConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// to hold a `StaticServiceIpConnectivity`.
     ///
@@ -5011,6 +5091,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
+    /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn forward_ssh_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// to hold a `ForwardSshConnectivity`.
     ///
@@ -5026,6 +5121,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v.into()),
         );
         self
+    }
+
+    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
+    /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn private_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Connectivity::PrivateConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
@@ -5107,12 +5217,15 @@ pub struct OracleColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Column encoding.
@@ -5120,12 +5233,15 @@ pub struct OracleColumn {
     pub encoding: std::string::String,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5347,10 +5463,12 @@ pub struct OracleSourceConfig {
 
     /// Maximum number of concurrent CDC tasks. The number should be non-negative.
     /// If not set (or set to 0), the system's default value is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Maximum number of concurrent backfill tasks. The number should be
     /// non-negative. If not set (or set to 0), the system's default value is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// The configuration for handle Oracle large objects.
@@ -5437,22 +5555,6 @@ impl OracleSourceConfig {
         })
     }
 
-    /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
-    /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn stream_large_objects(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>
-    {
-        #[allow(unreachable_patterns)]
-        self.large_objects_handling.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// to hold a `DropLargeObjects`.
     ///
@@ -5468,6 +5570,22 @@ impl OracleSourceConfig {
             crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(v.into()),
         );
         self
+    }
+
+    /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
+    /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn stream_large_objects(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>
+    {
+        #[allow(unreachable_patterns)]
+        self.large_objects_handling.as_ref().and_then(|v| match v {
+            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
@@ -5516,22 +5634,6 @@ impl OracleSourceConfig {
         })
     }
 
-    /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
-    /// if it holds a `BinaryLogParser`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn binary_log_parser(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>
-    {
-        #[allow(unreachable_patterns)]
-        self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// to hold a `LogMiner`.
     ///
@@ -5547,6 +5649,22 @@ impl OracleSourceConfig {
             crate::model::oracle_source_config::CdcMethod::LogMiner(v.into()),
         );
         self
+    }
+
+    /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
+    /// if it holds a `BinaryLogParser`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn binary_log_parser(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cdc_method.as_ref().and_then(|v| match v {
+            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
@@ -5700,6 +5818,20 @@ pub mod oracle_source_config {
             })
         }
 
+        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
+        /// to hold a `OracleAsmLogFileAccess`.
+        ///
+        /// Note that all the setters affecting `log_file_access` are
+        /// mutually exclusive.
+        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
+            self.log_file_access = std::option::Option::Some(
+                crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
+                    v.into()
+                )
+            );
+            self
+        }
+
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `LogFileDirectories`, `None` if the field is not set or
         /// holds a different branch.
@@ -5715,20 +5847,6 @@ pub mod oracle_source_config {
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::LogFileDirectories(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
-        /// to hold a `OracleAsmLogFileAccess`.
-        ///
-        /// Note that all the setters affecting `log_file_access` are
-        /// mutually exclusive.
-        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
-            self.log_file_access = std::option::Option::Some(
-                crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
-                    v.into()
-                )
-            );
-            self
         }
 
         /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
@@ -5894,21 +6012,27 @@ pub struct PostgresqlColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6135,6 +6259,7 @@ pub struct PostgresqlSourceConfig {
     /// Maximum number of concurrent backfill tasks. The number should be non
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6211,21 +6336,27 @@ pub struct SqlServerColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6440,9 +6571,11 @@ pub struct SqlServerSourceConfig {
     pub exclude_objects: std::option::Option<crate::model::SqlServerRdbms>,
 
     /// Max concurrent CDC tasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Max concurrent backfill tasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// Configuration to select the CDC read method for the stream.
@@ -6521,21 +6654,6 @@ impl SqlServerSourceConfig {
         })
     }
 
-    /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
-    /// if it holds a `ChangeTables`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn change_tables(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
-        #[allow(unreachable_patterns)]
-        self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// to hold a `TransactionLogs`.
     ///
@@ -6551,6 +6669,21 @@ impl SqlServerSourceConfig {
             crate::model::sql_server_source_config::CdcMethod::TransactionLogs(v.into()),
         );
         self
+    }
+
+    /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
+    /// if it holds a `ChangeTables`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn change_tables(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
+        #[allow(unreachable_patterns)]
+        self.cdc_method.as_ref().and_then(|v| match v {
+            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
@@ -6654,6 +6787,7 @@ pub struct MysqlColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column collation.
@@ -6661,18 +6795,23 @@ pub struct MysqlColumn {
     pub collation: std::string::String,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6894,11 +7033,13 @@ pub struct MysqlSourceConfig {
 
     /// Maximum number of concurrent CDC tasks. The number should be non negative.
     /// If not set (or set to 0), the system's default value will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Maximum number of concurrent backfill tasks. The number should be non
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// The CDC method to use for the stream.
@@ -6978,19 +7119,6 @@ impl MysqlSourceConfig {
         })
     }
 
-    /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
-    /// if it holds a `Gtid`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gtid(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
-        #[allow(unreachable_patterns)]
-        self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::mysql_source_config::CdcMethod::Gtid(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// to hold a `BinaryLogPosition`.
     ///
@@ -7006,6 +7134,19 @@ impl MysqlSourceConfig {
             crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(v.into()),
         );
         self
+    }
+
+    /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
+    /// if it holds a `Gtid`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gtid(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
+        #[allow(unreachable_patterns)]
+        self.cdc_method.as_ref().and_then(|v| match v {
+            crate::model::mysql_source_config::CdcMethod::Gtid(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
@@ -7261,6 +7402,7 @@ pub struct SalesforceField {
     pub data_type: std::string::String,
 
     /// Indicates whether the field can accept nil values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nillable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7359,66 +7501,6 @@ impl SourceConfig {
         })
     }
 
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `PostgresqlSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `OracleSourceConfig`.
     ///
@@ -7434,6 +7516,21 @@ impl SourceConfig {
             crate::model::source_config::SourceStreamConfig::OracleSourceConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
@@ -7453,6 +7550,21 @@ impl SourceConfig {
         self
     }
 
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `PostgresqlSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `PostgresqlSourceConfig`.
     ///
@@ -7470,6 +7582,21 @@ impl SourceConfig {
         self
     }
 
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `SqlServerSourceConfig`.
     ///
@@ -7485,6 +7612,21 @@ impl SourceConfig {
             crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
@@ -7612,120 +7754,266 @@ pub mod json_file_format {
     use super::*;
 
     /// Schema file format.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SchemaFileFormat(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SchemaFileFormat {
+        /// Unspecified schema file format.
+        Unspecified,
+        /// Do not attach schema file.
+        NoSchemaFile,
+        /// Avro schema format.
+        AvroSchemaFile,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SchemaFileFormat::value] or
+        /// [SchemaFileFormat::name].
+        UnknownValue(schema_file_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod schema_file_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl SchemaFileFormat {
-        /// Unspecified schema file format.
-        pub const SCHEMA_FILE_FORMAT_UNSPECIFIED: SchemaFileFormat = SchemaFileFormat::new(0);
-
-        /// Do not attach schema file.
-        pub const NO_SCHEMA_FILE: SchemaFileFormat = SchemaFileFormat::new(1);
-
-        /// Avro schema format.
-        pub const AVRO_SCHEMA_FILE: SchemaFileFormat = SchemaFileFormat::new(2);
-
-        /// Creates a new SchemaFileFormat instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoSchemaFile => std::option::Option::Some(1),
+                Self::AvroSchemaFile => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SCHEMA_FILE_FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NO_SCHEMA_FILE"),
-                2 => std::borrow::Cow::Borrowed("AVRO_SCHEMA_FILE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCHEMA_FILE_FORMAT_UNSPECIFIED"),
+                Self::NoSchemaFile => std::option::Option::Some("NO_SCHEMA_FILE"),
+                Self::AvroSchemaFile => std::option::Option::Some("AVRO_SCHEMA_FILE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SCHEMA_FILE_FORMAT_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::SCHEMA_FILE_FORMAT_UNSPECIFIED)
-                }
-                "NO_SCHEMA_FILE" => std::option::Option::Some(Self::NO_SCHEMA_FILE),
-                "AVRO_SCHEMA_FILE" => std::option::Option::Some(Self::AVRO_SCHEMA_FILE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SchemaFileFormat {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SchemaFileFormat {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SchemaFileFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SchemaFileFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoSchemaFile,
+                2 => Self::AvroSchemaFile,
+                _ => Self::UnknownValue(schema_file_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SchemaFileFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCHEMA_FILE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "NO_SCHEMA_FILE" => Self::NoSchemaFile,
+                "AVRO_SCHEMA_FILE" => Self::AvroSchemaFile,
+                _ => Self::UnknownValue(schema_file_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SchemaFileFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoSchemaFile => serializer.serialize_i32(1),
+                Self::AvroSchemaFile => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SchemaFileFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SchemaFileFormat>::new(
+                ".google.cloud.datastream.v1.JsonFileFormat.SchemaFileFormat",
+            ))
         }
     }
 
     /// Json file compression.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JsonCompression(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum JsonCompression {
+        /// Unspecified json file compression.
+        Unspecified,
+        /// Do not compress JSON file.
+        NoCompression,
+        /// Gzip compression.
+        Gzip,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [JsonCompression::value] or
+        /// [JsonCompression::name].
+        UnknownValue(json_compression::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod json_compression {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl JsonCompression {
-        /// Unspecified json file compression.
-        pub const JSON_COMPRESSION_UNSPECIFIED: JsonCompression = JsonCompression::new(0);
-
-        /// Do not compress JSON file.
-        pub const NO_COMPRESSION: JsonCompression = JsonCompression::new(1);
-
-        /// Gzip compression.
-        pub const GZIP: JsonCompression = JsonCompression::new(2);
-
-        /// Creates a new JsonCompression instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoCompression => std::option::Option::Some(1),
+                Self::Gzip => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("JSON_COMPRESSION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NO_COMPRESSION"),
-                2 => std::borrow::Cow::Borrowed("GZIP"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("JSON_COMPRESSION_UNSPECIFIED"),
+                Self::NoCompression => std::option::Option::Some("NO_COMPRESSION"),
+                Self::Gzip => std::option::Option::Some("GZIP"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "JSON_COMPRESSION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::JSON_COMPRESSION_UNSPECIFIED)
-                }
-                "NO_COMPRESSION" => std::option::Option::Some(Self::NO_COMPRESSION),
-                "GZIP" => std::option::Option::Some(Self::GZIP),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for JsonCompression {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for JsonCompression {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for JsonCompression {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for JsonCompression {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoCompression,
+                2 => Self::Gzip,
+                _ => Self::UnknownValue(json_compression::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for JsonCompression {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "JSON_COMPRESSION_UNSPECIFIED" => Self::Unspecified,
+                "NO_COMPRESSION" => Self::NoCompression,
+                "GZIP" => Self::Gzip,
+                _ => Self::UnknownValue(json_compression::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for JsonCompression {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoCompression => serializer.serialize_i32(1),
+                Self::Gzip => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for JsonCompression {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<JsonCompression>::new(
+                ".google.cloud.datastream.v1.JsonFileFormat.JsonCompression",
+            ))
         }
     }
 }
@@ -7741,6 +8029,7 @@ pub struct GcsDestinationConfig {
     pub path: std::string::String,
 
     /// The maximum file size to be saved in the bucket.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_rotation_mb: i32,
 
     /// The maximum duration for which new events are added before a file is
@@ -7812,21 +8101,6 @@ impl GcsDestinationConfig {
         })
     }
 
-    /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
-    /// if it holds a `JsonFileFormat`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn json_file_format(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
-        #[allow(unreachable_patterns)]
-        self.file_format.as_ref().and_then(|v| match v {
-            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// to hold a `AvroFileFormat`.
     ///
@@ -7842,6 +8116,21 @@ impl GcsDestinationConfig {
             crate::model::gcs_destination_config::FileFormat::AvroFileFormat(v.into()),
         );
         self
+    }
+
+    /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
+    /// if it holds a `JsonFileFormat`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn json_file_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
+        #[allow(unreachable_patterns)]
+        self.file_format.as_ref().and_then(|v| match v {
+            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format]
@@ -7974,23 +8263,6 @@ impl BigQueryDestinationConfig {
         })
     }
 
-    /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
-    /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_hierarchy_datasets(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.dataset_config.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// to hold a `SingleTargetDataset`.
     ///
@@ -8010,6 +8282,23 @@ impl BigQueryDestinationConfig {
             ),
         );
         self
+    }
+
+    /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
+    /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_hierarchy_datasets(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.dataset_config.as_ref().and_then(|v| match v {
+            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
@@ -8067,22 +8356,6 @@ impl BigQueryDestinationConfig {
         })
     }
 
-    /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
-    /// if it holds a `AppendOnly`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn append_only(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>
-    {
-        #[allow(unreachable_patterns)]
-        self.write_mode.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::WriteMode::AppendOnly(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// to hold a `Merge`.
     ///
@@ -8098,6 +8371,22 @@ impl BigQueryDestinationConfig {
             crate::model::big_query_destination_config::WriteMode::Merge(v.into()),
         );
         self
+    }
+
+    /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
+    /// if it holds a `AppendOnly`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn append_only(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>
+    {
+        #[allow(unreachable_patterns)]
+        self.write_mode.as_ref().and_then(|v| match v {
+            crate::model::big_query_destination_config::WriteMode::AppendOnly(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
@@ -8367,110 +8656,258 @@ pub mod big_query_destination_config {
         use super::*;
 
         /// Supported file formats for BigLake managed tables.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FileFormat(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum FileFormat {
+            /// Default value.
+            Unspecified,
+            /// Parquet file format.
+            Parquet,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [FileFormat::value] or
+            /// [FileFormat::name].
+            UnknownValue(file_format::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod file_format {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl FileFormat {
-            /// Default value.
-            pub const FILE_FORMAT_UNSPECIFIED: FileFormat = FileFormat::new(0);
-
-            /// Parquet file format.
-            pub const PARQUET: FileFormat = FileFormat::new(1);
-
-            /// Creates a new FileFormat instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Parquet => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("FILE_FORMAT_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PARQUET"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("FILE_FORMAT_UNSPECIFIED"),
+                    Self::Parquet => std::option::Option::Some("PARQUET"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "FILE_FORMAT_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::FILE_FORMAT_UNSPECIFIED)
-                    }
-                    "PARQUET" => std::option::Option::Some(Self::PARQUET),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for FileFormat {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for FileFormat {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for FileFormat {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for FileFormat {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Parquet,
+                    _ => Self::UnknownValue(file_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for FileFormat {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "FILE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                    "PARQUET" => Self::Parquet,
+                    _ => Self::UnknownValue(file_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for FileFormat {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Parquet => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for FileFormat {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileFormat>::new(
+                    ".google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig.FileFormat",
+                ))
             }
         }
 
         /// Supported table formats for BigLake managed tables.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TableFormat(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum TableFormat {
+            /// Default value.
+            Unspecified,
+            /// Iceberg table format.
+            Iceberg,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [TableFormat::value] or
+            /// [TableFormat::name].
+            UnknownValue(table_format::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod table_format {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl TableFormat {
-            /// Default value.
-            pub const TABLE_FORMAT_UNSPECIFIED: TableFormat = TableFormat::new(0);
-
-            /// Iceberg table format.
-            pub const ICEBERG: TableFormat = TableFormat::new(1);
-
-            /// Creates a new TableFormat instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Iceberg => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TABLE_FORMAT_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("ICEBERG"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TABLE_FORMAT_UNSPECIFIED"),
+                    Self::Iceberg => std::option::Option::Some("ICEBERG"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TABLE_FORMAT_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::TABLE_FORMAT_UNSPECIFIED)
-                    }
-                    "ICEBERG" => std::option::Option::Some(Self::ICEBERG),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for TableFormat {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for TableFormat {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for TableFormat {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for TableFormat {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Iceberg,
+                    _ => Self::UnknownValue(table_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for TableFormat {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TABLE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                    "ICEBERG" => Self::Iceberg,
+                    _ => Self::UnknownValue(table_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for TableFormat {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Iceberg => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TableFormat {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<TableFormat>::new(
+                    ".google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig.TableFormat",
+                ))
             }
         }
     }
@@ -8614,19 +9051,6 @@ impl DestinationConfig {
             })
     }
 
-    /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
-    /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bigquery_destination_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
-        #[allow(unreachable_patterns)]
-        self.destination_stream_config.as_ref().and_then(|v| match v {
-            crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// to hold a `GcsDestinationConfig`.
     ///
@@ -8644,6 +9068,19 @@ impl DestinationConfig {
             ),
         );
         self
+    }
+
+    /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
+    /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_destination_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
+        #[allow(unreachable_patterns)]
+        self.destination_stream_config.as_ref().and_then(|v| match v {
+            crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
@@ -8787,6 +9224,18 @@ impl Stream {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Stream::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Stream::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -8818,6 +9267,17 @@ impl Stream {
     /// Sets the value of [state][crate::model::Stream::state].
     pub fn set_state<T: std::convert::Into<crate::model::stream::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::Stream::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Error>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8859,29 +9319,6 @@ impl Stream {
         self
     }
 
-    /// Sets the value of [errors][crate::model::Stream::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Stream::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy].
     ///
     /// Note that all the setters affecting `backfill_strategy` are mutually
@@ -8909,19 +9346,6 @@ impl Stream {
         })
     }
 
-    /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
-    /// if it holds a `BackfillNone`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn backfill_none(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
-        #[allow(unreachable_patterns)]
-        self.backfill_strategy.as_ref().and_then(|v| match v {
-            crate::model::stream::BackfillStrategy::BackfillNone(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// to hold a `BackfillAll`.
     ///
@@ -8937,6 +9361,19 @@ impl Stream {
             crate::model::stream::BackfillStrategy::BackfillAll(v.into()),
         );
         self
+    }
+
+    /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
+    /// if it holds a `BackfillNone`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backfill_none(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
+        #[allow(unreachable_patterns)]
+        self.backfill_strategy.as_ref().and_then(|v| match v {
+            crate::model::stream::BackfillStrategy::BackfillNone(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy]
@@ -9020,58 +9457,6 @@ pub mod stream {
             })
         }
 
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn mysql_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `PostgresqlExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn postgresql_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn sql_server_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn salesforce_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `OracleExcludedObjects`.
         ///
@@ -9089,6 +9474,19 @@ pub mod stream {
                 ),
             );
             self
+        }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn mysql_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
@@ -9110,6 +9508,19 @@ pub mod stream {
             self
         }
 
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `PostgresqlExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn postgresql_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `PostgresqlExcludedObjects`.
         ///
@@ -9129,6 +9540,19 @@ pub mod stream {
             self
         }
 
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sql_server_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `SqlServerExcludedObjects`.
         ///
@@ -9146,6 +9570,19 @@ pub mod stream {
                 )
             );
             self
+        }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn salesforce_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
@@ -9220,93 +9657,180 @@ pub mod stream {
     }
 
     /// Stream state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified stream state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The stream has been created but has not yet started streaming data.
-        pub const NOT_STARTED: State = State::new(1);
-
+        NotStarted,
         /// The stream is running.
-        pub const RUNNING: State = State::new(2);
-
+        Running,
         /// The stream is paused.
-        pub const PAUSED: State = State::new(3);
-
+        Paused,
         /// The stream is in maintenance mode.
         ///
         /// Updates are rejected on the resource in this state.
-        pub const MAINTENANCE: State = State::new(4);
-
+        Maintenance,
         /// The stream is experiencing an error that is preventing data from being
         /// streamed.
-        pub const FAILED: State = State::new(5);
-
+        Failed,
         /// The stream has experienced a terminal failure.
-        pub const FAILED_PERMANENTLY: State = State::new(6);
-
+        FailedPermanently,
         /// The stream is starting, but not yet running.
-        pub const STARTING: State = State::new(7);
-
+        Starting,
         /// The Stream is no longer reading new events, but still writing events in
         /// the buffer.
-        pub const DRAINING: State = State::new(8);
+        Draining,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotStarted => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Paused => std::option::Option::Some(3),
+                Self::Maintenance => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::FailedPermanently => std::option::Option::Some(6),
+                Self::Starting => std::option::Option::Some(7),
+                Self::Draining => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NOT_STARTED"),
-                2 => std::borrow::Cow::Borrowed("RUNNING"),
-                3 => std::borrow::Cow::Borrowed("PAUSED"),
-                4 => std::borrow::Cow::Borrowed("MAINTENANCE"),
-                5 => std::borrow::Cow::Borrowed("FAILED"),
-                6 => std::borrow::Cow::Borrowed("FAILED_PERMANENTLY"),
-                7 => std::borrow::Cow::Borrowed("STARTING"),
-                8 => std::borrow::Cow::Borrowed("DRAINING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::NotStarted => std::option::Option::Some("NOT_STARTED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Paused => std::option::Option::Some("PAUSED"),
+                Self::Maintenance => std::option::Option::Some("MAINTENANCE"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::FailedPermanently => std::option::Option::Some("FAILED_PERMANENTLY"),
+                Self::Starting => std::option::Option::Some("STARTING"),
+                Self::Draining => std::option::Option::Some("DRAINING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "NOT_STARTED" => std::option::Option::Some(Self::NOT_STARTED),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "PAUSED" => std::option::Option::Some(Self::PAUSED),
-                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "FAILED_PERMANENTLY" => std::option::Option::Some(Self::FAILED_PERMANENTLY),
-                "STARTING" => std::option::Option::Some(Self::STARTING),
-                "DRAINING" => std::option::Option::Some(Self::DRAINING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotStarted,
+                2 => Self::Running,
+                3 => Self::Paused,
+                4 => Self::Maintenance,
+                5 => Self::Failed,
+                6 => Self::FailedPermanently,
+                7 => Self::Starting,
+                8 => Self::Draining,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "NOT_STARTED" => Self::NotStarted,
+                "RUNNING" => Self::Running,
+                "PAUSED" => Self::Paused,
+                "MAINTENANCE" => Self::Maintenance,
+                "FAILED" => Self::Failed,
+                "FAILED_PERMANENTLY" => Self::FailedPermanently,
+                "STARTING" => Self::Starting,
+                "DRAINING" => Self::Draining,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotStarted => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Paused => serializer.serialize_i32(3),
+                Self::Maintenance => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::FailedPermanently => serializer.serialize_i32(6),
+                Self::Starting => serializer.serialize_i32(7),
+                Self::Draining => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.datastream.v1.Stream.State",
+            ))
         }
     }
 
@@ -9396,6 +9920,17 @@ impl StreamObject {
         self
     }
 
+    /// Sets the value of [errors][crate::model::StreamObject::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Error>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [backfill_job][crate::model::StreamObject::backfill_job].
     pub fn set_backfill_job<
         T: std::convert::Into<std::option::Option<crate::model::BackfillJob>>,
@@ -9415,17 +9950,6 @@ impl StreamObject {
         v: T,
     ) -> Self {
         self.source_object = v.into();
-        self
-    }
-
-    /// Sets the value of [errors][crate::model::StreamObject::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9489,74 +10013,6 @@ impl SourceObjectIdentifier {
         })
     }
 
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `PostgresqlIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `OracleIdentifier`.
     ///
@@ -9576,6 +10032,23 @@ impl SourceObjectIdentifier {
         self
     }
 
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `MysqlIdentifier`.
     ///
@@ -9593,6 +10066,23 @@ impl SourceObjectIdentifier {
             crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v.into()),
         );
         self
+    }
+
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `PostgresqlIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
@@ -9616,6 +10106,23 @@ impl SourceObjectIdentifier {
         self
     }
 
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `SqlServerIdentifier`.
     ///
@@ -9633,6 +10140,23 @@ impl SourceObjectIdentifier {
             crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v.into()),
         );
         self
+    }
+
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
@@ -9989,145 +10513,305 @@ pub mod backfill_job {
     use super::*;
 
     /// State of the stream object's backfill job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Backfill job was never started for the stream object (stream has backfill
         /// strategy defined as manual or object was explicitly excluded from
         /// automatic backfill).
-        pub const NOT_STARTED: State = State::new(1);
-
+        NotStarted,
         /// Backfill job will start pending available resources.
-        pub const PENDING: State = State::new(2);
-
+        Pending,
         /// Backfill job is running.
-        pub const ACTIVE: State = State::new(3);
-
+        Active,
         /// Backfill job stopped (next job run will start from beginning).
-        pub const STOPPED: State = State::new(4);
-
+        Stopped,
         /// Backfill job failed (due to an error).
-        pub const FAILED: State = State::new(5);
-
+        Failed,
         /// Backfill completed successfully.
-        pub const COMPLETED: State = State::new(6);
-
+        Completed,
         /// Backfill job failed since the table structure is currently unsupported
         /// for backfill.
-        pub const UNSUPPORTED: State = State::new(7);
+        Unsupported,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotStarted => std::option::Option::Some(1),
+                Self::Pending => std::option::Option::Some(2),
+                Self::Active => std::option::Option::Some(3),
+                Self::Stopped => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::Completed => std::option::Option::Some(6),
+                Self::Unsupported => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NOT_STARTED"),
-                2 => std::borrow::Cow::Borrowed("PENDING"),
-                3 => std::borrow::Cow::Borrowed("ACTIVE"),
-                4 => std::borrow::Cow::Borrowed("STOPPED"),
-                5 => std::borrow::Cow::Borrowed("FAILED"),
-                6 => std::borrow::Cow::Borrowed("COMPLETED"),
-                7 => std::borrow::Cow::Borrowed("UNSUPPORTED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::NotStarted => std::option::Option::Some("NOT_STARTED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Stopped => std::option::Option::Some("STOPPED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Completed => std::option::Option::Some("COMPLETED"),
+                Self::Unsupported => std::option::Option::Some("UNSUPPORTED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "NOT_STARTED" => std::option::Option::Some(Self::NOT_STARTED),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "STOPPED" => std::option::Option::Some(Self::STOPPED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "COMPLETED" => std::option::Option::Some(Self::COMPLETED),
-                "UNSUPPORTED" => std::option::Option::Some(Self::UNSUPPORTED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotStarted,
+                2 => Self::Pending,
+                3 => Self::Active,
+                4 => Self::Stopped,
+                5 => Self::Failed,
+                6 => Self::Completed,
+                7 => Self::Unsupported,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "NOT_STARTED" => Self::NotStarted,
+                "PENDING" => Self::Pending,
+                "ACTIVE" => Self::Active,
+                "STOPPED" => Self::Stopped,
+                "FAILED" => Self::Failed,
+                "COMPLETED" => Self::Completed,
+                "UNSUPPORTED" => Self::Unsupported,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotStarted => serializer.serialize_i32(1),
+                Self::Pending => serializer.serialize_i32(2),
+                Self::Active => serializer.serialize_i32(3),
+                Self::Stopped => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::Completed => serializer.serialize_i32(6),
+                Self::Unsupported => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.datastream.v1.BackfillJob.State",
+            ))
         }
     }
 
     /// Triggering reason for a backfill job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Trigger(i32);
-
-    impl Trigger {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Trigger {
         /// Default value.
-        pub const TRIGGER_UNSPECIFIED: Trigger = Trigger::new(0);
-
+        Unspecified,
         /// Object backfill job was triggered automatically according to the stream's
         /// backfill strategy.
-        pub const AUTOMATIC: Trigger = Trigger::new(1);
-
+        Automatic,
         /// Object backfill job was triggered manually using the dedicated API.
-        pub const MANUAL: Trigger = Trigger::new(2);
+        Manual,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Trigger::value] or
+        /// [Trigger::name].
+        UnknownValue(trigger::UnknownValue),
+    }
 
-        /// Creates a new Trigger instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod trigger {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Trigger {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Automatic => std::option::Option::Some(1),
+                Self::Manual => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TRIGGER_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("AUTOMATIC"),
-                2 => std::borrow::Cow::Borrowed("MANUAL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRIGGER_UNSPECIFIED"),
+                Self::Automatic => std::option::Option::Some("AUTOMATIC"),
+                Self::Manual => std::option::Option::Some("MANUAL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TRIGGER_UNSPECIFIED" => std::option::Option::Some(Self::TRIGGER_UNSPECIFIED),
-                "AUTOMATIC" => std::option::Option::Some(Self::AUTOMATIC),
-                "MANUAL" => std::option::Option::Some(Self::MANUAL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Trigger {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Trigger {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Trigger {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Trigger {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Automatic,
+                2 => Self::Manual,
+                _ => Self::UnknownValue(trigger::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Trigger {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRIGGER_UNSPECIFIED" => Self::Unspecified,
+                "AUTOMATIC" => Self::Automatic,
+                "MANUAL" => Self::Manual,
+                _ => Self::UnknownValue(trigger::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Trigger {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Automatic => serializer.serialize_i32(1),
+                Self::Manual => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Trigger {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Trigger>::new(
+                ".google.cloud.datastream.v1.BackfillJob.Trigger",
+            ))
         }
     }
 }
@@ -10297,12 +10981,6 @@ impl Validation {
         self
     }
 
-    /// Sets the value of [code][crate::model::Validation::code].
-    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.code = v.into();
-        self
-    }
-
     /// Sets the value of [message][crate::model::Validation::message].
     pub fn set_message<T, V>(mut self, v: T) -> Self
     where
@@ -10311,6 +10989,12 @@ impl Validation {
     {
         use std::iter::Iterator;
         self.message = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [code][crate::model::Validation::code].
+    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code = v.into();
         self
     }
 }
@@ -10327,69 +11011,148 @@ pub mod validation {
     use super::*;
 
     /// Validation execution state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state.
+        Unspecified,
+        /// Validation did not execute.
+        NotExecuted,
+        /// Validation failed.
+        Failed,
+        /// Validation passed.
+        Passed,
+        /// Validation executed with warnings.
+        Warning,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Validation did not execute.
-        pub const NOT_EXECUTED: State = State::new(1);
-
-        /// Validation failed.
-        pub const FAILED: State = State::new(2);
-
-        /// Validation passed.
-        pub const PASSED: State = State::new(3);
-
-        /// Validation executed with warnings.
-        pub const WARNING: State = State::new(4);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotExecuted => std::option::Option::Some(1),
+                Self::Failed => std::option::Option::Some(2),
+                Self::Passed => std::option::Option::Some(3),
+                Self::Warning => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NOT_EXECUTED"),
-                2 => std::borrow::Cow::Borrowed("FAILED"),
-                3 => std::borrow::Cow::Borrowed("PASSED"),
-                4 => std::borrow::Cow::Borrowed("WARNING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::NotExecuted => std::option::Option::Some("NOT_EXECUTED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Passed => std::option::Option::Some("PASSED"),
+                Self::Warning => std::option::Option::Some("WARNING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "NOT_EXECUTED" => std::option::Option::Some(Self::NOT_EXECUTED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "PASSED" => std::option::Option::Some(Self::PASSED),
-                "WARNING" => std::option::Option::Some(Self::WARNING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotExecuted,
+                2 => Self::Failed,
+                3 => Self::Passed,
+                4 => Self::Warning,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "NOT_EXECUTED" => Self::NotExecuted,
+                "FAILED" => Self::Failed,
+                "PASSED" => Self::Passed,
+                "WARNING" => Self::Warning,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotExecuted => serializer.serialize_i32(1),
+                Self::Failed => serializer.serialize_i32(2),
+                Self::Passed => serializer.serialize_i32(3),
+                Self::Warning => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.datastream.v1.Validation.State",
+            ))
         }
     }
 }
@@ -10439,12 +11202,6 @@ impl ValidationMessage {
         self
     }
 
-    /// Sets the value of [code][crate::model::ValidationMessage::code].
-    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.code = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::ValidationMessage::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -10454,6 +11211,12 @@ impl ValidationMessage {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [code][crate::model::ValidationMessage::code].
+    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code = v.into();
         self
     }
 }
@@ -10470,59 +11233,134 @@ pub mod validation_message {
     use super::*;
 
     /// Validation message level.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Level(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Level {
+        /// Unspecified level.
+        Unspecified,
+        /// Potentially cause issues with the Stream.
+        Warning,
+        /// Definitely cause issues with the Stream.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Level::value] or
+        /// [Level::name].
+        UnknownValue(level::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod level {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Level {
-        /// Unspecified level.
-        pub const LEVEL_UNSPECIFIED: Level = Level::new(0);
-
-        /// Potentially cause issues with the Stream.
-        pub const WARNING: Level = Level::new(1);
-
-        /// Definitely cause issues with the Stream.
-        pub const ERROR: Level = Level::new(2);
-
-        /// Creates a new Level instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Warning => std::option::Option::Some(1),
+                Self::Error => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("LEVEL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("WARNING"),
-                2 => std::borrow::Cow::Borrowed("ERROR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("LEVEL_UNSPECIFIED"),
+                Self::Warning => std::option::Option::Some("WARNING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_UNSPECIFIED),
-                "WARNING" => std::option::Option::Some(Self::WARNING),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Level {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Level {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Level {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Level {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Warning,
+                2 => Self::Error,
+                _ => Self::UnknownValue(level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Level {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LEVEL_UNSPECIFIED" => Self::Unspecified,
+                "WARNING" => Self::Warning,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Level {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Warning => serializer.serialize_i32(1),
+                Self::Error => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Level {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Level>::new(
+                ".google.cloud.datastream.v1.ValidationMessage.Level",
+            ))
         }
     }
 }
@@ -10578,38 +11416,6 @@ impl CdcStrategy {
         })
     }
 
-    /// The value of [start_position][crate::model::CdcStrategy::start_position]
-    /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn next_available_start_position(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>
-    {
-        #[allow(unreachable_patterns)]
-        self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [start_position][crate::model::CdcStrategy::start_position]
-    /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn specific_start_position(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>
-    {
-        #[allow(unreachable_patterns)]
-        self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
     /// to hold a `MostRecentStartPosition`.
     ///
@@ -10627,6 +11433,22 @@ impl CdcStrategy {
         self
     }
 
+    /// The value of [start_position][crate::model::CdcStrategy::start_position]
+    /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn next_available_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>
+    {
+        #[allow(unreachable_patterns)]
+        self.start_position.as_ref().and_then(|v| match v {
+            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
     /// to hold a `NextAvailableStartPosition`.
     ///
@@ -10642,6 +11464,22 @@ impl CdcStrategy {
             crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v.into()),
         );
         self
+    }
+
+    /// The value of [start_position][crate::model::CdcStrategy::start_position]
+    /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn specific_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>
+    {
+        #[allow(unreachable_patterns)]
+        self.start_position.as_ref().and_then(|v| match v {
+            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
@@ -10771,45 +11609,6 @@ pub mod cdc_strategy {
             })
         }
 
-        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// if it holds a `OracleScnPosition`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn oracle_scn_position(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
-            #[allow(unreachable_patterns)]
-            self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// if it holds a `SqlServerLsnPosition`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn sql_server_lsn_position(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
-            #[allow(unreachable_patterns)]
-            self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn mysql_gtid_position(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
-            #[allow(unreachable_patterns)]
-            self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// to hold a `MysqlLogPosition`.
         ///
@@ -10827,6 +11626,19 @@ pub mod cdc_strategy {
                 ),
             );
             self
+        }
+
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `OracleScnPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn oracle_scn_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
@@ -10848,6 +11660,19 @@ pub mod cdc_strategy {
             self
         }
 
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `SqlServerLsnPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sql_server_lsn_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// to hold a `SqlServerLsnPosition`.
         ///
@@ -10865,6 +11690,19 @@ pub mod cdc_strategy {
                 ),
             );
             self
+        }
+
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn mysql_gtid_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
@@ -10973,6 +11811,7 @@ impl wkt::message::Message for SqlServerLsnPosition {
 #[non_exhaustive]
 pub struct OracleScnPosition {
     /// Required. SCN number from where Logs will be read
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub scn: i64,
 

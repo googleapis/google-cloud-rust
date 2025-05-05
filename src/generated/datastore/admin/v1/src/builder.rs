@@ -16,7 +16,6 @@
 
 pub mod datastore_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DatastoreAdmin][super::super::client::DatastoreAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod datastore_admin {
     /// Common implementation for [super::super::client::DatastoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod datastore_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod datastore_admin {
     pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
 
     impl ExportEntities {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -138,8 +141,21 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -153,19 +169,10 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [output_url_prefix][crate::model::ExportEntitiesRequest::output_url_prefix].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_output_url_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.output_url_prefix = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -182,7 +189,9 @@ pub mod datastore_admin {
     pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
 
     impl ImportEntities {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -242,23 +251,10 @@ pub mod datastore_admin {
         }
 
         /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
-            self
-        }
-
-        /// Sets the value of [input_url][crate::model::ImportEntitiesRequest::input_url].
-        pub fn set_input_url<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.input_url = v.into();
-            self
-        }
-
-        /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
-        pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entity_filter = v.into();
             self
         }
 
@@ -270,6 +266,23 @@ pub mod datastore_admin {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [input_url][crate::model::ImportEntitiesRequest::input_url].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_input_url<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.input_url = v.into();
+            self
+        }
+
+        /// Sets the value of [entity_filter][crate::model::ImportEntitiesRequest::entity_filter].
+        pub fn set_entity_filter<T: Into<std::option::Option<crate::model::EntityFilter>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.entity_filter = v.into();
             self
         }
     }
@@ -286,7 +299,9 @@ pub mod datastore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -376,7 +391,9 @@ pub mod datastore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -463,7 +480,9 @@ pub mod datastore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,7 +531,9 @@ pub mod datastore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -588,7 +609,9 @@ pub mod datastore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -667,7 +690,9 @@ pub mod datastore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -713,7 +738,9 @@ pub mod datastore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -759,7 +786,9 @@ pub mod datastore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,7 +16,6 @@
 
 pub mod dlp_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DlpService][super::super::client::DlpService].
     ///
@@ -49,7 +48,7 @@ pub mod dlp_service {
     /// Common implementation for [super::super::client::DlpService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DlpService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dlp_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod dlp_service {
     pub struct InspectContent(RequestBuilder<crate::model::InspectContentRequest>);
 
     impl InspectContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -145,7 +148,9 @@ pub mod dlp_service {
     pub struct RedactImage(RequestBuilder<crate::model::RedactImageRequest>);
 
     impl RedactImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,6 +195,17 @@ pub mod dlp_service {
             self
         }
 
+        /// Sets the value of [image_redaction_configs][crate::model::RedactImageRequest::image_redaction_configs].
+        pub fn set_image_redaction_configs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::redact_image_request::ImageRedactionConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.image_redaction_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [include_findings][crate::model::RedactImageRequest::include_findings].
         pub fn set_include_findings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.include_findings = v.into();
@@ -202,17 +218,6 @@ pub mod dlp_service {
             v: T,
         ) -> Self {
             self.0.request.byte_item = v.into();
-            self
-        }
-
-        /// Sets the value of [image_redaction_configs][crate::model::RedactImageRequest::image_redaction_configs].
-        pub fn set_image_redaction_configs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::redact_image_request::ImageRedactionConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.image_redaction_configs = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -229,7 +234,9 @@ pub mod dlp_service {
     pub struct DeidentifyContent(RequestBuilder<crate::model::DeidentifyContentRequest>);
 
     impl DeidentifyContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,7 +329,9 @@ pub mod dlp_service {
     pub struct ReidentifyContent(RequestBuilder<crate::model::ReidentifyContentRequest>);
 
     impl ReidentifyContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -350,6 +359,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ReidentifyContentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -415,7 +426,9 @@ pub mod dlp_service {
     pub struct ListInfoTypes(RequestBuilder<crate::model::ListInfoTypesRequest>);
 
     impl ListInfoTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -476,7 +489,9 @@ pub mod dlp_service {
     pub struct CreateInspectTemplate(RequestBuilder<crate::model::CreateInspectTemplateRequest>);
 
     impl CreateInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -504,12 +519,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateInspectTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_inspect_template<T: Into<std::option::Option<crate::model::InspectTemplate>>>(
             mut self,
             v: T,
@@ -543,7 +562,9 @@ pub mod dlp_service {
     pub struct UpdateInspectTemplate(RequestBuilder<crate::model::UpdateInspectTemplateRequest>);
 
     impl UpdateInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -571,6 +592,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateInspectTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -607,7 +630,9 @@ pub mod dlp_service {
     pub struct GetInspectTemplate(RequestBuilder<crate::model::GetInspectTemplateRequest>);
 
     impl GetInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -635,6 +660,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetInspectTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -653,7 +680,9 @@ pub mod dlp_service {
     pub struct ListInspectTemplates(RequestBuilder<crate::model::ListInspectTemplatesRequest>);
 
     impl ListInspectTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -696,6 +725,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListInspectTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -738,7 +769,9 @@ pub mod dlp_service {
     pub struct DeleteInspectTemplate(RequestBuilder<crate::model::DeleteInspectTemplateRequest>);
 
     impl DeleteInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -766,6 +799,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteInspectTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -786,7 +821,9 @@ pub mod dlp_service {
     );
 
     impl CreateDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -814,12 +851,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeidentifyTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deidentify_template<
             T: Into<std::option::Option<crate::model::DeidentifyTemplate>>,
         >(
@@ -857,7 +898,9 @@ pub mod dlp_service {
     );
 
     impl UpdateDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -885,6 +928,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateDeidentifyTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -923,7 +968,9 @@ pub mod dlp_service {
     pub struct GetDeidentifyTemplate(RequestBuilder<crate::model::GetDeidentifyTemplateRequest>);
 
     impl GetDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -951,6 +998,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetDeidentifyTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -971,7 +1020,9 @@ pub mod dlp_service {
     );
 
     impl ListDeidentifyTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1016,6 +1067,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDeidentifyTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1060,7 +1113,9 @@ pub mod dlp_service {
     );
 
     impl DeleteDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1088,6 +1143,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDeidentifyTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1106,7 +1163,9 @@ pub mod dlp_service {
     pub struct CreateJobTrigger(RequestBuilder<crate::model::CreateJobTriggerRequest>);
 
     impl CreateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,12 +1193,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateJobTriggerRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_trigger<T: Into<std::option::Option<crate::model::JobTrigger>>>(
             mut self,
             v: T,
@@ -1173,7 +1236,9 @@ pub mod dlp_service {
     pub struct UpdateJobTrigger(RequestBuilder<crate::model::UpdateJobTriggerRequest>);
 
     impl UpdateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1201,6 +1266,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateJobTriggerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1239,7 +1306,9 @@ pub mod dlp_service {
     );
 
     impl HybridInspectJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1267,6 +1336,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::HybridInspectJobTriggerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1294,7 +1365,9 @@ pub mod dlp_service {
     pub struct GetJobTrigger(RequestBuilder<crate::model::GetJobTriggerRequest>);
 
     impl GetJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1319,6 +1392,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetJobTriggerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1337,7 +1412,9 @@ pub mod dlp_service {
     pub struct ListJobTriggers(RequestBuilder<crate::model::ListJobTriggersRequest>);
 
     impl ListJobTriggers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1377,6 +1454,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListJobTriggersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1431,7 +1510,9 @@ pub mod dlp_service {
     pub struct DeleteJobTrigger(RequestBuilder<crate::model::DeleteJobTriggerRequest>);
 
     impl DeleteJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1459,6 +1540,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteJobTriggerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1477,7 +1560,9 @@ pub mod dlp_service {
     pub struct ActivateJobTrigger(RequestBuilder<crate::model::ActivateJobTriggerRequest>);
 
     impl ActivateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1505,6 +1590,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::ActivateJobTriggerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1523,7 +1610,9 @@ pub mod dlp_service {
     pub struct CreateDiscoveryConfig(RequestBuilder<crate::model::CreateDiscoveryConfigRequest>);
 
     impl CreateDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1551,12 +1640,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateDiscoveryConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_discovery_config<T: Into<std::option::Option<crate::model::DiscoveryConfig>>>(
             mut self,
             v: T,
@@ -1584,7 +1677,9 @@ pub mod dlp_service {
     pub struct UpdateDiscoveryConfig(RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>);
 
     impl UpdateDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1612,12 +1707,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateDiscoveryConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_discovery_config<T: Into<std::option::Option<crate::model::DiscoveryConfig>>>(
             mut self,
             v: T,
@@ -1648,7 +1747,9 @@ pub mod dlp_service {
     pub struct GetDiscoveryConfig(RequestBuilder<crate::model::GetDiscoveryConfigRequest>);
 
     impl GetDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1676,6 +1777,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveryConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1694,7 +1797,9 @@ pub mod dlp_service {
     pub struct ListDiscoveryConfigs(RequestBuilder<crate::model::ListDiscoveryConfigsRequest>);
 
     impl ListDiscoveryConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1737,6 +1842,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveryConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1773,7 +1880,9 @@ pub mod dlp_service {
     pub struct DeleteDiscoveryConfig(RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>);
 
     impl DeleteDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1801,6 +1910,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDiscoveryConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1819,7 +1930,9 @@ pub mod dlp_service {
     pub struct CreateDlpJob(RequestBuilder<crate::model::CreateDlpJobRequest>);
 
     impl CreateDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1844,6 +1957,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateDlpJobRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1916,7 +2031,9 @@ pub mod dlp_service {
     pub struct ListDlpJobs(RequestBuilder<crate::model::ListDlpJobsRequest>);
 
     impl ListDlpJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1956,6 +2073,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDlpJobsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2010,7 +2129,9 @@ pub mod dlp_service {
     pub struct GetDlpJob(RequestBuilder<crate::model::GetDlpJobRequest>);
 
     impl GetDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2035,6 +2156,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetDlpJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2053,7 +2176,9 @@ pub mod dlp_service {
     pub struct DeleteDlpJob(RequestBuilder<crate::model::DeleteDlpJobRequest>);
 
     impl DeleteDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2078,6 +2203,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDlpJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2096,7 +2223,9 @@ pub mod dlp_service {
     pub struct CancelDlpJob(RequestBuilder<crate::model::CancelDlpJobRequest>);
 
     impl CancelDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2121,6 +2250,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::CancelDlpJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2139,7 +2270,9 @@ pub mod dlp_service {
     pub struct CreateStoredInfoType(RequestBuilder<crate::model::CreateStoredInfoTypeRequest>);
 
     impl CreateStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2167,12 +2300,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateStoredInfoTypeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_config<T: Into<std::option::Option<crate::model::StoredInfoTypeConfig>>>(
             mut self,
             v: T,
@@ -2206,7 +2343,9 @@ pub mod dlp_service {
     pub struct UpdateStoredInfoType(RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>);
 
     impl UpdateStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2234,6 +2373,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateStoredInfoTypeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2270,7 +2411,9 @@ pub mod dlp_service {
     pub struct GetStoredInfoType(RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
 
     impl GetStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2298,6 +2441,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetStoredInfoTypeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2316,7 +2461,9 @@ pub mod dlp_service {
     pub struct ListStoredInfoTypes(RequestBuilder<crate::model::ListStoredInfoTypesRequest>);
 
     impl ListStoredInfoTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2359,6 +2506,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListStoredInfoTypesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2401,7 +2550,9 @@ pub mod dlp_service {
     pub struct DeleteStoredInfoType(RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>);
 
     impl DeleteStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2429,6 +2580,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteStoredInfoTypeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2449,7 +2602,9 @@ pub mod dlp_service {
     );
 
     impl ListProjectDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2494,6 +2649,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListProjectDataProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2536,7 +2693,9 @@ pub mod dlp_service {
     pub struct ListTableDataProfiles(RequestBuilder<crate::model::ListTableDataProfilesRequest>);
 
     impl ListTableDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2579,6 +2738,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListTableDataProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2621,7 +2782,9 @@ pub mod dlp_service {
     pub struct ListColumnDataProfiles(RequestBuilder<crate::model::ListColumnDataProfilesRequest>);
 
     impl ListColumnDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2666,6 +2829,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListColumnDataProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2708,7 +2873,9 @@ pub mod dlp_service {
     pub struct GetProjectDataProfile(RequestBuilder<crate::model::GetProjectDataProfileRequest>);
 
     impl GetProjectDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2736,6 +2903,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetProjectDataProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2756,7 +2925,9 @@ pub mod dlp_service {
     );
 
     impl ListFileStoreDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2801,6 +2972,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListFileStoreDataProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2845,7 +3018,9 @@ pub mod dlp_service {
     );
 
     impl GetFileStoreDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2873,6 +3048,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetFileStoreDataProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2893,7 +3070,9 @@ pub mod dlp_service {
     );
 
     impl DeleteFileStoreDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2921,6 +3100,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteFileStoreDataProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2939,7 +3120,9 @@ pub mod dlp_service {
     pub struct GetTableDataProfile(RequestBuilder<crate::model::GetTableDataProfileRequest>);
 
     impl GetTableDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2967,6 +3150,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetTableDataProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2985,7 +3170,9 @@ pub mod dlp_service {
     pub struct GetColumnDataProfile(RequestBuilder<crate::model::GetColumnDataProfileRequest>);
 
     impl GetColumnDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3013,6 +3200,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetColumnDataProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3031,7 +3220,9 @@ pub mod dlp_service {
     pub struct DeleteTableDataProfile(RequestBuilder<crate::model::DeleteTableDataProfileRequest>);
 
     impl DeleteTableDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3059,6 +3250,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteTableDataProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3077,7 +3270,9 @@ pub mod dlp_service {
     pub struct HybridInspectDlpJob(RequestBuilder<crate::model::HybridInspectDlpJobRequest>);
 
     impl HybridInspectDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3105,6 +3300,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::HybridInspectDlpJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3132,7 +3329,9 @@ pub mod dlp_service {
     pub struct FinishDlpJob(RequestBuilder<crate::model::FinishDlpJobRequest>);
 
     impl FinishDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3157,6 +3356,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::FinishDlpJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3175,7 +3376,9 @@ pub mod dlp_service {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3203,12 +3406,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -3230,7 +3437,9 @@ pub mod dlp_service {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3255,6 +3464,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3273,7 +3484,9 @@ pub mod dlp_service {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3313,6 +3526,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3349,7 +3564,9 @@ pub mod dlp_service {
     pub struct SearchConnections(RequestBuilder<crate::model::SearchConnectionsRequest>);
 
     impl SearchConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3392,6 +3609,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [parent][crate::model::SearchConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3428,7 +3647,9 @@ pub mod dlp_service {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3456,6 +3677,8 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3474,7 +3697,9 @@ pub mod dlp_service {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3502,12 +3727,16 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,

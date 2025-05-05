@@ -16,7 +16,6 @@
 
 pub mod lookup_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LookupService][super::super::client::LookupService].
     ///
@@ -49,7 +48,7 @@ pub mod lookup_service {
     /// Common implementation for [super::super::client::LookupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LookupService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod lookup_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod lookup_service {
     pub struct ResolveService(RequestBuilder<crate::model::ResolveServiceRequest>);
 
     impl ResolveService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +100,8 @@ pub mod lookup_service {
         }
 
         /// Sets the value of [name][crate::model::ResolveServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -127,7 +132,9 @@ pub mod lookup_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -206,7 +213,9 @@ pub mod lookup_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -247,7 +256,6 @@ pub mod lookup_service {
 
 pub mod registration_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RegistrationService][super::super::client::RegistrationService].
     ///
@@ -280,7 +288,7 @@ pub mod registration_service {
     /// Common implementation for [super::super::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -289,7 +297,9 @@ pub mod registration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -303,7 +313,9 @@ pub mod registration_service {
     pub struct CreateNamespace(RequestBuilder<crate::model::CreateNamespaceRequest>);
 
     impl CreateNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -328,18 +340,24 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateNamespaceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [namespace_id][crate::model::CreateNamespaceRequest::namespace_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_namespace_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.namespace_id = v.into();
             self
         }
 
         /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
             mut self,
             v: T,
@@ -361,7 +379,9 @@ pub mod registration_service {
     pub struct ListNamespaces(RequestBuilder<crate::model::ListNamespacesRequest>);
 
     impl ListNamespaces {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -401,6 +421,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::ListNamespacesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -443,7 +465,9 @@ pub mod registration_service {
     pub struct GetNamespace(RequestBuilder<crate::model::GetNamespaceRequest>);
 
     impl GetNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -468,6 +492,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::GetNamespaceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -486,7 +512,9 @@ pub mod registration_service {
     pub struct UpdateNamespace(RequestBuilder<crate::model::UpdateNamespaceRequest>);
 
     impl UpdateNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -511,6 +539,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
             mut self,
             v: T,
@@ -520,6 +550,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -541,7 +573,9 @@ pub mod registration_service {
     pub struct DeleteNamespace(RequestBuilder<crate::model::DeleteNamespaceRequest>);
 
     impl DeleteNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -566,6 +600,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteNamespaceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -584,7 +620,9 @@ pub mod registration_service {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -609,18 +647,24 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_id = v.into();
             self
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -642,7 +686,9 @@ pub mod registration_service {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -682,6 +728,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -724,7 +772,9 @@ pub mod registration_service {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -749,6 +799,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -767,7 +819,9 @@ pub mod registration_service {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -792,6 +846,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -801,6 +857,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -822,7 +880,9 @@ pub mod registration_service {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -847,6 +907,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -865,7 +927,9 @@ pub mod registration_service {
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -890,18 +954,24 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [endpoint_id][crate::model::CreateEndpointRequest::endpoint_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.endpoint_id = v.into();
             self
         }
 
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
             mut self,
             v: T,
@@ -923,7 +993,9 @@ pub mod registration_service {
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -963,6 +1035,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1005,7 +1079,9 @@ pub mod registration_service {
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1030,6 +1106,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1048,7 +1126,9 @@ pub mod registration_service {
     pub struct UpdateEndpoint(RequestBuilder<crate::model::UpdateEndpointRequest>);
 
     impl UpdateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1073,6 +1153,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
             mut self,
             v: T,
@@ -1082,6 +1164,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1103,7 +1187,9 @@ pub mod registration_service {
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1128,6 +1214,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1146,7 +1234,9 @@ pub mod registration_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1171,6 +1261,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1198,7 +1290,9 @@ pub mod registration_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1223,12 +1317,16 @@ pub mod registration_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1259,7 +1357,9 @@ pub mod registration_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1287,12 +1387,16 @@ pub mod registration_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1316,7 +1420,9 @@ pub mod registration_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1395,7 +1501,9 @@ pub mod registration_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

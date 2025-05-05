@@ -16,7 +16,6 @@
 
 pub mod storage {
     use crate::Result;
-    use std::sync::Arc;
 
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -36,7 +35,7 @@ pub mod storage {
     /// Common implementation for [super::super::client::Storage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Storage>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -45,7 +44,7 @@ pub mod storage {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -58,7 +57,7 @@ pub mod storage {
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
     impl DeleteBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -83,6 +82,8 @@ pub mod storage {
         }
 
         /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -118,7 +119,7 @@ pub mod storage {
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
     impl GetBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -143,6 +144,8 @@ pub mod storage {
         }
 
         /// Sets the value of [name][crate::model::GetBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -184,7 +187,7 @@ pub mod storage {
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -209,6 +212,8 @@ pub mod storage {
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -224,6 +229,8 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket_id][crate::model::CreateBucketRequest::bucket_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket_id = v.into();
             self
@@ -256,7 +263,7 @@ pub mod storage {
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
     impl ListBuckets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,6 +303,8 @@ pub mod storage {
         }
 
         /// Sets the value of [parent][crate::model::ListBucketsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -339,7 +348,7 @@ pub mod storage {
     );
 
     impl LockBucketRetentionPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -367,12 +376,16 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::LockBucketRetentionPolicyRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::LockBucketRetentionPolicyRequest::if_metageneration_match].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_if_metageneration_match<T: Into<i64>>(mut self, v: T) -> Self {
             self.0.request.if_metageneration_match = v.into();
             self
@@ -390,7 +403,7 @@ pub mod storage {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -415,6 +428,8 @@ pub mod storage {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -441,7 +456,7 @@ pub mod storage {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -466,12 +481,16 @@ pub mod storage {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -501,7 +520,7 @@ pub mod storage {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -529,12 +548,16 @@ pub mod storage {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -557,7 +580,7 @@ pub mod storage {
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -582,6 +605,8 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::option::Option<crate::model::Bucket>>>(
             mut self,
             v: T,
@@ -624,6 +649,8 @@ pub mod storage {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -644,7 +671,7 @@ pub mod storage {
     pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
 
     impl ComposeObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -669,11 +696,24 @@ pub mod storage {
         }
 
         /// Sets the value of [destination][crate::model::ComposeObjectRequest::destination].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_destination<T: Into<std::option::Option<crate::model::Object>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
+        pub fn set_source_objects<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
+        {
+            use std::iter::Iterator;
+            self.0.request.source_objects = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -726,17 +766,6 @@ pub mod storage {
             self.0.request.object_checksums = v.into();
             self
         }
-
-        /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
-        pub fn set_source_objects<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
-        {
-            use std::iter::Iterator;
-            self.0.request.source_objects = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -750,7 +779,7 @@ pub mod storage {
     pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
 
     impl DeleteObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -775,12 +804,16 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::DeleteObjectRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [object][crate::model::DeleteObjectRequest::object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -848,7 +881,7 @@ pub mod storage {
     pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
 
     impl RestoreObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -873,18 +906,24 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::RestoreObjectRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [object][crate::model::RestoreObjectRequest::object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
         }
 
         /// Sets the value of [generation][crate::model::RestoreObjectRequest::generation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
             self.0.request.generation = v.into();
             self
@@ -958,7 +997,7 @@ pub mod storage {
     pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
 
     impl GetObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -983,12 +1022,16 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::GetObjectRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [object][crate::model::GetObjectRequest::object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -1074,7 +1117,7 @@ pub mod storage {
     pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
 
     impl UpdateObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1099,6 +1142,8 @@ pub mod storage {
         }
 
         /// Sets the value of [object][crate::model::UpdateObjectRequest::object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::option::Option<crate::model::Object>>>(
             mut self,
             v: T,
@@ -1147,6 +1192,8 @@ pub mod storage {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1178,7 +1225,7 @@ pub mod storage {
     pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
 
     impl ListObjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1218,6 +1265,8 @@ pub mod storage {
         }
 
         /// Sets the value of [parent][crate::model::ListObjectsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1307,7 +1356,7 @@ pub mod storage {
     pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
 
     impl RewriteObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1332,12 +1381,16 @@ pub mod storage {
         }
 
         /// Sets the value of [destination_name][crate::model::RewriteObjectRequest::destination_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_destination_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_name = v.into();
             self
         }
 
         /// Sets the value of [destination_bucket][crate::model::RewriteObjectRequest::destination_bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_destination_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_bucket = v.into();
             self
@@ -1359,12 +1412,16 @@ pub mod storage {
         }
 
         /// Sets the value of [source_bucket][crate::model::RewriteObjectRequest::source_bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_bucket = v.into();
             self
         }
 
         /// Sets the value of [source_object][crate::model::RewriteObjectRequest::source_object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_object = v.into();
             self
@@ -1525,7 +1582,7 @@ pub mod storage {
     pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
 
     impl MoveObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1550,18 +1607,24 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::MoveObjectRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [source_object][crate::model::MoveObjectRequest::source_object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_object = v.into();
             self
         }
 
         /// Sets the value of [destination_object][crate::model::MoveObjectRequest::destination_object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_destination_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_object = v.into();
             self

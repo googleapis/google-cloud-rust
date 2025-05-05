@@ -16,7 +16,6 @@
 
 pub mod dashboards_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DashboardsService][super::super::client::DashboardsService].
     ///
@@ -49,7 +48,7 @@ pub mod dashboards_service {
     /// Common implementation for [super::super::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dashboards_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod dashboards_service {
     pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
 
     impl CreateDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,12 +100,16 @@ pub mod dashboards_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateDashboardRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dashboard<T: Into<std::option::Option<crate::model::Dashboard>>>(
             mut self,
             v: T,
@@ -130,7 +137,9 @@ pub mod dashboards_service {
     pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
 
     impl ListDashboards {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,6 +179,8 @@ pub mod dashboards_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDashboardsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -200,7 +211,9 @@ pub mod dashboards_service {
     pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
 
     impl GetDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -225,6 +238,8 @@ pub mod dashboards_service {
         }
 
         /// Sets the value of [name][crate::model::GetDashboardRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -243,7 +258,9 @@ pub mod dashboards_service {
     pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
 
     impl DeleteDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -268,6 +285,8 @@ pub mod dashboards_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDashboardRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -286,7 +305,9 @@ pub mod dashboards_service {
     pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
 
     impl UpdateDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -311,6 +332,8 @@ pub mod dashboards_service {
         }
 
         /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dashboard<T: Into<std::option::Option<crate::model::Dashboard>>>(
             mut self,
             v: T,

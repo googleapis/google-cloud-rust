@@ -106,6 +106,17 @@ impl AnnotateVideoRequest {
         self
     }
 
+    /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
+    pub fn set_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Feature>,
+    {
+        use std::iter::Iterator;
+        self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
     pub fn set_video_context<
         T: std::convert::Into<std::option::Option<crate::model::VideoContext>>,
@@ -126,17 +137,6 @@ impl AnnotateVideoRequest {
     /// Sets the value of [location_id][crate::model::AnnotateVideoRequest::location_id].
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
-        self
-    }
-
-    /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
-    pub fn set_features<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Feature>,
-    {
-        use std::iter::Iterator;
-        self.features = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -199,6 +199,17 @@ pub struct VideoContext {
 impl VideoContext {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [segments][crate::model::VideoContext::segments].
+    pub fn set_segments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VideoSegment>,
+    {
+        use std::iter::Iterator;
+        self.segments = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
@@ -288,17 +299,6 @@ impl VideoContext {
         self.object_tracking_config = v.into();
         self
     }
-
-    /// Sets the value of [segments][crate::model::VideoContext::segments].
-    pub fn set_segments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoSegment>,
-    {
-        use std::iter::Iterator;
-        self.segments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for VideoContext {
@@ -321,6 +321,7 @@ pub struct LabelDetectionConfig {
     /// Whether the video has been shot from a stationary (i.e., non-moving)
     /// camera. When set to true, might improve detection accuracy for moving
     /// objects. Should be used with `SHOT_AND_FRAME_MODE` enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stationary_camera: bool,
 
     /// Model to use for label detection.
@@ -335,6 +336,8 @@ pub struct LabelDetectionConfig {
     /// range will be clipped.
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub frame_confidence_threshold: f32,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -343,6 +346,8 @@ pub struct LabelDetectionConfig {
     /// outside of this range will be clipped.
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub video_confidence_threshold: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -475,10 +480,12 @@ pub struct FaceDetectionConfig {
     pub model: std::string::String,
 
     /// Whether bounding boxes are included in the face annotation output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable face attributes detection, such as glasses, dark_glasses,
     /// mouth_open etc. Ignored if 'include_bounding_boxes' is set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_attributes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -523,16 +530,19 @@ impl wkt::message::Message for FaceDetectionConfig {
 pub struct PersonDetectionConfig {
     /// Whether bounding boxes are included in the person detection annotation
     /// output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable pose landmarks detection. Ignored if
     /// 'include_bounding_boxes' is set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_pose_landmarks: bool,
 
     /// Whether to enable person attributes detection, such as cloth color (black,
     /// blue, etc), type (coat, dress, etc), pattern (plain, floral, etc), hair,
     /// etc.
     /// Ignored if 'include_bounding_boxes' is set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_attributes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -632,12 +642,6 @@ impl TextDetectionConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [model][crate::model::TextDetectionConfig::model].
-    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.model = v.into();
-        self
-    }
-
     /// Sets the value of [language_hints][crate::model::TextDetectionConfig::language_hints].
     pub fn set_language_hints<T, V>(mut self, v: T) -> Self
     where
@@ -646,6 +650,12 @@ impl TextDetectionConfig {
     {
         use std::iter::Iterator;
         self.language_hints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [model][crate::model::TextDetectionConfig::model].
+    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model = v.into();
         self
     }
 }
@@ -717,6 +727,8 @@ pub struct LabelSegment {
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
     /// Confidence that the label is accurate. Range: [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -762,6 +774,8 @@ pub struct LabelFrame {
     pub time_offset: std::option::Option<wkt::Duration>,
 
     /// Confidence that the label is accurate. Range: [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -896,12 +910,6 @@ impl LabelAnnotation {
         self
     }
 
-    /// Sets the value of [version][crate::model::LabelAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [category_entities][crate::model::LabelAnnotation::category_entities].
     pub fn set_category_entities<T, V>(mut self, v: T) -> Self
     where
@@ -932,6 +940,12 @@ impl LabelAnnotation {
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::LabelAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -1015,12 +1029,6 @@ impl ExplicitContentAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [version][crate::model::ExplicitContentAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [frames][crate::model::ExplicitContentAnnotation::frames].
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
@@ -1029,6 +1037,12 @@ impl ExplicitContentAnnotation {
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::ExplicitContentAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -1048,15 +1062,23 @@ impl wkt::message::Message for ExplicitContentAnnotation {
 #[non_exhaustive]
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub left: f32,
 
     /// Top Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub top: f32,
 
     /// Right X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub right: f32,
 
     /// Bottom Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub bottom: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1127,6 +1149,17 @@ impl FaceDetectionAnnotation {
         std::default::Default::default()
     }
 
+    /// Sets the value of [tracks][crate::model::FaceDetectionAnnotation::tracks].
+    pub fn set_tracks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Track>,
+    {
+        use std::iter::Iterator;
+        self.tracks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [thumbnail][crate::model::FaceDetectionAnnotation::thumbnail].
     pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
@@ -1136,17 +1169,6 @@ impl FaceDetectionAnnotation {
     /// Sets the value of [version][crate::model::FaceDetectionAnnotation::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [tracks][crate::model::FaceDetectionAnnotation::tracks].
-    pub fn set_tracks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Track>,
-    {
-        use std::iter::Iterator;
-        self.tracks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1180,12 +1202,6 @@ impl PersonDetectionAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [version][crate::model::PersonDetectionAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [tracks][crate::model::PersonDetectionAnnotation::tracks].
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
@@ -1194,6 +1210,12 @@ impl PersonDetectionAnnotation {
     {
         use std::iter::Iterator;
         self.tracks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::PersonDetectionAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -1244,6 +1266,7 @@ impl wkt::message::Message for FaceSegment {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct FaceFrame {
     /// Normalized Bounding boxes in a frame.
     /// There can be more than one boxes if the same face is detected in multiple
@@ -1265,15 +1288,6 @@ impl FaceFrame {
         std::default::Default::default()
     }
 
-    /// Sets the value of [time_offset][crate::model::FaceFrame::time_offset].
-    pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_offset = v.into();
-        self
-    }
-
     /// Sets the value of [normalized_bounding_boxes][crate::model::FaceFrame::normalized_bounding_boxes].
     pub fn set_normalized_bounding_boxes<T, V>(mut self, v: T) -> Self
     where
@@ -1282,6 +1296,15 @@ impl FaceFrame {
     {
         use std::iter::Iterator;
         self.normalized_bounding_boxes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [time_offset][crate::model::FaceFrame::time_offset].
+    pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_offset = v.into();
         self
     }
 }
@@ -1297,6 +1320,7 @@ impl wkt::message::Message for FaceFrame {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct FaceAnnotation {
     /// Thumbnail of a representative face view (in JPEG format).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
@@ -1457,6 +1481,8 @@ pub struct Track {
     pub attributes: std::vec::Vec<crate::model::DetectedAttribute>,
 
     /// Optional. The confidence score of the tracked object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1474,12 +1500,6 @@ impl Track {
         v: T,
     ) -> Self {
         self.segment = v.into();
-        self
-    }
-
-    /// Sets the value of [confidence][crate::model::Track::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
         self
     }
 
@@ -1504,6 +1524,12 @@ impl Track {
         self.attributes = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [confidence][crate::model::Track::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Track {
@@ -1524,6 +1550,8 @@ pub struct DetectedAttribute {
     pub name: std::string::String,
 
     /// Detected attribute confidence. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Text value of the detection result. For example, the value for "HairColor"
@@ -1582,6 +1610,8 @@ pub struct DetectedLandmark {
     pub point: std::option::Option<crate::model::NormalizedVertex>,
 
     /// The confidence score of the detected landmark. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1670,6 +1700,7 @@ pub struct VideoAnnotationResults {
 
     /// Deprecated. Please use `face_detection_annotations` instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub face_annotations: std::vec::Vec<crate::model::FaceAnnotation>,
 
     /// Face detection annotations.
@@ -1735,26 +1766,6 @@ impl VideoAnnotationResults {
         self
     }
 
-    /// Sets the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
-    pub fn set_explicit_annotation<
-        T: std::convert::Into<std::option::Option<crate::model::ExplicitContentAnnotation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.explicit_annotation = v.into();
-        self
-    }
-
-    /// Sets the value of [error][crate::model::VideoAnnotationResults::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
-        self
-    }
-
     /// Sets the value of [segment_label_annotations][crate::model::VideoAnnotationResults::segment_label_annotations].
     pub fn set_segment_label_annotations<T, V>(mut self, v: T) -> Self
     where
@@ -1811,6 +1822,7 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [face_annotations][crate::model::VideoAnnotationResults::face_annotations].
+    #[deprecated]
     pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1840,6 +1852,17 @@ impl VideoAnnotationResults {
     {
         use std::iter::Iterator;
         self.shot_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
+    pub fn set_explicit_annotation<
+        T: std::convert::Into<std::option::Option<crate::model::ExplicitContentAnnotation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.explicit_annotation = v.into();
         self
     }
 
@@ -1895,6 +1918,15 @@ impl VideoAnnotationResults {
     {
         use std::iter::Iterator;
         self.person_detection_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::VideoAnnotationResults::error].
+    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error = v.into();
         self
     }
 }
@@ -1957,6 +1989,7 @@ pub struct VideoAnnotationProgress {
 
     /// Approximate percentage processed thus far. Guaranteed to be
     /// 100 when fully processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Time when the request was received.
@@ -2095,12 +2128,14 @@ pub struct SpeechTranscriptionConfig {
     /// within each `SpeechTranscription`. The server may return fewer than
     /// `max_alternatives`. Valid values are `0`-`30`. A value of `0` or `1` will
     /// return a maximum of one. If omitted, will return a maximum of one.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_alternatives: i32,
 
     /// Optional. If set to `true`, the server will attempt to filter out
     /// profanities, replacing all but the initial character in each filtered word
     /// with asterisks, e.g. "f***". If set to `false` or omitted, profanities
     /// won't be filtered out.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_profanity: bool,
 
     /// Optional. A means to provide context to assist the speech recognition.
@@ -2113,6 +2148,7 @@ pub struct SpeechTranscriptionConfig {
     /// does not add punctuation to result hypotheses. NOTE: "This is currently
     /// offered as an experimental service, complimentary to all users. In the
     /// future this may be exclusively available as a premium feature."
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_automatic_punctuation: bool,
 
     /// Optional. For file formats, such as MXF or MKV, supporting multiple audio
@@ -2127,16 +2163,19 @@ pub struct SpeechTranscriptionConfig {
     /// audio for the top alternative in every consecutive response.
     /// This is done in order to improve our speaker tags as our models learn to
     /// identify the speakers in the conversation over time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_speaker_diarization: bool,
 
     /// Optional. If set, specifies the estimated number of speakers in the
     /// conversation. If not set, defaults to '2'. Ignored unless
     /// enable_speaker_diarization is set to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub diarization_speaker_count: i32,
 
     /// Optional. If `true`, the top result includes a list of words and the
     /// confidence for those words. If `false`, no word-level confidence
     /// information is returned. The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_word_confidence: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2166,9 +2205,31 @@ impl SpeechTranscriptionConfig {
         self
     }
 
+    /// Sets the value of [speech_contexts][crate::model::SpeechTranscriptionConfig::speech_contexts].
+    pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpeechContext>,
+    {
+        use std::iter::Iterator;
+        self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [enable_automatic_punctuation][crate::model::SpeechTranscriptionConfig::enable_automatic_punctuation].
     pub fn set_enable_automatic_punctuation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_automatic_punctuation = v.into();
+        self
+    }
+
+    /// Sets the value of [audio_tracks][crate::model::SpeechTranscriptionConfig::audio_tracks].
+    pub fn set_audio_tracks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.audio_tracks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2187,28 +2248,6 @@ impl SpeechTranscriptionConfig {
     /// Sets the value of [enable_word_confidence][crate::model::SpeechTranscriptionConfig::enable_word_confidence].
     pub fn set_enable_word_confidence<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_word_confidence = v.into();
-        self
-    }
-
-    /// Sets the value of [speech_contexts][crate::model::SpeechTranscriptionConfig::speech_contexts].
-    pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechContext>,
-    {
-        use std::iter::Iterator;
-        self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [audio_tracks][crate::model::SpeechTranscriptionConfig::audio_tracks].
-    pub fn set_audio_tracks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.audio_tracks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2290,12 +2329,6 @@ impl SpeechTranscription {
         std::default::Default::default()
     }
 
-    /// Sets the value of [language_code][crate::model::SpeechTranscription::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
     /// Sets the value of [alternatives][crate::model::SpeechTranscription::alternatives].
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
@@ -2304,6 +2337,12 @@ impl SpeechTranscription {
     {
         use std::iter::Iterator;
         self.alternatives = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::SpeechTranscription::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
         self
     }
 }
@@ -2330,6 +2369,8 @@ pub struct SpeechRecognitionAlternative {
     /// This field is not guaranteed to be accurate and users should not rely on it
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Output only. A list of word-specific information for each recognized word.
@@ -2409,12 +2450,15 @@ pub struct WordInfo {
     /// This field is not guaranteed to be accurate and users should not rely on it
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Output only. A distinct integer value is assigned for every speaker within
     /// the audio. This field specifies which one of those speakers was detected to
     /// have spoken this word. Value ranges from 1 up to diarization_speaker_count,
     /// and is only set if speaker diarization is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaker_tag: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2478,9 +2522,13 @@ impl wkt::message::Message for WordInfo {
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2576,6 +2624,8 @@ pub struct TextSegment {
 
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Information related to the frames where OCR detected text appears.
@@ -2711,12 +2761,6 @@ impl TextAnnotation {
         self
     }
 
-    /// Sets the value of [version][crate::model::TextAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [segments][crate::model::TextAnnotation::segments].
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
@@ -2725,6 +2769,12 @@ impl TextAnnotation {
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::TextAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -2797,6 +2847,8 @@ pub struct ObjectTrackingAnnotation {
     pub entity: std::option::Option<crate::model::Entity>,
 
     /// Object category's labeling confidence of this track.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Information corresponding to all frames where this object track appears.
@@ -2839,12 +2891,6 @@ impl ObjectTrackingAnnotation {
         self
     }
 
-    /// Sets the value of [version][crate::model::ObjectTrackingAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [frames][crate::model::ObjectTrackingAnnotation::frames].
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
@@ -2853,6 +2899,12 @@ impl ObjectTrackingAnnotation {
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::ObjectTrackingAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 
@@ -2885,19 +2937,6 @@ impl ObjectTrackingAnnotation {
         })
     }
 
-    /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
-    /// if it holds a `TrackId`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn track_id(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.track_info.as_ref().and_then(|v| match v {
-            crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
     /// to hold a `Segment`.
     ///
@@ -2911,6 +2950,19 @@ impl ObjectTrackingAnnotation {
             crate::model::object_tracking_annotation::TrackInfo::Segment(v.into()),
         );
         self
+    }
+
+    /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
+    /// if it holds a `TrackId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn track_id(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.track_info.as_ref().and_then(|v| match v {
+            crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
@@ -3025,231 +3077,476 @@ impl wkt::message::Message for LogoRecognitionAnnotation {
 }
 
 /// Video annotation feature.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Feature(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Feature {
+    /// Unspecified.
+    Unspecified,
+    /// Label detection. Detect objects, such as dog or flower.
+    LabelDetection,
+    /// Shot change detection.
+    ShotChangeDetection,
+    /// Explicit content detection.
+    ExplicitContentDetection,
+    /// Human face detection.
+    FaceDetection,
+    /// Speech transcription.
+    SpeechTranscription,
+    /// OCR text detection and tracking.
+    TextDetection,
+    /// Object detection and tracking.
+    ObjectTracking,
+    /// Logo detection, tracking, and recognition.
+    LogoRecognition,
+    /// Person detection.
+    PersonDetection,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Feature::value] or
+    /// [Feature::name].
+    UnknownValue(feature::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod feature {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Feature {
-    /// Unspecified.
-    pub const FEATURE_UNSPECIFIED: Feature = Feature::new(0);
-
-    /// Label detection. Detect objects, such as dog or flower.
-    pub const LABEL_DETECTION: Feature = Feature::new(1);
-
-    /// Shot change detection.
-    pub const SHOT_CHANGE_DETECTION: Feature = Feature::new(2);
-
-    /// Explicit content detection.
-    pub const EXPLICIT_CONTENT_DETECTION: Feature = Feature::new(3);
-
-    /// Human face detection.
-    pub const FACE_DETECTION: Feature = Feature::new(4);
-
-    /// Speech transcription.
-    pub const SPEECH_TRANSCRIPTION: Feature = Feature::new(6);
-
-    /// OCR text detection and tracking.
-    pub const TEXT_DETECTION: Feature = Feature::new(7);
-
-    /// Object detection and tracking.
-    pub const OBJECT_TRACKING: Feature = Feature::new(9);
-
-    /// Logo detection, tracking, and recognition.
-    pub const LOGO_RECOGNITION: Feature = Feature::new(12);
-
-    /// Person detection.
-    pub const PERSON_DETECTION: Feature = Feature::new(14);
-
-    /// Creates a new Feature instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::LabelDetection => std::option::Option::Some(1),
+            Self::ShotChangeDetection => std::option::Option::Some(2),
+            Self::ExplicitContentDetection => std::option::Option::Some(3),
+            Self::FaceDetection => std::option::Option::Some(4),
+            Self::SpeechTranscription => std::option::Option::Some(6),
+            Self::TextDetection => std::option::Option::Some(7),
+            Self::ObjectTracking => std::option::Option::Some(9),
+            Self::LogoRecognition => std::option::Option::Some(12),
+            Self::PersonDetection => std::option::Option::Some(14),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("FEATURE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LABEL_DETECTION"),
-            2 => std::borrow::Cow::Borrowed("SHOT_CHANGE_DETECTION"),
-            3 => std::borrow::Cow::Borrowed("EXPLICIT_CONTENT_DETECTION"),
-            4 => std::borrow::Cow::Borrowed("FACE_DETECTION"),
-            6 => std::borrow::Cow::Borrowed("SPEECH_TRANSCRIPTION"),
-            7 => std::borrow::Cow::Borrowed("TEXT_DETECTION"),
-            9 => std::borrow::Cow::Borrowed("OBJECT_TRACKING"),
-            12 => std::borrow::Cow::Borrowed("LOGO_RECOGNITION"),
-            14 => std::borrow::Cow::Borrowed("PERSON_DETECTION"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "FEATURE_UNSPECIFIED" => std::option::Option::Some(Self::FEATURE_UNSPECIFIED),
-            "LABEL_DETECTION" => std::option::Option::Some(Self::LABEL_DETECTION),
-            "SHOT_CHANGE_DETECTION" => std::option::Option::Some(Self::SHOT_CHANGE_DETECTION),
-            "EXPLICIT_CONTENT_DETECTION" => {
-                std::option::Option::Some(Self::EXPLICIT_CONTENT_DETECTION)
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FEATURE_UNSPECIFIED"),
+            Self::LabelDetection => std::option::Option::Some("LABEL_DETECTION"),
+            Self::ShotChangeDetection => std::option::Option::Some("SHOT_CHANGE_DETECTION"),
+            Self::ExplicitContentDetection => {
+                std::option::Option::Some("EXPLICIT_CONTENT_DETECTION")
             }
-            "FACE_DETECTION" => std::option::Option::Some(Self::FACE_DETECTION),
-            "SPEECH_TRANSCRIPTION" => std::option::Option::Some(Self::SPEECH_TRANSCRIPTION),
-            "TEXT_DETECTION" => std::option::Option::Some(Self::TEXT_DETECTION),
-            "OBJECT_TRACKING" => std::option::Option::Some(Self::OBJECT_TRACKING),
-            "LOGO_RECOGNITION" => std::option::Option::Some(Self::LOGO_RECOGNITION),
-            "PERSON_DETECTION" => std::option::Option::Some(Self::PERSON_DETECTION),
-            _ => std::option::Option::None,
+            Self::FaceDetection => std::option::Option::Some("FACE_DETECTION"),
+            Self::SpeechTranscription => std::option::Option::Some("SPEECH_TRANSCRIPTION"),
+            Self::TextDetection => std::option::Option::Some("TEXT_DETECTION"),
+            Self::ObjectTracking => std::option::Option::Some("OBJECT_TRACKING"),
+            Self::LogoRecognition => std::option::Option::Some("LOGO_RECOGNITION"),
+            Self::PersonDetection => std::option::Option::Some("PERSON_DETECTION"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-}
-
-impl std::convert::From<i32> for Feature {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Feature {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Feature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Feature {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::LabelDetection,
+            2 => Self::ShotChangeDetection,
+            3 => Self::ExplicitContentDetection,
+            4 => Self::FaceDetection,
+            6 => Self::SpeechTranscription,
+            7 => Self::TextDetection,
+            9 => Self::ObjectTracking,
+            12 => Self::LogoRecognition,
+            14 => Self::PersonDetection,
+            _ => Self::UnknownValue(feature::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Feature {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FEATURE_UNSPECIFIED" => Self::Unspecified,
+            "LABEL_DETECTION" => Self::LabelDetection,
+            "SHOT_CHANGE_DETECTION" => Self::ShotChangeDetection,
+            "EXPLICIT_CONTENT_DETECTION" => Self::ExplicitContentDetection,
+            "FACE_DETECTION" => Self::FaceDetection,
+            "SPEECH_TRANSCRIPTION" => Self::SpeechTranscription,
+            "TEXT_DETECTION" => Self::TextDetection,
+            "OBJECT_TRACKING" => Self::ObjectTracking,
+            "LOGO_RECOGNITION" => Self::LogoRecognition,
+            "PERSON_DETECTION" => Self::PersonDetection,
+            _ => Self::UnknownValue(feature::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Feature {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::LabelDetection => serializer.serialize_i32(1),
+            Self::ShotChangeDetection => serializer.serialize_i32(2),
+            Self::ExplicitContentDetection => serializer.serialize_i32(3),
+            Self::FaceDetection => serializer.serialize_i32(4),
+            Self::SpeechTranscription => serializer.serialize_i32(6),
+            Self::TextDetection => serializer.serialize_i32(7),
+            Self::ObjectTracking => serializer.serialize_i32(9),
+            Self::LogoRecognition => serializer.serialize_i32(12),
+            Self::PersonDetection => serializer.serialize_i32(14),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Feature {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Feature>::new(
+            ".google.cloud.videointelligence.v1.Feature",
+        ))
     }
 }
 
 /// Label detection mode.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LabelDetectionMode(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LabelDetectionMode {
+    /// Unspecified.
+    Unspecified,
+    /// Detect shot-level labels.
+    ShotMode,
+    /// Detect frame-level labels.
+    FrameMode,
+    /// Detect both shot-level and frame-level labels.
+    ShotAndFrameMode,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LabelDetectionMode::value] or
+    /// [LabelDetectionMode::name].
+    UnknownValue(label_detection_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod label_detection_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl LabelDetectionMode {
-    /// Unspecified.
-    pub const LABEL_DETECTION_MODE_UNSPECIFIED: LabelDetectionMode = LabelDetectionMode::new(0);
-
-    /// Detect shot-level labels.
-    pub const SHOT_MODE: LabelDetectionMode = LabelDetectionMode::new(1);
-
-    /// Detect frame-level labels.
-    pub const FRAME_MODE: LabelDetectionMode = LabelDetectionMode::new(2);
-
-    /// Detect both shot-level and frame-level labels.
-    pub const SHOT_AND_FRAME_MODE: LabelDetectionMode = LabelDetectionMode::new(3);
-
-    /// Creates a new LabelDetectionMode instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ShotMode => std::option::Option::Some(1),
+            Self::FrameMode => std::option::Option::Some(2),
+            Self::ShotAndFrameMode => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LABEL_DETECTION_MODE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SHOT_MODE"),
-            2 => std::borrow::Cow::Borrowed("FRAME_MODE"),
-            3 => std::borrow::Cow::Borrowed("SHOT_AND_FRAME_MODE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LABEL_DETECTION_MODE_UNSPECIFIED"),
+            Self::ShotMode => std::option::Option::Some("SHOT_MODE"),
+            Self::FrameMode => std::option::Option::Some("FRAME_MODE"),
+            Self::ShotAndFrameMode => std::option::Option::Some("SHOT_AND_FRAME_MODE"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LABEL_DETECTION_MODE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LABEL_DETECTION_MODE_UNSPECIFIED)
-            }
-            "SHOT_MODE" => std::option::Option::Some(Self::SHOT_MODE),
-            "FRAME_MODE" => std::option::Option::Some(Self::FRAME_MODE),
-            "SHOT_AND_FRAME_MODE" => std::option::Option::Some(Self::SHOT_AND_FRAME_MODE),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LabelDetectionMode {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LabelDetectionMode {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LabelDetectionMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LabelDetectionMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ShotMode,
+            2 => Self::FrameMode,
+            3 => Self::ShotAndFrameMode,
+            _ => Self::UnknownValue(label_detection_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LabelDetectionMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LABEL_DETECTION_MODE_UNSPECIFIED" => Self::Unspecified,
+            "SHOT_MODE" => Self::ShotMode,
+            "FRAME_MODE" => Self::FrameMode,
+            "SHOT_AND_FRAME_MODE" => Self::ShotAndFrameMode,
+            _ => Self::UnknownValue(label_detection_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LabelDetectionMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ShotMode => serializer.serialize_i32(1),
+            Self::FrameMode => serializer.serialize_i32(2),
+            Self::ShotAndFrameMode => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LabelDetectionMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LabelDetectionMode>::new(
+            ".google.cloud.videointelligence.v1.LabelDetectionMode",
+        ))
     }
 }
 
 /// Bucketized representation of likelihood.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Likelihood(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Likelihood {
+    /// Unspecified likelihood.
+    Unspecified,
+    /// Very unlikely.
+    VeryUnlikely,
+    /// Unlikely.
+    Unlikely,
+    /// Possible.
+    Possible,
+    /// Likely.
+    Likely,
+    /// Very likely.
+    VeryLikely,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Likelihood::value] or
+    /// [Likelihood::name].
+    UnknownValue(likelihood::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod likelihood {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Likelihood {
-    /// Unspecified likelihood.
-    pub const LIKELIHOOD_UNSPECIFIED: Likelihood = Likelihood::new(0);
-
-    /// Very unlikely.
-    pub const VERY_UNLIKELY: Likelihood = Likelihood::new(1);
-
-    /// Unlikely.
-    pub const UNLIKELY: Likelihood = Likelihood::new(2);
-
-    /// Possible.
-    pub const POSSIBLE: Likelihood = Likelihood::new(3);
-
-    /// Likely.
-    pub const LIKELY: Likelihood = Likelihood::new(4);
-
-    /// Very likely.
-    pub const VERY_LIKELY: Likelihood = Likelihood::new(5);
-
-    /// Creates a new Likelihood instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::VeryUnlikely => std::option::Option::Some(1),
+            Self::Unlikely => std::option::Option::Some(2),
+            Self::Possible => std::option::Option::Some(3),
+            Self::Likely => std::option::Option::Some(4),
+            Self::VeryLikely => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LIKELIHOOD_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("VERY_UNLIKELY"),
-            2 => std::borrow::Cow::Borrowed("UNLIKELY"),
-            3 => std::borrow::Cow::Borrowed("POSSIBLE"),
-            4 => std::borrow::Cow::Borrowed("LIKELY"),
-            5 => std::borrow::Cow::Borrowed("VERY_LIKELY"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LIKELIHOOD_UNSPECIFIED"),
+            Self::VeryUnlikely => std::option::Option::Some("VERY_UNLIKELY"),
+            Self::Unlikely => std::option::Option::Some("UNLIKELY"),
+            Self::Possible => std::option::Option::Some("POSSIBLE"),
+            Self::Likely => std::option::Option::Some("LIKELY"),
+            Self::VeryLikely => std::option::Option::Some("VERY_LIKELY"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LIKELIHOOD_UNSPECIFIED" => std::option::Option::Some(Self::LIKELIHOOD_UNSPECIFIED),
-            "VERY_UNLIKELY" => std::option::Option::Some(Self::VERY_UNLIKELY),
-            "UNLIKELY" => std::option::Option::Some(Self::UNLIKELY),
-            "POSSIBLE" => std::option::Option::Some(Self::POSSIBLE),
-            "LIKELY" => std::option::Option::Some(Self::LIKELY),
-            "VERY_LIKELY" => std::option::Option::Some(Self::VERY_LIKELY),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Likelihood {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Likelihood {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Likelihood {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Likelihood {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::VeryUnlikely,
+            2 => Self::Unlikely,
+            3 => Self::Possible,
+            4 => Self::Likely,
+            5 => Self::VeryLikely,
+            _ => Self::UnknownValue(likelihood::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Likelihood {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LIKELIHOOD_UNSPECIFIED" => Self::Unspecified,
+            "VERY_UNLIKELY" => Self::VeryUnlikely,
+            "UNLIKELY" => Self::Unlikely,
+            "POSSIBLE" => Self::Possible,
+            "LIKELY" => Self::Likely,
+            "VERY_LIKELY" => Self::VeryLikely,
+            _ => Self::UnknownValue(likelihood::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Likelihood {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::VeryUnlikely => serializer.serialize_i32(1),
+            Self::Unlikely => serializer.serialize_i32(2),
+            Self::Possible => serializer.serialize_i32(3),
+            Self::Likely => serializer.serialize_i32(4),
+            Self::VeryLikely => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Likelihood {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Likelihood>::new(
+            ".google.cloud.videointelligence.v1.Likelihood",
+        ))
     }
 }

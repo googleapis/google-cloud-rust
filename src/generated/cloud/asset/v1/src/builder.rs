@@ -16,7 +16,6 @@
 
 pub mod asset_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AssetService][super::super::client::AssetService].
     ///
@@ -49,7 +48,7 @@ pub mod asset_service {
     /// Common implementation for [super::super::client::AssetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AssetService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod asset_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod asset_service {
     pub struct ExportAssets(RequestBuilder<crate::model::ExportAssetsRequest>);
 
     impl ExportAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -138,6 +141,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ExportAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -149,21 +154,6 @@ pub mod asset_service {
             self
         }
 
-        /// Sets the value of [content_type][crate::model::ExportAssetsRequest::content_type].
-        pub fn set_content_type<T: Into<crate::model::ContentType>>(mut self, v: T) -> Self {
-            self.0.request.content_type = v.into();
-            self
-        }
-
-        /// Sets the value of [output_config][crate::model::ExportAssetsRequest::output_config].
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
-            self
-        }
-
         /// Sets the value of [asset_types][crate::model::ExportAssetsRequest::asset_types].
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
@@ -172,6 +162,23 @@ pub mod asset_service {
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [content_type][crate::model::ExportAssetsRequest::content_type].
+        pub fn set_content_type<T: Into<crate::model::ContentType>>(mut self, v: T) -> Self {
+            self.0.request.content_type = v.into();
+            self
+        }
+
+        /// Sets the value of [output_config][crate::model::ExportAssetsRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.output_config = v.into();
             self
         }
 
@@ -199,7 +206,9 @@ pub mod asset_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -239,6 +248,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -247,6 +258,17 @@ pub mod asset_service {
         /// Sets the value of [read_time][crate::model::ListAssetsRequest::read_time].
         pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.read_time = v.into();
+            self
+        }
+
+        /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
+        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -265,17 +287,6 @@ pub mod asset_service {
         /// Sets the value of [page_token][crate::model::ListAssetsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
-        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -303,7 +314,9 @@ pub mod asset_service {
     pub struct BatchGetAssetsHistory(RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>);
 
     impl BatchGetAssetsHistory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -331,8 +344,21 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchGetAssetsHistoryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
+        pub fn set_asset_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -348,17 +374,6 @@ pub mod asset_service {
             v: T,
         ) -> Self {
             self.0.request.read_time_window = v.into();
-            self
-        }
-
-        /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
-        pub fn set_asset_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -386,7 +401,9 @@ pub mod asset_service {
     pub struct CreateFeed(RequestBuilder<crate::model::CreateFeedRequest>);
 
     impl CreateFeed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -411,18 +428,24 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [feed_id][crate::model::CreateFeedRequest::feed_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_feed_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.feed_id = v.into();
             self
         }
 
         /// Sets the value of [feed][crate::model::CreateFeedRequest::feed].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_feed<T: Into<std::option::Option<crate::model::Feed>>>(mut self, v: T) -> Self {
             self.0.request.feed = v.into();
             self
@@ -441,7 +464,9 @@ pub mod asset_service {
     pub struct GetFeed(RequestBuilder<crate::model::GetFeedRequest>);
 
     impl GetFeed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -466,6 +491,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::GetFeedRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -484,7 +511,9 @@ pub mod asset_service {
     pub struct ListFeeds(RequestBuilder<crate::model::ListFeedsRequest>);
 
     impl ListFeeds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -509,6 +538,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ListFeedsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -527,7 +558,9 @@ pub mod asset_service {
     pub struct UpdateFeed(RequestBuilder<crate::model::UpdateFeedRequest>);
 
     impl UpdateFeed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,12 +585,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_feed<T: Into<std::option::Option<crate::model::Feed>>>(mut self, v: T) -> Self {
             self.0.request.feed = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -579,7 +616,9 @@ pub mod asset_service {
     pub struct DeleteFeed(RequestBuilder<crate::model::DeleteFeedRequest>);
 
     impl DeleteFeed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -604,6 +643,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -622,7 +663,9 @@ pub mod asset_service {
     pub struct SearchAllResources(RequestBuilder<crate::model::SearchAllResourcesRequest>);
 
     impl SearchAllResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -665,6 +708,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::SearchAllResourcesRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
@@ -673,6 +718,17 @@ pub mod asset_service {
         /// Sets the value of [query][crate::model::SearchAllResourcesRequest::query].
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
+            self
+        }
+
+        /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
+        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -699,17 +755,6 @@ pub mod asset_service {
             self.0.request.read_mask = v.into();
             self
         }
-
-        /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
-        pub fn set_asset_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -724,7 +769,9 @@ pub mod asset_service {
     pub struct SearchAllIamPolicies(RequestBuilder<crate::model::SearchAllIamPoliciesRequest>);
 
     impl SearchAllIamPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -767,6 +814,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::SearchAllIamPoliciesRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
@@ -790,12 +839,6 @@ pub mod asset_service {
             self
         }
 
-        /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
-        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.order_by = v.into();
-            self
-        }
-
         /// Sets the value of [asset_types][crate::model::SearchAllIamPoliciesRequest::asset_types].
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
@@ -804,6 +847,12 @@ pub mod asset_service {
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
             self
         }
     }
@@ -820,7 +869,9 @@ pub mod asset_service {
     pub struct AnalyzeIamPolicy(RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
 
     impl AnalyzeIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -848,6 +899,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_analysis_query<
             T: Into<std::option::Option<crate::model::IamPolicyAnalysisQuery>>,
         >(
@@ -888,7 +941,9 @@ pub mod asset_service {
     );
 
     impl AnalyzeIamPolicyLongrunning {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -959,6 +1014,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_analysis_query<
             T: Into<std::option::Option<crate::model::IamPolicyAnalysisQuery>>,
         >(
@@ -976,6 +1033,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::IamPolicyAnalysisOutputConfig>>,
         >(
@@ -999,7 +1058,9 @@ pub mod asset_service {
     pub struct AnalyzeMove(RequestBuilder<crate::model::AnalyzeMoveRequest>);
 
     impl AnalyzeMove {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1024,12 +1085,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [resource][crate::model::AnalyzeMoveRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [destination_parent][crate::model::AnalyzeMoveRequest::destination_parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_destination_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_parent = v.into();
             self
@@ -1057,7 +1122,9 @@ pub mod asset_service {
     pub struct QueryAssets(RequestBuilder<crate::model::QueryAssetsRequest>);
 
     impl QueryAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1082,6 +1149,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::QueryAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1204,7 +1273,9 @@ pub mod asset_service {
     pub struct CreateSavedQuery(RequestBuilder<crate::model::CreateSavedQueryRequest>);
 
     impl CreateSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1232,12 +1303,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSavedQueryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_saved_query<T: Into<std::option::Option<crate::model::SavedQuery>>>(
             mut self,
             v: T,
@@ -1247,6 +1322,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [saved_query_id][crate::model::CreateSavedQueryRequest::saved_query_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_saved_query_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.saved_query_id = v.into();
             self
@@ -1265,7 +1342,9 @@ pub mod asset_service {
     pub struct GetSavedQuery(RequestBuilder<crate::model::GetSavedQueryRequest>);
 
     impl GetSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,6 +1369,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::GetSavedQueryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1308,7 +1389,9 @@ pub mod asset_service {
     pub struct ListSavedQueries(RequestBuilder<crate::model::ListSavedQueriesRequest>);
 
     impl ListSavedQueries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1351,6 +1434,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ListSavedQueriesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1387,7 +1472,9 @@ pub mod asset_service {
     pub struct UpdateSavedQuery(RequestBuilder<crate::model::UpdateSavedQueryRequest>);
 
     impl UpdateSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1415,6 +1502,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_saved_query<T: Into<std::option::Option<crate::model::SavedQuery>>>(
             mut self,
             v: T,
@@ -1424,6 +1513,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1445,7 +1536,9 @@ pub mod asset_service {
     pub struct DeleteSavedQuery(RequestBuilder<crate::model::DeleteSavedQueryRequest>);
 
     impl DeleteSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1473,6 +1566,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1493,7 +1588,9 @@ pub mod asset_service {
     );
 
     impl BatchGetEffectiveIamPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1521,12 +1618,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::BatchGetEffectiveIamPoliciesRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [names][crate::model::BatchGetEffectiveIamPoliciesRequest::names].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1550,7 +1651,9 @@ pub mod asset_service {
     pub struct AnalyzeOrgPolicies(RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>);
 
     impl AnalyzeOrgPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1593,12 +1696,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPoliciesRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [constraint][crate::model::AnalyzeOrgPoliciesRequest::constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_constraint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.constraint = v.into();
             self
@@ -1637,7 +1744,9 @@ pub mod asset_service {
     );
 
     impl AnalyzeOrgPolicyGovernedContainers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1684,12 +1793,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_constraint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.constraint = v.into();
             self
@@ -1728,7 +1841,9 @@ pub mod asset_service {
     );
 
     impl AnalyzeOrgPolicyGovernedAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1773,12 +1888,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_constraint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.constraint = v.into();
             self
@@ -1815,7 +1934,9 @@ pub mod asset_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

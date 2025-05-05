@@ -26,6 +26,9 @@ pub enum {{Codec.EnumName}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     {{Codec.BranchName}}({{{Codec.FieldType}}}),
     {{/Fields}}
 }

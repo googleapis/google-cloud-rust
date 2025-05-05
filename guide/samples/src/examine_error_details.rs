@@ -28,7 +28,7 @@ pub async fn examine_error_details() -> crate::Result<()> {
             lang::model::Document::new()
                 // Missing document contents
                 // .set_content("Hello World!")
-                .set_type(lang::model::document::Type::PLAIN_TEXT),
+                .set_type(lang::model::document::Type::PlainText),
         )
         .send()
         .await;
@@ -42,10 +42,9 @@ pub async fn examine_error_details() -> crate::Result<()> {
     // ANCHOR: examine-error-details-service-error
     if let Some(svc) = err.as_inner::<google_cloud_gax::error::ServiceError>() {
         println!(
-            "  status.code={}, status.message={}, status.status={:?}",
+            "  status.code={}, status.message={}",
             svc.status().code,
             svc.status().message,
-            svc.status().status
         );
         // ANCHOR_END: examine-error-details-service-error
         // ANCHOR: examine-error-details-iterate

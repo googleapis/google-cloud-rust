@@ -16,7 +16,6 @@
 
 pub mod secret_manager_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SecretManagerService][super::super::client::SecretManagerService].
     ///
@@ -49,7 +48,7 @@ pub mod secret_manager_service {
     /// Common implementation for [super::super::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod secret_manager_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod secret_manager_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,6 +115,8 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListLocationsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -159,7 +160,7 @@ pub mod secret_manager_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -185,12 +186,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetLocationRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetLocationRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -210,7 +215,7 @@ pub mod secret_manager_service {
 
     impl ListSecrets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -251,6 +256,8 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -294,7 +301,7 @@ pub mod secret_manager_service {
 
     impl CreateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -329,12 +336,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::CreateSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret_id = v.into();
             self
@@ -356,7 +367,7 @@ pub mod secret_manager_service {
 
     impl ListSecretsByProjectAndLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -400,12 +411,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretsByProjectAndLocationRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::ListSecretsByProjectAndLocationRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -451,7 +466,7 @@ pub mod secret_manager_service {
 
     impl CreateSecretByProjectAndLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -489,18 +504,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::CreateSecretByProjectAndLocationRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::CreateSecretByProjectAndLocationRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret_id][crate::model::CreateSecretByProjectAndLocationRequest::secret_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret_id = v.into();
             self
@@ -520,7 +541,7 @@ pub mod secret_manager_service {
 
     impl AddSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -558,18 +579,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AddSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AddSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::AddSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -591,7 +618,7 @@ pub mod secret_manager_service {
 
     impl AddSecretVersionByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -632,18 +659,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AddSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AddSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::AddSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -663,7 +696,7 @@ pub mod secret_manager_service {
 
     impl GetSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -689,12 +722,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -714,7 +751,7 @@ pub mod secret_manager_service {
 
     impl DeleteSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -740,12 +777,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DeleteSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DeleteSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -771,7 +812,7 @@ pub mod secret_manager_service {
 
     impl UpdateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -806,18 +847,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::UpdateSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
@@ -839,7 +886,7 @@ pub mod secret_manager_service {
 
     impl GetSecretByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -870,18 +917,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -903,7 +956,7 @@ pub mod secret_manager_service {
 
     impl DeleteSecretByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -934,18 +987,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -973,7 +1032,7 @@ pub mod secret_manager_service {
 
     impl UpdateSecretByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1013,24 +1072,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
@@ -1050,7 +1117,7 @@ pub mod secret_manager_service {
 
     impl ListSecretVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1094,12 +1161,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::ListSecretVersionsRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -1145,7 +1216,7 @@ pub mod secret_manager_service {
 
     impl ListSecretVersionsByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1194,18 +1265,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -1249,7 +1326,7 @@ pub mod secret_manager_service {
 
     impl GetSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1278,18 +1355,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GetSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1313,7 +1396,7 @@ pub mod secret_manager_service {
 
     impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1347,24 +1430,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1386,7 +1477,7 @@ pub mod secret_manager_service {
 
     impl AccessSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1415,18 +1506,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AccessSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AccessSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::AccessSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1450,7 +1547,7 @@ pub mod secret_manager_service {
 
     impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1484,24 +1581,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1523,7 +1628,7 @@ pub mod secret_manager_service {
 
     impl DisableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1558,24 +1663,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DisableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DisableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DisableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DisableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1597,7 +1710,7 @@ pub mod secret_manager_service {
 
     impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1635,24 +1748,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DisableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DisableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DisableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DisableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1674,7 +1795,7 @@ pub mod secret_manager_service {
 
     impl EnableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1709,24 +1830,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::EnableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::EnableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::EnableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::EnableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1748,7 +1877,7 @@ pub mod secret_manager_service {
 
     impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1786,24 +1915,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::EnableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::EnableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::EnableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::EnableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1825,7 +1962,7 @@ pub mod secret_manager_service {
 
     impl DestroySecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1860,24 +1997,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DestroySecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DestroySecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DestroySecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DestroySecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1899,7 +2044,7 @@ pub mod secret_manager_service {
 
     impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1937,24 +2082,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DestroySecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DestroySecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DestroySecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DestroySecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1976,7 +2129,7 @@ pub mod secret_manager_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2020,18 +2173,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::SetIamPolicyRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::SetIamPolicyRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::SetIamPolicyRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2053,7 +2212,7 @@ pub mod secret_manager_service {
 
     impl SetIamPolicyByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2097,18 +2256,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::SetIamPolicyRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::SetIamPolicyRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::SetIamPolicyRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2128,7 +2293,7 @@ pub mod secret_manager_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2154,12 +2319,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetIamPolicyRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetIamPolicyRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -2190,7 +2359,7 @@ pub mod secret_manager_service {
 
     impl GetIamPolicyByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2221,18 +2390,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -2261,7 +2436,7 @@ pub mod secret_manager_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2289,24 +2464,6 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
-        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
-        pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.secret = v.into();
-            self
-        }
-
-        /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
-        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.location = v.into();
-            self
-        }
-
         /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
@@ -2315,6 +2472,30 @@ pub mod secret_manager_service {
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -2334,7 +2515,7 @@ pub mod secret_manager_service {
 
     impl TestIamPermissionsByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2365,24 +2546,6 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
-        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
-        pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.secret = v.into();
-            self
-        }
-
-        /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
-        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.location = v.into();
-            self
-        }
-
         /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
@@ -2391,6 +2554,30 @@ pub mod secret_manager_service {
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }

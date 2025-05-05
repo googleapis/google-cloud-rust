@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Bigtable Admin API.
 ///
@@ -60,11 +59,11 @@ use std::sync::Arc;
 ///
 /// `BigtableInstanceAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `BigtableInstanceAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct BigtableInstanceAdmin {
-    inner: Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>,
 }
 
 impl BigtableInstanceAdmin {
@@ -91,7 +90,7 @@ impl BigtableInstanceAdmin {
         T: super::stub::BigtableInstanceAdmin + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -102,11 +101,11 @@ impl BigtableInstanceAdmin {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -622,11 +621,11 @@ impl BigtableInstanceAdmin {
 ///
 /// `BigtableTableAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `BigtableTableAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct BigtableTableAdmin {
-    inner: Arc<dyn super::stub::dynamic::BigtableTableAdmin>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::BigtableTableAdmin>,
 }
 
 impl BigtableTableAdmin {
@@ -653,7 +652,7 @@ impl BigtableTableAdmin {
         T: super::stub::BigtableTableAdmin + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -664,11 +663,11 @@ impl BigtableTableAdmin {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::BigtableTableAdmin>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::BigtableTableAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

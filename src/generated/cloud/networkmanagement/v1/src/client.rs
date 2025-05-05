@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Network Management API.
 ///
@@ -65,11 +64,11 @@ use std::sync::Arc;
 ///
 /// `ReachabilityService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ReachabilityService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ReachabilityService {
-    inner: Arc<dyn super::stub::dynamic::ReachabilityService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>,
 }
 
 impl ReachabilityService {
@@ -96,7 +95,7 @@ impl ReachabilityService {
         T: super::stub::ReachabilityService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -107,11 +106,11 @@ impl ReachabilityService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ReachabilityService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -400,11 +399,11 @@ impl ReachabilityService {
 ///
 /// `VpcFlowLogsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VpcFlowLogsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct VpcFlowLogsService {
-    inner: Arc<dyn super::stub::dynamic::VpcFlowLogsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>,
 }
 
 impl VpcFlowLogsService {
@@ -431,7 +430,7 @@ impl VpcFlowLogsService {
         T: super::stub::VpcFlowLogsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -442,11 +441,11 @@ impl VpcFlowLogsService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::VpcFlowLogsService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

@@ -57,7 +57,7 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("threatType", &req.threat_type.value())]);
+        let builder = builder.query(&[("threatType", &req.threat_type)]);
         let builder = builder.query(&[("versionToken", &req.version_token)]);
         let builder = req
             .constraints
@@ -89,9 +89,10 @@ impl super::stub::WebRiskService for WebRiskService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("uri", &req.uri)]);
-        let builder = req.threat_types.iter().fold(builder, |builder, p| {
-            builder.query(&[("threatTypes", p.value())])
-        });
+        let builder = req
+            .threat_types
+            .iter()
+            .fold(builder, |builder, p| builder.query(&[("threatTypes", p)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -112,9 +113,10 @@ impl super::stub::WebRiskService for WebRiskService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("hashPrefix", &req.hash_prefix)]);
-        let builder = req.threat_types.iter().fold(builder, |builder, p| {
-            builder.query(&[("threatTypes", p.value())])
-        });
+        let builder = req
+            .threat_types
+            .iter()
+            .fold(builder, |builder, p| builder.query(&[("threatTypes", p)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

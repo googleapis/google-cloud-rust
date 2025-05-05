@@ -16,7 +16,6 @@
 
 pub mod managed_identities_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ManagedIdentitiesService][super::super::client::ManagedIdentitiesService].
     ///
@@ -49,7 +48,7 @@ pub mod managed_identities_service {
     /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod managed_identities_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +76,7 @@ pub mod managed_identities_service {
 
     impl CreateMicrosoftAdDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -141,18 +140,24 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateMicrosoftAdDomainRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [domain_name][crate::model::CreateMicrosoftAdDomainRequest::domain_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_domain_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.domain_name = v.into();
             self
         }
 
         /// Sets the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
             mut self,
             v: T,
@@ -175,7 +180,7 @@ pub mod managed_identities_service {
 
     impl ResetAdminPassword {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -204,6 +209,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::ResetAdminPasswordRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -223,7 +230,7 @@ pub mod managed_identities_service {
 
     impl ListDomains {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -264,6 +271,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDomainsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -307,7 +316,7 @@ pub mod managed_identities_service {
 
     impl GetDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -333,6 +342,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::GetDomainRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -352,7 +363,7 @@ pub mod managed_identities_service {
 
     impl UpdateDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -413,6 +424,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -422,6 +435,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [domain][crate::model::UpdateDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
             mut self,
             v: T,
@@ -444,7 +459,7 @@ pub mod managed_identities_service {
 
     impl DeleteDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -505,6 +520,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDomainRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -524,7 +541,7 @@ pub mod managed_identities_service {
 
     impl AttachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -585,12 +602,16 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::AttachTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [trust][crate::model::AttachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
             mut self,
             v: T,
@@ -613,7 +634,7 @@ pub mod managed_identities_service {
 
     impl ReconfigureTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -677,18 +698,24 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::ReconfigureTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_domain_name][crate::model::ReconfigureTrustRequest::target_domain_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_domain_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_domain_name = v.into();
             self
         }
 
         /// Sets the value of [target_dns_ip_addresses][crate::model::ReconfigureTrustRequest::target_dns_ip_addresses].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -713,7 +740,7 @@ pub mod managed_identities_service {
 
     impl DetachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -774,12 +801,16 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::DetachTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [trust][crate::model::DetachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
             mut self,
             v: T,
@@ -802,7 +833,7 @@ pub mod managed_identities_service {
 
     impl ValidateTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -863,12 +894,16 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::ValidateTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [trust][crate::model::ValidateTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
             mut self,
             v: T,
@@ -891,7 +926,7 @@ pub mod managed_identities_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -972,7 +1007,7 @@ pub mod managed_identities_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1020,7 +1055,7 @@ pub mod managed_identities_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1068,7 +1103,7 @@ pub mod managed_identities_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

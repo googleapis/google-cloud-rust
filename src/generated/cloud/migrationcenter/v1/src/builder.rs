@@ -16,7 +16,6 @@
 
 pub mod migration_center {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [MigrationCenter][super::super::client::MigrationCenter].
     ///
@@ -49,7 +48,7 @@ pub mod migration_center {
     /// Common implementation for [super::super::client::MigrationCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod migration_center {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod migration_center {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -160,7 +165,9 @@ pub mod migration_center {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,6 +192,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetAssetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -209,7 +218,9 @@ pub mod migration_center {
     pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
 
     impl UpdateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -234,6 +245,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -243,6 +256,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [asset][crate::model::UpdateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
             mut self,
             v: T,
@@ -270,7 +285,9 @@ pub mod migration_center {
     pub struct BatchUpdateAssets(RequestBuilder<crate::model::BatchUpdateAssetsRequest>);
 
     impl BatchUpdateAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -298,12 +315,16 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [requests][crate::model::BatchUpdateAssetsRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -327,7 +348,9 @@ pub mod migration_center {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -352,6 +375,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -376,7 +401,9 @@ pub mod migration_center {
     pub struct BatchDeleteAssets(RequestBuilder<crate::model::BatchDeleteAssetsRequest>);
 
     impl BatchDeleteAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,18 +431,16 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of [allow_missing][crate::model::BatchDeleteAssetsRequest::allow_missing].
-        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.allow_missing = v.into();
-            self
-        }
-
         /// Sets the value of [names][crate::model::BatchDeleteAssetsRequest::names].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -423,6 +448,12 @@ pub mod migration_center {
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [allow_missing][crate::model::BatchDeleteAssetsRequest::allow_missing].
+        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.allow_missing = v.into();
             self
         }
     }
@@ -439,7 +470,9 @@ pub mod migration_center {
     pub struct ReportAssetFrames(RequestBuilder<crate::model::ReportAssetFramesRequest>);
 
     impl ReportAssetFrames {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -467,6 +500,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ReportAssetFramesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -482,6 +517,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [source][crate::model::ReportAssetFramesRequest::source].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source = v.into();
             self
@@ -500,7 +537,9 @@ pub mod migration_center {
     pub struct AggregateAssetsValues(RequestBuilder<crate::model::AggregateAssetsValuesRequest>);
 
     impl AggregateAssetsValues {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -528,14 +567,10 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::AggregateAssetsValuesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [filter][crate::model::AggregateAssetsValuesRequest::filter].
-        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.filter = v.into();
             self
         }
 
@@ -547,6 +582,12 @@ pub mod migration_center {
         {
             use std::iter::Iterator;
             self.0.request.aggregations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::AggregateAssetsValuesRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
             self
         }
     }
@@ -563,7 +604,9 @@ pub mod migration_center {
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -626,18 +669,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [import_job_id][crate::model::CreateImportJobRequest::import_job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.import_job_id = v.into();
             self
         }
 
         /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
             mut self,
             v: T,
@@ -665,7 +714,9 @@ pub mod migration_center {
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -705,6 +756,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -753,7 +806,9 @@ pub mod migration_center {
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -778,6 +833,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetImportJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -802,7 +859,9 @@ pub mod migration_center {
     pub struct DeleteImportJob(RequestBuilder<crate::model::DeleteImportJobRequest>);
 
     impl DeleteImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -862,6 +921,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteImportJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -892,7 +953,9 @@ pub mod migration_center {
     pub struct UpdateImportJob(RequestBuilder<crate::model::UpdateImportJobRequest>);
 
     impl UpdateImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -955,6 +1018,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -964,6 +1029,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
             mut self,
             v: T,
@@ -991,7 +1058,9 @@ pub mod migration_center {
     pub struct ValidateImportJob(RequestBuilder<crate::model::ValidateImportJobRequest>);
 
     impl ValidateImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1054,6 +1123,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::ValidateImportJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1078,7 +1149,9 @@ pub mod migration_center {
     pub struct RunImportJob(RequestBuilder<crate::model::RunImportJobRequest>);
 
     impl RunImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1138,6 +1211,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::RunImportJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1162,7 +1237,9 @@ pub mod migration_center {
     pub struct GetImportDataFile(RequestBuilder<crate::model::GetImportDataFileRequest>);
 
     impl GetImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1190,6 +1267,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetImportDataFileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1208,7 +1287,9 @@ pub mod migration_center {
     pub struct ListImportDataFiles(RequestBuilder<crate::model::ListImportDataFilesRequest>);
 
     impl ListImportDataFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1251,6 +1332,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListImportDataFilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1293,7 +1376,9 @@ pub mod migration_center {
     pub struct CreateImportDataFile(RequestBuilder<crate::model::CreateImportDataFileRequest>);
 
     impl CreateImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1360,18 +1445,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateImportDataFileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [import_data_file_id][crate::model::CreateImportDataFileRequest::import_data_file_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_data_file_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.import_data_file_id = v.into();
             self
         }
 
         /// Sets the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_import_data_file<T: Into<std::option::Option<crate::model::ImportDataFile>>>(
             mut self,
             v: T,
@@ -1399,7 +1490,9 @@ pub mod migration_center {
     pub struct DeleteImportDataFile(RequestBuilder<crate::model::DeleteImportDataFileRequest>);
 
     impl DeleteImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1462,6 +1555,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteImportDataFileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1486,7 +1581,9 @@ pub mod migration_center {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1526,6 +1623,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1568,7 +1667,9 @@ pub mod migration_center {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1593,6 +1694,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1611,7 +1714,9 @@ pub mod migration_center {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1673,18 +1778,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [group_id][crate::model::CreateGroupRequest::group_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_group_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.group_id = v.into();
             self
         }
 
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
             mut self,
             v: T,
@@ -1712,7 +1823,9 @@ pub mod migration_center {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1774,6 +1887,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1783,6 +1898,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
             mut self,
             v: T,
@@ -1810,7 +1927,9 @@ pub mod migration_center {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1870,6 +1989,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1894,7 +2015,9 @@ pub mod migration_center {
     pub struct AddAssetsToGroup(RequestBuilder<crate::model::AddAssetsToGroupRequest>);
 
     impl AddAssetsToGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1959,6 +2082,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [group][crate::model::AddAssetsToGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.group = v.into();
             self
@@ -1971,6 +2096,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_assets<T: Into<std::option::Option<crate::model::AssetList>>>(
             mut self,
             v: T,
@@ -1998,7 +2125,9 @@ pub mod migration_center {
     pub struct RemoveAssetsFromGroup(RequestBuilder<crate::model::RemoveAssetsFromGroupRequest>);
 
     impl RemoveAssetsFromGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2063,6 +2192,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [group][crate::model::RemoveAssetsFromGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.group = v.into();
             self
@@ -2075,6 +2206,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_assets<T: Into<std::option::Option<crate::model::AssetList>>>(
             mut self,
             v: T,
@@ -2102,7 +2235,9 @@ pub mod migration_center {
     pub struct ListErrorFrames(RequestBuilder<crate::model::ListErrorFramesRequest>);
 
     impl ListErrorFrames {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2142,6 +2277,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListErrorFramesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2178,7 +2315,9 @@ pub mod migration_center {
     pub struct GetErrorFrame(RequestBuilder<crate::model::GetErrorFrameRequest>);
 
     impl GetErrorFrame {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2203,6 +2342,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetErrorFrameRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2227,7 +2368,9 @@ pub mod migration_center {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2267,6 +2410,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2309,7 +2454,9 @@ pub mod migration_center {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2334,6 +2481,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2352,7 +2501,9 @@ pub mod migration_center {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2414,18 +2565,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [source_id][crate::model::CreateSourceRequest::source_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_id = v.into();
             self
         }
 
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
             mut self,
             v: T,
@@ -2453,7 +2610,9 @@ pub mod migration_center {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2515,6 +2674,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2524,6 +2685,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
             mut self,
             v: T,
@@ -2551,7 +2714,9 @@ pub mod migration_center {
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2611,6 +2776,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2635,7 +2802,9 @@ pub mod migration_center {
     pub struct ListPreferenceSets(RequestBuilder<crate::model::ListPreferenceSetsRequest>);
 
     impl ListPreferenceSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2678,6 +2847,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListPreferenceSetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2714,7 +2885,9 @@ pub mod migration_center {
     pub struct GetPreferenceSet(RequestBuilder<crate::model::GetPreferenceSetRequest>);
 
     impl GetPreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2742,6 +2915,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetPreferenceSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2760,7 +2935,9 @@ pub mod migration_center {
     pub struct CreatePreferenceSet(RequestBuilder<crate::model::CreatePreferenceSetRequest>);
 
     impl CreatePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2827,18 +3004,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreatePreferenceSetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [preference_set_id][crate::model::CreatePreferenceSetRequest::preference_set_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_preference_set_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.preference_set_id = v.into();
             self
         }
 
         /// Sets the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_preference_set<T: Into<std::option::Option<crate::model::PreferenceSet>>>(
             mut self,
             v: T,
@@ -2866,7 +3049,9 @@ pub mod migration_center {
     pub struct UpdatePreferenceSet(RequestBuilder<crate::model::UpdatePreferenceSetRequest>);
 
     impl UpdatePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2933,6 +3118,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2942,6 +3129,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_preference_set<T: Into<std::option::Option<crate::model::PreferenceSet>>>(
             mut self,
             v: T,
@@ -2969,7 +3158,9 @@ pub mod migration_center {
     pub struct DeletePreferenceSet(RequestBuilder<crate::model::DeletePreferenceSetRequest>);
 
     impl DeletePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3032,6 +3223,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeletePreferenceSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3056,7 +3249,9 @@ pub mod migration_center {
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3081,6 +3276,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3099,7 +3296,9 @@ pub mod migration_center {
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3162,6 +3361,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3171,6 +3372,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
             mut self,
             v: T,
@@ -3198,7 +3401,9 @@ pub mod migration_center {
     pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
 
     impl CreateReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3264,18 +3469,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateReportConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [report_config_id][crate::model::CreateReportConfigRequest::report_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_report_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.report_config_id = v.into();
             self
         }
 
         /// Sets the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_report_config<T: Into<std::option::Option<crate::model::ReportConfig>>>(
             mut self,
             v: T,
@@ -3303,7 +3514,9 @@ pub mod migration_center {
     pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
 
     impl GetReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3328,6 +3541,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetReportConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3346,7 +3561,9 @@ pub mod migration_center {
     pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
 
     impl ListReportConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3389,6 +3606,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListReportConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3431,7 +3650,9 @@ pub mod migration_center {
     pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
 
     impl DeleteReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3494,6 +3715,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteReportConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3524,7 +3747,9 @@ pub mod migration_center {
     pub struct CreateReport(RequestBuilder<crate::model::CreateReportRequest>);
 
     impl CreateReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3586,18 +3811,24 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateReportRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [report_id][crate::model::CreateReportRequest::report_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_report_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.report_id = v.into();
             self
         }
 
         /// Sets the value of [report][crate::model::CreateReportRequest::report].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_report<T: Into<std::option::Option<crate::model::Report>>>(
             mut self,
             v: T,
@@ -3625,7 +3856,9 @@ pub mod migration_center {
     pub struct GetReport(RequestBuilder<crate::model::GetReportRequest>);
 
     impl GetReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3650,6 +3883,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::GetReportRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3674,7 +3909,9 @@ pub mod migration_center {
     pub struct ListReports(RequestBuilder<crate::model::ListReportsRequest>);
 
     impl ListReports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3714,6 +3951,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [parent][crate::model::ListReportsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3762,7 +4001,9 @@ pub mod migration_center {
     pub struct DeleteReport(RequestBuilder<crate::model::DeleteReportRequest>);
 
     impl DeleteReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3822,6 +4063,8 @@ pub mod migration_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteReportRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3846,7 +4089,9 @@ pub mod migration_center {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3925,7 +4170,9 @@ pub mod migration_center {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3968,7 +4215,9 @@ pub mod migration_center {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4047,7 +4296,9 @@ pub mod migration_center {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4093,7 +4344,9 @@ pub mod migration_center {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4139,7 +4392,9 @@ pub mod migration_center {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

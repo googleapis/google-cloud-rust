@@ -46,6 +46,12 @@ As it is usual with Rust, you must declare the dependency in your
 {{#include ../samples/Cargo.toml:speech}}
 ```
 
+And:
+
+```toml
+{{#include ../samples/Cargo.toml:tokio}}
+```
+
 ## Starting a long-running operation
 
 To start a long-running operation first initialize a client as

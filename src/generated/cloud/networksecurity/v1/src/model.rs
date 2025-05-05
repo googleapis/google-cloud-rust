@@ -114,6 +114,18 @@ impl AuthorizationPolicy {
         self
     }
 
+    /// Sets the value of [labels][crate::model::AuthorizationPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [action][crate::model::AuthorizationPolicy::action].
     pub fn set_action<T: std::convert::Into<crate::model::authorization_policy::Action>>(
         mut self,
@@ -131,18 +143,6 @@ impl AuthorizationPolicy {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::AuthorizationPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -324,21 +324,6 @@ pub mod authorization_policy {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [http_header_match][crate::model::authorization_policy::rule::Destination::http_header_match].
-            pub fn set_http_header_match<
-                T: std::convert::Into<
-                        std::option::Option<
-                            crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.http_header_match = v.into();
-                self
-            }
-
             /// Sets the value of [hosts][crate::model::authorization_policy::rule::Destination::hosts].
             pub fn set_hosts<T, V>(mut self, v: T) -> Self
             where
@@ -369,6 +354,21 @@ pub mod authorization_policy {
             {
                 use std::iter::Iterator;
                 self.methods = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [http_header_match][crate::model::authorization_policy::rule::Destination::http_header_match].
+            pub fn set_http_header_match<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.http_header_match = v.into();
                 self
             }
         }
@@ -488,61 +488,136 @@ pub mod authorization_policy {
     }
 
     /// Possible values that define what action to take.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(i32);
-
-    impl Action {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Action {
         /// Default value.
-        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
-
+        Unspecified,
         /// Grant access.
-        pub const ALLOW: Action = Action::new(1);
-
+        Allow,
         /// Deny access.
         /// Deny rules should be avoided unless they are used to provide a default
         /// "deny all" fallback.
-        pub const DENY: Action = Action::new(2);
+        Deny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Action::value] or
+        /// [Action::name].
+        UnknownValue(action::UnknownValue),
+    }
 
-        /// Creates a new Action instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod action {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Action {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                2 => std::borrow::Cow::Borrowed("DENY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ACTION_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                "DENY" => std::option::Option::Some(Self::DENY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Action {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Action {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTION_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
+                ".google.cloud.networksecurity.v1.AuthorizationPolicy.Action",
+            ))
         }
     }
 }
@@ -560,6 +635,7 @@ pub struct ListAuthorizationPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of AuthorizationPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last
@@ -628,12 +704,6 @@ impl ListAuthorizationPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAuthorizationPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [authorization_policies][crate::model::ListAuthorizationPoliciesResponse::authorization_policies].
     pub fn set_authorization_policies<T, V>(mut self, v: T) -> Self
     where
@@ -642,6 +712,12 @@ impl ListAuthorizationPoliciesResponse {
     {
         use std::iter::Iterator;
         self.authorization_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthorizationPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -934,6 +1010,18 @@ impl ClientTlsPolicy {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ClientTlsPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [sni][crate::model::ClientTlsPolicy::sni].
     pub fn set_sni<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sni = v.into();
@@ -961,18 +1049,6 @@ impl ClientTlsPolicy {
         self.server_validation_ca = v.into_iter().map(|i| i.into()).collect();
         self
     }
-
-    /// Sets the value of [labels][crate::model::ClientTlsPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for ClientTlsPolicy {
@@ -993,6 +1069,7 @@ pub struct ListClientTlsPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of ClientTlsPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListClientTlsPoliciesResponse`
@@ -1061,12 +1138,6 @@ impl ListClientTlsPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClientTlsPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [client_tls_policies][crate::model::ListClientTlsPoliciesResponse::client_tls_policies].
     pub fn set_client_tls_policies<T, V>(mut self, v: T) -> Self
     where
@@ -1075,6 +1146,12 @@ impl ListClientTlsPoliciesResponse {
     {
         use std::iter::Iterator;
         self.client_tls_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClientTlsPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1315,6 +1392,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1423,6 +1501,7 @@ pub struct ServerTlsPolicy {
     ///
     /// Consider using it if you wish to upgrade in place your deployment to TLS
     /// while having mixed TLS and non-TLS traffic reaching port :80.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_open: bool,
 
     /// Defines a mechanism to provision server identity (public and private keys).
@@ -1478,6 +1557,18 @@ impl ServerTlsPolicy {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ServerTlsPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [allow_open][crate::model::ServerTlsPolicy::allow_open].
     pub fn set_allow_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_open = v.into();
@@ -1503,18 +1594,6 @@ impl ServerTlsPolicy {
         v: T,
     ) -> Self {
         self.mtls_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ServerTlsPolicy::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1581,6 +1660,7 @@ pub struct ListServerTlsPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of ServerTlsPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServerTlsPoliciesResponse`
@@ -1649,12 +1729,6 @@ impl ListServerTlsPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServerTlsPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [server_tls_policies][crate::model::ListServerTlsPoliciesResponse::server_tls_policies].
     pub fn set_server_tls_policies<T, V>(mut self, v: T) -> Self
     where
@@ -1663,6 +1737,12 @@ impl ListServerTlsPoliciesResponse {
     {
         use std::iter::Iterator;
         self.server_tls_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServerTlsPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1951,6 +2031,20 @@ impl ValidationCA {
         })
     }
 
+    /// Sets the value of [r#type][crate::model::ValidationCA::r#type]
+    /// to hold a `GrpcEndpoint`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::validation_ca::Type::GrpcEndpoint(v.into()));
+        self
+    }
+
     /// The value of [r#type][crate::model::ValidationCA::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
@@ -1964,20 +2058,6 @@ impl ValidationCA {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::ValidationCA::r#type]
-    /// to hold a `GrpcEndpoint`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::validation_ca::Type::GrpcEndpoint(v.into()));
-        self
     }
 
     /// Sets the value of [r#type][crate::model::ValidationCA::r#type]
@@ -2111,21 +2191,6 @@ impl CertificateProvider {
         })
     }
 
-    /// The value of [r#type][crate::model::CertificateProvider::r#type]
-    /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn certificate_provider_instance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::certificate_provider::Type::CertificateProviderInstance(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [r#type][crate::model::CertificateProvider::r#type]
     /// to hold a `GrpcEndpoint`.
     ///
@@ -2139,6 +2204,21 @@ impl CertificateProvider {
             crate::model::certificate_provider::Type::GrpcEndpoint(v.into()),
         );
         self
+    }
+
+    /// The value of [r#type][crate::model::CertificateProvider::r#type]
+    /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn certificate_provider_instance(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::certificate_provider::Type::CertificateProviderInstance(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::CertificateProvider::r#type]

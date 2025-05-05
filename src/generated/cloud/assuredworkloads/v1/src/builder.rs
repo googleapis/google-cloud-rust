@@ -16,7 +16,6 @@
 
 pub mod assured_workloads_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AssuredWorkloadsService][super::super::client::AssuredWorkloadsService].
     ///
@@ -49,7 +48,7 @@ pub mod assured_workloads_service {
     /// Common implementation for [super::super::client::AssuredWorkloadsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod assured_workloads_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod assured_workloads_service {
 
     impl CreateWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -142,12 +141,16 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
             mut self,
             v: T,
@@ -176,7 +179,7 @@ pub mod assured_workloads_service {
 
     impl UpdateWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -202,6 +205,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
             mut self,
             v: T,
@@ -211,6 +216,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -235,7 +242,7 @@ pub mod assured_workloads_service {
 
     impl RestrictAllowedResources {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -264,12 +271,16 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [name][crate::model::RestrictAllowedResourcesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [restriction_type][crate::model::RestrictAllowedResourcesRequest::restriction_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restriction_type<
             T: Into<crate::model::restrict_allowed_resources_request::RestrictionType>,
         >(
@@ -294,7 +305,7 @@ pub mod assured_workloads_service {
 
     impl DeleteWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -320,6 +331,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -345,7 +358,7 @@ pub mod assured_workloads_service {
 
     impl GetWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -371,6 +384,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -390,7 +405,7 @@ pub mod assured_workloads_service {
 
     impl ListWorkloads {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -431,6 +446,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -468,7 +485,7 @@ pub mod assured_workloads_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -549,7 +566,7 @@ pub mod assured_workloads_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod cloud_memcache {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudMemcache][super::super::client::CloudMemcache].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_memcache {
     /// Common implementation for [super::super::client::CloudMemcache] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_memcache {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_memcache {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod cloud_memcache {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +206,9 @@ pub mod cloud_memcache {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -260,18 +271,24 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -293,7 +310,9 @@ pub mod cloud_memcache {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -356,6 +375,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -365,6 +386,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -386,7 +409,9 @@ pub mod cloud_memcache {
     pub struct UpdateParameters(RequestBuilder<crate::model::UpdateParametersRequest>);
 
     impl UpdateParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -452,12 +477,16 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::UpdateParametersRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParametersRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -488,7 +517,9 @@ pub mod cloud_memcache {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -548,6 +579,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -566,7 +599,9 @@ pub mod cloud_memcache {
     pub struct ApplyParameters(RequestBuilder<crate::model::ApplyParametersRequest>);
 
     impl ApplyParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -629,14 +664,10 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::ApplyParametersRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [apply_all][crate::model::ApplyParametersRequest::apply_all].
-        pub fn set_apply_all<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.apply_all = v.into();
             self
         }
 
@@ -648,6 +679,12 @@ pub mod cloud_memcache {
         {
             use std::iter::Iterator;
             self.0.request.node_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [apply_all][crate::model::ApplyParametersRequest::apply_all].
+        pub fn set_apply_all<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.apply_all = v.into();
             self
         }
     }
@@ -664,7 +701,9 @@ pub mod cloud_memcache {
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
 
     impl RescheduleMaintenance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -730,12 +769,16 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [instance][crate::model::RescheduleMaintenanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [reschedule_type][crate::model::RescheduleMaintenanceRequest::reschedule_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_reschedule_type<
             T: Into<crate::model::reschedule_maintenance_request::RescheduleType>,
         >(
@@ -768,7 +811,9 @@ pub mod cloud_memcache {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -847,7 +892,9 @@ pub mod cloud_memcache {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -890,7 +937,9 @@ pub mod cloud_memcache {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -969,7 +1018,9 @@ pub mod cloud_memcache {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1015,7 +1066,9 @@ pub mod cloud_memcache {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1061,7 +1114,9 @@ pub mod cloud_memcache {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudMemcache>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

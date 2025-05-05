@@ -16,7 +16,6 @@
 
 pub mod g_suite_add_ons {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [GSuiteAddOns][super::super::client::GSuiteAddOns].
     ///
@@ -49,7 +48,7 @@ pub mod g_suite_add_ons {
     /// Common implementation for [super::super::client::GSuiteAddOns] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod g_suite_add_ons {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod g_suite_add_ons {
     pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
 
     impl GetAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,6 +103,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -118,7 +123,9 @@ pub mod g_suite_add_ons {
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -146,18 +153,24 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [deployment_id][crate::model::CreateDeploymentRequest::deployment_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.deployment_id = v.into();
             self
         }
 
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
             mut self,
             v: T,
@@ -179,7 +192,9 @@ pub mod g_suite_add_ons {
     pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
     impl ReplaceDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -207,6 +222,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
             mut self,
             v: T,
@@ -228,7 +245,9 @@ pub mod g_suite_add_ons {
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -253,6 +272,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -271,7 +292,9 @@ pub mod g_suite_add_ons {
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -311,6 +334,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -341,7 +366,9 @@ pub mod g_suite_add_ons {
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -369,6 +396,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -393,7 +422,9 @@ pub mod g_suite_add_ons {
     pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
 
     impl InstallDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,6 +452,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [name][crate::model::InstallDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -439,7 +472,9 @@ pub mod g_suite_add_ons {
     pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
 
     impl UninstallDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -467,6 +502,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [name][crate::model::UninstallDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -485,7 +522,9 @@ pub mod g_suite_add_ons {
     pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
 
     impl GetInstallStatus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -513,6 +552,8 @@ pub mod g_suite_add_ons {
         }
 
         /// Sets the value of [name][crate::model::GetInstallStatusRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -14,6 +14,8 @@
 
 package api
 
+import "slices"
+
 // Typez represent different field types that may be found in messages.
 type Typez int
 
@@ -169,6 +171,8 @@ type Service struct {
 	Name string
 	// ID is a unique identifier.
 	ID string
+	// Some source specifications allow marking services as deprecated.
+	Deprecated bool
 	// Methods associated with the Service.
 	Methods []*Method
 	// DefaultHost fragment of a URL.
@@ -190,6 +194,8 @@ type Method struct {
 	Name string
 	// ID is a unique identifier.
 	ID string
+	// Some source specifications allow marking methods as deprecated.
+	Deprecated bool
 	// InputType is the input to the Method
 	InputTypeID string
 	InputType   *Message
@@ -383,6 +389,8 @@ type Message struct {
 	Name string
 	// ID is a unique identifier.
 	ID string
+	// Some source specifications allow marking messages as deprecated.
+	Deprecated bool
 	// Fields associated with the Message.
 	Fields []*Field
 	// IsLocalToPackage is true if the message is defined in the current
@@ -423,6 +431,8 @@ type Enum struct {
 	Name string
 	// ID is a unique identifier.
 	ID string
+	// Some source specifications allow marking enums as deprecated.
+	Deprecated bool
 	// Values associated with the Enum.
 	Values []*EnumValue
 	// The unique integer values, some enums have multiple aliases for the
@@ -444,6 +454,8 @@ type EnumValue struct {
 	Name string
 	// ID is a unique identifier.
 	ID string
+	// Some source specifications allow marking enum values as deprecated.
+	Deprecated bool
 	// Number of the attribute.
 	Number int32
 	// Parent returns the ancestor of this node, if any.
@@ -470,8 +482,18 @@ type Field struct {
 	JSONName string
 	// Optional indicates that the field is marked as optional in proto3.
 	Optional bool
+
+	// For a given field, at most one of `Repeated` or `Map` is true.
+	//
+	// Using booleans (as opposed to an enum) makes it easier to write mustache
+	// templates.
+	//
 	// Repeated is true if the field is a repeated field.
 	Repeated bool
+	// Map is true if the field is a map.
+	Map bool
+	// Some source specifications allow marking fields as deprecated.
+	Deprecated bool
 	// IsOneOf is true if the field is related to a one-of and not
 	// a proto3 optional field.
 	IsOneOf bool
@@ -504,6 +526,14 @@ type Field struct {
 	Group *OneOf
 	// A placeholder to put language specific annotations.
 	Codec any
+}
+
+func (field *Field) DocumentAsRequired() bool {
+	return slices.Contains(field.Behavior, FIELD_BEHAVIOR_REQUIRED)
+}
+
+func (f *Field) Singular() bool {
+	return !f.Map && !f.Repeated
 }
 
 // Pair is a key-value pair.

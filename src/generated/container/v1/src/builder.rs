@@ -16,7 +16,6 @@
 
 pub mod cluster_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ClusterManager][super::super::client::ClusterManager].
     ///
@@ -49,7 +48,7 @@ pub mod cluster_manager {
     /// Common implementation for [super::super::client::ClusterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cluster_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cluster_manager {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,12 +100,14 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::ListClustersRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
@@ -127,7 +132,9 @@ pub mod cluster_manager {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -152,18 +159,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::GetClusterRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::GetClusterRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
@@ -188,7 +198,9 @@ pub mod cluster_manager {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,18 +225,22 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::CreateClusterRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -252,7 +268,9 @@ pub mod cluster_manager {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -277,24 +295,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::UpdateClusterRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::UpdateClusterRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [update][crate::model::UpdateClusterRequest::update].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update<T: Into<std::option::Option<crate::model::ClusterUpdate>>>(
             mut self,
             v: T,
@@ -322,7 +345,9 @@ pub mod cluster_manager {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -347,36 +372,44 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::UpdateNodePoolRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::UpdateNodePoolRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::UpdateNodePoolRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
         }
 
         /// Sets the value of [node_version][crate::model::UpdateNodePoolRequest::node_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_node_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_version = v.into();
             self
         }
 
         /// Sets the value of [image_type][crate::model::UpdateNodePoolRequest::image_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_image_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.image_type = v.into();
             self
@@ -385,6 +418,17 @@ pub mod cluster_manager {
         /// Sets the value of [name][crate::model::UpdateNodePoolRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -543,6 +587,17 @@ pub mod cluster_manager {
             self
         }
 
+        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
+        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AcceleratorConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [machine_type][crate::model::UpdateNodePoolRequest::machine_type].
         pub fn set_machine_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.machine_type = v.into();
@@ -594,28 +649,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
-        pub fn set_locations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
-        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AcceleratorConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [storage_pools][crate::model::UpdateNodePoolRequest::storage_pools].
         pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
         where
@@ -640,7 +673,9 @@ pub mod cluster_manager {
     pub struct SetNodePoolAutoscaling(RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>);
 
     impl SetNodePoolAutoscaling {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -668,30 +703,36 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetNodePoolAutoscalingRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetNodePoolAutoscalingRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::SetNodePoolAutoscalingRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
         }
 
         /// Sets the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_autoscaling<T: Into<std::option::Option<crate::model::NodePoolAutoscaling>>>(
             mut self,
             v: T,
@@ -719,7 +760,9 @@ pub mod cluster_manager {
     pub struct SetLoggingService(RequestBuilder<crate::model::SetLoggingServiceRequest>);
 
     impl SetLoggingService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -747,24 +790,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetLoggingServiceRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetLoggingServiceRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [logging_service][crate::model::SetLoggingServiceRequest::logging_service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logging_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.logging_service = v.into();
             self
@@ -789,7 +837,9 @@ pub mod cluster_manager {
     pub struct SetMonitoringService(RequestBuilder<crate::model::SetMonitoringServiceRequest>);
 
     impl SetMonitoringService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -817,24 +867,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetMonitoringServiceRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetMonitoringServiceRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [monitoring_service][crate::model::SetMonitoringServiceRequest::monitoring_service].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_monitoring_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.monitoring_service = v.into();
             self
@@ -859,7 +914,9 @@ pub mod cluster_manager {
     pub struct SetAddonsConfig(RequestBuilder<crate::model::SetAddonsConfigRequest>);
 
     impl SetAddonsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -884,24 +941,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetAddonsConfigRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetAddonsConfigRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_addons_config<T: Into<std::option::Option<crate::model::AddonsConfig>>>(
             mut self,
             v: T,
@@ -929,7 +991,9 @@ pub mod cluster_manager {
     pub struct SetLocations(RequestBuilder<crate::model::SetLocationsRequest>);
 
     impl SetLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -954,30 +1018,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetLocationsRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetLocationsRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
-        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -985,6 +1048,12 @@ pub mod cluster_manager {
         {
             use std::iter::Iterator;
             self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
             self
         }
     }
@@ -1001,7 +1070,9 @@ pub mod cluster_manager {
     pub struct UpdateMaster(RequestBuilder<crate::model::UpdateMasterRequest>);
 
     impl UpdateMaster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1026,24 +1097,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::UpdateMasterRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::UpdateMasterRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [master_version][crate::model::UpdateMasterRequest::master_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_master_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.master_version = v.into();
             self
@@ -1068,7 +1144,9 @@ pub mod cluster_manager {
     pub struct SetMasterAuth(RequestBuilder<crate::model::SetMasterAuthRequest>);
 
     impl SetMasterAuth {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1093,24 +1171,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetMasterAuthRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetMasterAuthRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [action][crate::model::SetMasterAuthRequest::action].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_action<T: Into<crate::model::set_master_auth_request::Action>>(
             mut self,
             v: T,
@@ -1120,6 +1203,8 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [update][crate::model::SetMasterAuthRequest::update].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update<T: Into<std::option::Option<crate::model::MasterAuth>>>(
             mut self,
             v: T,
@@ -1147,7 +1232,9 @@ pub mod cluster_manager {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1172,18 +1259,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::DeleteClusterRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::DeleteClusterRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
@@ -1208,7 +1298,9 @@ pub mod cluster_manager {
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1233,12 +1325,14 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::ListOperationsRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
@@ -1263,7 +1357,9 @@ pub mod cluster_manager {
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1288,18 +1384,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::GetOperationRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [operation_id][crate::model::GetOperationRequest::operation_id].
+        #[deprecated]
         pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation_id = v.into();
             self
@@ -1324,7 +1423,9 @@ pub mod cluster_manager {
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1349,18 +1450,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::CancelOperationRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [operation_id][crate::model::CancelOperationRequest::operation_id].
+        #[deprecated]
         pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation_id = v.into();
             self
@@ -1385,7 +1489,9 @@ pub mod cluster_manager {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1410,12 +1516,14 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::GetServerConfigRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
@@ -1440,7 +1548,9 @@ pub mod cluster_manager {
     pub struct GetJSONWebKeys(RequestBuilder<crate::model::GetJSONWebKeysRequest>);
 
     impl GetJSONWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1483,7 +1593,9 @@ pub mod cluster_manager {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1508,18 +1620,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::ListNodePoolsRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::ListNodePoolsRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
@@ -1544,7 +1659,9 @@ pub mod cluster_manager {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1569,24 +1686,28 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::GetNodePoolRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::GetNodePoolRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::GetNodePoolRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
@@ -1611,7 +1732,9 @@ pub mod cluster_manager {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1636,24 +1759,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::CreateNodePoolRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateNodePoolRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
             mut self,
             v: T,
@@ -1681,7 +1809,9 @@ pub mod cluster_manager {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1706,24 +1836,28 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::DeleteNodePoolRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::DeleteNodePoolRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::DeleteNodePoolRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
@@ -1750,7 +1884,9 @@ pub mod cluster_manager {
     );
 
     impl CompleteNodePoolUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1798,7 +1934,9 @@ pub mod cluster_manager {
     );
 
     impl RollbackNodePoolUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1826,24 +1964,28 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::RollbackNodePoolUpgradeRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::RollbackNodePoolUpgradeRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::RollbackNodePoolUpgradeRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
@@ -1874,7 +2016,9 @@ pub mod cluster_manager {
     pub struct SetNodePoolManagement(RequestBuilder<crate::model::SetNodePoolManagementRequest>);
 
     impl SetNodePoolManagement {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1902,30 +2046,36 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetNodePoolManagementRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetNodePoolManagementRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::SetNodePoolManagementRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
         }
 
         /// Sets the value of [management][crate::model::SetNodePoolManagementRequest::management].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_management<T: Into<std::option::Option<crate::model::NodeManagement>>>(
             mut self,
             v: T,
@@ -1953,7 +2103,9 @@ pub mod cluster_manager {
     pub struct SetLabels(RequestBuilder<crate::model::SetLabelsRequest>);
 
     impl SetLabels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1978,36 +2130,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetLabelsRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetLabelsRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
-        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
-        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.label_fingerprint = v.into();
-            self
-        }
-
-        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2016,6 +2161,20 @@ pub mod cluster_manager {
         {
             self.0.request.resource_labels =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.label_fingerprint = v.into();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
             self
         }
     }
@@ -2032,7 +2191,9 @@ pub mod cluster_manager {
     pub struct SetLegacyAbac(RequestBuilder<crate::model::SetLegacyAbacRequest>);
 
     impl SetLegacyAbac {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2057,24 +2218,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetLegacyAbacRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetLegacyAbacRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [enabled][crate::model::SetLegacyAbacRequest::enabled].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_enabled<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enabled = v.into();
             self
@@ -2099,7 +2265,9 @@ pub mod cluster_manager {
     pub struct StartIPRotation(RequestBuilder<crate::model::StartIPRotationRequest>);
 
     impl StartIPRotation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2124,18 +2292,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::StartIPRotationRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::StartIPRotationRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
@@ -2166,7 +2337,9 @@ pub mod cluster_manager {
     pub struct CompleteIPRotation(RequestBuilder<crate::model::CompleteIPRotationRequest>);
 
     impl CompleteIPRotation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2194,18 +2367,21 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::CompleteIPRotationRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CompleteIPRotationRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
@@ -2230,7 +2406,9 @@ pub mod cluster_manager {
     pub struct SetNodePoolSize(RequestBuilder<crate::model::SetNodePoolSizeRequest>);
 
     impl SetNodePoolSize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2255,30 +2433,36 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetNodePoolSizeRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetNodePoolSizeRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::SetNodePoolSizeRequest::node_pool_id].
+        #[deprecated]
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
         }
 
         /// Sets the value of [node_count][crate::model::SetNodePoolSizeRequest::node_count].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_node_count<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.node_count = v.into();
             self
@@ -2303,7 +2487,9 @@ pub mod cluster_manager {
     pub struct SetNetworkPolicy(RequestBuilder<crate::model::SetNetworkPolicyRequest>);
 
     impl SetNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2331,24 +2517,29 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
+        #[deprecated]
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetNetworkPolicyRequest::zone].
+        #[deprecated]
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetNetworkPolicyRequest::cluster_id].
+        #[deprecated]
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
             mut self,
             v: T,
@@ -2376,7 +2567,9 @@ pub mod cluster_manager {
     pub struct SetMaintenancePolicy(RequestBuilder<crate::model::SetMaintenancePolicyRequest>);
 
     impl SetMaintenancePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2404,24 +2597,32 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [zone][crate::model::SetMaintenancePolicyRequest::zone].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::SetMaintenancePolicyRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_maintenance_policy<
             T: Into<std::option::Option<crate::model::MaintenancePolicy>>,
         >(
@@ -2451,7 +2652,9 @@ pub mod cluster_manager {
     pub struct ListUsableSubnetworks(RequestBuilder<crate::model::ListUsableSubnetworksRequest>);
 
     impl ListUsableSubnetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2532,7 +2735,9 @@ pub mod cluster_manager {
     );
 
     impl CheckAutopilotCompatibility {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

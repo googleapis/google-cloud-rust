@@ -95,6 +95,7 @@ pub struct BitSequence {
     /// The number of bits of the last byte in `bitmap` to ignore as "padding".
     /// If the length of `bitmap` is zero, then this value must be `0`.
     /// Otherwise, this value must be between 0 and 7, inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub padding: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -150,6 +151,7 @@ pub struct BloomFilter {
     pub bits: std::option::Option<crate::model::BitSequence>,
 
     /// The number of hashes used by the algorithm.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hash_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -276,6 +278,17 @@ impl Precondition {
         })
     }
 
+    /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
+    /// to hold a `Exists`.
+    ///
+    /// Note that all the setters affecting `condition_type` are
+    /// mutually exclusive.
+    pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.condition_type =
+            std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
+        self
+    }
+
     /// The value of [condition_type][crate::model::Precondition::condition_type]
     /// if it holds a `UpdateTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -287,17 +300,6 @@ impl Precondition {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
-    /// to hold a `Exists`.
-    ///
-    /// Note that all the setters affecting `condition_type` are
-    /// mutually exclusive.
-    pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.condition_type =
-            std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
-        self
     }
 
     /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
@@ -400,19 +402,6 @@ impl TransactionOptions {
         })
     }
 
-    /// The value of [mode][crate::model::TransactionOptions::mode]
-    /// if it holds a `ReadWrite`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_write(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadWrite>> {
-        #[allow(unreachable_patterns)]
-        self.mode.as_ref().and_then(|v| match v {
-            crate::model::transaction_options::Mode::ReadWrite(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode][crate::model::TransactionOptions::mode]
     /// to hold a `ReadOnly`.
     ///
@@ -427,6 +416,19 @@ impl TransactionOptions {
         self.mode =
             std::option::Option::Some(crate::model::transaction_options::Mode::ReadOnly(v.into()));
         self
+    }
+
+    /// The value of [mode][crate::model::TransactionOptions::mode]
+    /// if it holds a `ReadWrite`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_write(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadWrite>> {
+        #[allow(unreachable_patterns)]
+        self.mode.as_ref().and_then(|v| match v {
+            crate::model::transaction_options::Mode::ReadWrite(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode][crate::model::TransactionOptions::mode]
@@ -701,6 +703,18 @@ impl Document {
         self
     }
 
+    /// Sets the value of [fields][crate::model::Document::fields].
+    pub fn set_fields<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::Value>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Document::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -716,18 +730,6 @@ impl Document {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [fields][crate::model::Document::fields].
-    pub fn set_fields<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::Value>,
-    {
-        use std::iter::Iterator;
-        self.fields = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -782,116 +784,6 @@ impl Value {
         })
     }
 
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `BooleanValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn boolean_value(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::BooleanValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `IntegerValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn integer_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::IntegerValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `DoubleValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn double_value(&self) -> std::option::Option<&f64> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::DoubleValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `TimestampValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn timestamp_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::TimestampValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `StringValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::StringValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `BytesValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::BytesValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `ReferenceValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn reference_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::ReferenceValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `GeoPointValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `ArrayValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn array_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::ArrayValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `MapValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn map_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::MapValue>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::MapValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `NullValue`.
     ///
@@ -901,6 +793,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::NullValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `BooleanValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn boolean_value(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::BooleanValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -914,6 +817,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `IntegerValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn integer_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::IntegerValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `IntegerValue`.
     ///
@@ -925,6 +839,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `DoubleValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn double_value(&self) -> std::option::Option<&f64> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::DoubleValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `DoubleValue`.
     ///
@@ -934,6 +859,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::DoubleValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `TimestampValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn timestamp_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::TimestampValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -950,6 +886,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::StringValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `StringValue`.
     ///
@@ -959,6 +906,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::StringValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `BytesValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::BytesValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -972,6 +930,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `ReferenceValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn reference_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::ReferenceValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `ReferenceValue`.
     ///
@@ -981,6 +950,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::ReferenceValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `GeoPointValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -997,6 +977,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `ArrayValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn array_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::ArrayValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `ArrayValue`.
     ///
@@ -1009,6 +1000,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::ArrayValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `MapValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn map_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::MapValue>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::MapValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -1296,6 +1298,18 @@ impl GetDocumentRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -1307,18 +1321,6 @@ impl GetDocumentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
@@ -1409,6 +1411,7 @@ pub struct ListDocumentsRequest {
     /// Optional. The maximum number of documents to return in a single response.
     ///
     /// Firestore may return fewer than this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDocuments` response.
@@ -1450,6 +1453,7 @@ pub struct ListDocumentsRequest {
     ///
     /// [google.firestore.v1.Document.create_time]: crate::model::Document::create_time
     /// [google.firestore.v1.Document.update_time]: crate::model::Document::update_time
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_missing: bool,
 
     /// The consistency mode for this transaction.
@@ -1541,6 +1545,18 @@ impl ListDocumentsRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -1552,18 +1568,6 @@ impl ListDocumentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
@@ -1651,12 +1655,6 @@ impl ListDocumentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [documents][crate::model::ListDocumentsResponse::documents].
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
@@ -1665,6 +1663,12 @@ impl ListDocumentsResponse {
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1969,15 +1973,6 @@ impl BatchGetDocumentsRequest {
         self
     }
 
-    /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mask = v.into();
-        self
-    }
-
     /// Sets the value of [documents][crate::model::BatchGetDocumentsRequest::documents].
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
@@ -1986,6 +1981,15 @@ impl BatchGetDocumentsRequest {
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mask = v.into();
         self
     }
 
@@ -2018,6 +2022,18 @@ impl BatchGetDocumentsRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2031,31 +2047,6 @@ impl BatchGetDocumentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
@@ -2075,6 +2066,19 @@ impl BatchGetDocumentsRequest {
             ),
         );
         self
+    }
+
+    /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.consistency_selector.as_ref().and_then(|v| match v {
+            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
@@ -2225,19 +2229,6 @@ impl BatchGetDocumentsResponse {
         })
     }
 
-    /// The value of [result][crate::model::BatchGetDocumentsResponse::result]
-    /// if it holds a `Missing`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn missing(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_response::Result::Missing(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result]
     /// to hold a `Found`.
     ///
@@ -2251,6 +2242,19 @@ impl BatchGetDocumentsResponse {
             crate::model::batch_get_documents_response::Result::Found(v.into()),
         );
         self
+    }
+
+    /// The value of [result][crate::model::BatchGetDocumentsResponse::result]
+    /// if it holds a `Missing`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn missing(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::batch_get_documents_response::Result::Missing(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result]
@@ -2431,12 +2435,6 @@ impl CommitRequest {
         self
     }
 
-    /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.transaction = v.into();
-        self
-    }
-
     /// Sets the value of [writes][crate::model::CommitRequest::writes].
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
@@ -2445,6 +2443,12 @@ impl CommitRequest {
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.transaction = v.into();
         self
     }
 }
@@ -2484,15 +2488,6 @@ impl CommitResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [commit_time][crate::model::CommitResponse::commit_time].
-    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commit_time = v.into();
-        self
-    }
-
     /// Sets the value of [write_results][crate::model::CommitResponse::write_results].
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
@@ -2501,6 +2496,15 @@ impl CommitResponse {
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [commit_time][crate::model::CommitResponse::commit_time].
+    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commit_time = v.into();
         self
     }
 }
@@ -2688,6 +2692,18 @@ impl RunQueryRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2701,31 +2717,6 @@ impl RunQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_query_request::ConsistencySelector::ReadTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
@@ -2743,6 +2734,19 @@ impl RunQueryRequest {
             crate::model::run_query_request::ConsistencySelector::NewTransaction(v.into()),
         );
         self
+    }
+
+    /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.consistency_selector.as_ref().and_then(|v| match v {
+            crate::model::run_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
@@ -2867,6 +2871,7 @@ pub struct RunQueryResponse {
 
     /// The number of results that have been skipped due to an offset between
     /// the last response and the current response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skipped_results: i32,
 
     /// Query explain metrics. This is only present when the
@@ -3144,6 +3149,18 @@ impl RunAggregationQueryRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3157,31 +3174,6 @@ impl RunAggregationQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
@@ -3201,6 +3193,19 @@ impl RunAggregationQueryRequest {
             ),
         );
         self
+    }
+
+    /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.consistency_selector.as_ref().and_then(|v| match v {
+            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
@@ -3407,6 +3412,7 @@ pub struct PartitionQueryRequest {
     /// For example, this may be set to one fewer than the number of parallel
     /// queries to be run, or in running a data pipeline job, one fewer than the
     /// number of workers or compute instances available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub partition_count: i64,
 
@@ -3433,6 +3439,7 @@ pub struct PartitionQueryRequest {
     /// to PartitionQuery will return up to 8 partitions and a `next_page_token`
     /// if more results exist. A second call to PartitionQuery will return up to
     /// 2 partitions, to complete the total of 10 specified in `partition_count`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The query to partition.
@@ -3669,12 +3676,6 @@ impl PartitionQueryResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::PartitionQueryResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [partitions][crate::model::PartitionQueryResponse::partitions].
     pub fn set_partitions<T, V>(mut self, v: T) -> Self
     where
@@ -3683,6 +3684,12 @@ impl PartitionQueryResponse {
     {
         use std::iter::Iterator;
         self.partitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::PartitionQueryResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3788,12 +3795,6 @@ impl WriteRequest {
         self
     }
 
-    /// Sets the value of [stream_token][crate::model::WriteRequest::stream_token].
-    pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.stream_token = v.into();
-        self
-    }
-
     /// Sets the value of [writes][crate::model::WriteRequest::writes].
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
@@ -3802,6 +3803,12 @@ impl WriteRequest {
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [stream_token][crate::model::WriteRequest::stream_token].
+    pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.stream_token = v.into();
         self
     }
 
@@ -3876,15 +3883,6 @@ impl WriteResponse {
         self
     }
 
-    /// Sets the value of [commit_time][crate::model::WriteResponse::commit_time].
-    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commit_time = v.into();
-        self
-    }
-
     /// Sets the value of [write_results][crate::model::WriteResponse::write_results].
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
@@ -3893,6 +3891,15 @@ impl WriteResponse {
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [commit_time][crate::model::WriteResponse::commit_time].
+    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commit_time = v.into();
         self
     }
 }
@@ -3976,19 +3983,6 @@ impl ListenRequest {
         })
     }
 
-    /// The value of [target_change][crate::model::ListenRequest::target_change]
-    /// if it holds a `RemoveTarget`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn remove_target(&self) -> std::option::Option<&i32> {
-        #[allow(unreachable_patterns)]
-        self.target_change.as_ref().and_then(|v| match v {
-            crate::model::listen_request::TargetChange::RemoveTarget(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target_change][crate::model::ListenRequest::target_change]
     /// to hold a `AddTarget`.
     ///
@@ -4002,6 +3996,19 @@ impl ListenRequest {
             crate::model::listen_request::TargetChange::AddTarget(v.into()),
         );
         self
+    }
+
+    /// The value of [target_change][crate::model::ListenRequest::target_change]
+    /// if it holds a `RemoveTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remove_target(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.target_change.as_ref().and_then(|v| match v {
+            crate::model::listen_request::TargetChange::RemoveTarget(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target_change][crate::model::ListenRequest::target_change]
@@ -4101,62 +4108,6 @@ impl ListenResponse {
         })
     }
 
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `DocumentChange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn document_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentChange>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentChange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `DocumentDelete`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn document_delete(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentDelete>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentDelete(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `DocumentRemove`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn document_remove(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentRemove>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentRemove(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `Filter`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExistenceFilter>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::Filter(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
     /// to hold a `TargetChange`.
     ///
@@ -4170,6 +4121,21 @@ impl ListenResponse {
             crate::model::listen_response::ResponseType::TargetChange(v.into()),
         );
         self
+    }
+
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `DocumentChange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn document_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentChange>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::DocumentChange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
@@ -4189,6 +4155,21 @@ impl ListenResponse {
         self
     }
 
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `DocumentDelete`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn document_delete(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentDelete>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::DocumentDelete(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
     /// to hold a `DocumentDelete`.
     ///
@@ -4206,6 +4187,21 @@ impl ListenResponse {
         self
     }
 
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `DocumentRemove`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn document_remove(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentRemove>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::DocumentRemove(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
     /// to hold a `DocumentRemove`.
     ///
@@ -4221,6 +4217,17 @@ impl ListenResponse {
             crate::model::listen_response::ResponseType::DocumentRemove(v.into()),
         );
         self
+    }
+
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `Filter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExistenceFilter>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::Filter(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
@@ -4335,9 +4342,11 @@ pub struct Target {
     ///
     /// If `target_id` is non-zero, there must not be an existing active target on
     /// this stream with the same ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_id: i32,
 
     /// If the target should be removed once it is current and consistent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub once: bool,
 
     /// The number of documents that last matched the query at the resume token or
@@ -4418,19 +4427,6 @@ impl Target {
         })
     }
 
-    /// The value of [target_type][crate::model::Target::target_type]
-    /// if it holds a `Documents`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn documents(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::target::DocumentsTarget>> {
-        #[allow(unreachable_patterns)]
-        self.target_type.as_ref().and_then(|v| match v {
-            crate::model::target::TargetType::Documents(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target_type][crate::model::Target::target_type]
     /// to hold a `Query`.
     ///
@@ -4443,6 +4439,19 @@ impl Target {
         self.target_type =
             std::option::Option::Some(crate::model::target::TargetType::Query(v.into()));
         self
+    }
+
+    /// The value of [target_type][crate::model::Target::target_type]
+    /// if it holds a `Documents`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn documents(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::target::DocumentsTarget>> {
+        #[allow(unreachable_patterns)]
+        self.target_type.as_ref().and_then(|v| match v {
+            crate::model::target::TargetType::Documents(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target_type][crate::model::Target::target_type]
@@ -4486,17 +4495,6 @@ impl Target {
         })
     }
 
-    /// The value of [resume_type][crate::model::Target::resume_type]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.resume_type.as_ref().and_then(|v| match v {
-            crate::model::target::ResumeType::ReadTime(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resume_type][crate::model::Target::resume_type]
     /// to hold a `ResumeToken`.
     ///
@@ -4506,6 +4504,17 @@ impl Target {
         self.resume_type =
             std::option::Option::Some(crate::model::target::ResumeType::ResumeToken(v.into()));
         self
+    }
+
+    /// The value of [resume_type][crate::model::Target::resume_type]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.resume_type.as_ref().and_then(|v| match v {
+            crate::model::target::ResumeType::ReadTime(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resume_type][crate::model::Target::resume_type]
@@ -4809,6 +4818,17 @@ impl TargetChange {
         self
     }
 
+    /// Sets the value of [target_ids][crate::model::TargetChange::target_ids].
+    pub fn set_target_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.target_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cause][crate::model::TargetChange::cause].
     pub fn set_cause<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -4832,17 +4852,6 @@ impl TargetChange {
         self.read_time = v.into();
         self
     }
-
-    /// Sets the value of [target_ids][crate::model::TargetChange::target_ids].
-    pub fn set_target_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.target_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for TargetChange {
@@ -4857,19 +4866,29 @@ pub mod target_change {
     use super::*;
 
     /// The type of change.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetChangeType(i32);
-
-    impl TargetChangeType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TargetChangeType {
         /// No change has occurred. Used only to send an updated `resume_token`.
-        pub const NO_CHANGE: TargetChangeType = TargetChangeType::new(0);
-
+        NoChange,
         /// The targets have been added.
-        pub const ADD: TargetChangeType = TargetChangeType::new(1);
-
+        Add,
         /// The targets have been removed.
-        pub const REMOVE: TargetChangeType = TargetChangeType::new(2);
-
+        Remove,
         /// The targets reflect all changes committed before the targets were added
         /// to the stream.
         ///
@@ -4878,59 +4897,128 @@ pub mod target_change {
         ///
         /// Listeners can wait for this change if read-after-write semantics
         /// are desired.
-        pub const CURRENT: TargetChangeType = TargetChangeType::new(3);
-
+        Current,
         /// The targets have been reset, and a new initial state for the targets
         /// will be returned in subsequent changes.
         ///
         /// After the initial state is complete, `CURRENT` will be returned even
         /// if the target was previously indicated to be `CURRENT`.
-        pub const RESET: TargetChangeType = TargetChangeType::new(4);
+        Reset,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TargetChangeType::value] or
+        /// [TargetChangeType::name].
+        UnknownValue(target_change_type::UnknownValue),
+    }
 
-        /// Creates a new TargetChangeType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod target_change_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl TargetChangeType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::NoChange => std::option::Option::Some(0),
+                Self::Add => std::option::Option::Some(1),
+                Self::Remove => std::option::Option::Some(2),
+                Self::Current => std::option::Option::Some(3),
+                Self::Reset => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("NO_CHANGE"),
-                1 => std::borrow::Cow::Borrowed("ADD"),
-                2 => std::borrow::Cow::Borrowed("REMOVE"),
-                3 => std::borrow::Cow::Borrowed("CURRENT"),
-                4 => std::borrow::Cow::Borrowed("RESET"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::NoChange => std::option::Option::Some("NO_CHANGE"),
+                Self::Add => std::option::Option::Some("ADD"),
+                Self::Remove => std::option::Option::Some("REMOVE"),
+                Self::Current => std::option::Option::Some("CURRENT"),
+                Self::Reset => std::option::Option::Some("RESET"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "NO_CHANGE" => std::option::Option::Some(Self::NO_CHANGE),
-                "ADD" => std::option::Option::Some(Self::ADD),
-                "REMOVE" => std::option::Option::Some(Self::REMOVE),
-                "CURRENT" => std::option::Option::Some(Self::CURRENT),
-                "RESET" => std::option::Option::Some(Self::RESET),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TargetChangeType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TargetChangeType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TargetChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TargetChangeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::NoChange,
+                1 => Self::Add,
+                2 => Self::Remove,
+                3 => Self::Current,
+                4 => Self::Reset,
+                _ => Self::UnknownValue(target_change_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TargetChangeType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "NO_CHANGE" => Self::NoChange,
+                "ADD" => Self::Add,
+                "REMOVE" => Self::Remove,
+                "CURRENT" => Self::Current,
+                "RESET" => Self::Reset,
+                _ => Self::UnknownValue(target_change_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TargetChangeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::NoChange => serializer.serialize_i32(0),
+                Self::Add => serializer.serialize_i32(1),
+                Self::Remove => serializer.serialize_i32(2),
+                Self::Current => serializer.serialize_i32(3),
+                Self::Reset => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TargetChangeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetChangeType>::new(
+                ".google.firestore.v1.TargetChange.TargetChangeType",
+            ))
         }
     }
 }
@@ -4952,6 +5040,7 @@ pub struct ListCollectionIdsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token. Must be a value from
@@ -5100,12 +5189,6 @@ impl ListCollectionIdsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCollectionIdsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::ListCollectionIdsResponse::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -5114,6 +5197,12 @@ impl ListCollectionIdsResponse {
     {
         use std::iter::Iterator;
         self.collection_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCollectionIdsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5368,6 +5457,7 @@ pub struct StructuredQuery {
     /// Requires:
     ///
     /// * The value must be greater than or equal to zero if specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offset: i32,
 
     /// The maximum number of results to return.
@@ -5408,6 +5498,17 @@ impl StructuredQuery {
         self
     }
 
+    /// Sets the value of [from][crate::model::StructuredQuery::from].
+    pub fn set_from<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::structured_query::CollectionSelector>,
+    {
+        use std::iter::Iterator;
+        self.from = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [r#where][crate::model::StructuredQuery::where].
     pub fn set_where<
         T: std::convert::Into<std::option::Option<crate::model::structured_query::Filter>>,
@@ -5416,6 +5517,17 @@ impl StructuredQuery {
         v: T,
     ) -> Self {
         self.r#where = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::StructuredQuery::order_by].
+    pub fn set_order_by<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::structured_query::Order>,
+    {
+        use std::iter::Iterator;
+        self.order_by = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5462,28 +5574,6 @@ impl StructuredQuery {
         self.find_nearest = v.into();
         self
     }
-
-    /// Sets the value of [from][crate::model::StructuredQuery::from].
-    pub fn set_from<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_query::CollectionSelector>,
-    {
-        use std::iter::Iterator;
-        self.from = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [order_by][crate::model::StructuredQuery::order_by].
-    pub fn set_order_by<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_query::Order>,
-    {
-        use std::iter::Iterator;
-        self.order_by = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for StructuredQuery {
@@ -5511,6 +5601,7 @@ pub mod structured_query {
         /// When false, selects only collections that are immediate children of
         /// the `parent` specified in the containing `RunQueryRequest`.
         /// When true, selects all descendant collections.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub all_descendants: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5595,38 +5686,6 @@ pub mod structured_query {
             })
         }
 
-        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// if it holds a `FieldFilter`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn field_filter(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldFilter>>
-        {
-            #[allow(unreachable_patterns)]
-            self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::FieldFilter(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// if it holds a `UnaryFilter`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn unary_filter(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::UnaryFilter>>
-        {
-            #[allow(unreachable_patterns)]
-            self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::UnaryFilter(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// to hold a `CompositeFilter`.
         ///
@@ -5644,6 +5703,22 @@ pub mod structured_query {
             self
         }
 
+        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
+        /// if it holds a `FieldFilter`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn field_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldFilter>>
+        {
+            #[allow(unreachable_patterns)]
+            self.filter_type.as_ref().and_then(|v| match v {
+                crate::model::structured_query::filter::FilterType::FieldFilter(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// to hold a `FieldFilter`.
         ///
@@ -5659,6 +5734,22 @@ pub mod structured_query {
                 crate::model::structured_query::filter::FilterType::FieldFilter(v.into()),
             );
             self
+        }
+
+        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
+        /// if it holds a `UnaryFilter`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn unary_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::UnaryFilter>>
+        {
+            #[allow(unreachable_patterns)]
+            self.filter_type.as_ref().and_then(|v| match v {
+                crate::model::structured_query::filter::FilterType::UnaryFilter(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
@@ -5792,59 +5883,137 @@ pub mod structured_query {
         use super::*;
 
         /// A composite filter operator.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(i32);
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Operator {
+            /// Unspecified. This value must not be used.
+            Unspecified,
+            /// Documents are required to satisfy all of the combined filters.
+            And,
+            /// Documents are required to satisfy at least one of the combined filters.
+            Or,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Operator::value] or
+            /// [Operator::name].
+            UnknownValue(operator::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod operator {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl Operator {
-            /// Unspecified. This value must not be used.
-            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new(0);
-
-            /// Documents are required to satisfy all of the combined filters.
-            pub const AND: Operator = Operator::new(1);
-
-            /// Documents are required to satisfy at least one of the combined filters.
-            pub const OR: Operator = Operator::new(2);
-
-            /// Creates a new Operator instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::And => std::option::Option::Some(1),
+                    Self::Or => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("OPERATOR_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("AND"),
-                    2 => std::borrow::Cow::Borrowed("OR"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("OPERATOR_UNSPECIFIED"),
+                    Self::And => std::option::Option::Some("AND"),
+                    Self::Or => std::option::Option::Some("OR"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "OPERATOR_UNSPECIFIED" => std::option::Option::Some(Self::OPERATOR_UNSPECIFIED),
-                    "AND" => std::option::Option::Some(Self::AND),
-                    "OR" => std::option::Option::Some(Self::OR),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Operator {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Operator {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Operator {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Operator {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::And,
+                    2 => Self::Or,
+                    _ => Self::UnknownValue(operator::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Operator {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                    "AND" => Self::And,
+                    "OR" => Self::Or,
+                    _ => Self::UnknownValue(operator::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Operator {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::And => serializer.serialize_i32(1),
+                    Self::Or => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Operator {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operator>::new(
+                    ".google.firestore.v1.StructuredQuery.CompositeFilter.Operator",
+                ))
             }
         }
     }
@@ -5919,55 +6088,60 @@ pub mod structured_query {
         use super::*;
 
         /// A field filter operator.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(i32);
-
-        impl Operator {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Operator {
             /// Unspecified. This value must not be used.
-            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new(0);
-
+            Unspecified,
             /// The given `field` is less than the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const LESS_THAN: Operator = Operator::new(1);
-
+            LessThan,
             /// The given `field` is less than or equal to the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const LESS_THAN_OR_EQUAL: Operator = Operator::new(2);
-
+            LessThanOrEqual,
             /// The given `field` is greater than the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const GREATER_THAN: Operator = Operator::new(3);
-
+            GreaterThan,
             /// The given `field` is greater than or equal to the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const GREATER_THAN_OR_EQUAL: Operator = Operator::new(4);
-
+            GreaterThanOrEqual,
             /// The given `field` is equal to the given `value`.
-            pub const EQUAL: Operator = Operator::new(5);
-
+            Equal,
             /// The given `field` is not equal to the given `value`.
             ///
             /// Requires:
             ///
             /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const NOT_EQUAL: Operator = Operator::new(6);
-
+            NotEqual,
             /// The given `field` is an array that contains the given `value`.
-            pub const ARRAY_CONTAINS: Operator = Operator::new(7);
-
+            ArrayContains,
             /// The given `field` is equal to at least one value in the given array.
             ///
             /// Requires:
@@ -5975,8 +6149,7 @@ pub mod structured_query {
             /// * That `value` is a non-empty `ArrayValue`, subject to disjunction
             ///   limits.
             /// * No `NOT_IN` filters in the same query.
-            pub const IN: Operator = Operator::new(8);
-
+            In,
             /// The given `field` is an array that contains any of the values in the
             /// given array.
             ///
@@ -5986,8 +6159,7 @@ pub mod structured_query {
             ///   limits.
             /// * No other `ARRAY_CONTAINS_ANY` filters within the same disjunction.
             /// * No `NOT_IN` filters in the same query.
-            pub const ARRAY_CONTAINS_ANY: Operator = Operator::new(9);
-
+            ArrayContainsAny,
             /// The value of the `field` is not in the given array.
             ///
             /// Requires:
@@ -5996,66 +6168,155 @@ pub mod structured_query {
             /// * No other `OR`, `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`,
             ///   `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const NOT_IN: Operator = Operator::new(10);
+            NotIn,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Operator::value] or
+            /// [Operator::name].
+            UnknownValue(operator::UnknownValue),
+        }
 
-            /// Creates a new Operator instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod operator {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl Operator {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::LessThan => std::option::Option::Some(1),
+                    Self::LessThanOrEqual => std::option::Option::Some(2),
+                    Self::GreaterThan => std::option::Option::Some(3),
+                    Self::GreaterThanOrEqual => std::option::Option::Some(4),
+                    Self::Equal => std::option::Option::Some(5),
+                    Self::NotEqual => std::option::Option::Some(6),
+                    Self::ArrayContains => std::option::Option::Some(7),
+                    Self::In => std::option::Option::Some(8),
+                    Self::ArrayContainsAny => std::option::Option::Some(9),
+                    Self::NotIn => std::option::Option::Some(10),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("OPERATOR_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("LESS_THAN"),
-                    2 => std::borrow::Cow::Borrowed("LESS_THAN_OR_EQUAL"),
-                    3 => std::borrow::Cow::Borrowed("GREATER_THAN"),
-                    4 => std::borrow::Cow::Borrowed("GREATER_THAN_OR_EQUAL"),
-                    5 => std::borrow::Cow::Borrowed("EQUAL"),
-                    6 => std::borrow::Cow::Borrowed("NOT_EQUAL"),
-                    7 => std::borrow::Cow::Borrowed("ARRAY_CONTAINS"),
-                    8 => std::borrow::Cow::Borrowed("IN"),
-                    9 => std::borrow::Cow::Borrowed("ARRAY_CONTAINS_ANY"),
-                    10 => std::borrow::Cow::Borrowed("NOT_IN"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("OPERATOR_UNSPECIFIED"),
+                    Self::LessThan => std::option::Option::Some("LESS_THAN"),
+                    Self::LessThanOrEqual => std::option::Option::Some("LESS_THAN_OR_EQUAL"),
+                    Self::GreaterThan => std::option::Option::Some("GREATER_THAN"),
+                    Self::GreaterThanOrEqual => std::option::Option::Some("GREATER_THAN_OR_EQUAL"),
+                    Self::Equal => std::option::Option::Some("EQUAL"),
+                    Self::NotEqual => std::option::Option::Some("NOT_EQUAL"),
+                    Self::ArrayContains => std::option::Option::Some("ARRAY_CONTAINS"),
+                    Self::In => std::option::Option::Some("IN"),
+                    Self::ArrayContainsAny => std::option::Option::Some("ARRAY_CONTAINS_ANY"),
+                    Self::NotIn => std::option::Option::Some("NOT_IN"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "OPERATOR_UNSPECIFIED" => std::option::Option::Some(Self::OPERATOR_UNSPECIFIED),
-                    "LESS_THAN" => std::option::Option::Some(Self::LESS_THAN),
-                    "LESS_THAN_OR_EQUAL" => std::option::Option::Some(Self::LESS_THAN_OR_EQUAL),
-                    "GREATER_THAN" => std::option::Option::Some(Self::GREATER_THAN),
-                    "GREATER_THAN_OR_EQUAL" => {
-                        std::option::Option::Some(Self::GREATER_THAN_OR_EQUAL)
-                    }
-                    "EQUAL" => std::option::Option::Some(Self::EQUAL),
-                    "NOT_EQUAL" => std::option::Option::Some(Self::NOT_EQUAL),
-                    "ARRAY_CONTAINS" => std::option::Option::Some(Self::ARRAY_CONTAINS),
-                    "IN" => std::option::Option::Some(Self::IN),
-                    "ARRAY_CONTAINS_ANY" => std::option::Option::Some(Self::ARRAY_CONTAINS_ANY),
-                    "NOT_IN" => std::option::Option::Some(Self::NOT_IN),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Operator {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Operator {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Operator {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Operator {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::LessThan,
+                    2 => Self::LessThanOrEqual,
+                    3 => Self::GreaterThan,
+                    4 => Self::GreaterThanOrEqual,
+                    5 => Self::Equal,
+                    6 => Self::NotEqual,
+                    7 => Self::ArrayContains,
+                    8 => Self::In,
+                    9 => Self::ArrayContainsAny,
+                    10 => Self::NotIn,
+                    _ => Self::UnknownValue(operator::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Operator {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                    "LESS_THAN" => Self::LessThan,
+                    "LESS_THAN_OR_EQUAL" => Self::LessThanOrEqual,
+                    "GREATER_THAN" => Self::GreaterThan,
+                    "GREATER_THAN_OR_EQUAL" => Self::GreaterThanOrEqual,
+                    "EQUAL" => Self::Equal,
+                    "NOT_EQUAL" => Self::NotEqual,
+                    "ARRAY_CONTAINS" => Self::ArrayContains,
+                    "IN" => Self::In,
+                    "ARRAY_CONTAINS_ANY" => Self::ArrayContainsAny,
+                    "NOT_IN" => Self::NotIn,
+                    _ => Self::UnknownValue(operator::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Operator {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::LessThan => serializer.serialize_i32(1),
+                    Self::LessThanOrEqual => serializer.serialize_i32(2),
+                    Self::GreaterThan => serializer.serialize_i32(3),
+                    Self::GreaterThanOrEqual => serializer.serialize_i32(4),
+                    Self::Equal => serializer.serialize_i32(5),
+                    Self::NotEqual => serializer.serialize_i32(6),
+                    Self::ArrayContains => serializer.serialize_i32(7),
+                    Self::In => serializer.serialize_i32(8),
+                    Self::ArrayContainsAny => serializer.serialize_i32(9),
+                    Self::NotIn => serializer.serialize_i32(10),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Operator {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operator>::new(
+                    ".google.firestore.v1.StructuredQuery.FieldFilter.Operator",
+                ))
             }
         }
     }
@@ -6156,79 +6417,161 @@ pub mod structured_query {
         use super::*;
 
         /// A unary operator.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(i32);
-
-        impl Operator {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Operator {
             /// Unspecified. This value must not be used.
-            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new(0);
-
+            Unspecified,
             /// The given `field` is equal to `NaN`.
-            pub const IS_NAN: Operator = Operator::new(2);
-
+            IsNan,
             /// The given `field` is equal to `NULL`.
-            pub const IS_NULL: Operator = Operator::new(3);
-
+            IsNull,
             /// The given `field` is not equal to `NaN`.
             ///
             /// Requires:
             ///
             /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const IS_NOT_NAN: Operator = Operator::new(4);
-
+            IsNotNan,
             /// The given `field` is not equal to `NULL`.
             ///
             /// Requires:
             ///
             /// * A single `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const IS_NOT_NULL: Operator = Operator::new(5);
+            IsNotNull,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Operator::value] or
+            /// [Operator::name].
+            UnknownValue(operator::UnknownValue),
+        }
 
-            /// Creates a new Operator instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod operator {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl Operator {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::IsNan => std::option::Option::Some(2),
+                    Self::IsNull => std::option::Option::Some(3),
+                    Self::IsNotNan => std::option::Option::Some(4),
+                    Self::IsNotNull => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("OPERATOR_UNSPECIFIED"),
-                    2 => std::borrow::Cow::Borrowed("IS_NAN"),
-                    3 => std::borrow::Cow::Borrowed("IS_NULL"),
-                    4 => std::borrow::Cow::Borrowed("IS_NOT_NAN"),
-                    5 => std::borrow::Cow::Borrowed("IS_NOT_NULL"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("OPERATOR_UNSPECIFIED"),
+                    Self::IsNan => std::option::Option::Some("IS_NAN"),
+                    Self::IsNull => std::option::Option::Some("IS_NULL"),
+                    Self::IsNotNan => std::option::Option::Some("IS_NOT_NAN"),
+                    Self::IsNotNull => std::option::Option::Some("IS_NOT_NULL"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "OPERATOR_UNSPECIFIED" => std::option::Option::Some(Self::OPERATOR_UNSPECIFIED),
-                    "IS_NAN" => std::option::Option::Some(Self::IS_NAN),
-                    "IS_NULL" => std::option::Option::Some(Self::IS_NULL),
-                    "IS_NOT_NAN" => std::option::Option::Some(Self::IS_NOT_NAN),
-                    "IS_NOT_NULL" => std::option::Option::Some(Self::IS_NOT_NULL),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Operator {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Operator {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Operator {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Operator {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    2 => Self::IsNan,
+                    3 => Self::IsNull,
+                    4 => Self::IsNotNan,
+                    5 => Self::IsNotNull,
+                    _ => Self::UnknownValue(operator::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Operator {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                    "IS_NAN" => Self::IsNan,
+                    "IS_NULL" => Self::IsNull,
+                    "IS_NOT_NAN" => Self::IsNotNan,
+                    "IS_NOT_NULL" => Self::IsNotNull,
+                    _ => Self::UnknownValue(operator::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Operator {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::IsNan => serializer.serialize_i32(2),
+                    Self::IsNull => serializer.serialize_i32(3),
+                    Self::IsNotNan => serializer.serialize_i32(4),
+                    Self::IsNotNull => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Operator {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operator>::new(
+                    ".google.firestore.v1.StructuredQuery.UnaryFilter.Operator",
+                ))
             }
         }
 
@@ -6511,19 +6854,30 @@ pub mod structured_query {
         use super::*;
 
         /// The distance measure to use when comparing vectors.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct DistanceMeasure(i32);
-
-        impl DistanceMeasure {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum DistanceMeasure {
             /// Should not be set.
-            pub const DISTANCE_MEASURE_UNSPECIFIED: DistanceMeasure = DistanceMeasure::new(0);
-
+            Unspecified,
             /// Measures the EUCLIDEAN distance between the vectors. See
             /// [Euclidean](https://en.wikipedia.org/wiki/Euclidean_distance) to learn
             /// more. The resulting distance decreases the more similar two vectors
             /// are.
-            pub const EUCLIDEAN: DistanceMeasure = DistanceMeasure::new(1);
-
+            Euclidean,
             /// COSINE distance compares vectors based on the angle between them, which
             /// allows you to measure similarity that isn't based on the vectors
             /// magnitude. We recommend using DOT_PRODUCT with unit normalized vectors
@@ -6532,115 +6886,257 @@ pub mod structured_query {
             /// Similarity](https://en.wikipedia.org/wiki/Cosine_similarity) to learn
             /// more about COSINE similarity and COSINE distance. The resulting
             /// COSINE distance decreases the more similar two vectors are.
-            pub const COSINE: DistanceMeasure = DistanceMeasure::new(2);
-
+            Cosine,
             /// Similar to cosine but is affected by the magnitude of the vectors. See
             /// [Dot Product](https://en.wikipedia.org/wiki/Dot_product) to learn more.
             /// The resulting distance increases the more similar two vectors are.
-            pub const DOT_PRODUCT: DistanceMeasure = DistanceMeasure::new(3);
+            DotProduct,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [DistanceMeasure::value] or
+            /// [DistanceMeasure::name].
+            UnknownValue(distance_measure::UnknownValue),
+        }
 
-            /// Creates a new DistanceMeasure instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod distance_measure {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl DistanceMeasure {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Euclidean => std::option::Option::Some(1),
+                    Self::Cosine => std::option::Option::Some(2),
+                    Self::DotProduct => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("DISTANCE_MEASURE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("EUCLIDEAN"),
-                    2 => std::borrow::Cow::Borrowed("COSINE"),
-                    3 => std::borrow::Cow::Borrowed("DOT_PRODUCT"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("DISTANCE_MEASURE_UNSPECIFIED"),
+                    Self::Euclidean => std::option::Option::Some("EUCLIDEAN"),
+                    Self::Cosine => std::option::Option::Some("COSINE"),
+                    Self::DotProduct => std::option::Option::Some("DOT_PRODUCT"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "DISTANCE_MEASURE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::DISTANCE_MEASURE_UNSPECIFIED)
-                    }
-                    "EUCLIDEAN" => std::option::Option::Some(Self::EUCLIDEAN),
-                    "COSINE" => std::option::Option::Some(Self::COSINE),
-                    "DOT_PRODUCT" => std::option::Option::Some(Self::DOT_PRODUCT),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for DistanceMeasure {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for DistanceMeasure {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for DistanceMeasure {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for DistanceMeasure {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Euclidean,
+                    2 => Self::Cosine,
+                    3 => Self::DotProduct,
+                    _ => Self::UnknownValue(distance_measure::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for DistanceMeasure {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "DISTANCE_MEASURE_UNSPECIFIED" => Self::Unspecified,
+                    "EUCLIDEAN" => Self::Euclidean,
+                    "COSINE" => Self::Cosine,
+                    "DOT_PRODUCT" => Self::DotProduct,
+                    _ => Self::UnknownValue(distance_measure::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for DistanceMeasure {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Euclidean => serializer.serialize_i32(1),
+                    Self::Cosine => serializer.serialize_i32(2),
+                    Self::DotProduct => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for DistanceMeasure {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<DistanceMeasure>::new(
+                    ".google.firestore.v1.StructuredQuery.FindNearest.DistanceMeasure",
+                ))
             }
         }
     }
 
     /// A sort direction.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Direction {
+        /// Unspecified.
+        Unspecified,
+        /// Ascending.
+        Ascending,
+        /// Descending.
+        Descending,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Direction::value] or
+        /// [Direction::name].
+        UnknownValue(direction::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Direction {
-        /// Unspecified.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
-
-        /// Ascending.
-        pub const ASCENDING: Direction = Direction::new(1);
-
-        /// Descending.
-        pub const DESCENDING: Direction = Direction::new(2);
-
-        /// Creates a new Direction instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ascending => std::option::Option::Some(1),
+                Self::Descending => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ASCENDING"),
-                2 => std::borrow::Cow::Borrowed("DESCENDING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DIRECTION_UNSPECIFIED"),
+                Self::Ascending => std::option::Option::Some("ASCENDING"),
+                Self::Descending => std::option::Option::Some("DESCENDING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
-                "ASCENDING" => std::option::Option::Some(Self::ASCENDING),
-                "DESCENDING" => std::option::Option::Some(Self::DESCENDING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Direction {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Direction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ascending,
+                2 => Self::Descending,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Direction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "ASCENDING" => Self::Ascending,
+                "DESCENDING" => Self::Descending,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ascending => serializer.serialize_i32(1),
+                Self::Descending => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Direction>::new(
+                ".google.firestore.v1.StructuredQuery.Direction",
+            ))
         }
     }
 }
@@ -6848,40 +7344,6 @@ pub mod structured_aggregation_query {
             })
         }
 
-        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// if it holds a `Sum`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn sum(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// if it holds a `Avg`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn avg(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// to hold a `Count`.
         ///
@@ -6901,6 +7363,23 @@ pub mod structured_aggregation_query {
             self
         }
 
+        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
+        /// if it holds a `Sum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sum(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.operator.as_ref().and_then(|v| match v {
+                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// to hold a `Sum`.
         ///
@@ -6918,6 +7397,23 @@ pub mod structured_aggregation_query {
                 crate::model::structured_aggregation_query::aggregation::Operator::Sum(v.into()),
             );
             self
+        }
+
+        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
+        /// if it holds a `Avg`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn avg(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.operator.as_ref().and_then(|v| match v {
+                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
@@ -7191,6 +7687,7 @@ pub struct Cursor {
 
     /// If the position is just before or just after the given values, relative
     /// to the sort order defined by the query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub before: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7202,12 +7699,6 @@ impl Cursor {
         std::default::Default::default()
     }
 
-    /// Sets the value of [before][crate::model::Cursor::before].
-    pub fn set_before<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.before = v.into();
-        self
-    }
-
     /// Sets the value of [values][crate::model::Cursor::values].
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
@@ -7216,6 +7707,12 @@ impl Cursor {
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [before][crate::model::Cursor::before].
+    pub fn set_before<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.before = v.into();
         self
     }
 }
@@ -7239,6 +7736,7 @@ pub struct ExplainOptions {
     ///
     /// When true, the query will be planned and executed, returning the full
     /// query results along with both planning and execution stage metrics.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analyze: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7368,6 +7866,7 @@ impl wkt::message::Message for PlanSummary {
 pub struct ExecutionStats {
     /// Total number of results returned, including documents, projections,
     /// aggregation results, keys.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub results_returned: i64,
 
@@ -7376,6 +7875,7 @@ pub struct ExecutionStats {
     pub execution_duration: std::option::Option<wkt::Duration>,
 
     /// Total billable read operations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub read_operations: i64,
 
@@ -7497,17 +7997,6 @@ impl Write {
         self
     }
 
-    /// Sets the value of [current_document][crate::model::Write::current_document].
-    pub fn set_current_document<
-        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.current_document = v.into();
-        self
-    }
-
     /// Sets the value of [update_transforms][crate::model::Write::update_transforms].
     pub fn set_update_transforms<T, V>(mut self, v: T) -> Self
     where
@@ -7516,6 +8005,17 @@ impl Write {
     {
         use std::iter::Iterator;
         self.update_transforms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [current_document][crate::model::Write::current_document].
+    pub fn set_current_document<
+        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.current_document = v.into();
         self
     }
 
@@ -7544,30 +8044,6 @@ impl Write {
         })
     }
 
-    /// The value of [operation][crate::model::Write::operation]
-    /// if it holds a `Delete`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::write::Operation::Delete(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [operation][crate::model::Write::operation]
-    /// if it holds a `Transform`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn transform(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentTransform>> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::write::Operation::Transform(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [operation][crate::model::Write::operation]
     /// to hold a `Update`.
     ///
@@ -7582,6 +8058,17 @@ impl Write {
         self
     }
 
+    /// The value of [operation][crate::model::Write::operation]
+    /// if it holds a `Delete`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::write::Operation::Delete(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [operation][crate::model::Write::operation]
     /// to hold a `Delete`.
     ///
@@ -7591,6 +8078,19 @@ impl Write {
         self.operation =
             std::option::Option::Some(crate::model::write::Operation::Delete(v.into()));
         self
+    }
+
+    /// The value of [operation][crate::model::Write::operation]
+    /// if it holds a `Transform`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn transform(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentTransform>> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::write::Operation::Transform(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [operation][crate::model::Write::operation]
@@ -7775,71 +8275,6 @@ pub mod document_transform {
             })
         }
 
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `Increment`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn increment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Increment(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `Maximum`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Maximum(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `Minimum`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn minimum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Minimum(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `AppendMissingElements`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn append_missing_elements(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::AppendMissingElements(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `RemoveAllFromArray`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn remove_all_from_array(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `SetToServerValue`.
         ///
@@ -7859,6 +8294,19 @@ pub mod document_transform {
             self
         }
 
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `Increment`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn increment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::Increment(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `Increment`.
         ///
@@ -7876,6 +8324,19 @@ pub mod document_transform {
             self
         }
 
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `Maximum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::Maximum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `Maximum`.
         ///
@@ -7891,6 +8352,19 @@ pub mod document_transform {
             self
         }
 
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `Minimum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn minimum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::Minimum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `Minimum`.
         ///
@@ -7904,6 +8378,19 @@ pub mod document_transform {
                 crate::model::document_transform::field_transform::TransformType::Minimum(v.into()),
             );
             self
+        }
+
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `AppendMissingElements`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn append_missing_elements(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::AppendMissingElements(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
@@ -7923,6 +8410,19 @@ pub mod document_transform {
                 )
             );
             self
+        }
+
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `RemoveAllFromArray`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn remove_all_from_array(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
@@ -7957,58 +8457,132 @@ pub mod document_transform {
         use super::*;
 
         /// A value that is calculated by the server.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ServerValue(i32);
-
-        impl ServerValue {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ServerValue {
             /// Unspecified. This value must not be used.
-            pub const SERVER_VALUE_UNSPECIFIED: ServerValue = ServerValue::new(0);
-
+            Unspecified,
             /// The time at which the server processed the request, with millisecond
             /// precision. If used on multiple fields (same or different documents) in
             /// a transaction, all the fields will get the same server timestamp.
-            pub const REQUEST_TIME: ServerValue = ServerValue::new(1);
+            RequestTime,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ServerValue::value] or
+            /// [ServerValue::name].
+            UnknownValue(server_value::UnknownValue),
+        }
 
-            /// Creates a new ServerValue instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod server_value {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl ServerValue {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::RequestTime => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("SERVER_VALUE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("REQUEST_TIME"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("SERVER_VALUE_UNSPECIFIED"),
+                    Self::RequestTime => std::option::Option::Some("REQUEST_TIME"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "SERVER_VALUE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::SERVER_VALUE_UNSPECIFIED)
-                    }
-                    "REQUEST_TIME" => std::option::Option::Some(Self::REQUEST_TIME),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for ServerValue {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for ServerValue {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ServerValue {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ServerValue {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::RequestTime,
+                    _ => Self::UnknownValue(server_value::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ServerValue {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SERVER_VALUE_UNSPECIFIED" => Self::Unspecified,
+                    "REQUEST_TIME" => Self::RequestTime,
+                    _ => Self::UnknownValue(server_value::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ServerValue {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::RequestTime => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ServerValue {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServerValue>::new(
+                    ".google.firestore.v1.DocumentTransform.FieldTransform.ServerValue",
+                ))
             }
         }
 
@@ -8312,15 +8886,6 @@ impl DocumentDelete {
         self
     }
 
-    /// Sets the value of [read_time][crate::model::DocumentDelete::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.read_time = v.into();
-        self
-    }
-
     /// Sets the value of [removed_target_ids][crate::model::DocumentDelete::removed_target_ids].
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
@@ -8329,6 +8894,15 @@ impl DocumentDelete {
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [read_time][crate::model::DocumentDelete::read_time].
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_time = v.into();
         self
     }
 }
@@ -8389,15 +8963,6 @@ impl DocumentRemove {
         self
     }
 
-    /// Sets the value of [read_time][crate::model::DocumentRemove::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.read_time = v.into();
-        self
-    }
-
     /// Sets the value of [removed_target_ids][crate::model::DocumentRemove::removed_target_ids].
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
@@ -8406,6 +8971,15 @@ impl DocumentRemove {
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [read_time][crate::model::DocumentRemove::read_time].
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_time = v.into();
         self
     }
 }
@@ -8423,6 +8997,7 @@ impl wkt::message::Message for DocumentRemove {
 #[non_exhaustive]
 pub struct ExistenceFilter {
     /// The target ID to which this filter applies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_id: i32,
 
     /// The total count of documents that match
@@ -8437,6 +9012,7 @@ pub struct ExistenceFilter {
     /// longer matches the target.
     ///
     /// [google.firestore.v1.ExistenceFilter.target_id]: crate::model::ExistenceFilter::target_id
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub count: i32,
 
     /// A bloom filter that, despite its name, contains the UTF-8 byte encodings of

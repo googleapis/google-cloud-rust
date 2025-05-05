@@ -16,7 +16,6 @@
 
 pub mod storage_batch_operations {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [StorageBatchOperations][super::super::client::StorageBatchOperations].
     ///
@@ -49,7 +48,7 @@ pub mod storage_batch_operations {
     /// Common implementation for [super::super::client::StorageBatchOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod storage_batch_operations {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod storage_batch_operations {
 
     impl ListJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,6 +115,8 @@ pub mod storage_batch_operations {
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -159,7 +160,7 @@ pub mod storage_batch_operations {
 
     impl GetJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -185,6 +186,8 @@ pub mod storage_batch_operations {
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -204,7 +207,7 @@ pub mod storage_batch_operations {
 
     impl CreateJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -267,18 +270,24 @@ pub mod storage_batch_operations {
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::CreateJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
         }
 
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
@@ -304,7 +313,7 @@ pub mod storage_batch_operations {
 
     impl DeleteJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -330,6 +339,8 @@ pub mod storage_batch_operations {
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -355,7 +366,7 @@ pub mod storage_batch_operations {
 
     impl CancelJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -381,6 +392,8 @@ pub mod storage_batch_operations {
         }
 
         /// Sets the value of [name][crate::model::CancelJobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -406,7 +419,7 @@ pub mod storage_batch_operations {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -487,7 +500,7 @@ pub mod storage_batch_operations {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -532,7 +545,7 @@ pub mod storage_batch_operations {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -613,7 +626,7 @@ pub mod storage_batch_operations {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -661,7 +674,7 @@ pub mod storage_batch_operations {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -709,7 +722,7 @@ pub mod storage_batch_operations {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

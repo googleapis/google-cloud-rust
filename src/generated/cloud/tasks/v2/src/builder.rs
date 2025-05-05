@@ -16,7 +16,6 @@
 
 pub mod cloud_tasks {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudTasks][super::super::client::CloudTasks].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_tasks {
     /// Common implementation for [super::super::client::CloudTasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_tasks {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_tasks {
     pub struct ListQueues(RequestBuilder<crate::model::ListQueuesRequest>);
 
     impl ListQueues {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [parent][crate::model::ListQueuesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -148,7 +153,9 @@ pub mod cloud_tasks {
     pub struct GetQueue(RequestBuilder<crate::model::GetQueueRequest>);
 
     impl GetQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,6 +180,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::GetQueueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -191,7 +200,9 @@ pub mod cloud_tasks {
     pub struct CreateQueue(RequestBuilder<crate::model::CreateQueueRequest>);
 
     impl CreateQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -216,12 +227,16 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [parent][crate::model::CreateQueueRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [queue][crate::model::CreateQueueRequest::queue].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_queue<T: Into<std::option::Option<crate::model::Queue>>>(
             mut self,
             v: T,
@@ -243,7 +258,9 @@ pub mod cloud_tasks {
     pub struct UpdateQueue(RequestBuilder<crate::model::UpdateQueueRequest>);
 
     impl UpdateQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -268,6 +285,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [queue][crate::model::UpdateQueueRequest::queue].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_queue<T: Into<std::option::Option<crate::model::Queue>>>(
             mut self,
             v: T,
@@ -298,7 +317,9 @@ pub mod cloud_tasks {
     pub struct DeleteQueue(RequestBuilder<crate::model::DeleteQueueRequest>);
 
     impl DeleteQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,6 +344,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::DeleteQueueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -341,7 +364,9 @@ pub mod cloud_tasks {
     pub struct PurgeQueue(RequestBuilder<crate::model::PurgeQueueRequest>);
 
     impl PurgeQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -366,6 +391,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::PurgeQueueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -384,7 +411,9 @@ pub mod cloud_tasks {
     pub struct PauseQueue(RequestBuilder<crate::model::PauseQueueRequest>);
 
     impl PauseQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -409,6 +438,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::PauseQueueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -427,7 +458,9 @@ pub mod cloud_tasks {
     pub struct ResumeQueue(RequestBuilder<crate::model::ResumeQueueRequest>);
 
     impl ResumeQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -452,6 +485,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::ResumeQueueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -470,7 +505,9 @@ pub mod cloud_tasks {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -495,6 +532,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -522,7 +561,9 @@ pub mod cloud_tasks {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -547,12 +588,16 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -583,7 +628,9 @@ pub mod cloud_tasks {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -611,12 +658,16 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -640,7 +691,9 @@ pub mod cloud_tasks {
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -680,6 +733,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -716,7 +771,9 @@ pub mod cloud_tasks {
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -741,6 +798,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::GetTaskRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -765,7 +824,9 @@ pub mod cloud_tasks {
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
     impl CreateTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -790,12 +851,16 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [parent][crate::model::CreateTaskRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [task][crate::model::CreateTaskRequest::task].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_task<T: Into<std::option::Option<crate::model::Task>>>(mut self, v: T) -> Self {
             self.0.request.task = v.into();
             self
@@ -820,7 +885,9 @@ pub mod cloud_tasks {
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
     impl DeleteTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,6 +912,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::DeleteTaskRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -863,7 +932,9 @@ pub mod cloud_tasks {
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
     impl RunTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -888,6 +959,8 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [name][crate::model::RunTaskRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -912,7 +985,9 @@ pub mod cloud_tasks {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -991,7 +1066,9 @@ pub mod cloud_tasks {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

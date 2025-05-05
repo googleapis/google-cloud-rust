@@ -16,7 +16,6 @@
 
 pub mod instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [InstanceAdmin][super::super::client::InstanceAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod instance_admin {
     /// Common implementation for [super::super::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod instance_admin {
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
     impl ListInstanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +118,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstanceConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -145,7 +150,9 @@ pub mod instance_admin {
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
     impl GetInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,6 +180,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -191,7 +200,9 @@ pub mod instance_admin {
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
     impl CreateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -260,18 +271,24 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_config_id][crate::model::CreateInstanceConfigRequest::instance_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_config_id = v.into();
             self
         }
 
         /// Sets the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
             mut self,
             v: T,
@@ -299,7 +316,9 @@ pub mod instance_admin {
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
     impl UpdateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,6 +387,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
             mut self,
             v: T,
@@ -377,6 +398,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -404,7 +427,9 @@ pub mod instance_admin {
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
     impl DeleteInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,6 +457,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -464,7 +491,9 @@ pub mod instance_admin {
     );
 
     impl ListInstanceConfigOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -509,6 +538,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstanceConfigOperationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -545,7 +576,9 @@ pub mod instance_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -585,6 +618,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -630,7 +665,9 @@ pub mod instance_admin {
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
     impl ListInstancePartitions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -675,6 +712,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancePartitionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -714,7 +753,9 @@ pub mod instance_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -739,6 +780,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -766,7 +809,9 @@ pub mod instance_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -830,18 +875,24 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -863,7 +914,9 @@ pub mod instance_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -927,6 +980,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -936,6 +991,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -957,7 +1014,9 @@ pub mod instance_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -982,6 +1041,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1000,7 +1061,9 @@ pub mod instance_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1025,12 +1088,16 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1061,7 +1128,9 @@ pub mod instance_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1086,6 +1155,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1113,7 +1184,9 @@ pub mod instance_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1141,12 +1214,16 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1170,7 +1247,9 @@ pub mod instance_admin {
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
     impl GetInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1198,6 +1277,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstancePartitionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1218,7 +1299,9 @@ pub mod instance_admin {
     );
 
     impl CreateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1289,18 +1372,24 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_partition_id][crate::model::CreateInstancePartitionRequest::instance_partition_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_partition_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_partition_id = v.into();
             self
         }
 
         /// Sets the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_partition<
             T: Into<std::option::Option<crate::model::InstancePartition>>,
         >(
@@ -1326,7 +1415,9 @@ pub mod instance_admin {
     );
 
     impl DeleteInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1354,6 +1445,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstancePartitionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1380,7 +1473,9 @@ pub mod instance_admin {
     );
 
     impl UpdateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1451,6 +1546,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_partition<
             T: Into<std::option::Option<crate::model::InstancePartition>>,
         >(
@@ -1462,6 +1559,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1485,7 +1584,9 @@ pub mod instance_admin {
     );
 
     impl ListInstancePartitionOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1530,6 +1631,8 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancePartitionOperationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1575,7 +1678,9 @@ pub mod instance_admin {
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
     impl MoveInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1641,12 +1746,16 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [name][crate::model::MoveInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_config][crate::model::MoveInstanceRequest::target_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_config<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_config = v.into();
             self
@@ -1665,7 +1774,9 @@ pub mod instance_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1744,7 +1855,9 @@ pub mod instance_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1790,7 +1903,9 @@ pub mod instance_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1836,7 +1951,9 @@ pub mod instance_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

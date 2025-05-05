@@ -16,7 +16,6 @@
 
 pub mod key_dashboard_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [KeyDashboardService][super::super::client::KeyDashboardService].
     ///
@@ -49,7 +48,7 @@ pub mod key_dashboard_service {
     /// Common implementation for [super::super::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod key_dashboard_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod key_dashboard_service {
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod key_dashboard_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -140,7 +145,6 @@ pub mod key_dashboard_service {
 
 pub mod key_tracking_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [KeyTrackingService][super::super::client::KeyTrackingService].
     ///
@@ -173,7 +177,7 @@ pub mod key_tracking_service {
     /// Common implementation for [super::super::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -182,7 +186,9 @@ pub mod key_tracking_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -198,7 +204,9 @@ pub mod key_tracking_service {
     );
 
     impl GetProtectedResourcesSummary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -226,6 +234,8 @@ pub mod key_tracking_service {
         }
 
         /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -246,7 +256,9 @@ pub mod key_tracking_service {
     );
 
     impl SearchProtectedResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,12 +303,16 @@ pub mod key_tracking_service {
         }
 
         /// Sets the value of [scope][crate::model::SearchProtectedResourcesRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [crypto_key][crate::model::SearchProtectedResourcesRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key = v.into();
             self

@@ -50,6 +50,7 @@ pub struct ListAccessPoliciesRequest {
     pub parent: std::string::String,
 
     /// Number of AccessPolicy instances to include in the list. Default 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of AccessPolicy instances. Defaults to
@@ -115,12 +116,6 @@ impl ListAccessPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [access_policies][crate::model::ListAccessPoliciesResponse::access_policies].
     pub fn set_access_policies<T, V>(mut self, v: T) -> Self
     where
@@ -129,6 +124,12 @@ impl ListAccessPoliciesResponse {
     {
         use std::iter::Iterator;
         self.access_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -286,6 +287,7 @@ pub struct ListAccessLevelsRequest {
     /// Number of [Access Levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] to include in
     /// the list. Default 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Access Level]
@@ -367,12 +369,6 @@ impl ListAccessLevelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [access_levels][crate::model::ListAccessLevelsResponse::access_levels].
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -381,6 +377,12 @@ impl ListAccessLevelsResponse {
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -653,12 +655,6 @@ impl ReplaceAccessLevelsRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [access_levels][crate::model::ReplaceAccessLevelsRequest::access_levels].
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -667,6 +663,12 @@ impl ReplaceAccessLevelsRequest {
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -733,6 +735,7 @@ pub struct ListServicePerimetersRequest {
     /// Number of [Service Perimeters]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] to include
     /// in the list. Default 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Service Perimeter]
@@ -800,12 +803,6 @@ impl ListServicePerimetersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_perimeters][crate::model::ListServicePerimetersResponse::service_perimeters].
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
@@ -814,6 +811,12 @@ impl ListServicePerimetersResponse {
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1064,12 +1067,6 @@ impl ReplaceServicePerimetersRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [service_perimeters][crate::model::ReplaceServicePerimetersRequest::service_perimeters].
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
@@ -1078,6 +1075,12 @@ impl ReplaceServicePerimetersRequest {
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -1239,6 +1242,7 @@ pub struct ListGcpUserAccessBindingsRequest {
 
     /// Optional. Maximum number of items to return. The server may return fewer items.
     /// If left blank, the server may return any number of items.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If left blank, returns the first page. To enumerate all items, use the
@@ -1307,12 +1311,6 @@ impl ListGcpUserAccessBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [gcp_user_access_bindings][crate::model::ListGcpUserAccessBindingsResponse::gcp_user_access_bindings].
     pub fn set_gcp_user_access_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -1321,6 +1319,12 @@ impl ListGcpUserAccessBindingsResponse {
     {
         use std::iter::Iterator;
         self.gcp_user_access_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1668,17 +1672,6 @@ impl AccessLevel {
         })
     }
 
-    /// The value of [level][crate::model::AccessLevel::level]
-    /// if it holds a `Custom`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
-        #[allow(unreachable_patterns)]
-        self.level.as_ref().and_then(|v| match v {
-            crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [level][crate::model::AccessLevel::level]
     /// to hold a `Basic`.
     ///
@@ -1690,6 +1683,17 @@ impl AccessLevel {
     ) -> Self {
         self.level = std::option::Option::Some(crate::model::access_level::Level::Basic(v.into()));
         self
+    }
+
+    /// The value of [level][crate::model::AccessLevel::level]
+    /// if it holds a `Custom`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
+        #[allow(unreachable_patterns)]
+        self.level.as_ref().and_then(|v| match v {
+            crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [level][crate::model::AccessLevel::level]
@@ -1755,17 +1759,6 @@ impl BasicLevel {
         std::default::Default::default()
     }
 
-    /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
-    pub fn set_combining_function<
-        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.combining_function = v.into();
-        self
-    }
-
     /// Sets the value of [conditions][crate::model::BasicLevel::conditions].
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
@@ -1774,6 +1767,17 @@ impl BasicLevel {
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
+    pub fn set_combining_function<
+        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.combining_function = v.into();
         self
     }
 }
@@ -1791,54 +1795,126 @@ pub mod basic_level {
 
     /// Options for how the `conditions` list should be combined to determine if
     /// this `AccessLevel` is applied. Default is AND.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConditionCombiningFunction(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConditionCombiningFunction {
+        /// All `Conditions` must be true for the `BasicLevel` to be true.
+        And,
+        /// If at least one `Condition` is true, then the `BasicLevel` is true.
+        Or,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConditionCombiningFunction::value] or
+        /// [ConditionCombiningFunction::name].
+        UnknownValue(condition_combining_function::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod condition_combining_function {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ConditionCombiningFunction {
-        /// All `Conditions` must be true for the `BasicLevel` to be true.
-        pub const AND: ConditionCombiningFunction = ConditionCombiningFunction::new(0);
-
-        /// If at least one `Condition` is true, then the `BasicLevel` is true.
-        pub const OR: ConditionCombiningFunction = ConditionCombiningFunction::new(1);
-
-        /// Creates a new ConditionCombiningFunction instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::And => std::option::Option::Some(0),
+                Self::Or => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AND"),
-                1 => std::borrow::Cow::Borrowed("OR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::And => std::option::Option::Some("AND"),
+                Self::Or => std::option::Option::Some("OR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AND" => std::option::Option::Some(Self::AND),
-                "OR" => std::option::Option::Some(Self::OR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ConditionCombiningFunction {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ConditionCombiningFunction {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConditionCombiningFunction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConditionCombiningFunction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::And,
+                1 => Self::Or,
+                _ => Self::UnknownValue(condition_combining_function::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConditionCombiningFunction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AND" => Self::And,
+                "OR" => Self::Or,
+                _ => Self::UnknownValue(condition_combining_function::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConditionCombiningFunction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::And => serializer.serialize_i32(0),
+                Self::Or => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConditionCombiningFunction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConditionCombiningFunction>::new(
+                ".google.identity.accesscontextmanager.v1.BasicLevel.ConditionCombiningFunction"))
         }
     }
 }
@@ -1880,6 +1956,7 @@ pub struct Condition {
     /// Whether to negate the Condition. If true, the Condition becomes a NAND over
     /// its non-empty fields, each field must be false for the Condition overall to
     /// be satisfied. Defaults to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub negate: bool,
 
     /// The request must be made by one of the provided user or service
@@ -1905,23 +1982,6 @@ impl Condition {
         std::default::Default::default()
     }
 
-    /// Sets the value of [device_policy][crate::model::Condition::device_policy].
-    pub fn set_device_policy<
-        T: std::convert::Into<std::option::Option<crate::model::DevicePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.device_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [negate][crate::model::Condition::negate].
-    pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.negate = v.into();
-        self
-    }
-
     /// Sets the value of [ip_subnetworks][crate::model::Condition::ip_subnetworks].
     pub fn set_ip_subnetworks<T, V>(mut self, v: T) -> Self
     where
@@ -1933,6 +1993,17 @@ impl Condition {
         self
     }
 
+    /// Sets the value of [device_policy][crate::model::Condition::device_policy].
+    pub fn set_device_policy<
+        T: std::convert::Into<std::option::Option<crate::model::DevicePolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.device_policy = v.into();
+        self
+    }
+
     /// Sets the value of [required_access_levels][crate::model::Condition::required_access_levels].
     pub fn set_required_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -1941,6 +2012,12 @@ impl Condition {
     {
         use std::iter::Iterator;
         self.required_access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [negate][crate::model::Condition::negate].
+    pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.negate = v.into();
         self
     }
 
@@ -2026,6 +2103,7 @@ impl wkt::message::Message for CustomLevel {
 pub struct DevicePolicy {
     /// Whether or not screenlock is required for the DevicePolicy to be true.
     /// Defaults to `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_screenlock: bool,
 
     /// Allowed encryptions statuses, an empty list allows all statuses.
@@ -2044,9 +2122,11 @@ pub struct DevicePolicy {
         std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
 
     /// Whether the device needs to be approved by the customer admin.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_admin_approval: bool,
 
     /// Whether the device needs to be corp owned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_corp_owned: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2061,18 +2141,6 @@ impl DevicePolicy {
     /// Sets the value of [require_screenlock][crate::model::DevicePolicy::require_screenlock].
     pub fn set_require_screenlock<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_screenlock = v.into();
-        self
-    }
-
-    /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
-    pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_admin_approval = v.into();
-        self
-    }
-
-    /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
-    pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_corp_owned = v.into();
         self
     }
 
@@ -2108,6 +2176,18 @@ impl DevicePolicy {
         self.allowed_device_management_levels = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
+    pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_admin_approval = v.into();
+        self
+    }
+
+    /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
+    pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_corp_owned = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for DevicePolicy {
@@ -2135,6 +2215,7 @@ pub struct OsConstraint {
     /// Verifications includes requirements that the device is enterprise-managed,
     /// conformant to domain policies, and the caller has permission to call
     /// the API targeted by the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_verified_chrome_os: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2259,6 +2340,17 @@ impl AccessPolicy {
         self
     }
 
+    /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2280,17 +2372,6 @@ impl AccessPolicy {
     /// Sets the value of [etag][crate::model::AccessPolicy::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
-    pub fn set_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2442,6 +2523,7 @@ pub struct ServicePerimeter {
     /// analyzing the differences between currently enforced and suggested
     /// restrictions. use_explicit_dry_run_spec must bet set to True if any of the
     /// fields in the spec are set to non-default values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_explicit_dry_run_spec: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2555,54 +2637,127 @@ pub mod service_perimeter {
     /// Perimeter Bridges are typically useful when building more complex toplogies
     /// with many independent perimeters that need to share some data with a common
     /// perimeter, but should not be able to share data among themselves.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PerimeterType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PerimeterType {
+        /// Regular Perimeter.
+        Regular,
+        /// Perimeter Bridge.
+        Bridge,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PerimeterType::value] or
+        /// [PerimeterType::name].
+        UnknownValue(perimeter_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod perimeter_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PerimeterType {
-        /// Regular Perimeter.
-        pub const PERIMETER_TYPE_REGULAR: PerimeterType = PerimeterType::new(0);
-
-        /// Perimeter Bridge.
-        pub const PERIMETER_TYPE_BRIDGE: PerimeterType = PerimeterType::new(1);
-
-        /// Creates a new PerimeterType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Regular => std::option::Option::Some(0),
+                Self::Bridge => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PERIMETER_TYPE_REGULAR"),
-                1 => std::borrow::Cow::Borrowed("PERIMETER_TYPE_BRIDGE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Regular => std::option::Option::Some("PERIMETER_TYPE_REGULAR"),
+                Self::Bridge => std::option::Option::Some("PERIMETER_TYPE_BRIDGE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PERIMETER_TYPE_REGULAR" => std::option::Option::Some(Self::PERIMETER_TYPE_REGULAR),
-                "PERIMETER_TYPE_BRIDGE" => std::option::Option::Some(Self::PERIMETER_TYPE_BRIDGE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PerimeterType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PerimeterType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PerimeterType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PerimeterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Regular,
+                1 => Self::Bridge,
+                _ => Self::UnknownValue(perimeter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PerimeterType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PERIMETER_TYPE_REGULAR" => Self::Regular,
+                "PERIMETER_TYPE_BRIDGE" => Self::Bridge,
+                _ => Self::UnknownValue(perimeter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PerimeterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Regular => serializer.serialize_i32(0),
+                Self::Bridge => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PerimeterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PerimeterType>::new(
+                ".google.identity.accesscontextmanager.v1.ServicePerimeter.PerimeterType",
+            ))
         }
     }
 }
@@ -2673,19 +2828,6 @@ impl ServicePerimeterConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
-    pub fn set_vpc_accessible_services<
-        T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vpc_accessible_services = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::ServicePerimeterConfig::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -2716,6 +2858,19 @@ impl ServicePerimeterConfig {
     {
         use std::iter::Iterator;
         self.restricted_services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    pub fn set_vpc_accessible_services<
+        T: std::convert::Into<
+                std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vpc_accessible_services = v.into();
         self
     }
 
@@ -2762,6 +2917,7 @@ pub mod service_perimeter_config {
     pub struct VpcAccessibleServices {
         /// Whether to restrict API calls within the Service Perimeter to the list of
         /// APIs specified in 'allowed_services'.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_restriction: bool,
 
         /// The list of APIs usable within the Service Perimeter. Must be empty
@@ -2856,6 +3012,18 @@ pub mod service_perimeter_config {
             })
         }
 
+        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
+        /// to hold a `Method`.
+        ///
+        /// Note that all the setters affecting `kind` are
+        /// mutually exclusive.
+        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.kind = std::option::Option::Some(
+                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
+            );
+            self
+        }
+
         /// The value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
@@ -2867,18 +3035,6 @@ pub mod service_perimeter_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
-        /// to hold a `Method`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
@@ -3039,19 +3195,6 @@ pub mod service_perimeter_config {
             })
         }
 
-        /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
-        /// if it holds a `Resource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn resource(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.source.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
         /// to hold a `AccessLevel`.
         ///
@@ -3067,6 +3210,19 @@ pub mod service_perimeter_config {
                 ),
             );
             self
+        }
+
+        /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
+        /// if it holds a `Resource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn resource(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
@@ -3166,17 +3322,6 @@ pub mod service_perimeter_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.identity_type = v.into();
-            self
-        }
-
         /// Sets the value of [sources][crate::model::service_perimeter_config::IngressFrom::sources].
         pub fn set_sources<T, V>(mut self, v: T) -> Self
         where
@@ -3196,6 +3341,17 @@ pub mod service_perimeter_config {
         {
             use std::iter::Iterator;
             self.identities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
+        pub fn set_identity_type<
+            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.identity_type = v.into();
             self
         }
     }
@@ -3396,17 +3552,6 @@ pub mod service_perimeter_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.identity_type = v.into();
-            self
-        }
-
         /// Sets the value of [identities][crate::model::service_perimeter_config::EgressFrom::identities].
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
@@ -3415,6 +3560,17 @@ pub mod service_perimeter_config {
         {
             use std::iter::Iterator;
             self.identities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
+        pub fn set_identity_type<
+            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.identity_type = v.into();
             self
         }
     }
@@ -3618,125 +3774,275 @@ pub mod service_perimeter_config {
     /// or [EgressFrom]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// rules.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IdentityType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IdentityType {
+        /// No blanket identity group specified.
+        Unspecified,
+        /// Authorize access from all identities outside the perimeter.
+        AnyIdentity,
+        /// Authorize access from all human users outside the perimeter.
+        AnyUserAccount,
+        /// Authorize access from all service accounts outside the perimeter.
+        AnyServiceAccount,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IdentityType::value] or
+        /// [IdentityType::name].
+        UnknownValue(identity_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod identity_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl IdentityType {
-        /// No blanket identity group specified.
-        pub const IDENTITY_TYPE_UNSPECIFIED: IdentityType = IdentityType::new(0);
-
-        /// Authorize access from all identities outside the perimeter.
-        pub const ANY_IDENTITY: IdentityType = IdentityType::new(1);
-
-        /// Authorize access from all human users outside the perimeter.
-        pub const ANY_USER_ACCOUNT: IdentityType = IdentityType::new(2);
-
-        /// Authorize access from all service accounts outside the perimeter.
-        pub const ANY_SERVICE_ACCOUNT: IdentityType = IdentityType::new(3);
-
-        /// Creates a new IdentityType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AnyIdentity => std::option::Option::Some(1),
+                Self::AnyUserAccount => std::option::Option::Some(2),
+                Self::AnyServiceAccount => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("IDENTITY_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ANY_IDENTITY"),
-                2 => std::borrow::Cow::Borrowed("ANY_USER_ACCOUNT"),
-                3 => std::borrow::Cow::Borrowed("ANY_SERVICE_ACCOUNT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IDENTITY_TYPE_UNSPECIFIED"),
+                Self::AnyIdentity => std::option::Option::Some("ANY_IDENTITY"),
+                Self::AnyUserAccount => std::option::Option::Some("ANY_USER_ACCOUNT"),
+                Self::AnyServiceAccount => std::option::Option::Some("ANY_SERVICE_ACCOUNT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "IDENTITY_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::IDENTITY_TYPE_UNSPECIFIED)
-                }
-                "ANY_IDENTITY" => std::option::Option::Some(Self::ANY_IDENTITY),
-                "ANY_USER_ACCOUNT" => std::option::Option::Some(Self::ANY_USER_ACCOUNT),
-                "ANY_SERVICE_ACCOUNT" => std::option::Option::Some(Self::ANY_SERVICE_ACCOUNT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for IdentityType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for IdentityType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IdentityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IdentityType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AnyIdentity,
+                2 => Self::AnyUserAccount,
+                3 => Self::AnyServiceAccount,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IdentityType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ANY_IDENTITY" => Self::AnyIdentity,
+                "ANY_USER_ACCOUNT" => Self::AnyUserAccount,
+                "ANY_SERVICE_ACCOUNT" => Self::AnyServiceAccount,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IdentityType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AnyIdentity => serializer.serialize_i32(1),
+                Self::AnyUserAccount => serializer.serialize_i32(2),
+                Self::AnyServiceAccount => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IdentityType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
+                ".google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IdentityType",
+            ))
         }
     }
 }
 
 /// The format used in an `AccessLevel`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LevelFormat(i32);
-
-impl LevelFormat {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LevelFormat {
     /// The format was not specified.
-    pub const LEVEL_FORMAT_UNSPECIFIED: LevelFormat = LevelFormat::new(0);
-
+    Unspecified,
     /// Uses the format the resource was defined in. BasicLevels are returned as
     /// BasicLevels, CustomLevels are returned as CustomLevels.
-    pub const AS_DEFINED: LevelFormat = LevelFormat::new(1);
-
+    AsDefined,
     /// Use Cloud Common Expression Language when returning the resource.  Both
     /// BasicLevels and CustomLevels are returned as CustomLevels.
-    pub const CEL: LevelFormat = LevelFormat::new(2);
+    Cel,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LevelFormat::value] or
+    /// [LevelFormat::name].
+    UnknownValue(level_format::UnknownValue),
+}
 
-    /// Creates a new LevelFormat instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod level_format {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LevelFormat {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::AsDefined => std::option::Option::Some(1),
+            Self::Cel => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LEVEL_FORMAT_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("AS_DEFINED"),
-            2 => std::borrow::Cow::Borrowed("CEL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LEVEL_FORMAT_UNSPECIFIED"),
+            Self::AsDefined => std::option::Option::Some("AS_DEFINED"),
+            Self::Cel => std::option::Option::Some("CEL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LEVEL_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_FORMAT_UNSPECIFIED),
-            "AS_DEFINED" => std::option::Option::Some(Self::AS_DEFINED),
-            "CEL" => std::option::Option::Some(Self::CEL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LevelFormat {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LevelFormat {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LevelFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LevelFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::AsDefined,
+            2 => Self::Cel,
+            _ => Self::UnknownValue(level_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LevelFormat {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LEVEL_FORMAT_UNSPECIFIED" => Self::Unspecified,
+            "AS_DEFINED" => Self::AsDefined,
+            "CEL" => Self::Cel,
+            _ => Self::UnknownValue(level_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LevelFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::AsDefined => serializer.serialize_i32(1),
+            Self::Cel => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LevelFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LevelFormat>::new(
+            ".google.identity.accesscontextmanager.v1.LevelFormat",
+        ))
     }
 }

@@ -114,9 +114,9 @@ checksum = "ace50bade8e6234aa140d9a2f552bbee1db4d353f69b8217bc503490fc1a9f26"
 
 [[package]]
 name = "axum"
-version = "0.8.3"
+version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de45108900e1f9b9242f7f2e254aa3e2c029c921c258fe9e6b4217eeebd54288"
+checksum = "021e862c184ae977658b36c4500f7feac3221ca5da43e3f25bd04ab6c79a29b5"
 dependencies = [
  "axum-core",
  "bytes",
@@ -269,9 +269,9 @@ dependencies = [
 
 [[package]]
 name = "chrono"
-version = "0.4.40"
+version = "0.4.41"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1a7964611d71df112cb1730f2ee67324fcf4d0fc6606acbbe9bfe06df124637c"
+checksum = "c469d952047f47f91b68d1cba3f10d63c11d73e4636f24f08daf0278abf01c4d"
 dependencies = [
  "android-tzdata",
  "iana-time-zone",
@@ -421,6 +421,7 @@ name = "echo-server"
 version = "0.0.0"
 dependencies = [
  "axum",
+ "bytes",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
@@ -1119,6 +1120,7 @@ dependencies = [
  "google-cloud-gax",
  "http",
  "mockall",
+ "mutants",
  "rand 0.8.5",
  "regex",
  "reqwest",
@@ -2229,6 +2231,7 @@ dependencies = [
 name = "google-cloud-firestore"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "bytes",
  "google-cloud-gax",
@@ -2827,7 +2830,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lro"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "axum",
  "futures",
@@ -4971,6 +4974,7 @@ dependencies = [
  "bytes",
  "crc32c",
  "futures",
+ "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
  "google-cloud-iam-v1",
@@ -5136,6 +5140,12 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "mutants"
+version = "0.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc0287524726960e07b119cebd01678f852f147742ae0d925e6a520dca956126"
 
 [[package]]
 name = "native-tls"
@@ -6486,6 +6496,7 @@ name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
  "crc32c",
+ "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-gax",
  "google-cloud-language-v2",
@@ -6496,6 +6507,8 @@ dependencies = [
  "google-cloud-wkt",
  "mockall",
  "rand 0.9.0",
+ "serde_json",
+ "test-case",
  "tokio",
 ]
 

@@ -16,7 +16,6 @@
 
 pub mod contact_center_insights {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ContactCenterInsights][super::super::client::ContactCenterInsights].
     ///
@@ -49,7 +48,7 @@ pub mod contact_center_insights {
     /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod contact_center_insights {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod contact_center_insights {
 
     impl CreateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -104,12 +103,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [conversation][crate::model::CreateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
             mut self,
             v: T,
@@ -138,7 +141,7 @@ pub mod contact_center_insights {
 
     impl UploadConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -208,12 +211,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [conversation][crate::model::UploadConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
             mut self,
             v: T,
@@ -260,7 +267,7 @@ pub mod contact_center_insights {
 
     impl UpdateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -289,6 +296,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
             mut self,
             v: T,
@@ -320,7 +329,7 @@ pub mod contact_center_insights {
 
     impl GetConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -346,6 +355,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetConversationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -371,7 +382,7 @@ pub mod contact_center_insights {
 
     impl ListConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -415,6 +426,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListConversationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -464,7 +477,7 @@ pub mod contact_center_insights {
 
     impl DeleteConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -493,6 +506,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -518,7 +533,7 @@ pub mod contact_center_insights {
 
     impl CreateAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -585,12 +600,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_analysis<T: Into<std::option::Option<crate::model::Analysis>>>(
             mut self,
             v: T,
@@ -613,7 +632,7 @@ pub mod contact_center_insights {
 
     impl GetAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -639,6 +658,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -658,7 +679,7 @@ pub mod contact_center_insights {
 
     impl ListAnalyses {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -699,6 +720,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListAnalysesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -736,7 +759,7 @@ pub mod contact_center_insights {
 
     impl DeleteAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -762,6 +785,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -783,7 +808,7 @@ pub mod contact_center_insights {
 
     impl BulkAnalyzeConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -855,18 +880,24 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::BulkAnalyzeConversationsRequest::filter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
         /// Sets the value of [analysis_percentage][crate::model::BulkAnalyzeConversationsRequest::analysis_percentage].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_analysis_percentage<T: Into<f32>>(mut self, v: T) -> Self {
             self.0.request.analysis_percentage = v.into();
             self
@@ -899,7 +930,7 @@ pub mod contact_center_insights {
 
     impl BulkDeleteConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -971,6 +1002,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1008,7 +1041,7 @@ pub mod contact_center_insights {
 
     impl IngestConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1080,6 +1113,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1198,7 +1233,7 @@ pub mod contact_center_insights {
 
     impl ExportInsightsData {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1270,6 +1305,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1345,7 +1382,7 @@ pub mod contact_center_insights {
 
     impl CreateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1413,12 +1450,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_issue_model<T: Into<std::option::Option<crate::model::IssueModel>>>(
             mut self,
             v: T,
@@ -1441,7 +1482,7 @@ pub mod contact_center_insights {
 
     impl UpdateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1470,6 +1511,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_issue_model<T: Into<std::option::Option<crate::model::IssueModel>>>(
             mut self,
             v: T,
@@ -1501,7 +1544,7 @@ pub mod contact_center_insights {
 
     impl GetIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1527,6 +1570,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetIssueModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1546,7 +1591,7 @@ pub mod contact_center_insights {
 
     impl ListIssueModels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1572,6 +1617,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListIssueModelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1591,7 +1638,7 @@ pub mod contact_center_insights {
 
     impl DeleteIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1657,6 +1704,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1676,7 +1725,7 @@ pub mod contact_center_insights {
 
     impl DeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1748,6 +1797,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1767,7 +1818,7 @@ pub mod contact_center_insights {
 
     impl UndeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1839,6 +1890,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1858,7 +1911,7 @@ pub mod contact_center_insights {
 
     impl ExportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1930,6 +1983,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1980,7 +2035,7 @@ pub mod contact_center_insights {
 
     impl ImportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2052,6 +2107,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2106,7 +2163,7 @@ pub mod contact_center_insights {
 
     impl GetIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2132,6 +2189,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetIssueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2151,7 +2210,7 @@ pub mod contact_center_insights {
 
     impl ListIssues {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2177,6 +2236,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2196,7 +2257,7 @@ pub mod contact_center_insights {
 
     impl UpdateIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2222,6 +2283,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_issue<T: Into<std::option::Option<crate::model::Issue>>>(
             mut self,
             v: T,
@@ -2253,7 +2316,7 @@ pub mod contact_center_insights {
 
     impl DeleteIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2279,6 +2342,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2300,7 +2365,7 @@ pub mod contact_center_insights {
 
     impl CalculateIssueModelStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2329,6 +2394,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [issue_model][crate::model::CalculateIssueModelStatsRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_issue_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.issue_model = v.into();
             self
@@ -2348,7 +2415,7 @@ pub mod contact_center_insights {
 
     impl CreatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2377,12 +2444,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreatePhraseMatcherRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_phrase_matcher<T: Into<std::option::Option<crate::model::PhraseMatcher>>>(
             mut self,
             v: T,
@@ -2405,7 +2476,7 @@ pub mod contact_center_insights {
 
     impl GetPhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2434,6 +2505,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetPhraseMatcherRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2453,7 +2526,7 @@ pub mod contact_center_insights {
 
     impl ListPhraseMatchers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2497,6 +2570,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListPhraseMatchersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2534,7 +2609,7 @@ pub mod contact_center_insights {
 
     impl DeletePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2563,6 +2638,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeletePhraseMatcherRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2582,7 +2659,7 @@ pub mod contact_center_insights {
 
     impl UpdatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2611,6 +2688,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_phrase_matcher<T: Into<std::option::Option<crate::model::PhraseMatcher>>>(
             mut self,
             v: T,
@@ -2642,7 +2721,7 @@ pub mod contact_center_insights {
 
     impl CalculateStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2668,6 +2747,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [location][crate::model::CalculateStatsRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2693,7 +2774,7 @@ pub mod contact_center_insights {
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2719,6 +2800,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2738,7 +2821,7 @@ pub mod contact_center_insights {
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2764,6 +2847,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
             mut self,
             v: T,
@@ -2773,6 +2858,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2795,7 +2882,7 @@ pub mod contact_center_insights {
 
     impl CreateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2824,12 +2911,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRuleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_analysis_rule<T: Into<std::option::Option<crate::model::AnalysisRule>>>(
             mut self,
             v: T,
@@ -2852,7 +2943,7 @@ pub mod contact_center_insights {
 
     impl GetAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2878,6 +2969,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2897,7 +2990,7 @@ pub mod contact_center_insights {
 
     impl ListAnalysisRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2941,6 +3034,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListAnalysisRulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2972,7 +3067,7 @@ pub mod contact_center_insights {
 
     impl UpdateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3001,6 +3096,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_analysis_rule<T: Into<std::option::Option<crate::model::AnalysisRule>>>(
             mut self,
             v: T,
@@ -3032,7 +3129,7 @@ pub mod contact_center_insights {
 
     impl DeleteAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3061,6 +3158,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3080,7 +3179,7 @@ pub mod contact_center_insights {
 
     impl GetEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3109,6 +3208,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetEncryptionSpecRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3130,7 +3231,7 @@ pub mod contact_center_insights {
 
     impl InitializeEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3202,6 +3303,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_encryption_spec<T: Into<std::option::Option<crate::model::EncryptionSpec>>>(
             mut self,
             v: T,
@@ -3224,7 +3327,7 @@ pub mod contact_center_insights {
 
     impl CreateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3250,12 +3353,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_view<T: Into<std::option::Option<crate::model::View>>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
@@ -3275,7 +3382,7 @@ pub mod contact_center_insights {
 
     impl GetView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3301,6 +3408,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3320,7 +3429,7 @@ pub mod contact_center_insights {
 
     impl ListViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3361,6 +3470,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3392,7 +3503,7 @@ pub mod contact_center_insights {
 
     impl UpdateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3418,6 +3529,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_view<T: Into<std::option::Option<crate::model::View>>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
@@ -3446,7 +3559,7 @@ pub mod contact_center_insights {
 
     impl DeleteView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3472,6 +3585,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3491,7 +3606,7 @@ pub mod contact_center_insights {
 
     impl QueryMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3558,12 +3673,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::QueryMetricsRequest::filter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -3580,15 +3699,6 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
-            self
-        }
-
         /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
@@ -3597,6 +3707,15 @@ pub mod contact_center_insights {
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.measure_mask = v.into();
             self
         }
     }
@@ -3614,7 +3733,7 @@ pub mod contact_center_insights {
 
     impl CreateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3643,12 +3762,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateQaQuestionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_qa_question<T: Into<std::option::Option<crate::model::QaQuestion>>>(
             mut self,
             v: T,
@@ -3677,7 +3800,7 @@ pub mod contact_center_insights {
 
     impl GetQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3703,6 +3826,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetQaQuestionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3722,7 +3847,7 @@ pub mod contact_center_insights {
 
     impl UpdateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3751,6 +3876,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_qa_question<T: Into<std::option::Option<crate::model::QaQuestion>>>(
             mut self,
             v: T,
@@ -3760,6 +3887,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3782,7 +3911,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3811,6 +3940,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteQaQuestionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3830,7 +3961,7 @@ pub mod contact_center_insights {
 
     impl ListQaQuestions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3871,6 +4002,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListQaQuestionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3902,7 +4035,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3931,12 +4064,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_qa_scorecard<T: Into<std::option::Option<crate::model::QaScorecard>>>(
             mut self,
             v: T,
@@ -3965,7 +4102,7 @@ pub mod contact_center_insights {
 
     impl GetQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3991,6 +4128,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4010,7 +4149,7 @@ pub mod contact_center_insights {
 
     impl UpdateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4039,6 +4178,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_qa_scorecard<T: Into<std::option::Option<crate::model::QaScorecard>>>(
             mut self,
             v: T,
@@ -4048,6 +4189,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4070,7 +4213,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4099,6 +4242,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4124,7 +4269,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecards {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4168,6 +4313,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListQaScorecardsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4201,7 +4348,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4230,12 +4377,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRevisionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_qa_scorecard_revision<
             T: Into<std::option::Option<crate::model::QaScorecardRevision>>,
         >(
@@ -4266,7 +4417,7 @@ pub mod contact_center_insights {
 
     impl GetQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4295,6 +4446,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRevisionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4316,7 +4469,7 @@ pub mod contact_center_insights {
 
     impl TuneQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4388,12 +4541,16 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::TuneQaScorecardRevisionRequest::filter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -4421,7 +4578,7 @@ pub mod contact_center_insights {
 
     impl DeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4450,6 +4607,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeployQaScorecardRevisionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4471,7 +4630,7 @@ pub mod contact_center_insights {
 
     impl UndeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4500,6 +4659,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::UndeployQaScorecardRevisionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4521,7 +4682,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4550,6 +4711,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRevisionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4577,7 +4740,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecardRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4623,6 +4786,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListQaScorecardRevisionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4660,7 +4825,7 @@ pub mod contact_center_insights {
 
     impl CreateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4689,6 +4854,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedbackLabelRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4701,6 +4868,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_feedback_label<T: Into<std::option::Option<crate::model::FeedbackLabel>>>(
             mut self,
             v: T,
@@ -4723,7 +4892,7 @@ pub mod contact_center_insights {
 
     impl ListFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4767,6 +4936,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListFeedbackLabelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4804,7 +4975,7 @@ pub mod contact_center_insights {
 
     impl GetFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4833,6 +5004,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::GetFeedbackLabelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4852,7 +5025,7 @@ pub mod contact_center_insights {
 
     impl UpdateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4881,6 +5054,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_feedback_label<T: Into<std::option::Option<crate::model::FeedbackLabel>>>(
             mut self,
             v: T,
@@ -4890,6 +5065,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4912,7 +5089,7 @@ pub mod contact_center_insights {
 
     impl DeleteFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4941,6 +5118,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedbackLabelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4960,7 +5139,7 @@ pub mod contact_center_insights {
 
     impl ListAllFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5004,6 +5183,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::ListAllFeedbackLabelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5043,7 +5224,7 @@ pub mod contact_center_insights {
 
     impl BulkUploadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5115,6 +5296,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5173,7 +5356,7 @@ pub mod contact_center_insights {
 
     impl BulkDownloadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5245,6 +5428,8 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5337,7 +5522,7 @@ pub mod contact_center_insights {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5418,7 +5603,7 @@ pub mod contact_center_insights {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5466,7 +5651,7 @@ pub mod contact_center_insights {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

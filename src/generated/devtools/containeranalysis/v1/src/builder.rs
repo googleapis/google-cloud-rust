@@ -16,7 +16,6 @@
 
 pub mod container_analysis {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ContainerAnalysis][super::super::client::ContainerAnalysis].
     ///
@@ -49,7 +48,7 @@ pub mod container_analysis {
     /// Common implementation for [super::super::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod container_analysis {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod container_analysis {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,12 +100,16 @@ pub mod container_analysis {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -133,7 +140,9 @@ pub mod container_analysis {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,6 +167,8 @@ pub mod container_analysis {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -185,7 +196,9 @@ pub mod container_analysis {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,12 +226,16 @@ pub mod container_analysis {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -244,7 +261,9 @@ pub mod container_analysis {
     );
 
     impl GetVulnerabilityOccurrencesSummary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -272,6 +291,8 @@ pub mod container_analysis {
         }
 
         /// Sets the value of [parent][crate::model::GetVulnerabilityOccurrencesSummaryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -296,7 +317,9 @@ pub mod container_analysis {
     pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
 
     impl ExportSBOM {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -321,6 +344,8 @@ pub mod container_analysis {
         }
 
         /// Sets the value of [name][crate::model::ExportSBOMRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

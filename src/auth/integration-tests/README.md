@@ -1,6 +1,6 @@
 # Auth Integration Tests
 
-## Running Integration Tests
+## Running integration tests
 
 ### In `rust-auth-testing`
 
@@ -11,9 +11,22 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
   cargo test --features run-integration-tests -p auth-integration-tests
 ```
 
+#### Rotating the service account key
+
+Service account keys expire after 90 days, due to our org policy.
+
+Rerunning terraform (after 60 days of key creation) will generate a new service
+account key, and save it as the `test-sa-creds-json` secret.
+
+```sh
+cd ${HOME}/google-cloud-rust/src/auth/.gcb/builds
+terraform plan -out="/tmp/builds.plan"
+terraform apply "/tmp/builds.plan"
+```
+
 ### In your own test project
 
-#### Create the Test Resources
+#### Create the test resources
 
 Set your test project
 
@@ -84,7 +97,7 @@ terraform plan \
 terraform apply "/tmp/builds.plan"
 ```
 
-## Test Design
+## Test design
 
 For access token credentials, there are integration tests for each type of
 principal (service account, authorized user, etc.).

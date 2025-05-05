@@ -283,15 +283,6 @@ impl Profile {
         self
     }
 
-    /// Sets the value of [start_time][crate::model::Profile::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Profile::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -301,6 +292,15 @@ impl Profile {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::Profile::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
         self
     }
 }
@@ -403,6 +403,7 @@ pub struct ListProfilesRequest {
     /// The maximum number of items to return.
     /// Default page_size is 1000.
     /// Max limit is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The token to continue pagination and get profiles from a particular page.
@@ -465,6 +466,7 @@ pub struct ListProfilesResponse {
     /// not able to be fetched successfully. This should typically be zero. A
     /// non-zero value may indicate a transient failure, in which case if the
     /// number is too high for your use case, the call may be retried.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skipped_profiles: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -476,6 +478,17 @@ impl ListProfilesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [profiles][crate::model::ListProfilesResponse::profiles].
+    pub fn set_profiles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Profile>,
+    {
+        use std::iter::Iterator;
+        self.profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -485,17 +498,6 @@ impl ListProfilesResponse {
     /// Sets the value of [skipped_profiles][crate::model::ListProfilesResponse::skipped_profiles].
     pub fn set_skipped_profiles<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.skipped_profiles = v.into();
-        self
-    }
-
-    /// Sets the value of [profiles][crate::model::ListProfilesResponse::profiles].
-    pub fn set_profiles<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Profile>,
-    {
-        use std::iter::Iterator;
-        self.profiles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -523,89 +525,174 @@ impl gax::paginator::internal::PageableResponse for ListProfilesResponse {
 /// ProfileType is type of profiling data.
 /// NOTE: the enumeration member names are used (in lowercase) as unique string
 /// identifiers of profile types, so they must not be renamed.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ProfileType(i32);
-
-impl ProfileType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ProfileType {
     /// Unspecified profile type.
-    pub const PROFILE_TYPE_UNSPECIFIED: ProfileType = ProfileType::new(0);
-
+    Unspecified,
     /// Thread CPU time sampling.
-    pub const CPU: ProfileType = ProfileType::new(1);
-
+    Cpu,
     /// Wallclock time sampling. More expensive as stops all threads.
-    pub const WALL: ProfileType = ProfileType::new(2);
-
+    Wall,
     /// In-use heap profile. Represents a snapshot of the allocations that are
     /// live at the time of the profiling.
-    pub const HEAP: ProfileType = ProfileType::new(3);
-
+    Heap,
     /// Single-shot collection of all thread stacks.
-    pub const THREADS: ProfileType = ProfileType::new(4);
-
+    Threads,
     /// Synchronization contention profile.
-    pub const CONTENTION: ProfileType = ProfileType::new(5);
-
+    Contention,
     /// Peak heap profile.
-    pub const PEAK_HEAP: ProfileType = ProfileType::new(6);
-
+    PeakHeap,
     /// Heap allocation profile. It represents the aggregation of all allocations
     /// made over the duration of the profile. All allocations are included,
     /// including those that might have been freed by the end of the profiling
     /// interval. The profile is in particular useful for garbage collecting
     /// languages to understand which parts of the code create most of the garbage
     /// collection pressure to see if those can be optimized.
-    pub const HEAP_ALLOC: ProfileType = ProfileType::new(7);
+    HeapAlloc,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ProfileType::value] or
+    /// [ProfileType::name].
+    UnknownValue(profile_type::UnknownValue),
+}
 
-    /// Creates a new ProfileType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod profile_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl ProfileType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Cpu => std::option::Option::Some(1),
+            Self::Wall => std::option::Option::Some(2),
+            Self::Heap => std::option::Option::Some(3),
+            Self::Threads => std::option::Option::Some(4),
+            Self::Contention => std::option::Option::Some(5),
+            Self::PeakHeap => std::option::Option::Some(6),
+            Self::HeapAlloc => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("PROFILE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("CPU"),
-            2 => std::borrow::Cow::Borrowed("WALL"),
-            3 => std::borrow::Cow::Borrowed("HEAP"),
-            4 => std::borrow::Cow::Borrowed("THREADS"),
-            5 => std::borrow::Cow::Borrowed("CONTENTION"),
-            6 => std::borrow::Cow::Borrowed("PEAK_HEAP"),
-            7 => std::borrow::Cow::Borrowed("HEAP_ALLOC"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PROFILE_TYPE_UNSPECIFIED"),
+            Self::Cpu => std::option::Option::Some("CPU"),
+            Self::Wall => std::option::Option::Some("WALL"),
+            Self::Heap => std::option::Option::Some("HEAP"),
+            Self::Threads => std::option::Option::Some("THREADS"),
+            Self::Contention => std::option::Option::Some("CONTENTION"),
+            Self::PeakHeap => std::option::Option::Some("PEAK_HEAP"),
+            Self::HeapAlloc => std::option::Option::Some("HEAP_ALLOC"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "PROFILE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::PROFILE_TYPE_UNSPECIFIED),
-            "CPU" => std::option::Option::Some(Self::CPU),
-            "WALL" => std::option::Option::Some(Self::WALL),
-            "HEAP" => std::option::Option::Some(Self::HEAP),
-            "THREADS" => std::option::Option::Some(Self::THREADS),
-            "CONTENTION" => std::option::Option::Some(Self::CONTENTION),
-            "PEAK_HEAP" => std::option::Option::Some(Self::PEAK_HEAP),
-            "HEAP_ALLOC" => std::option::Option::Some(Self::HEAP_ALLOC),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for ProfileType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ProfileType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ProfileType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ProfileType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Cpu,
+            2 => Self::Wall,
+            3 => Self::Heap,
+            4 => Self::Threads,
+            5 => Self::Contention,
+            6 => Self::PeakHeap,
+            7 => Self::HeapAlloc,
+            _ => Self::UnknownValue(profile_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ProfileType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PROFILE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "CPU" => Self::Cpu,
+            "WALL" => Self::Wall,
+            "HEAP" => Self::Heap,
+            "THREADS" => Self::Threads,
+            "CONTENTION" => Self::Contention,
+            "PEAK_HEAP" => Self::PeakHeap,
+            "HEAP_ALLOC" => Self::HeapAlloc,
+            _ => Self::UnknownValue(profile_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ProfileType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Cpu => serializer.serialize_i32(1),
+            Self::Wall => serializer.serialize_i32(2),
+            Self::Heap => serializer.serialize_i32(3),
+            Self::Threads => serializer.serialize_i32(4),
+            Self::Contention => serializer.serialize_i32(5),
+            Self::PeakHeap => serializer.serialize_i32(6),
+            Self::HeapAlloc => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ProfileType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProfileType>::new(
+            ".google.devtools.cloudprofiler.v2.ProfileType",
+        ))
     }
 }

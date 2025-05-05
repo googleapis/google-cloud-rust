@@ -16,7 +16,6 @@
 
 pub mod metrics_scopes {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [MetricsScopes][super::super::client::MetricsScopes].
     ///
@@ -49,7 +48,7 @@ pub mod metrics_scopes {
     /// Common implementation for [super::super::client::MetricsScopes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod metrics_scopes {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod metrics_scopes {
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
     impl GetMetricsScope {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +100,8 @@ pub mod metrics_scopes {
         }
 
         /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -117,7 +122,9 @@ pub mod metrics_scopes {
     );
 
     impl ListMetricsScopesByMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -147,6 +154,8 @@ pub mod metrics_scopes {
         }
 
         /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_monitored_resource_container<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -168,7 +177,9 @@ pub mod metrics_scopes {
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
     impl CreateMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,12 +246,16 @@ pub mod metrics_scopes {
         }
 
         /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_monitored_project<
             T: Into<std::option::Option<crate::model::MonitoredProject>>,
         >(
@@ -264,7 +279,9 @@ pub mod metrics_scopes {
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
     impl DeleteMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -327,6 +344,8 @@ pub mod metrics_scopes {
         }
 
         /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -345,7 +364,9 @@ pub mod metrics_scopes {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

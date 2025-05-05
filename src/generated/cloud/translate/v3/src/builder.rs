@@ -16,7 +16,6 @@
 
 pub mod translation_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TranslationService][super::super::client::TranslationService].
     ///
@@ -49,7 +48,7 @@ pub mod translation_service {
     /// Common implementation for [super::super::client::TranslationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TranslationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod translation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod translation_service {
     pub struct TranslateText(RequestBuilder<crate::model::TranslateTextRequest>);
 
     impl TranslateText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,6 +99,19 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
         pub fn set_mime_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.mime_type = v.into();
@@ -109,12 +125,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [target_language_code][crate::model::TranslateTextRequest::target_language_code].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_language_code = v.into();
             self
         }
 
         /// Sets the value of [parent][crate::model::TranslateTextRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -148,17 +168,6 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
-        pub fn set_contents<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::TranslateTextRequest::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -183,7 +192,9 @@ pub mod translation_service {
     pub struct RomanizeText(RequestBuilder<crate::model::RomanizeTextRequest>);
 
     impl RomanizeText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,18 +219,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
-        pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.source_language_code = v.into();
-            self
-        }
-
         /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_contents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -227,6 +236,12 @@ pub mod translation_service {
         {
             use std::iter::Iterator;
             self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
+        pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.source_language_code = v.into();
             self
         }
     }
@@ -243,7 +258,9 @@ pub mod translation_service {
     pub struct DetectLanguage(RequestBuilder<crate::model::DetectLanguageRequest>);
 
     impl DetectLanguage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -268,6 +285,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -331,7 +350,9 @@ pub mod translation_service {
     pub struct GetSupportedLanguages(RequestBuilder<crate::model::GetSupportedLanguagesRequest>);
 
     impl GetSupportedLanguages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -359,6 +380,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -389,7 +412,9 @@ pub mod translation_service {
     pub struct TranslateDocument(RequestBuilder<crate::model::TranslateDocumentRequest>);
 
     impl TranslateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -417,6 +442,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -429,12 +456,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [target_language_code][crate::model::TranslateDocumentRequest::target_language_code].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_language_code = v.into();
             self
         }
 
         /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_document_input_config<
             T: Into<std::option::Option<crate::model::DocumentInputConfig>>,
         >(
@@ -473,6 +504,17 @@ pub mod translation_service {
             self
         }
 
+        /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [customized_attribution][crate::model::TranslateDocumentRequest::customized_attribution].
         pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.customized_attribution = v.into();
@@ -496,17 +538,6 @@ pub mod translation_service {
             self.0.request.enable_rotation_correction = v.into();
             self
         }
-
-        /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -521,7 +552,9 @@ pub mod translation_service {
     pub struct BatchTranslateText(RequestBuilder<crate::model::BatchTranslateTextRequest>);
 
     impl BatchTranslateText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,27 +623,24 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [source_language_code][crate::model::BatchTranslateTextRequest::source_language_code].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
-            self
-        }
-
         /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -618,17 +648,6 @@ pub mod translation_service {
         {
             use std::iter::Iterator;
             self.0.request.target_language_codes = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [input_configs][crate::model::BatchTranslateTextRequest::input_configs].
-        pub fn set_input_configs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::InputConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -640,6 +659,30 @@ pub mod translation_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [input_configs][crate::model::BatchTranslateTextRequest::input_configs].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_input_configs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::InputConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.output_config = v.into();
             self
         }
 
@@ -678,7 +721,9 @@ pub mod translation_service {
     pub struct BatchTranslateDocument(RequestBuilder<crate::model::BatchTranslateDocumentRequest>);
 
     impl BatchTranslateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -749,47 +794,24 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [source_language_code][crate::model::BatchTranslateDocumentRequest::source_language_code].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
-            self
-        }
-
-        /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
-        pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.customized_attribution = v.into();
-            self
-        }
-
-        /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
-        pub fn set_enable_shadow_removal_native_pdf<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.enable_shadow_removal_native_pdf = v.into();
-            self
-        }
-
-        /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
-        pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.enable_rotation_correction = v.into();
-            self
-        }
-
         /// Sets the value of [target_language_codes][crate::model::BatchTranslateDocumentRequest::target_language_codes].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -801,6 +823,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [input_configs][crate::model::BatchTranslateDocumentRequest::input_configs].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -808,6 +832,19 @@ pub mod translation_service {
         {
             use std::iter::Iterator;
             self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_output_config<
+            T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.output_config = v.into();
             self
         }
 
@@ -844,6 +881,24 @@ pub mod translation_service {
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
+
+        /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
+        pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.customized_attribution = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
+        pub fn set_enable_shadow_removal_native_pdf<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.enable_shadow_removal_native_pdf = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
+        pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.enable_rotation_correction = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -858,7 +913,9 @@ pub mod translation_service {
     pub struct CreateGlossary(RequestBuilder<crate::model::CreateGlossaryRequest>);
 
     impl CreateGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -922,12 +979,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
             mut self,
             v: T,
@@ -949,7 +1010,9 @@ pub mod translation_service {
     pub struct UpdateGlossary(RequestBuilder<crate::model::UpdateGlossaryRequest>);
 
     impl UpdateGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1013,6 +1076,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
             mut self,
             v: T,
@@ -1043,7 +1108,9 @@ pub mod translation_service {
     pub struct ListGlossaries(RequestBuilder<crate::model::ListGlossariesRequest>);
 
     impl ListGlossaries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1083,6 +1150,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1119,7 +1188,9 @@ pub mod translation_service {
     pub struct GetGlossary(RequestBuilder<crate::model::GetGlossaryRequest>);
 
     impl GetGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1144,6 +1215,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1162,7 +1235,9 @@ pub mod translation_service {
     pub struct DeleteGlossary(RequestBuilder<crate::model::DeleteGlossaryRequest>);
 
     impl DeleteGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1228,6 +1303,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1246,7 +1323,9 @@ pub mod translation_service {
     pub struct GetGlossaryEntry(RequestBuilder<crate::model::GetGlossaryEntryRequest>);
 
     impl GetGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1274,6 +1353,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1292,7 +1373,9 @@ pub mod translation_service {
     pub struct ListGlossaryEntries(RequestBuilder<crate::model::ListGlossaryEntriesRequest>);
 
     impl ListGlossaryEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1335,6 +1418,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListGlossaryEntriesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1365,7 +1450,9 @@ pub mod translation_service {
     pub struct CreateGlossaryEntry(RequestBuilder<crate::model::CreateGlossaryEntryRequest>);
 
     impl CreateGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1393,12 +1480,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
             mut self,
             v: T,
@@ -1420,7 +1511,9 @@ pub mod translation_service {
     pub struct UpdateGlossaryEntry(RequestBuilder<crate::model::UpdateGlossaryEntryRequest>);
 
     impl UpdateGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1448,6 +1541,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
             mut self,
             v: T,
@@ -1469,7 +1564,9 @@ pub mod translation_service {
     pub struct DeleteGlossaryEntry(RequestBuilder<crate::model::DeleteGlossaryEntryRequest>);
 
     impl DeleteGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1497,6 +1594,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1515,7 +1614,9 @@ pub mod translation_service {
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1578,12 +1679,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -1605,7 +1710,9 @@ pub mod translation_service {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1630,6 +1737,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::GetDatasetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1648,7 +1757,9 @@ pub mod translation_service {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1688,6 +1799,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1718,7 +1831,9 @@ pub mod translation_service {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1778,6 +1893,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1798,7 +1915,9 @@ pub mod translation_service {
     );
 
     impl CreateAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1826,12 +1945,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_adaptive_mt_dataset<
             T: Into<std::option::Option<crate::model::AdaptiveMtDataset>>,
         >(
@@ -1857,7 +1980,9 @@ pub mod translation_service {
     );
 
     impl DeleteAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1885,6 +2010,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1903,7 +2030,9 @@ pub mod translation_service {
     pub struct GetAdaptiveMtDataset(RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>);
 
     impl GetAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1931,6 +2060,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1949,7 +2080,9 @@ pub mod translation_service {
     pub struct ListAdaptiveMtDatasets(RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>);
 
     impl ListAdaptiveMtDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1994,6 +2127,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAdaptiveMtDatasetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2030,7 +2165,9 @@ pub mod translation_service {
     pub struct AdaptiveMtTranslate(RequestBuilder<crate::model::AdaptiveMtTranslateRequest>);
 
     impl AdaptiveMtTranslate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2058,14 +2195,31 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::AdaptiveMtTranslateRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
+            self
+        }
+
+        /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_content<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.content = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -2094,17 +2248,6 @@ pub mod translation_service {
             self.0.request.glossary_config = v.into();
             self
         }
-
-        /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
-        pub fn set_content<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.content = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -2119,7 +2262,9 @@ pub mod translation_service {
     pub struct GetAdaptiveMtFile(RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
 
     impl GetAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2147,6 +2292,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2165,7 +2312,9 @@ pub mod translation_service {
     pub struct DeleteAdaptiveMtFile(RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>);
 
     impl DeleteAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2193,6 +2342,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2211,7 +2362,9 @@ pub mod translation_service {
     pub struct ImportAdaptiveMtFile(RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>);
 
     impl ImportAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2239,6 +2392,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2301,7 +2456,9 @@ pub mod translation_service {
     pub struct ListAdaptiveMtFiles(RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>);
 
     impl ListAdaptiveMtFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2344,6 +2501,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAdaptiveMtFilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2376,7 +2535,9 @@ pub mod translation_service {
     );
 
     impl ListAdaptiveMtSentences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2421,6 +2582,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAdaptiveMtSentencesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2451,7 +2614,9 @@ pub mod translation_service {
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2511,12 +2676,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
         }
 
         /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input_config<T: Into<std::option::Option<crate::model::DatasetInputConfig>>>(
             mut self,
             v: T,
@@ -2538,7 +2707,9 @@ pub mod translation_service {
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2598,12 +2769,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
         }
 
         /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::DatasetOutputConfig>>,
         >(
@@ -2627,7 +2802,9 @@ pub mod translation_service {
     pub struct ListExamples(RequestBuilder<crate::model::ListExamplesRequest>);
 
     impl ListExamples {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2667,6 +2844,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListExamplesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2703,7 +2882,9 @@ pub mod translation_service {
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2765,12 +2946,16 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [model][crate::model::CreateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
             mut self,
             v: T,
@@ -2792,7 +2977,9 @@ pub mod translation_service {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2832,6 +3019,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2868,7 +3057,9 @@ pub mod translation_service {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2893,6 +3084,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::GetModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2911,7 +3104,9 @@ pub mod translation_service {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2971,6 +3166,8 @@ pub mod translation_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2989,7 +3186,9 @@ pub mod translation_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3068,7 +3267,9 @@ pub mod translation_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3111,7 +3312,9 @@ pub mod translation_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3190,7 +3393,9 @@ pub mod translation_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3236,7 +3441,9 @@ pub mod translation_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3282,7 +3489,9 @@ pub mod translation_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3328,7 +3537,9 @@ pub mod translation_service {
     pub struct WaitOperation(RequestBuilder<longrunning::model::WaitOperationRequest>);
 
     impl WaitOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

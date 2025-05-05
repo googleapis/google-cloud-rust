@@ -16,7 +16,6 @@
 
 pub mod bigtable_instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BigtableInstanceAdmin][super::super::client::BigtableInstanceAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod bigtable_instance_admin {
     /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod bigtable_instance_admin {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -140,18 +139,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -161,6 +166,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [clusters][crate::model::CreateInstanceRequest::clusters].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_clusters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -185,7 +192,7 @@ pub mod bigtable_instance_admin {
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -211,6 +218,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -230,7 +239,7 @@ pub mod bigtable_instance_admin {
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -256,6 +265,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -281,7 +292,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -313,6 +324,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [display_name][crate::model::Instance::display_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_display_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.display_name = v.into();
             self
@@ -327,6 +340,17 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [r#type][crate::model::Instance::type].
         pub fn set_type<T: Into<crate::model::instance::Type>>(mut self, v: T) -> Self {
             self.0.request.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::Instance::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -350,17 +374,6 @@ pub mod bigtable_instance_admin {
             self.0.request.satisfies_pzi = v.into();
             self
         }
-
-        /// Sets the value of [labels][crate::model::Instance::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -376,7 +389,7 @@ pub mod bigtable_instance_admin {
 
     impl PartialUpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -444,6 +457,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -453,6 +468,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -475,7 +492,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -501,6 +518,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -520,7 +539,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -584,18 +603,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -618,7 +643,7 @@ pub mod bigtable_instance_admin {
 
     impl GetCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -644,6 +669,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -663,7 +690,7 @@ pub mod bigtable_instance_admin {
 
     impl ListClusters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -689,6 +716,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -714,7 +743,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -868,7 +897,7 @@ pub mod bigtable_instance_admin {
 
     impl PartialUpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -936,6 +965,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -945,6 +976,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -967,7 +1000,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -993,6 +1026,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1012,7 +1047,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1041,18 +1076,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [app_profile_id][crate::model::CreateAppProfileRequest::app_profile_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_profile_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.app_profile_id = v.into();
             self
         }
 
         /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
             mut self,
             v: T,
@@ -1081,7 +1122,7 @@ pub mod bigtable_instance_admin {
 
     impl GetAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1107,6 +1148,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1126,7 +1169,7 @@ pub mod bigtable_instance_admin {
 
     impl ListAppProfiles {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1167,6 +1210,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1198,7 +1243,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1266,6 +1311,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
             mut self,
             v: T,
@@ -1275,6 +1322,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1303,7 +1352,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1332,12 +1381,16 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ignore_warnings][crate::model::DeleteAppProfileRequest::ignore_warnings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.ignore_warnings = v.into();
             self
@@ -1357,7 +1410,7 @@ pub mod bigtable_instance_admin {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1383,6 +1436,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1411,7 +1466,7 @@ pub mod bigtable_instance_admin {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1437,12 +1492,16 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1474,7 +1533,7 @@ pub mod bigtable_instance_admin {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1503,12 +1562,16 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1533,7 +1596,7 @@ pub mod bigtable_instance_admin {
 
     impl ListHotTablets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1574,6 +1637,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1620,7 +1685,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1688,18 +1753,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logical_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.logical_view_id = v.into();
             self
         }
 
         /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
             mut self,
             v: T,
@@ -1722,7 +1793,7 @@ pub mod bigtable_instance_admin {
 
     impl GetLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1748,6 +1819,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1767,7 +1840,7 @@ pub mod bigtable_instance_admin {
 
     impl ListLogicalViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1811,6 +1884,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1842,7 +1917,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1910,6 +1985,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
             mut self,
             v: T,
@@ -1941,7 +2018,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1970,6 +2047,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1995,7 +2074,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2065,18 +2144,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_materialized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.materialized_view_id = v.into();
             self
         }
 
         /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_materialized_view<
             T: Into<std::option::Option<crate::model::MaterializedView>>,
         >(
@@ -2101,7 +2186,7 @@ pub mod bigtable_instance_admin {
 
     impl GetMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2130,6 +2215,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2149,7 +2236,7 @@ pub mod bigtable_instance_admin {
 
     impl ListMaterializedViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2193,6 +2280,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2224,7 +2313,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2294,6 +2383,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_materialized_view<
             T: Into<std::option::Option<crate::model::MaterializedView>>,
         >(
@@ -2327,7 +2418,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2356,6 +2447,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2381,7 +2474,7 @@ pub mod bigtable_instance_admin {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2462,7 +2555,7 @@ pub mod bigtable_instance_admin {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2510,7 +2603,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2558,7 +2651,7 @@ pub mod bigtable_instance_admin {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2603,7 +2696,6 @@ pub mod bigtable_instance_admin {
 
 pub mod bigtable_table_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BigtableTableAdmin][super::super::client::BigtableTableAdmin].
     ///
@@ -2636,7 +2728,7 @@ pub mod bigtable_table_admin {
     /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2645,7 +2737,9 @@ pub mod bigtable_table_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2659,7 +2753,9 @@ pub mod bigtable_table_admin {
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2684,18 +2780,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::CreateTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::CreateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2730,7 +2832,9 @@ pub mod bigtable_table_admin {
     );
 
     impl CreateTableFromSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2797,18 +2901,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::CreateTableFromSnapshotRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [source_snapshot][crate::model::CreateTableFromSnapshotRequest::source_snapshot].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_snapshot<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_snapshot = v.into();
             self
@@ -2827,7 +2937,9 @@ pub mod bigtable_table_admin {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2867,6 +2979,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2903,7 +3017,9 @@ pub mod bigtable_table_admin {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2928,6 +3044,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2952,7 +3070,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3014,6 +3134,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -3023,6 +3145,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3050,7 +3174,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3075,6 +3201,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3093,7 +3221,9 @@ pub mod bigtable_table_admin {
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3156,6 +3286,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3174,7 +3306,9 @@ pub mod bigtable_table_admin {
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
     impl CreateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3243,18 +3377,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [authorized_view_id][crate::model::CreateAuthorizedViewRequest::authorized_view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_authorized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.authorized_view_id = v.into();
             self
         }
 
         /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
             mut self,
             v: T,
@@ -3276,7 +3416,9 @@ pub mod bigtable_table_admin {
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
     impl ListAuthorizedViews {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3319,6 +3461,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3358,7 +3502,9 @@ pub mod bigtable_table_admin {
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3386,6 +3532,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3413,7 +3561,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
     impl UpdateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3482,6 +3632,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
             mut self,
             v: T,
@@ -3518,7 +3670,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
     impl DeleteAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3546,6 +3700,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3570,7 +3726,9 @@ pub mod bigtable_table_admin {
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
     impl ModifyColumnFamilies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3598,18 +3756,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
-        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_warnings = v.into();
-            self
-        }
-
         /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_modifications<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3617,6 +3773,12 @@ pub mod bigtable_table_admin {
         {
             use std::iter::Iterator;
             self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
             self
         }
     }
@@ -3633,7 +3795,9 @@ pub mod bigtable_table_admin {
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3658,6 +3822,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3710,7 +3876,9 @@ pub mod bigtable_table_admin {
     );
 
     impl GenerateConsistencyToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3738,6 +3906,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3756,7 +3926,9 @@ pub mod bigtable_table_admin {
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3784,12 +3956,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [consistency_token][crate::model::CheckConsistencyRequest::consistency_token].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_consistency_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.consistency_token = v.into();
             self
@@ -3850,7 +4026,9 @@ pub mod bigtable_table_admin {
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3913,18 +4091,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::SnapshotTableRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
         }
 
         /// Sets the value of [snapshot_id][crate::model::SnapshotTableRequest::snapshot_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.snapshot_id = v.into();
             self
@@ -3955,7 +4139,9 @@ pub mod bigtable_table_admin {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3980,6 +4166,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3998,7 +4186,9 @@ pub mod bigtable_table_admin {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4038,6 +4228,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4068,7 +4260,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4093,6 +4287,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4111,7 +4307,9 @@ pub mod bigtable_table_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4174,18 +4372,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -4207,7 +4411,9 @@ pub mod bigtable_table_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4232,6 +4438,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4250,7 +4458,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4275,6 +4485,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -4284,6 +4496,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4305,7 +4519,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4330,6 +4546,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4348,7 +4566,9 @@ pub mod bigtable_table_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4388,6 +4608,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4430,7 +4652,9 @@ pub mod bigtable_table_admin {
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4493,12 +4717,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::RestoreTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -4539,7 +4767,9 @@ pub mod bigtable_table_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4601,24 +4831,32 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_backup = v.into();
             self
         }
 
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -4640,7 +4878,9 @@ pub mod bigtable_table_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4665,6 +4905,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4692,7 +4934,9 @@ pub mod bigtable_table_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4717,12 +4961,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4753,7 +5001,9 @@ pub mod bigtable_table_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4781,12 +5031,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4810,7 +5064,9 @@ pub mod bigtable_table_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4889,7 +5145,9 @@ pub mod bigtable_table_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4935,7 +5193,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4981,7 +5241,9 @@ pub mod bigtable_table_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

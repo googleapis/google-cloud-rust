@@ -60,7 +60,7 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("datasetView", &req.dataset_view.value())]);
+        let builder = builder.query(&[("datasetView", &req.dataset_view)]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -110,7 +110,7 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("updateMode", &req.update_mode.value())]);
+        let builder = builder.query(&[("updateMode", &req.update_mode)]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
         self.inner
             .execute(builder, Some(req.dataset), options)
@@ -137,7 +137,7 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("updateMode", &req.update_mode.value())]);
+        let builder = builder.query(&[("updateMode", &req.update_mode)]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
         self.inner
             .execute(builder, Some(req.dataset), options)
@@ -807,7 +807,7 @@ impl super::stub::TableService for TableService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("selectedFields", &req.selected_fields)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

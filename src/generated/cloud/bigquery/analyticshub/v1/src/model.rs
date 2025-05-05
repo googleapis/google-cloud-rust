@@ -71,6 +71,7 @@ pub struct DataExchange {
     pub documentation: std::string::String,
 
     /// Output only. Number of listings contained in the data exchange.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub listing_count: i32,
 
     /// Optional. Base64 encoded image representing the data exchange. Max
@@ -241,23 +242,6 @@ impl SharingEnvironmentConfig {
         })
     }
 
-    /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
-    /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dcr_exchange_config(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.environment.as_ref().and_then(|v| match v {
-            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// to hold a `DefaultExchangeConfig`.
     ///
@@ -275,6 +259,23 @@ impl SharingEnvironmentConfig {
             crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
+    /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dcr_exchange_config(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.environment.as_ref().and_then(|v| match v {
+            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment]
@@ -605,12 +606,6 @@ impl DestinationDataset {
         self
     }
 
-    /// Sets the value of [location][crate::model::DestinationDataset::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::DestinationDataset::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -620,6 +615,12 @@ impl DestinationDataset {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::DestinationDataset::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -819,6 +820,17 @@ impl Listing {
         self
     }
 
+    /// Sets the value of [categories][crate::model::Listing::categories].
+    pub fn set_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::listing::Category>,
+    {
+        use std::iter::Iterator;
+        self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [publisher][crate::model::Listing::publisher].
     pub fn set_publisher<T: std::convert::Into<std::option::Option<crate::model::Publisher>>>(
         mut self,
@@ -876,17 +888,6 @@ impl Listing {
         self
     }
 
-    /// Sets the value of [categories][crate::model::Listing::categories].
-    pub fn set_categories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::listing::Category>,
-    {
-        use std::iter::Iterator;
-        self.categories = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [source][crate::model::Listing::source].
     ///
     /// Note that all the setters affecting `source` are mutually
@@ -912,19 +913,6 @@ impl Listing {
         })
     }
 
-    /// The value of [source][crate::model::Listing::source]
-    /// if it holds a `PubsubTopic`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn pubsub_topic(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::Listing::source]
     /// to hold a `BigqueryDataset`.
     ///
@@ -939,6 +927,19 @@ impl Listing {
         self.source =
             std::option::Option::Some(crate::model::listing::Source::BigqueryDataset(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::Listing::source]
+    /// if it holds a `PubsubTopic`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pubsub_topic(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::Listing::source]
@@ -1014,6 +1015,19 @@ pub mod listing {
             self
         }
 
+        /// Sets the value of [selected_resources][crate::model::listing::BigQueryDatasetSource::selected_resources].
+        pub fn set_selected_resources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::listing::big_query_dataset_source::SelectedResource,
+                >,
+        {
+            use std::iter::Iterator;
+            self.selected_resources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
         pub fn set_restricted_export_policy<
             T: std::convert::Into<
@@ -1026,19 +1040,6 @@ pub mod listing {
             v: T,
         ) -> Self {
             self.restricted_export_policy = v.into();
-            self
-        }
-
-        /// Sets the value of [selected_resources][crate::model::listing::BigQueryDatasetSource::selected_resources].
-        pub fn set_selected_resources<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::listing::big_query_dataset_source::SelectedResource,
-                >,
-        {
-            use std::iter::Iterator;
-            self.selected_resources = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1260,14 +1261,17 @@ pub mod listing {
     #[non_exhaustive]
     pub struct RestrictedExportConfig {
         /// Optional. If true, enable restricted export.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Output only. If true, restrict direct table access(read
         /// api/tabledata.list) on linked table.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub restrict_direct_table_access: bool,
 
         /// Optional. If true, restrict export of query result derived from
         /// restricted linked dataset table.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub restrict_query_result: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1308,189 +1312,369 @@ pub mod listing {
     }
 
     /// State of the listing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Subscribable state. Users with dataexchange.listings.subscribe permission
         /// can subscribe to this listing.
-        pub const ACTIVE: State = State::new(1);
+        Active,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Listing.State",
+            ))
         }
     }
 
     /// Listing categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Category {
+        Unspecified,
+        Others,
+        AdvertisingAndMarketing,
+        Commerce,
+        ClimateAndEnvironment,
+        Demographics,
+        Economics,
+        Education,
+        Energy,
+        Financial,
+        Gaming,
+        Geospatial,
+        HealthcareAndLifeScience,
+        Media,
+        PublicSector,
+        Retail,
+        Sports,
+        ScienceAndResearch,
+        TransportationAndLogistics,
+        TravelAndTourism,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Category::value] or
+        /// [Category::name].
+        UnknownValue(category::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Category {
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new(0);
-
-        pub const CATEGORY_OTHERS: Category = Category::new(1);
-
-        pub const CATEGORY_ADVERTISING_AND_MARKETING: Category = Category::new(2);
-
-        pub const CATEGORY_COMMERCE: Category = Category::new(3);
-
-        pub const CATEGORY_CLIMATE_AND_ENVIRONMENT: Category = Category::new(4);
-
-        pub const CATEGORY_DEMOGRAPHICS: Category = Category::new(5);
-
-        pub const CATEGORY_ECONOMICS: Category = Category::new(6);
-
-        pub const CATEGORY_EDUCATION: Category = Category::new(7);
-
-        pub const CATEGORY_ENERGY: Category = Category::new(8);
-
-        pub const CATEGORY_FINANCIAL: Category = Category::new(9);
-
-        pub const CATEGORY_GAMING: Category = Category::new(10);
-
-        pub const CATEGORY_GEOSPATIAL: Category = Category::new(11);
-
-        pub const CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE: Category = Category::new(12);
-
-        pub const CATEGORY_MEDIA: Category = Category::new(13);
-
-        pub const CATEGORY_PUBLIC_SECTOR: Category = Category::new(14);
-
-        pub const CATEGORY_RETAIL: Category = Category::new(15);
-
-        pub const CATEGORY_SPORTS: Category = Category::new(16);
-
-        pub const CATEGORY_SCIENCE_AND_RESEARCH: Category = Category::new(17);
-
-        pub const CATEGORY_TRANSPORTATION_AND_LOGISTICS: Category = Category::new(18);
-
-        pub const CATEGORY_TRAVEL_AND_TOURISM: Category = Category::new(19);
-
-        /// Creates a new Category instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Others => std::option::Option::Some(1),
+                Self::AdvertisingAndMarketing => std::option::Option::Some(2),
+                Self::Commerce => std::option::Option::Some(3),
+                Self::ClimateAndEnvironment => std::option::Option::Some(4),
+                Self::Demographics => std::option::Option::Some(5),
+                Self::Economics => std::option::Option::Some(6),
+                Self::Education => std::option::Option::Some(7),
+                Self::Energy => std::option::Option::Some(8),
+                Self::Financial => std::option::Option::Some(9),
+                Self::Gaming => std::option::Option::Some(10),
+                Self::Geospatial => std::option::Option::Some(11),
+                Self::HealthcareAndLifeScience => std::option::Option::Some(12),
+                Self::Media => std::option::Option::Some(13),
+                Self::PublicSector => std::option::Option::Some(14),
+                Self::Retail => std::option::Option::Some(15),
+                Self::Sports => std::option::Option::Some(16),
+                Self::ScienceAndResearch => std::option::Option::Some(17),
+                Self::TransportationAndLogistics => std::option::Option::Some(18),
+                Self::TravelAndTourism => std::option::Option::Some(19),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CATEGORY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CATEGORY_OTHERS"),
-                2 => std::borrow::Cow::Borrowed("CATEGORY_ADVERTISING_AND_MARKETING"),
-                3 => std::borrow::Cow::Borrowed("CATEGORY_COMMERCE"),
-                4 => std::borrow::Cow::Borrowed("CATEGORY_CLIMATE_AND_ENVIRONMENT"),
-                5 => std::borrow::Cow::Borrowed("CATEGORY_DEMOGRAPHICS"),
-                6 => std::borrow::Cow::Borrowed("CATEGORY_ECONOMICS"),
-                7 => std::borrow::Cow::Borrowed("CATEGORY_EDUCATION"),
-                8 => std::borrow::Cow::Borrowed("CATEGORY_ENERGY"),
-                9 => std::borrow::Cow::Borrowed("CATEGORY_FINANCIAL"),
-                10 => std::borrow::Cow::Borrowed("CATEGORY_GAMING"),
-                11 => std::borrow::Cow::Borrowed("CATEGORY_GEOSPATIAL"),
-                12 => std::borrow::Cow::Borrowed("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE"),
-                13 => std::borrow::Cow::Borrowed("CATEGORY_MEDIA"),
-                14 => std::borrow::Cow::Borrowed("CATEGORY_PUBLIC_SECTOR"),
-                15 => std::borrow::Cow::Borrowed("CATEGORY_RETAIL"),
-                16 => std::borrow::Cow::Borrowed("CATEGORY_SPORTS"),
-                17 => std::borrow::Cow::Borrowed("CATEGORY_SCIENCE_AND_RESEARCH"),
-                18 => std::borrow::Cow::Borrowed("CATEGORY_TRANSPORTATION_AND_LOGISTICS"),
-                19 => std::borrow::Cow::Borrowed("CATEGORY_TRAVEL_AND_TOURISM"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CATEGORY_UNSPECIFIED"),
+                Self::Others => std::option::Option::Some("CATEGORY_OTHERS"),
+                Self::AdvertisingAndMarketing => {
+                    std::option::Option::Some("CATEGORY_ADVERTISING_AND_MARKETING")
+                }
+                Self::Commerce => std::option::Option::Some("CATEGORY_COMMERCE"),
+                Self::ClimateAndEnvironment => {
+                    std::option::Option::Some("CATEGORY_CLIMATE_AND_ENVIRONMENT")
+                }
+                Self::Demographics => std::option::Option::Some("CATEGORY_DEMOGRAPHICS"),
+                Self::Economics => std::option::Option::Some("CATEGORY_ECONOMICS"),
+                Self::Education => std::option::Option::Some("CATEGORY_EDUCATION"),
+                Self::Energy => std::option::Option::Some("CATEGORY_ENERGY"),
+                Self::Financial => std::option::Option::Some("CATEGORY_FINANCIAL"),
+                Self::Gaming => std::option::Option::Some("CATEGORY_GAMING"),
+                Self::Geospatial => std::option::Option::Some("CATEGORY_GEOSPATIAL"),
+                Self::HealthcareAndLifeScience => {
+                    std::option::Option::Some("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE")
+                }
+                Self::Media => std::option::Option::Some("CATEGORY_MEDIA"),
+                Self::PublicSector => std::option::Option::Some("CATEGORY_PUBLIC_SECTOR"),
+                Self::Retail => std::option::Option::Some("CATEGORY_RETAIL"),
+                Self::Sports => std::option::Option::Some("CATEGORY_SPORTS"),
+                Self::ScienceAndResearch => {
+                    std::option::Option::Some("CATEGORY_SCIENCE_AND_RESEARCH")
+                }
+                Self::TransportationAndLogistics => {
+                    std::option::Option::Some("CATEGORY_TRANSPORTATION_AND_LOGISTICS")
+                }
+                Self::TravelAndTourism => std::option::Option::Some("CATEGORY_TRAVEL_AND_TOURISM"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CATEGORY_UNSPECIFIED" => std::option::Option::Some(Self::CATEGORY_UNSPECIFIED),
-                "CATEGORY_OTHERS" => std::option::Option::Some(Self::CATEGORY_OTHERS),
-                "CATEGORY_ADVERTISING_AND_MARKETING" => {
-                    std::option::Option::Some(Self::CATEGORY_ADVERTISING_AND_MARKETING)
-                }
-                "CATEGORY_COMMERCE" => std::option::Option::Some(Self::CATEGORY_COMMERCE),
-                "CATEGORY_CLIMATE_AND_ENVIRONMENT" => {
-                    std::option::Option::Some(Self::CATEGORY_CLIMATE_AND_ENVIRONMENT)
-                }
-                "CATEGORY_DEMOGRAPHICS" => std::option::Option::Some(Self::CATEGORY_DEMOGRAPHICS),
-                "CATEGORY_ECONOMICS" => std::option::Option::Some(Self::CATEGORY_ECONOMICS),
-                "CATEGORY_EDUCATION" => std::option::Option::Some(Self::CATEGORY_EDUCATION),
-                "CATEGORY_ENERGY" => std::option::Option::Some(Self::CATEGORY_ENERGY),
-                "CATEGORY_FINANCIAL" => std::option::Option::Some(Self::CATEGORY_FINANCIAL),
-                "CATEGORY_GAMING" => std::option::Option::Some(Self::CATEGORY_GAMING),
-                "CATEGORY_GEOSPATIAL" => std::option::Option::Some(Self::CATEGORY_GEOSPATIAL),
-                "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE" => {
-                    std::option::Option::Some(Self::CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE)
-                }
-                "CATEGORY_MEDIA" => std::option::Option::Some(Self::CATEGORY_MEDIA),
-                "CATEGORY_PUBLIC_SECTOR" => std::option::Option::Some(Self::CATEGORY_PUBLIC_SECTOR),
-                "CATEGORY_RETAIL" => std::option::Option::Some(Self::CATEGORY_RETAIL),
-                "CATEGORY_SPORTS" => std::option::Option::Some(Self::CATEGORY_SPORTS),
-                "CATEGORY_SCIENCE_AND_RESEARCH" => {
-                    std::option::Option::Some(Self::CATEGORY_SCIENCE_AND_RESEARCH)
-                }
-                "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => {
-                    std::option::Option::Some(Self::CATEGORY_TRANSPORTATION_AND_LOGISTICS)
-                }
-                "CATEGORY_TRAVEL_AND_TOURISM" => {
-                    std::option::Option::Some(Self::CATEGORY_TRAVEL_AND_TOURISM)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Category {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Category {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Category {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Others,
+                2 => Self::AdvertisingAndMarketing,
+                3 => Self::Commerce,
+                4 => Self::ClimateAndEnvironment,
+                5 => Self::Demographics,
+                6 => Self::Economics,
+                7 => Self::Education,
+                8 => Self::Energy,
+                9 => Self::Financial,
+                10 => Self::Gaming,
+                11 => Self::Geospatial,
+                12 => Self::HealthcareAndLifeScience,
+                13 => Self::Media,
+                14 => Self::PublicSector,
+                15 => Self::Retail,
+                16 => Self::Sports,
+                17 => Self::ScienceAndResearch,
+                18 => Self::TransportationAndLogistics,
+                19 => Self::TravelAndTourism,
+                _ => Self::UnknownValue(category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Category {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "CATEGORY_OTHERS" => Self::Others,
+                "CATEGORY_ADVERTISING_AND_MARKETING" => Self::AdvertisingAndMarketing,
+                "CATEGORY_COMMERCE" => Self::Commerce,
+                "CATEGORY_CLIMATE_AND_ENVIRONMENT" => Self::ClimateAndEnvironment,
+                "CATEGORY_DEMOGRAPHICS" => Self::Demographics,
+                "CATEGORY_ECONOMICS" => Self::Economics,
+                "CATEGORY_EDUCATION" => Self::Education,
+                "CATEGORY_ENERGY" => Self::Energy,
+                "CATEGORY_FINANCIAL" => Self::Financial,
+                "CATEGORY_GAMING" => Self::Gaming,
+                "CATEGORY_GEOSPATIAL" => Self::Geospatial,
+                "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE" => Self::HealthcareAndLifeScience,
+                "CATEGORY_MEDIA" => Self::Media,
+                "CATEGORY_PUBLIC_SECTOR" => Self::PublicSector,
+                "CATEGORY_RETAIL" => Self::Retail,
+                "CATEGORY_SPORTS" => Self::Sports,
+                "CATEGORY_SCIENCE_AND_RESEARCH" => Self::ScienceAndResearch,
+                "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => Self::TransportationAndLogistics,
+                "CATEGORY_TRAVEL_AND_TOURISM" => Self::TravelAndTourism,
+                _ => Self::UnknownValue(category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Category {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Others => serializer.serialize_i32(1),
+                Self::AdvertisingAndMarketing => serializer.serialize_i32(2),
+                Self::Commerce => serializer.serialize_i32(3),
+                Self::ClimateAndEnvironment => serializer.serialize_i32(4),
+                Self::Demographics => serializer.serialize_i32(5),
+                Self::Economics => serializer.serialize_i32(6),
+                Self::Education => serializer.serialize_i32(7),
+                Self::Energy => serializer.serialize_i32(8),
+                Self::Financial => serializer.serialize_i32(9),
+                Self::Gaming => serializer.serialize_i32(10),
+                Self::Geospatial => serializer.serialize_i32(11),
+                Self::HealthcareAndLifeScience => serializer.serialize_i32(12),
+                Self::Media => serializer.serialize_i32(13),
+                Self::PublicSector => serializer.serialize_i32(14),
+                Self::Retail => serializer.serialize_i32(15),
+                Self::Sports => serializer.serialize_i32(16),
+                Self::ScienceAndResearch => serializer.serialize_i32(17),
+                Self::TransportationAndLogistics => serializer.serialize_i32(18),
+                Self::TravelAndTourism => serializer.serialize_i32(19),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Category {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Category>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Listing.Category",
+            ))
         }
     }
 
@@ -1627,12 +1811,35 @@ impl Subscription {
         self
     }
 
+    /// Sets the value of [linked_dataset_map][crate::model::Subscription::linked_dataset_map].
+    pub fn set_linked_dataset_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::subscription::LinkedResource>,
+    {
+        use std::iter::Iterator;
+        self.linked_dataset_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [subscriber_contact][crate::model::Subscription::subscriber_contact].
     pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.subscriber_contact = v.into();
+        self
+    }
+
+    /// Sets the value of [linked_resources][crate::model::Subscription::linked_resources].
+    pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::subscription::LinkedResource>,
+    {
+        use std::iter::Iterator;
+        self.linked_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1653,29 +1860,6 @@ impl Subscription {
         v: T,
     ) -> Self {
         self.log_linked_dataset_query_user_email = v.into();
-        self
-    }
-
-    /// Sets the value of [linked_resources][crate::model::Subscription::linked_resources].
-    pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::subscription::LinkedResource>,
-    {
-        use std::iter::Iterator;
-        self.linked_resources = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [linked_dataset_map][crate::model::Subscription::linked_dataset_map].
-    pub fn set_linked_dataset_map<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::subscription::LinkedResource>,
-    {
-        use std::iter::Iterator;
-        self.linked_dataset_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1704,6 +1888,17 @@ impl Subscription {
         })
     }
 
+    /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
+    /// to hold a `Listing`.
+    ///
+    /// Note that all the setters affecting `resource_name` are
+    /// mutually exclusive.
+    pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_name =
+            std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
+        self
+    }
+
     /// The value of [resource_name][crate::model::Subscription::resource_name]
     /// if it holds a `DataExchange`, `None` if the field is not set or
     /// holds a different branch.
@@ -1715,17 +1910,6 @@ impl Subscription {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
-    /// to hold a `Listing`.
-    ///
-    /// Note that all the setters affecting `resource_name` are
-    /// mutually exclusive.
-    pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource_name =
-            std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
-        self
     }
 
     /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
@@ -1809,17 +1993,6 @@ pub mod subscription {
             })
         }
 
-        /// The value of [reference][crate::model::subscription::LinkedResource::reference]
-        /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.reference.as_ref().and_then(|v| match v {
-                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
         /// to hold a `LinkedDataset`.
         ///
@@ -1833,6 +2006,17 @@ pub mod subscription {
                 crate::model::subscription::linked_resource::Reference::LinkedDataset(v.into()),
             );
             self
+        }
+
+        /// The value of [reference][crate::model::subscription::LinkedResource::reference]
+        /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.reference.as_ref().and_then(|v| match v {
+                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
@@ -1878,66 +2062,143 @@ pub mod subscription {
     }
 
     /// State of the subscription.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// This subscription is active and the data is accessible.
-        pub const STATE_ACTIVE: State = State::new(1);
-
+        Active,
         /// The data referenced by this subscription is out of date and should be
         /// refreshed. This can happen when a data provider adds or removes datasets.
-        pub const STATE_STALE: State = State::new(2);
-
+        Stale,
         /// This subscription has been cancelled or revoked and the data is no longer
         /// accessible.
-        pub const STATE_INACTIVE: State = State::new(3);
+        Inactive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Stale => std::option::Option::Some(2),
+                Self::Inactive => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STATE_ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("STATE_STALE"),
-                3 => std::borrow::Cow::Borrowed("STATE_INACTIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("STATE_ACTIVE"),
+                Self::Stale => std::option::Option::Some("STATE_STALE"),
+                Self::Inactive => std::option::Option::Some("STATE_INACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STATE_ACTIVE" => std::option::Option::Some(Self::STATE_ACTIVE),
-                "STATE_STALE" => std::option::Option::Some(Self::STATE_STALE),
-                "STATE_INACTIVE" => std::option::Option::Some(Self::STATE_INACTIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Stale,
+                3 => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_ACTIVE" => Self::Active,
+                "STATE_STALE" => Self::Stale,
+                "STATE_INACTIVE" => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Stale => serializer.serialize_i32(2),
+                Self::Inactive => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Subscription.State",
+            ))
         }
     }
 
@@ -1967,6 +2228,7 @@ pub struct ListDataExchangesRequest {
 
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -2031,12 +2293,6 @@ impl ListDataExchangesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataExchangesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_exchanges][crate::model::ListDataExchangesResponse::data_exchanges].
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
@@ -2045,6 +2301,12 @@ impl ListDataExchangesResponse {
     {
         use std::iter::Iterator;
         self.data_exchanges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataExchangesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2083,6 +2345,7 @@ pub struct ListOrgDataExchangesRequest {
 
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -2148,12 +2411,6 @@ impl ListOrgDataExchangesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrgDataExchangesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_exchanges][crate::model::ListOrgDataExchangesResponse::data_exchanges].
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
@@ -2162,6 +2419,12 @@ impl ListOrgDataExchangesResponse {
     {
         use std::iter::Iterator;
         self.data_exchanges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrgDataExchangesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2380,6 +2643,7 @@ pub struct ListListingsRequest {
 
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -2444,12 +2708,6 @@ impl ListListingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListListingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [listings][crate::model::ListListingsResponse::listings].
     pub fn set_listings<T, V>(mut self, v: T) -> Self
     where
@@ -2458,6 +2716,12 @@ impl ListListingsResponse {
     {
         use std::iter::Iterator;
         self.listings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListListingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2717,21 +2981,6 @@ impl SubscribeListingRequest {
         })
     }
 
-    /// The value of [destination][crate::model::SubscribeListingRequest::destination]
-    /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn destination_pubsub_subscription(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
-        #[allow(unreachable_patterns)]
-        self.destination.as_ref().and_then(|v| match v {
-            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
     /// to hold a `DestinationDataset`.
     ///
@@ -2747,6 +2996,21 @@ impl SubscribeListingRequest {
             crate::model::subscribe_listing_request::Destination::DestinationDataset(v.into()),
         );
         self
+    }
+
+    /// The value of [destination][crate::model::SubscribeListingRequest::destination]
+    /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn destination_pubsub_subscription(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
@@ -3083,6 +3347,7 @@ pub struct ListSubscriptionsRequest {
     pub filter: std::string::String,
 
     /// The maximum number of results to return in a single response page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call.
@@ -3152,12 +3417,6 @@ impl ListSubscriptionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSubscriptionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [subscriptions][crate::model::ListSubscriptionsResponse::subscriptions].
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
@@ -3166,6 +3425,12 @@ impl ListSubscriptionsResponse {
     {
         use std::iter::Iterator;
         self.subscriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSubscriptionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3205,9 +3470,11 @@ pub struct ListSharedResourceSubscriptionsRequest {
 
     /// If selected, includes deleted subscriptions in the response
     /// (up to 63 days after deletion).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_deleted_subscriptions: bool,
 
     /// The maximum number of results to return in a single response page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call.
@@ -3277,12 +3544,6 @@ impl ListSharedResourceSubscriptionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSharedResourceSubscriptionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [shared_resource_subscriptions][crate::model::ListSharedResourceSubscriptionsResponse::shared_resource_subscriptions].
     pub fn set_shared_resource_subscriptions<T, V>(mut self, v: T) -> Self
     where
@@ -3291,6 +3552,12 @@ impl ListSharedResourceSubscriptionsResponse {
     {
         use std::iter::Iterator;
         self.shared_resource_subscriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSharedResourceSubscriptionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3437,6 +3704,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -3557,6 +3825,7 @@ pub struct PubSubSubscription {
     ///
     /// If the subscriber never acknowledges the message, the Pub/Sub
     /// system will eventually redeliver the message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ack_deadline_seconds: i32,
 
     /// Optional. Indicates whether to retain acknowledged messages. If true, then
@@ -3565,6 +3834,7 @@ pub struct PubSubSubscription {
     /// window. This must be true if you would like to [`Seek` to a timestamp]
     /// (<https://cloud.google.com/pubsub/docs/replay-overview#seek_to_a_time>) in
     /// the past to replay previously-acknowledged messages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retain_acked_messages: bool,
 
     /// Optional. How long to retain unacknowledged messages in the subscription's
@@ -3584,6 +3854,7 @@ pub struct PubSubSubscription {
     /// `PubsubMessage` will be delivered to the subscribers in the order in which
     /// they are received by the Pub/Sub system. Otherwise, they may be delivered
     /// in any order.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_message_ordering: bool,
 
     /// Optional. A policy that specifies the conditions for this subscription's
@@ -3630,6 +3901,7 @@ pub struct PubSubSubscription {
     /// retain any backlog. `Pull` and `StreamingPull` requests will return
     /// FAILED_PRECONDITION. If the subscription is a push subscription, pushes to
     /// the endpoint will not be made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detached: bool,
 
     /// Optional. If true, Pub/Sub provides the following guarantees for the
@@ -3644,6 +3916,7 @@ pub struct PubSubSubscription {
     /// when `enable_exactly_once_delivery` is true if the message was published
     /// multiple times by a publisher client. These copies are  considered distinct
     /// by Pub/Sub and have distinct `message_id` values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_exactly_once_delivery: bool,
 
     /// Optional. Transforms to be applied to messages before they are delivered to
@@ -3720,6 +3993,18 @@ impl PubSubSubscription {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PubSubSubscription::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [enable_message_ordering][crate::model::PubSubSubscription::enable_message_ordering].
     pub fn set_enable_message_ordering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_message_ordering = v.into();
@@ -3785,18 +4070,6 @@ impl PubSubSubscription {
     {
         use std::iter::Iterator;
         self.message_transforms = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::PubSubSubscription::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3903,6 +4176,7 @@ pub struct DeadLetterPolicy {
     /// This field will be honored on a best effort basis.
     ///
     /// If this parameter is 0, a default value of 5 is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_delivery_attempts: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4125,19 +4399,6 @@ impl PushConfig {
         })
     }
 
-    /// The value of [wrapper][crate::model::PushConfig::wrapper]
-    /// if it holds a `NoWrapper`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn no_wrapper(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
-        #[allow(unreachable_patterns)]
-        self.wrapper.as_ref().and_then(|v| match v {
-            crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
     /// to hold a `PubsubWrapper`.
     ///
@@ -4152,6 +4413,19 @@ impl PushConfig {
         self.wrapper =
             std::option::Option::Some(crate::model::push_config::Wrapper::PubsubWrapper(v.into()));
         self
+    }
+
+    /// The value of [wrapper][crate::model::PushConfig::wrapper]
+    /// if it holds a `NoWrapper`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn no_wrapper(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
+        #[allow(unreachable_patterns)]
+        self.wrapper.as_ref().and_then(|v| match v {
+            crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
@@ -4272,6 +4546,7 @@ pub mod push_config {
         /// Optional. When true, writes the Pub/Sub message metadata to
         /// `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request. Writes the
         /// Pub/Sub message attributes to `<KEY>:<VAL>` headers of the HTTP request.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub write_metadata: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4340,6 +4615,7 @@ pub struct BigQueryConfig {
     /// Optional. When true, use the topic's schema as the columns to write to in
     /// BigQuery, if it exists. `use_topic_schema` and `use_table_schema` cannot be
     /// enabled at the same time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_topic_schema: bool,
 
     /// Optional. When true, write the subscription name, message_id, publish_time,
@@ -4347,6 +4623,7 @@ pub struct BigQueryConfig {
     /// subscription name, message_id, and publish_time fields are put in their own
     /// columns while all other message properties (other than data) are written to
     /// a JSON object in the attributes column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub write_metadata: bool,
 
     /// Optional. When true and use_topic_schema is true, any fields that are a
@@ -4354,11 +4631,13 @@ pub struct BigQueryConfig {
     /// dropped when writing to BigQuery. Otherwise, the schemas must be kept in
     /// sync and any messages with extra fields are not written and remain in the
     /// subscription's backlog.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub drop_unknown_fields: bool,
 
     /// Optional. When true, use the BigQuery table's schema as the columns to
     /// write to in BigQuery. `use_table_schema` and `use_topic_schema` cannot be
     /// enabled at the same time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_table_schema: bool,
 
     /// Optional. The service account to use to write to BigQuery. The subscription
@@ -4469,11 +4748,13 @@ pub struct CloudStorageConfig {
     /// Optional. The maximum bytes that can be written to a Cloud Storage file
     /// before a new file is created. Min 1 KB, max 10 GiB. The max_bytes limit may
     /// be exceeded in cases where messages are larger than the limit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_bytes: i64,
 
     /// Optional. The maximum number of messages that can be written to a Cloud
     /// Storage file before a new file is created. Min 1000 messages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_messages: i64,
 
@@ -4585,21 +4866,6 @@ impl CloudStorageConfig {
         })
     }
 
-    /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
-    /// if it holds a `AvroConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn avro_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
-        #[allow(unreachable_patterns)]
-        self.output_format.as_ref().and_then(|v| match v {
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// to hold a `TextConfig`.
     ///
@@ -4615,6 +4881,21 @@ impl CloudStorageConfig {
             crate::model::cloud_storage_config::OutputFormat::TextConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
+    /// if it holds a `AvroConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn avro_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
+        #[allow(unreachable_patterns)]
+        self.output_format.as_ref().and_then(|v| match v {
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
@@ -4683,10 +4964,12 @@ pub mod cloud_storage_config {
         /// put in their own fields while all other message properties other than
         /// data (for example, an ordering_key, if present) are added as entries in
         /// the attributes map.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub write_metadata: bool,
 
         /// Optional. When true, the output Cloud Storage file will be serialized
         /// using the topic schema, if it exists.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub use_topic_schema: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4739,10 +5022,13 @@ pub mod cloud_storage_config {
 pub struct MessageTransform {
     /// Optional. This field is deprecated, use the `disabled` field to disable
     /// transforms.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enabled: bool,
 
     /// Optional. If true, the transform is disabled and will not be applied to
     /// messages. Defaults to `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// The type of transform to apply to messages.
@@ -4759,6 +5045,7 @@ impl MessageTransform {
     }
 
     /// Sets the value of [enabled][crate::model::MessageTransform::enabled].
+    #[deprecated]
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -4915,121 +5202,267 @@ impl wkt::message::Message for JavaScriptUDF {
 /// Specifies the type of discovery on the discovery page. Note that
 /// this does not control the visibility of the exchange/listing which is
 /// defined by IAM permission.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DiscoveryType(i32);
-
-impl DiscoveryType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DiscoveryType {
     /// Unspecified. Defaults to DISCOVERY_TYPE_PRIVATE.
-    pub const DISCOVERY_TYPE_UNSPECIFIED: DiscoveryType = DiscoveryType::new(0);
-
+    Unspecified,
     /// The Data exchange/listing can be discovered in the 'Private' results
     /// list.
-    pub const DISCOVERY_TYPE_PRIVATE: DiscoveryType = DiscoveryType::new(1);
-
+    Private,
     /// The Data exchange/listing can be discovered in the 'Public' results
     /// list.
-    pub const DISCOVERY_TYPE_PUBLIC: DiscoveryType = DiscoveryType::new(2);
+    Public,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DiscoveryType::value] or
+    /// [DiscoveryType::name].
+    UnknownValue(discovery_type::UnknownValue),
+}
 
-    /// Creates a new DiscoveryType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod discovery_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl DiscoveryType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Private => std::option::Option::Some(1),
+            Self::Public => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_PRIVATE"),
-            2 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_PUBLIC"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DISCOVERY_TYPE_UNSPECIFIED"),
+            Self::Private => std::option::Option::Some("DISCOVERY_TYPE_PRIVATE"),
+            Self::Public => std::option::Option::Some("DISCOVERY_TYPE_PUBLIC"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "DISCOVERY_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::DISCOVERY_TYPE_UNSPECIFIED)
-            }
-            "DISCOVERY_TYPE_PRIVATE" => std::option::Option::Some(Self::DISCOVERY_TYPE_PRIVATE),
-            "DISCOVERY_TYPE_PUBLIC" => std::option::Option::Some(Self::DISCOVERY_TYPE_PUBLIC),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DiscoveryType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DiscoveryType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DiscoveryType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DiscoveryType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Private,
+            2 => Self::Public,
+            _ => Self::UnknownValue(discovery_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DiscoveryType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DISCOVERY_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "DISCOVERY_TYPE_PRIVATE" => Self::Private,
+            "DISCOVERY_TYPE_PUBLIC" => Self::Public,
+            _ => Self::UnknownValue(discovery_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DiscoveryType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Private => serializer.serialize_i32(1),
+            Self::Public => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DiscoveryType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiscoveryType>::new(
+            ".google.cloud.bigquery.analyticshub.v1.DiscoveryType",
+        ))
     }
 }
 
 /// The underlying shared asset type shared in a listing by a publisher.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SharedResourceType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SharedResourceType {
+    /// Not specified.
+    Unspecified,
+    /// BigQuery Dataset Asset.
+    BigqueryDataset,
+    /// Pub/Sub Topic Asset.
+    PubsubTopic,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SharedResourceType::value] or
+    /// [SharedResourceType::name].
+    UnknownValue(shared_resource_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod shared_resource_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl SharedResourceType {
-    /// Not specified.
-    pub const SHARED_RESOURCE_TYPE_UNSPECIFIED: SharedResourceType = SharedResourceType::new(0);
-
-    /// BigQuery Dataset Asset.
-    pub const BIGQUERY_DATASET: SharedResourceType = SharedResourceType::new(1);
-
-    /// Pub/Sub Topic Asset.
-    pub const PUBSUB_TOPIC: SharedResourceType = SharedResourceType::new(2);
-
-    /// Creates a new SharedResourceType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::BigqueryDataset => std::option::Option::Some(1),
+            Self::PubsubTopic => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SHARED_RESOURCE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BIGQUERY_DATASET"),
-            2 => std::borrow::Cow::Borrowed("PUBSUB_TOPIC"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SHARED_RESOURCE_TYPE_UNSPECIFIED"),
+            Self::BigqueryDataset => std::option::Option::Some("BIGQUERY_DATASET"),
+            Self::PubsubTopic => std::option::Option::Some("PUBSUB_TOPIC"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SHARED_RESOURCE_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SHARED_RESOURCE_TYPE_UNSPECIFIED)
-            }
-            "BIGQUERY_DATASET" => std::option::Option::Some(Self::BIGQUERY_DATASET),
-            "PUBSUB_TOPIC" => std::option::Option::Some(Self::PUBSUB_TOPIC),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SharedResourceType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SharedResourceType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SharedResourceType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SharedResourceType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::BigqueryDataset,
+            2 => Self::PubsubTopic,
+            _ => Self::UnknownValue(shared_resource_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SharedResourceType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SHARED_RESOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "BIGQUERY_DATASET" => Self::BigqueryDataset,
+            "PUBSUB_TOPIC" => Self::PubsubTopic,
+            _ => Self::UnknownValue(shared_resource_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SharedResourceType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::BigqueryDataset => serializer.serialize_i32(1),
+            Self::PubsubTopic => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SharedResourceType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SharedResourceType>::new(
+            ".google.cloud.bigquery.analyticshub.v1.SharedResourceType",
+        ))
     }
 }

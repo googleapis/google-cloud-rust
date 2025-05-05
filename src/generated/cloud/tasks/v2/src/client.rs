@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Tasks API.
 ///
@@ -59,11 +58,11 @@ use std::sync::Arc;
 ///
 /// `CloudTasks` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudTasks` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudTasks {
-    inner: Arc<dyn super::stub::dynamic::CloudTasks>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudTasks>,
 }
 
 impl CloudTasks {
@@ -88,7 +87,7 @@ impl CloudTasks {
         T: super::stub::CloudTasks + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -99,11 +98,11 @@ impl CloudTasks {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudTasks>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -222,7 +221,7 @@ impl CloudTasks {
     /// [PAUSED][google.cloud.tasks.v2.Queue.State.PAUSED].
     ///
     /// [google.cloud.tasks.v2.CloudTasks.ResumeQueue]: crate::client::CloudTasks::resume_queue
-    /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::state::PAUSED
+    /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
     /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
     pub fn pause_queue(
         &self,
@@ -246,9 +245,9 @@ impl CloudTasks {
     /// [Managing Cloud Tasks Scaling
     /// Risks](https://cloud.google.com/tasks/docs/manage-cloud-task-scaling).
     ///
-    /// [google.cloud.tasks.v2.Queue.State.DISABLED]: crate::model::queue::state::DISABLED
-    /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::state::PAUSED
-    /// [google.cloud.tasks.v2.Queue.State.RUNNING]: crate::model::queue::state::RUNNING
+    /// [google.cloud.tasks.v2.Queue.State.DISABLED]: crate::model::queue::State::Disabled
+    /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
+    /// [google.cloud.tasks.v2.Queue.State.RUNNING]: crate::model::queue::State::Running
     /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
     pub fn resume_queue(
         &self,
@@ -326,7 +325,7 @@ impl CloudTasks {
     /// time.
     ///
     /// [google.cloud.tasks.v2.ListTasksRequest.response_view]: crate::model::ListTasksRequest::response_view
-    /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::view::BASIC
+    /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     pub fn list_tasks(
         &self,
         parent: impl Into<std::string::String>,
@@ -394,7 +393,7 @@ impl CloudTasks {
     /// task that has already succeeded or permanently failed.
     ///
     /// [google.cloud.tasks.v2.CloudTasks.RunTask]: crate::client::CloudTasks::run_task
-    /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::state::PAUSED
+    /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
     /// [google.cloud.tasks.v2.RateLimits]: crate::model::RateLimits
     /// [google.cloud.tasks.v2.RetryConfig]: crate::model::RetryConfig
     /// [google.cloud.tasks.v2.Task.schedule_time]: crate::model::Task::schedule_time

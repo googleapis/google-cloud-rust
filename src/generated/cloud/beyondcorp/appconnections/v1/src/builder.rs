@@ -16,7 +16,6 @@
 
 pub mod app_connections_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AppConnectionsService][super::super::client::AppConnectionsService].
     ///
@@ -49,7 +48,7 @@ pub mod app_connections_service {
     /// Common implementation for [super::super::client::AppConnectionsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod app_connections_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod app_connections_service {
 
     impl ListAppConnections {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -119,6 +118,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAppConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -162,7 +163,7 @@ pub mod app_connections_service {
 
     impl GetAppConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -191,6 +192,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [name][crate::model::GetAppConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -210,7 +213,7 @@ pub mod app_connections_service {
 
     impl CreateAppConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -280,6 +283,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateAppConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -292,6 +297,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_connection<T: Into<std::option::Option<crate::model::AppConnection>>>(
             mut self,
             v: T,
@@ -326,7 +333,7 @@ pub mod app_connections_service {
 
     impl UpdateAppConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -396,6 +403,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -405,6 +414,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_connection<T: Into<std::option::Option<crate::model::AppConnection>>>(
             mut self,
             v: T,
@@ -445,7 +456,7 @@ pub mod app_connections_service {
 
     impl DeleteAppConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -512,6 +523,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAppConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -543,7 +556,7 @@ pub mod app_connections_service {
 
     impl ResolveAppConnections {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -587,12 +600,16 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [parent][crate::model::ResolveAppConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [app_connector_id][crate::model::ResolveAppConnectionsRequest::app_connector_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_connector_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.app_connector_id = v.into();
             self
@@ -624,7 +641,7 @@ pub mod app_connections_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -705,7 +722,7 @@ pub mod app_connections_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -750,7 +767,7 @@ pub mod app_connections_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -776,12 +793,16 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -813,7 +834,7 @@ pub mod app_connections_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -839,6 +860,8 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -867,7 +890,7 @@ pub mod app_connections_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -896,12 +919,16 @@ pub mod app_connections_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -926,7 +953,7 @@ pub mod app_connections_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1007,7 +1034,7 @@ pub mod app_connections_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1055,7 +1082,7 @@ pub mod app_connections_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1103,7 +1130,7 @@ pub mod app_connections_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

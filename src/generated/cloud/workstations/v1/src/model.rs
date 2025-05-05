@@ -58,6 +58,7 @@ pub struct WorkstationCluster {
 
     /// Output only. Indicates whether this workstation cluster is currently being
     /// updated to match its intended state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
@@ -118,6 +119,7 @@ pub struct WorkstationCluster {
     /// [conditions][google.cloud.workstations.v1.WorkstationCluster.conditions].
     ///
     /// [google.cloud.workstations.v1.WorkstationCluster.conditions]: crate::model::WorkstationCluster::conditions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub degraded: bool,
 
     /// Output only. Status conditions describing the workstation cluster's current
@@ -155,6 +157,30 @@ impl WorkstationCluster {
     /// Sets the value of [reconciling][crate::model::WorkstationCluster::reconciling].
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::WorkstationCluster::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WorkstationCluster::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -241,30 +267,6 @@ impl WorkstationCluster {
         self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
-
-    /// Sets the value of [annotations][crate::model::WorkstationCluster::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::WorkstationCluster::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for WorkstationCluster {
@@ -285,6 +287,7 @@ pub mod workstation_cluster {
     #[non_exhaustive]
     pub struct PrivateClusterConfig {
         /// Immutable. Whether Workstations endpoint is private.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_private_endpoint: bool,
 
         /// Output only. Hostname for the workstation cluster. This field will be
@@ -390,6 +393,7 @@ pub struct WorkstationConfig {
 
     /// Output only. Indicates whether this workstation configuration is currently
     /// being updated to match its intended state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
@@ -521,6 +525,7 @@ pub struct WorkstationConfig {
     /// field.
     ///
     /// [google.cloud.workstations.v1.WorkstationConfig.conditions]: crate::model::WorkstationConfig::conditions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub degraded: bool,
 
     /// Output only. Status conditions describing the current resource state.
@@ -557,6 +562,30 @@ impl WorkstationConfig {
     /// Sets the value of [reconciling][crate::model::WorkstationConfig::reconciling].
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::WorkstationConfig::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WorkstationConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -622,6 +651,17 @@ impl WorkstationConfig {
         self
     }
 
+    /// Sets the value of [persistent_directories][crate::model::WorkstationConfig::persistent_directories].
+    pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workstation_config::PersistentDirectory>,
+    {
+        use std::iter::Iterator;
+        self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [container][crate::model::WorkstationConfig::container].
     pub fn set_container<
         T: std::convert::Into<std::option::Option<crate::model::workstation_config::Container>>,
@@ -643,23 +683,6 @@ impl WorkstationConfig {
         v: T,
     ) -> Self {
         self.encryption_key = v.into();
-        self
-    }
-
-    /// Sets the value of [degraded][crate::model::WorkstationConfig::degraded].
-    pub fn set_degraded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.degraded = v.into();
-        self
-    }
-
-    /// Sets the value of [persistent_directories][crate::model::WorkstationConfig::persistent_directories].
-    pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workstation_config::PersistentDirectory>,
-    {
-        use std::iter::Iterator;
-        self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -685,6 +708,12 @@ impl WorkstationConfig {
         self
     }
 
+    /// Sets the value of [degraded][crate::model::WorkstationConfig::degraded].
+    pub fn set_degraded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.degraded = v.into();
+        self
+    }
+
     /// Sets the value of [conditions][crate::model::WorkstationConfig::conditions].
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
@@ -693,30 +722,6 @@ impl WorkstationConfig {
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::WorkstationConfig::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::WorkstationConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -870,10 +875,12 @@ pub mod workstation_config {
             /// Optional. The number of VMs that the system should keep idle so that
             /// new workstations can be started quickly for new users. Defaults to `0`
             /// in the API.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub pool_size: i32,
 
             /// Output only. Number of instances currently available in the pool for
             /// faster workstation startup.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub pooled_instances: i32,
 
             /// Optional. When set to true, disables public IP addresses for VMs. If
@@ -883,6 +890,7 @@ pub mod workstation_config {
             /// Container Registry and Artifact Registry, make sure that you set
             /// up DNS records for domains `*.gcr.io` and `*.pkg.dev`.
             /// Defaults to false (VMs have public IP addresses).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_public_ip_addresses: bool,
 
             /// Optional. Whether to enable nested virtualization on Cloud Workstations
@@ -921,6 +929,7 @@ pub mod workstation_config {
             ///   image.
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.machine_type]: crate::model::workstation_config::host::GceInstance::machine_type
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub enable_nested_virtualization: bool,
 
             /// Optional. A set of Compute Engine Shielded instance options.
@@ -937,6 +946,7 @@ pub mod workstation_config {
 
             /// Optional. The size of the boot disk for the VM in gigabytes (GB).
             /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub boot_disk_size_gb: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -963,6 +973,28 @@ pub mod workstation_config {
                 v: T,
             ) -> Self {
                 self.service_account = v.into();
+                self
+            }
+
+            /// Sets the value of [service_account_scopes][crate::model::workstation_config::host::GceInstance::service_account_scopes].
+            pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.service_account_scopes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [tags][crate::model::workstation_config::host::GceInstance::tags].
+            pub fn set_tags<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.tags = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -1013,28 +1045,6 @@ pub mod workstation_config {
                 self.boot_disk_size_gb = v.into();
                 self
             }
-
-            /// Sets the value of [service_account_scopes][crate::model::workstation_config::host::GceInstance::service_account_scopes].
-            pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.service_account_scopes = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [tags][crate::model::workstation_config::host::GceInstance::tags].
-            pub fn set_tags<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.tags = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
         }
 
         impl wkt::message::Message for GceInstance {
@@ -1055,12 +1065,15 @@ pub mod workstation_config {
             #[non_exhaustive]
             pub struct GceShieldedInstanceConfig {
                 /// Optional. Whether the instance has Secure Boot enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_secure_boot: bool,
 
                 /// Optional. Whether the instance has the vTPM enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_vtpm: bool,
 
                 /// Optional. Whether the instance has integrity monitoring enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_integrity_monitoring: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1107,6 +1120,7 @@ pub mod workstation_config {
             #[non_exhaustive]
             pub struct GceConfidentialInstanceConfig {
                 /// Optional. Whether the instance has confidential compute enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_confidential_compute: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1270,6 +1284,7 @@ pub mod workstation_config {
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.disk_type]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::disk_type
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.source_snapshot]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub size_gb: i32,
 
             /// Optional. Type of file system that the disk should be formatted with.
@@ -1364,62 +1379,139 @@ pub mod workstation_config {
 
             /// Value representing what should happen to the disk after the workstation
             /// is deleted.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct ReclaimPolicy(i32);
-
-            impl ReclaimPolicy {
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ReclaimPolicy {
                 /// Do not use.
-                pub const RECLAIM_POLICY_UNSPECIFIED: ReclaimPolicy = ReclaimPolicy::new(0);
-
+                Unspecified,
                 /// Delete the persistent disk when deleting the workstation.
-                pub const DELETE: ReclaimPolicy = ReclaimPolicy::new(1);
-
+                Delete,
                 /// Keep the persistent disk when deleting the workstation.
                 /// An administrator must manually delete the disk.
-                pub const RETAIN: ReclaimPolicy = ReclaimPolicy::new(2);
+                Retain,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ReclaimPolicy::value] or
+                /// [ReclaimPolicy::name].
+                UnknownValue(reclaim_policy::UnknownValue),
+            }
 
-                /// Creates a new ReclaimPolicy instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
+            #[doc(hidden)]
+            pub mod reclaim_policy {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
+            impl ReclaimPolicy {
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Delete => std::option::Option::Some(1),
+                        Self::Retain => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("RECLAIM_POLICY_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("DELETE"),
-                        2 => std::borrow::Cow::Borrowed("RETAIN"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                    }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "RECLAIM_POLICY_UNSPECIFIED" => {
-                            std::option::Option::Some(Self::RECLAIM_POLICY_UNSPECIFIED)
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("RECLAIM_POLICY_UNSPECIFIED")
                         }
-                        "DELETE" => std::option::Option::Some(Self::DELETE),
-                        "RETAIN" => std::option::Option::Some(Self::RETAIN),
-                        _ => std::option::Option::None,
+                        Self::Delete => std::option::Option::Some("DELETE"),
+                        Self::Retain => std::option::Option::Some("RETAIN"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-            }
-
-            impl std::convert::From<i32> for ReclaimPolicy {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for ReclaimPolicy {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for ReclaimPolicy {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for ReclaimPolicy {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Delete,
+                        2 => Self::Retain,
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for ReclaimPolicy {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "RECLAIM_POLICY_UNSPECIFIED" => Self::Unspecified,
+                        "DELETE" => Self::Delete,
+                        "RETAIN" => Self::Retain,
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for ReclaimPolicy {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Delete => serializer.serialize_i32(1),
+                        Self::Retain => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ReclaimPolicy {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReclaimPolicy>::new(
+                        ".google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.ReclaimPolicy"))
                 }
             }
         }
@@ -1474,6 +1566,7 @@ pub mod workstation_config {
 
         /// Optional. If set, overrides the USER specified in the image with the
         /// given uid.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub run_as_user: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1488,18 +1581,6 @@ pub mod workstation_config {
         /// Sets the value of [image][crate::model::workstation_config::Container::image].
         pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.image = v.into();
-            self
-        }
-
-        /// Sets the value of [working_dir][crate::model::workstation_config::Container::working_dir].
-        pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.working_dir = v.into();
-            self
-        }
-
-        /// Sets the value of [run_as_user][crate::model::workstation_config::Container::run_as_user].
-        pub fn set_run_as_user<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.run_as_user = v.into();
             self
         }
 
@@ -1534,6 +1615,18 @@ pub mod workstation_config {
         {
             use std::iter::Iterator;
             self.env = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [working_dir][crate::model::workstation_config::Container::working_dir].
+        pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.working_dir = v.into();
+            self
+        }
+
+        /// Sets the value of [run_as_user][crate::model::workstation_config::Container::run_as_user].
+        pub fn set_run_as_user<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.run_as_user = v.into();
             self
         }
     }
@@ -1613,6 +1706,7 @@ pub mod workstation_config {
         pub path: std::string::String,
 
         /// Optional. Port to which the request should be sent.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1664,6 +1758,7 @@ pub struct Workstation {
 
     /// Output only. Indicates whether this workstation is currently being updated
     /// to match its intended state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
@@ -1744,6 +1839,30 @@ impl Workstation {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Workstation::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Workstation::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Workstation::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1800,30 +1919,6 @@ impl Workstation {
         self.host = v.into();
         self
     }
-
-    /// Sets the value of [annotations][crate::model::Workstation::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Workstation::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Workstation {
@@ -1838,71 +1933,150 @@ pub mod workstation {
     use super::*;
 
     /// Whether a workstation is running and ready to receive user requests.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Do not use.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The workstation is not yet ready to accept requests from users but will
         /// be soon.
-        pub const STATE_STARTING: State = State::new(1);
-
+        Starting,
         /// The workstation is ready to accept requests from users.
-        pub const STATE_RUNNING: State = State::new(2);
-
+        Running,
         /// The workstation is being stopped.
-        pub const STATE_STOPPING: State = State::new(3);
-
+        Stopping,
         /// The workstation is stopped and will not be able to receive requests until
         /// it is started.
-        pub const STATE_STOPPED: State = State::new(4);
+        Stopped,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Starting => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Stopping => std::option::Option::Some(3),
+                Self::Stopped => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STATE_STARTING"),
-                2 => std::borrow::Cow::Borrowed("STATE_RUNNING"),
-                3 => std::borrow::Cow::Borrowed("STATE_STOPPING"),
-                4 => std::borrow::Cow::Borrowed("STATE_STOPPED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Starting => std::option::Option::Some("STATE_STARTING"),
+                Self::Running => std::option::Option::Some("STATE_RUNNING"),
+                Self::Stopping => std::option::Option::Some("STATE_STOPPING"),
+                Self::Stopped => std::option::Option::Some("STATE_STOPPED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STATE_STARTING" => std::option::Option::Some(Self::STATE_STARTING),
-                "STATE_RUNNING" => std::option::Option::Some(Self::STATE_RUNNING),
-                "STATE_STOPPING" => std::option::Option::Some(Self::STATE_STOPPING),
-                "STATE_STOPPED" => std::option::Option::Some(Self::STATE_STOPPED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Starting,
+                2 => Self::Running,
+                3 => Self::Stopping,
+                4 => Self::Stopped,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_STARTING" => Self::Starting,
+                "STATE_RUNNING" => Self::Running,
+                "STATE_STOPPING" => Self::Stopping,
+                "STATE_STOPPED" => Self::Stopped,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Starting => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Stopping => serializer.serialize_i32(3),
+                Self::Stopped => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.workstations.v1.Workstation.State",
+            ))
         }
     }
 }
@@ -1950,6 +2124,7 @@ pub struct ListWorkstationClustersRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2019,12 +2194,6 @@ impl ListWorkstationClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkstationClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstation_clusters][crate::model::ListWorkstationClustersResponse::workstation_clusters].
     pub fn set_workstation_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -2033,6 +2202,12 @@ impl ListWorkstationClustersResponse {
     {
         use std::iter::Iterator;
         self.workstation_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkstationClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2088,6 +2263,7 @@ pub struct CreateWorkstationClusterRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2155,11 +2331,13 @@ pub struct UpdateWorkstationClusterRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, and the workstation cluster is not found, a new
     /// workstation cluster will be created. In this situation, update_mask is
     /// ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2222,6 +2400,7 @@ pub struct DeleteWorkstationClusterRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -2232,6 +2411,7 @@ pub struct DeleteWorkstationClusterRequest {
     /// Optional. If set, any workstation configurations and workstations in the
     /// workstation cluster are also deleted. Otherwise, the request only
     /// works if the workstation cluster has no configurations or workstations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2317,6 +2497,7 @@ pub struct ListWorkstationConfigsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2386,12 +2567,6 @@ impl ListWorkstationConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkstationConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstation_configs][crate::model::ListWorkstationConfigsResponse::workstation_configs].
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
@@ -2400,6 +2575,12 @@ impl ListWorkstationConfigsResponse {
     {
         use std::iter::Iterator;
         self.workstation_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkstationConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2446,6 +2627,7 @@ pub struct ListUsableWorkstationConfigsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2515,12 +2697,6 @@ impl ListUsableWorkstationConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstation_configs][crate::model::ListUsableWorkstationConfigsResponse::workstation_configs].
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
@@ -2529,6 +2705,12 @@ impl ListUsableWorkstationConfigsResponse {
     {
         use std::iter::Iterator;
         self.workstation_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2584,6 +2766,7 @@ pub struct CreateWorkstationConfigRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2651,11 +2834,13 @@ pub struct UpdateWorkstationConfigRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set and the workstation configuration is not found, a new
     /// workstation configuration will be created. In this situation,
     /// update_mask is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2718,6 +2903,7 @@ pub struct DeleteWorkstationConfigRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request is rejected if the latest version of the
@@ -2728,6 +2914,7 @@ pub struct DeleteWorkstationConfigRequest {
     /// Optional. If set, any workstations in the workstation configuration are
     /// also deleted. Otherwise, the request works only if the workstation
     /// configuration has no workstations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2813,6 +3000,7 @@ pub struct ListWorkstationsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2882,12 +3070,6 @@ impl ListWorkstationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkstationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstations][crate::model::ListWorkstationsResponse::workstations].
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
@@ -2896,6 +3078,12 @@ impl ListWorkstationsResponse {
     {
         use std::iter::Iterator;
         self.workstations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkstationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2942,6 +3130,7 @@ pub struct ListUsableWorkstationsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -3011,12 +3200,6 @@ impl ListUsableWorkstationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workstations][crate::model::ListUsableWorkstationsResponse::workstations].
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
@@ -3025,6 +3208,12 @@ impl ListUsableWorkstationsResponse {
     {
         use std::iter::Iterator;
         self.workstations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3080,6 +3269,7 @@ pub struct CreateWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3144,11 +3334,13 @@ pub struct UpdateWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set and the workstation configuration is not found, a new
     /// workstation configuration is created. In this situation, update_mask
     /// is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3211,6 +3403,7 @@ pub struct DeleteWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -3264,6 +3457,7 @@ pub struct StartWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -3317,6 +3511,7 @@ pub struct StopWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -3417,19 +3612,6 @@ impl GenerateAccessTokenRequest {
         })
     }
 
-    /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.expiration.as_ref().and_then(|v| match v {
-            crate::model::generate_access_token_request::Expiration::Ttl(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
     /// to hold a `ExpireTime`.
     ///
@@ -3443,6 +3625,19 @@ impl GenerateAccessTokenRequest {
             crate::model::generate_access_token_request::Expiration::ExpireTime(v.into()),
         );
         self
+    }
+
+    /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::generate_access_token_request::Expiration::Ttl(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
@@ -3562,6 +3757,7 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

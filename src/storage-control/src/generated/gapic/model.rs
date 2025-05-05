@@ -259,6 +259,7 @@ pub struct ListBucketsRequest {
     /// use this parameter or 1,000 items, whichever is smaller. If "acl" is
     /// present in the read_mask, the service will use this parameter of 200 items,
     /// whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -351,12 +352,6 @@ impl ListBucketsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [buckets][crate::model::ListBucketsResponse::buckets].
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
@@ -365,6 +360,12 @@ impl ListBucketsResponse {
     {
         use std::iter::Iterator;
         self.buckets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -401,6 +402,7 @@ pub struct LockBucketRetentionPolicyRequest {
 
     /// Required. Makes the operation conditional on whether bucket's current
     /// metageneration matches the given value. Must be positive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub if_metageneration_match: i64,
 
@@ -612,6 +614,17 @@ impl ComposeObjectRequest {
         self
     }
 
+    /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
+    pub fn set_source_objects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
+    {
+        use std::iter::Iterator;
+        self.source_objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [destination_predefined_acl][crate::model::ComposeObjectRequest::destination_predefined_acl].
     pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -666,17 +679,6 @@ impl ComposeObjectRequest {
         self.object_checksums = v.into();
         self
     }
-
-    /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
-    pub fn set_source_objects<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
-    {
-        use std::iter::Iterator;
-        self.source_objects = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for ComposeObjectRequest {
@@ -702,6 +704,7 @@ pub mod compose_object_request {
         pub name: std::string::String,
 
         /// The generation of this object to use as the source.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub generation: i64,
 
@@ -818,6 +821,7 @@ pub struct DeleteObjectRequest {
 
     /// If present, permanently deletes a specific revision of this object (as
     /// opposed to the latest version, the default).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -949,6 +953,7 @@ pub struct RestoreObjectRequest {
     pub object: std::string::String,
 
     /// Required. The specific revision of the object to restore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1109,6 +1114,7 @@ pub struct GetObjectRequest {
 
     /// If present, selects a specific revision of this object (as opposed to the
     /// latest version, the default).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1282,6 +1288,7 @@ pub struct ListObjectsRequest {
     /// in a single page of responses. As duplicate `prefixes` are
     /// omitted, fewer total results may be returned than requested. The service
     /// will use this parameter or 1,000 items, whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -1301,6 +1308,7 @@ pub struct ListObjectsRequest {
     /// If true, objects that end in exactly one instance of `delimiter`
     /// will have their metadata included in `items` in addition to
     /// `prefixes`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_trailing_delimiter: bool,
 
     /// Filter results to objects whose names begin with this prefix.
@@ -1311,6 +1319,7 @@ pub struct ListObjectsRequest {
     /// For more information, see
     /// [Object
     /// Versioning](https://cloud.google.com/storage/docs/object-versioning).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub versions: bool,
 
     /// Mask specifying which fields to read from each result.
@@ -1337,10 +1346,12 @@ pub struct ListObjectsRequest {
 
     /// Optional. If true, only list all soft-deleted versions of the object.
     /// Soft delete policy is required to set this option.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub soft_deleted: bool,
 
     /// Optional. If true, will also include folders and managed folders (besides
     /// objects) in the returned `prefixes`. Requires `delimiter` to be set to '/'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_folders_as_prefixes: bool,
 
     /// Optional. Filter results to objects and prefixes that match this glob
@@ -1509,6 +1520,7 @@ pub struct RewriteObjectRequest {
 
     /// If present, selects a specific revision of the source object (as opposed to
     /// the latest version, the default).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub source_generation: i64,
 
@@ -1585,6 +1597,7 @@ pub struct RewriteObjectRequest {
     /// destination span locations and/or storage classes. Finally, this value must
     /// not change across rewrite calls else you'll get an error that the
     /// `rewriteToken` is invalid.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_bytes_rewritten_per_call: i64,
 
@@ -1838,16 +1851,19 @@ impl wkt::message::Message for RewriteObjectRequest {
 pub struct RewriteResponse {
     /// The total bytes written so far, which can be used to provide a waiting user
     /// with a progress indicator. This property is always present in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_bytes_rewritten: i64,
 
     /// The total size of the object being copied in bytes. This property is always
     /// present in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub object_size: i64,
 
     /// `true` if the copy is finished; otherwise, `false` if
     /// the copy is in progress. This property is always present in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub done: bool,
 
     /// A token to use in subsequent requests to continue copying data. This token
@@ -2350,180 +2366,291 @@ pub mod service_constants {
     use super::*;
 
     /// A collection of constant values meaningful to the Storage API.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Values(i32);
-
-    impl Values {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Values {
         /// Unused. Proto3 requires first enum to be 0.
-        pub const VALUES_UNSPECIFIED: Values = Values::new(0);
-
+        Unspecified,
         /// The maximum size chunk that can will be returned in a single
         /// ReadRequest.
         /// 2 MiB.
-        pub const MAX_READ_CHUNK_BYTES: Values = Values::new(2097152);
-
+        MaxReadChunkBytes,
         /// The maximum size chunk that can be sent in a single WriteObjectRequest.
         /// 2 MiB.
-        pub const MAX_WRITE_CHUNK_BYTES: Values = Values::new(2097152);
-
+        MaxWriteChunkBytes,
         /// The maximum size of an object in MB - whether written in a single stream
         /// or composed from multiple other objects.
         /// 5 TiB.
-        pub const MAX_OBJECT_SIZE_MB: Values = Values::new(5242880);
-
+        MaxObjectSizeMb,
         /// The maximum length field name that can be sent in a single
         /// custom metadata field.
         /// 1 KiB.
-        pub const MAX_CUSTOM_METADATA_FIELD_NAME_BYTES: Values = Values::new(1024);
-
+        MaxCustomMetadataFieldNameBytes,
         /// The maximum length field value that can be sent in a single
         /// custom_metadata field.
         /// 4 KiB.
-        pub const MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES: Values = Values::new(4096);
-
+        MaxCustomMetadataFieldValueBytes,
         /// The maximum total bytes that can be populated into all field names and
         /// values of the custom_metadata for one object.
         /// 8 KiB.
-        pub const MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES: Values = Values::new(8192);
-
+        MaxCustomMetadataTotalSizeBytes,
         /// The maximum total bytes that can be populated into all bucket metadata
         /// fields.
         /// 20 KiB.
-        pub const MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES: Values = Values::new(20480);
-
+        MaxBucketMetadataTotalSizeBytes,
         /// The maximum number of NotificationConfigs that can be registered
         /// for a given bucket.
-        pub const MAX_NOTIFICATION_CONFIGS_PER_BUCKET: Values = Values::new(100);
-
+        MaxNotificationConfigsPerBucket,
         /// The maximum number of LifecycleRules that can be registered for a given
         /// bucket.
-        pub const MAX_LIFECYCLE_RULES_PER_BUCKET: Values = Values::new(100);
-
+        MaxLifecycleRulesPerBucket,
         /// The maximum number of custom attributes per NotificationConfigs.
-        pub const MAX_NOTIFICATION_CUSTOM_ATTRIBUTES: Values = Values::new(5);
-
+        MaxNotificationCustomAttributes,
         /// The maximum length of a custom attribute key included in
         /// NotificationConfig.
-        pub const MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH: Values = Values::new(256);
-
+        MaxNotificationCustomAttributeKeyLength,
         /// The maximum length of a custom attribute value included in a
         /// NotificationConfig.
-        pub const MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH: Values = Values::new(1024);
-
+        MaxNotificationCustomAttributeValueLength,
         /// The maximum number of key/value entries per bucket label.
-        pub const MAX_LABELS_ENTRIES_COUNT: Values = Values::new(64);
-
+        MaxLabelsEntriesCount,
         /// The maximum character length of the key or value in a bucket
         /// label map.
-        pub const MAX_LABELS_KEY_VALUE_LENGTH: Values = Values::new(63);
-
+        MaxLabelsKeyValueLength,
         /// The maximum byte size of the key or value in a bucket label
         /// map.
-        pub const MAX_LABELS_KEY_VALUE_BYTES: Values = Values::new(128);
-
+        MaxLabelsKeyValueBytes,
         /// The maximum number of object IDs that can be included in a
         /// DeleteObjectsRequest.
-        pub const MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST: Values = Values::new(1000);
-
+        MaxObjectIdsPerDeleteObjectsRequest,
         /// The maximum number of days for which a token returned by the
         /// GetListObjectsSplitPoints RPC is valid.
-        pub const SPLIT_TOKEN_MAX_VALID_DAYS: Values = Values::new(14);
+        SplitTokenMaxValidDays,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Values::value] or
+        /// [Values::name].
+        UnknownValue(values::UnknownValue),
+    }
 
-        /// Creates a new Values instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod values {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Values {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MaxReadChunkBytes => std::option::Option::Some(2097152),
+                Self::MaxWriteChunkBytes => std::option::Option::Some(2097152),
+                Self::MaxObjectSizeMb => std::option::Option::Some(5242880),
+                Self::MaxCustomMetadataFieldNameBytes => std::option::Option::Some(1024),
+                Self::MaxCustomMetadataFieldValueBytes => std::option::Option::Some(4096),
+                Self::MaxCustomMetadataTotalSizeBytes => std::option::Option::Some(8192),
+                Self::MaxBucketMetadataTotalSizeBytes => std::option::Option::Some(20480),
+                Self::MaxNotificationConfigsPerBucket => std::option::Option::Some(100),
+                Self::MaxLifecycleRulesPerBucket => std::option::Option::Some(100),
+                Self::MaxNotificationCustomAttributes => std::option::Option::Some(5),
+                Self::MaxNotificationCustomAttributeKeyLength => std::option::Option::Some(256),
+                Self::MaxNotificationCustomAttributeValueLength => std::option::Option::Some(1024),
+                Self::MaxLabelsEntriesCount => std::option::Option::Some(64),
+                Self::MaxLabelsKeyValueLength => std::option::Option::Some(63),
+                Self::MaxLabelsKeyValueBytes => std::option::Option::Some(128),
+                Self::MaxObjectIdsPerDeleteObjectsRequest => std::option::Option::Some(1000),
+                Self::SplitTokenMaxValidDays => std::option::Option::Some(14),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VALUES_UNSPECIFIED"),
-                5 => std::borrow::Cow::Borrowed("MAX_NOTIFICATION_CUSTOM_ATTRIBUTES"),
-                14 => std::borrow::Cow::Borrowed("SPLIT_TOKEN_MAX_VALID_DAYS"),
-                63 => std::borrow::Cow::Borrowed("MAX_LABELS_KEY_VALUE_LENGTH"),
-                64 => std::borrow::Cow::Borrowed("MAX_LABELS_ENTRIES_COUNT"),
-                100 => std::borrow::Cow::Borrowed("MAX_LIFECYCLE_RULES_PER_BUCKET"),
-                128 => std::borrow::Cow::Borrowed("MAX_LABELS_KEY_VALUE_BYTES"),
-                256 => std::borrow::Cow::Borrowed("MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH"),
-                1000 => std::borrow::Cow::Borrowed("MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST"),
-                1024 => std::borrow::Cow::Borrowed("MAX_CUSTOM_METADATA_FIELD_NAME_BYTES"),
-                4096 => std::borrow::Cow::Borrowed("MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES"),
-                8192 => std::borrow::Cow::Borrowed("MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES"),
-                20480 => std::borrow::Cow::Borrowed("MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES"),
-                2097152 => std::borrow::Cow::Borrowed("MAX_READ_CHUNK_BYTES"),
-                5242880 => std::borrow::Cow::Borrowed("MAX_OBJECT_SIZE_MB"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VALUES_UNSPECIFIED"),
+                Self::MaxReadChunkBytes => std::option::Option::Some("MAX_READ_CHUNK_BYTES"),
+                Self::MaxWriteChunkBytes => std::option::Option::Some("MAX_WRITE_CHUNK_BYTES"),
+                Self::MaxObjectSizeMb => std::option::Option::Some("MAX_OBJECT_SIZE_MB"),
+                Self::MaxCustomMetadataFieldNameBytes => {
+                    std::option::Option::Some("MAX_CUSTOM_METADATA_FIELD_NAME_BYTES")
+                }
+                Self::MaxCustomMetadataFieldValueBytes => {
+                    std::option::Option::Some("MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES")
+                }
+                Self::MaxCustomMetadataTotalSizeBytes => {
+                    std::option::Option::Some("MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES")
+                }
+                Self::MaxBucketMetadataTotalSizeBytes => {
+                    std::option::Option::Some("MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES")
+                }
+                Self::MaxNotificationConfigsPerBucket => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CONFIGS_PER_BUCKET")
+                }
+                Self::MaxLifecycleRulesPerBucket => {
+                    std::option::Option::Some("MAX_LIFECYCLE_RULES_PER_BUCKET")
+                }
+                Self::MaxNotificationCustomAttributes => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CUSTOM_ATTRIBUTES")
+                }
+                Self::MaxNotificationCustomAttributeKeyLength => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH")
+                }
+                Self::MaxNotificationCustomAttributeValueLength => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH")
+                }
+                Self::MaxLabelsEntriesCount => {
+                    std::option::Option::Some("MAX_LABELS_ENTRIES_COUNT")
+                }
+                Self::MaxLabelsKeyValueLength => {
+                    std::option::Option::Some("MAX_LABELS_KEY_VALUE_LENGTH")
+                }
+                Self::MaxLabelsKeyValueBytes => {
+                    std::option::Option::Some("MAX_LABELS_KEY_VALUE_BYTES")
+                }
+                Self::MaxObjectIdsPerDeleteObjectsRequest => {
+                    std::option::Option::Some("MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST")
+                }
+                Self::SplitTokenMaxValidDays => {
+                    std::option::Option::Some("SPLIT_TOKEN_MAX_VALID_DAYS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VALUES_UNSPECIFIED" => std::option::Option::Some(Self::VALUES_UNSPECIFIED),
-                "MAX_READ_CHUNK_BYTES" => std::option::Option::Some(Self::MAX_READ_CHUNK_BYTES),
-                "MAX_WRITE_CHUNK_BYTES" => std::option::Option::Some(Self::MAX_WRITE_CHUNK_BYTES),
-                "MAX_OBJECT_SIZE_MB" => std::option::Option::Some(Self::MAX_OBJECT_SIZE_MB),
-                "MAX_CUSTOM_METADATA_FIELD_NAME_BYTES" => {
-                    std::option::Option::Some(Self::MAX_CUSTOM_METADATA_FIELD_NAME_BYTES)
-                }
-                "MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES)
-                }
-                "MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES)
-                }
-                "MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES)
-                }
-                "MAX_NOTIFICATION_CONFIGS_PER_BUCKET" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CONFIGS_PER_BUCKET)
-                }
-                "MAX_LIFECYCLE_RULES_PER_BUCKET" => {
-                    std::option::Option::Some(Self::MAX_LIFECYCLE_RULES_PER_BUCKET)
-                }
-                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTES" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CUSTOM_ATTRIBUTES)
-                }
-                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH)
-                }
-                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH)
-                }
-                "MAX_LABELS_ENTRIES_COUNT" => {
-                    std::option::Option::Some(Self::MAX_LABELS_ENTRIES_COUNT)
-                }
-                "MAX_LABELS_KEY_VALUE_LENGTH" => {
-                    std::option::Option::Some(Self::MAX_LABELS_KEY_VALUE_LENGTH)
-                }
-                "MAX_LABELS_KEY_VALUE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_LABELS_KEY_VALUE_BYTES)
-                }
-                "MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST" => {
-                    std::option::Option::Some(Self::MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST)
-                }
-                "SPLIT_TOKEN_MAX_VALID_DAYS" => {
-                    std::option::Option::Some(Self::SPLIT_TOKEN_MAX_VALID_DAYS)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Values {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Values {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Values {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Values {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                5 => Self::MaxNotificationCustomAttributes,
+                14 => Self::SplitTokenMaxValidDays,
+                63 => Self::MaxLabelsKeyValueLength,
+                64 => Self::MaxLabelsEntriesCount,
+                100 => Self::MaxLifecycleRulesPerBucket,
+                128 => Self::MaxLabelsKeyValueBytes,
+                256 => Self::MaxNotificationCustomAttributeKeyLength,
+                1000 => Self::MaxObjectIdsPerDeleteObjectsRequest,
+                1024 => Self::MaxCustomMetadataFieldNameBytes,
+                4096 => Self::MaxCustomMetadataFieldValueBytes,
+                8192 => Self::MaxCustomMetadataTotalSizeBytes,
+                20480 => Self::MaxBucketMetadataTotalSizeBytes,
+                2097152 => Self::MaxReadChunkBytes,
+                5242880 => Self::MaxObjectSizeMb,
+                _ => Self::UnknownValue(values::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Values {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VALUES_UNSPECIFIED" => Self::Unspecified,
+                "MAX_READ_CHUNK_BYTES" => Self::MaxReadChunkBytes,
+                "MAX_WRITE_CHUNK_BYTES" => Self::MaxWriteChunkBytes,
+                "MAX_OBJECT_SIZE_MB" => Self::MaxObjectSizeMb,
+                "MAX_CUSTOM_METADATA_FIELD_NAME_BYTES" => Self::MaxCustomMetadataFieldNameBytes,
+                "MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES" => Self::MaxCustomMetadataFieldValueBytes,
+                "MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES" => Self::MaxCustomMetadataTotalSizeBytes,
+                "MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES" => Self::MaxBucketMetadataTotalSizeBytes,
+                "MAX_NOTIFICATION_CONFIGS_PER_BUCKET" => Self::MaxNotificationConfigsPerBucket,
+                "MAX_LIFECYCLE_RULES_PER_BUCKET" => Self::MaxLifecycleRulesPerBucket,
+                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTES" => Self::MaxNotificationCustomAttributes,
+                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH" => {
+                    Self::MaxNotificationCustomAttributeKeyLength
+                }
+                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH" => {
+                    Self::MaxNotificationCustomAttributeValueLength
+                }
+                "MAX_LABELS_ENTRIES_COUNT" => Self::MaxLabelsEntriesCount,
+                "MAX_LABELS_KEY_VALUE_LENGTH" => Self::MaxLabelsKeyValueLength,
+                "MAX_LABELS_KEY_VALUE_BYTES" => Self::MaxLabelsKeyValueBytes,
+                "MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST" => {
+                    Self::MaxObjectIdsPerDeleteObjectsRequest
+                }
+                "SPLIT_TOKEN_MAX_VALID_DAYS" => Self::SplitTokenMaxValidDays,
+                _ => Self::UnknownValue(values::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Values {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MaxReadChunkBytes => serializer.serialize_i32(2097152),
+                Self::MaxWriteChunkBytes => serializer.serialize_i32(2097152),
+                Self::MaxObjectSizeMb => serializer.serialize_i32(5242880),
+                Self::MaxCustomMetadataFieldNameBytes => serializer.serialize_i32(1024),
+                Self::MaxCustomMetadataFieldValueBytes => serializer.serialize_i32(4096),
+                Self::MaxCustomMetadataTotalSizeBytes => serializer.serialize_i32(8192),
+                Self::MaxBucketMetadataTotalSizeBytes => serializer.serialize_i32(20480),
+                Self::MaxNotificationConfigsPerBucket => serializer.serialize_i32(100),
+                Self::MaxLifecycleRulesPerBucket => serializer.serialize_i32(100),
+                Self::MaxNotificationCustomAttributes => serializer.serialize_i32(5),
+                Self::MaxNotificationCustomAttributeKeyLength => serializer.serialize_i32(256),
+                Self::MaxNotificationCustomAttributeValueLength => serializer.serialize_i32(1024),
+                Self::MaxLabelsEntriesCount => serializer.serialize_i32(64),
+                Self::MaxLabelsKeyValueLength => serializer.serialize_i32(63),
+                Self::MaxLabelsKeyValueBytes => serializer.serialize_i32(128),
+                Self::MaxObjectIdsPerDeleteObjectsRequest => serializer.serialize_i32(1000),
+                Self::SplitTokenMaxValidDays => serializer.serialize_i32(14),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Values {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Values>::new(
+                ".google.storage.v2.ServiceConstants.Values",
+            ))
         }
     }
 }
@@ -2558,6 +2685,7 @@ pub struct Bucket {
     pub project: std::string::String,
 
     /// Output only. The metadata generation of this bucket.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
@@ -2637,6 +2765,7 @@ pub struct Bucket {
     /// duration of the objects begins from the moment event-based hold
     /// transitioned from true to false.  Objects under event-based hold cannot be
     /// deleted, overwritten or archived until the hold is removed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_event_based_hold: bool,
 
     /// User-provided labels, in key/value pairs.
@@ -2689,6 +2818,7 @@ pub struct Bucket {
     pub iam_config: std::option::Option<crate::model::bucket::IamConfig>,
 
     /// Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Configuration that, if present, specifies the data placement for a
@@ -2776,6 +2906,28 @@ impl Bucket {
         self
     }
 
+    /// Sets the value of [acl][crate::model::Bucket::acl].
+    pub fn set_acl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BucketAccessControl>,
+    {
+        use std::iter::Iterator;
+        self.acl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [default_object_acl][crate::model::Bucket::default_object_acl].
+    pub fn set_default_object_acl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ObjectAccessControl>,
+    {
+        use std::iter::Iterator;
+        self.default_object_acl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [lifecycle][crate::model::Bucket::lifecycle].
     pub fn set_lifecycle<
         T: std::convert::Into<std::option::Option<crate::model::bucket::Lifecycle>>,
@@ -2796,6 +2948,17 @@ impl Bucket {
         self
     }
 
+    /// Sets the value of [cors][crate::model::Bucket::cors].
+    pub fn set_cors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::bucket::Cors>,
+    {
+        use std::iter::Iterator;
+        self.cors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [update_time][crate::model::Bucket::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2808,6 +2971,18 @@ impl Bucket {
     /// Sets the value of [default_event_based_hold][crate::model::Bucket::default_event_based_hold].
     pub fn set_default_event_based_hold<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_event_based_hold = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Bucket::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2946,51 +3121,6 @@ impl Bucket {
         self.soft_delete_policy = v.into();
         self
     }
-
-    /// Sets the value of [acl][crate::model::Bucket::acl].
-    pub fn set_acl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BucketAccessControl>,
-    {
-        use std::iter::Iterator;
-        self.acl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [default_object_acl][crate::model::Bucket::default_object_acl].
-    pub fn set_default_object_acl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectAccessControl>,
-    {
-        use std::iter::Iterator;
-        self.default_object_acl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [cors][crate::model::Bucket::cors].
-    pub fn set_cors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::bucket::Cors>,
-    {
-        use std::iter::Iterator;
-        self.cors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Bucket::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Bucket {
@@ -3011,6 +3141,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct Billing {
         /// When set to true, Requester Pays is enabled for this bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub requester_pays: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3065,6 +3196,7 @@ pub mod bucket {
         /// The value, in seconds, to return in the
         /// [<https://www.w3.org/TR/cors/#access-control-max-age-response-header>][Access-Control-Max-Age
         /// header] used in preflight responses.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_age_seconds: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3074,12 +3206,6 @@ pub mod bucket {
     impl Cors {
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [max_age_seconds][crate::model::bucket::Cors::max_age_seconds].
-        pub fn set_max_age_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.max_age_seconds = v.into();
-            self
         }
 
         /// Sets the value of [origin][crate::model::bucket::Cors::origin].
@@ -3112,6 +3238,12 @@ pub mod bucket {
         {
             use std::iter::Iterator;
             self.response_header = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [max_age_seconds][crate::model::bucket::Cors::max_age_seconds].
+        pub fn set_max_age_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_age_seconds = v.into();
             self
         }
     }
@@ -3225,6 +3357,7 @@ pub mod bucket {
         #[non_exhaustive]
         pub struct UniformBucketLevelAccess {
             /// If set, access checks only use bucket-level IAM policies or above.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub enabled: bool,
 
             /// The deadline time for changing
@@ -3542,6 +3675,17 @@ pub mod bucket {
                     self
                 }
 
+                /// Sets the value of [matches_storage_class][crate::model::bucket::lifecycle::rule::Condition::matches_storage_class].
+                pub fn set_matches_storage_class<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<std::string::String>,
+                {
+                    use std::iter::Iterator;
+                    self.matches_storage_class = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
                 /// Sets the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
                 pub fn set_days_since_custom_time<
                     T: std::convert::Into<std::option::Option<i32>>,
@@ -3583,17 +3727,6 @@ pub mod bucket {
                     v: T,
                 ) -> Self {
                     self.noncurrent_time_before = v.into();
-                    self
-                }
-
-                /// Sets the value of [matches_storage_class][crate::model::bucket::lifecycle::rule::Condition::matches_storage_class].
-                pub fn set_matches_storage_class<T, V>(mut self, v: T) -> Self
-                where
-                    T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
-                {
-                    use std::iter::Iterator;
-                    self.matches_storage_class = v.into_iter().map(|i| i.into()).collect();
                     self
                 }
 
@@ -3686,6 +3819,7 @@ pub mod bucket {
         pub effective_time: std::option::Option<wkt::Timestamp>,
 
         /// Once locked, an object retention policy cannot be modified.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_locked: bool,
 
         /// The duration that objects need to be retained. Retention duration must be
@@ -3795,6 +3929,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct Versioning {
         /// While set to true, versioning is fully enabled for this bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3922,6 +4057,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct Autoclass {
         /// Enables Autoclass.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Output only. Latest instant at which the `enabled` field was set to true
@@ -4002,6 +4138,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
         /// Optional. Enables the hierarchical namespace feature.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4296,6 +4433,7 @@ pub struct Object {
 
     /// Immutable. The content generation of this object. Used for object
     /// versioning.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -4309,6 +4447,7 @@ pub struct Object {
     /// object. Used for preconditions and for detecting changes in metadata. A
     /// metageneration number is only meaningful in the context of a particular
     /// generation of a particular object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
@@ -4318,6 +4457,7 @@ pub struct Object {
 
     /// Output only. Content-Length of the object data in bytes, matching
     /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size: i64,
 
@@ -4371,6 +4511,7 @@ pub struct Object {
 
     /// Output only. Number of underlying components that make up this object.
     /// Components are accumulated by compose operations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub component_count: i32,
 
     /// Output only. Hashes for the data part of this object. This field is used
@@ -4405,6 +4546,7 @@ pub struct Object {
     /// of this flag is regulatory investigations where objects need to be retained
     /// while the investigation is ongoing. Note that unlike event-based hold,
     /// temporary hold does not impact retention expiration time of an object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub temporary_hold: bool,
 
     /// A server-determined value that specifies the earliest time that the
@@ -4547,6 +4689,17 @@ impl Object {
         self
     }
 
+    /// Sets the value of [acl][crate::model::Object::acl].
+    pub fn set_acl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ObjectAccessControl>,
+    {
+        use std::iter::Iterator;
+        self.acl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [content_language][crate::model::Object::content_language].
     pub fn set_content_language<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4647,6 +4800,18 @@ impl Object {
         self
     }
 
+    /// Sets the value of [metadata][crate::model::Object::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [event_based_hold][crate::model::Object::event_based_hold].
     pub fn set_event_based_hold<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
@@ -4700,29 +4865,6 @@ impl Object {
         v: T,
     ) -> Self {
         self.hard_delete_time = v.into();
-        self
-    }
-
-    /// Sets the value of [acl][crate::model::Object::acl].
-    pub fn set_acl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectAccessControl>,
-    {
-        use std::iter::Iterator;
-        self.acl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::Object::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4905,12 +5047,6 @@ impl ListObjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListObjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [objects][crate::model::ListObjectsResponse::objects].
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
@@ -4930,6 +5066,12 @@ impl ListObjectsResponse {
     {
         use std::iter::Iterator;
         self.prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListObjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5045,14 +5187,17 @@ impl wkt::message::Message for Owner {
 #[non_exhaustive]
 pub struct ContentRange {
     /// The starting offset of the object data. This value is inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub start: i64,
 
     /// The ending offset of the object data. This value is exclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub end: i64,
 
     /// The complete length of the object data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub complete_length: i64,
 

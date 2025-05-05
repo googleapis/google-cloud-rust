@@ -16,7 +16,6 @@
 
 pub mod cloud_filestore_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudFilestoreManager][super::super::client::CloudFilestoreManager].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_filestore_manager {
     /// Common implementation for [super::super::client::CloudFilestoreManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod cloud_filestore_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod cloud_filestore_manager {
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,6 +115,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -159,7 +160,7 @@ pub mod cloud_filestore_manager {
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -185,6 +186,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -204,7 +207,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -269,18 +272,24 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -303,7 +312,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -399,7 +408,7 @@ pub mod cloud_filestore_manager {
 
     impl RestoreInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -464,12 +473,16 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::RestoreInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [file_share][crate::model::RestoreInstanceRequest::file_share].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_file_share<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.file_share = v.into();
             self
@@ -514,7 +527,7 @@ pub mod cloud_filestore_manager {
 
     impl RevertInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -579,12 +592,16 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::RevertInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_snapshot_id][crate::model::RevertInstanceRequest::target_snapshot_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_snapshot_id = v.into();
             self
@@ -604,7 +621,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -667,6 +684,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -692,7 +711,7 @@ pub mod cloud_filestore_manager {
 
     impl ListSnapshots {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -733,6 +752,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -782,7 +803,7 @@ pub mod cloud_filestore_manager {
 
     impl GetSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -808,6 +829,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -827,7 +850,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -892,18 +915,24 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [snapshot_id][crate::model::CreateSnapshotRequest::snapshot_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.snapshot_id = v.into();
             self
         }
 
         /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
             mut self,
             v: T,
@@ -926,7 +955,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -989,6 +1018,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1008,7 +1039,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1073,6 +1104,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1082,6 +1115,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
             mut self,
             v: T,
@@ -1104,7 +1139,7 @@ pub mod cloud_filestore_manager {
 
     impl ListBackups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1145,6 +1180,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1188,7 +1225,7 @@ pub mod cloud_filestore_manager {
 
     impl GetBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1214,6 +1251,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1233,7 +1272,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1298,12 +1337,16 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -1313,6 +1356,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
@@ -1332,7 +1377,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1395,6 +1440,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1414,7 +1461,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1479,6 +1526,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -1488,6 +1537,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1510,7 +1561,7 @@ pub mod cloud_filestore_manager {
 
     impl PromoteReplica {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1575,6 +1626,8 @@ pub mod cloud_filestore_manager {
         }
 
         /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1600,7 +1653,7 @@ pub mod cloud_filestore_manager {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1681,7 +1734,7 @@ pub mod cloud_filestore_manager {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1726,7 +1779,7 @@ pub mod cloud_filestore_manager {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1807,7 +1860,7 @@ pub mod cloud_filestore_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1855,7 +1908,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1903,7 +1956,7 @@ pub mod cloud_filestore_manager {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

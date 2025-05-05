@@ -16,7 +16,6 @@
 
 pub mod security_posture {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SecurityPosture][super::super::client::SecurityPosture].
     ///
@@ -49,7 +48,7 @@ pub mod security_posture {
     /// Common implementation for [super::super::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod security_posture {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod security_posture {
     pub struct ListPostures(RequestBuilder<crate::model::ListPosturesRequest>);
 
     impl ListPostures {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ListPosturesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -142,7 +147,9 @@ pub mod security_posture {
     pub struct ListPostureRevisions(RequestBuilder<crate::model::ListPostureRevisionsRequest>);
 
     impl ListPostureRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,6 +192,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::ListPostureRevisionsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -215,7 +224,9 @@ pub mod security_posture {
     pub struct GetPosture(RequestBuilder<crate::model::GetPostureRequest>);
 
     impl GetPosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -240,6 +251,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::GetPostureRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -264,7 +277,9 @@ pub mod security_posture {
     pub struct CreatePosture(RequestBuilder<crate::model::CreatePostureRequest>);
 
     impl CreatePosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -326,18 +341,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [posture_id][crate::model::CreatePostureRequest::posture_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.posture_id = v.into();
             self
         }
 
         /// Sets the value of [posture][crate::model::CreatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
             mut self,
             v: T,
@@ -359,7 +380,9 @@ pub mod security_posture {
     pub struct UpdatePosture(RequestBuilder<crate::model::UpdatePostureRequest>);
 
     impl UpdatePosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,6 +444,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -430,6 +455,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [posture][crate::model::UpdatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
             mut self,
             v: T,
@@ -439,6 +466,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [revision_id][crate::model::UpdatePostureRequest::revision_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_revision_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.revision_id = v.into();
             self
@@ -457,7 +486,9 @@ pub mod security_posture {
     pub struct DeletePosture(RequestBuilder<crate::model::DeletePostureRequest>);
 
     impl DeletePosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -517,6 +548,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::DeletePostureRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -541,7 +574,9 @@ pub mod security_posture {
     pub struct ExtractPosture(RequestBuilder<crate::model::ExtractPostureRequest>);
 
     impl ExtractPosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -603,18 +638,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ExtractPostureRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [posture_id][crate::model::ExtractPostureRequest::posture_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.posture_id = v.into();
             self
         }
 
         /// Sets the value of [workload][crate::model::ExtractPostureRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workload = v.into();
             self
@@ -633,7 +674,9 @@ pub mod security_posture {
     pub struct ListPostureDeployments(RequestBuilder<crate::model::ListPostureDeploymentsRequest>);
 
     impl ListPostureDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -678,6 +721,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ListPostureDeploymentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -714,7 +759,9 @@ pub mod security_posture {
     pub struct GetPostureDeployment(RequestBuilder<crate::model::GetPostureDeploymentRequest>);
 
     impl GetPostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -742,6 +789,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::GetPostureDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -762,7 +811,9 @@ pub mod security_posture {
     );
 
     impl CreatePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -829,18 +880,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureDeploymentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [posture_deployment_id][crate::model::CreatePostureDeploymentRequest::posture_deployment_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.posture_deployment_id = v.into();
             self
         }
 
         /// Sets the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_deployment<
             T: Into<std::option::Option<crate::model::PostureDeployment>>,
         >(
@@ -866,7 +923,9 @@ pub mod security_posture {
     );
 
     impl UpdatePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -933,6 +992,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -942,6 +1003,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_deployment<
             T: Into<std::option::Option<crate::model::PostureDeployment>>,
         >(
@@ -967,7 +1030,9 @@ pub mod security_posture {
     );
 
     impl DeletePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1030,6 +1095,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::DeletePostureDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1054,7 +1121,9 @@ pub mod security_posture {
     pub struct ListPostureTemplates(RequestBuilder<crate::model::ListPostureTemplatesRequest>);
 
     impl ListPostureTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1097,6 +1166,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ListPostureTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1133,7 +1204,9 @@ pub mod security_posture {
     pub struct GetPostureTemplate(RequestBuilder<crate::model::GetPostureTemplateRequest>);
 
     impl GetPostureTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1161,6 +1234,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::GetPostureTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1185,7 +1260,9 @@ pub mod security_posture {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1264,7 +1341,9 @@ pub mod security_posture {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1307,7 +1386,9 @@ pub mod security_posture {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1386,7 +1467,9 @@ pub mod security_posture {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1432,7 +1515,9 @@ pub mod security_posture {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1478,7 +1563,9 @@ pub mod security_posture {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

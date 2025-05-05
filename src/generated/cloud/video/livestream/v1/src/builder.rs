@@ -16,7 +16,6 @@
 
 pub mod livestream_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LivestreamService][super::super::client::LivestreamService].
     ///
@@ -49,7 +48,7 @@ pub mod livestream_service {
     /// Common implementation for [super::super::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod livestream_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod livestream_service {
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -134,12 +137,16 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
             mut self,
             v: T,
@@ -149,6 +156,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [channel_id][crate::model::CreateChannelRequest::channel_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_channel_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.channel_id = v.into();
             self
@@ -173,7 +182,9 @@ pub mod livestream_service {
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,6 +224,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -255,7 +268,9 @@ pub mod livestream_service {
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -280,6 +295,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::GetChannelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -298,7 +315,9 @@ pub mod livestream_service {
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -358,6 +377,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -388,7 +409,9 @@ pub mod livestream_service {
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -459,6 +482,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
             mut self,
             v: T,
@@ -486,7 +511,9 @@ pub mod livestream_service {
     pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
 
     impl StartChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,6 +579,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -576,7 +605,9 @@ pub mod livestream_service {
     pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
 
     impl StopChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,6 +673,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -666,7 +699,9 @@ pub mod livestream_service {
     pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
 
     impl CreateInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -728,12 +763,16 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [input][crate::model::CreateInputRequest::input].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
             mut self,
             v: T,
@@ -743,6 +782,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [input_id][crate::model::CreateInputRequest::input_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.input_id = v.into();
             self
@@ -767,7 +808,9 @@ pub mod livestream_service {
     pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
 
     impl ListInputs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -807,6 +850,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::ListInputsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -849,7 +894,9 @@ pub mod livestream_service {
     pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
 
     impl GetInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -874,6 +921,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::GetInputRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -892,7 +941,9 @@ pub mod livestream_service {
     pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
 
     impl DeleteInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -952,6 +1003,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -976,7 +1029,9 @@ pub mod livestream_service {
     pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
 
     impl UpdateInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1047,6 +1102,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [input][crate::model::UpdateInputRequest::input].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
             mut self,
             v: T,
@@ -1074,7 +1131,9 @@ pub mod livestream_service {
     pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
 
     impl CreateEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1099,12 +1158,16 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateEventRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [event][crate::model::CreateEventRequest::event].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_event<T: Into<std::option::Option<crate::model::Event>>>(
             mut self,
             v: T,
@@ -1114,6 +1177,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [event_id][crate::model::CreateEventRequest::event_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_event_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.event_id = v.into();
             self
@@ -1138,7 +1203,9 @@ pub mod livestream_service {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1178,6 +1245,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1220,7 +1289,9 @@ pub mod livestream_service {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1245,6 +1316,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1263,7 +1336,9 @@ pub mod livestream_service {
     pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
 
     impl DeleteEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1288,6 +1363,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1312,7 +1389,9 @@ pub mod livestream_service {
     pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
 
     impl ListClips {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1352,6 +1431,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::ListClipsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1394,7 +1475,9 @@ pub mod livestream_service {
     pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
 
     impl GetClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1419,6 +1502,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::GetClipRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1437,7 +1522,9 @@ pub mod livestream_service {
     pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
 
     impl CreateClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1499,18 +1586,24 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [clip_id][crate::model::CreateClipRequest::clip_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_clip_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.clip_id = v.into();
             self
         }
 
         /// Sets the value of [clip][crate::model::CreateClipRequest::clip].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_clip<T: Into<std::option::Option<crate::model::Clip>>>(mut self, v: T) -> Self {
             self.0.request.clip = v.into();
             self
@@ -1535,7 +1628,9 @@ pub mod livestream_service {
     pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
 
     impl DeleteClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1595,6 +1690,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1619,7 +1716,9 @@ pub mod livestream_service {
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
     impl CreateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1681,12 +1780,16 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
             mut self,
             v: T,
@@ -1696,6 +1799,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [asset_id][crate::model::CreateAssetRequest::asset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_asset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.asset_id = v.into();
             self
@@ -1720,7 +1825,9 @@ pub mod livestream_service {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1780,6 +1887,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1804,7 +1913,9 @@ pub mod livestream_service {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1829,6 +1940,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::GetAssetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1847,7 +1960,9 @@ pub mod livestream_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1887,6 +2002,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1929,7 +2046,9 @@ pub mod livestream_service {
     pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
 
     impl GetPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1954,6 +2073,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [name][crate::model::GetPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1972,7 +2093,9 @@ pub mod livestream_service {
     pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
 
     impl UpdatePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2043,6 +2166,8 @@ pub mod livestream_service {
         }
 
         /// Sets the value of [pool][crate::model::UpdatePoolRequest::pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_pool<T: Into<std::option::Option<crate::model::Pool>>>(mut self, v: T) -> Self {
             self.0.request.pool = v.into();
             self
@@ -2067,7 +2192,9 @@ pub mod livestream_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2146,7 +2273,9 @@ pub mod livestream_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2189,7 +2318,9 @@ pub mod livestream_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2268,7 +2399,9 @@ pub mod livestream_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2314,7 +2447,9 @@ pub mod livestream_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2360,7 +2495,9 @@ pub mod livestream_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

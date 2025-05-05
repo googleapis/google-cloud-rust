@@ -16,7 +16,6 @@
 
 pub mod lineage {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Lineage][super::super::client::Lineage].
     ///
@@ -49,7 +48,7 @@ pub mod lineage {
     /// Common implementation for [super::super::client::Lineage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Lineage>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod lineage {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +73,7 @@ pub mod lineage {
     );
 
     impl ProcessOpenLineageRunEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -102,12 +101,16 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::ProcessOpenLineageRunEventRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_open_lineage<T: Into<std::option::Option<wkt::Struct>>>(mut self, v: T) -> Self {
             self.0.request.open_lineage = v.into();
             self
@@ -132,7 +135,7 @@ pub mod lineage {
     pub struct CreateProcess(RequestBuilder<crate::model::CreateProcessRequest>);
 
     impl CreateProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -157,12 +160,16 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [process][crate::model::CreateProcessRequest::process].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_process<T: Into<std::option::Option<crate::model::Process>>>(
             mut self,
             v: T,
@@ -190,7 +197,7 @@ pub mod lineage {
     pub struct UpdateProcess(RequestBuilder<crate::model::UpdateProcessRequest>);
 
     impl UpdateProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -215,6 +222,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_process<T: Into<std::option::Option<crate::model::Process>>>(
             mut self,
             v: T,
@@ -251,7 +260,7 @@ pub mod lineage {
     pub struct GetProcess(RequestBuilder<crate::model::GetProcessRequest>);
 
     impl GetProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -276,6 +285,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [name][crate::model::GetProcessRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -294,7 +305,7 @@ pub mod lineage {
     pub struct ListProcesses(RequestBuilder<crate::model::ListProcessesRequest>);
 
     impl ListProcesses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -334,6 +345,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::ListProcessesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -364,7 +377,7 @@ pub mod lineage {
     pub struct DeleteProcess(RequestBuilder<crate::model::DeleteProcessRequest>);
 
     impl DeleteProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -424,6 +437,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -448,7 +463,7 @@ pub mod lineage {
     pub struct CreateRun(RequestBuilder<crate::model::CreateRunRequest>);
 
     impl CreateRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -473,12 +488,16 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::CreateRunRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [run][crate::model::CreateRunRequest::run].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_run<T: Into<std::option::Option<crate::model::Run>>>(mut self, v: T) -> Self {
             self.0.request.run = v.into();
             self
@@ -503,7 +522,7 @@ pub mod lineage {
     pub struct UpdateRun(RequestBuilder<crate::model::UpdateRunRequest>);
 
     impl UpdateRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -528,6 +547,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [run][crate::model::UpdateRunRequest::run].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_run<T: Into<std::option::Option<crate::model::Run>>>(mut self, v: T) -> Self {
             self.0.request.run = v.into();
             self
@@ -561,7 +582,7 @@ pub mod lineage {
     pub struct GetRun(RequestBuilder<crate::model::GetRunRequest>);
 
     impl GetRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -586,6 +607,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [name][crate::model::GetRunRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -604,7 +627,7 @@ pub mod lineage {
     pub struct ListRuns(RequestBuilder<crate::model::ListRunsRequest>);
 
     impl ListRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,6 +667,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::ListRunsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -674,7 +699,7 @@ pub mod lineage {
     pub struct DeleteRun(RequestBuilder<crate::model::DeleteRunRequest>);
 
     impl DeleteRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -734,6 +759,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [name][crate::model::DeleteRunRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -758,7 +785,7 @@ pub mod lineage {
     pub struct CreateLineageEvent(RequestBuilder<crate::model::CreateLineageEventRequest>);
 
     impl CreateLineageEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -786,12 +813,16 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::CreateLineageEventRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lineage_event<T: Into<std::option::Option<crate::model::LineageEvent>>>(
             mut self,
             v: T,
@@ -819,7 +850,7 @@ pub mod lineage {
     pub struct GetLineageEvent(RequestBuilder<crate::model::GetLineageEventRequest>);
 
     impl GetLineageEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -844,6 +875,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [name][crate::model::GetLineageEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -862,7 +895,7 @@ pub mod lineage {
     pub struct ListLineageEvents(RequestBuilder<crate::model::ListLineageEventsRequest>);
 
     impl ListLineageEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -905,6 +938,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::ListLineageEventsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -935,7 +970,7 @@ pub mod lineage {
     pub struct DeleteLineageEvent(RequestBuilder<crate::model::DeleteLineageEventRequest>);
 
     impl DeleteLineageEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -963,6 +998,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [name][crate::model::DeleteLineageEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -987,7 +1024,7 @@ pub mod lineage {
     pub struct SearchLinks(RequestBuilder<crate::model::SearchLinksRequest>);
 
     impl SearchLinks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1027,6 +1064,8 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::SearchLinksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1097,7 +1136,7 @@ pub mod lineage {
     );
 
     impl BatchSearchLinkProcesses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1142,8 +1181,23 @@ pub mod lineage {
         }
 
         /// Sets the value of [parent][crate::model::BatchSearchLinkProcessesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [links][crate::model::BatchSearchLinkProcessesRequest::links].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_links<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.links = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -1156,17 +1210,6 @@ pub mod lineage {
         /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [links][crate::model::BatchSearchLinkProcessesRequest::links].
-        pub fn set_links<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.links = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1183,7 +1226,7 @@ pub mod lineage {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1262,7 +1305,7 @@ pub mod lineage {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1308,7 +1351,7 @@ pub mod lineage {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1354,7 +1397,7 @@ pub mod lineage {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

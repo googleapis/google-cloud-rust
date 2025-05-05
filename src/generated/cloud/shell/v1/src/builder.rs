@@ -16,7 +16,6 @@
 
 pub mod cloud_shell_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudShellService][super::super::client::CloudShellService].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_shell_service {
     /// Common implementation for [super::super::client::CloudShellService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_shell_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_shell_service {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +100,8 @@ pub mod cloud_shell_service {
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -115,7 +120,9 @@ pub mod cloud_shell_service {
     pub struct StartEnvironment(RequestBuilder<crate::model::StartEnvironmentRequest>);
 
     impl StartEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -221,7 +228,9 @@ pub mod cloud_shell_service {
     pub struct AuthorizeEnvironment(RequestBuilder<crate::model::AuthorizeEnvironmentRequest>);
 
     impl AuthorizeEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -331,7 +340,9 @@ pub mod cloud_shell_service {
     pub struct AddPublicKey(RequestBuilder<crate::model::AddPublicKeyRequest>);
 
     impl AddPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,7 +432,9 @@ pub mod cloud_shell_service {
     pub struct RemovePublicKey(RequestBuilder<crate::model::RemovePublicKeyRequest>);
 
     impl RemovePublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -511,7 +524,9 @@ pub mod cloud_shell_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

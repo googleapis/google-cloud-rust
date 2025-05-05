@@ -16,7 +16,6 @@
 
 pub mod database_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DatabaseAdmin][super::super::client::DatabaseAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod database_admin {
     /// Common implementation for [super::super::client::DatabaseAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod database_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod database_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -142,7 +147,9 @@ pub mod database_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -206,14 +213,29 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [create_statement][crate::model::CreateDatabaseRequest::create_statement].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_create_statement<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.create_statement = v.into();
+            self
+        }
+
+        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -242,17 +264,6 @@ pub mod database_admin {
             self.0.request.proto_descriptors = v.into();
             self
         }
-
-        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
-        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -267,7 +278,9 @@ pub mod database_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -292,6 +305,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -310,7 +325,9 @@ pub mod database_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,6 +391,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
             mut self,
             v: T,
@@ -383,6 +402,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -404,7 +425,9 @@ pub mod database_admin {
     pub struct UpdateDatabaseDdl(RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
 
     impl UpdateDatabaseDdl {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,8 +492,23 @@ pub mod database_admin {
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
+            self
+        }
+
+        /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -483,17 +521,6 @@ pub mod database_admin {
         /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
         pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
-            self
-        }
-
-        /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
-        pub fn set_statements<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -510,7 +537,9 @@ pub mod database_admin {
     pub struct DropDatabase(RequestBuilder<crate::model::DropDatabaseRequest>);
 
     impl DropDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -535,6 +564,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -553,7 +584,9 @@ pub mod database_admin {
     pub struct GetDatabaseDdl(RequestBuilder<crate::model::GetDatabaseDdlRequest>);
 
     impl GetDatabaseDdl {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -578,6 +611,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -596,7 +631,9 @@ pub mod database_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -621,12 +658,16 @@ pub mod database_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -657,7 +698,9 @@ pub mod database_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -682,6 +725,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -709,7 +754,9 @@ pub mod database_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -737,12 +784,16 @@ pub mod database_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -766,7 +817,9 @@ pub mod database_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -829,18 +882,24 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -873,7 +932,9 @@ pub mod database_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -935,24 +996,32 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_backup = v.into();
             self
         }
 
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -985,7 +1054,9 @@ pub mod database_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1010,6 +1081,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1028,7 +1101,9 @@ pub mod database_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1053,6 +1128,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -1062,6 +1139,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1083,7 +1162,9 @@ pub mod database_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1108,6 +1189,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1126,7 +1209,9 @@ pub mod database_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1166,6 +1251,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1202,7 +1289,9 @@ pub mod database_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1266,12 +1355,16 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [database_id][crate::model::RestoreDatabaseRequest::database_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database_id = v.into();
             self
@@ -1323,7 +1416,9 @@ pub mod database_admin {
     pub struct ListDatabaseOperations(RequestBuilder<crate::model::ListDatabaseOperationsRequest>);
 
     impl ListDatabaseOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1368,6 +1463,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListDatabaseOperationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1404,7 +1501,9 @@ pub mod database_admin {
     pub struct ListBackupOperations(RequestBuilder<crate::model::ListBackupOperationsRequest>);
 
     impl ListBackupOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1447,6 +1546,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupOperationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1483,7 +1584,9 @@ pub mod database_admin {
     pub struct ListDatabaseRoles(RequestBuilder<crate::model::ListDatabaseRolesRequest>);
 
     impl ListDatabaseRoles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1526,6 +1629,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListDatabaseRolesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1556,7 +1661,9 @@ pub mod database_admin {
     pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
 
     impl AddSplitPoints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1581,18 +1688,16 @@ pub mod database_admin {
         }
 
         /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
-        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
-        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.initiator = v.into();
-            self
-        }
-
         /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_split_points<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1600,6 +1705,12 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.split_points = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.initiator = v.into();
             self
         }
     }
@@ -1616,7 +1727,9 @@ pub mod database_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1644,18 +1757,24 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_schedule_id][crate::model::CreateBackupScheduleRequest::backup_schedule_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_schedule_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_schedule_id = v.into();
             self
         }
 
         /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
             mut self,
             v: T,
@@ -1677,7 +1796,9 @@ pub mod database_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1705,6 +1826,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1723,7 +1846,9 @@ pub mod database_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1751,6 +1876,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
             mut self,
             v: T,
@@ -1760,6 +1887,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1781,7 +1910,9 @@ pub mod database_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1809,6 +1940,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1827,7 +1960,9 @@ pub mod database_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1870,6 +2005,8 @@ pub mod database_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1900,7 +2037,9 @@ pub mod database_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1979,7 +2118,9 @@ pub mod database_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2025,7 +2166,9 @@ pub mod database_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2071,7 +2214,9 @@ pub mod database_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

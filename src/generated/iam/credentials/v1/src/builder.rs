@@ -16,7 +16,6 @@
 
 pub mod iam_credentials {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IAMCredentials][super::super::client::IAMCredentials].
     ///
@@ -49,7 +48,7 @@ pub mod iam_credentials {
     /// Common implementation for [super::super::client::IAMCredentials] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod iam_credentials {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod iam_credentials {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,14 +103,10 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-        pub fn set_lifetime<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.lifetime = v.into();
             self
         }
 
@@ -123,6 +122,8 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [scope][crate::model::GenerateAccessTokenRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -130,6 +131,12 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.scope = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+        pub fn set_lifetime<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
+            self.0.request.lifetime = v.into();
             self
         }
     }
@@ -146,7 +153,9 @@ pub mod iam_credentials {
     pub struct GenerateIdToken(RequestBuilder<crate::model::GenerateIdTokenRequest>);
 
     impl GenerateIdToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,20 +180,10 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
-        pub fn set_audience<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.audience = v.into();
-            self
-        }
-
-        /// Sets the value of [include_email][crate::model::GenerateIdTokenRequest::include_email].
-        pub fn set_include_email<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.include_email = v.into();
             self
         }
 
@@ -196,6 +195,20 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_audience<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.audience = v.into();
+            self
+        }
+
+        /// Sets the value of [include_email][crate::model::GenerateIdTokenRequest::include_email].
+        pub fn set_include_email<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.include_email = v.into();
             self
         }
     }
@@ -212,7 +225,9 @@ pub mod iam_credentials {
     pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -237,14 +252,10 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.payload = v.into();
             self
         }
 
@@ -256,6 +267,14 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.payload = v.into();
             self
         }
     }
@@ -272,7 +291,9 @@ pub mod iam_credentials {
     pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -297,14 +318,10 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
-        pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.payload = v.into();
             self
         }
 
@@ -316,6 +333,14 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.payload = v.into();
             self
         }
     }

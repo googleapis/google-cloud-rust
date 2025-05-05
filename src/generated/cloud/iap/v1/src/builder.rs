@@ -16,7 +16,6 @@
 
 pub mod identity_aware_proxy_admin_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IdentityAwareProxyAdminService][super::super::client::IdentityAwareProxyAdminService].
     ///
@@ -49,7 +48,7 @@ pub mod identity_aware_proxy_admin_service {
     /// Common implementation for [super::super::client::IdentityAwareProxyAdminService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod identity_aware_proxy_admin_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -101,12 +100,16 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -138,7 +141,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -164,6 +167,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -192,7 +197,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -221,12 +226,16 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -251,7 +260,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl GetIapSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -277,6 +286,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [name][crate::model::GetIapSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -296,7 +307,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl UpdateIapSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -325,6 +336,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_iap_settings<T: Into<std::option::Option<crate::model::IapSettings>>>(
             mut self,
             v: T,
@@ -358,7 +371,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl ValidateIapAttributeExpression {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -387,12 +400,16 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [name][crate::model::ValidateIapAttributeExpressionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [expression][crate::model::ValidateIapAttributeExpressionRequest::expression].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.expression = v.into();
             self
@@ -412,7 +429,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl ListTunnelDestGroups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -456,6 +473,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [parent][crate::model::ListTunnelDestGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -487,7 +506,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl CreateTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -516,12 +535,16 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateTunnelDestGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [tunnel_dest_group][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tunnel_dest_group<
             T: Into<std::option::Option<crate::model::TunnelDestGroup>>,
         >(
@@ -533,6 +556,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [tunnel_dest_group_id][crate::model::CreateTunnelDestGroupRequest::tunnel_dest_group_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tunnel_dest_group_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.tunnel_dest_group_id = v.into();
             self
@@ -552,7 +577,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl GetTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -581,6 +606,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [name][crate::model::GetTunnelDestGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -600,7 +627,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl DeleteTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -629,6 +656,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteTunnelDestGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -648,7 +677,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl UpdateTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -677,6 +706,8 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tunnel_dest_group<
             T: Into<std::option::Option<crate::model::TunnelDestGroup>>,
         >(
@@ -707,7 +738,6 @@ pub mod identity_aware_proxy_admin_service {
 
 pub mod identity_aware_proxy_o_auth_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IdentityAwareProxyOAuthService][super::super::client::IdentityAwareProxyOAuthService].
     ///
@@ -740,7 +770,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// Common implementation for [super::super::client::IdentityAwareProxyOAuthService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -750,7 +780,7 @@ pub mod identity_aware_proxy_o_auth_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self {
                 stub,
@@ -766,7 +796,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl ListBrands {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -792,6 +822,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [parent][crate::model::ListBrandsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -811,7 +843,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl CreateBrand {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -837,12 +869,16 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateBrandRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [brand][crate::model::CreateBrandRequest::brand].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_brand<T: Into<std::option::Option<crate::model::Brand>>>(
             mut self,
             v: T,
@@ -865,7 +901,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl GetBrand {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -891,6 +927,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [name][crate::model::GetBrandRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -912,7 +950,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl CreateIdentityAwareProxyClient {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -941,12 +979,16 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateIdentityAwareProxyClientRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [identity_aware_proxy_client][crate::model::CreateIdentityAwareProxyClientRequest::identity_aware_proxy_client].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_identity_aware_proxy_client<
             T: Into<std::option::Option<crate::model::IdentityAwareProxyClient>>,
         >(
@@ -973,7 +1015,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl ListIdentityAwareProxyClients {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1019,6 +1061,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [parent][crate::model::ListIdentityAwareProxyClientsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1052,7 +1096,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl GetIdentityAwareProxyClient {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1081,6 +1125,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [name][crate::model::GetIdentityAwareProxyClientRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1102,7 +1148,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl ResetIdentityAwareProxyClientSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1131,6 +1177,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [name][crate::model::ResetIdentityAwareProxyClientSecretRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1152,7 +1200,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl DeleteIdentityAwareProxyClient {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1181,6 +1229,8 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteIdentityAwareProxyClientRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

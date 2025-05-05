@@ -16,7 +16,6 @@
 
 pub mod rapid_migration_assessment {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RapidMigrationAssessment][super::super::client::RapidMigrationAssessment].
     ///
@@ -49,7 +48,7 @@ pub mod rapid_migration_assessment {
     /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod rapid_migration_assessment {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod rapid_migration_assessment {
 
     impl CreateCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -139,18 +138,24 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [parent][crate::model::CreateCollectorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [collector_id][crate::model::CreateCollectorRequest::collector_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collector_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.collector_id = v.into();
             self
         }
 
         /// Sets the value of [collector][crate::model::CreateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
             mut self,
             v: T,
@@ -179,7 +184,7 @@ pub mod rapid_migration_assessment {
 
     impl CreateAnnotation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -246,12 +251,16 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [parent][crate::model::CreateAnnotationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_annotation<T: Into<std::option::Option<crate::model::Annotation>>>(
             mut self,
             v: T,
@@ -280,7 +289,7 @@ pub mod rapid_migration_assessment {
 
     impl GetAnnotation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -306,6 +315,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::GetAnnotationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -325,7 +336,7 @@ pub mod rapid_migration_assessment {
 
     impl ListCollectors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -366,6 +377,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [parent][crate::model::ListCollectorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -409,7 +422,7 @@ pub mod rapid_migration_assessment {
 
     impl GetCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -435,6 +448,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::GetCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -454,7 +469,7 @@ pub mod rapid_migration_assessment {
 
     impl UpdateCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -518,6 +533,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -527,6 +544,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [collector][crate::model::UpdateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
             mut self,
             v: T,
@@ -555,7 +574,7 @@ pub mod rapid_migration_assessment {
 
     impl DeleteCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -619,6 +638,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::DeleteCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -644,7 +665,7 @@ pub mod rapid_migration_assessment {
 
     impl ResumeCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -708,6 +729,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::ResumeCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -733,7 +756,7 @@ pub mod rapid_migration_assessment {
 
     impl RegisterCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -800,6 +823,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::RegisterCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -825,7 +850,7 @@ pub mod rapid_migration_assessment {
 
     impl PauseCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -889,6 +914,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::PauseCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -914,7 +941,7 @@ pub mod rapid_migration_assessment {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -995,7 +1022,7 @@ pub mod rapid_migration_assessment {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1040,7 +1067,7 @@ pub mod rapid_migration_assessment {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1121,7 +1148,7 @@ pub mod rapid_migration_assessment {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1169,7 +1196,7 @@ pub mod rapid_migration_assessment {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1217,7 +1244,7 @@ pub mod rapid_migration_assessment {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod attached_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AttachedClusters][super::super::client::AttachedClusters].
     ///
@@ -49,7 +48,7 @@ pub mod attached_clusters {
     /// Common implementation for [super::super::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod attached_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod attached_clusters {
     pub struct CreateAttachedCluster(RequestBuilder<crate::model::CreateAttachedClusterRequest>);
 
     impl CreateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -139,12 +142,16 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachedClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
             mut self,
             v: T,
@@ -154,6 +161,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [attached_cluster_id][crate::model::CreateAttachedClusterRequest::attached_cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attached_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attached_cluster_id = v.into();
             self
@@ -178,7 +187,9 @@ pub mod attached_clusters {
     pub struct UpdateAttachedCluster(RequestBuilder<crate::model::UpdateAttachedClusterRequest>);
 
     impl UpdateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -245,6 +256,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
             mut self,
             v: T,
@@ -260,6 +273,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -281,7 +296,9 @@ pub mod attached_clusters {
     pub struct ImportAttachedCluster(RequestBuilder<crate::model::ImportAttachedClusterRequest>);
 
     impl ImportAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -348,6 +365,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ImportAttachedClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -360,18 +379,24 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [fleet_membership][crate::model::ImportAttachedClusterRequest::fleet_membership].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_fleet_membership<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.fleet_membership = v.into();
             self
         }
 
         /// Sets the value of [platform_version][crate::model::ImportAttachedClusterRequest::platform_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_platform_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.platform_version = v.into();
             self
         }
 
         /// Sets the value of [distribution][crate::model::ImportAttachedClusterRequest::distribution].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_distribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.distribution = v.into();
             self
@@ -399,7 +424,9 @@ pub mod attached_clusters {
     pub struct GetAttachedCluster(RequestBuilder<crate::model::GetAttachedClusterRequest>);
 
     impl GetAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -427,6 +454,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAttachedClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -445,7 +474,9 @@ pub mod attached_clusters {
     pub struct ListAttachedClusters(RequestBuilder<crate::model::ListAttachedClustersRequest>);
 
     impl ListAttachedClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -488,6 +519,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAttachedClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -518,7 +551,9 @@ pub mod attached_clusters {
     pub struct DeleteAttachedCluster(RequestBuilder<crate::model::DeleteAttachedClusterRequest>);
 
     impl DeleteAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -581,6 +616,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachedClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -625,7 +662,9 @@ pub mod attached_clusters {
     );
 
     impl GetAttachedServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -653,6 +692,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAttachedServerConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -673,7 +714,9 @@ pub mod attached_clusters {
     );
 
     impl GenerateAttachedClusterInstallManifest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -705,18 +748,24 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::GenerateAttachedClusterInstallManifestRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attached_cluster_id][crate::model::GenerateAttachedClusterInstallManifestRequest::attached_cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attached_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attached_cluster_id = v.into();
             self
         }
 
         /// Sets the value of [platform_version][crate::model::GenerateAttachedClusterInstallManifestRequest::platform_version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_platform_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.platform_version = v.into();
             self
@@ -746,7 +795,9 @@ pub mod attached_clusters {
     );
 
     impl GenerateAttachedClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -774,24 +825,32 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [attached_cluster][crate::model::GenerateAttachedClusterAgentTokenRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_attached_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attached_cluster = v.into();
             self
         }
 
         /// Sets the value of [subject_token][crate::model::GenerateAttachedClusterAgentTokenRequest::subject_token].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subject_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token = v.into();
             self
         }
 
         /// Sets the value of [subject_token_type][crate::model::GenerateAttachedClusterAgentTokenRequest::subject_token_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subject_token_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token_type = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GenerateAttachedClusterAgentTokenRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -840,7 +899,9 @@ pub mod attached_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -919,7 +980,9 @@ pub mod attached_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -965,7 +1028,9 @@ pub mod attached_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1011,7 +1076,9 @@ pub mod attached_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1055,7 +1122,6 @@ pub mod attached_clusters {
 
 pub mod aws_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AwsClusters][super::super::client::AwsClusters].
     ///
@@ -1088,7 +1154,7 @@ pub mod aws_clusters {
     /// Common implementation for [super::super::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1097,7 +1163,9 @@ pub mod aws_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1111,7 +1179,9 @@ pub mod aws_clusters {
     pub struct CreateAwsCluster(RequestBuilder<crate::model::CreateAwsClusterRequest>);
 
     impl CreateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1177,12 +1247,16 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
             mut self,
             v: T,
@@ -1192,6 +1266,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster_id][crate::model::CreateAwsClusterRequest::aws_cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster_id = v.into();
             self
@@ -1216,7 +1292,9 @@ pub mod aws_clusters {
     pub struct UpdateAwsCluster(RequestBuilder<crate::model::UpdateAwsClusterRequest>);
 
     impl UpdateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1282,6 +1360,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
             mut self,
             v: T,
@@ -1297,6 +1377,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1318,7 +1400,9 @@ pub mod aws_clusters {
     pub struct GetAwsCluster(RequestBuilder<crate::model::GetAwsClusterRequest>);
 
     impl GetAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1343,6 +1427,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAwsClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1361,7 +1447,9 @@ pub mod aws_clusters {
     pub struct ListAwsClusters(RequestBuilder<crate::model::ListAwsClustersRequest>);
 
     impl ListAwsClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1401,6 +1489,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAwsClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1431,7 +1521,9 @@ pub mod aws_clusters {
     pub struct DeleteAwsCluster(RequestBuilder<crate::model::DeleteAwsClusterRequest>);
 
     impl DeleteAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1494,6 +1586,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1538,7 +1632,9 @@ pub mod aws_clusters {
     );
 
     impl GenerateAwsClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1566,24 +1662,32 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsClusterAgentTokenRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
         }
 
         /// Sets the value of [subject_token][crate::model::GenerateAwsClusterAgentTokenRequest::subject_token].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subject_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token = v.into();
             self
         }
 
         /// Sets the value of [subject_token_type][crate::model::GenerateAwsClusterAgentTokenRequest::subject_token_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subject_token_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token_type = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GenerateAwsClusterAgentTokenRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1638,7 +1742,9 @@ pub mod aws_clusters {
     pub struct GenerateAwsAccessToken(RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>);
 
     impl GenerateAwsAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1666,6 +1772,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsAccessTokenRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
@@ -1684,7 +1792,9 @@ pub mod aws_clusters {
     pub struct CreateAwsNodePool(RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
 
     impl CreateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1750,12 +1860,16 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsNodePoolRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
             mut self,
             v: T,
@@ -1765,6 +1879,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_node_pool_id][crate::model::CreateAwsNodePoolRequest::aws_node_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_node_pool_id = v.into();
             self
@@ -1789,7 +1905,9 @@ pub mod aws_clusters {
     pub struct UpdateAwsNodePool(RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
 
     impl UpdateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1855,6 +1973,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
             mut self,
             v: T,
@@ -1870,6 +1990,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1893,7 +2015,9 @@ pub mod aws_clusters {
     );
 
     impl RollbackAwsNodePoolUpdate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1959,6 +2083,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::RollbackAwsNodePoolUpdateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1983,7 +2109,9 @@ pub mod aws_clusters {
     pub struct GetAwsNodePool(RequestBuilder<crate::model::GetAwsNodePoolRequest>);
 
     impl GetAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2008,6 +2136,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAwsNodePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2026,7 +2156,9 @@ pub mod aws_clusters {
     pub struct ListAwsNodePools(RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
 
     impl ListAwsNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2069,6 +2201,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAwsNodePoolsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2099,7 +2233,9 @@ pub mod aws_clusters {
     pub struct DeleteAwsNodePool(RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
 
     impl DeleteAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2162,6 +2298,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsNodePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2204,7 +2342,9 @@ pub mod aws_clusters {
     pub struct GetAwsOpenIdConfig(RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>);
 
     impl GetAwsOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2232,6 +2372,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsOpenIdConfigRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
@@ -2250,7 +2392,9 @@ pub mod aws_clusters {
     pub struct GetAwsJsonWebKeys(RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
 
     impl GetAwsJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2278,6 +2422,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsJsonWebKeysRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
@@ -2296,7 +2442,9 @@ pub mod aws_clusters {
     pub struct GetAwsServerConfig(RequestBuilder<crate::model::GetAwsServerConfigRequest>);
 
     impl GetAwsServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2324,6 +2472,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAwsServerConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2342,7 +2492,9 @@ pub mod aws_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2421,7 +2573,9 @@ pub mod aws_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2467,7 +2621,9 @@ pub mod aws_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2513,7 +2669,9 @@ pub mod aws_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2557,7 +2715,6 @@ pub mod aws_clusters {
 
 pub mod azure_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AzureClusters][super::super::client::AzureClusters].
     ///
@@ -2590,7 +2747,7 @@ pub mod azure_clusters {
     /// Common implementation for [super::super::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2599,7 +2756,9 @@ pub mod azure_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2613,7 +2772,9 @@ pub mod azure_clusters {
     pub struct CreateAzureClient(RequestBuilder<crate::model::CreateAzureClientRequest>);
 
     impl CreateAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2679,12 +2840,16 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClientRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_client<T: Into<std::option::Option<crate::model::AzureClient>>>(
             mut self,
             v: T,
@@ -2694,6 +2859,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_client_id][crate::model::CreateAzureClientRequest::azure_client_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_client_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_client_id = v.into();
             self
@@ -2718,7 +2885,9 @@ pub mod azure_clusters {
     pub struct GetAzureClient(RequestBuilder<crate::model::GetAzureClientRequest>);
 
     impl GetAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2743,6 +2912,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureClientRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2761,7 +2932,9 @@ pub mod azure_clusters {
     pub struct ListAzureClients(RequestBuilder<crate::model::ListAzureClientsRequest>);
 
     impl ListAzureClients {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2804,6 +2977,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAzureClientsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2834,7 +3009,9 @@ pub mod azure_clusters {
     pub struct DeleteAzureClient(RequestBuilder<crate::model::DeleteAzureClientRequest>);
 
     impl DeleteAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2897,6 +3074,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClientRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2927,7 +3106,9 @@ pub mod azure_clusters {
     pub struct CreateAzureCluster(RequestBuilder<crate::model::CreateAzureClusterRequest>);
 
     impl CreateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2993,12 +3174,16 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
             mut self,
             v: T,
@@ -3008,6 +3193,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster_id][crate::model::CreateAzureClusterRequest::azure_cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster_id = v.into();
             self
@@ -3032,7 +3219,9 @@ pub mod azure_clusters {
     pub struct UpdateAzureCluster(RequestBuilder<crate::model::UpdateAzureClusterRequest>);
 
     impl UpdateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3098,6 +3287,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
             mut self,
             v: T,
@@ -3113,6 +3304,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3134,7 +3327,9 @@ pub mod azure_clusters {
     pub struct GetAzureCluster(RequestBuilder<crate::model::GetAzureClusterRequest>);
 
     impl GetAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3159,6 +3354,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3177,7 +3374,9 @@ pub mod azure_clusters {
     pub struct ListAzureClusters(RequestBuilder<crate::model::ListAzureClustersRequest>);
 
     impl ListAzureClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3220,6 +3419,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAzureClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3250,7 +3451,9 @@ pub mod azure_clusters {
     pub struct DeleteAzureCluster(RequestBuilder<crate::model::DeleteAzureClusterRequest>);
 
     impl DeleteAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3313,6 +3516,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3357,7 +3562,9 @@ pub mod azure_clusters {
     );
 
     impl GenerateAzureClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3385,24 +3592,32 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureClusterAgentTokenRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
         }
 
         /// Sets the value of [subject_token][crate::model::GenerateAzureClusterAgentTokenRequest::subject_token].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subject_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token = v.into();
             self
         }
 
         /// Sets the value of [subject_token_type][crate::model::GenerateAzureClusterAgentTokenRequest::subject_token_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subject_token_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token_type = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GenerateAzureClusterAgentTokenRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -3459,7 +3674,9 @@ pub mod azure_clusters {
     );
 
     impl GenerateAzureAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3487,6 +3704,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureAccessTokenRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
@@ -3505,7 +3724,9 @@ pub mod azure_clusters {
     pub struct CreateAzureNodePool(RequestBuilder<crate::model::CreateAzureNodePoolRequest>);
 
     impl CreateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3572,12 +3793,16 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureNodePoolRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
             mut self,
             v: T,
@@ -3587,6 +3812,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_node_pool_id][crate::model::CreateAzureNodePoolRequest::azure_node_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_node_pool_id = v.into();
             self
@@ -3611,7 +3838,9 @@ pub mod azure_clusters {
     pub struct UpdateAzureNodePool(RequestBuilder<crate::model::UpdateAzureNodePoolRequest>);
 
     impl UpdateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3678,6 +3907,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
             mut self,
             v: T,
@@ -3693,6 +3924,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3714,7 +3947,9 @@ pub mod azure_clusters {
     pub struct GetAzureNodePool(RequestBuilder<crate::model::GetAzureNodePoolRequest>);
 
     impl GetAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3742,6 +3977,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureNodePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3760,7 +3997,9 @@ pub mod azure_clusters {
     pub struct ListAzureNodePools(RequestBuilder<crate::model::ListAzureNodePoolsRequest>);
 
     impl ListAzureNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3803,6 +4042,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAzureNodePoolsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3833,7 +4074,9 @@ pub mod azure_clusters {
     pub struct DeleteAzureNodePool(RequestBuilder<crate::model::DeleteAzureNodePoolRequest>);
 
     impl DeleteAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3896,6 +4139,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureNodePoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3938,7 +4183,9 @@ pub mod azure_clusters {
     pub struct GetAzureOpenIdConfig(RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>);
 
     impl GetAzureOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3966,6 +4213,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureOpenIdConfigRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
@@ -3984,7 +4233,9 @@ pub mod azure_clusters {
     pub struct GetAzureJsonWebKeys(RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>);
 
     impl GetAzureJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4012,6 +4263,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureJsonWebKeysRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
@@ -4030,7 +4283,9 @@ pub mod azure_clusters {
     pub struct GetAzureServerConfig(RequestBuilder<crate::model::GetAzureServerConfigRequest>);
 
     impl GetAzureServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4058,6 +4313,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureServerConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4076,7 +4333,9 @@ pub mod azure_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4155,7 +4414,9 @@ pub mod azure_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4201,7 +4462,9 @@ pub mod azure_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4247,7 +4510,9 @@ pub mod azure_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

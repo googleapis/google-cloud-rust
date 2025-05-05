@@ -16,7 +16,6 @@
 
 pub mod model_armor {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ModelArmor][super::super::client::ModelArmor].
     ///
@@ -49,7 +48,7 @@ pub mod model_armor {
     /// Common implementation for [super::super::client::ModelArmor] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod model_armor {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod model_armor {
     pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
 
     impl ListTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [parent][crate::model::ListTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod model_armor {
     pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
 
     impl GetTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::GetTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -197,7 +206,9 @@ pub mod model_armor {
     pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
 
     impl CreateTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,18 +233,24 @@ pub mod model_armor {
         }
 
         /// Sets the value of [parent][crate::model::CreateTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [template_id][crate::model::CreateTemplateRequest::template_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_template_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.template_id = v.into();
             self
         }
 
         /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
             mut self,
             v: T,
@@ -261,7 +278,9 @@ pub mod model_armor {
     pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
 
     impl UpdateTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,6 +305,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -295,6 +316,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
             mut self,
             v: T,
@@ -322,7 +345,9 @@ pub mod model_armor {
     pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
 
     impl DeleteTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -347,6 +372,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::DeleteTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -371,7 +398,9 @@ pub mod model_armor {
     pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
 
     impl GetFloorSetting {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,6 +425,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::GetFloorSettingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -414,7 +445,9 @@ pub mod model_armor {
     pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
 
     impl UpdateFloorSetting {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -442,6 +475,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_floor_setting<T: Into<std::option::Option<crate::model::FloorSetting>>>(
             mut self,
             v: T,
@@ -472,7 +507,9 @@ pub mod model_armor {
     pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
 
     impl SanitizeUserPrompt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -500,12 +537,16 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::SanitizeUserPromptRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user_prompt_data<T: Into<std::option::Option<crate::model::DataItem>>>(
             mut self,
             v: T,
@@ -527,7 +568,9 @@ pub mod model_armor {
     pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
 
     impl SanitizeModelResponse {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -555,12 +598,16 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::SanitizeModelResponseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_response_data<T: Into<std::option::Option<crate::model::DataItem>>>(
             mut self,
             v: T,
@@ -588,7 +635,9 @@ pub mod model_armor {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -667,7 +716,9 @@ pub mod model_armor {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

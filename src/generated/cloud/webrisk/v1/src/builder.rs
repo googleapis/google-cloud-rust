@@ -16,7 +16,6 @@
 
 pub mod web_risk_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [WebRiskService][super::super::client::WebRiskService].
     ///
@@ -49,7 +48,7 @@ pub mod web_risk_service {
     /// Common implementation for [super::super::client::WebRiskService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod web_risk_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod web_risk_service {
     pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
 
     impl ComputeThreatListDiff {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,6 +103,8 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_threat_type<T: Into<crate::model::ThreatType>>(mut self, v: T) -> Self {
             self.0.request.threat_type = v.into();
             self
@@ -112,6 +117,8 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_constraints<
             T: Into<std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>>,
         >(
@@ -135,7 +142,9 @@ pub mod web_risk_service {
     pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
 
     impl SearchUris {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -160,12 +169,16 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.uri = v.into();
             self
         }
 
         /// Sets the value of [threat_types][crate::model::SearchUrisRequest::threat_types].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -189,7 +202,9 @@ pub mod web_risk_service {
     pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
 
     impl SearchHashes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -220,6 +235,8 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [threat_types][crate::model::SearchHashesRequest::threat_types].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -243,7 +260,9 @@ pub mod web_risk_service {
     pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
 
     impl CreateSubmission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -271,12 +290,16 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
             mut self,
             v: T,
@@ -298,7 +321,9 @@ pub mod web_risk_service {
     pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
 
     impl SubmitUri {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,12 +386,16 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
             mut self,
             v: T,
@@ -406,7 +435,9 @@ pub mod web_risk_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -485,7 +516,9 @@ pub mod web_risk_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -531,7 +564,9 @@ pub mod web_risk_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -577,7 +612,9 @@ pub mod web_risk_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

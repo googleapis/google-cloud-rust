@@ -16,7 +16,6 @@
 
 pub mod dataset_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DatasetService][super::super::client::DatasetService].
     ///
@@ -49,7 +48,7 @@ pub mod dataset_service {
     /// Common implementation for [super::super::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatasetService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dataset_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod dataset_service {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,12 +100,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -136,7 +143,9 @@ pub mod dataset_service {
     pub struct InsertDataset(RequestBuilder<crate::model::InsertDatasetRequest>);
 
     impl InsertDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -161,12 +170,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::InsertDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::InsertDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -194,7 +207,9 @@ pub mod dataset_service {
     pub struct PatchDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl PatchDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,18 +237,24 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -272,7 +293,9 @@ pub mod dataset_service {
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl UpdateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -300,18 +323,24 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -350,7 +379,9 @@ pub mod dataset_service {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -375,12 +406,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -405,7 +440,9 @@ pub mod dataset_service {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -430,6 +467,8 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListDatasetsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -475,7 +514,9 @@ pub mod dataset_service {
     pub struct UndeleteDataset(RequestBuilder<crate::model::UndeleteDatasetRequest>);
 
     impl UndeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -500,12 +541,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::UndeleteDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UndeleteDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -531,7 +576,6 @@ pub mod dataset_service {
 
 pub mod model_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ModelService][super::super::client::ModelService].
     ///
@@ -564,7 +608,7 @@ pub mod model_service {
     /// Common implementation for [super::super::client::ModelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ModelService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -573,7 +617,9 @@ pub mod model_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -587,7 +633,9 @@ pub mod model_service {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -612,18 +660,24 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetModelRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetModelRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [model_id][crate::model::GetModelRequest::model_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model_id = v.into();
             self
@@ -642,7 +696,9 @@ pub mod model_service {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -667,12 +723,16 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListModelsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListModelsRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -706,7 +766,9 @@ pub mod model_service {
     pub struct PatchModel(RequestBuilder<crate::model::PatchModelRequest>);
 
     impl PatchModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -731,24 +793,32 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::PatchModelRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::PatchModelRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [model_id][crate::model::PatchModelRequest::model_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model_id = v.into();
             self
         }
 
         /// Sets the value of [model][crate::model::PatchModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
             mut self,
             v: T,
@@ -770,7 +840,9 @@ pub mod model_service {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -795,18 +867,24 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteModelRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteModelRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [model_id][crate::model::DeleteModelRequest::model_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model_id = v.into();
             self
@@ -823,7 +901,6 @@ pub mod model_service {
 
 pub mod project_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ProjectService][super::super::client::ProjectService].
     ///
@@ -856,7 +933,7 @@ pub mod project_service {
     /// Common implementation for [super::super::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProjectService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -865,7 +942,9 @@ pub mod project_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -879,7 +958,9 @@ pub mod project_service {
     pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
 
     impl GetServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -907,6 +988,8 @@ pub mod project_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetServiceAccountRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -923,7 +1006,6 @@ pub mod project_service {
 
 pub mod routine_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RoutineService][super::super::client::RoutineService].
     ///
@@ -956,7 +1038,7 @@ pub mod routine_service {
     /// Common implementation for [super::super::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RoutineService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -965,7 +1047,9 @@ pub mod routine_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -979,7 +1063,9 @@ pub mod routine_service {
     pub struct GetRoutine(RequestBuilder<crate::model::GetRoutineRequest>);
 
     impl GetRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1004,18 +1090,24 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine_id][crate::model::GetRoutineRequest::routine_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.routine_id = v.into();
             self
@@ -1034,7 +1126,9 @@ pub mod routine_service {
     pub struct InsertRoutine(RequestBuilder<crate::model::InsertRoutineRequest>);
 
     impl InsertRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1059,18 +1153,24 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::InsertRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::InsertRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine][crate::model::InsertRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
             mut self,
             v: T,
@@ -1092,7 +1192,9 @@ pub mod routine_service {
     pub struct UpdateRoutine(RequestBuilder<crate::model::UpdateRoutineRequest>);
 
     impl UpdateRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1117,24 +1219,32 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine_id][crate::model::UpdateRoutineRequest::routine_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.routine_id = v.into();
             self
         }
 
         /// Sets the value of [routine][crate::model::UpdateRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
             mut self,
             v: T,
@@ -1156,7 +1266,9 @@ pub mod routine_service {
     pub struct DeleteRoutine(RequestBuilder<crate::model::DeleteRoutineRequest>);
 
     impl DeleteRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1181,18 +1293,24 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine_id][crate::model::DeleteRoutineRequest::routine_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.routine_id = v.into();
             self
@@ -1211,7 +1329,9 @@ pub mod routine_service {
     pub struct ListRoutines(RequestBuilder<crate::model::ListRoutinesRequest>);
 
     impl ListRoutines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1236,12 +1356,16 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListRoutinesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListRoutinesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -1279,7 +1403,6 @@ pub mod routine_service {
 
 pub mod row_access_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RowAccessPolicyService][super::super::client::RowAccessPolicyService].
     ///
@@ -1312,7 +1435,7 @@ pub mod row_access_policy_service {
     /// Common implementation for [super::super::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1322,7 +1445,7 @@ pub mod row_access_policy_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self {
                 stub,
@@ -1338,7 +1461,7 @@ pub mod row_access_policy_service {
 
     impl ListRowAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1382,18 +1505,24 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListRowAccessPoliciesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListRowAccessPoliciesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::ListRowAccessPoliciesRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -1425,7 +1554,7 @@ pub mod row_access_policy_service {
 
     impl GetRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1454,24 +1583,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::GetRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [policy_id][crate::model::GetRowAccessPolicyRequest::policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
@@ -1491,7 +1628,7 @@ pub mod row_access_policy_service {
 
     impl CreateRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1520,24 +1657,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::CreateRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::CreateRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::CreateRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_row_access_policy<
             T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
         >(
@@ -1562,7 +1707,7 @@ pub mod row_access_policy_service {
 
     impl UpdateRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1591,30 +1736,40 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::UpdateRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [policy_id][crate::model::UpdateRowAccessPolicyRequest::policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
         }
 
         /// Sets the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_row_access_policy<
             T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
         >(
@@ -1639,7 +1794,7 @@ pub mod row_access_policy_service {
 
     impl DeleteRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1668,24 +1823,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::DeleteRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [policy_id][crate::model::DeleteRowAccessPolicyRequest::policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
@@ -1713,7 +1876,7 @@ pub mod row_access_policy_service {
 
     impl BatchDeleteRowAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1742,30 +1905,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::BatchDeleteRowAccessPoliciesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::BatchDeleteRowAccessPoliciesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::BatchDeleteRowAccessPoliciesRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
-        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
-            self
-        }
-
         /// Sets the value of [policy_ids][crate::model::BatchDeleteRowAccessPoliciesRequest::policy_ids].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1773,6 +1938,12 @@ pub mod row_access_policy_service {
         {
             use std::iter::Iterator;
             self.0.request.policy_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
             self
         }
     }
@@ -1787,7 +1958,6 @@ pub mod row_access_policy_service {
 
 pub mod table_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TableService][super::super::client::TableService].
     ///
@@ -1820,7 +1990,7 @@ pub mod table_service {
     /// Common implementation for [super::super::client::TableService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TableService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1829,7 +1999,9 @@ pub mod table_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1843,7 +2015,9 @@ pub mod table_service {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1868,18 +2042,24 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::GetTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -1913,7 +2093,9 @@ pub mod table_service {
     pub struct InsertTable(RequestBuilder<crate::model::InsertTableRequest>);
 
     impl InsertTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1938,18 +2120,24 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::InsertTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::InsertTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::InsertTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -1971,7 +2159,9 @@ pub mod table_service {
     pub struct PatchTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl PatchTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1999,24 +2189,32 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::UpdateOrPatchTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2044,7 +2242,9 @@ pub mod table_service {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2072,24 +2272,32 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::UpdateOrPatchTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2117,7 +2325,9 @@ pub mod table_service {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2142,18 +2352,24 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::DeleteTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -2172,7 +2388,9 @@ pub mod table_service {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2197,12 +2415,16 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListTablesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListTablesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self

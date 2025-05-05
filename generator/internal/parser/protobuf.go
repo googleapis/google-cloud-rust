@@ -377,6 +377,7 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 	if tz, ok := descriptorpbToTypez[typez]; ok {
 		field.Typez = tz
 	}
+	field.Repeated = in.Label != nil && *in.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED
 
 	switch typez {
 	case descriptorpb.FieldDescriptorProto_TYPE_GROUP:
@@ -386,14 +387,14 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 		// Repeated fields are not optional, they can be empty, but always have
 		// presence.
 		field.Optional = !field.Repeated
-		if message, ok := state.MessageByID[field.TypezID]; ok {
+		if message, ok := state.MessageByID[field.TypezID]; ok && message.IsMap {
 			// Map fields appear as repeated in Protobuf. This is confusing,
 			// as they typically are represented by a single `map<k, v>`-like
 			// datatype. Protobuf leaks the wire-representation of maps, i.e.,
 			// repeated pairs.
-			if message.IsMap {
-				field.Repeated = false
-			}
+			field.Map = true
+			field.Repeated = false
+			field.Optional = false
 		}
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
 		field.TypezID = in.GetTypeName()
@@ -420,7 +421,6 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 	default:
 		slog.Warn("found undefined field", "field", in.GetName())
 	}
-
 }
 
 func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *api.Service {
@@ -429,6 +429,7 @@ func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto,
 		ID:          sFQN,
 		Package:     packagez,
 		DefaultHost: parseDefaultHost(s.GetOptions()),
+		Deprecated:  s.GetOptions().GetDeprecated(),
 	}
 	state.ServiceByID[service.ID] = service
 	return service
@@ -450,6 +451,7 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		ID:                  mFQN,
 		PathInfo:            pathInfo,
 		Name:                m.GetName(),
+		Deprecated:          m.GetOptions().GetDeprecated(),
 		InputTypeID:         m.GetInputType(),
 		OutputTypeID:        outputTypeID,
 		ClientSideStreaming: m.GetClientStreaming(),
@@ -464,10 +466,11 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 
 func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *api.Message) *api.Message {
 	message := &api.Message{
-		Name:    m.GetName(),
-		ID:      mFQN,
-		Parent:  parent,
-		Package: packagez,
+		Name:       m.GetName(),
+		ID:         mFQN,
+		Parent:     parent,
+		Package:    packagez,
+		Deprecated: m.GetOptions().GetDeprecated(),
 	}
 	state.MessageByID[mFQN] = message
 	if opts := m.GetOptions(); opts != nil && opts.GetMapEntry() {
@@ -498,8 +501,8 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 			Name:          mf.GetName(),
 			ID:            mFQN + "." + mf.GetName(),
 			JSONName:      mf.GetJsonName(),
+			Deprecated:    mf.GetOptions().GetDeprecated(),
 			Optional:      isProtoOptional,
-			Repeated:      mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
 			IsOneOf:       mf.OneofIndex != nil && !isProtoOptional,
 			AutoPopulated: protobufIsAutoPopulated(mf),
 			Behavior:      protobufFieldBehavior(mf),
@@ -530,16 +533,19 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 
 func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *api.Message) *api.Enum {
 	enum := &api.Enum{
-		Name:    e.GetName(),
-		Parent:  parent,
-		Package: packagez,
+		Name:       e.GetName(),
+		ID:         eFQN,
+		Parent:     parent,
+		Package:    packagez,
+		Deprecated: e.GetOptions().GetDeprecated(),
 	}
 	state.EnumByID[eFQN] = enum
 	for _, ev := range e.Value {
 		enumValue := &api.EnumValue{
-			Name:   ev.GetName(),
-			Number: ev.GetNumber(),
-			Parent: enum,
+			Name:       ev.GetName(),
+			Number:     ev.GetNumber(),
+			Parent:     enum,
+			Deprecated: ev.GetOptions().GetDeprecated(),
 		}
 		enum.Values = append(enum.Values, enumValue)
 	}

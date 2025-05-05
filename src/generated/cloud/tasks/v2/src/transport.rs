@@ -278,7 +278,7 @@ impl super::stub::CloudTasks for CloudTasks {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("responseView", &req.response_view.value())]);
+        let builder = builder.query(&[("responseView", &req.response_view)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
@@ -300,7 +300,7 @@ impl super::stub::CloudTasks for CloudTasks {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("responseView", &req.response_view.value())]);
+        let builder = builder.query(&[("responseView", &req.response_view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

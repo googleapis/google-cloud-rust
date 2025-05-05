@@ -26,4 +26,5 @@
 //! module.
 
 /// The messages and enums that are part of this client library.
+#[allow(deprecated)]
 pub mod model;

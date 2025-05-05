@@ -89,6 +89,7 @@ pub struct Channel {
 
     /// Output only. Whether or not this Channel satisfies the requirements of
     /// physical zone separation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -215,24 +216,34 @@ pub mod channel {
     use super::*;
 
     /// State lists all the possible states of a Channel
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The PENDING state indicates that a Channel has been created successfully
         /// and there is a new activation token available for the subscriber to use
         /// to convey the Channel to the provider in order to create a Connection.
-        pub const PENDING: State = State::new(1);
-
+        Pending,
         /// The ACTIVE state indicates that a Channel has been successfully
         /// connected with the event provider.
         /// An ACTIVE Channel is ready to receive and route events from the
         /// event provider.
-        pub const ACTIVE: State = State::new(2);
-
+        Active,
         /// The INACTIVE state indicates that the Channel cannot receive events
         /// permanently. There are two possible cases this state can happen:
         ///
@@ -242,50 +253,117 @@ pub mod channel {
         ///
         /// To re-establish a Connection with a provider, the subscriber
         /// should create a new Channel and give it to the provider.
-        pub const INACTIVE: State = State::new(3);
+        Inactive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Inactive => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                3 => std::borrow::Cow::Borrowed("INACTIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Active,
+                3 => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "ACTIVE" => Self::Active,
+                "INACTIVE" => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Inactive => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.eventarc.v1.Channel.State",
+            ))
         }
     }
 
@@ -511,15 +589,6 @@ impl EventType {
         self
     }
 
-    /// Sets the value of [event_schema_uri][crate::model::EventType::event_schema_uri].
-    pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event_schema_uri = v.into();
-        self
-    }
-
     /// Sets the value of [filtering_attributes][crate::model::EventType::filtering_attributes].
     pub fn set_filtering_attributes<T, V>(mut self, v: T) -> Self
     where
@@ -528,6 +597,15 @@ impl EventType {
     {
         use std::iter::Iterator;
         self.filtering_attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [event_schema_uri][crate::model::EventType::event_schema_uri].
+    pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_schema_uri = v.into();
         self
     }
 }
@@ -555,10 +633,12 @@ pub struct FilteringAttribute {
 
     /// Output only. If true, the triggers for this provider should always specify
     /// a filter on these attributes. Trigger creation will fail otherwise.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub required: bool,
 
     /// Output only. If true, the attribute accepts matching expressions in the
     /// Eventarc PathPattern format.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub path_pattern_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -708,30 +788,6 @@ impl Enrollment {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::Enrollment::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [cel_match][crate::model::Enrollment::cel_match].
-    pub fn set_cel_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.cel_match = v.into();
-        self
-    }
-
-    /// Sets the value of [message_bus][crate::model::Enrollment::message_bus].
-    pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.message_bus = v.into();
-        self
-    }
-
-    /// Sets the value of [destination][crate::model::Enrollment::destination].
-    pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Enrollment::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -753,6 +809,30 @@ impl Enrollment {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Enrollment::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [cel_match][crate::model::Enrollment::cel_match].
+    pub fn set_cel_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cel_match = v.into();
+        self
+    }
+
+    /// Sets the value of [message_bus][crate::model::Enrollment::message_bus].
+    pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message_bus = v.into();
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::Enrollment::destination].
+    pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.destination = v.into();
         self
     }
 }
@@ -808,6 +888,7 @@ pub struct ListTriggersRequest {
     /// The maximum number of triggers to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -905,12 +986,6 @@ impl ListTriggersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTriggersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [triggers][crate::model::ListTriggersResponse::triggers].
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
@@ -919,6 +994,12 @@ impl ListTriggersResponse {
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTriggersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -974,6 +1055,7 @@ pub struct CreateTriggerRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1037,10 +1119,12 @@ pub struct UpdateTriggerRequest {
 
     /// If set to true, and the trigger is not found, a new trigger will be
     /// created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1106,10 +1190,12 @@ pub struct DeleteTriggerRequest {
 
     /// If set to true, and the trigger is not found, the request will succeed
     /// but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1197,6 +1283,7 @@ pub struct ListChannelsRequest {
     /// The maximum number of channels to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1282,12 +1369,6 @@ impl ListChannelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [channels][crate::model::ListChannelsResponse::channels].
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
@@ -1296,6 +1377,12 @@ impl ListChannelsResponse {
     {
         use std::iter::Iterator;
         self.channels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1351,6 +1438,7 @@ pub struct CreateChannelRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1414,6 +1502,7 @@ pub struct UpdateChannelRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1468,6 +1557,7 @@ pub struct DeleteChannelRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1541,6 +1631,7 @@ pub struct ListProvidersRequest {
     pub parent: std::string::String,
 
     /// The maximum number of providers to return on each page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1636,12 +1727,6 @@ impl ListProvidersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [providers][crate::model::ListProvidersResponse::providers].
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
@@ -1650,6 +1735,12 @@ impl ListProvidersResponse {
     {
         use std::iter::Iterator;
         self.providers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1730,6 +1821,7 @@ pub struct ListChannelConnectionsRequest {
     /// The maximum number of channel connections to return on each page.
     ///
     /// Note: The service may send fewer responses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1804,12 +1896,6 @@ impl ListChannelConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListChannelConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [channel_connections][crate::model::ListChannelConnectionsResponse::channel_connections].
     pub fn set_channel_connections<T, V>(mut self, v: T) -> Self
     where
@@ -1818,6 +1904,12 @@ impl ListChannelConnectionsResponse {
     {
         use std::iter::Iterator;
         self.channel_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListChannelConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2074,6 +2166,7 @@ pub struct ListMessageBusesRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2170,12 +2263,6 @@ impl ListMessageBusesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMessageBusesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [message_buses][crate::model::ListMessageBusesResponse::message_buses].
     pub fn set_message_buses<T, V>(mut self, v: T) -> Self
     where
@@ -2184,6 +2271,12 @@ impl ListMessageBusesResponse {
     {
         use std::iter::Iterator;
         self.message_buses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMessageBusesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2232,6 +2325,7 @@ pub struct ListMessageBusEnrollmentsRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2304,12 +2398,6 @@ impl ListMessageBusEnrollmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMessageBusEnrollmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [enrollments][crate::model::ListMessageBusEnrollmentsResponse::enrollments].
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
@@ -2318,6 +2406,12 @@ impl ListMessageBusEnrollmentsResponse {
     {
         use std::iter::Iterator;
         self.enrollments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMessageBusEnrollmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2360,6 +2454,7 @@ pub struct CreateMessageBusRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2423,10 +2518,12 @@ pub struct UpdateMessageBusRequest {
 
     /// Optional. If set to true, and the MessageBus is not found, a new MessageBus
     /// will be created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2492,10 +2589,12 @@ pub struct DeleteMessageBusRequest {
 
     /// Optional. If set to true, and the MessageBus is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2583,6 +2682,7 @@ pub struct ListEnrollmentsRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2679,12 +2779,6 @@ impl ListEnrollmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEnrollmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [enrollments][crate::model::ListEnrollmentsResponse::enrollments].
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
@@ -2693,6 +2787,12 @@ impl ListEnrollmentsResponse {
     {
         use std::iter::Iterator;
         self.enrollments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEnrollmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2749,6 +2849,7 @@ pub struct CreateEnrollmentRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2812,10 +2913,12 @@ pub struct UpdateEnrollmentRequest {
 
     /// Optional. If set to true, and the Enrollment is not found, a new Enrollment
     /// will be created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2881,10 +2984,12 @@ pub struct DeleteEnrollmentRequest {
 
     /// Optional. If set to true, and the Enrollment is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2972,6 +3077,7 @@ pub struct ListPipelinesRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -3068,12 +3174,6 @@ impl ListPipelinesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPipelinesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [pipelines][crate::model::ListPipelinesResponse::pipelines].
     pub fn set_pipelines<T, V>(mut self, v: T) -> Self
     where
@@ -3082,6 +3182,12 @@ impl ListPipelinesResponse {
     {
         use std::iter::Iterator;
         self.pipelines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPipelinesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3137,6 +3243,7 @@ pub struct CreatePipelineRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3200,10 +3307,12 @@ pub struct UpdatePipelineRequest {
 
     /// Optional. If set to true, and the Pipeline is not found, a new Pipeline
     /// will be created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3269,10 +3378,12 @@ pub struct DeletePipelineRequest {
 
     /// Optional. If set to true, and the Pipeline is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3360,6 +3471,7 @@ pub struct ListGoogleApiSourcesRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -3456,12 +3568,6 @@ impl ListGoogleApiSourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGoogleApiSourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [google_api_sources][crate::model::ListGoogleApiSourcesResponse::google_api_sources].
     pub fn set_google_api_sources<T, V>(mut self, v: T) -> Self
     where
@@ -3470,6 +3576,12 @@ impl ListGoogleApiSourcesResponse {
     {
         use std::iter::Iterator;
         self.google_api_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGoogleApiSourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3526,6 +3638,7 @@ pub struct CreateGoogleApiSourceRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3595,10 +3708,12 @@ pub struct UpdateGoogleApiSourceRequest {
     /// Optional. If set to true, and the GoogleApiSource is not found, a new
     /// GoogleApiSource will be created. In this situation, `update_mask` is
     /// ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3666,10 +3781,12 @@ pub struct DeleteGoogleApiSourceRequest {
 
     /// Optional. If set to true, and the MessageBus is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3745,6 +3862,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -3922,6 +4040,30 @@ impl GoogleApiSource {
         self
     }
 
+    /// Sets the value of [labels][crate::model::GoogleApiSource::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::GoogleApiSource::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::GoogleApiSource::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -3948,30 +4090,6 @@ impl GoogleApiSource {
         v: T,
     ) -> Self {
         self.logging_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::GoogleApiSource::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::GoogleApiSource::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4092,100 +4210,187 @@ pub mod logging_config {
     /// resources.
     /// This enum is an exhaustive list of log severities and is FROZEN. Do not
     /// expect new values to be added.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSeverity(i32);
-
-    impl LogSeverity {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LogSeverity {
         /// Log severity is not specified. This value is treated the same as NONE,
         /// but is used to distinguish between no update and update to NONE in
         /// update_masks.
-        pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity = LogSeverity::new(0);
-
+        Unspecified,
         /// Default value at resource creation, presence of this value must be
         /// treated as no logging/disable logging.
-        pub const NONE: LogSeverity = LogSeverity::new(1);
-
+        None,
         /// Debug or trace level logging.
-        pub const DEBUG: LogSeverity = LogSeverity::new(2);
-
+        Debug,
         /// Routine information, such as ongoing status or performance.
-        pub const INFO: LogSeverity = LogSeverity::new(3);
-
+        Info,
         /// Normal but significant events, such as start up, shut down, or a
         /// configuration change.
-        pub const NOTICE: LogSeverity = LogSeverity::new(4);
-
+        Notice,
         /// Warning events might cause problems.
-        pub const WARNING: LogSeverity = LogSeverity::new(5);
-
+        Warning,
         /// Error events are likely to cause problems.
-        pub const ERROR: LogSeverity = LogSeverity::new(6);
-
+        Error,
         /// Critical events cause more severe problems or outages.
-        pub const CRITICAL: LogSeverity = LogSeverity::new(7);
-
+        Critical,
         /// A person must take action immediately.
-        pub const ALERT: LogSeverity = LogSeverity::new(8);
-
+        Alert,
         /// One or more systems are unusable.
-        pub const EMERGENCY: LogSeverity = LogSeverity::new(9);
+        Emergency,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LogSeverity::value] or
+        /// [LogSeverity::name].
+        UnknownValue(log_severity::UnknownValue),
+    }
 
-        /// Creates a new LogSeverity instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod log_severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl LogSeverity {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Debug => std::option::Option::Some(2),
+                Self::Info => std::option::Option::Some(3),
+                Self::Notice => std::option::Option::Some(4),
+                Self::Warning => std::option::Option::Some(5),
+                Self::Error => std::option::Option::Some(6),
+                Self::Critical => std::option::Option::Some(7),
+                Self::Alert => std::option::Option::Some(8),
+                Self::Emergency => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("LOG_SEVERITY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NONE"),
-                2 => std::borrow::Cow::Borrowed("DEBUG"),
-                3 => std::borrow::Cow::Borrowed("INFO"),
-                4 => std::borrow::Cow::Borrowed("NOTICE"),
-                5 => std::borrow::Cow::Borrowed("WARNING"),
-                6 => std::borrow::Cow::Borrowed("ERROR"),
-                7 => std::borrow::Cow::Borrowed("CRITICAL"),
-                8 => std::borrow::Cow::Borrowed("ALERT"),
-                9 => std::borrow::Cow::Borrowed("EMERGENCY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("LOG_SEVERITY_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Debug => std::option::Option::Some("DEBUG"),
+                Self::Info => std::option::Option::Some("INFO"),
+                Self::Notice => std::option::Option::Some("NOTICE"),
+                Self::Warning => std::option::Option::Some("WARNING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::Critical => std::option::Option::Some("CRITICAL"),
+                Self::Alert => std::option::Option::Some("ALERT"),
+                Self::Emergency => std::option::Option::Some("EMERGENCY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "LOG_SEVERITY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::LOG_SEVERITY_UNSPECIFIED)
-                }
-                "NONE" => std::option::Option::Some(Self::NONE),
-                "DEBUG" => std::option::Option::Some(Self::DEBUG),
-                "INFO" => std::option::Option::Some(Self::INFO),
-                "NOTICE" => std::option::Option::Some(Self::NOTICE),
-                "WARNING" => std::option::Option::Some(Self::WARNING),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
-                "ALERT" => std::option::Option::Some(Self::ALERT),
-                "EMERGENCY" => std::option::Option::Some(Self::EMERGENCY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for LogSeverity {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for LogSeverity {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LogSeverity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LogSeverity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Debug,
+                3 => Self::Info,
+                4 => Self::Notice,
+                5 => Self::Warning,
+                6 => Self::Error,
+                7 => Self::Critical,
+                8 => Self::Alert,
+                9 => Self::Emergency,
+                _ => Self::UnknownValue(log_severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LogSeverity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOG_SEVERITY_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "DEBUG" => Self::Debug,
+                "INFO" => Self::Info,
+                "NOTICE" => Self::Notice,
+                "WARNING" => Self::Warning,
+                "ERROR" => Self::Error,
+                "CRITICAL" => Self::Critical,
+                "ALERT" => Self::Alert,
+                "EMERGENCY" => Self::Emergency,
+                _ => Self::UnknownValue(log_severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LogSeverity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Debug => serializer.serialize_i32(2),
+                Self::Info => serializer.serialize_i32(3),
+                Self::Notice => serializer.serialize_i32(4),
+                Self::Warning => serializer.serialize_i32(5),
+                Self::Error => serializer.serialize_i32(6),
+                Self::Critical => serializer.serialize_i32(7),
+                Self::Alert => serializer.serialize_i32(8),
+                Self::Emergency => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LogSeverity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogSeverity>::new(
+                ".google.cloud.eventarc.v1.LoggingConfig.LogSeverity",
+            ))
         }
     }
 }
@@ -4295,29 +4500,6 @@ impl MessageBus {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::MessageBus::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_key_name][crate::model::MessageBus::crypto_key_name].
-    pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.crypto_key_name = v.into();
-        self
-    }
-
-    /// Sets the value of [logging_config][crate::model::MessageBus::logging_config].
-    pub fn set_logging_config<
-        T: std::convert::Into<std::option::Option<crate::model::LoggingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logging_config = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::MessageBus::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -4339,6 +4521,29 @@ impl MessageBus {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::MessageBus::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [crypto_key_name][crate::model::MessageBus::crypto_key_name].
+    pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.crypto_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [logging_config][crate::model::MessageBus::logging_config].
+    pub fn set_logging_config<
+        T: std::convert::Into<std::option::Option<crate::model::LoggingConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logging_config = v.into();
         self
     }
 }
@@ -4508,15 +4713,61 @@ impl Pipeline {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Pipeline::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [uid][crate::model::Pipeline::uid].
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Pipeline::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Pipeline::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [destinations][crate::model::Pipeline::destinations].
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pipeline::Destination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mediations][crate::model::Pipeline::mediations].
+    pub fn set_mediations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pipeline::Mediation>,
+    {
+        use std::iter::Iterator;
+        self.mediations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4562,52 +4813,6 @@ impl Pipeline {
     /// Sets the value of [etag][crate::model::Pipeline::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [destinations][crate::model::Pipeline::destinations].
-    pub fn set_destinations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pipeline::Destination>,
-    {
-        use std::iter::Iterator;
-        self.destinations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [mediations][crate::model::Pipeline::mediations].
-    pub fn set_mediations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pipeline::Mediation>,
-    {
-        use std::iter::Iterator;
-        self.mediations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Pipeline::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::Pipeline::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4678,40 +4883,6 @@ pub mod pipeline {
             })
         }
 
-        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// if it holds a `Avro`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn avro(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Avro(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// if it holds a `Json`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn json(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Json(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// to hold a `Protobuf`.
         ///
@@ -4731,6 +4902,23 @@ pub mod pipeline {
             self
         }
 
+        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
+        /// if it holds a `Avro`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn avro(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::pipeline::message_payload_format::Kind::Avro(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// to hold a `Avro`.
         ///
@@ -4748,6 +4936,23 @@ pub mod pipeline {
                 crate::model::pipeline::message_payload_format::Kind::Avro(v.into()),
             );
             self
+        }
+
+        /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
+        /// if it holds a `Json`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn json(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::pipeline::message_payload_format::Kind::Json(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
@@ -5003,45 +5208,6 @@ pub mod pipeline {
             })
         }
 
-        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// if it holds a `Workflow`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn workflow(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// if it holds a `MessageBus`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn message_bus(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// if it holds a `Topic`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn topic(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// to hold a `HttpEndpoint`.
         ///
@@ -5059,6 +5225,19 @@ pub mod pipeline {
             self
         }
 
+        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
+        /// if it holds a `Workflow`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn workflow(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination_descriptor.as_ref().and_then(|v| match v {
+                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// to hold a `Workflow`.
         ///
@@ -5071,6 +5250,19 @@ pub mod pipeline {
             self
         }
 
+        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
+        /// if it holds a `MessageBus`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn message_bus(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination_descriptor.as_ref().and_then(|v| match v {
+                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// to hold a `MessageBus`.
         ///
@@ -5081,6 +5273,19 @@ pub mod pipeline {
                 crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v.into()),
             );
             self
+        }
+
+        /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
+        /// if it holds a `Topic`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn topic(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination_descriptor.as_ref().and_then(|v| match v {
+                crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
@@ -5409,23 +5614,6 @@ pub mod pipeline {
                 })
             }
 
-            /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
-            /// if it holds a `OauthToken`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn oauth_token(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::pipeline::destination::authentication_config::OAuthToken,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.authentication_method_descriptor.as_ref().and_then(|v| match v {
-                    crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// to hold a `GoogleOidc`.
             ///
@@ -5447,6 +5635,23 @@ pub mod pipeline {
                     )
                 );
                 self
+            }
+
+            /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
+            /// if it holds a `OauthToken`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn oauth_token(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::pipeline::destination::authentication_config::OAuthToken,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.authentication_method_descriptor.as_ref().and_then(|v| match v {
+                    crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
@@ -5875,6 +6080,7 @@ pub mod pipeline {
     pub struct RetryPolicy {
         /// Optional. The maximum number of delivery attempts for any message. The
         /// value must be between 1 and 100. The default value for this field is 5.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_attempts: i32,
 
         /// Optional. The minimum amount of seconds to wait between retry attempts.
@@ -6007,6 +6213,7 @@ pub struct Trigger {
 
     /// Output only. Whether or not this Trigger satisfies the requirements of
     /// physical zone separation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. This checksum is computed by the server based on the value of
@@ -6054,6 +6261,17 @@ impl Trigger {
         self
     }
 
+    /// Sets the value of [event_filters][crate::model::Trigger::event_filters].
+    pub fn set_event_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventFilter>,
+    {
+        use std::iter::Iterator;
+        self.event_filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::Trigger::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -6080,9 +6298,33 @@ impl Trigger {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Trigger::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [channel][crate::model::Trigger::channel].
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::Trigger::conditions].
+    pub fn set_conditions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::StateCondition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -6104,41 +6346,6 @@ impl Trigger {
     /// Sets the value of [etag][crate::model::Trigger::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [event_filters][crate::model::Trigger::event_filters].
-    pub fn set_event_filters<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventFilter>,
-    {
-        use std::iter::Iterator;
-        self.event_filters = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Trigger::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [conditions][crate::model::Trigger::conditions].
-    pub fn set_conditions<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::StateCondition>,
-    {
-        use std::iter::Iterator;
-        self.conditions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6311,52 +6518,6 @@ impl Destination {
         })
     }
 
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `CloudFunction`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_function(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::CloudFunction(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `Gke`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::Gke>> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::Gke(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `Workflow`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn workflow(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::Workflow(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [descriptor][crate::model::Destination::descriptor]
-    /// if it holds a `HttpEndpoint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn http_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
-        #[allow(unreachable_patterns)]
-        self.descriptor.as_ref().and_then(|v| match v {
-            crate::model::destination::Descriptor::HttpEndpoint(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
     /// to hold a `CloudRun`.
     ///
@@ -6371,6 +6532,17 @@ impl Destination {
         self
     }
 
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `CloudFunction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_function(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::CloudFunction(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
     /// to hold a `CloudFunction`.
     ///
@@ -6381,6 +6553,17 @@ impl Destination {
             crate::model::destination::Descriptor::CloudFunction(v.into()),
         );
         self
+    }
+
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `Gke`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::Gke>> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::Gke(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
@@ -6397,6 +6580,17 @@ impl Destination {
         self
     }
 
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `Workflow`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn workflow(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::Workflow(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]
     /// to hold a `Workflow`.
     ///
@@ -6406,6 +6600,19 @@ impl Destination {
         self.descriptor =
             std::option::Option::Some(crate::model::destination::Descriptor::Workflow(v.into()));
         self
+    }
+
+    /// The value of [descriptor][crate::model::Destination::descriptor]
+    /// if it holds a `HttpEndpoint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn http_endpoint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
+        #[allow(unreachable_patterns)]
+        self.descriptor.as_ref().and_then(|v| match v {
+            crate::model::destination::Descriptor::HttpEndpoint(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [descriptor][crate::model::Destination::descriptor]

@@ -160,12 +160,18 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub blue: f32,
 
     /// The fraction of this color that should be applied to the pixel. That is,
@@ -180,6 +186,7 @@ pub struct Color {
     /// If omitted, this color object is rendered as a solid color
     /// (as if the alpha value had been explicitly given a value of 1.0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub alpha: std::option::Option<wkt::FloatValue>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -247,15 +254,18 @@ impl wkt::message::Message for Color {
 pub struct Date {
     /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
     /// a year.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub year: i32,
 
     /// Month of a year. Must be from 1 to 12, or 0 to specify a year without a
     /// month and day.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub month: i32,
 
     /// Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
     /// to specify a year by itself or a year and month where the day isn't
     /// significant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -323,29 +333,36 @@ impl wkt::message::Message for Date {
 pub struct DateTime {
     /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
     /// datetime without a year.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub year: i32,
 
     /// Required. Month of year. Must be from 1 to 12.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub month: i32,
 
     /// Required. Day of month. Must be from 1 to 31 and valid for the year and
     /// month.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: i32,
 
     /// Required. Hours of day in 24 hour format. Should be from 0 to 23. An API
     /// may choose to allow the value "24:00:00" for scenarios like business
     /// closing time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hours: i32,
 
     /// Required. Minutes of hour of day. Must be from 0 to 59.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minutes: i32,
 
     /// Required. Seconds of minutes of the time. Must normally be from 0 to 59. An
     /// API may allow the value 60 if it allows leap-seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub seconds: i32,
 
     /// Required. Fractions of seconds in nanoseconds. Must be from 0 to
     /// 999,999,999.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nanos: i32,
 
     /// Optional. Specifies either the UTC offset or the time zone of the DateTime.
@@ -432,17 +449,6 @@ impl DateTime {
         })
     }
 
-    /// The value of [time_offset][crate::model::DateTime::time_offset]
-    /// if it holds a `TimeZone`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
-        #[allow(unreachable_patterns)]
-        self.time_offset.as_ref().and_then(|v| match v {
-            crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
     /// to hold a `UtcOffset`.
     ///
@@ -455,6 +461,17 @@ impl DateTime {
         self.time_offset =
             std::option::Option::Some(crate::model::date_time::TimeOffset::UtcOffset(v.into()));
         self
+    }
+
+    /// The value of [time_offset][crate::model::DateTime::time_offset]
+    /// if it holds a `TimeZone`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
+        #[allow(unreachable_patterns)]
+        self.time_offset.as_ref().and_then(|v| match v {
+            crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
@@ -756,11 +773,13 @@ impl wkt::message::Message for Expr {
 #[non_exhaustive]
 pub struct Fraction {
     /// The numerator in the fraction, e.g. 2 in 2/3.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub numerator: i64,
 
     /// The value by which the numerator is divided, e.g. 3 in 2/3. Must be
     /// positive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub denominator: i64,
 
@@ -862,9 +881,11 @@ impl wkt::message::Message for Interval {
 #[non_exhaustive]
 pub struct LatLng {
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub latitude: f64,
 
     /// The longitude in degrees. It must be in the range [-180.0, +180.0].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub longitude: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -952,6 +973,7 @@ pub struct Money {
 
     /// The whole units of the amount.
     /// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub units: i64,
 
@@ -961,6 +983,7 @@ pub struct Money {
     /// If `units` is zero, `nanos` can be positive, zero, or negative.
     /// If `units` is negative, `nanos` must be negative or zero.
     /// For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1089,6 +1112,17 @@ impl PhoneNumber {
         })
     }
 
+    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
+    /// to hold a `E164Number`.
+    ///
+    /// Note that all the setters affecting `kind` are
+    /// mutually exclusive.
+    pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind =
+            std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
+        self
+    }
+
     /// The value of [kind][crate::model::PhoneNumber::kind]
     /// if it holds a `ShortCode`, `None` if the field is not set or
     /// holds a different branch.
@@ -1100,17 +1134,6 @@ impl PhoneNumber {
             crate::model::phone_number::Kind::ShortCode(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
-    /// to hold a `E164Number`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
-        self
     }
 
     /// Sets the value of [kind][crate::model::PhoneNumber::kind]
@@ -1258,6 +1281,7 @@ pub struct PostalAddress {
     /// the latest revision.
     ///
     /// All new revisions **must** be backward compatible with old revisions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub revision: i32,
 
     /// Required. CLDR region code of the country/region of the address. This
@@ -1415,12 +1439,6 @@ impl PostalAddress {
         self
     }
 
-    /// Sets the value of [organization][crate::model::PostalAddress::organization].
-    pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.organization = v.into();
-        self
-    }
-
     /// Sets the value of [address_lines][crate::model::PostalAddress::address_lines].
     pub fn set_address_lines<T, V>(mut self, v: T) -> Self
     where
@@ -1440,6 +1458,12 @@ impl PostalAddress {
     {
         use std::iter::Iterator;
         self.recipients = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [organization][crate::model::PostalAddress::organization].
+    pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.organization = v.into();
         self
     }
 }
@@ -1515,15 +1539,19 @@ impl wkt::message::Message for PostalAddress {
 #[non_exhaustive]
 pub struct Quaternion {
     /// The x component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: f64,
 
     /// The y component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: f64,
 
     /// The z component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub z: f64,
 
     /// The scalar component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub w: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1579,16 +1607,20 @@ impl wkt::message::Message for Quaternion {
 pub struct TimeOfDay {
     /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
     /// to allow the value "24:00:00" for scenarios like business closing time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hours: i32,
 
     /// Minutes of hour of day. Must be from 0 to 59.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minutes: i32,
 
     /// Seconds of minutes of the time. Must normally be from 0 to 59. An API may
     /// allow the value 60 if it allows leap-seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub seconds: i32,
 
     /// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1634,278 +1666,541 @@ impl wkt::message::Message for TimeOfDay {
 /// A `CalendarPeriod` represents the abstract concept of a time period that has
 /// a canonical start. Grammatically, "the start of the current
 /// `CalendarPeriod`." All calendar times begin at midnight UTC.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CalendarPeriod(i32);
-
-impl CalendarPeriod {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum CalendarPeriod {
     /// Undefined period, raises an error.
-    pub const CALENDAR_PERIOD_UNSPECIFIED: CalendarPeriod = CalendarPeriod::new(0);
-
+    Unspecified,
     /// A day.
-    pub const DAY: CalendarPeriod = CalendarPeriod::new(1);
-
+    Day,
     /// A week. Weeks begin on Monday, following
     /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
-    pub const WEEK: CalendarPeriod = CalendarPeriod::new(2);
-
+    Week,
     /// A fortnight. The first calendar fortnight of the year begins at the start
     /// of week 1 according to
     /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
-    pub const FORTNIGHT: CalendarPeriod = CalendarPeriod::new(3);
-
+    Fortnight,
     /// A month.
-    pub const MONTH: CalendarPeriod = CalendarPeriod::new(4);
-
+    Month,
     /// A quarter. Quarters start on dates 1-Jan, 1-Apr, 1-Jul, and 1-Oct of each
     /// year.
-    pub const QUARTER: CalendarPeriod = CalendarPeriod::new(5);
-
+    Quarter,
     /// A half-year. Half-years start on dates 1-Jan and 1-Jul.
-    pub const HALF: CalendarPeriod = CalendarPeriod::new(6);
-
+    Half,
     /// A year.
-    pub const YEAR: CalendarPeriod = CalendarPeriod::new(7);
+    Year,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [CalendarPeriod::value] or
+    /// [CalendarPeriod::name].
+    UnknownValue(calendar_period::UnknownValue),
+}
 
-    /// Creates a new CalendarPeriod instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod calendar_period {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl CalendarPeriod {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Day => std::option::Option::Some(1),
+            Self::Week => std::option::Option::Some(2),
+            Self::Fortnight => std::option::Option::Some(3),
+            Self::Month => std::option::Option::Some(4),
+            Self::Quarter => std::option::Option::Some(5),
+            Self::Half => std::option::Option::Some(6),
+            Self::Year => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("CALENDAR_PERIOD_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DAY"),
-            2 => std::borrow::Cow::Borrowed("WEEK"),
-            3 => std::borrow::Cow::Borrowed("FORTNIGHT"),
-            4 => std::borrow::Cow::Borrowed("MONTH"),
-            5 => std::borrow::Cow::Borrowed("QUARTER"),
-            6 => std::borrow::Cow::Borrowed("HALF"),
-            7 => std::borrow::Cow::Borrowed("YEAR"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("CALENDAR_PERIOD_UNSPECIFIED"),
+            Self::Day => std::option::Option::Some("DAY"),
+            Self::Week => std::option::Option::Some("WEEK"),
+            Self::Fortnight => std::option::Option::Some("FORTNIGHT"),
+            Self::Month => std::option::Option::Some("MONTH"),
+            Self::Quarter => std::option::Option::Some("QUARTER"),
+            Self::Half => std::option::Option::Some("HALF"),
+            Self::Year => std::option::Option::Some("YEAR"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "CALENDAR_PERIOD_UNSPECIFIED" => {
-                std::option::Option::Some(Self::CALENDAR_PERIOD_UNSPECIFIED)
-            }
-            "DAY" => std::option::Option::Some(Self::DAY),
-            "WEEK" => std::option::Option::Some(Self::WEEK),
-            "FORTNIGHT" => std::option::Option::Some(Self::FORTNIGHT),
-            "MONTH" => std::option::Option::Some(Self::MONTH),
-            "QUARTER" => std::option::Option::Some(Self::QUARTER),
-            "HALF" => std::option::Option::Some(Self::HALF),
-            "YEAR" => std::option::Option::Some(Self::YEAR),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for CalendarPeriod {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for CalendarPeriod {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for CalendarPeriod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for CalendarPeriod {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Day,
+            2 => Self::Week,
+            3 => Self::Fortnight,
+            4 => Self::Month,
+            5 => Self::Quarter,
+            6 => Self::Half,
+            7 => Self::Year,
+            _ => Self::UnknownValue(calendar_period::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for CalendarPeriod {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "CALENDAR_PERIOD_UNSPECIFIED" => Self::Unspecified,
+            "DAY" => Self::Day,
+            "WEEK" => Self::Week,
+            "FORTNIGHT" => Self::Fortnight,
+            "MONTH" => Self::Month,
+            "QUARTER" => Self::Quarter,
+            "HALF" => Self::Half,
+            "YEAR" => Self::Year,
+            _ => Self::UnknownValue(calendar_period::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for CalendarPeriod {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Day => serializer.serialize_i32(1),
+            Self::Week => serializer.serialize_i32(2),
+            Self::Fortnight => serializer.serialize_i32(3),
+            Self::Month => serializer.serialize_i32(4),
+            Self::Quarter => serializer.serialize_i32(5),
+            Self::Half => serializer.serialize_i32(6),
+            Self::Year => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for CalendarPeriod {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<CalendarPeriod>::new(
+            ".google.type.CalendarPeriod",
+        ))
     }
 }
 
 /// Represents a day of the week.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DayOfWeek(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DayOfWeek {
+    /// The day of the week is unspecified.
+    Unspecified,
+    /// Monday
+    Monday,
+    /// Tuesday
+    Tuesday,
+    /// Wednesday
+    Wednesday,
+    /// Thursday
+    Thursday,
+    /// Friday
+    Friday,
+    /// Saturday
+    Saturday,
+    /// Sunday
+    Sunday,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DayOfWeek::value] or
+    /// [DayOfWeek::name].
+    UnknownValue(day_of_week::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod day_of_week {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl DayOfWeek {
-    /// The day of the week is unspecified.
-    pub const DAY_OF_WEEK_UNSPECIFIED: DayOfWeek = DayOfWeek::new(0);
-
-    /// Monday
-    pub const MONDAY: DayOfWeek = DayOfWeek::new(1);
-
-    /// Tuesday
-    pub const TUESDAY: DayOfWeek = DayOfWeek::new(2);
-
-    /// Wednesday
-    pub const WEDNESDAY: DayOfWeek = DayOfWeek::new(3);
-
-    /// Thursday
-    pub const THURSDAY: DayOfWeek = DayOfWeek::new(4);
-
-    /// Friday
-    pub const FRIDAY: DayOfWeek = DayOfWeek::new(5);
-
-    /// Saturday
-    pub const SATURDAY: DayOfWeek = DayOfWeek::new(6);
-
-    /// Sunday
-    pub const SUNDAY: DayOfWeek = DayOfWeek::new(7);
-
-    /// Creates a new DayOfWeek instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Monday => std::option::Option::Some(1),
+            Self::Tuesday => std::option::Option::Some(2),
+            Self::Wednesday => std::option::Option::Some(3),
+            Self::Thursday => std::option::Option::Some(4),
+            Self::Friday => std::option::Option::Some(5),
+            Self::Saturday => std::option::Option::Some(6),
+            Self::Sunday => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("DAY_OF_WEEK_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("MONDAY"),
-            2 => std::borrow::Cow::Borrowed("TUESDAY"),
-            3 => std::borrow::Cow::Borrowed("WEDNESDAY"),
-            4 => std::borrow::Cow::Borrowed("THURSDAY"),
-            5 => std::borrow::Cow::Borrowed("FRIDAY"),
-            6 => std::borrow::Cow::Borrowed("SATURDAY"),
-            7 => std::borrow::Cow::Borrowed("SUNDAY"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DAY_OF_WEEK_UNSPECIFIED"),
+            Self::Monday => std::option::Option::Some("MONDAY"),
+            Self::Tuesday => std::option::Option::Some("TUESDAY"),
+            Self::Wednesday => std::option::Option::Some("WEDNESDAY"),
+            Self::Thursday => std::option::Option::Some("THURSDAY"),
+            Self::Friday => std::option::Option::Some("FRIDAY"),
+            Self::Saturday => std::option::Option::Some("SATURDAY"),
+            Self::Sunday => std::option::Option::Some("SUNDAY"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "DAY_OF_WEEK_UNSPECIFIED" => std::option::Option::Some(Self::DAY_OF_WEEK_UNSPECIFIED),
-            "MONDAY" => std::option::Option::Some(Self::MONDAY),
-            "TUESDAY" => std::option::Option::Some(Self::TUESDAY),
-            "WEDNESDAY" => std::option::Option::Some(Self::WEDNESDAY),
-            "THURSDAY" => std::option::Option::Some(Self::THURSDAY),
-            "FRIDAY" => std::option::Option::Some(Self::FRIDAY),
-            "SATURDAY" => std::option::Option::Some(Self::SATURDAY),
-            "SUNDAY" => std::option::Option::Some(Self::SUNDAY),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DayOfWeek {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DayOfWeek {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DayOfWeek {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DayOfWeek {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Monday,
+            2 => Self::Tuesday,
+            3 => Self::Wednesday,
+            4 => Self::Thursday,
+            5 => Self::Friday,
+            6 => Self::Saturday,
+            7 => Self::Sunday,
+            _ => Self::UnknownValue(day_of_week::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DayOfWeek {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DAY_OF_WEEK_UNSPECIFIED" => Self::Unspecified,
+            "MONDAY" => Self::Monday,
+            "TUESDAY" => Self::Tuesday,
+            "WEDNESDAY" => Self::Wednesday,
+            "THURSDAY" => Self::Thursday,
+            "FRIDAY" => Self::Friday,
+            "SATURDAY" => Self::Saturday,
+            "SUNDAY" => Self::Sunday,
+            _ => Self::UnknownValue(day_of_week::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DayOfWeek {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Monday => serializer.serialize_i32(1),
+            Self::Tuesday => serializer.serialize_i32(2),
+            Self::Wednesday => serializer.serialize_i32(3),
+            Self::Thursday => serializer.serialize_i32(4),
+            Self::Friday => serializer.serialize_i32(5),
+            Self::Saturday => serializer.serialize_i32(6),
+            Self::Sunday => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DayOfWeek {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DayOfWeek>::new(
+            ".google.type.DayOfWeek",
+        ))
     }
 }
 
 /// Represents a month in the Gregorian calendar.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Month(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Month {
+    /// The unspecified month.
+    Unspecified,
+    /// The month of January.
+    January,
+    /// The month of February.
+    February,
+    /// The month of March.
+    March,
+    /// The month of April.
+    April,
+    /// The month of May.
+    May,
+    /// The month of June.
+    June,
+    /// The month of July.
+    July,
+    /// The month of August.
+    August,
+    /// The month of September.
+    September,
+    /// The month of October.
+    October,
+    /// The month of November.
+    November,
+    /// The month of December.
+    December,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Month::value] or
+    /// [Month::name].
+    UnknownValue(month::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod month {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Month {
-    /// The unspecified month.
-    pub const MONTH_UNSPECIFIED: Month = Month::new(0);
-
-    /// The month of January.
-    pub const JANUARY: Month = Month::new(1);
-
-    /// The month of February.
-    pub const FEBRUARY: Month = Month::new(2);
-
-    /// The month of March.
-    pub const MARCH: Month = Month::new(3);
-
-    /// The month of April.
-    pub const APRIL: Month = Month::new(4);
-
-    /// The month of May.
-    pub const MAY: Month = Month::new(5);
-
-    /// The month of June.
-    pub const JUNE: Month = Month::new(6);
-
-    /// The month of July.
-    pub const JULY: Month = Month::new(7);
-
-    /// The month of August.
-    pub const AUGUST: Month = Month::new(8);
-
-    /// The month of September.
-    pub const SEPTEMBER: Month = Month::new(9);
-
-    /// The month of October.
-    pub const OCTOBER: Month = Month::new(10);
-
-    /// The month of November.
-    pub const NOVEMBER: Month = Month::new(11);
-
-    /// The month of December.
-    pub const DECEMBER: Month = Month::new(12);
-
-    /// Creates a new Month instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::January => std::option::Option::Some(1),
+            Self::February => std::option::Option::Some(2),
+            Self::March => std::option::Option::Some(3),
+            Self::April => std::option::Option::Some(4),
+            Self::May => std::option::Option::Some(5),
+            Self::June => std::option::Option::Some(6),
+            Self::July => std::option::Option::Some(7),
+            Self::August => std::option::Option::Some(8),
+            Self::September => std::option::Option::Some(9),
+            Self::October => std::option::Option::Some(10),
+            Self::November => std::option::Option::Some(11),
+            Self::December => std::option::Option::Some(12),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("MONTH_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("JANUARY"),
-            2 => std::borrow::Cow::Borrowed("FEBRUARY"),
-            3 => std::borrow::Cow::Borrowed("MARCH"),
-            4 => std::borrow::Cow::Borrowed("APRIL"),
-            5 => std::borrow::Cow::Borrowed("MAY"),
-            6 => std::borrow::Cow::Borrowed("JUNE"),
-            7 => std::borrow::Cow::Borrowed("JULY"),
-            8 => std::borrow::Cow::Borrowed("AUGUST"),
-            9 => std::borrow::Cow::Borrowed("SEPTEMBER"),
-            10 => std::borrow::Cow::Borrowed("OCTOBER"),
-            11 => std::borrow::Cow::Borrowed("NOVEMBER"),
-            12 => std::borrow::Cow::Borrowed("DECEMBER"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("MONTH_UNSPECIFIED"),
+            Self::January => std::option::Option::Some("JANUARY"),
+            Self::February => std::option::Option::Some("FEBRUARY"),
+            Self::March => std::option::Option::Some("MARCH"),
+            Self::April => std::option::Option::Some("APRIL"),
+            Self::May => std::option::Option::Some("MAY"),
+            Self::June => std::option::Option::Some("JUNE"),
+            Self::July => std::option::Option::Some("JULY"),
+            Self::August => std::option::Option::Some("AUGUST"),
+            Self::September => std::option::Option::Some("SEPTEMBER"),
+            Self::October => std::option::Option::Some("OCTOBER"),
+            Self::November => std::option::Option::Some("NOVEMBER"),
+            Self::December => std::option::Option::Some("DECEMBER"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "MONTH_UNSPECIFIED" => std::option::Option::Some(Self::MONTH_UNSPECIFIED),
-            "JANUARY" => std::option::Option::Some(Self::JANUARY),
-            "FEBRUARY" => std::option::Option::Some(Self::FEBRUARY),
-            "MARCH" => std::option::Option::Some(Self::MARCH),
-            "APRIL" => std::option::Option::Some(Self::APRIL),
-            "MAY" => std::option::Option::Some(Self::MAY),
-            "JUNE" => std::option::Option::Some(Self::JUNE),
-            "JULY" => std::option::Option::Some(Self::JULY),
-            "AUGUST" => std::option::Option::Some(Self::AUGUST),
-            "SEPTEMBER" => std::option::Option::Some(Self::SEPTEMBER),
-            "OCTOBER" => std::option::Option::Some(Self::OCTOBER),
-            "NOVEMBER" => std::option::Option::Some(Self::NOVEMBER),
-            "DECEMBER" => std::option::Option::Some(Self::DECEMBER),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Month {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Month {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Month {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Month {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::January,
+            2 => Self::February,
+            3 => Self::March,
+            4 => Self::April,
+            5 => Self::May,
+            6 => Self::June,
+            7 => Self::July,
+            8 => Self::August,
+            9 => Self::September,
+            10 => Self::October,
+            11 => Self::November,
+            12 => Self::December,
+            _ => Self::UnknownValue(month::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Month {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MONTH_UNSPECIFIED" => Self::Unspecified,
+            "JANUARY" => Self::January,
+            "FEBRUARY" => Self::February,
+            "MARCH" => Self::March,
+            "APRIL" => Self::April,
+            "MAY" => Self::May,
+            "JUNE" => Self::June,
+            "JULY" => Self::July,
+            "AUGUST" => Self::August,
+            "SEPTEMBER" => Self::September,
+            "OCTOBER" => Self::October,
+            "NOVEMBER" => Self::November,
+            "DECEMBER" => Self::December,
+            _ => Self::UnknownValue(month::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Month {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::January => serializer.serialize_i32(1),
+            Self::February => serializer.serialize_i32(2),
+            Self::March => serializer.serialize_i32(3),
+            Self::April => serializer.serialize_i32(4),
+            Self::May => serializer.serialize_i32(5),
+            Self::June => serializer.serialize_i32(6),
+            Self::July => serializer.serialize_i32(7),
+            Self::August => serializer.serialize_i32(8),
+            Self::September => serializer.serialize_i32(9),
+            Self::October => serializer.serialize_i32(10),
+            Self::November => serializer.serialize_i32(11),
+            Self::December => serializer.serialize_i32(12),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Month {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Month>::new(
+            ".google.type.Month",
+        ))
     }
 }

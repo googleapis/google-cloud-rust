@@ -490,6 +490,61 @@ mod test {
         assert_eq!(actual, token2);
     }
 
+    #[tokio::test(start_paused = true)]
+    async fn refresh_task_loop_long_expiry_waits_long_time_before_refresh() {
+        let now = Instant::now();
+
+        let token1 = Token {
+            token: "token1".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some((now + 3 * NORMAL_REFRESH_SLACK).into_std()),
+            metadata: None,
+        };
+        let token1_clone = token1.clone();
+
+        let token2 = Token {
+            token: "token2".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some((now + 2 * TOKEN_VALID_DURATION).into_std()),
+            metadata: None,
+        };
+        let token2_clone = token2.clone();
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(token1_clone));
+
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(token2_clone));
+
+        let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
+
+        // check that channel has None before refresh task starts
+        let actual = rx.borrow().clone();
+        assert!(actual.is_none());
+
+        tokio::spawn(async move {
+            refresh_task(mock, tx).await;
+        });
+
+        rx.changed().await.unwrap();
+
+        tokio::time::advance(NORMAL_REFRESH_SLACK).await;
+
+        let actual = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual, token1);
+
+        tokio::time::advance(NORMAL_REFRESH_SLACK).await;
+        let actual = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual, token1);
+
+        tokio::time::advance(2 * NORMAL_REFRESH_SLACK).await;
+        let actual = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual, token2);
+    }
+
     #[derive(Clone, Debug)]
     struct FakeTokenProvider {
         result: Result<Token>,

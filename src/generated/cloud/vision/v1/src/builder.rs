@@ -16,7 +16,6 @@
 
 pub mod image_annotator {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ImageAnnotator][super::super::client::ImageAnnotator].
     ///
@@ -49,7 +48,7 @@ pub mod image_annotator {
     /// Common implementation for [super::super::client::ImageAnnotator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod image_annotator {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod image_annotator {
     pub struct BatchAnnotateImages(RequestBuilder<crate::model::BatchAnnotateImagesRequest>);
 
     impl BatchAnnotateImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,13 +102,9 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -113,6 +112,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -140,7 +145,9 @@ pub mod image_annotator {
     pub struct BatchAnnotateFiles(RequestBuilder<crate::model::BatchAnnotateFilesRequest>);
 
     impl BatchAnnotateFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,13 +174,9 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -181,6 +184,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -210,7 +219,9 @@ pub mod image_annotator {
     );
 
     impl AsyncBatchAnnotateImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -280,7 +291,22 @@ pub mod image_annotator {
             lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
+        /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_requests<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AnnotateImageRequest>,
+        {
+            use std::iter::Iterator;
+            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
             mut self,
             v: T,
@@ -292,17 +318,6 @@ pub mod image_annotator {
         /// Sets the value of [parent][crate::model::AsyncBatchAnnotateImagesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
-        pub fn set_requests<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AnnotateImageRequest>,
-        {
-            use std::iter::Iterator;
-            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -332,7 +347,9 @@ pub mod image_annotator {
     );
 
     impl AsyncBatchAnnotateFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -402,13 +419,9 @@ pub mod image_annotator {
             lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -416,6 +429,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -443,7 +462,9 @@ pub mod image_annotator {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -487,7 +508,6 @@ pub mod image_annotator {
 
 pub mod product_search {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ProductSearch][super::super::client::ProductSearch].
     ///
@@ -520,7 +540,7 @@ pub mod product_search {
     /// Common implementation for [super::super::client::ProductSearch] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -529,7 +549,9 @@ pub mod product_search {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -543,7 +565,9 @@ pub mod product_search {
     pub struct CreateProductSet(RequestBuilder<crate::model::CreateProductSetRequest>);
 
     impl CreateProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -571,12 +595,16 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::CreateProductSetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [product_set][crate::model::CreateProductSetRequest::product_set].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
             mut self,
             v: T,
@@ -604,7 +632,9 @@ pub mod product_search {
     pub struct ListProductSets(RequestBuilder<crate::model::ListProductSetsRequest>);
 
     impl ListProductSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,6 +674,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::ListProductSetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -674,7 +706,9 @@ pub mod product_search {
     pub struct GetProductSet(RequestBuilder<crate::model::GetProductSetRequest>);
 
     impl GetProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -699,6 +733,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::GetProductSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -717,7 +753,9 @@ pub mod product_search {
     pub struct UpdateProductSet(RequestBuilder<crate::model::UpdateProductSetRequest>);
 
     impl UpdateProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -745,6 +783,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
             mut self,
             v: T,
@@ -775,7 +815,9 @@ pub mod product_search {
     pub struct DeleteProductSet(RequestBuilder<crate::model::DeleteProductSetRequest>);
 
     impl DeleteProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -803,6 +845,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::DeleteProductSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -821,7 +865,9 @@ pub mod product_search {
     pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
 
     impl CreateProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -846,12 +892,16 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [product][crate::model::CreateProductRequest::product].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
             mut self,
             v: T,
@@ -879,7 +929,9 @@ pub mod product_search {
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -919,6 +971,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -949,7 +1003,9 @@ pub mod product_search {
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -974,6 +1030,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -992,7 +1050,9 @@ pub mod product_search {
     pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
 
     impl UpdateProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1017,6 +1077,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
             mut self,
             v: T,
@@ -1047,7 +1109,9 @@ pub mod product_search {
     pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
 
     impl DeleteProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1072,6 +1136,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::DeleteProductRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1090,7 +1156,9 @@ pub mod product_search {
     pub struct CreateReferenceImage(RequestBuilder<crate::model::CreateReferenceImageRequest>);
 
     impl CreateReferenceImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1118,12 +1186,16 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::CreateReferenceImageRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_reference_image<T: Into<std::option::Option<crate::model::ReferenceImage>>>(
             mut self,
             v: T,
@@ -1151,7 +1223,9 @@ pub mod product_search {
     pub struct DeleteReferenceImage(RequestBuilder<crate::model::DeleteReferenceImageRequest>);
 
     impl DeleteReferenceImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1179,6 +1253,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::DeleteReferenceImageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1197,7 +1273,9 @@ pub mod product_search {
     pub struct ListReferenceImages(RequestBuilder<crate::model::ListReferenceImagesRequest>);
 
     impl ListReferenceImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1240,6 +1318,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::ListReferenceImagesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1270,7 +1350,9 @@ pub mod product_search {
     pub struct GetReferenceImage(RequestBuilder<crate::model::GetReferenceImageRequest>);
 
     impl GetReferenceImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1298,6 +1380,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::GetReferenceImageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1316,7 +1400,9 @@ pub mod product_search {
     pub struct AddProductToProductSet(RequestBuilder<crate::model::AddProductToProductSetRequest>);
 
     impl AddProductToProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1344,12 +1430,16 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::AddProductToProductSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [product][crate::model::AddProductToProductSetRequest::product].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.product = v.into();
             self
@@ -1370,7 +1460,9 @@ pub mod product_search {
     );
 
     impl RemoveProductFromProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1398,12 +1490,16 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::RemoveProductFromProductSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [product][crate::model::RemoveProductFromProductSetRequest::product].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.product = v.into();
             self
@@ -1424,7 +1520,9 @@ pub mod product_search {
     );
 
     impl ListProductsInProductSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1469,6 +1567,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [name][crate::model::ListProductsInProductSetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1499,7 +1599,9 @@ pub mod product_search {
     pub struct ImportProductSets(RequestBuilder<crate::model::ImportProductSetsRequest>);
 
     impl ImportProductSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1570,12 +1672,16 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_input_config<
             T: Into<std::option::Option<crate::model::ImportProductSetsInputConfig>>,
         >(
@@ -1599,7 +1705,9 @@ pub mod product_search {
     pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
 
     impl PurgeProducts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1659,6 +1767,8 @@ pub mod product_search {
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1720,7 +1830,9 @@ pub mod product_search {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

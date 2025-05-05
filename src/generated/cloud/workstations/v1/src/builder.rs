@@ -16,7 +16,6 @@
 
 pub mod workstations {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Workstations][super::super::client::Workstations].
     ///
@@ -49,7 +48,7 @@ pub mod workstations {
     /// Common implementation for [super::super::client::Workstations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Workstations>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod workstations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod workstations {
     pub struct GetWorkstationCluster(RequestBuilder<crate::model::GetWorkstationClusterRequest>);
 
     impl GetWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,6 +103,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -120,7 +125,9 @@ pub mod workstations {
     );
 
     impl ListWorkstationClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,6 +172,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -197,7 +206,9 @@ pub mod workstations {
     );
 
     impl CreateWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,18 +275,24 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workstation_cluster_id][crate::model::CreateWorkstationClusterRequest::workstation_cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation_cluster_id = v.into();
             self
         }
 
         /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_cluster<
             T: Into<std::option::Option<crate::model::WorkstationCluster>>,
         >(
@@ -307,7 +324,9 @@ pub mod workstations {
     );
 
     impl UpdateWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,6 +393,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_cluster<
             T: Into<std::option::Option<crate::model::WorkstationCluster>>,
         >(
@@ -385,6 +406,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -420,7 +443,9 @@ pub mod workstations {
     );
 
     impl DeleteWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -487,6 +512,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -523,7 +550,9 @@ pub mod workstations {
     pub struct GetWorkstationConfig(RequestBuilder<crate::model::GetWorkstationConfigRequest>);
 
     impl GetWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -551,6 +580,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -569,7 +600,9 @@ pub mod workstations {
     pub struct ListWorkstationConfigs(RequestBuilder<crate::model::ListWorkstationConfigsRequest>);
 
     impl ListWorkstationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -614,6 +647,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -646,7 +681,9 @@ pub mod workstations {
     );
 
     impl ListUsableWorkstationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -691,6 +728,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListUsableWorkstationConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -723,7 +762,9 @@ pub mod workstations {
     );
 
     impl CreateWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -790,18 +831,24 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workstation_config_id][crate::model::CreateWorkstationConfigRequest::workstation_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation_config_id = v.into();
             self
         }
 
         /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_config<
             T: Into<std::option::Option<crate::model::WorkstationConfig>>,
         >(
@@ -833,7 +880,9 @@ pub mod workstations {
     );
 
     impl UpdateWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -900,6 +949,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_config<
             T: Into<std::option::Option<crate::model::WorkstationConfig>>,
         >(
@@ -911,6 +962,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -946,7 +999,9 @@ pub mod workstations {
     );
 
     impl DeleteWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1013,6 +1068,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1049,7 +1106,9 @@ pub mod workstations {
     pub struct GetWorkstation(RequestBuilder<crate::model::GetWorkstationRequest>);
 
     impl GetWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1074,6 +1133,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1092,7 +1153,9 @@ pub mod workstations {
     pub struct ListWorkstations(RequestBuilder<crate::model::ListWorkstationsRequest>);
 
     impl ListWorkstations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1135,6 +1198,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1165,7 +1230,9 @@ pub mod workstations {
     pub struct ListUsableWorkstations(RequestBuilder<crate::model::ListUsableWorkstationsRequest>);
 
     impl ListUsableWorkstations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1210,6 +1277,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListUsableWorkstationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1240,7 +1309,9 @@ pub mod workstations {
     pub struct CreateWorkstation(RequestBuilder<crate::model::CreateWorkstationRequest>);
 
     impl CreateWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1306,18 +1377,24 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workstation_id][crate::model::CreateWorkstationRequest::workstation_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation_id = v.into();
             self
         }
 
         /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
             mut self,
             v: T,
@@ -1345,7 +1422,9 @@ pub mod workstations {
     pub struct UpdateWorkstation(RequestBuilder<crate::model::UpdateWorkstationRequest>);
 
     impl UpdateWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1411,6 +1490,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
             mut self,
             v: T,
@@ -1420,6 +1501,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1453,7 +1536,9 @@ pub mod workstations {
     pub struct DeleteWorkstation(RequestBuilder<crate::model::DeleteWorkstationRequest>);
 
     impl DeleteWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1519,6 +1604,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1549,7 +1636,9 @@ pub mod workstations {
     pub struct StartWorkstation(RequestBuilder<crate::model::StartWorkstationRequest>);
 
     impl StartWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1615,6 +1704,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::StartWorkstationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1645,7 +1736,9 @@ pub mod workstations {
     pub struct StopWorkstation(RequestBuilder<crate::model::StopWorkstationRequest>);
 
     impl StopWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1708,6 +1801,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::StopWorkstationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1738,7 +1833,9 @@ pub mod workstations {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1766,6 +1863,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation][crate::model::GenerateAccessTokenRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workstation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation = v.into();
             self
@@ -1824,7 +1923,9 @@ pub mod workstations {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1849,12 +1950,16 @@ pub mod workstations {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1885,7 +1990,9 @@ pub mod workstations {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1910,6 +2017,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1937,7 +2046,9 @@ pub mod workstations {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1965,12 +2076,16 @@ pub mod workstations {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1994,7 +2109,9 @@ pub mod workstations {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2073,7 +2190,9 @@ pub mod workstations {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2119,7 +2238,9 @@ pub mod workstations {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2165,7 +2286,9 @@ pub mod workstations {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

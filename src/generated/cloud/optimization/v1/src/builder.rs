@@ -16,7 +16,6 @@
 
 pub mod fleet_routing {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [FleetRouting][super::super::client::FleetRouting].
     ///
@@ -49,7 +48,7 @@ pub mod fleet_routing {
     /// Common implementation for [super::super::client::FleetRouting] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod fleet_routing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod fleet_routing {
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
     impl OptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +100,8 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [parent][crate::model::OptimizeToursRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -135,6 +140,18 @@ pub mod fleet_routing {
             self
         }
 
+        /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
+        pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ShipmentRoute>,
+        {
+            use std::iter::Iterator;
+            self.0.request.injected_first_solution_routes =
+                v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
         pub fn set_injected_solution_constraint<
             T: Into<std::option::Option<crate::model::InjectedSolutionConstraint>>,
@@ -143,6 +160,17 @@ pub mod fleet_routing {
             v: T,
         ) -> Self {
             self.0.request.injected_solution_constraint = v.into();
+            self
+        }
+
+        /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
+        pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ShipmentRoute>,
+        {
+            use std::iter::Iterator;
+            self.0.request.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -215,31 +243,9 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [populate_travel_step_polylines][crate::model::OptimizeToursRequest::populate_travel_step_polylines].
+        #[deprecated]
         pub fn set_populate_travel_step_polylines<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.populate_travel_step_polylines = v.into();
-            self
-        }
-
-        /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
-        pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ShipmentRoute>,
-        {
-            use std::iter::Iterator;
-            self.0.request.injected_first_solution_routes =
-                v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
-        pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ShipmentRoute>,
-        {
-            use std::iter::Iterator;
-            self.0.request.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -256,7 +262,9 @@ pub mod fleet_routing {
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
     impl BatchOptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -325,12 +333,16 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [parent][crate::model::BatchOptimizeToursRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [model_configs][crate::model::BatchOptimizeToursRequest::model_configs].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -354,7 +366,9 @@ pub mod fleet_routing {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -40,10 +40,11 @@
 mod test {
     use crate::google;
     use crate::model;
-    use gaxi::prost::Convert;
+    use gaxi::prost::FromProto;
+    use gaxi::prost::ToProto;
 
     #[test]
-    fn test_basic_fields() {
+    fn test_basic_fields() -> anyhow::Result<()> {
         let sidekick = gtype::model::LatLng::new()
             .set_latitude(12.5)
             .set_longitude(34.5);
@@ -52,31 +53,33 @@ mod test {
             longitude: 34.5,
         };
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_enum_field() {
+    fn test_enum_field() -> anyhow::Result<()> {
         let sidekick = model::structured_query::FieldFilter::new()
-            .set_op(model::structured_query::field_filter::Operator::EQUAL);
+            .set_op(model::structured_query::field_filter::Operator::Equal);
         let proto = google::firestore::v1::structured_query::FieldFilter {
             op: google::firestore::v1::structured_query::field_filter::Operator::Equal.into(),
             ..Default::default()
         };
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_optional_field() {
+    fn test_optional_field() -> anyhow::Result<()> {
         let sidekick = model::structured_query::UnaryFilter::new().set_operand_type(
             model::structured_query::unary_filter::OperandType::Field(Box::new(
                 model::structured_query::FieldReference::new().set_field_path("a.b.c"),
@@ -93,39 +96,42 @@ mod test {
             ..Default::default()
         };
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_oneof_null_value() {
+    fn test_oneof_null_value() -> anyhow::Result<()> {
         let sidekick = model::value::ValueType::NullValue(wkt::NullValue);
         let proto = google::firestore::v1::value::ValueType::NullValue(0);
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_oneof_primitive() {
+    fn test_oneof_primitive() -> anyhow::Result<()> {
         let sidekick = model::value::ValueType::BooleanValue(true);
         let proto = google::firestore::v1::value::ValueType::BooleanValue(true);
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_oneof_message() {
+    fn test_oneof_message() -> anyhow::Result<()> {
         let sidekick =
             model::value::ValueType::TimestampValue(Box::new(wkt::Timestamp::clamp(123, 456)));
         let proto =
@@ -134,15 +140,16 @@ mod test {
                 nanos: 456,
             });
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_message_repeated() {
+    fn test_message_repeated() -> anyhow::Result<()> {
         let sidekick =
             model::value::ValueType::ArrayValue(Box::new(model::ArrayValue::new().set_values([
                 model::Value::new().set_string_value("abc"),
@@ -170,15 +177,16 @@ mod test {
             },
         );
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 
     #[test]
-    fn test_message_map() {
+    fn test_message_map() -> anyhow::Result<()> {
         use std::collections::HashMap;
         let sidekick =
             model::value::ValueType::MapValue(Box::new(model::MapValue::new().set_fields([
@@ -217,10 +225,11 @@ mod test {
                 ]),
             });
 
-        let got = sidekick.clone().cnv();
+        let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
         let got = proto.clone().cnv();
         assert_eq!(got, sidekick);
+        Ok(())
     }
 }

@@ -28,25 +28,28 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-crc32c = "0.6"
-tokio  = { version = "1", features = ["full", "macros"] }
 # ANCHOR: longrunning
 google-cloud-longrunning = { version = "0.24", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
-# ANCHOR: gax
-google-cloud-gax = { version = "0.22", path = "../../src/gax" }
-# ANCHOR_END: gax
 # ANCHOR: speech
 google-cloud-speech-v2 = { version = "0.3", path = "../../src/generated/cloud/speech/v2" }
 # ANCHOR_END: speech
-# ANCHOR: secretmanager
-google-cloud-secretmanager-v1 = { version = "0.3", path = "../../src/generated/cloud/secretmanager/v1" }
-# ANCHOR_END: secretmanager
 # ANCHOR: language
 google-cloud-language-v2 = { version = "0.3", path = "../../src/generated/cloud/language/v2" }
 # ANCHOR_END: language
 google-cloud-rpc = { version = "0.3", path = "../../src/generated/rpc/types" }
 google-cloud-wkt = { version = "0.4", path = "../../src/wkt" }
+
+# ANCHOR: serde_json
+[dependencies.serde_json]
+workspace = true
+# ANCHOR_END: serde_json
+
+# ANCHOR: secretmanager
+[dependencies.google-cloud-secretmanager-v1]
+version = "0.3"
+# ANCHOR_END: secretmanager
+path = "../../src/generated/cloud/secretmanager/v1"
 
 # ANCHOR: aiplatform
 [dependencies.google-cloud-aiplatform-v1]
@@ -56,11 +59,37 @@ features         = ["prediction_service"]
 # ANCHOR_END: aiplatform
 path = "../../src/generated/cloud/aiplatform/v1"
 
+# ANCHOR: crc32c
+[dependencies.crc32c]
+version = "0.6"
+# ANCHOR_END: crc32c
+
+# ANCHOR: futures
+[dependencies.futures]
+version = "0.3"
+# ANCHOR_END: futures
+
+# ANCHOR: gax-with-streams
+# ANCHOR: gax
+[dependencies.google-cloud-gax]
+version = "0.22"
+# ANCHOR_END: gax
+features = ["unstable-stream"]
+# ANCHOR_END: gax-with-streams
+path = "../../src/gax"
+
 # ANCHOR: mockall
 [dev-dependencies]
 mockall = "0.13"
 # ANCHOR_END: mockall
-rand = "0.9"
+rand                = "0.9"
+test-case.workspace = true
+
+# ANCHOR: tokio
+[dependencies.tokio]
+version  = "1"
+features = ["full", "macros"]
+# ANCHOR_END: tokio
 
 [features]
 run-integration-tests = []

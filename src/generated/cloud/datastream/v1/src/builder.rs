@@ -16,7 +16,6 @@
 
 pub mod datastream {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Datastream][super::super::client::Datastream].
     ///
@@ -49,7 +48,7 @@ pub mod datastream {
     /// Common implementation for [super::super::client::Datastream] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Datastream>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod datastream {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod datastream {
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
     impl ListConnectionProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,6 +120,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -159,7 +164,9 @@ pub mod datastream {
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
     impl GetConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -187,6 +194,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -207,7 +216,9 @@ pub mod datastream {
     );
 
     impl CreateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -274,18 +285,24 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connection_profile_id][crate::model::CreateConnectionProfileRequest::connection_profile_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection_profile_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_profile_id = v.into();
             self
         }
 
         /// Sets the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection_profile<
             T: Into<std::option::Option<crate::model::ConnectionProfile>>,
         >(
@@ -329,7 +346,9 @@ pub mod datastream {
     );
 
     impl UpdateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -405,6 +424,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection_profile<
             T: Into<std::option::Option<crate::model::ConnectionProfile>>,
         >(
@@ -448,7 +469,9 @@ pub mod datastream {
     );
 
     impl DeleteConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -511,6 +534,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -537,7 +562,9 @@ pub mod datastream {
     );
 
     impl DiscoverConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -565,6 +592,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::DiscoverConnectionProfileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -731,7 +760,9 @@ pub mod datastream {
     pub struct ListStreams(RequestBuilder<crate::model::ListStreamsRequest>);
 
     impl ListStreams {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -771,6 +802,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::ListStreamsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -813,7 +846,9 @@ pub mod datastream {
     pub struct GetStream(RequestBuilder<crate::model::GetStreamRequest>);
 
     impl GetStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -838,6 +873,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::GetStreamRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -856,7 +893,9 @@ pub mod datastream {
     pub struct CreateStream(RequestBuilder<crate::model::CreateStreamRequest>);
 
     impl CreateStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -918,18 +957,24 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::CreateStreamRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [stream_id][crate::model::CreateStreamRequest::stream_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_stream_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.stream_id = v.into();
             self
         }
 
         /// Sets the value of [stream][crate::model::CreateStreamRequest::stream].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
             mut self,
             v: T,
@@ -969,7 +1014,9 @@ pub mod datastream {
     pub struct UpdateStream(RequestBuilder<crate::model::UpdateStreamRequest>);
 
     impl UpdateStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1040,6 +1087,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [stream][crate::model::UpdateStreamRequest::stream].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
             mut self,
             v: T,
@@ -1079,7 +1128,9 @@ pub mod datastream {
     pub struct DeleteStream(RequestBuilder<crate::model::DeleteStreamRequest>);
 
     impl DeleteStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1139,6 +1190,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::DeleteStreamRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1163,7 +1216,9 @@ pub mod datastream {
     pub struct RunStream(RequestBuilder<crate::model::RunStreamRequest>);
 
     impl RunStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1225,6 +1280,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::RunStreamRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1258,7 +1315,9 @@ pub mod datastream {
     pub struct GetStreamObject(RequestBuilder<crate::model::GetStreamObjectRequest>);
 
     impl GetStreamObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1283,6 +1342,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::GetStreamObjectRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1301,7 +1362,9 @@ pub mod datastream {
     pub struct LookupStreamObject(RequestBuilder<crate::model::LookupStreamObjectRequest>);
 
     impl LookupStreamObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1329,12 +1392,16 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::LookupStreamObjectRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_object_identifier<
             T: Into<std::option::Option<crate::model::SourceObjectIdentifier>>,
         >(
@@ -1358,7 +1425,9 @@ pub mod datastream {
     pub struct ListStreamObjects(RequestBuilder<crate::model::ListStreamObjectsRequest>);
 
     impl ListStreamObjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1401,6 +1470,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::ListStreamObjectsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1431,7 +1502,9 @@ pub mod datastream {
     pub struct StartBackfillJob(RequestBuilder<crate::model::StartBackfillJobRequest>);
 
     impl StartBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1459,6 +1532,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [object][crate::model::StartBackfillJobRequest::object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -1477,7 +1552,9 @@ pub mod datastream {
     pub struct StopBackfillJob(RequestBuilder<crate::model::StopBackfillJobRequest>);
 
     impl StopBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1502,6 +1579,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [object][crate::model::StopBackfillJobRequest::object].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -1520,7 +1599,9 @@ pub mod datastream {
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
     impl FetchStaticIps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1545,6 +1626,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::FetchStaticIpsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1577,7 +1660,9 @@ pub mod datastream {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1644,18 +1729,24 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [private_connection_id][crate::model::CreatePrivateConnectionRequest::private_connection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_connection_id = v.into();
             self
         }
 
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_connection<
             T: Into<std::option::Option<crate::model::PrivateConnection>>,
         >(
@@ -1691,7 +1782,9 @@ pub mod datastream {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1719,6 +1812,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1737,7 +1832,9 @@ pub mod datastream {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1782,6 +1879,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1826,7 +1925,9 @@ pub mod datastream {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1889,6 +1990,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1919,7 +2022,9 @@ pub mod datastream {
     pub struct CreateRoute(RequestBuilder<crate::model::CreateRouteRequest>);
 
     impl CreateRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1981,18 +2086,24 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::CreateRouteRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [route_id][crate::model::CreateRouteRequest::route_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_route_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.route_id = v.into();
             self
         }
 
         /// Sets the value of [route][crate::model::CreateRouteRequest::route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_route<T: Into<std::option::Option<crate::model::Route>>>(
             mut self,
             v: T,
@@ -2020,7 +2131,9 @@ pub mod datastream {
     pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
 
     impl GetRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2045,6 +2158,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::GetRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2063,7 +2178,9 @@ pub mod datastream {
     pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
 
     impl ListRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2103,6 +2220,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [parent][crate::model::ListRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2145,7 +2264,9 @@ pub mod datastream {
     pub struct DeleteRoute(RequestBuilder<crate::model::DeleteRouteRequest>);
 
     impl DeleteRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2205,6 +2326,8 @@ pub mod datastream {
         }
 
         /// Sets the value of [name][crate::model::DeleteRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2229,7 +2352,9 @@ pub mod datastream {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2308,7 +2433,9 @@ pub mod datastream {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2351,7 +2478,9 @@ pub mod datastream {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2430,7 +2559,9 @@ pub mod datastream {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2476,7 +2607,9 @@ pub mod datastream {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2522,7 +2655,9 @@ pub mod datastream {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

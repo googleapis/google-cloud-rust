@@ -16,7 +16,6 @@
 
 pub mod confidential_computing {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ConfidentialComputing][super::super::client::ConfidentialComputing].
     ///
@@ -49,7 +48,7 @@ pub mod confidential_computing {
     /// Common implementation for [super::super::client::ConfidentialComputing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod confidential_computing {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod confidential_computing {
 
     impl CreateChallenge {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -101,12 +100,16 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [parent][crate::model::CreateChallengeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_challenge<T: Into<std::option::Option<crate::model::Challenge>>>(
             mut self,
             v: T,
@@ -129,7 +132,7 @@ pub mod confidential_computing {
 
     impl VerifyAttestation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -158,6 +161,8 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [challenge][crate::model::VerifyAttestationRequest::challenge].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_challenge<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.challenge = v.into();
             self
@@ -173,6 +178,8 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tpm_attestation<T: Into<std::option::Option<crate::model::TpmAttestation>>>(
             mut self,
             v: T,
@@ -265,7 +272,7 @@ pub mod confidential_computing {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -346,7 +353,7 @@ pub mod confidential_computing {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -52,7 +52,7 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
                 .set_inline_response_config(speech::model::InlineOutputConfig::new()),
         )
         .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
         )
         .set_config(
             speech::model::RecognitionConfig::new()
@@ -110,7 +110,7 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
                 .set_inline_response_config(speech::model::InlineOutputConfig::new()),
         )
         .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
         )
         .set_config(
             speech::model::RecognitionConfig::new()
@@ -165,7 +165,7 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
                 .set_inline_response_config(speech::model::InlineOutputConfig::new()),
         )
         .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
         )
         .set_config(
             speech::model::RecognitionConfig::new()
@@ -223,7 +223,7 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
                 .set_inline_response_config(speech::model::InlineOutputConfig::new()),
         )
         .set_processing_strategy(
-            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DynamicBatching,
         )
         .set_config(
             speech::model::RecognitionConfig::new()

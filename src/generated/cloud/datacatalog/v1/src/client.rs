@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
@@ -61,11 +60,12 @@ use std::sync::Arc;
 ///
 /// `DataCatalog` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataCatalog` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct DataCatalog {
-    inner: Arc<dyn super::stub::dynamic::DataCatalog>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataCatalog>,
 }
 
 impl DataCatalog {
@@ -90,7 +90,7 @@ impl DataCatalog {
         T: super::stub::DataCatalog + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -101,11 +101,11 @@ impl DataCatalog {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataCatalog>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -137,6 +137,7 @@ impl DataCatalog {
     ///
     /// For more information, see [Data Catalog search syntax]
     /// (<https://cloud.google.com/data-catalog/docs/how-to/search-reference>).
+    #[deprecated]
     pub fn search_catalog(&self) -> super::builder::data_catalog::SearchCatalog {
         super::builder::data_catalog::SearchCatalog::new(self.inner.clone())
     }
@@ -168,6 +169,7 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `parent` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn create_entry_group(
         &self,
         parent: impl Into<std::string::String>,
@@ -177,6 +179,7 @@ impl DataCatalog {
     }
 
     /// Gets an entry group.
+    #[deprecated]
     pub fn get_entry_group(
         &self,
         name: impl Into<std::string::String>,
@@ -190,6 +193,7 @@ impl DataCatalog {
     /// the `entry_group.name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn update_entry_group(
         &self,
         entry_group: impl Into<crate::model::EntryGroup>,
@@ -204,6 +208,7 @@ impl DataCatalog {
     /// identified by the `name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn delete_entry_group(
         &self,
         name: impl Into<std::string::String>,
@@ -213,6 +218,7 @@ impl DataCatalog {
     }
 
     /// Lists entry groups.
+    #[deprecated]
     pub fn list_entry_groups(
         &self,
         parent: impl Into<std::string::String>,
@@ -232,6 +238,7 @@ impl DataCatalog {
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     ///
     /// An entry group can have a maximum of 100,000 entries.
+    #[deprecated]
     pub fn create_entry(
         &self,
         parent: impl Into<std::string::String>,
@@ -245,6 +252,7 @@ impl DataCatalog {
     /// the `entry.name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn update_entry(
         &self,
         entry: impl Into<crate::model::Entry>,
@@ -264,6 +272,7 @@ impl DataCatalog {
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.CreateEntry]: crate::client::DataCatalog::create_entry
+    #[deprecated]
     pub fn delete_entry(
         &self,
         name: impl Into<std::string::String>,
@@ -272,6 +281,7 @@ impl DataCatalog {
     }
 
     /// Gets an entry.
+    #[deprecated]
     pub fn get_entry(
         &self,
         name: impl Into<std::string::String>,
@@ -282,6 +292,7 @@ impl DataCatalog {
     /// Gets an entry by its target resource name.
     ///
     /// The resource name comes from the source Google Cloud Platform service.
+    #[deprecated]
     pub fn lookup_entry(&self) -> super::builder::data_catalog::LookupEntry {
         super::builder::data_catalog::LookupEntry::new(self.inner.clone())
     }
@@ -293,6 +304,7 @@ impl DataCatalog {
     /// [SearchCatalog][google.cloud.datacatalog.v1.DataCatalog.SearchCatalog].
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.SearchCatalog]: crate::client::DataCatalog::search_catalog
+    #[deprecated]
     pub fn list_entries(
         &self,
         parent: impl Into<std::string::String>,
@@ -307,6 +319,7 @@ impl DataCatalog {
     /// IAM permission on the corresponding project.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    #[deprecated]
     pub fn modify_entry_overview(
         &self,
         name: impl Into<std::string::String>,
@@ -322,6 +335,7 @@ impl DataCatalog {
     /// IAM permission on the corresponding project.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    #[deprecated]
     pub fn modify_entry_contacts(
         &self,
         name: impl Into<std::string::String>,
@@ -336,6 +350,7 @@ impl DataCatalog {
     /// `parent` parameter.
     /// For more information, see [Data Catalog resource project]
     /// (<https://cloud.google.com/data-catalog/docs/concepts/resource-project>).
+    #[deprecated]
     pub fn create_tag_template(
         &self,
         parent: impl Into<std::string::String>,
@@ -345,6 +360,7 @@ impl DataCatalog {
     }
 
     /// Gets a tag template.
+    #[deprecated]
     pub fn get_tag_template(
         &self,
         name: impl Into<std::string::String>,
@@ -361,6 +377,7 @@ impl DataCatalog {
     /// the `tag_template.name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn update_tag_template(
         &self,
         tag_template: impl Into<crate::model::TagTemplate>,
@@ -374,6 +391,7 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `name` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn delete_tag_template(
         &self,
         name: impl Into<std::string::String>,
@@ -387,6 +405,7 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `parent` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn create_tag_template_field(
         &self,
         parent: impl Into<std::string::String>,
@@ -403,6 +422,7 @@ impl DataCatalog {
     /// identified by the `name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn update_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
@@ -416,6 +436,7 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by the
     /// `name` parameter. For more information, see [Data Catalog resource project]
     /// (<https://cloud.google.com/data-catalog/docs/concepts/resource-project>).
+    #[deprecated]
     pub fn rename_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
@@ -427,6 +448,7 @@ impl DataCatalog {
     /// Renames an enum value in a tag template.
     ///
     /// Within a single enum field, enum values must be unique.
+    #[deprecated]
     pub fn rename_tag_template_field_enum_value(
         &self,
         name: impl Into<std::string::String>,
@@ -441,6 +463,7 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `name` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    #[deprecated]
     pub fn delete_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
@@ -464,6 +487,7 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     /// [google.cloud.datacatalog.v1.EntryGroup]: crate::model::EntryGroup
+    #[deprecated]
     pub fn create_tag(
         &self,
         parent: impl Into<std::string::String>,
@@ -472,6 +496,7 @@ impl DataCatalog {
     }
 
     /// Updates an existing tag.
+    #[deprecated]
     pub fn update_tag(
         &self,
         tag: impl Into<crate::model::Tag>,
@@ -480,6 +505,7 @@ impl DataCatalog {
     }
 
     /// Deletes a tag.
+    #[deprecated]
     pub fn delete_tag(
         &self,
         name: impl Into<std::string::String>,
@@ -493,6 +519,7 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     /// [google.cloud.datacatalog.v1.Tag.column]: crate::model::Tag::scope
+    #[deprecated]
     pub fn list_tags(
         &self,
         parent: impl Into<std::string::String>,
@@ -525,6 +552,7 @@ impl DataCatalog {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn reconcile_tags(
         &self,
         parent: impl Into<std::string::String>,
@@ -537,6 +565,7 @@ impl DataCatalog {
     /// the current user. Starring information is private to each user.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    #[deprecated]
     pub fn star_entry(
         &self,
         name: impl Into<std::string::String>,
@@ -548,6 +577,7 @@ impl DataCatalog {
     /// the current user. Starring information is private to each user.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    #[deprecated]
     pub fn unstar_entry(
         &self,
         name: impl Into<std::string::String>,
@@ -572,6 +602,7 @@ impl DataCatalog {
     /// - `datacatalog.tagTemplates.setIamPolicy` to set policies on tag
     ///   templates.
     /// - `datacatalog.entryGroups.setIamPolicy` to set policies on entry groups.
+    #[deprecated]
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
@@ -601,6 +632,7 @@ impl DataCatalog {
     /// - `datacatalog.tagTemplates.getIamPolicy` to get policies on tag
     ///   templates.
     /// - `datacatalog.entryGroups.getIamPolicy` to get policies on entry groups.
+    #[deprecated]
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
@@ -623,6 +655,7 @@ impl DataCatalog {
     /// external Google Cloud Platform resources ingested into Data Catalog.
     ///
     /// No Google IAM permissions are required to call this method.
+    #[deprecated]
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
@@ -663,6 +696,7 @@ impl DataCatalog {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn import_entries(
         &self,
         parent: impl Into<std::string::String>,
@@ -673,6 +707,7 @@ impl DataCatalog {
 
     /// Sets the configuration related to the migration to Dataplex for an
     /// organization or project.
+    #[deprecated]
     pub fn set_config(
         &self,
         name: impl Into<std::string::String>,
@@ -683,6 +718,7 @@ impl DataCatalog {
     /// Retrieves the configuration related to the migration from Data Catalog to
     /// Dataplex for a specific organization, including all the projects under it
     /// which have a separate configuration set.
+    #[deprecated]
     pub fn retrieve_config(
         &self,
         name: impl Into<std::string::String>,
@@ -695,6 +731,7 @@ impl DataCatalog {
     /// specific configuration set for the resource, the setting is checked
     /// hierarchicahlly through the ancestors of the resource, starting from the
     /// resource itself.
+    #[deprecated]
     pub fn retrieve_effective_config(
         &self,
         name: impl Into<std::string::String>,
@@ -788,11 +825,11 @@ impl DataCatalog {
 ///
 /// `PolicyTagManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManager` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManager {
-    inner: Arc<dyn super::stub::dynamic::PolicyTagManager>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>,
 }
 
 impl PolicyTagManager {
@@ -819,7 +856,7 @@ impl PolicyTagManager {
         T: super::stub::PolicyTagManager + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -830,11 +867,11 @@ impl PolicyTagManager {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTagManager>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1068,11 +1105,11 @@ impl PolicyTagManager {
 ///
 /// `PolicyTagManagerSerialization` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManagerSerialization` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManagerSerialization {
-    inner: Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
 }
 
 impl PolicyTagManagerSerialization {
@@ -1099,7 +1136,7 @@ impl PolicyTagManagerSerialization {
         T: super::stub::PolicyTagManagerSerialization + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1110,11 +1147,11 @@ impl PolicyTagManagerSerialization {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

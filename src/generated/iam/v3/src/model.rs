@@ -66,6 +66,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -278,6 +279,18 @@ impl PolicyBinding {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::PolicyBinding::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [target][crate::model::PolicyBinding::target].
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::policy_binding::Target>>,
@@ -334,18 +347,6 @@ impl PolicyBinding {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::PolicyBinding::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -468,58 +469,129 @@ pub mod policy_binding {
     }
 
     /// Different policy kinds supported in this binding.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyKind(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PolicyKind {
+        /// Unspecified policy kind; Not a valid state
+        Unspecified,
+        /// Principal access boundary policy kind
+        PrincipalAccessBoundary,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PolicyKind::value] or
+        /// [PolicyKind::name].
+        UnknownValue(policy_kind::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod policy_kind {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PolicyKind {
-        /// Unspecified policy kind; Not a valid state
-        pub const POLICY_KIND_UNSPECIFIED: PolicyKind = PolicyKind::new(0);
-
-        /// Principal access boundary policy kind
-        pub const PRINCIPAL_ACCESS_BOUNDARY: PolicyKind = PolicyKind::new(1);
-
-        /// Creates a new PolicyKind instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PrincipalAccessBoundary => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("POLICY_KIND_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PRINCIPAL_ACCESS_BOUNDARY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "POLICY_KIND_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::POLICY_KIND_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("POLICY_KIND_UNSPECIFIED"),
+                Self::PrincipalAccessBoundary => {
+                    std::option::Option::Some("PRINCIPAL_ACCESS_BOUNDARY")
                 }
-                "PRINCIPAL_ACCESS_BOUNDARY" => {
-                    std::option::Option::Some(Self::PRINCIPAL_ACCESS_BOUNDARY)
-                }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for PolicyKind {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PolicyKind {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PolicyKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PrincipalAccessBoundary,
+                _ => Self::UnknownValue(policy_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PolicyKind {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "POLICY_KIND_UNSPECIFIED" => Self::Unspecified,
+                "PRINCIPAL_ACCESS_BOUNDARY" => Self::PrincipalAccessBoundary,
+                _ => Self::UnknownValue(policy_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PrincipalAccessBoundary => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyKind>::new(
+                ".google.iam.v3.PolicyBinding.PolicyKind",
+            ))
         }
     }
 }
@@ -558,6 +630,7 @@ pub struct CreatePolicyBindingRequest {
 
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -662,6 +735,7 @@ pub struct UpdatePolicyBindingRequest {
 
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The list of fields to update
@@ -734,6 +808,7 @@ pub struct DeletePolicyBindingRequest {
 
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -793,6 +868,7 @@ pub struct ListPolicyBindingsRequest {
     ///
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListPolicyBindings` call.
@@ -881,12 +957,6 @@ impl ListPolicyBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPolicyBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_bindings][crate::model::ListPolicyBindingsResponse::policy_bindings].
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -895,6 +965,12 @@ impl ListPolicyBindingsResponse {
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPolicyBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -943,6 +1019,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     ///
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1032,12 +1109,6 @@ impl SearchTargetPolicyBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchTargetPolicyBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_bindings][crate::model::SearchTargetPolicyBindingsResponse::policy_bindings].
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -1046,6 +1117,12 @@ impl SearchTargetPolicyBindingsResponse {
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchTargetPolicyBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1101,6 +1178,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
 
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1202,6 +1280,7 @@ pub struct UpdatePrincipalAccessBoundaryPolicyRequest {
 
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The list of fields to update
@@ -1270,10 +1349,12 @@ pub struct DeletePrincipalAccessBoundaryPolicyRequest {
 
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, the request will force the deletion of the policy
     /// even if the policy is referenced in policy bindings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1336,6 +1417,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
     /// If unspecified, at most 50 principal access boundary policies will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1407,12 +1489,6 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [principal_access_boundary_policies][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::principal_access_boundary_policies].
     pub fn set_principal_access_boundary_policies<T, V>(mut self, v: T) -> Self
     where
@@ -1421,6 +1497,12 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
     {
         use std::iter::Iterator;
         self.principal_access_boundary_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1462,6 +1544,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     ///
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1532,12 +1615,6 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policy_bindings][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::policy_bindings].
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -1546,6 +1623,12 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     {
         use std::iter::Iterator;
         self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1653,6 +1736,18 @@ impl PrincipalAccessBoundaryPolicy {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::PrincipalAccessBoundaryPolicy::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::PrincipalAccessBoundaryPolicy::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1679,18 +1774,6 @@ impl PrincipalAccessBoundaryPolicy {
         v: T,
     ) -> Self {
         self.details = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::PrincipalAccessBoundaryPolicy::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1729,15 +1812,6 @@ impl PrincipalAccessBoundaryPolicyDetails {
         std::default::Default::default()
     }
 
-    /// Sets the value of [enforcement_version][crate::model::PrincipalAccessBoundaryPolicyDetails::enforcement_version].
-    pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enforcement_version = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::PrincipalAccessBoundaryPolicyDetails::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -1746,6 +1820,15 @@ impl PrincipalAccessBoundaryPolicyDetails {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enforcement_version][crate::model::PrincipalAccessBoundaryPolicyDetails::enforcement_version].
+    pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enforcement_version = v.into();
         self
     }
 }
@@ -1801,17 +1884,6 @@ impl PrincipalAccessBoundaryPolicyRule {
         self
     }
 
-    /// Sets the value of [effect][crate::model::PrincipalAccessBoundaryPolicyRule::effect].
-    pub fn set_effect<
-        T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.effect = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::PrincipalAccessBoundaryPolicyRule::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -1820,6 +1892,17 @@ impl PrincipalAccessBoundaryPolicyRule {
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [effect][crate::model::PrincipalAccessBoundaryPolicyRule::effect].
+    pub fn set_effect<
+        T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.effect = v.into();
         self
     }
 }
@@ -1836,54 +1919,127 @@ pub mod principal_access_boundary_policy_rule {
     use super::*;
 
     /// An effect to describe the access relationship.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Effect(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Effect {
+        /// Effect unspecified.
+        Unspecified,
+        /// Allows access to the resources in this rule.
+        Allow,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Effect::value] or
+        /// [Effect::name].
+        UnknownValue(effect::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod effect {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Effect {
-        /// Effect unspecified.
-        pub const EFFECT_UNSPECIFIED: Effect = Effect::new(0);
-
-        /// Allows access to the resources in this rule.
-        pub const ALLOW: Effect = Effect::new(1);
-
-        /// Creates a new Effect instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EFFECT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EFFECT_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EFFECT_UNSPECIFIED" => std::option::Option::Some(Self::EFFECT_UNSPECIFIED),
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Effect {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Effect {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Effect {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Effect {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Effect {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EFFECT_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Effect {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Effect {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
+                ".google.iam.v3.PrincipalAccessBoundaryPolicyRule.Effect",
+            ))
         }
     }
 }

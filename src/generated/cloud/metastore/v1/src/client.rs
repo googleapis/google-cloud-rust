@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Dataproc Metastore API.
 ///
@@ -78,11 +77,11 @@ use std::sync::Arc;
 ///
 /// `DataprocMetastore` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataprocMetastore` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataprocMetastore {
-    inner: Arc<dyn super::stub::dynamic::DataprocMetastore>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataprocMetastore>,
 }
 
 impl DataprocMetastore {
@@ -109,7 +108,7 @@ impl DataprocMetastore {
         T: super::stub::DataprocMetastore + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -120,11 +119,11 @@ impl DataprocMetastore {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataprocMetastore>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataprocMetastore>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -579,11 +578,11 @@ impl DataprocMetastore {
 ///
 /// `DataprocMetastoreFederation` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataprocMetastoreFederation` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataprocMetastoreFederation {
-    inner: Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>,
 }
 
 impl DataprocMetastoreFederation {
@@ -610,7 +609,7 @@ impl DataprocMetastoreFederation {
         T: super::stub::DataprocMetastoreFederation + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -621,11 +620,11 @@ impl DataprocMetastoreFederation {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

@@ -23,7 +23,10 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 #[non_exhaustive]
 pub struct Helper {
     pub field_double: Option<wkt::DoubleValue>,
+    #[serde_as(as = "Option<wkt::internal::F32>")]
     pub field_float: Option<wkt::FloatValue>,
+    #[serde_as(as = "Option<wkt::internal::F32>")]
+    pub field_float_inf: Option<wkt::FloatValue>,
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
     pub field_int64: Option<wkt::Int64Value>,
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
@@ -43,6 +46,7 @@ pub struct Helper {
 #[non_exhaustive]
 pub struct Repeated {
     pub field_double: Vec<wkt::DoubleValue>,
+    #[serde_as(as = "Vec<wkt::internal::F32>")]
     pub field_float: Vec<wkt::FloatValue>,
     #[serde_as(as = "Vec<serde_with::DisplayFromStr>")]
     pub field_int64: Vec<wkt::Int64Value>,
@@ -61,6 +65,7 @@ fn serialize_in_struct() -> Result {
     let input = Helper {
         field_double: Some(42.0_f64),
         field_float: Some(42.0_f32),
+        field_float_inf: Some(f32::INFINITY),
         field_int64: Some(42),
         field_uint64: Some(42),
         field_int32: Some(42),
@@ -75,6 +80,7 @@ fn serialize_in_struct() -> Result {
     let want = json!({
         "fieldDouble": 42_f64,
         "fieldFloat":  42_f32,
+        "fieldFloatInf": "Infinity",
         "fieldInt64":  "42",
         "fieldUint64": "42",
         "fieldInt32":  42,
@@ -94,7 +100,7 @@ fn serialize_in_struct() -> Result {
 fn serialize_in_repeated() -> Result {
     let input = Repeated {
         field_double: vec![42.0_f64],
-        field_float: vec![42.0_f32],
+        field_float: vec![42.0_f32, f32::INFINITY],
         field_int64: vec![42_i64],
         field_uint64: vec![42_u64],
         field_int32: vec![42_i32],
@@ -108,7 +114,7 @@ fn serialize_in_repeated() -> Result {
     let json = serde_json::to_value(&input)?;
     let want = json!({
         "fieldDouble":  [42_f64],
-        "fieldFloat":   [42_f32],
+        "fieldFloat":   [42_f32, "Infinity"],
         "fieldInt64":   ["42"],
         "fieldUint64":  ["42"],
         "fieldInt32":   [42],

@@ -83,6 +83,17 @@ impl Notification {
         self
     }
 
+    /// Sets the value of [messages][crate::model::Notification::messages].
+    pub fn set_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Message>,
+    {
+        use std::iter::Iterator;
+        self.messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Notification::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -98,17 +109,6 @@ impl Notification {
         v: T,
     ) -> Self {
         self.notification_type = v.into();
-        self
-    }
-
-    /// Sets the value of [messages][crate::model::Notification::messages].
-    pub fn set_messages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Message>,
-    {
-        use std::iter::Iterator;
-        self.messages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -248,6 +248,17 @@ impl Message {
         self
     }
 
+    /// Sets the value of [attachments][crate::model::Message::attachments].
+    pub fn set_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Attachment>,
+    {
+        use std::iter::Iterator;
+        self.attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Message::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -263,17 +274,6 @@ impl Message {
         v: T,
     ) -> Self {
         self.localization_time = v.into();
-        self
-    }
-
-    /// Sets the value of [attachments][crate::model::Message::attachments].
-    pub fn set_attachments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Attachment>,
-    {
-        use std::iter::Iterator;
-        self.attachments = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -526,6 +526,7 @@ pub struct ListNotificationsRequest {
     /// fewer than this value. If unspecified or equal to 0, at most 50
     /// notifications will be returned. The maximum value is 50; values above 50
     /// will be coerced to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token returned from a previous request.
@@ -608,6 +609,7 @@ pub struct ListNotificationsResponse {
     pub next_page_token: std::string::String,
 
     /// Estimation of a total number of notifications.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -619,6 +621,17 @@ impl ListNotificationsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [notifications][crate::model::ListNotificationsResponse::notifications].
+    pub fn set_notifications<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Notification>,
+    {
+        use std::iter::Iterator;
+        self.notifications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListNotificationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -628,17 +641,6 @@ impl ListNotificationsResponse {
     /// Sets the value of [total_size][crate::model::ListNotificationsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [notifications][crate::model::ListNotificationsResponse::notifications].
-    pub fn set_notifications<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Notification>,
-    {
-        use std::iter::Iterator;
-        self.notifications = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -754,12 +756,6 @@ impl Settings {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Settings::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [notification_settings][crate::model::Settings::notification_settings].
     pub fn set_notification_settings<T, K, V>(mut self, v: T) -> Self
     where
@@ -769,6 +765,12 @@ impl Settings {
     {
         use std::iter::Iterator;
         self.notification_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Settings::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -786,6 +788,7 @@ impl wkt::message::Message for Settings {
 #[non_exhaustive]
 pub struct NotificationSettings {
     /// Whether the associated NotificationType is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -881,74 +884,159 @@ impl wkt::message::Message for UpdateSettingsRequest {
 }
 
 /// Notification view.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationView(i32);
-
-impl NotificationView {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum NotificationView {
     /// Not specified, equivalent to BASIC.
-    pub const NOTIFICATION_VIEW_UNSPECIFIED: NotificationView = NotificationView::new(0);
-
+    Unspecified,
     /// Server responses only include title, creation time and Notification ID.
     /// Note: for internal use responses also include the last update time,
     /// the latest message text and whether notification has attachments.
-    pub const BASIC: NotificationView = NotificationView::new(1);
-
+    Basic,
     /// Include everything.
-    pub const FULL: NotificationView = NotificationView::new(2);
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [NotificationView::value] or
+    /// [NotificationView::name].
+    UnknownValue(notification_view::UnknownValue),
+}
 
-    /// Creates a new NotificationView instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod notification_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl NotificationView {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("NOTIFICATION_VIEW_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BASIC"),
-            2 => std::borrow::Cow::Borrowed("FULL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("NOTIFICATION_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("BASIC"),
+            Self::Full => std::option::Option::Some("FULL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "NOTIFICATION_VIEW_UNSPECIFIED" => {
-                std::option::Option::Some(Self::NOTIFICATION_VIEW_UNSPECIFIED)
-            }
-            "BASIC" => std::option::Option::Some(Self::BASIC),
-            "FULL" => std::option::Option::Some(Self::FULL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for NotificationView {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for NotificationView {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for NotificationView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for NotificationView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(notification_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for NotificationView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "NOTIFICATION_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "BASIC" => Self::Basic,
+            "FULL" => Self::Full,
+            _ => Self::UnknownValue(notification_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for NotificationView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NotificationView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationView>::new(
+            ".google.cloud.advisorynotifications.v1.NotificationView",
+        ))
     }
 }
 
 /// Status of localized text.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LocalizationState(i32);
-
-impl LocalizationState {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LocalizationState {
     /// Not used.
-    pub const LOCALIZATION_STATE_UNSPECIFIED: LocalizationState = LocalizationState::new(0);
-
+    Unspecified,
     /// Localization is not applicable for requested language. This can happen
     /// when:
     ///
@@ -956,141 +1044,270 @@ impl LocalizationState {
     ///   time of localization (including notifications created before the
     ///   localization feature was launched).
     /// - The requested language is English, so only the English text is returned.
-    pub const LOCALIZATION_STATE_NOT_APPLICABLE: LocalizationState = LocalizationState::new(1);
-
+    NotApplicable,
     /// Localization for requested language is in progress, and not ready yet.
-    pub const LOCALIZATION_STATE_PENDING: LocalizationState = LocalizationState::new(2);
-
+    Pending,
     /// Localization for requested language is completed.
-    pub const LOCALIZATION_STATE_COMPLETED: LocalizationState = LocalizationState::new(3);
+    Completed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LocalizationState::value] or
+    /// [LocalizationState::name].
+    UnknownValue(localization_state::UnknownValue),
+}
 
-    /// Creates a new LocalizationState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod localization_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LocalizationState {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::NotApplicable => std::option::Option::Some(1),
+            Self::Pending => std::option::Option::Some(2),
+            Self::Completed => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_NOT_APPLICABLE"),
-            2 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_PENDING"),
-            3 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_COMPLETED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LOCALIZATION_STATE_UNSPECIFIED"),
+            Self::NotApplicable => std::option::Option::Some("LOCALIZATION_STATE_NOT_APPLICABLE"),
+            Self::Pending => std::option::Option::Some("LOCALIZATION_STATE_PENDING"),
+            Self::Completed => std::option::Option::Some("LOCALIZATION_STATE_COMPLETED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LOCALIZATION_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LOCALIZATION_STATE_UNSPECIFIED)
-            }
-            "LOCALIZATION_STATE_NOT_APPLICABLE" => {
-                std::option::Option::Some(Self::LOCALIZATION_STATE_NOT_APPLICABLE)
-            }
-            "LOCALIZATION_STATE_PENDING" => {
-                std::option::Option::Some(Self::LOCALIZATION_STATE_PENDING)
-            }
-            "LOCALIZATION_STATE_COMPLETED" => {
-                std::option::Option::Some(Self::LOCALIZATION_STATE_COMPLETED)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LocalizationState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LocalizationState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LocalizationState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LocalizationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::NotApplicable,
+            2 => Self::Pending,
+            3 => Self::Completed,
+            _ => Self::UnknownValue(localization_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LocalizationState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LOCALIZATION_STATE_UNSPECIFIED" => Self::Unspecified,
+            "LOCALIZATION_STATE_NOT_APPLICABLE" => Self::NotApplicable,
+            "LOCALIZATION_STATE_PENDING" => Self::Pending,
+            "LOCALIZATION_STATE_COMPLETED" => Self::Completed,
+            _ => Self::UnknownValue(localization_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LocalizationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::NotApplicable => serializer.serialize_i32(1),
+            Self::Pending => serializer.serialize_i32(2),
+            Self::Completed => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LocalizationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LocalizationState>::new(
+            ".google.cloud.advisorynotifications.v1.LocalizationState",
+        ))
     }
 }
 
 /// Type of notification
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum NotificationType {
+    /// Default type
+    Unspecified,
+    /// Security and privacy advisory notifications
+    SecurityPrivacyAdvisory,
+    /// Sensitive action notifications
+    SensitiveActions,
+    /// General security MSA
+    SecurityMsa,
+    /// Threat horizons MSA
+    ThreatHorizons,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [NotificationType::value] or
+    /// [NotificationType::name].
+    UnknownValue(notification_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod notification_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl NotificationType {
-    /// Default type
-    pub const NOTIFICATION_TYPE_UNSPECIFIED: NotificationType = NotificationType::new(0);
-
-    /// Security and privacy advisory notifications
-    pub const NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY: NotificationType =
-        NotificationType::new(1);
-
-    /// Sensitive action notifications
-    pub const NOTIFICATION_TYPE_SENSITIVE_ACTIONS: NotificationType = NotificationType::new(2);
-
-    /// General security MSA
-    pub const NOTIFICATION_TYPE_SECURITY_MSA: NotificationType = NotificationType::new(3);
-
-    /// Threat horizons MSA
-    pub const NOTIFICATION_TYPE_THREAT_HORIZONS: NotificationType = NotificationType::new(4);
-
-    /// Creates a new NotificationType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::SecurityPrivacyAdvisory => std::option::Option::Some(1),
+            Self::SensitiveActions => std::option::Option::Some(2),
+            Self::SecurityMsa => std::option::Option::Some(3),
+            Self::ThreatHorizons => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY"),
-            2 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_SENSITIVE_ACTIONS"),
-            3 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_SECURITY_MSA"),
-            4 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_THREAT_HORIZONS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("NOTIFICATION_TYPE_UNSPECIFIED"),
+            Self::SecurityPrivacyAdvisory => {
+                std::option::Option::Some("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY")
+            }
+            Self::SensitiveActions => {
+                std::option::Option::Some("NOTIFICATION_TYPE_SENSITIVE_ACTIONS")
+            }
+            Self::SecurityMsa => std::option::Option::Some("NOTIFICATION_TYPE_SECURITY_MSA"),
+            Self::ThreatHorizons => std::option::Option::Some("NOTIFICATION_TYPE_THREAT_HORIZONS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "NOTIFICATION_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::NOTIFICATION_TYPE_UNSPECIFIED)
-            }
-            "NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY" => {
-                std::option::Option::Some(Self::NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY)
-            }
-            "NOTIFICATION_TYPE_SENSITIVE_ACTIONS" => {
-                std::option::Option::Some(Self::NOTIFICATION_TYPE_SENSITIVE_ACTIONS)
-            }
-            "NOTIFICATION_TYPE_SECURITY_MSA" => {
-                std::option::Option::Some(Self::NOTIFICATION_TYPE_SECURITY_MSA)
-            }
-            "NOTIFICATION_TYPE_THREAT_HORIZONS" => {
-                std::option::Option::Some(Self::NOTIFICATION_TYPE_THREAT_HORIZONS)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for NotificationType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for NotificationType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for NotificationType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for NotificationType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::SecurityPrivacyAdvisory,
+            2 => Self::SensitiveActions,
+            3 => Self::SecurityMsa,
+            4 => Self::ThreatHorizons,
+            _ => Self::UnknownValue(notification_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for NotificationType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "NOTIFICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY" => Self::SecurityPrivacyAdvisory,
+            "NOTIFICATION_TYPE_SENSITIVE_ACTIONS" => Self::SensitiveActions,
+            "NOTIFICATION_TYPE_SECURITY_MSA" => Self::SecurityMsa,
+            "NOTIFICATION_TYPE_THREAT_HORIZONS" => Self::ThreatHorizons,
+            _ => Self::UnknownValue(notification_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for NotificationType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::SecurityPrivacyAdvisory => serializer.serialize_i32(1),
+            Self::SensitiveActions => serializer.serialize_i32(2),
+            Self::SecurityMsa => serializer.serialize_i32(3),
+            Self::ThreatHorizons => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NotificationType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationType>::new(
+            ".google.cloud.advisorynotifications.v1.NotificationType",
+        ))
     }
 }

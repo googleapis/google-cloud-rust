@@ -16,7 +16,6 @@
 
 pub mod alloy_db_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AlloyDBAdmin][super::super::client::AlloyDBAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod alloy_db_admin {
     /// Common implementation for [super::super::client::AlloyDBAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod alloy_db_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod alloy_db_admin {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +159,9 @@ pub mod alloy_db_admin {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,6 +186,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -203,7 +212,9 @@ pub mod alloy_db_admin {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,18 +276,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -310,7 +327,9 @@ pub mod alloy_db_admin {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -381,6 +400,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -420,7 +441,9 @@ pub mod alloy_db_admin {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -480,6 +503,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -522,7 +547,9 @@ pub mod alloy_db_admin {
     pub struct PromoteCluster(RequestBuilder<crate::model::PromoteClusterRequest>);
 
     impl PromoteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -584,6 +611,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::PromoteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -620,7 +649,9 @@ pub mod alloy_db_admin {
     pub struct SwitchoverCluster(RequestBuilder<crate::model::SwitchoverClusterRequest>);
 
     impl SwitchoverCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -685,6 +716,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::SwitchoverClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -715,7 +748,9 @@ pub mod alloy_db_admin {
     pub struct RestoreCluster(RequestBuilder<crate::model::RestoreClusterRequest>);
 
     impl RestoreCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -777,18 +812,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::RestoreClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::RestoreClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::RestoreClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -864,7 +905,9 @@ pub mod alloy_db_admin {
     pub struct CreateSecondaryCluster(RequestBuilder<crate::model::CreateSecondaryClusterRequest>);
 
     impl CreateSecondaryCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -929,18 +972,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateSecondaryClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateSecondaryClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -974,7 +1023,9 @@ pub mod alloy_db_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1014,6 +1065,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1056,7 +1109,9 @@ pub mod alloy_db_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1081,6 +1136,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1105,7 +1162,9 @@ pub mod alloy_db_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1168,18 +1227,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -1215,7 +1280,9 @@ pub mod alloy_db_admin {
     );
 
     impl CreateSecondaryInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,18 +1348,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateSecondaryInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateSecondaryInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -1326,7 +1399,9 @@ pub mod alloy_db_admin {
     pub struct BatchCreateInstances(RequestBuilder<crate::model::BatchCreateInstancesRequest>);
 
     impl BatchCreateInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1395,12 +1470,16 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T: Into<std::option::Option<crate::model::CreateInstanceRequests>>>(
             mut self,
             v: T,
@@ -1428,7 +1507,9 @@ pub mod alloy_db_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1500,6 +1581,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -1539,7 +1622,9 @@ pub mod alloy_db_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1599,6 +1684,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1635,7 +1722,9 @@ pub mod alloy_db_admin {
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1701,6 +1790,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::FailoverInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1731,7 +1822,9 @@ pub mod alloy_db_admin {
     pub struct InjectFault(RequestBuilder<crate::model::InjectFaultRequest>);
 
     impl InjectFault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1794,6 +1887,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [fault_type][crate::model::InjectFaultRequest::fault_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_fault_type<T: Into<crate::model::inject_fault_request::FaultType>>(
             mut self,
             v: T,
@@ -1803,6 +1898,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::InjectFaultRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1833,7 +1930,9 @@ pub mod alloy_db_admin {
     pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
 
     impl RestartInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,6 +1995,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::RestartInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1937,7 +2038,9 @@ pub mod alloy_db_admin {
     pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1962,24 +2065,32 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [instance][crate::model::ExecuteSqlRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [database][crate::model::ExecuteSqlRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
         /// Sets the value of [user][crate::model::ExecuteSqlRequest::user].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user = v.into();
             self
         }
 
         /// Sets the value of [sql_statement][crate::model::ExecuteSqlRequest::sql_statement].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sql_statement<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sql_statement = v.into();
             self
@@ -2022,7 +2133,9 @@ pub mod alloy_db_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2062,6 +2175,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2104,7 +2219,9 @@ pub mod alloy_db_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2129,6 +2246,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2147,7 +2266,9 @@ pub mod alloy_db_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2209,18 +2330,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -2254,7 +2381,9 @@ pub mod alloy_db_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2325,6 +2454,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -2364,7 +2495,9 @@ pub mod alloy_db_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2424,6 +2557,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2462,7 +2597,9 @@ pub mod alloy_db_admin {
     );
 
     impl ListSupportedDatabaseFlags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2507,6 +2644,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListSupportedDatabaseFlagsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2539,7 +2678,9 @@ pub mod alloy_db_admin {
     );
 
     impl GenerateClientCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2567,6 +2708,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::GenerateClientCertificateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2612,7 +2755,9 @@ pub mod alloy_db_admin {
     pub struct GetConnectionInfo(RequestBuilder<crate::model::GetConnectionInfoRequest>);
 
     impl GetConnectionInfo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2640,6 +2785,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::GetConnectionInfoRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2664,7 +2811,9 @@ pub mod alloy_db_admin {
     pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2704,6 +2853,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListUsersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2746,7 +2897,9 @@ pub mod alloy_db_admin {
     pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2771,6 +2924,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetUserRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2789,7 +2944,9 @@ pub mod alloy_db_admin {
     pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2814,18 +2971,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateUserRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [user_id][crate::model::CreateUserRequest::user_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user_id = v.into();
             self
         }
 
         /// Sets the value of [user][crate::model::CreateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
             self.0.request.user = v.into();
             self
@@ -2856,7 +3019,9 @@ pub mod alloy_db_admin {
     pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2890,6 +3055,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [user][crate::model::UpdateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
             self.0.request.user = v.into();
             self
@@ -2926,7 +3093,9 @@ pub mod alloy_db_admin {
     pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2951,6 +3120,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteUserRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2981,7 +3152,9 @@ pub mod alloy_db_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3021,6 +3194,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3057,7 +3232,9 @@ pub mod alloy_db_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3136,7 +3313,9 @@ pub mod alloy_db_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3179,7 +3358,9 @@ pub mod alloy_db_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3258,7 +3439,9 @@ pub mod alloy_db_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3304,7 +3487,9 @@ pub mod alloy_db_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3350,7 +3535,9 @@ pub mod alloy_db_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

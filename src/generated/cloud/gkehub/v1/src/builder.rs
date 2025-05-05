@@ -16,7 +16,6 @@
 
 pub mod gke_hub {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [GkeHub][super::super::client::GkeHub].
     ///
@@ -49,7 +48,7 @@ pub mod gke_hub {
     /// Common implementation for [super::super::client::GkeHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::GkeHub>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod gke_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod gke_hub {
     pub struct ListMemberships(RequestBuilder<crate::model::ListMembershipsRequest>);
 
     impl ListMemberships {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +111,8 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [parent][crate::model::ListMembershipsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +155,7 @@ pub mod gke_hub {
     pub struct ListFeatures(RequestBuilder<crate::model::ListFeaturesRequest>);
 
     impl ListFeatures {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -236,7 +237,7 @@ pub mod gke_hub {
     pub struct GetMembership(RequestBuilder<crate::model::GetMembershipRequest>);
 
     impl GetMembership {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -261,6 +262,8 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [name][crate::model::GetMembershipRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -279,7 +282,7 @@ pub mod gke_hub {
     pub struct GetFeature(RequestBuilder<crate::model::GetFeatureRequest>);
 
     impl GetFeature {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,7 +325,7 @@ pub mod gke_hub {
     pub struct CreateMembership(RequestBuilder<crate::model::CreateMembershipRequest>);
 
     impl CreateMembership {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -388,18 +391,24 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [parent][crate::model::CreateMembershipRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [membership_id][crate::model::CreateMembershipRequest::membership_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_membership_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.membership_id = v.into();
             self
         }
 
         /// Sets the value of [resource][crate::model::CreateMembershipRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::option::Option<crate::model::Membership>>>(
             mut self,
             v: T,
@@ -427,7 +436,7 @@ pub mod gke_hub {
     pub struct CreateFeature(RequestBuilder<crate::model::CreateFeatureRequest>);
 
     impl CreateFeature {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -528,7 +537,7 @@ pub mod gke_hub {
     pub struct DeleteMembership(RequestBuilder<crate::model::DeleteMembershipRequest>);
 
     impl DeleteMembership {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -591,6 +600,8 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [name][crate::model::DeleteMembershipRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -621,7 +632,7 @@ pub mod gke_hub {
     pub struct DeleteFeature(RequestBuilder<crate::model::DeleteFeatureRequest>);
 
     impl DeleteFeature {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -711,7 +722,7 @@ pub mod gke_hub {
     pub struct UpdateMembership(RequestBuilder<crate::model::UpdateMembershipRequest>);
 
     impl UpdateMembership {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -777,12 +788,16 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [name][crate::model::UpdateMembershipRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -792,6 +807,8 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [resource][crate::model::UpdateMembershipRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::option::Option<crate::model::Membership>>>(
             mut self,
             v: T,
@@ -819,7 +836,7 @@ pub mod gke_hub {
     pub struct UpdateFeature(RequestBuilder<crate::model::UpdateFeatureRequest>);
 
     impl UpdateFeature {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -925,7 +942,7 @@ pub mod gke_hub {
     );
 
     impl GenerateConnectManifest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -953,6 +970,8 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [name][crate::model::GenerateConnectManifestRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1007,7 +1026,7 @@ pub mod gke_hub {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1086,7 +1105,7 @@ pub mod gke_hub {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1132,7 +1151,7 @@ pub mod gke_hub {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1178,7 +1197,7 @@ pub mod gke_hub {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

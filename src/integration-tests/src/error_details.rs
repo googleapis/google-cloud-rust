@@ -49,3 +49,70 @@ pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Resul
 
     Ok(())
 }
+
+pub async fn check_code_for_http(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let project_id = crate::project_id()?;
+    let location_id = crate::region_id();
+    let workflow_id = crate::random_workflow_id();
+    let workflow_name =
+        format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}");
+    let client = builder.build().await?;
+
+    match client.get_workflow(&workflow_name).send().await {
+        Ok(g) => panic!("unexpected success {g:?}"),
+        Err(e) => match e.as_inner::<gax::error::ServiceError>() {
+            None => panic!("expected service error, got {e:?}"),
+            Some(error) => {
+                let want = gax::error::rpc::Code::NotFound;
+                assert_eq!(error.status().code, want, "{error:?}");
+                tracing::info!("service error = {error}");
+            }
+        },
+    }
+
+    Ok(())
+}
+
+pub async fn check_code_for_grpc(builder: storage::client::ClientBuilder) -> Result<()> {
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let bucket_id = crate::random_bucket_id();
+    let bucket_name = format!("projects/_/buckets/{bucket_id}");
+    let client = builder.build().await?;
+
+    match client.get_bucket(&bucket_name).send().await {
+        Ok(g) => panic!("unexpected success {g:?}"),
+        Err(e) => match e.as_inner::<gax::error::ServiceError>() {
+            None => panic!("expected service error, got {e:?}"),
+            Some(error) => {
+                let want = gax::error::rpc::Code::NotFound;
+                assert_eq!(error.status().code, want, "{error:?}");
+                tracing::info!("service error = {error}");
+            }
+        },
+    };
+
+    Ok(())
+}

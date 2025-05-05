@@ -16,7 +16,6 @@
 
 pub mod certificate_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CertificateManager][super::super::client::CertificateManager].
     ///
@@ -49,7 +48,7 @@ pub mod certificate_manager {
     /// Common implementation for [super::super::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod certificate_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod certificate_manager {
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +118,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -157,7 +162,9 @@ pub mod certificate_manager {
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,6 +189,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -200,7 +209,9 @@ pub mod certificate_manager {
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -266,18 +277,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_id][crate::model::CreateCertificateRequest::certificate_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.certificate_id = v.into();
             self
         }
 
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
             mut self,
             v: T,
@@ -299,7 +316,9 @@ pub mod certificate_manager {
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -365,6 +384,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
             mut self,
             v: T,
@@ -374,6 +395,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -395,7 +418,9 @@ pub mod certificate_manager {
     pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
 
     impl DeleteCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,6 +483,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -476,7 +503,9 @@ pub mod certificate_manager {
     pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
 
     impl ListCertificateMaps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,6 +548,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -561,7 +592,9 @@ pub mod certificate_manager {
     pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
 
     impl GetCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -589,6 +622,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateMapRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -607,7 +642,9 @@ pub mod certificate_manager {
     pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
 
     impl CreateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -674,18 +711,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_map_id][crate::model::CreateCertificateMapRequest::certificate_map_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_map_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.certificate_map_id = v.into();
             self
         }
 
         /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
             mut self,
             v: T,
@@ -707,7 +750,9 @@ pub mod certificate_manager {
     pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
 
     impl UpdateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -774,6 +819,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
             mut self,
             v: T,
@@ -783,6 +830,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -804,7 +853,9 @@ pub mod certificate_manager {
     pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
 
     impl DeleteCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -867,6 +918,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateMapRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -887,7 +940,9 @@ pub mod certificate_manager {
     );
 
     impl ListCertificateMapEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -932,6 +987,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapEntriesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -974,7 +1031,9 @@ pub mod certificate_manager {
     pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
 
     impl GetCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1002,6 +1061,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateMapEntryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1022,7 +1083,9 @@ pub mod certificate_manager {
     );
 
     impl CreateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1089,18 +1152,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapEntryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_map_entry_id][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_map_entry_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.certificate_map_entry_id = v.into();
             self
         }
 
         /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_map_entry<
             T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
         >(
@@ -1126,7 +1195,9 @@ pub mod certificate_manager {
     );
 
     impl UpdateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1193,6 +1264,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_map_entry<
             T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
         >(
@@ -1204,6 +1277,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1227,7 +1302,9 @@ pub mod certificate_manager {
     );
 
     impl DeleteCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,6 +1367,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateMapEntryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1308,7 +1387,9 @@ pub mod certificate_manager {
     pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
 
     impl ListDnsAuthorizations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1351,6 +1432,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListDnsAuthorizationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1393,7 +1476,9 @@ pub mod certificate_manager {
     pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
 
     impl GetDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1421,6 +1506,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetDnsAuthorizationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1439,7 +1526,9 @@ pub mod certificate_manager {
     pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
 
     impl CreateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1506,18 +1595,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateDnsAuthorizationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [dns_authorization_id][crate::model::CreateDnsAuthorizationRequest::dns_authorization_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dns_authorization_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dns_authorization_id = v.into();
             self
         }
 
         /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dns_authorization<
             T: Into<std::option::Option<crate::model::DnsAuthorization>>,
         >(
@@ -1541,7 +1636,9 @@ pub mod certificate_manager {
     pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
 
     impl UpdateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1608,6 +1705,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dns_authorization<
             T: Into<std::option::Option<crate::model::DnsAuthorization>>,
         >(
@@ -1619,6 +1718,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1640,7 +1741,9 @@ pub mod certificate_manager {
     pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
 
     impl DeleteDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1703,6 +1806,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteDnsAuthorizationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1723,7 +1828,9 @@ pub mod certificate_manager {
     );
 
     impl ListCertificateIssuanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1768,6 +1875,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateIssuanceConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1812,7 +1921,9 @@ pub mod certificate_manager {
     );
 
     impl GetCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1840,6 +1951,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateIssuanceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1860,7 +1973,9 @@ pub mod certificate_manager {
     );
 
     impl CreateCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1929,12 +2044,16 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateIssuanceConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_issuance_config_id][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_issuance_config_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -1944,6 +2063,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_certificate_issuance_config<
             T: Into<std::option::Option<crate::model::CertificateIssuanceConfig>>,
         >(
@@ -1969,7 +2090,9 @@ pub mod certificate_manager {
     );
 
     impl DeleteCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2032,6 +2155,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateIssuanceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2050,7 +2175,9 @@ pub mod certificate_manager {
     pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
     impl ListTrustConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2093,6 +2220,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListTrustConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2135,7 +2264,9 @@ pub mod certificate_manager {
     pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
 
     impl GetTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2160,6 +2291,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetTrustConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2178,7 +2311,9 @@ pub mod certificate_manager {
     pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
     impl CreateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2244,18 +2379,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateTrustConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [trust_config_id][crate::model::CreateTrustConfigRequest::trust_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trust_config_id = v.into();
             self
         }
 
         /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
             mut self,
             v: T,
@@ -2277,7 +2418,9 @@ pub mod certificate_manager {
     pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
     impl UpdateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2343,6 +2486,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
             mut self,
             v: T,
@@ -2352,6 +2497,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2373,7 +2520,9 @@ pub mod certificate_manager {
     pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
     impl DeleteTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2436,6 +2585,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteTrustConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2460,7 +2611,9 @@ pub mod certificate_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2539,7 +2692,9 @@ pub mod certificate_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2582,7 +2737,9 @@ pub mod certificate_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2661,7 +2818,9 @@ pub mod certificate_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2707,7 +2866,9 @@ pub mod certificate_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2753,7 +2914,9 @@ pub mod certificate_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

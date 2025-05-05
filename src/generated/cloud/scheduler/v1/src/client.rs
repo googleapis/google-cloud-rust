@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Scheduler API.
 ///
@@ -59,11 +58,11 @@ use std::sync::Arc;
 ///
 /// `CloudScheduler` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudScheduler` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudScheduler {
-    inner: Arc<dyn super::stub::dynamic::CloudScheduler>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudScheduler>,
 }
 
 impl CloudScheduler {
@@ -88,7 +87,7 @@ impl CloudScheduler {
         T: super::stub::CloudScheduler + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -99,11 +98,11 @@ impl CloudScheduler {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudScheduler>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CloudScheduler>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -157,7 +156,7 @@ impl CloudScheduler {
     /// UpdateJob request until a successful response is received.
     ///
     /// [google.cloud.scheduler.v1.Job]: crate::model::Job
-    /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::state::UPDATE_FAILED
+    /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::State::UpdateFailed
     pub fn update_job(
         &self,
         job: impl Into<crate::model::Job>,
@@ -185,8 +184,8 @@ impl CloudScheduler {
     /// be paused.
     ///
     /// [google.cloud.scheduler.v1.CloudScheduler.ResumeJob]: crate::client::CloudScheduler::resume_job
-    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::state::ENABLED
-    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::state::PAUSED
+    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
+    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
     pub fn pause_job(
         &self,
@@ -205,8 +204,8 @@ impl CloudScheduler {
     /// must be in [Job.State.PAUSED][google.cloud.scheduler.v1.Job.State.PAUSED]
     /// to be resumed.
     ///
-    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::state::ENABLED
-    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::state::PAUSED
+    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
+    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
     pub fn resume_job(
         &self,

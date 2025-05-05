@@ -16,7 +16,6 @@
 
 pub mod cloud_controls_partner_core {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudControlsPartnerCore][super::super::client::CloudControlsPartnerCore].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_controls_partner_core {
     /// Common implementation for [super::super::client::CloudControlsPartnerCore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod cloud_controls_partner_core {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod cloud_controls_partner_core {
 
     impl GetWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -101,6 +100,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -120,7 +121,7 @@ pub mod cloud_controls_partner_core {
 
     impl ListWorkloads {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -161,6 +162,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -204,7 +207,7 @@ pub mod cloud_controls_partner_core {
 
     impl GetCustomer {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -230,6 +233,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [name][crate::model::GetCustomerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -249,7 +254,7 @@ pub mod cloud_controls_partner_core {
 
     impl ListCustomers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -290,6 +295,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [parent][crate::model::ListCustomersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -333,7 +340,7 @@ pub mod cloud_controls_partner_core {
 
     impl GetEkmConnections {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -362,6 +369,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -381,7 +390,7 @@ pub mod cloud_controls_partner_core {
 
     impl GetPartnerPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -410,6 +419,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [name][crate::model::GetPartnerPermissionsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -431,7 +442,7 @@ pub mod cloud_controls_partner_core {
 
     impl ListAccessApprovalRequests {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -477,6 +488,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [parent][crate::model::ListAccessApprovalRequestsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -520,7 +533,7 @@ pub mod cloud_controls_partner_core {
 
     impl GetPartner {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -546,6 +559,8 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets the value of [name][crate::model::GetPartnerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -562,7 +577,6 @@ pub mod cloud_controls_partner_core {
 
 pub mod cloud_controls_partner_monitoring {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudControlsPartnerMonitoring][super::super::client::CloudControlsPartnerMonitoring].
     ///
@@ -595,7 +609,7 @@ pub mod cloud_controls_partner_monitoring {
     /// Common implementation for [super::super::client::CloudControlsPartnerMonitoring] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -605,7 +619,7 @@ pub mod cloud_controls_partner_monitoring {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self {
                 stub,
@@ -621,7 +635,7 @@ pub mod cloud_controls_partner_monitoring {
 
     impl ListViolations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -662,6 +676,8 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Sets the value of [parent][crate::model::ListViolationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -714,7 +730,7 @@ pub mod cloud_controls_partner_monitoring {
 
     impl GetViolation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -740,6 +756,8 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Sets the value of [name][crate::model::GetViolationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

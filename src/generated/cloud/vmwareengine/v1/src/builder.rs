@@ -16,7 +16,6 @@
 
 pub mod vmware_engine {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VmwareEngine][super::super::client::VmwareEngine].
     ///
@@ -49,7 +48,7 @@ pub mod vmware_engine {
     /// Common implementation for [super::super::client::VmwareEngine] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod vmware_engine {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod vmware_engine {
     pub struct ListPrivateClouds(RequestBuilder<crate::model::ListPrivateCloudsRequest>);
 
     impl ListPrivateClouds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +118,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateCloudsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -157,7 +162,9 @@ pub mod vmware_engine {
     pub struct GetPrivateCloud(RequestBuilder<crate::model::GetPrivateCloudRequest>);
 
     impl GetPrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,6 +189,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetPrivateCloudRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -200,7 +209,9 @@ pub mod vmware_engine {
     pub struct CreatePrivateCloud(RequestBuilder<crate::model::CreatePrivateCloudRequest>);
 
     impl CreatePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -266,18 +277,24 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateCloudRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [private_cloud_id][crate::model::CreatePrivateCloudRequest::private_cloud_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_cloud_id = v.into();
             self
         }
 
         /// Sets the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud<T: Into<std::option::Option<crate::model::PrivateCloud>>>(
             mut self,
             v: T,
@@ -311,7 +328,9 @@ pub mod vmware_engine {
     pub struct UpdatePrivateCloud(RequestBuilder<crate::model::UpdatePrivateCloudRequest>);
 
     impl UpdatePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -377,6 +396,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud<T: Into<std::option::Option<crate::model::PrivateCloud>>>(
             mut self,
             v: T,
@@ -386,6 +407,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -413,7 +436,9 @@ pub mod vmware_engine {
     pub struct DeletePrivateCloud(RequestBuilder<crate::model::DeletePrivateCloudRequest>);
 
     impl DeletePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -479,6 +504,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateCloudRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -515,7 +542,9 @@ pub mod vmware_engine {
     pub struct UndeletePrivateCloud(RequestBuilder<crate::model::UndeletePrivateCloudRequest>);
 
     impl UndeletePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -581,6 +610,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::UndeletePrivateCloudRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -605,7 +636,9 @@ pub mod vmware_engine {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,6 +678,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -687,7 +722,9 @@ pub mod vmware_engine {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -712,6 +749,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -730,7 +769,9 @@ pub mod vmware_engine {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -792,18 +833,24 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -837,7 +884,9 @@ pub mod vmware_engine {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -899,6 +948,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -908,6 +959,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -941,7 +994,9 @@ pub mod vmware_engine {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1001,6 +1056,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1025,7 +1082,9 @@ pub mod vmware_engine {
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1065,6 +1124,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListNodesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1095,7 +1156,9 @@ pub mod vmware_engine {
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1120,6 +1183,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetNodeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1138,7 +1203,9 @@ pub mod vmware_engine {
     pub struct ListExternalAddresses(RequestBuilder<crate::model::ListExternalAddressesRequest>);
 
     impl ListExternalAddresses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1181,6 +1248,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListExternalAddressesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1225,7 +1294,9 @@ pub mod vmware_engine {
     );
 
     impl FetchNetworkPolicyExternalAddresses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1272,6 +1343,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [network_policy][crate::model::FetchNetworkPolicyExternalAddressesRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_policy<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.network_policy = v.into();
             self
@@ -1302,7 +1375,9 @@ pub mod vmware_engine {
     pub struct GetExternalAddress(RequestBuilder<crate::model::GetExternalAddressRequest>);
 
     impl GetExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1330,6 +1405,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetExternalAddressRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1348,7 +1425,9 @@ pub mod vmware_engine {
     pub struct CreateExternalAddress(RequestBuilder<crate::model::CreateExternalAddressRequest>);
 
     impl CreateExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1415,12 +1494,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAddressRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_address<T: Into<std::option::Option<crate::model::ExternalAddress>>>(
             mut self,
             v: T,
@@ -1430,6 +1513,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [external_address_id][crate::model::CreateExternalAddressRequest::external_address_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_address_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.external_address_id = v.into();
             self
@@ -1454,7 +1539,9 @@ pub mod vmware_engine {
     pub struct UpdateExternalAddress(RequestBuilder<crate::model::UpdateExternalAddressRequest>);
 
     impl UpdateExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1521,6 +1608,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1530,6 +1619,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_address<T: Into<std::option::Option<crate::model::ExternalAddress>>>(
             mut self,
             v: T,
@@ -1557,7 +1648,9 @@ pub mod vmware_engine {
     pub struct DeleteExternalAddress(RequestBuilder<crate::model::DeleteExternalAddressRequest>);
 
     impl DeleteExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,6 +1713,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAddressRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1644,7 +1739,9 @@ pub mod vmware_engine {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1684,6 +1781,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListSubnetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1714,7 +1813,9 @@ pub mod vmware_engine {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1739,6 +1840,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetSubnetRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1757,7 +1860,9 @@ pub mod vmware_engine {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1819,6 +1924,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1828,6 +1935,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
             mut self,
             v: T,
@@ -1851,7 +1960,9 @@ pub mod vmware_engine {
     );
 
     impl ListExternalAccessRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,6 +2007,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListExternalAccessRulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1938,7 +2051,9 @@ pub mod vmware_engine {
     pub struct GetExternalAccessRule(RequestBuilder<crate::model::GetExternalAccessRuleRequest>);
 
     impl GetExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1966,6 +2081,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetExternalAccessRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1986,7 +2103,9 @@ pub mod vmware_engine {
     );
 
     impl CreateExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2053,12 +2172,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccessRuleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_access_rule<
             T: Into<std::option::Option<crate::model::ExternalAccessRule>>,
         >(
@@ -2070,6 +2193,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [external_access_rule_id][crate::model::CreateExternalAccessRuleRequest::external_access_rule_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_access_rule_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.external_access_rule_id = v.into();
             self
@@ -2096,7 +2221,9 @@ pub mod vmware_engine {
     );
 
     impl UpdateExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2163,6 +2290,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2172,6 +2301,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_access_rule<
             T: Into<std::option::Option<crate::model::ExternalAccessRule>>,
         >(
@@ -2203,7 +2334,9 @@ pub mod vmware_engine {
     );
 
     impl DeleteExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2266,6 +2399,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAccessRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2290,7 +2425,9 @@ pub mod vmware_engine {
     pub struct ListLoggingServers(RequestBuilder<crate::model::ListLoggingServersRequest>);
 
     impl ListLoggingServers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2333,6 +2470,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListLoggingServersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2375,7 +2514,9 @@ pub mod vmware_engine {
     pub struct GetLoggingServer(RequestBuilder<crate::model::GetLoggingServerRequest>);
 
     impl GetLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2403,6 +2544,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetLoggingServerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2421,7 +2564,9 @@ pub mod vmware_engine {
     pub struct CreateLoggingServer(RequestBuilder<crate::model::CreateLoggingServerRequest>);
 
     impl CreateLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2488,12 +2633,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateLoggingServerRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logging_server<T: Into<std::option::Option<crate::model::LoggingServer>>>(
             mut self,
             v: T,
@@ -2503,6 +2652,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [logging_server_id][crate::model::CreateLoggingServerRequest::logging_server_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logging_server_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.logging_server_id = v.into();
             self
@@ -2527,7 +2678,9 @@ pub mod vmware_engine {
     pub struct UpdateLoggingServer(RequestBuilder<crate::model::UpdateLoggingServerRequest>);
 
     impl UpdateLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2594,6 +2747,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2603,6 +2758,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logging_server<T: Into<std::option::Option<crate::model::LoggingServer>>>(
             mut self,
             v: T,
@@ -2630,7 +2787,9 @@ pub mod vmware_engine {
     pub struct DeleteLoggingServer(RequestBuilder<crate::model::DeleteLoggingServerRequest>);
 
     impl DeleteLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2693,6 +2852,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteLoggingServerRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2717,7 +2878,9 @@ pub mod vmware_engine {
     pub struct ListNodeTypes(RequestBuilder<crate::model::ListNodeTypesRequest>);
 
     impl ListNodeTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2757,6 +2920,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListNodeTypesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2793,7 +2958,9 @@ pub mod vmware_engine {
     pub struct GetNodeType(RequestBuilder<crate::model::GetNodeTypeRequest>);
 
     impl GetNodeType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2818,6 +2985,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetNodeTypeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2836,7 +3005,9 @@ pub mod vmware_engine {
     pub struct ShowNsxCredentials(RequestBuilder<crate::model::ShowNsxCredentialsRequest>);
 
     impl ShowNsxCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2864,6 +3035,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [private_cloud][crate::model::ShowNsxCredentialsRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_cloud = v.into();
             self
@@ -2882,7 +3055,9 @@ pub mod vmware_engine {
     pub struct ShowVcenterCredentials(RequestBuilder<crate::model::ShowVcenterCredentialsRequest>);
 
     impl ShowVcenterCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2910,6 +3085,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [private_cloud][crate::model::ShowVcenterCredentialsRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_cloud = v.into();
             self
@@ -2934,7 +3111,9 @@ pub mod vmware_engine {
     pub struct ResetNsxCredentials(RequestBuilder<crate::model::ResetNsxCredentialsRequest>);
 
     impl ResetNsxCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3000,6 +3179,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [private_cloud][crate::model::ResetNsxCredentialsRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_cloud = v.into();
             self
@@ -3026,7 +3207,9 @@ pub mod vmware_engine {
     );
 
     impl ResetVcenterCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3092,6 +3275,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [private_cloud][crate::model::ResetVcenterCredentialsRequest::private_cloud].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_cloud<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_cloud = v.into();
             self
@@ -3122,7 +3307,9 @@ pub mod vmware_engine {
     pub struct GetDnsForwarding(RequestBuilder<crate::model::GetDnsForwardingRequest>);
 
     impl GetDnsForwarding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3150,6 +3337,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetDnsForwardingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3168,7 +3357,9 @@ pub mod vmware_engine {
     pub struct UpdateDnsForwarding(RequestBuilder<crate::model::UpdateDnsForwardingRequest>);
 
     impl UpdateDnsForwarding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3235,6 +3426,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dns_forwarding<T: Into<std::option::Option<crate::model::DnsForwarding>>>(
             mut self,
             v: T,
@@ -3244,6 +3437,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3271,7 +3466,9 @@ pub mod vmware_engine {
     pub struct GetNetworkPeering(RequestBuilder<crate::model::GetNetworkPeeringRequest>);
 
     impl GetNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3299,6 +3496,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetNetworkPeeringRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3317,7 +3516,9 @@ pub mod vmware_engine {
     pub struct ListNetworkPeerings(RequestBuilder<crate::model::ListNetworkPeeringsRequest>);
 
     impl ListNetworkPeerings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3360,6 +3561,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListNetworkPeeringsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3402,7 +3605,9 @@ pub mod vmware_engine {
     pub struct CreateNetworkPeering(RequestBuilder<crate::model::CreateNetworkPeeringRequest>);
 
     impl CreateNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3469,18 +3674,24 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkPeeringRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [network_peering_id][crate::model::CreateNetworkPeeringRequest::network_peering_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_peering_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.network_peering_id = v.into();
             self
         }
 
         /// Sets the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_peering<T: Into<std::option::Option<crate::model::NetworkPeering>>>(
             mut self,
             v: T,
@@ -3508,7 +3719,9 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPeering(RequestBuilder<crate::model::DeleteNetworkPeeringRequest>);
 
     impl DeleteNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3571,6 +3784,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPeeringRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3595,7 +3810,9 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPeering(RequestBuilder<crate::model::UpdateNetworkPeeringRequest>);
 
     impl UpdateNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3662,6 +3879,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_peering<T: Into<std::option::Option<crate::model::NetworkPeering>>>(
             mut self,
             v: T,
@@ -3671,6 +3890,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3698,7 +3919,9 @@ pub mod vmware_engine {
     pub struct ListPeeringRoutes(RequestBuilder<crate::model::ListPeeringRoutesRequest>);
 
     impl ListPeeringRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3741,6 +3964,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListPeeringRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3777,7 +4002,9 @@ pub mod vmware_engine {
     pub struct CreateHcxActivationKey(RequestBuilder<crate::model::CreateHcxActivationKeyRequest>);
 
     impl CreateHcxActivationKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3844,12 +4071,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateHcxActivationKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_hcx_activation_key<
             T: Into<std::option::Option<crate::model::HcxActivationKey>>,
         >(
@@ -3861,6 +4092,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [hcx_activation_key_id][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_hcx_activation_key_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.hcx_activation_key_id = v.into();
             self
@@ -3885,7 +4118,9 @@ pub mod vmware_engine {
     pub struct ListHcxActivationKeys(RequestBuilder<crate::model::ListHcxActivationKeysRequest>);
 
     impl ListHcxActivationKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3928,6 +4163,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListHcxActivationKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3958,7 +4195,9 @@ pub mod vmware_engine {
     pub struct GetHcxActivationKey(RequestBuilder<crate::model::GetHcxActivationKeyRequest>);
 
     impl GetHcxActivationKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3986,6 +4225,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetHcxActivationKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4004,7 +4245,9 @@ pub mod vmware_engine {
     pub struct GetNetworkPolicy(RequestBuilder<crate::model::GetNetworkPolicyRequest>);
 
     impl GetNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4032,6 +4275,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetNetworkPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4050,7 +4295,9 @@ pub mod vmware_engine {
     pub struct ListNetworkPolicies(RequestBuilder<crate::model::ListNetworkPoliciesRequest>);
 
     impl ListNetworkPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4093,6 +4340,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListNetworkPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4135,7 +4384,9 @@ pub mod vmware_engine {
     pub struct CreateNetworkPolicy(RequestBuilder<crate::model::CreateNetworkPolicyRequest>);
 
     impl CreateNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4202,18 +4453,24 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [network_policy_id][crate::model::CreateNetworkPolicyRequest::network_policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.network_policy_id = v.into();
             self
         }
 
         /// Sets the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
             mut self,
             v: T,
@@ -4241,7 +4498,9 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPolicy(RequestBuilder<crate::model::UpdateNetworkPolicyRequest>);
 
     impl UpdateNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4308,6 +4567,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
             mut self,
             v: T,
@@ -4317,6 +4578,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4344,7 +4607,9 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPolicy(RequestBuilder<crate::model::DeleteNetworkPolicyRequest>);
 
     impl DeleteNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4407,6 +4672,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4433,7 +4700,9 @@ pub mod vmware_engine {
     );
 
     impl ListManagementDnsZoneBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4478,6 +4747,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListManagementDnsZoneBindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4522,7 +4793,9 @@ pub mod vmware_engine {
     );
 
     impl GetManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4550,6 +4823,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetManagementDnsZoneBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4570,7 +4845,9 @@ pub mod vmware_engine {
     );
 
     impl CreateManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4639,12 +4916,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateManagementDnsZoneBindingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_management_dns_zone_binding<
             T: Into<std::option::Option<crate::model::ManagementDnsZoneBinding>>,
         >(
@@ -4656,6 +4937,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [management_dns_zone_binding_id][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_management_dns_zone_binding_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -4685,7 +4968,9 @@ pub mod vmware_engine {
     );
 
     impl UpdateManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4754,6 +5039,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4763,6 +5050,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_management_dns_zone_binding<
             T: Into<std::option::Option<crate::model::ManagementDnsZoneBinding>>,
         >(
@@ -4794,7 +5083,9 @@ pub mod vmware_engine {
     );
 
     impl DeleteManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4857,6 +5148,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteManagementDnsZoneBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4883,7 +5176,9 @@ pub mod vmware_engine {
     );
 
     impl RepairManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4952,6 +5247,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::RepairManagementDnsZoneBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4978,7 +5275,9 @@ pub mod vmware_engine {
     );
 
     impl CreateVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5045,18 +5344,24 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreateVmwareEngineNetworkRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vmware_engine_network_id][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vmware_engine_network_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.vmware_engine_network_id = v.into();
             self
         }
 
         /// Sets the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vmware_engine_network<
             T: Into<std::option::Option<crate::model::VmwareEngineNetwork>>,
         >(
@@ -5088,7 +5393,9 @@ pub mod vmware_engine {
     );
 
     impl UpdateVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5155,6 +5462,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_vmware_engine_network<
             T: Into<std::option::Option<crate::model::VmwareEngineNetwork>>,
         >(
@@ -5166,6 +5475,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -5195,7 +5506,9 @@ pub mod vmware_engine {
     );
 
     impl DeleteVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5258,6 +5571,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeleteVmwareEngineNetworkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5288,7 +5603,9 @@ pub mod vmware_engine {
     pub struct GetVmwareEngineNetwork(RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>);
 
     impl GetVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5316,6 +5633,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetVmwareEngineNetworkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5336,7 +5655,9 @@ pub mod vmware_engine {
     );
 
     impl ListVmwareEngineNetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5381,6 +5702,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListVmwareEngineNetworksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5425,7 +5748,9 @@ pub mod vmware_engine {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5492,18 +5817,24 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [private_connection_id][crate::model::CreatePrivateConnectionRequest::private_connection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_connection_id = v.into();
             self
         }
 
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_connection<
             T: Into<std::option::Option<crate::model::PrivateConnection>>,
         >(
@@ -5533,7 +5864,9 @@ pub mod vmware_engine {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5561,6 +5894,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5579,7 +5914,9 @@ pub mod vmware_engine {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5624,6 +5961,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5668,7 +6007,9 @@ pub mod vmware_engine {
     );
 
     impl UpdatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5735,6 +6076,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_private_connection<
             T: Into<std::option::Option<crate::model::PrivateConnection>>,
         >(
@@ -5746,6 +6089,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -5775,7 +6120,9 @@ pub mod vmware_engine {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5838,6 +6185,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5864,7 +6213,9 @@ pub mod vmware_engine {
     );
 
     impl ListPrivateConnectionPeeringRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5911,6 +6262,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionPeeringRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5941,7 +6294,9 @@ pub mod vmware_engine {
     pub struct GrantDnsBindPermission(RequestBuilder<crate::model::GrantDnsBindPermissionRequest>);
 
     impl GrantDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6008,12 +6363,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GrantDnsBindPermissionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_principal<T: Into<std::option::Option<crate::model::Principal>>>(
             mut self,
             v: T,
@@ -6041,7 +6400,9 @@ pub mod vmware_engine {
     pub struct GetDnsBindPermission(RequestBuilder<crate::model::GetDnsBindPermissionRequest>);
 
     impl GetDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6069,6 +6430,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::GetDnsBindPermissionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6089,7 +6452,9 @@ pub mod vmware_engine {
     );
 
     impl RevokeDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6156,12 +6521,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [name][crate::model::RevokeDnsBindPermissionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_principal<T: Into<std::option::Option<crate::model::Principal>>>(
             mut self,
             v: T,
@@ -6189,7 +6558,9 @@ pub mod vmware_engine {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6268,7 +6639,9 @@ pub mod vmware_engine {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6311,7 +6684,9 @@ pub mod vmware_engine {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6336,12 +6711,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -6372,7 +6751,9 @@ pub mod vmware_engine {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6397,6 +6778,8 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -6424,7 +6807,9 @@ pub mod vmware_engine {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6452,12 +6837,16 @@ pub mod vmware_engine {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6481,7 +6870,9 @@ pub mod vmware_engine {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6560,7 +6951,9 @@ pub mod vmware_engine {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6606,7 +6999,9 @@ pub mod vmware_engine {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

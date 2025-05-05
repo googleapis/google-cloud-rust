@@ -16,7 +16,6 @@
 
 pub mod firestore {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Firestore][super::super::client::Firestore].
     ///
@@ -49,7 +48,7 @@ pub mod firestore {
     /// Common implementation for [super::super::client::Firestore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Firestore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod firestore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod firestore {
     pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
 
     impl GetDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,6 +100,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [name][crate::model::GetDocumentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -161,7 +166,9 @@ pub mod firestore {
     pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
 
     impl ListDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,6 +208,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [parent][crate::model::ListDocumentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -295,7 +304,9 @@ pub mod firestore {
     pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
 
     impl UpdateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -320,6 +331,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -368,7 +381,9 @@ pub mod firestore {
     pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
 
     impl DeleteDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -393,6 +408,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [name][crate::model::DeleteDocumentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -420,7 +437,9 @@ pub mod firestore {
     pub struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
 
     impl BeginTransaction {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -448,6 +467,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [database][crate::model::BeginTransactionRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -475,7 +496,9 @@ pub mod firestore {
     pub struct Commit(RequestBuilder<crate::model::CommitRequest>);
 
     impl Commit {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -500,14 +523,10 @@ pub mod firestore {
         }
 
         /// Sets the value of [database][crate::model::CommitRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
-            self
-        }
-
-        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.transaction = v.into();
             self
         }
 
@@ -519,6 +538,12 @@ pub mod firestore {
         {
             use std::iter::Iterator;
             self.0.request.writes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.transaction = v.into();
             self
         }
     }
@@ -535,7 +560,9 @@ pub mod firestore {
     pub struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
 
     impl Rollback {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -560,12 +587,16 @@ pub mod firestore {
         }
 
         /// Sets the value of [database][crate::model::RollbackRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
         /// Sets the value of [transaction][crate::model::RollbackRequest::transaction].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.transaction = v.into();
             self
@@ -584,7 +615,9 @@ pub mod firestore {
     pub struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
 
     impl PartitionQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -624,6 +657,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [parent][crate::model::PartitionQueryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -714,7 +749,9 @@ pub mod firestore {
     pub struct ListCollectionIds(RequestBuilder<crate::model::ListCollectionIdsRequest>);
 
     impl ListCollectionIds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -742,6 +779,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [parent][crate::model::ListCollectionIdsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -799,7 +838,9 @@ pub mod firestore {
     pub struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
 
     impl BatchWrite {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,6 +865,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [database][crate::model::BatchWriteRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -864,7 +907,9 @@ pub mod firestore {
     pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
 
     impl CreateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -889,12 +934,16 @@ pub mod firestore {
         }
 
         /// Sets the value of [parent][crate::model::CreateDocumentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [collection_id][crate::model::CreateDocumentRequest::collection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.collection_id = v.into();
             self
@@ -907,6 +956,8 @@ pub mod firestore {
         }
 
         /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,

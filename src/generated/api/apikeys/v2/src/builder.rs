@@ -16,7 +16,6 @@
 
 pub mod api_keys {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ApiKeys][super::super::client::ApiKeys].
     ///
@@ -49,7 +48,7 @@ pub mod api_keys {
     /// Common implementation for [super::super::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiKeys>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod api_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod api_keys {
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -132,12 +131,16 @@ pub mod api_keys {
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [key][crate::model::CreateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -162,7 +165,7 @@ pub mod api_keys {
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,6 +205,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -238,7 +243,7 @@ pub mod api_keys {
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -263,6 +268,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -281,7 +288,7 @@ pub mod api_keys {
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
     impl GetKeyString {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,6 +313,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [name][crate::model::GetKeyStringRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -324,7 +333,7 @@ pub mod api_keys {
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -384,6 +393,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -411,7 +422,7 @@ pub mod api_keys {
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -471,6 +482,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -495,7 +508,7 @@ pub mod api_keys {
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
     impl UndeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -555,6 +568,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [name][crate::model::UndeleteKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -573,7 +588,7 @@ pub mod api_keys {
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
     impl LookupKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -598,6 +613,8 @@ pub mod api_keys {
         }
 
         /// Sets the value of [key_string][crate::model::LookupKeyRequest::key_string].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_key_string<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.key_string = v.into();
             self
@@ -616,7 +633,7 @@ pub mod api_keys {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

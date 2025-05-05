@@ -48,6 +48,7 @@ pub struct ListTunnelDestGroupsRequest {
     /// this value.
     /// If unspecified, at most 100 groups are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListTunnelDestGroups`
@@ -117,12 +118,6 @@ impl ListTunnelDestGroupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTunnelDestGroupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tunnel_dest_groups][crate::model::ListTunnelDestGroupsResponse::tunnel_dest_groups].
     pub fn set_tunnel_dest_groups<T, V>(mut self, v: T) -> Self
     where
@@ -131,6 +126,12 @@ impl ListTunnelDestGroupsResponse {
     {
         use std::iter::Iterator;
         self.tunnel_dest_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTunnelDestGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -693,63 +694,134 @@ pub mod access_settings {
     use super::*;
 
     /// Types of identity source supported by IAP.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IdentitySource(i32);
-
-    impl IdentitySource {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IdentitySource {
         /// IdentitySource Unspecified.
         /// When selected, IAP relies on which identity settings are fully configured
         /// to redirect the traffic to. The precedence order is
         /// WorkforceIdentitySettings > GcipSettings. If none is set, default to use
         /// Google identity.
-        pub const IDENTITY_SOURCE_UNSPECIFIED: IdentitySource = IdentitySource::new(0);
-
+        Unspecified,
         /// Use external identities set up on Google Cloud Workforce Identity
         /// Federation.
-        pub const WORKFORCE_IDENTITY_FEDERATION: IdentitySource = IdentitySource::new(3);
+        WorkforceIdentityFederation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IdentitySource::value] or
+        /// [IdentitySource::name].
+        UnknownValue(identity_source::UnknownValue),
+    }
 
-        /// Creates a new IdentitySource instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod identity_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl IdentitySource {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::WorkforceIdentityFederation => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("IDENTITY_SOURCE_UNSPECIFIED"),
-                3 => std::borrow::Cow::Borrowed("WORKFORCE_IDENTITY_FEDERATION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "IDENTITY_SOURCE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::IDENTITY_SOURCE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IDENTITY_SOURCE_UNSPECIFIED"),
+                Self::WorkforceIdentityFederation => {
+                    std::option::Option::Some("WORKFORCE_IDENTITY_FEDERATION")
                 }
-                "WORKFORCE_IDENTITY_FEDERATION" => {
-                    std::option::Option::Some(Self::WORKFORCE_IDENTITY_FEDERATION)
-                }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for IdentitySource {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for IdentitySource {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IdentitySource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IdentitySource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                3 => Self::WorkforceIdentityFederation,
+                _ => Self::UnknownValue(identity_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IdentitySource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IDENTITY_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                "WORKFORCE_IDENTITY_FEDERATION" => Self::WorkforceIdentityFederation,
+                _ => Self::UnknownValue(identity_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IdentitySource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::WorkforceIdentityFederation => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IdentitySource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentitySource>::new(
+                ".google.cloud.iap.v1.AccessSettings.IdentitySource",
+            ))
         }
     }
 }
@@ -784,15 +856,6 @@ impl GcipSettings {
         std::default::Default::default()
     }
 
-    /// Sets the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
-    pub fn set_login_page_uri<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.login_page_uri = v.into();
-        self
-    }
-
     /// Sets the value of [tenant_ids][crate::model::GcipSettings::tenant_ids].
     pub fn set_tenant_ids<T, V>(mut self, v: T) -> Self
     where
@@ -801,6 +864,15 @@ impl GcipSettings {
     {
         use std::iter::Iterator;
         self.tenant_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [login_page_uri][crate::model::GcipSettings::login_page_uri].
+    pub fn set_login_page_uri<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.login_page_uri = v.into();
         self
     }
 }
@@ -929,15 +1001,6 @@ impl WorkforceIdentitySettings {
         std::default::Default::default()
     }
 
-    /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
-    pub fn set_oauth2<T: std::convert::Into<std::option::Option<crate::model::OAuth2>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oauth2 = v.into();
-        self
-    }
-
     /// Sets the value of [workforce_pools][crate::model::WorkforceIdentitySettings::workforce_pools].
     pub fn set_workforce_pools<T, V>(mut self, v: T) -> Self
     where
@@ -946,6 +1009,15 @@ impl WorkforceIdentitySettings {
     {
         use std::iter::Iterator;
         self.workforce_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
+    pub fn set_oauth2<T: std::convert::Into<std::option::Option<crate::model::OAuth2>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.oauth2 = v.into();
         self
     }
 }
@@ -1082,130 +1154,281 @@ pub mod reauth_settings {
     use super::*;
 
     /// Types of reauthentication methods supported by IAP.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Method {
+        /// Reauthentication disabled.
+        Unspecified,
+        /// Prompts the user to log in again.
+        Login,
+        #[deprecated]
+        Password,
+        /// User must use their secure key 2nd factor device.
+        SecureKey,
+        /// User can use any enabled 2nd factor.
+        EnrolledSecondFactors,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Method::value] or
+        /// [Method::name].
+        UnknownValue(method::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Method {
-        /// Reauthentication disabled.
-        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
-
-        /// Prompts the user to log in again.
-        pub const LOGIN: Method = Method::new(1);
-
-        pub const PASSWORD: Method = Method::new(2);
-
-        /// User must use their secure key 2nd factor device.
-        pub const SECURE_KEY: Method = Method::new(3);
-
-        /// User can use any enabled 2nd factor.
-        pub const ENROLLED_SECOND_FACTORS: Method = Method::new(4);
-
-        /// Creates a new Method instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Login => std::option::Option::Some(1),
+                Self::Password => std::option::Option::Some(2),
+                Self::SecureKey => std::option::Option::Some(3),
+                Self::EnrolledSecondFactors => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("LOGIN"),
-                2 => std::borrow::Cow::Borrowed("PASSWORD"),
-                3 => std::borrow::Cow::Borrowed("SECURE_KEY"),
-                4 => std::borrow::Cow::Borrowed("ENROLLED_SECOND_FACTORS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METHOD_UNSPECIFIED"),
+                Self::Login => std::option::Option::Some("LOGIN"),
+                Self::Password => std::option::Option::Some("PASSWORD"),
+                Self::SecureKey => std::option::Option::Some("SECURE_KEY"),
+                Self::EnrolledSecondFactors => std::option::Option::Some("ENROLLED_SECOND_FACTORS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
-                "LOGIN" => std::option::Option::Some(Self::LOGIN),
-                "PASSWORD" => std::option::Option::Some(Self::PASSWORD),
-                "SECURE_KEY" => std::option::Option::Some(Self::SECURE_KEY),
-                "ENROLLED_SECOND_FACTORS" => {
-                    std::option::Option::Some(Self::ENROLLED_SECOND_FACTORS)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Method {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Method {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Login,
+                2 => Self::Password,
+                3 => Self::SecureKey,
+                4 => Self::EnrolledSecondFactors,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Method {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METHOD_UNSPECIFIED" => Self::Unspecified,
+                "LOGIN" => Self::Login,
+                "PASSWORD" => Self::Password,
+                "SECURE_KEY" => Self::SecureKey,
+                "ENROLLED_SECOND_FACTORS" => Self::EnrolledSecondFactors,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Login => serializer.serialize_i32(1),
+                Self::Password => serializer.serialize_i32(2),
+                Self::SecureKey => serializer.serialize_i32(3),
+                Self::EnrolledSecondFactors => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
+                ".google.cloud.iap.v1.ReauthSettings.Method",
+            ))
         }
     }
 
     /// Type of policy in the case of hierarchical policies.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyType(i32);
-
-    impl PolicyType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PolicyType {
         /// Default value. This value is unused.
-        pub const POLICY_TYPE_UNSPECIFIED: PolicyType = PolicyType::new(0);
-
+        Unspecified,
         /// This policy acts as a minimum to other policies, lower in the hierarchy.
         /// Effective policy may only be the same or stricter.
-        pub const MINIMUM: PolicyType = PolicyType::new(1);
-
+        Minimum,
         /// This policy acts as a default if no other reauth policy is set.
-        pub const DEFAULT: PolicyType = PolicyType::new(2);
+        Default,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PolicyType::value] or
+        /// [PolicyType::name].
+        UnknownValue(policy_type::UnknownValue),
+    }
 
-        /// Creates a new PolicyType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod policy_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl PolicyType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Minimum => std::option::Option::Some(1),
+                Self::Default => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("POLICY_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MINIMUM"),
-                2 => std::borrow::Cow::Borrowed("DEFAULT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("POLICY_TYPE_UNSPECIFIED"),
+                Self::Minimum => std::option::Option::Some("MINIMUM"),
+                Self::Default => std::option::Option::Some("DEFAULT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "POLICY_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::POLICY_TYPE_UNSPECIFIED)
-                }
-                "MINIMUM" => std::option::Option::Some(Self::MINIMUM),
-                "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PolicyType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PolicyType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PolicyType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Minimum,
+                2 => Self::Default,
+                _ => Self::UnknownValue(policy_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PolicyType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "POLICY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "MINIMUM" => Self::Minimum,
+                "DEFAULT" => Self::Default,
+                _ => Self::UnknownValue(policy_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Minimum => serializer.serialize_i32(1),
+                Self::Default => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyType>::new(
+                ".google.cloud.iap.v1.ReauthSettings.PolicyType",
+            ))
         }
     }
 }
@@ -1521,12 +1744,6 @@ impl AttributePropagationSettings {
         self
     }
 
-    /// Sets the value of [enable][crate::model::AttributePropagationSettings::enable].
-    pub fn set_enable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-        self.enable = v.into();
-        self
-    }
-
     /// Sets the value of [output_credentials][crate::model::AttributePropagationSettings::output_credentials].
     pub fn set_output_credentials<T, V>(mut self, v: T) -> Self
     where
@@ -1535,6 +1752,12 @@ impl AttributePropagationSettings {
     {
         use std::iter::Iterator;
         self.output_credentials = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enable][crate::model::AttributePropagationSettings::enable].
+    pub fn set_enable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+        self.enable = v.into();
         self
     }
 }
@@ -1553,68 +1776,143 @@ pub mod attribute_propagation_settings {
     /// Supported output credentials for attribute propagation. Each output
     /// credential maps to a "field" in the response. For example, selecting JWT
     /// will propagate all attributes in the IAP JWT, header in the headers, etc.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OutputCredentials(i32);
-
-    impl OutputCredentials {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OutputCredentials {
         /// An output credential is required.
-        pub const OUTPUT_CREDENTIALS_UNSPECIFIED: OutputCredentials = OutputCredentials::new(0);
-
+        Unspecified,
         /// Propagate attributes in the headers with "x-goog-iap-attr-" prefix.
-        pub const HEADER: OutputCredentials = OutputCredentials::new(1);
-
+        Header,
         /// Propagate attributes in the JWT of the form: `"additional_claims": {
         /// "my_attribute": ["value1", "value2"] }`
-        pub const JWT: OutputCredentials = OutputCredentials::new(2);
-
+        Jwt,
         /// Propagate attributes in the RCToken of the form: `"additional_claims": {
         /// "my_attribute": ["value1", "value2"] }`
-        pub const RCTOKEN: OutputCredentials = OutputCredentials::new(3);
+        Rctoken,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OutputCredentials::value] or
+        /// [OutputCredentials::name].
+        UnknownValue(output_credentials::UnknownValue),
+    }
 
-        /// Creates a new OutputCredentials instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod output_credentials {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl OutputCredentials {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Header => std::option::Option::Some(1),
+                Self::Jwt => std::option::Option::Some(2),
+                Self::Rctoken => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("OUTPUT_CREDENTIALS_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("HEADER"),
-                2 => std::borrow::Cow::Borrowed("JWT"),
-                3 => std::borrow::Cow::Borrowed("RCTOKEN"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OUTPUT_CREDENTIALS_UNSPECIFIED"),
+                Self::Header => std::option::Option::Some("HEADER"),
+                Self::Jwt => std::option::Option::Some("JWT"),
+                Self::Rctoken => std::option::Option::Some("RCTOKEN"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "OUTPUT_CREDENTIALS_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::OUTPUT_CREDENTIALS_UNSPECIFIED)
-                }
-                "HEADER" => std::option::Option::Some(Self::HEADER),
-                "JWT" => std::option::Option::Some(Self::JWT),
-                "RCTOKEN" => std::option::Option::Some(Self::RCTOKEN),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for OutputCredentials {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for OutputCredentials {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OutputCredentials {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OutputCredentials {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Header,
+                2 => Self::Jwt,
+                3 => Self::Rctoken,
+                _ => Self::UnknownValue(output_credentials::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OutputCredentials {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OUTPUT_CREDENTIALS_UNSPECIFIED" => Self::Unspecified,
+                "HEADER" => Self::Header,
+                "JWT" => Self::Jwt,
+                "RCTOKEN" => Self::Rctoken,
+                _ => Self::UnknownValue(output_credentials::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OutputCredentials {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Header => serializer.serialize_i32(1),
+                Self::Jwt => serializer.serialize_i32(2),
+                Self::Rctoken => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OutputCredentials {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OutputCredentials>::new(
+                ".google.cloud.iap.v1.AttributePropagationSettings.OutputCredentials",
+            ))
         }
     }
 }
@@ -1849,6 +2147,7 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// this value.
     /// If unspecified, at most 100 clients will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListIdentityAwareProxyClients`
@@ -1918,12 +2217,6 @@ impl ListIdentityAwareProxyClientsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIdentityAwareProxyClientsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [identity_aware_proxy_clients][crate::model::ListIdentityAwareProxyClientsResponse::identity_aware_proxy_clients].
     pub fn set_identity_aware_proxy_clients<T, V>(mut self, v: T) -> Self
     where
@@ -1932,6 +2225,12 @@ impl ListIdentityAwareProxyClientsResponse {
     {
         use std::iter::Iterator;
         self.identity_aware_proxy_clients = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIdentityAwareProxyClientsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2131,6 +2430,7 @@ pub struct Brand {
 
     /// Output only. Whether the brand is only intended for usage inside the
     /// G Suite organization only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub org_internal_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

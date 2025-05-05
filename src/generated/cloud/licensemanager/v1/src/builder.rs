@@ -16,7 +16,6 @@
 
 pub mod license_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LicenseManager][super::super::client::LicenseManager].
     ///
@@ -49,7 +48,7 @@ pub mod license_manager {
     /// Common implementation for [super::super::client::LicenseManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod license_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod license_manager {
     pub struct ListConfigurations(RequestBuilder<crate::model::ListConfigurationsRequest>);
 
     impl ListConfigurations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,6 +118,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListConfigurationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -157,7 +162,9 @@ pub mod license_manager {
     pub struct GetConfiguration(RequestBuilder<crate::model::GetConfigurationRequest>);
 
     impl GetConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,6 +192,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::GetConfigurationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -203,7 +212,9 @@ pub mod license_manager {
     pub struct CreateConfiguration(RequestBuilder<crate::model::CreateConfigurationRequest>);
 
     impl CreateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -270,18 +281,24 @@ pub mod license_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateConfigurationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [configuration_id][crate::model::CreateConfigurationRequest::configuration_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_configuration_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.configuration_id = v.into();
             self
         }
 
         /// Sets the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_configuration<T: Into<std::option::Option<crate::model::Configuration>>>(
             mut self,
             v: T,
@@ -309,7 +326,9 @@ pub mod license_manager {
     pub struct UpdateConfiguration(RequestBuilder<crate::model::UpdateConfigurationRequest>);
 
     impl UpdateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -385,6 +404,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_configuration<T: Into<std::option::Option<crate::model::Configuration>>>(
             mut self,
             v: T,
@@ -412,7 +433,9 @@ pub mod license_manager {
     pub struct DeleteConfiguration(RequestBuilder<crate::model::DeleteConfigurationRequest>);
 
     impl DeleteConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -475,6 +498,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteConfigurationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -499,7 +524,9 @@ pub mod license_manager {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -539,6 +566,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -581,7 +610,9 @@ pub mod license_manager {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -606,6 +637,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -626,7 +659,9 @@ pub mod license_manager {
     );
 
     impl DeactivateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,6 +728,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::DeactivateConfigurationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -719,7 +756,9 @@ pub mod license_manager {
     );
 
     impl ReactivateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -786,6 +825,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::ReactivateConfigurationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -812,7 +853,9 @@ pub mod license_manager {
     );
 
     impl QueryConfigurationLicenseUsage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -840,12 +883,16 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::QueryConfigurationLicenseUsageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -855,6 +902,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
             self
@@ -873,7 +922,9 @@ pub mod license_manager {
     pub struct AggregateUsage(RequestBuilder<crate::model::AggregateUsageRequest>);
 
     impl AggregateUsage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -913,6 +964,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::AggregateUsageRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -943,6 +996,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [start_time][crate::model::AggregateUsageRequest::start_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -952,6 +1007,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [end_time][crate::model::AggregateUsageRequest::end_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
             self
@@ -970,7 +1027,9 @@ pub mod license_manager {
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1010,6 +1069,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1052,7 +1113,9 @@ pub mod license_manager {
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1077,6 +1140,8 @@ pub mod license_manager {
         }
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1095,7 +1160,9 @@ pub mod license_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1174,7 +1241,9 @@ pub mod license_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1217,7 +1286,9 @@ pub mod license_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1296,7 +1367,9 @@ pub mod license_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1342,7 +1415,9 @@ pub mod license_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1388,7 +1463,9 @@ pub mod license_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

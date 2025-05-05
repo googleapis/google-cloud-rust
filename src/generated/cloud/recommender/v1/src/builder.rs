@@ -16,7 +16,6 @@
 
 pub mod recommender {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Recommender][super::super::client::Recommender].
     ///
@@ -49,7 +48,7 @@ pub mod recommender {
     /// Common implementation for [super::super::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Recommender>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod recommender {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod recommender {
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
     impl ListInsights {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,6 +115,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [parent][crate::model::ListInsightsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -148,7 +153,9 @@ pub mod recommender {
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
     impl GetInsight {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,6 +180,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetInsightRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -191,7 +200,9 @@ pub mod recommender {
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
     impl MarkInsightAccepted {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -219,14 +230,10 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -239,6 +246,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -255,7 +270,9 @@ pub mod recommender {
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
     impl ListRecommendations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -298,6 +315,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [parent][crate::model::ListRecommendationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -334,7 +353,9 @@ pub mod recommender {
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
     impl GetRecommendation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -362,6 +383,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -382,7 +405,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationDismissed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,6 +435,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -436,7 +463,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationClaimed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -464,14 +493,10 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -484,6 +509,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -502,7 +535,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationSucceeded {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -530,14 +565,10 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -550,6 +581,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -568,7 +607,9 @@ pub mod recommender {
     );
 
     impl MarkRecommendationFailed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -596,14 +637,10 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -616,6 +653,14 @@ pub mod recommender {
         {
             self.0.request.state_metadata =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -632,7 +677,9 @@ pub mod recommender {
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
     impl GetRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -660,6 +707,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -680,7 +729,9 @@ pub mod recommender {
     );
 
     impl UpdateRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,6 +759,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_recommender_config<
             T: Into<std::option::Option<crate::model::RecommenderConfig>>,
         >(
@@ -746,7 +799,9 @@ pub mod recommender {
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
     impl GetInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -774,6 +829,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -794,7 +851,9 @@ pub mod recommender {
     );
 
     impl UpdateInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -822,6 +881,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_insight_type_config<
             T: Into<std::option::Option<crate::model::InsightTypeConfig>>,
         >(

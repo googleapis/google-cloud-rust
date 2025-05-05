@@ -141,6 +141,7 @@ pub struct ListConnectionsRequest {
     pub parent: std::string::String,
 
     /// Required. Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -361,14 +362,17 @@ pub struct Connection {
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub creation_time: i64,
 
     /// Output only. The last update timestamp of the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub last_modified_time: i64,
 
     /// Output only. True, if credential is configured for this connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_credential: bool,
 
     /// Properties specific to the underlying data source.
@@ -447,80 +451,6 @@ impl Connection {
         })
     }
 
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `Aws`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::Aws(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `Azure`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn azure(&self) -> std::option::Option<&std::boxed::Box<crate::model::AzureProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::Azure(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `CloudSpanner`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_spanner(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSpannerProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::CloudSpanner(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `CloudResource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudResourceProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::CloudResource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `Spark`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn spark(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::Spark(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [properties][crate::model::Connection::properties]
-    /// if it holds a `SalesforceDataCloud`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_data_cloud(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceDataCloudProperties>> {
-        #[allow(unreachable_patterns)]
-        self.properties.as_ref().and_then(|v| match v {
-            crate::model::connection::Properties::SalesforceDataCloud(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `CloudSql`.
     ///
@@ -537,6 +467,17 @@ impl Connection {
         self
     }
 
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `Aws`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::Aws(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `Aws`.
     ///
@@ -549,6 +490,17 @@ impl Connection {
         self.properties =
             std::option::Option::Some(crate::model::connection::Properties::Aws(v.into()));
         self
+    }
+
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `Azure`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn azure(&self) -> std::option::Option<&std::boxed::Box<crate::model::AzureProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::Azure(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [properties][crate::model::Connection::properties]
@@ -565,6 +517,19 @@ impl Connection {
         self
     }
 
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `CloudSpanner`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_spanner(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSpannerProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::CloudSpanner(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `CloudSpanner`.
     ///
@@ -579,6 +544,19 @@ impl Connection {
         self.properties =
             std::option::Option::Some(crate::model::connection::Properties::CloudSpanner(v.into()));
         self
+    }
+
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `CloudResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudResourceProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::CloudResource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [properties][crate::model::Connection::properties]
@@ -598,6 +576,17 @@ impl Connection {
         self
     }
 
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `Spark`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spark(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::Spark(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [properties][crate::model::Connection::properties]
     /// to hold a `Spark`.
     ///
@@ -610,6 +599,21 @@ impl Connection {
         self.properties =
             std::option::Option::Some(crate::model::connection::Properties::Spark(v.into()));
         self
+    }
+
+    /// The value of [properties][crate::model::Connection::properties]
+    /// if it holds a `SalesforceDataCloud`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_data_cloud(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceDataCloudProperties>> {
+        #[allow(unreachable_patterns)]
+        self.properties.as_ref().and_then(|v| match v {
+            crate::model::connection::Properties::SalesforceDataCloud(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [properties][crate::model::Connection::properties]
@@ -759,61 +763,134 @@ pub mod cloud_sql_properties {
     use super::*;
 
     /// Supported Cloud SQL database types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DatabaseType {
+        /// Unspecified database type.
+        Unspecified,
+        /// Cloud SQL for PostgreSQL.
+        Postgres,
+        /// Cloud SQL for MySQL.
+        Mysql,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DatabaseType::value] or
+        /// [DatabaseType::name].
+        UnknownValue(database_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod database_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl DatabaseType {
-        /// Unspecified database type.
-        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
-
-        /// Cloud SQL for PostgreSQL.
-        pub const POSTGRES: DatabaseType = DatabaseType::new(1);
-
-        /// Cloud SQL for MySQL.
-        pub const MYSQL: DatabaseType = DatabaseType::new(2);
-
-        /// Creates a new DatabaseType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Postgres => std::option::Option::Some(1),
+                Self::Mysql => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("POSTGRES"),
-                2 => std::borrow::Cow::Borrowed("MYSQL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATABASE_TYPE_UNSPECIFIED"),
+                Self::Postgres => std::option::Option::Some("POSTGRES"),
+                Self::Mysql => std::option::Option::Some("MYSQL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DATABASE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
-                }
-                "POSTGRES" => std::option::Option::Some(Self::POSTGRES),
-                "MYSQL" => std::option::Option::Some(Self::MYSQL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DatabaseType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DatabaseType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DatabaseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Postgres,
+                2 => Self::Mysql,
+                _ => Self::UnknownValue(database_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DatabaseType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATABASE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "POSTGRES" => Self::Postgres,
+                "MYSQL" => Self::Mysql,
+                _ => Self::UnknownValue(database_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DatabaseType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Postgres => serializer.serialize_i32(1),
+                Self::Mysql => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DatabaseType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseType>::new(
+                ".google.cloud.bigquery.connection.v1.CloudSqlProperties.DatabaseType",
+            ))
         }
     }
 }
@@ -871,6 +948,7 @@ pub struct CloudSpannerProperties {
     pub database: std::string::String,
 
     /// If parallelism should be used when reading from Cloud Spanner
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_parallelism: bool,
 
     /// Allows setting max parallelism per query when executing on Spanner
@@ -881,11 +959,13 @@ pub struct CloudSpannerProperties {
     /// REQUIRES: `use_parallelism` must be set.
     /// REQUIRES: Either `use_data_boost` or `use_serverless_analytics` must be
     /// set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_parallelism: i32,
 
     /// If the serverless analytics service should be used to read data from Cloud
     /// Spanner.
     /// Note: `use_parallelism` must be set when using serverless analytics.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_serverless_analytics: bool,
 
     /// If set, the request will be executed via Spanner independent compute
@@ -894,6 +974,7 @@ pub struct CloudSpannerProperties {
     ///
     /// NOTE: `use_serverless_analytics` will be deprecated. Prefer
     /// `use_data_boost` over `use_serverless_analytics`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_data_boost: bool,
 
     /// Optional. Cloud Spanner database role for fine-grained access control.
@@ -998,6 +1079,7 @@ impl AwsProperties {
     /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
     /// if it holds a `CrossAccountRole`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn cross_account_role(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsCrossAccountRole>> {
@@ -1008,6 +1090,24 @@ impl AwsProperties {
             }
             _ => std::option::Option::None,
         })
+    }
+
+    /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]
+    /// to hold a `CrossAccountRole`.
+    ///
+    /// Note that all the setters affecting `authentication_method` are
+    /// mutually exclusive.
+    #[deprecated]
+    pub fn set_cross_account_role<
+        T: std::convert::Into<std::boxed::Box<crate::model::AwsCrossAccountRole>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication_method = std::option::Option::Some(
+            crate::model::aws_properties::AuthenticationMethod::CrossAccountRole(v.into()),
+        );
+        self
     }
 
     /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
@@ -1023,23 +1123,6 @@ impl AwsProperties {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]
-    /// to hold a `CrossAccountRole`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_cross_account_role<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsCrossAccountRole>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::aws_properties::AuthenticationMethod::CrossAccountRole(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]
@@ -1077,6 +1160,7 @@ pub mod aws_properties {
         /// Authentication using Google owned AWS IAM user's access key to assume
         /// into customer's AWS IAM Role.
         /// Deprecated, do not use.
+        #[deprecated]
         CrossAccountRole(std::boxed::Box<crate::model::AwsCrossAccountRole>),
         /// Authentication using Google owned service account to assume into
         /// customer's AWS IAM Role.

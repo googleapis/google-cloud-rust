@@ -455,18 +455,21 @@ func TestOpenAPI_MapString(t *testing.T) {
 				JSONName: "fMap",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, string>",
+				Map:      true,
 			},
 			{
 				Name:     "fMapS32",
 				JSONName: "fMapS32",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int32>",
+				Map:      true,
 			},
 			{
 				Name:     "fMapS64",
 				JSONName: "fMapS64",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int64>",
+				Map:      true,
 			},
 		},
 	})
@@ -504,13 +507,17 @@ func TestOpenAPI_MapInteger(t *testing.T) {
 				JSONName: "fMapI32",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int32>",
-				Optional: false},
+				Optional: false,
+				Map:      true,
+			},
 			{
 				Name:     "fMapI64",
 				JSONName: "fMapI64",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int64>",
-				Optional: false},
+				Optional: false,
+				Map:      true,
+			},
 		},
 	})
 }
@@ -570,6 +577,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				Typez:         api.MESSAGE_TYPE,
 				TypezID:       "$map<string, string>",
 				Optional:      false,
+				Map:           true,
 			},
 			{
 				Name:          "metadata",
@@ -1074,6 +1082,110 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				JSONName:      "notRequestIdMissingServiceConfig",
 				Synthetic:     true,
 				Optional:      true,
+			},
+		},
+	})
+}
+
+func TestOpenAPI_Deprecated(t *testing.T) {
+	contents, err := os.ReadFile("testdata/deprecated_openapi.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	model, err := createDocModel(contents)
+	if err != nil {
+		t.Fatal(err)
+	}
+	test, err := makeAPIForOpenAPI(nil, model)
+	if err != nil {
+		t.Fatalf("Error in makeAPI() %q", err)
+	}
+
+	service, ok := test.State.ServiceByID["..Service"]
+	if !ok {
+		t.Errorf("cannot find service %s in model", "..Service.ListFoos")
+		return
+	}
+	checkMethod(t, service, "RpcA", &api.Method{
+		Name:         "RpcA",
+		ID:           "..Service.RpcA",
+		InputTypeID:  "..RpcARequest",
+		OutputTypeID: "..Response",
+		PathInfo: &api.PathInfo{
+			Verb: "GET",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v1"),
+				api.NewLiteralPathSegment("projects"),
+				api.NewFieldPathPathSegment("project"),
+				api.NewLiteralPathSegment("rpc"),
+				api.NewLiteralPathSegment("a"),
+			},
+			QueryParameters: map[string]bool{"filter": true},
+		},
+	})
+
+	checkMethod(t, service, "RpcB", &api.Method{
+		Name:         "RpcB",
+		ID:           "..Service.RpcB",
+		Deprecated:   true,
+		InputTypeID:  "..RpcBRequest",
+		OutputTypeID: "..Response",
+		PathInfo: &api.PathInfo{
+			Verb: "GET",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v1"),
+				api.NewLiteralPathSegment("projects"),
+				api.NewFieldPathPathSegment("project"),
+				api.NewLiteralPathSegment("rpc"),
+				api.NewLiteralPathSegment("b"),
+			},
+			QueryParameters: map[string]bool{},
+		},
+	})
+
+	response, ok := test.State.MessageByID["..Response"]
+	if !ok {
+		t.Errorf("cannot find message %s", "..Response")
+		return
+	}
+	checkMessage(t, response, &api.Message{
+		Name: "Response",
+		ID:   "..Response",
+		Fields: []*api.Field{
+			{
+				Name:     "name",
+				Typez:    api.STRING_TYPE,
+				TypezID:  "string",
+				JSONName: "name",
+				Optional: true,
+			},
+			{
+				Name:       "other",
+				Typez:      api.STRING_TYPE,
+				TypezID:    "string",
+				JSONName:   "other",
+				Deprecated: true,
+				Optional:   true,
+			},
+		},
+	})
+
+	deprecatedMessage, ok := test.State.MessageByID["..DeprecatedMessage"]
+	if !ok {
+		t.Errorf("cannot find message %s", "..DeprecatedMessage")
+		return
+	}
+	checkMessage(t, deprecatedMessage, &api.Message{
+		Name:       "DeprecatedMessage",
+		ID:         "..DeprecatedMessage",
+		Deprecated: true,
+		Fields: []*api.Field{
+			{
+				Name:     "name",
+				Typez:    api.STRING_TYPE,
+				TypezID:  "string",
+				JSONName: "name",
+				Optional: true,
 			},
 		},
 	})

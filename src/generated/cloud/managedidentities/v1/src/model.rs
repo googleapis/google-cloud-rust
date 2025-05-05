@@ -60,6 +60,7 @@ pub struct OpMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -281,6 +282,7 @@ pub struct ListDomainsRequest {
     /// to determine if there are additional results to list.
     ///
     /// [google.cloud.managedidentities.v1.ListDomainsResponse.next_page_token]: crate::model::ListDomainsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous ListDomainsRequest
@@ -375,12 +377,6 @@ impl ListDomainsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDomainsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [domains][crate::model::ListDomainsResponse::domains].
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
@@ -389,6 +385,12 @@ impl ListDomainsResponse {
     {
         use std::iter::Iterator;
         self.domains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDomainsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -838,12 +840,46 @@ impl Domain {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Domain::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [authorized_networks][crate::model::Domain::authorized_networks].
+    pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [reserved_ip_range][crate::model::Domain::reserved_ip_range].
     pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.reserved_ip_range = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::Domain::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -889,28 +925,6 @@ impl Domain {
         self
     }
 
-    /// Sets the value of [authorized_networks][crate::model::Domain::authorized_networks].
-    pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [locations][crate::model::Domain::locations].
-    pub fn set_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.locations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [trusts][crate::model::Domain::trusts].
     pub fn set_trusts<T, V>(mut self, v: T) -> Self
     where
@@ -919,18 +933,6 @@ impl Domain {
     {
         use std::iter::Iterator;
         self.trusts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Domain::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -947,85 +949,170 @@ pub mod domain {
     use super::*;
 
     /// Represents the different states of a managed domain.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The domain is being created.
-        pub const CREATING: State = State::new(1);
-
+        Creating,
         /// The domain has been created and is fully usable.
-        pub const READY: State = State::new(2);
-
+        Ready,
         /// The domain's configuration is being updated.
-        pub const UPDATING: State = State::new(3);
-
+        Updating,
         /// The domain is being deleted.
-        pub const DELETING: State = State::new(4);
-
+        Deleting,
         /// The domain is being repaired and may be unusable. Details
         /// can be found in the `status_message` field.
-        pub const REPAIRING: State = State::new(5);
-
+        Repairing,
         /// The domain is undergoing maintenance.
-        pub const PERFORMING_MAINTENANCE: State = State::new(6);
-
+        PerformingMaintenance,
         /// The domain is not serving requests.
-        pub const UNAVAILABLE: State = State::new(7);
+        Unavailable,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::Repairing => std::option::Option::Some(5),
+                Self::PerformingMaintenance => std::option::Option::Some(6),
+                Self::Unavailable => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("READY"),
-                3 => std::borrow::Cow::Borrowed("UPDATING"),
-                4 => std::borrow::Cow::Borrowed("DELETING"),
-                5 => std::borrow::Cow::Borrowed("REPAIRING"),
-                6 => std::borrow::Cow::Borrowed("PERFORMING_MAINTENANCE"),
-                7 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Repairing => std::option::Option::Some("REPAIRING"),
+                Self::PerformingMaintenance => std::option::Option::Some("PERFORMING_MAINTENANCE"),
+                Self::Unavailable => std::option::Option::Some("UNAVAILABLE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "READY" => std::option::Option::Some(Self::READY),
-                "UPDATING" => std::option::Option::Some(Self::UPDATING),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
-                "PERFORMING_MAINTENANCE" => std::option::Option::Some(Self::PERFORMING_MAINTENANCE),
-                "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                5 => Self::Repairing,
+                6 => Self::PerformingMaintenance,
+                7 => Self::Unavailable,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                "REPAIRING" => Self::Repairing,
+                "PERFORMING_MAINTENANCE" => Self::PerformingMaintenance,
+                "UNAVAILABLE" => Self::Unavailable,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::Repairing => serializer.serialize_i32(5),
+                Self::PerformingMaintenance => serializer.serialize_i32(6),
+                Self::Unavailable => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.managedidentities.v1.Domain.State",
+            ))
         }
     }
 }
@@ -1052,6 +1139,7 @@ pub struct Trust {
     /// Optional. The trust authentication type, which decides whether the trusted side has
     /// forest/domain wide access or selective access to an approved set of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub selective_authentication: bool,
 
     /// Required. The target DNS server IP addresses which can resolve the remote domain
@@ -1125,6 +1213,17 @@ impl Trust {
         self
     }
 
+    /// Sets the value of [target_dns_ip_addresses][crate::model::Trust::target_dns_ip_addresses].
+    pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_dns_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [trust_handshake_secret][crate::model::Trust::trust_handshake_secret].
     pub fn set_trust_handshake_secret<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1177,17 +1276,6 @@ impl Trust {
         self.last_trust_heartbeat_time = v.into();
         self
     }
-
-    /// Sets the value of [target_dns_ip_addresses][crate::model::Trust::target_dns_ip_addresses].
-    pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.target_dns_ip_addresses = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Trust {
@@ -1202,131 +1290,287 @@ pub mod trust {
     use super::*;
 
     /// Represents the different states of a domain trust.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The domain trust is being created.
+        Creating,
+        /// The domain trust is being updated.
+        Updating,
+        /// The domain trust is being deleted.
+        Deleting,
+        /// The domain trust is connected.
+        Connected,
+        /// The domain trust is disconnected.
+        Disconnected,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The domain trust is being created.
-        pub const CREATING: State = State::new(1);
-
-        /// The domain trust is being updated.
-        pub const UPDATING: State = State::new(2);
-
-        /// The domain trust is being deleted.
-        pub const DELETING: State = State::new(3);
-
-        /// The domain trust is connected.
-        pub const CONNECTED: State = State::new(4);
-
-        /// The domain trust is disconnected.
-        pub const DISCONNECTED: State = State::new(5);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Updating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Connected => std::option::Option::Some(4),
+                Self::Disconnected => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("UPDATING"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                4 => std::borrow::Cow::Borrowed("CONNECTED"),
-                5 => std::borrow::Cow::Borrowed("DISCONNECTED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Connected => std::option::Option::Some("CONNECTED"),
+                Self::Disconnected => std::option::Option::Some("DISCONNECTED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "UPDATING" => std::option::Option::Some(Self::UPDATING),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "CONNECTED" => std::option::Option::Some(Self::CONNECTED),
-                "DISCONNECTED" => std::option::Option::Some(Self::DISCONNECTED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Updating,
+                3 => Self::Deleting,
+                4 => Self::Connected,
+                5 => Self::Disconnected,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                "CONNECTED" => Self::Connected,
+                "DISCONNECTED" => Self::Disconnected,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Updating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Connected => serializer.serialize_i32(4),
+                Self::Disconnected => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.managedidentities.v1.Trust.State",
+            ))
         }
     }
 
     /// Represents the different inter-forest trust types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TrustType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TrustType {
+        /// Not set.
+        Unspecified,
+        /// The forest trust.
+        Forest,
+        /// The external domain trust.
+        External,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TrustType::value] or
+        /// [TrustType::name].
+        UnknownValue(trust_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod trust_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl TrustType {
-        /// Not set.
-        pub const TRUST_TYPE_UNSPECIFIED: TrustType = TrustType::new(0);
-
-        /// The forest trust.
-        pub const FOREST: TrustType = TrustType::new(1);
-
-        /// The external domain trust.
-        pub const EXTERNAL: TrustType = TrustType::new(2);
-
-        /// Creates a new TrustType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Forest => std::option::Option::Some(1),
+                Self::External => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TRUST_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("FOREST"),
-                2 => std::borrow::Cow::Borrowed("EXTERNAL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRUST_TYPE_UNSPECIFIED"),
+                Self::Forest => std::option::Option::Some("FOREST"),
+                Self::External => std::option::Option::Some("EXTERNAL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TRUST_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TRUST_TYPE_UNSPECIFIED),
-                "FOREST" => std::option::Option::Some(Self::FOREST),
-                "EXTERNAL" => std::option::Option::Some(Self::EXTERNAL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TrustType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TrustType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TrustType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TrustType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Forest,
+                2 => Self::External,
+                _ => Self::UnknownValue(trust_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TrustType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRUST_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "FOREST" => Self::Forest,
+                "EXTERNAL" => Self::External,
+                _ => Self::UnknownValue(trust_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TrustType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Forest => serializer.serialize_i32(1),
+                Self::External => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TrustType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrustType>::new(
+                ".google.cloud.managedidentities.v1.Trust.TrustType",
+            ))
         }
     }
 
@@ -1334,66 +1578,141 @@ pub mod trust {
     /// See
     /// [System.DirectoryServices.ActiveDirectory.TrustDirection](https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectory.trustdirection?view=netframework-4.7.2)
     /// for more information.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TrustDirection(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TrustDirection {
+        /// Not set.
+        Unspecified,
+        /// The inbound direction represents the trusting side.
+        Inbound,
+        /// The outboud direction represents the trusted side.
+        Outbound,
+        /// The bidirectional direction represents the trusted / trusting side.
+        Bidirectional,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TrustDirection::value] or
+        /// [TrustDirection::name].
+        UnknownValue(trust_direction::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod trust_direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl TrustDirection {
-        /// Not set.
-        pub const TRUST_DIRECTION_UNSPECIFIED: TrustDirection = TrustDirection::new(0);
-
-        /// The inbound direction represents the trusting side.
-        pub const INBOUND: TrustDirection = TrustDirection::new(1);
-
-        /// The outboud direction represents the trusted side.
-        pub const OUTBOUND: TrustDirection = TrustDirection::new(2);
-
-        /// The bidirectional direction represents the trusted / trusting side.
-        pub const BIDIRECTIONAL: TrustDirection = TrustDirection::new(3);
-
-        /// Creates a new TrustDirection instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Inbound => std::option::Option::Some(1),
+                Self::Outbound => std::option::Option::Some(2),
+                Self::Bidirectional => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TRUST_DIRECTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INBOUND"),
-                2 => std::borrow::Cow::Borrowed("OUTBOUND"),
-                3 => std::borrow::Cow::Borrowed("BIDIRECTIONAL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRUST_DIRECTION_UNSPECIFIED"),
+                Self::Inbound => std::option::Option::Some("INBOUND"),
+                Self::Outbound => std::option::Option::Some("OUTBOUND"),
+                Self::Bidirectional => std::option::Option::Some("BIDIRECTIONAL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TRUST_DIRECTION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::TRUST_DIRECTION_UNSPECIFIED)
-                }
-                "INBOUND" => std::option::Option::Some(Self::INBOUND),
-                "OUTBOUND" => std::option::Option::Some(Self::OUTBOUND),
-                "BIDIRECTIONAL" => std::option::Option::Some(Self::BIDIRECTIONAL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TrustDirection {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TrustDirection {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TrustDirection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TrustDirection {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Inbound,
+                2 => Self::Outbound,
+                3 => Self::Bidirectional,
+                _ => Self::UnknownValue(trust_direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TrustDirection {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRUST_DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "INBOUND" => Self::Inbound,
+                "OUTBOUND" => Self::Outbound,
+                "BIDIRECTIONAL" => Self::Bidirectional,
+                _ => Self::UnknownValue(trust_direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TrustDirection {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Inbound => serializer.serialize_i32(1),
+                Self::Outbound => serializer.serialize_i32(2),
+                Self::Bidirectional => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TrustDirection {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrustDirection>::new(
+                ".google.cloud.managedidentities.v1.Trust.TrustDirection",
+            ))
         }
     }
 }
