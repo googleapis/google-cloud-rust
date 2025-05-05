@@ -18,6 +18,8 @@ use gax::options::RequestOptionsBuilder;
 use gax::paginator::{ItemPaginator, Paginator};
 use std::time::Duration;
 use storage::model::Bucket;
+use storage::model::bucket::iam_config::UniformBucketLevelAccess;
+use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 
 pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -48,7 +50,12 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
         .set_bucket(
             Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                .set_labels([("integration-test", "true")]),
+                .set_labels([("integration-test", "true")])
+                // TODO(#1813) - needed for storagecontrol folder tests.
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
         )
         .with_backoff_policy(test_backoff())
         .send()
@@ -78,6 +85,14 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     );
 
     buckets_iam(&client, &bucket_name).await?;
+
+    // TODO : this should be its own thing
+    println!("\nTesting list_folders()");
+    let mut folders = client.list_folders(&bucket_name).paginator().await.items();
+    while let Some(folder) = folders.next().await {
+        println!("{:?}", folder?);
+    }
+    println!("SUCCESS on list_folders");
 
     println!("\nTesting delete_bucket()");
     client.delete_bucket(bucket_name).send().await?;

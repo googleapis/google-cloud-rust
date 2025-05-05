@@ -81,7 +81,8 @@
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct Storage {
-    inner: super::generated::gapic::client::Storage,
+    storage: super::generated::gapic::client::Storage,
+    control: super::generated::gapic_control::client::StorageControl,
 }
 
 impl Storage {
@@ -115,7 +116,7 @@ impl Storage {
     /// }
     /// ```
     pub fn delete_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::DeleteBucket {
-        self.inner.delete_bucket().set_name(name)
+        self.storage.delete_bucket().set_name(name)
     }
 
     /// Returns metadata for the specified bucket.
@@ -134,7 +135,7 @@ impl Storage {
     /// }
     /// ```
     pub fn get_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::GetBucket {
-        self.inner.get_bucket().set_name(name)
+        self.storage.get_bucket().set_name(name)
     }
 
     /// Creates a new bucket.
@@ -161,7 +162,7 @@ impl Storage {
         V: Into<String>,
         U: Into<String>,
     {
-        self.inner
+        self.storage
             .create_bucket()
             .set_parent(parent)
             .set_bucket_id(bucket_id)
@@ -190,7 +191,7 @@ impl Storage {
     /// }
     /// ```
     pub fn list_buckets<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListBuckets {
-        self.inner.list_buckets().set_parent(parent)
+        self.storage.list_buckets().set_parent(parent)
     }
 
     /// Permanently deletes an object and its metadata.
@@ -229,7 +230,7 @@ impl Storage {
         T: Into<String>,
         U: Into<String>,
     {
-        self.inner
+        self.storage
             .delete_object()
             .set_bucket(bucket)
             .set_object(object)
@@ -258,7 +259,7 @@ impl Storage {
     /// }
     /// ```
     pub fn list_objects<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListObjects {
-        self.inner.list_objects().set_parent(parent)
+        self.storage.list_objects().set_parent(parent)
     }
 
     /// Gets the IAM policy for a specified bucket.
@@ -286,7 +287,7 @@ impl Storage {
         &self,
         resource: impl Into<String>,
     ) -> super::builder::storage::GetIamPolicy {
-        self.inner.get_iam_policy().set_resource(resource.into())
+        self.storage.get_iam_policy().set_resource(resource.into())
     }
 
     /// Updates the IAM policy for a specified bucket.
@@ -323,7 +324,7 @@ impl Storage {
         &self,
         resource: impl Into<String>,
     ) -> super::builder::storage::SetIamPolicy {
-        self.inner.set_iam_policy().set_resource(resource.into())
+        self.storage.set_iam_policy().set_resource(resource.into())
     }
 
     /// Tests a set of permissions on the given bucket, object, or managed folder
@@ -353,14 +354,33 @@ impl Storage {
         &self,
         resource: impl Into<String>,
     ) -> super::builder::storage::TestIamPermissions {
-        self.inner
+        self.storage
             .test_iam_permissions()
             .set_resource(resource.into())
     }
 
+    /// Retrieves a list of folders.
+    ///
+    /// This operation is only applicable to a hierarchical namespace enabled bucket.
+    ///
+    /// # Parameters
+    /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
+    ///
+    /// # Example?
+    /// ```
+    /// panic!("TODO(#1813) - write example");
+    /// ```
+    pub fn list_folders(
+        &self,
+        parent: impl Into<String>,
+    ) -> super::builder::storage_control::ListFolders {
+        self.control.list_folders().set_parent(parent.into())
+    }
+
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
-        let inner = super::generated::gapic::client::Storage::new(config).await?;
-        Ok(Self { inner })
+        let storage = super::generated::gapic::client::Storage::new(config.clone()).await?;
+        let control = super::generated::gapic_control::client::StorageControl::new(config).await?;
+        Ok(Self { storage, control })
     }
 }
 
