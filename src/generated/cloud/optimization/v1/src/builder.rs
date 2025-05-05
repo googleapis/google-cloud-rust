@@ -301,7 +301,7 @@ pub mod fleet_routing {
             self,
         ) -> impl lro::Poller<crate::model::BatchOptimizeToursResponse, crate::model::AsyncModelMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchOptimizeToursResponse,
                 crate::model::AsyncModelMetadata,
             >;

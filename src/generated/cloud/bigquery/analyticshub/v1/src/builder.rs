@@ -885,7 +885,7 @@ pub mod analytics_hub_service {
             self,
         ) -> impl lro::Poller<crate::model::SubscribeDataExchangeResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SubscribeDataExchangeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1009,7 +1009,7 @@ pub mod analytics_hub_service {
             self,
         ) -> impl lro::Poller<crate::model::RefreshSubscriptionResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RefreshSubscriptionResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1364,7 +1364,7 @@ pub mod analytics_hub_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_subscription`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

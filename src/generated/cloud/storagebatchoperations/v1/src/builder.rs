@@ -241,7 +241,8 @@ pub mod storage_batch_operations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Job, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Job, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

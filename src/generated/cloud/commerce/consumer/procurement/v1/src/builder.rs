@@ -521,7 +521,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -757,7 +758,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -864,7 +866,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

@@ -5058,8 +5058,10 @@ pub mod provisioning {
             self,
         ) -> impl lro::Poller<crate::model::ApiHubInstance, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ApiHubInstance, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ApiHubInstance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

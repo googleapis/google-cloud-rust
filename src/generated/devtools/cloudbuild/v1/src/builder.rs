@@ -109,7 +109,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -419,7 +419,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -518,7 +518,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -965,7 +965,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1151,7 +1151,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::CreateWorkerPoolOperationMetadata,
             >;
@@ -1313,8 +1313,10 @@ pub mod cloud_build {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata> {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteWorkerPoolOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1420,7 +1422,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::UpdateWorkerPoolOperationMetadata,
             >;

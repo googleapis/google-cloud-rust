@@ -259,8 +259,10 @@ pub mod telco_automation {
             self,
         ) -> impl lro::Poller<crate::model::OrchestrationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::OrchestrationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::OrchestrationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -374,7 +376,7 @@ pub mod telco_automation {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_orchestration_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -597,7 +599,8 @@ pub mod telco_automation {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::EdgeSlm, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -704,7 +707,7 @@ pub mod telco_automation {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_edge_slm`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

@@ -109,7 +109,7 @@ pub mod video_intelligence_service {
             self,
         ) -> impl lro::Poller<crate::model::AnnotateVideoResponse, crate::model::AnnotateVideoProgress>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AnnotateVideoResponse,
                 crate::model::AnnotateVideoProgress,
             >;

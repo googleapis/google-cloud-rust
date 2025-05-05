@@ -176,7 +176,8 @@ pub mod security_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
+            type Operation =
+                lro::internal::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

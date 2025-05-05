@@ -109,7 +109,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -426,7 +426,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
+                lro::internal::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -603,7 +603,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportDocumentsResponse,
                 crate::model::ExportDocumentsMetadata,
             >;
@@ -725,7 +725,8 @@ pub mod firestore_admin {
 
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDocumentsMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -843,7 +844,7 @@ pub mod firestore_admin {
             crate::model::BulkDeleteDocumentsResponse,
             crate::model::BulkDeleteDocumentsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDeleteDocumentsResponse,
                 crate::model::BulkDeleteDocumentsMetadata,
             >;
@@ -953,8 +954,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1158,8 +1161,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1256,8 +1261,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::DeleteDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::DeleteDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1849,8 +1856,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

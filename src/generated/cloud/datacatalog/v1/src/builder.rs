@@ -1831,7 +1831,7 @@ pub mod data_catalog {
             self,
         ) -> impl lro::Poller<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReconcileTagsResponse,
                 crate::model::ReconcileTagsMetadata,
             >;
@@ -2224,7 +2224,7 @@ pub mod data_catalog {
             self,
         ) -> impl lro::Poller<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportEntriesResponse,
                 crate::model::ImportEntriesMetadata,
             >;

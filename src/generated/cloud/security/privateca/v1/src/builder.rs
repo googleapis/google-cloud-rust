@@ -472,8 +472,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -590,8 +592,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -708,8 +712,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -811,8 +817,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1105,8 +1113,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1202,8 +1212,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1317,8 +1329,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1424,7 +1438,8 @@ pub mod certificate_authority_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1533,7 +1548,8 @@ pub mod certificate_authority_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1768,7 +1784,7 @@ pub mod certificate_authority_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_ca_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2068,7 +2084,7 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateRevocationList, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CertificateRevocationList,
                 crate::model::OperationMetadata,
             >;
@@ -2183,8 +2199,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateTemplate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateTemplate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2298,7 +2316,7 @@ pub mod certificate_authority_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_template`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2537,8 +2555,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateTemplate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateTemplate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

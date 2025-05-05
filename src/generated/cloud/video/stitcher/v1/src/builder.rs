@@ -108,7 +108,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -342,7 +343,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cdn_key`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -426,7 +427,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1013,7 +1015,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1255,7 +1258,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1351,7 +1355,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_slate`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1547,7 +1551,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1790,7 +1794,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_live_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1878,7 +1882,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1977,7 +1981,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2217,7 +2221,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vod_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2302,7 +2306,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

@@ -254,7 +254,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchProcessResponse,
                 crate::model::BatchProcessMetadata,
             >;
@@ -693,7 +693,7 @@ pub mod document_processor_service {
             crate::model::TrainProcessorVersionResponse,
             crate::model::TrainProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TrainProcessorVersionResponse,
                 crate::model::TrainProcessorVersionMetadata,
             >;
@@ -993,7 +993,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorVersionMetadata> {
             type Operation =
-                lro::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1083,7 +1083,7 @@ pub mod document_processor_service {
             crate::model::DeployProcessorVersionResponse,
             crate::model::DeployProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeployProcessorVersionResponse,
                 crate::model::DeployProcessorVersionMetadata,
             >;
@@ -1178,7 +1178,7 @@ pub mod document_processor_service {
             crate::model::UndeployProcessorVersionResponse,
             crate::model::UndeployProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeployProcessorVersionResponse,
                 crate::model::UndeployProcessorVersionMetadata,
             >;
@@ -1321,7 +1321,8 @@ pub mod document_processor_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1406,7 +1407,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableProcessorResponse,
                 crate::model::EnableProcessorMetadata,
             >;
@@ -1499,7 +1500,7 @@ pub mod document_processor_service {
             crate::model::DisableProcessorResponse,
             crate::model::DisableProcessorMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableProcessorResponse,
                 crate::model::DisableProcessorMetadata,
             >;
@@ -1594,7 +1595,7 @@ pub mod document_processor_service {
             crate::model::SetDefaultProcessorVersionResponse,
             crate::model::SetDefaultProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SetDefaultProcessorVersionResponse,
                 crate::model::SetDefaultProcessorVersionMetadata,
             >;
@@ -1692,7 +1693,7 @@ pub mod document_processor_service {
             crate::model::ReviewDocumentResponse,
             crate::model::ReviewDocumentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReviewDocumentResponse,
                 crate::model::ReviewDocumentOperationMetadata,
             >;
@@ -1838,7 +1839,7 @@ pub mod document_processor_service {
             crate::model::EvaluateProcessorVersionResponse,
             crate::model::EvaluateProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EvaluateProcessorVersionResponse,
                 crate::model::EvaluateProcessorVersionMetadata,
             >;

@@ -245,8 +245,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -363,8 +365,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -482,8 +486,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -801,8 +807,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -919,8 +927,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1038,8 +1048,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1347,8 +1359,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1460,8 +1474,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1574,8 +1590,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1674,8 +1692,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1771,8 +1791,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

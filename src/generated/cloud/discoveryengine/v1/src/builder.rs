@@ -189,7 +189,7 @@ pub mod completion_service {
             crate::model::ImportSuggestionDenyListEntriesResponse,
             crate::model::ImportSuggestionDenyListEntriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportSuggestionDenyListEntriesResponse,
                 crate::model::ImportSuggestionDenyListEntriesMetadata,
             >;
@@ -330,7 +330,7 @@ pub mod completion_service {
             crate::model::PurgeSuggestionDenyListEntriesResponse,
             crate::model::PurgeSuggestionDenyListEntriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeSuggestionDenyListEntriesResponse,
                 crate::model::PurgeSuggestionDenyListEntriesMetadata,
             >;
@@ -425,7 +425,7 @@ pub mod completion_service {
             crate::model::ImportCompletionSuggestionsResponse,
             crate::model::ImportCompletionSuggestionsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportCompletionSuggestionsResponse,
                 crate::model::ImportCompletionSuggestionsMetadata,
             >;
@@ -590,7 +590,7 @@ pub mod completion_service {
             crate::model::PurgeCompletionSuggestionsResponse,
             crate::model::PurgeCompletionSuggestionsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeCompletionSuggestionsResponse,
                 crate::model::PurgeCompletionSuggestionsMetadata,
             >;
@@ -2620,8 +2620,10 @@ pub mod data_store_service {
             self,
         ) -> impl lro::Poller<crate::model::DataStore, crate::model::CreateDataStoreMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DataStore, crate::model::CreateDataStoreMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataStore,
+                crate::model::CreateDataStoreMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2861,7 +2863,8 @@ pub mod data_store_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_store`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteDataStoreMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteDataStoreMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteDataStoreMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3536,7 +3539,7 @@ pub mod document_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportDocumentsResponse, crate::model::ImportDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportDocumentsResponse,
                 crate::model::ImportDocumentsMetadata,
             >;
@@ -3818,7 +3821,7 @@ pub mod document_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeDocumentsResponse, crate::model::PurgeDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeDocumentsResponse,
                 crate::model::PurgeDocumentsMetadata,
             >;
@@ -4268,7 +4271,7 @@ pub mod engine_service {
             self,
         ) -> impl lro::Poller<crate::model::Engine, crate::model::CreateEngineMetadata> {
             type Operation =
-                lro::Operation<crate::model::Engine, crate::model::CreateEngineMetadata>;
+                lro::internal::Operation<crate::model::Engine, crate::model::CreateEngineMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4369,7 +4372,8 @@ pub mod engine_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_engine`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteEngineMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteEngineMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteEngineMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5306,8 +5310,10 @@ pub mod project_service {
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::ProvisionProjectMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Project, crate::model::ProvisionProjectMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Project,
+                crate::model::ProvisionProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6418,7 +6424,7 @@ pub mod schema_service {
             self,
         ) -> impl lro::Poller<crate::model::Schema, crate::model::CreateSchemaMetadata> {
             type Operation =
-                lro::Operation<crate::model::Schema, crate::model::CreateSchemaMetadata>;
+                lro::internal::Operation<crate::model::Schema, crate::model::CreateSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6522,7 +6528,7 @@ pub mod schema_service {
             self,
         ) -> impl lro::Poller<crate::model::Schema, crate::model::UpdateSchemaMetadata> {
             type Operation =
-                lro::Operation<crate::model::Schema, crate::model::UpdateSchemaMetadata>;
+                lro::internal::Operation<crate::model::Schema, crate::model::UpdateSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6613,7 +6619,8 @@ pub mod schema_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_schema`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSchemaMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteSchemaMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7773,7 +7780,7 @@ pub mod search_tuning_service {
             crate::model::TrainCustomModelResponse,
             crate::model::TrainCustomModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TrainCustomModelResponse,
                 crate::model::TrainCustomModelMetadata,
             >;
@@ -8542,8 +8549,10 @@ pub mod site_search_engine_service {
             self,
         ) -> impl lro::Poller<crate::model::TargetSite, crate::model::CreateTargetSiteMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetSite, crate::model::CreateTargetSiteMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetSite,
+                crate::model::CreateTargetSiteMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8644,7 +8653,7 @@ pub mod site_search_engine_service {
             crate::model::BatchCreateTargetSitesResponse,
             crate::model::BatchCreateTargetSiteMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateTargetSitesResponse,
                 crate::model::BatchCreateTargetSiteMetadata,
             >;
@@ -8795,8 +8804,10 @@ pub mod site_search_engine_service {
             self,
         ) -> impl lro::Poller<crate::model::TargetSite, crate::model::UpdateTargetSiteMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetSite, crate::model::UpdateTargetSiteMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetSite,
+                crate::model::UpdateTargetSiteMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8886,7 +8897,8 @@ pub mod site_search_engine_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTargetSiteMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteTargetSiteMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteTargetSiteMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9044,8 +9056,10 @@ pub mod site_search_engine_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Sitemap, crate::model::CreateSitemapMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Sitemap, crate::model::CreateSitemapMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Sitemap,
+                crate::model::CreateSitemapMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9138,7 +9152,8 @@ pub mod site_search_engine_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_sitemap`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSitemapMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteSitemapMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteSitemapMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9288,7 +9303,7 @@ pub mod site_search_engine_service {
             crate::model::EnableAdvancedSiteSearchResponse,
             crate::model::EnableAdvancedSiteSearchMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableAdvancedSiteSearchResponse,
                 crate::model::EnableAdvancedSiteSearchMetadata,
             >;
@@ -9383,7 +9398,7 @@ pub mod site_search_engine_service {
             crate::model::DisableAdvancedSiteSearchResponse,
             crate::model::DisableAdvancedSiteSearchMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableAdvancedSiteSearchResponse,
                 crate::model::DisableAdvancedSiteSearchMetadata,
             >;
@@ -9471,7 +9486,7 @@ pub mod site_search_engine_service {
             self,
         ) -> impl lro::Poller<crate::model::RecrawlUrisResponse, crate::model::RecrawlUrisMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RecrawlUrisResponse,
                 crate::model::RecrawlUrisMetadata,
             >;
@@ -9583,7 +9598,7 @@ pub mod site_search_engine_service {
             crate::model::BatchVerifyTargetSitesResponse,
             crate::model::BatchVerifyTargetSitesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchVerifyTargetSitesResponse,
                 crate::model::BatchVerifyTargetSitesMetadata,
             >;
@@ -10118,7 +10133,7 @@ pub mod user_event_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeUserEventsResponse, crate::model::PurgeUserEventsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeUserEventsResponse,
                 crate::model::PurgeUserEventsMetadata,
             >;
@@ -10225,7 +10240,7 @@ pub mod user_event_service {
             crate::model::ImportUserEventsResponse,
             crate::model::ImportUserEventsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportUserEventsResponse,
                 crate::model::ImportUserEventsMetadata,
             >;

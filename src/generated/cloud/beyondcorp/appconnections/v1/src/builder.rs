@@ -251,7 +251,7 @@ pub mod app_connections_service {
             self,
         ) -> impl lro::Poller<crate::model::AppConnection, crate::model::AppConnectionOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AppConnection,
                 crate::model::AppConnectionOperationMetadata,
             >;
@@ -371,7 +371,7 @@ pub mod app_connections_service {
             self,
         ) -> impl lro::Poller<crate::model::AppConnection, crate::model::AppConnectionOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AppConnection,
                 crate::model::AppConnectionOperationMetadata,
             >;
@@ -494,7 +494,7 @@ pub mod app_connections_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AppConnectionOperationMetadata> {
             type Operation =
-                lro::Operation<wkt::Empty, crate::model::AppConnectionOperationMetadata>;
+                lro::internal::Operation<wkt::Empty, crate::model::AppConnectionOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

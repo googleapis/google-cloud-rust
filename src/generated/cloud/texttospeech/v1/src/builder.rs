@@ -429,7 +429,7 @@ pub mod text_to_speech_long_audio_synthesize {
             crate::model::SynthesizeLongAudioResponse,
             crate::model::SynthesizeLongAudioMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SynthesizeLongAudioResponse,
                 crate::model::SynthesizeLongAudioMetadata,
             >;

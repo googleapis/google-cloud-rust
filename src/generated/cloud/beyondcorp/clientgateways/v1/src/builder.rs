@@ -251,7 +251,7 @@ pub mod client_gateways_service {
             self,
         ) -> impl lro::Poller<crate::model::ClientGateway, crate::model::ClientGatewayOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ClientGateway,
                 crate::model::ClientGatewayOperationMetadata,
             >;
@@ -371,7 +371,7 @@ pub mod client_gateways_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::ClientGatewayOperationMetadata> {
             type Operation =
-                lro::Operation<wkt::Empty, crate::model::ClientGatewayOperationMetadata>;
+                lro::internal::Operation<wkt::Empty, crate::model::ClientGatewayOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

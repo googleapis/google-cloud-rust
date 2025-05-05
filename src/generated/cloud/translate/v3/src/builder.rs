@@ -591,7 +591,7 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchTranslateResponse, crate::model::BatchTranslateMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchTranslateResponse,
                 crate::model::BatchTranslateMetadata,
             >;
@@ -762,7 +762,7 @@ pub mod translation_service {
             crate::model::BatchTranslateDocumentResponse,
             crate::model::BatchTranslateDocumentMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchTranslateDocumentResponse,
                 crate::model::BatchTranslateDocumentMetadata,
             >;
@@ -949,8 +949,10 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::Glossary, crate::model::CreateGlossaryMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Glossary, crate::model::CreateGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Glossary,
+                crate::model::CreateGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1046,8 +1048,10 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Glossary,
+                crate::model::UpdateGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1271,7 +1275,7 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::DeleteGlossaryResponse, crate::model::DeleteGlossaryMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeleteGlossaryResponse,
                 crate::model::DeleteGlossaryMetadata,
             >;
@@ -1649,8 +1653,10 @@ pub mod translation_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Dataset, crate::model::CreateDatasetMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Dataset, crate::model::CreateDatasetMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Dataset,
+                crate::model::CreateDatasetMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1864,7 +1870,8 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteDatasetMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2647,7 +2654,7 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `import_data`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDataMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2740,7 +2747,7 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `export_data`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ExportDataMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2917,7 +2924,8 @@ pub mod translation_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata> {
-            type Operation = lro::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3137,7 +3145,8 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteModelMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

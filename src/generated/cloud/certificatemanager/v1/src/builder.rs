@@ -247,8 +247,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Certificate, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Certificate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Certificate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -354,8 +356,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Certificate, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Certificate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Certificate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -454,7 +458,7 @@ pub mod certificate_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -681,8 +685,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMap, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMap,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -789,8 +795,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMap, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMap,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -889,7 +897,7 @@ pub mod certificate_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_map`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1122,8 +1130,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMapEntry, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMapEntry, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMapEntry,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1234,8 +1244,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMapEntry, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMapEntry, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMapEntry,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1338,7 +1350,7 @@ pub mod certificate_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_map_entry`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1565,8 +1577,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsAuthorization, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsAuthorization,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1675,8 +1689,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsAuthorization, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsAuthorization,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1777,7 +1793,7 @@ pub mod certificate_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dns_authorization`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2012,7 +2028,7 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateIssuanceConfig, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CertificateIssuanceConfig,
                 crate::model::OperationMetadata,
             >;
@@ -2126,7 +2142,7 @@ pub mod certificate_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_issuance_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2349,8 +2365,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::TrustConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TrustConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2456,8 +2474,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::TrustConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TrustConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2556,7 +2576,7 @@ pub mod certificate_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_trust_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

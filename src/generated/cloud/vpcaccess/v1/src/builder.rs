@@ -109,7 +109,7 @@ pub mod vpc_access_service {
             self,
         ) -> impl lro::Poller<crate::model::Connector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -331,7 +331,7 @@ pub mod vpc_access_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connector`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

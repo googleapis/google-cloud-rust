@@ -523,7 +523,7 @@ pub mod storage_transfer_service {
 
         /// Creates a [Poller][lro::Poller] to work with `run_transfer_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::TransferOperation> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::TransferOperation>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::TransferOperation>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

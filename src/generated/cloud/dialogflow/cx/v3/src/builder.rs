@@ -377,7 +377,8 @@ pub mod agents {
 
         /// Creates a [Poller][lro::Poller] to work with `export_agent`.
         pub fn poller(self) -> impl lro::Poller<crate::model::ExportAgentResponse, wkt::Struct> {
-            type Operation = lro::Operation<crate::model::ExportAgentResponse, wkt::Struct>;
+            type Operation =
+                lro::internal::Operation<crate::model::ExportAgentResponse, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -495,7 +496,7 @@ pub mod agents {
 
         /// Creates a [Poller][lro::Poller] to work with `restore_agent`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
-            type Operation = lro::Operation<wkt::Empty, wkt::Struct>;
+            type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2504,7 +2505,7 @@ pub mod entity_types {
             crate::model::ExportEntityTypesResponse,
             crate::model::ExportEntityTypesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportEntityTypesResponse,
                 crate::model::ExportEntityTypesMetadata,
             >;
@@ -2665,7 +2666,7 @@ pub mod entity_types {
             crate::model::ImportEntityTypesResponse,
             crate::model::ImportEntityTypesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportEntityTypesResponse,
                 crate::model::ImportEntityTypesMetadata,
             >;
@@ -3294,7 +3295,7 @@ pub mod environments {
 
         /// Creates a [Poller][lro::Poller] to work with `create_environment`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Environment, wkt::Struct> {
-            type Operation = lro::Operation<crate::model::Environment, wkt::Struct>;
+            type Operation = lro::internal::Operation<crate::model::Environment, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3390,7 +3391,7 @@ pub mod environments {
 
         /// Creates a [Poller][lro::Poller] to work with `update_environment`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Environment, wkt::Struct> {
-            type Operation = lro::Operation<crate::model::Environment, wkt::Struct>;
+            type Operation = lro::internal::Operation<crate::model::Environment, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3625,7 +3626,7 @@ pub mod environments {
             crate::model::RunContinuousTestResponse,
             crate::model::RunContinuousTestMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RunContinuousTestResponse,
                 crate::model::RunContinuousTestMetadata,
             >;
@@ -3794,8 +3795,10 @@ pub mod environments {
             self,
         ) -> impl lro::Poller<crate::model::DeployFlowResponse, crate::model::DeployFlowMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DeployFlowResponse, crate::model::DeployFlowMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DeployFlowResponse,
+                crate::model::DeployFlowMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5286,7 +5289,7 @@ pub mod flows {
 
         /// Creates a [Poller][lro::Poller] to work with `train_flow`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
-            type Operation = lro::Operation<wkt::Empty, wkt::Struct>;
+            type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5473,7 +5476,8 @@ pub mod flows {
 
         /// Creates a [Poller][lro::Poller] to work with `import_flow`.
         pub fn poller(self) -> impl lro::Poller<crate::model::ImportFlowResponse, wkt::Struct> {
-            type Operation = lro::Operation<crate::model::ImportFlowResponse, wkt::Struct>;
+            type Operation =
+                lro::internal::Operation<crate::model::ImportFlowResponse, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5605,7 +5609,8 @@ pub mod flows {
 
         /// Creates a [Poller][lro::Poller] to work with `export_flow`.
         pub fn poller(self) -> impl lro::Poller<crate::model::ExportFlowResponse, wkt::Struct> {
-            type Operation = lro::Operation<crate::model::ExportFlowResponse, wkt::Struct>;
+            type Operation =
+                lro::internal::Operation<crate::model::ExportFlowResponse, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7024,7 +7029,7 @@ pub mod intents {
             self,
         ) -> impl lro::Poller<crate::model::ImportIntentsResponse, crate::model::ImportIntentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportIntentsResponse,
                 crate::model::ImportIntentsMetadata,
             >;
@@ -7156,7 +7161,7 @@ pub mod intents {
             self,
         ) -> impl lro::Poller<crate::model::ExportIntentsResponse, crate::model::ExportIntentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportIntentsResponse,
                 crate::model::ExportIntentsMetadata,
             >;
@@ -10576,7 +10581,7 @@ pub mod test_cases {
             self,
         ) -> impl lro::Poller<crate::model::RunTestCaseResponse, crate::model::RunTestCaseMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RunTestCaseResponse,
                 crate::model::RunTestCaseMetadata,
             >;
@@ -10675,7 +10680,7 @@ pub mod test_cases {
             crate::model::BatchRunTestCasesResponse,
             crate::model::BatchRunTestCasesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchRunTestCasesResponse,
                 crate::model::BatchRunTestCasesMetadata,
             >;
@@ -10843,7 +10848,7 @@ pub mod test_cases {
             self,
         ) -> impl lro::Poller<crate::model::ImportTestCasesResponse, crate::model::ImportTestCasesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportTestCasesResponse,
                 crate::model::ImportTestCasesMetadata,
             >;
@@ -10963,7 +10968,7 @@ pub mod test_cases {
             self,
         ) -> impl lro::Poller<crate::model::ExportTestCasesResponse, crate::model::ExportTestCasesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportTestCasesResponse,
                 crate::model::ExportTestCasesMetadata,
             >;
@@ -12398,8 +12403,10 @@ pub mod versions {
             self,
         ) -> impl lro::Poller<crate::model::Version, crate::model::CreateVersionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Version, crate::model::CreateVersionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Version,
+                crate::model::CreateVersionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -12594,7 +12601,7 @@ pub mod versions {
 
         /// Creates a [Poller][lro::Poller] to work with `load_version`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
-            type Operation = lro::Operation<wkt::Empty, wkt::Struct>;
+            type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

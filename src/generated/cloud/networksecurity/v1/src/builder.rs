@@ -245,8 +245,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AuthorizationPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -357,8 +359,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AuthorizationPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -459,7 +463,7 @@ pub mod network_security {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_authorization_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -674,8 +678,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ServerTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -784,8 +790,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ServerTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -884,7 +892,7 @@ pub mod network_security {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_server_tls_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1099,8 +1107,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ClientTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1209,8 +1219,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ClientTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1309,7 +1321,7 @@ pub mod network_security {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_client_tls_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

@@ -468,7 +468,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Network, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -575,7 +576,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -798,7 +799,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -907,7 +909,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1009,7 +1012,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_subnet`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1436,7 +1439,7 @@ pub mod edge_network {
             self,
         ) -> impl lro::Poller<crate::model::InterconnectAttachment, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InterconnectAttachment,
                 crate::model::OperationMetadata,
             >;
@@ -1556,7 +1559,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_interconnect_attachment`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1826,7 +1829,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Router, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Router, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1935,7 +1939,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Router, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Router, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2037,7 +2042,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_router`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

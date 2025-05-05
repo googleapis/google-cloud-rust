@@ -109,8 +109,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -427,8 +429,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -573,8 +577,10 @@ pub mod bigtable_instance_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::CreateClusterMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::CreateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::CreateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -777,8 +783,10 @@ pub mod bigtable_instance_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::UpdateClusterMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::UpdateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::UpdateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -935,8 +943,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::PartialUpdateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1281,8 +1291,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AppProfile,
+                crate::model::UpdateAppProfileMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1723,8 +1735,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LogicalView,
+                crate::model::CreateLogicalViewMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1955,8 +1969,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LogicalView,
+                crate::model::UpdateLogicalViewMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2112,7 +2128,7 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::CreateMaterializedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::CreateMaterializedViewMetadata,
             >;
@@ -2351,7 +2367,7 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::UpdateMaterializedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::UpdateMaterializedViewMetadata,
             >;
@@ -2871,8 +2887,10 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Table,
+                crate::model::CreateTableFromSnapshotMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3105,7 +3123,8 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UpdateTableMetadata> {
-            type Operation = lro::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3257,7 +3276,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UndeleteTableMetadata> {
             type Operation =
-                lro::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
+                lro::internal::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3345,7 +3364,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::CreateAuthorizedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::CreateAuthorizedViewMetadata,
             >;
@@ -3600,7 +3619,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::UpdateAuthorizedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::UpdateAuthorizedViewMetadata,
             >;
@@ -4061,8 +4080,10 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::SnapshotTableMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::SnapshotTableMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                crate::model::SnapshotTableMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4343,7 +4364,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
-                lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4688,7 +4709,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::RestoreTableMetadata> {
             type Operation =
-                lro::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
+                lro::internal::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4802,7 +4823,8 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

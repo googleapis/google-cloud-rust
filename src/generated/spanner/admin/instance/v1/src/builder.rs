@@ -239,7 +239,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::CreateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::CreateInstanceConfigMetadata,
             >;
@@ -355,7 +355,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::UpdateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::UpdateInstanceConfigMetadata,
             >;
@@ -845,8 +845,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -950,8 +952,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1340,7 +1344,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::CreateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::CreateInstancePartitionMetadata,
             >;
@@ -1514,7 +1518,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::UpdateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::UpdateInstancePartitionMetadata,
             >;
@@ -1714,7 +1718,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MoveInstanceResponse, crate::model::MoveInstanceMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MoveInstanceResponse,
                 crate::model::MoveInstanceMetadata,
             >;

@@ -2871,7 +2871,7 @@ pub mod rule_service {
             self,
         ) -> impl lro::Poller<crate::model::Retrohunt, crate::model::RetrohuntMetadata> {
             type Operation =
-                lro::Operation<crate::model::Retrohunt, crate::model::RetrohuntMetadata>;
+                lro::internal::Operation<crate::model::Retrohunt, crate::model::RetrohuntMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

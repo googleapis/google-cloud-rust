@@ -109,7 +109,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -222,7 +222,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Annotation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Annotation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Annotation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -504,7 +504,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -609,7 +609,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -700,7 +700,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -794,7 +794,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -885,7 +885,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

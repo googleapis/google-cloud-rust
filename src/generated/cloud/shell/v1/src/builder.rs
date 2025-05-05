@@ -161,7 +161,7 @@ pub mod cloud_shell_service {
             crate::model::StartEnvironmentResponse,
             crate::model::StartEnvironmentMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::StartEnvironmentResponse,
                 crate::model::StartEnvironmentMetadata,
             >;
@@ -269,7 +269,7 @@ pub mod cloud_shell_service {
             crate::model::AuthorizeEnvironmentResponse,
             crate::model::AuthorizeEnvironmentMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizeEnvironmentResponse,
                 crate::model::AuthorizeEnvironmentMetadata,
             >;
@@ -376,7 +376,7 @@ pub mod cloud_shell_service {
             self,
         ) -> impl lro::Poller<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddPublicKeyResponse,
                 crate::model::AddPublicKeyMetadata,
             >;
@@ -468,7 +468,7 @@ pub mod cloud_shell_service {
             self,
         ) -> impl lro::Poller<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemovePublicKeyResponse,
                 crate::model::RemovePublicKeyMetadata,
             >;

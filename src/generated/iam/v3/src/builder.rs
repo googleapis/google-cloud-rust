@@ -112,8 +112,10 @@ pub mod policy_bindings {
             self,
         ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -276,8 +278,10 @@ pub mod policy_bindings {
             self,
         ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -380,7 +384,7 @@ pub mod policy_bindings {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy_binding`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -757,7 +761,7 @@ pub mod principal_access_boundary_policies {
             self,
         ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -932,7 +936,7 @@ pub mod principal_access_boundary_policies {
             self,
         ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -1042,7 +1046,7 @@ pub mod principal_access_boundary_policies {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_principal_access_boundary_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

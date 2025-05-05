@@ -242,7 +242,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -349,7 +349,7 @@ pub mod secure_source_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -579,7 +579,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -683,7 +683,7 @@ pub mod secure_source_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -963,7 +963,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1191,7 +1191,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1296,7 +1296,7 @@ pub mod secure_source_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_branch_rule`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

@@ -109,7 +109,7 @@ pub mod asset_service {
             self,
         ) -> impl lro::Poller<crate::model::ExportAssetsResponse, crate::model::ExportAssetsRequest>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportAssetsResponse,
                 crate::model::ExportAssetsRequest,
             >;
@@ -982,7 +982,7 @@ pub mod asset_service {
             crate::model::AnalyzeIamPolicyLongrunningResponse,
             crate::model::AnalyzeIamPolicyLongrunningMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AnalyzeIamPolicyLongrunningResponse,
                 crate::model::AnalyzeIamPolicyLongrunningMetadata,
             >;

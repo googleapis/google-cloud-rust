@@ -109,7 +109,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::EnableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -195,7 +195,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::DisableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -424,7 +424,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::BatchEnableServicesResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchEnableServicesResponse,
                 crate::model::OperationMetadata,
             >;

@@ -112,7 +112,7 @@ pub mod backup_for_gke {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -352,7 +352,7 @@ pub mod backup_for_gke {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -449,7 +449,7 @@ pub mod backup_for_gke {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -539,7 +539,8 @@ pub mod backup_for_gke {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -771,7 +772,8 @@ pub mod backup_for_gke {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -865,7 +867,7 @@ pub mod backup_for_gke {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1100,8 +1102,10 @@ pub mod backup_for_gke {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::RestorePlan, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::RestorePlan, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::RestorePlan,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1343,8 +1347,10 @@ pub mod backup_for_gke {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::RestorePlan, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::RestorePlan, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::RestorePlan,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1441,7 +1447,7 @@ pub mod backup_for_gke {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_restore_plan`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1537,7 +1543,8 @@ pub mod backup_for_gke {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Restore, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Restore, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1773,7 +1780,8 @@ pub mod backup_for_gke {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Restore, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Restore, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1867,7 +1875,7 @@ pub mod backup_for_gke {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_restore`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

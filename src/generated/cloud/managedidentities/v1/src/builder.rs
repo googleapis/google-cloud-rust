@@ -111,7 +111,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `create_microsoft_ad_domain`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -395,7 +396,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `update_domain`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -491,7 +493,7 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_domain`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OpMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OpMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -573,7 +575,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `attach_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -669,7 +672,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `reconfigure_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -772,7 +776,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `detach_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -865,7 +870,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `validate_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

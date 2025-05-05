@@ -183,8 +183,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -361,8 +363,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -463,7 +467,8 @@ pub mod database_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -853,7 +858,7 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
-                lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -967,7 +972,8 @@ pub mod database_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1325,8 +1331,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

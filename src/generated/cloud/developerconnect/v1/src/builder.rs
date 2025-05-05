@@ -245,7 +245,7 @@ pub mod developer_connect {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -364,7 +364,7 @@ pub mod developer_connect {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -481,7 +481,7 @@ pub mod developer_connect {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -589,8 +589,10 @@ pub mod developer_connect {
             self,
         ) -> impl lro::Poller<crate::model::GitRepositoryLink, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::GitRepositoryLink, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::GitRepositoryLink,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -710,7 +712,7 @@ pub mod developer_connect {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_git_repository_link`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

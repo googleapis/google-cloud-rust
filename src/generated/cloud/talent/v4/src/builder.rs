@@ -923,7 +923,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchCreateJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1127,7 +1127,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchUpdateJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchUpdateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1284,7 +1284,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchDeleteJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchDeleteJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;

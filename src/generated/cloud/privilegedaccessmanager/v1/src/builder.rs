@@ -393,8 +393,10 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -506,8 +508,10 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -606,8 +610,10 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1101,7 +1107,8 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Grant, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Grant, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Grant, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

@@ -247,7 +247,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -362,7 +363,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -474,7 +476,7 @@ pub mod alloy_db_admin {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -582,7 +584,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -687,7 +690,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -783,7 +787,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -943,7 +948,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1198,7 +1204,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1319,7 +1325,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1438,7 +1444,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::BatchCreateInstancesResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateInstancesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1543,7 +1549,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1655,7 +1661,7 @@ pub mod alloy_db_admin {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1761,7 +1767,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1858,7 +1864,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1966,7 +1972,7 @@ pub mod alloy_db_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2301,7 +2307,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2416,7 +2423,8 @@ pub mod alloy_db_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2528,7 +2536,7 @@ pub mod alloy_db_admin {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

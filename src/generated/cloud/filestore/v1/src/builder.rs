@@ -242,8 +242,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -347,8 +349,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -443,8 +447,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -562,8 +568,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -655,7 +663,8 @@ pub mod cloud_filestore_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -885,8 +894,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -989,7 +1000,8 @@ pub mod cloud_filestore_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1074,8 +1086,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1307,8 +1321,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Backup,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1411,7 +1427,8 @@ pub mod cloud_filestore_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1496,8 +1513,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Backup,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1596,8 +1615,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

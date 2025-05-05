@@ -235,7 +235,7 @@ pub mod access_context_manager {
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -373,7 +373,7 @@ pub mod access_context_manager {
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -478,8 +478,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -705,7 +707,7 @@ pub mod access_context_manager {
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -809,7 +811,7 @@ pub mod access_context_manager {
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -914,8 +916,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1005,7 +1009,7 @@ pub mod access_context_manager {
             crate::model::ReplaceAccessLevelsResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReplaceAccessLevelsResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1244,7 +1248,7 @@ pub mod access_context_manager {
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1350,7 +1354,7 @@ pub mod access_context_manager {
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1457,8 +1461,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1550,7 +1556,7 @@ pub mod access_context_manager {
             crate::model::ReplaceServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReplaceServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1664,7 +1670,7 @@ pub mod access_context_manager {
             crate::model::CommitServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CommitServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1898,7 +1904,7 @@ pub mod access_context_manager {
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2006,7 +2012,7 @@ pub mod access_context_manager {
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2115,8 +2121,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::GcpUserAccessBindingOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

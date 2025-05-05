@@ -2032,7 +2032,8 @@ pub mod echo {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::WaitResponse, crate::model::WaitMetadata> {
-            type Operation = lro::Operation<crate::model::WaitResponse, crate::model::WaitMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::WaitResponse, crate::model::WaitMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4201,7 +4202,7 @@ pub mod messaging {
             self,
         ) -> impl lro::Poller<crate::model::SearchBlurbsResponse, crate::model::SearchBlurbsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SearchBlurbsResponse,
                 crate::model::SearchBlurbsMetadata,
             >;

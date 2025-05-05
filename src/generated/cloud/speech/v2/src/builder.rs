@@ -108,7 +108,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -340,7 +340,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -444,7 +444,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -548,7 +548,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -738,7 +738,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::BatchRecognizeResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchRecognizeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -979,8 +979,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1214,8 +1216,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1318,8 +1322,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1422,8 +1428,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1518,7 +1526,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1747,7 +1755,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1848,7 +1856,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1952,7 +1960,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

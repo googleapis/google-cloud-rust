@@ -255,8 +255,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -385,8 +387,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -505,7 +509,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -928,7 +932,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1049,7 +1054,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1161,7 +1167,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_stream`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1251,7 +1257,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1699,8 +1706,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1961,7 +1970,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2057,7 +2066,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Route, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Route, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Route, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2297,7 +2307,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_route`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

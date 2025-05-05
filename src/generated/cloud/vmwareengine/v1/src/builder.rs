@@ -247,8 +247,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,8 +368,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -474,8 +478,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -580,8 +586,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -804,7 +812,8 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -919,7 +928,8 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1027,7 +1037,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1464,8 +1474,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAddress, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAddress,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1578,8 +1590,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAddress, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAddress,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1684,7 +1698,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_address`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1895,7 +1909,8 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2142,8 +2157,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAccessRule, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAccessRule,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2260,8 +2277,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAccessRule, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAccessRule,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2370,7 +2389,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_access_rule`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2603,8 +2622,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LoggingServer, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LoggingServer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2717,8 +2738,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LoggingServer, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LoggingServer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2823,7 +2846,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_logging_server`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3149,8 +3172,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3245,8 +3270,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3396,8 +3423,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::DnsForwarding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsForwarding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsForwarding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3644,8 +3673,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPeering, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPeering,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3755,7 +3786,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_peering`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3849,8 +3880,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPeering, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPeering,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4041,8 +4074,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::HcxActivationKey, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::HcxActivationKey, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::HcxActivationKey,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4423,8 +4458,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4537,8 +4574,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4643,7 +4682,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4884,7 +4923,7 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -5007,7 +5046,7 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -5119,7 +5158,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_dns_zone_binding`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5215,7 +5254,7 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -5314,8 +5353,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VmwareEngineNetwork,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5432,8 +5473,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VmwareEngineNetwork,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5542,7 +5585,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vmware_engine_network`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5787,8 +5830,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6046,8 +6091,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6156,7 +6203,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6333,8 +6380,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsBindPermission, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsBindPermission,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6491,8 +6540,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsBindPermission, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsBindPermission,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

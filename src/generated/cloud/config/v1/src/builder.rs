@@ -237,7 +237,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -348,7 +348,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,7 +452,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1032,7 +1032,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1118,7 +1118,7 @@ pub mod config {
             self,
         ) -> impl lro::Poller<crate::model::Deployment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Deployment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1253,7 +1253,8 @@ pub mod config {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Preview, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Preview, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Preview, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1487,7 +1488,8 @@ pub mod config {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Preview, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Preview, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Preview, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 

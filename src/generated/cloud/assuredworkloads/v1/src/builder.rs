@@ -109,7 +109,7 @@ pub mod assured_workloads_service {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::CreateWorkloadOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Workload,
                 crate::model::CreateWorkloadOperationMetadata,
             >;

@@ -242,7 +242,7 @@ pub mod parallelstore {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -352,7 +352,7 @@ pub mod parallelstore {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -454,7 +454,7 @@ pub mod parallelstore {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -545,8 +545,10 @@ pub mod parallelstore {
             self,
         ) -> impl lro::Poller<crate::model::ImportDataResponse, crate::model::ImportDataMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ImportDataResponse, crate::model::ImportDataMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ImportDataResponse,
+                crate::model::ImportDataMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -697,8 +699,10 @@ pub mod parallelstore {
             self,
         ) -> impl lro::Poller<crate::model::ExportDataResponse, crate::model::ExportDataMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExportDataResponse, crate::model::ExportDataMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExportDataResponse,
+                crate::model::ExportDataMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
