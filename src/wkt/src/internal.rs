@@ -21,8 +21,8 @@ pub struct F32;
 pub struct F64;
 
 macro_rules! impl_serialize_as {
-    ($typ: ty, $ser_fn: ident) => {
-        fn serialize_as<S>(value: &$typ, serializer: S) -> Result<S::Ok, S::Error>
+    ($t: ty, $ser_fn: ident) => {
+        fn serialize_as<S>(value: &$t, serializer: S) -> Result<S::Ok, S::Error>
         where
             S: serde::ser::Serializer,
         {
@@ -39,11 +39,11 @@ macro_rules! impl_serialize_as {
 }
 
 macro_rules! impl_visitor {
-    ($name: ident, $typ: ty) => {
+    ($name: ident, $t: ty) => {
         struct $name;
 
         impl serde::de::Visitor<'_> for $name {
-            type Value = $typ;
+            type Value = $t;
 
             fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
             where
@@ -51,14 +51,14 @@ macro_rules! impl_visitor {
             {
                 // Handle special strings, see https://protobuf.dev/programming-guides/json/.
                 match value {
-                    "NaN" => Ok(<$typ>::NAN),
-                    "Infinity" => Ok(<$typ>::INFINITY),
-                    "-Infinity" => Ok(<$typ>::NEG_INFINITY),
+                    "NaN" => Ok(<$t>::NAN),
+                    "Infinity" => Ok(<$t>::INFINITY),
+                    "-Infinity" => Ok(<$t>::NEG_INFINITY),
                     _ => Err(serde::de::Error::invalid_value(
                         serde::de::Unexpected::Other(value),
                         &format!(
                             "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
-                            std::any::type_name::<$typ>()
+                            std::any::type_name::<$t>()
                         )
                         .as_str(),
                     )),
@@ -72,13 +72,13 @@ macro_rules! impl_visitor {
             {
                 // Casting f64 to f32 to produce the closest possible float value.
                 // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-                Ok(value as $typ)
+                Ok(value as $t)
             }
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str(&format!(
                     "a {}-bit floating point in ProtoJSON format",
-                    std::mem::size_of::<$typ>() * 8 // bit size = byte size of T * 8
+                    std::mem::size_of::<$t>() * 8 // bit size = byte size of T * 8
                 ))
             }
         }
@@ -185,8 +185,8 @@ mod test {
     }
 
     macro_rules! impl_assert_float_eq {
-        ($fn: ident, $typ: ty) => {
-            fn $fn(left: $typ, right: $typ) {
+        ($fn: ident, $t: ty) => {
+            fn $fn(left: $t, right: $t) {
                 // Consider all NaN as equal.
                 if left.is_nan() && right.is_nan() {
                     return;
