@@ -182,7 +182,7 @@ impl PollingErrorPolicy for Aip194Strict {
         error: Error,
     ) -> LoopState {
         if let Some(svc) = error.as_inner::<crate::error::ServiceError>() {
-            return if svc.status().status.as_deref() == Some("UNAVAILABLE") {
+            return if svc.status().code == crate::error::rpc::Code::Unavailable {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)
@@ -499,7 +499,7 @@ impl std::error::Error for Exhausted {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{Error, ServiceError, rpc::Status};
+    use crate::error::{Error, ServiceError};
     use std::time::{Duration, Instant};
 
     mockall::mock! {
@@ -614,35 +614,24 @@ mod tests {
         );
     }
 
-    fn from_status(status: Status) -> Error {
+    fn http_error(code: u16, message: &str) -> Error {
         use std::collections::HashMap;
-        let payload = serde_json::to_value(&status)
-            .ok()
-            .map(|v| serde_json::json!({"error": v}));
-        let payload = payload.map(|v| v.to_string());
+        let error = serde_json::json!({"error": {
+            "code": code,
+            "message": message,
+        }});
+        let payload = serde_json::to_string(&error).ok();
         let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(status.code as u16, HashMap::new(), payload);
+        let http = crate::error::HttpError::new(code, HashMap::new(), payload);
         Error::rpc(http)
     }
 
     fn http_unavailable() -> Error {
-        let status = Status {
-            code: 503,
-            message: "SERVICE UNAVAILABLE".into(),
-            status: Some("UNAVAILABLE".into()),
-            ..Default::default()
-        };
-        from_status(status)
+        http_error(503, "SERVICE UNAVAILABLE")
     }
 
     fn http_permission_denied() -> Error {
-        let status = Status {
-            code: 403,
-            message: "PERMISSION DENIED".into(),
-            status: Some("PERMISSION_DENIED".into()),
-            ..Default::default()
-        };
-        from_status(status)
+        http_error(403, "PERMISSION DENIED")
     }
 
     fn unavailable() -> Error {

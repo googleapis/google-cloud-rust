@@ -221,7 +221,7 @@ impl RetryPolicy for Aip194Strict {
             if !idempotent {
                 return LoopState::Permanent(error);
             }
-            return if svc.status().status.as_deref() == Some("UNAVAILABLE") {
+            return if svc.status().code == crate::error::rpc::Code::Unavailable {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)
@@ -580,7 +580,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{ServiceError, rpc::Status};
+    use crate::error::ServiceError;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
@@ -723,33 +723,22 @@ mod tests {
         assert!(p.on_error(now, 0, idempotent, error).is_exhausted());
     }
 
-    fn http_from_status(status: Status) -> Error {
+    fn http_unavailable() -> Error {
         use std::collections::HashMap;
         Error::rpc(crate::error::HttpError::new(
-            status.code as u16,
+            503_u16,
             HashMap::new(),
-            bytes::Bytes::from_owner(status.message).into(),
+            bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()).into(),
         ))
     }
 
-    fn http_unavailable() -> Error {
-        let status = Status {
-            code: 503,
-            message: "SERVICE UNAVAILABLE".into(),
-            status: Some("UNAVAILABLE".into()),
-            ..Default::default()
-        };
-        http_from_status(status)
-    }
-
     fn http_permission_denied() -> Error {
-        let status = Status {
-            code: 403,
-            message: "PERMISSION DENIED".into(),
-            status: Some("PERMISSION_DENIED".into()),
-            ..Default::default()
-        };
-        http_from_status(status)
+        use std::collections::HashMap;
+        Error::rpc(crate::error::HttpError::new(
+            403_u16,
+            HashMap::new(),
+            bytes::Bytes::from_owner("PERMISSION DENIED".to_string()).into(),
+        ))
     }
 
     fn unavailable() -> Error {

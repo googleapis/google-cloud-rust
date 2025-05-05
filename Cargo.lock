@@ -421,6 +421,7 @@ name = "echo-server"
 version = "0.0.0"
 dependencies = [
  "axum",
+ "bytes",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
