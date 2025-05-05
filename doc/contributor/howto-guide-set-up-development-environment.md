@@ -248,7 +248,9 @@ cargo install taplo-cli
 use with:
 
 ```bash
-git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:src/generated/**' | xargs -0 taplo fmt
+git ls-files -z -- \
+    '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 taplo fmt
 ```
 
 ### Detect typos in comments and code
@@ -272,7 +274,9 @@ pip install -r ci/requirements.txt
 use with:
 
 ```bash
-git ls-files -z -- '*.md' ':!:**/testdata/**' | xargs -0 -r -P "$(nproc)" -n 50 mdformat
+git ls-files -z -- \
+    '*.md' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 mdformat
 ```
 
 ### Format YAML files
@@ -287,7 +291,9 @@ go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
 use with:
 
 ```bash
-git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' | xargs -0 yamlfmt
+git ls-files -z -- \
+    '*.yaml' '*.yml' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 yamlfmt
 ```
 
 ### Format Terraform files
@@ -298,7 +304,9 @@ these files. If you do, you probably know how to [install terraform].
 Format the files using:
 
 ```bash
-git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
+git ls-files -z --
+    '*.tf' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 terraform fmt
 ```
 
 [enable the secret manager api]: https://cloud.google.com/secret-manager/docs/configuring-secret-manager
