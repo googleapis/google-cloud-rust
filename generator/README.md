@@ -71,6 +71,5 @@ a suitable version.
 go install golang.org/x/tools/cmd/goimports@latest
 ```
 
-[grpc tutorial]: https://grpc.io/docs/protoc-installation/
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
 [secret manager]: https://cloud.google.com/secret-manager/
