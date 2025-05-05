@@ -19,7 +19,6 @@ use gax::error::Error;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::PollingErrorPolicy;
 use std::future::Future;
-use std::marker::PhantomData;
 use std::sync::Arc;
 use std::time::Instant;
 
@@ -53,51 +52,11 @@ pub enum PollingResult<R, M> {
     PollingError(Error),
 }
 
-/// A wrapper around [longrunning::model::Operation] with typed responses.
-///
-/// This is intended as an implementation detail of the generated clients.
-/// Applications should have no need to create or use this struct.
 #[doc(hidden)]
-pub struct Operation<R, M> {
-    inner: longrunning::model::Operation,
-    response: std::marker::PhantomData<R>,
-    metadata: std::marker::PhantomData<M>,
-}
-
-impl<R, M> Operation<R, M> {
-    pub fn new(inner: longrunning::model::Operation) -> Self {
-        Self {
-            inner,
-            response: PhantomData,
-            metadata: PhantomData,
-        }
-    }
-
-    fn name(&self) -> String {
-        self.inner.name.clone()
-    }
-    fn done(&self) -> bool {
-        self.inner.done
-    }
-    fn metadata(&self) -> Option<&wkt::Any> {
-        self.inner.metadata.as_ref()
-    }
-    fn response(&self) -> Option<&wkt::Any> {
-        use longrunning::model::operation::Result;
-        self.inner.result.as_ref().and_then(|r| match r {
-            Result::Error(_) => None,
-            Result::Response(r) => Some(r.as_ref()),
-            _ => None,
-        })
-    }
-    fn error(&self) -> Option<&rpc::model::Status> {
-        use longrunning::model::operation::Result;
-        self.inner.result.as_ref().and_then(|r| match r {
-            Result::Error(rpc) => Some(rpc.as_ref()),
-            Result::Response(_) => None,
-            _ => None,
-        })
-    }
+pub mod internal {
+    //! Implementation details for the LRO helpers used from other traits.
+    #[doc(hidden)]
+    pub type Operation<R, M> = super::details::Operation<R, M>;
 }
 
 mod sealed {
@@ -140,11 +99,11 @@ where
     MetadataType:
         wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    SF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    QF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
 {
@@ -175,11 +134,11 @@ where
 struct PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
 where
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    SF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    QF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
 {
@@ -195,11 +154,11 @@ where
 impl<ResponseType, MetadataType, S, SF, Q, QF> PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
 where
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    SF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    QF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
 {
@@ -229,11 +188,11 @@ where
     MetadataType:
         wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    SF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
     P: Fn(String) -> PF + Send + Sync + Clone,
-    PF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    PF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
 {
@@ -310,11 +269,11 @@ where
     MetadataType:
         wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    SF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
     P: Fn(String) -> PF + Send + Sync + Clone,
-    PF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+    PF: std::future::Future<Output = Result<internal::Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
 {
@@ -332,75 +291,7 @@ mod test {
 
     type ResponseType = wkt::Duration;
     type MetadataType = wkt::Timestamp;
-    type TestOperation = Operation<ResponseType, MetadataType>;
-
-    #[test]
-    fn typed_operation_with_metadata() -> Result<()> {
-        let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
-            .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
-        let op = longrunning::model::Operation::default()
-            .set_name("test-only-name")
-            .set_metadata(any);
-        let op = TestOperation::new(op);
-        assert_eq!(op.name(), "test-only-name");
-        assert!(!op.done());
-        assert!(op.metadata().is_some());
-        assert!(op.response().is_none());
-        assert!(op.error().is_none());
-        let got = op
-            .metadata()
-            .unwrap()
-            .try_into_message::<wkt::Timestamp>()
-            .map_err(Error::other)?;
-        assert_eq!(got, wkt::Timestamp::clamp(123, 0));
-
-        Ok(())
-    }
-
-    #[test]
-    fn typed_operation_with_response() -> Result<()> {
-        let any = wkt::Any::try_from(&wkt::Duration::clamp(23, 0))
-            .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
-        let op = longrunning::model::Operation::default()
-            .set_name("test-only-name")
-            .set_result(longrunning::model::operation::Result::Response(any.into()));
-        let op = TestOperation::new(op);
-        assert_eq!(op.name(), "test-only-name");
-        assert!(!op.done());
-        assert!(op.metadata().is_none());
-        assert!(op.response().is_some());
-        assert!(op.error().is_none());
-        let got = op
-            .response()
-            .unwrap()
-            .try_into_message::<wkt::Duration>()
-            .map_err(Error::other)?;
-        assert_eq!(got, wkt::Duration::clamp(23, 0));
-
-        Ok(())
-    }
-
-    #[test]
-    fn typed_operation_with_error() -> Result<()> {
-        let rpc = rpc::model::Status::default()
-            .set_message("test only")
-            .set_code(16);
-        let op = longrunning::model::Operation::default()
-            .set_name("test-only-name")
-            .set_result(longrunning::model::operation::Result::Error(
-                rpc.clone().into(),
-            ));
-        let op = TestOperation::new(op);
-        assert_eq!(op.name(), "test-only-name");
-        assert!(!op.done());
-        assert!(op.metadata().is_none());
-        assert!(op.response().is_none());
-        assert!(op.error().is_some());
-        let got = op.error().unwrap();
-        assert_eq!(got, &rpc);
-
-        Ok(())
-    }
+    type TestOperation = internal::Operation<ResponseType, MetadataType>;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_flow() {
