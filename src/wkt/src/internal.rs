@@ -17,37 +17,49 @@
 //! These types are intended for developers of the Google Cloud client libraries
 //! for Rust. They are undocumented and may change at any time.
 
-pub type F32 = Float<f32>;
-pub type F64 = Float<f64>;
+pub struct F32;
+pub struct F64;
 
-pub struct Float<T>(std::marker::PhantomData<T>);
-
-impl<T> serde_with::SerializeAs<T> for Float<T>
-where
-    T: FloatExt,
-{
-    fn serialize_as<S>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        match value {
-            x if x.is_nan() => serializer.serialize_str("NaN"),
-            x if x.is_infinite() && x.is_sign_negative() => serializer.serialize_str("-Infinity"),
-            x if x.is_infinite() => serializer.serialize_str("Infinity"),
-            x => x.serialize(serializer),
+macro_rules! impl_serialize_as {
+    ($typ: ty, $ser_fn: ident) => {
+        fn serialize_as<S>(value: &$typ, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            match value {
+                x if x.is_nan() => serializer.serialize_str("NaN"),
+                x if x.is_infinite() && x.is_sign_negative() => {
+                    serializer.serialize_str("-Infinity")
+                }
+                x if x.is_infinite() => serializer.serialize_str("Infinity"),
+                x => serializer.$ser_fn(*x),
+            }
         }
-    }
+    };
 }
 
-impl<'de, T> serde_with::DeserializeAs<'de, T> for Float<T>
-where
-    T: FloatExt + 'de,
-{
-    fn deserialize_as<D>(deserializer: D) -> Result<T, D::Error>
+impl serde_with::SerializeAs<f32> for F32 {
+    impl_serialize_as!(f32, serialize_f32);
+}
+impl serde_with::SerializeAs<f64> for F64 {
+    impl_serialize_as!(f64, serialize_f64);
+}
+
+impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
+    fn deserialize_as<D>(deserializer: D) -> Result<f32, D::Error>
     where
         D: serde::de::Deserializer<'de>,
     {
-        deserializer.deserialize_any(FloatVisitor::<T>::new())
+        deserializer.deserialize_any(FloatVisitor::<f32>::new())
+    }
+}
+
+impl<'de> serde_with::DeserializeAs<'de, f64> for F64 {
+    fn deserialize_as<D>(deserializer: D) -> Result<f64, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(FloatVisitor::<f64>::new())
     }
 }
 
@@ -112,21 +124,11 @@ where
 }
 
 // Trait to abstract over f32 and f64.
-trait FloatExt: num_traits::Float + std::fmt::Debug {
-    fn serialize<S: serde::ser::Serializer>(self, serializer: S) -> Result<S::Ok, S::Error>;
-}
+trait FloatExt: num_traits::Float + std::fmt::Debug {}
 
-impl FloatExt for f32 {
-    fn serialize<S: serde::ser::Serializer>(self, serializer: S) -> Result<S::Ok, S::Error> {
-        serializer.serialize_f32(self)
-    }
-}
+impl FloatExt for f32 {}
 
-impl FloatExt for f64 {
-    fn serialize<S: serde::ser::Serializer>(self, serializer: S) -> Result<S::Ok, S::Error> {
-        serializer.serialize_f64(self)
-    }
-}
+impl FloatExt for f64 {}
 
 // For skipping serialization of default values of bool/numeric types.
 pub fn is_default<T>(t: &T) -> bool
