@@ -5,7 +5,8 @@ This document assumes you are familiar with the
 
 The terraform configuration for auth is separate because:
 
-- the resources belong to a different project (`rust-auth-testing` vs. `rust-sdk-testing`)
+- the resources belong to a different project (`rust-auth-testing` vs.
+  `rust-sdk-testing`)
 - accessing the different projects requires different permissions
 
 ## Usage
@@ -22,8 +23,8 @@ Initialize terraform:
 terraform init
 ```
 
-Restore the current state. This may result in no action if you happen to have
-an up-to-date state in your local files.
+Restore the current state. This may result in no action if you happen to have an
+up-to-date state in your local files.
 
 ```shell
 terraform plan -out /tmp/bootstrap.tplan

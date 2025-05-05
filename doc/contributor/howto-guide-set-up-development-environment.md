@@ -89,7 +89,8 @@ Some of the samples are integration tests, you can verify they build using:
 cargo build --package user-guide-samples
 ```
 
-and verify they run using the instructions in the [Integration Tests](#integration-tests) section.
+and verify they run using the instructions in the
+[Integration Tests](#integration-tests) section.
 
 ### Using `mdbook serve`
 
@@ -145,8 +146,8 @@ project.
 
 We use [Secret Manager], [Workflows], [Firestore], and [Speech-to-Text] to run
 integration tests. Follow the [Enable the Secret Manager API] guide to, as it
-says, enable the API and make sure that billing is enabled in your projects.
-To enable the Workflows, Firestore, and Speech-to-Text APIs you can run this
+says, enable the API and make sure that billing is enabled in your projects. To
+enable the Workflows, Firestore, and Speech-to-Text APIs you can run this
 command:
 
 ```bash
@@ -189,8 +190,8 @@ gcloud iam service-accounts disable rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gs
 
 ### Create a database
 
-The integration tests need the default Firestore database in your project.
-You can create this database using:
+The integration tests need the default Firestore database in your project. You
+can create this database using:
 
 ```bash
 gcloud firestore databases create --location=us-central1
@@ -227,8 +228,8 @@ with logging enabled and with logging disabled.
 ## Miscellaneous Tools
 
 We use a number of tools to format non-Rust code. The CI builds enforce
-formatting, you can fix any formatting problems manually (using the CI logs),
-or may prefer to install these tools locally to fix formatting problems.
+formatting, you can fix any formatting problems manually (using the CI logs), or
+may prefer to install these tools locally to fix formatting problems.
 
 Typically we do not format these files for generated code, so local runs
 requires skipping the generated files.

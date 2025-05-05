@@ -37,8 +37,8 @@ and that your account has the necessary permissions.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:secretmanager}}
@@ -71,7 +71,7 @@ individual items.
 ### Working with futures::Stream
 
 You may want to use these APIs in the larger Rust ecosystem of asynchronous
-streams, such as `tokio::Stream`.  This is readily done, but you must first
+streams, such as `tokio::Stream`. This is readily done, but you must first
 enable the `unstable-streams` feature in the `google_cloud_gax` crate:
 
 ```toml
