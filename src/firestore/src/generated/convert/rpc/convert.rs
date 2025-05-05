@@ -65,11 +65,11 @@ impl gaxi::prost::ToProto<DebugInfo> for rpc::model::DebugInfo {
     type Output = DebugInfo;
     fn to_proto(self) -> std::result::Result<DebugInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            detail: self.detail.to_proto()?,
             stack_entries: self.stack_entries
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            detail: self.detail.to_proto()?,
         })
     }
 }
@@ -77,8 +77,8 @@ impl gaxi::prost::ToProto<DebugInfo> for rpc::model::DebugInfo {
 impl gaxi::prost::FromProto<rpc::model::DebugInfo> for DebugInfo {
     fn cnv(self) -> rpc::model::DebugInfo {
         rpc::model::DebugInfo::new()
-            .set_detail(self.detail)
             .set_stack_entries(self.stack_entries.into_iter().map(|v| v.cnv()))
+            .set_detail(self.detail)
     }
 }
 
@@ -91,13 +91,13 @@ impl gaxi::prost::ToProto<quota_failure::Violation> for rpc::model::quota_failur
             api_service: self.api_service.to_proto()?,
             quota_metric: self.quota_metric.to_proto()?,
             quota_id: self.quota_id.to_proto()?,
-            quota_value: self.quota_value.to_proto()?,
-            future_quota_value: self.future_quota_value.map(|v| v.to_proto()).transpose()?,
             quota_dimensions: self.quota_dimensions
                 .into_iter()
                 .map(|(k, v)| {
                     gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            quota_value: self.quota_value.to_proto()?,
+            future_quota_value: self.future_quota_value.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -110,9 +110,9 @@ impl gaxi::prost::FromProto<rpc::model::quota_failure::Violation> for quota_fail
             .set_api_service(self.api_service)
             .set_quota_metric(self.quota_metric)
             .set_quota_id(self.quota_id)
+            .set_quota_dimensions(self.quota_dimensions.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
             .set_quota_value(self.quota_value)
             .set_future_quota_value(self.future_quota_value.map(|v| v.cnv()))
-            .set_quota_dimensions(self.quota_dimensions.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
     }
 }
 
@@ -316,11 +316,11 @@ impl gaxi::prost::ToProto<HttpRequest> for rpc::model::HttpRequest {
         Ok(Self::Output {
             method: self.method.to_proto()?,
             uri: self.uri.to_proto()?,
-            body: self.body.to_proto()?,
             headers: self.headers
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            body: self.body.to_proto()?,
         })
     }
 }
@@ -330,8 +330,8 @@ impl gaxi::prost::FromProto<rpc::model::HttpRequest> for HttpRequest {
         rpc::model::HttpRequest::new()
             .set_method(self.method)
             .set_uri(self.uri)
-            .set_body(self.body)
             .set_headers(self.headers.into_iter().map(|v| v.cnv()))
+            .set_body(self.body)
     }
 }
 
@@ -341,11 +341,11 @@ impl gaxi::prost::ToProto<HttpResponse> for rpc::model::HttpResponse {
         Ok(Self::Output {
             status: self.status.to_proto()?,
             reason: self.reason.to_proto()?,
-            body: self.body.to_proto()?,
             headers: self.headers
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            body: self.body.to_proto()?,
         })
     }
 }
@@ -355,8 +355,8 @@ impl gaxi::prost::FromProto<rpc::model::HttpResponse> for HttpResponse {
         rpc::model::HttpResponse::new()
             .set_status(self.status)
             .set_reason(self.reason)
-            .set_body(self.body)
             .set_headers(self.headers.into_iter().map(|v| v.cnv()))
+            .set_body(self.body)
     }
 }
 

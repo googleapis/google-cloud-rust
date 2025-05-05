@@ -113,7 +113,6 @@ impl gaxi::prost::ToProto<Policy> for iam_v1::model::Policy {
     fn to_proto(self) -> std::result::Result<Policy, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             version: self.version.to_proto()?,
-            etag: self.etag.to_proto()?,
             bindings: self.bindings
                 .into_iter()
                 .map(|v| v.to_proto())
@@ -122,6 +121,7 @@ impl gaxi::prost::ToProto<Policy> for iam_v1::model::Policy {
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            etag: self.etag.to_proto()?,
         })
     }
 }
@@ -130,9 +130,9 @@ impl gaxi::prost::FromProto<iam_v1::model::Policy> for Policy {
     fn cnv(self) -> iam_v1::model::Policy {
         iam_v1::model::Policy::new()
             .set_version(self.version)
-            .set_etag(self.etag)
             .set_bindings(self.bindings.into_iter().map(|v| v.cnv()))
             .set_audit_configs(self.audit_configs.into_iter().map(|v| v.cnv()))
+            .set_etag(self.etag)
     }
 }
 
@@ -141,11 +141,11 @@ impl gaxi::prost::ToProto<Binding> for iam_v1::model::Binding {
     fn to_proto(self) -> std::result::Result<Binding, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             role: self.role.to_proto()?,
-            condition: self.condition.map(|v| v.to_proto()).transpose()?,
             members: self.members
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            condition: self.condition.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -154,8 +154,8 @@ impl gaxi::prost::FromProto<iam_v1::model::Binding> for Binding {
     fn cnv(self) -> iam_v1::model::Binding {
         iam_v1::model::Binding::new()
             .set_role(self.role)
-            .set_condition(self.condition.map(|v| v.cnv()))
             .set_members(self.members.into_iter().map(|v| v.cnv()))
+            .set_condition(self.condition.map(|v| v.cnv()))
     }
 }
 
