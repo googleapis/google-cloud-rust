@@ -20,6 +20,7 @@ pub mod bigquery;
 pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
+pub mod sql;
 pub mod storage;
 pub mod workflows;
 pub mod workflows_executions;
