@@ -272,7 +272,7 @@ use with:
 ```bash
 git ls-files -z -- \
     '*.md' ':!:**/testdata/**' ':!:**/generated/**' | \
-    xargs -0 -r -P "$(nproc)" -n 50 mdformat
+    xargs -0 mdformat
 ```
 
 ### Format YAML files
