@@ -4518,7 +4518,6 @@ dependencies = [
  "bytes",
  "chrono",
  "google-cloud-wkt",
- "num-traits",
  "serde",
  "serde_json",
  "serde_with",

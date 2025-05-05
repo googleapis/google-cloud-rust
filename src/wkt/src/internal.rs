@@ -38,11 +38,58 @@ macro_rules! impl_serialize_as {
     };
 }
 
+macro_rules! impl_visitor {
+    ($name: ident, $typ: ty) => {
+        struct $name;
+
+        impl serde::de::Visitor<'_> for $name {
+            type Value = $typ;
+
+            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                // Handle special strings, see https://protobuf.dev/programming-guides/json/.
+                match value {
+                    "NaN" => Ok(<$typ>::NAN),
+                    "Infinity" => Ok(<$typ>::INFINITY),
+                    "-Infinity" => Ok(<$typ>::NEG_INFINITY),
+                    _ => Err(serde::de::Error::invalid_value(
+                        serde::de::Unexpected::Other(value),
+                        &format!(
+                            "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
+                            std::any::type_name::<$typ>()
+                        )
+                        .as_str(),
+                    )),
+                }
+            }
+
+            // Floats and doubles in serde_json are f64.
+            fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                // Casting f64 to f32 to produce the closest possible float value.
+                // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
+                Ok(value as $typ)
+            }
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str(&format!(
+                    "a {}-bit floating point in ProtoJSON format",
+                    std::mem::size_of::<$typ>() * 8 // bit size = byte size of T * 8
+                ))
+            }
+        }
+    };
+}
+
+impl_visitor!(FloatVisitor, f32);
+impl_visitor!(DoubleVisitor, f64);
+
 impl serde_with::SerializeAs<f32> for F32 {
     impl_serialize_as!(f32, serialize_f32);
-}
-impl serde_with::SerializeAs<f64> for F64 {
-    impl_serialize_as!(f64, serialize_f64);
 }
 
 impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
@@ -50,8 +97,12 @@ impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
     where
         D: serde::de::Deserializer<'de>,
     {
-        deserializer.deserialize_any(FloatVisitor::<f32>::new())
+        deserializer.deserialize_any(FloatVisitor)
     }
+}
+
+impl serde_with::SerializeAs<f64> for F64 {
+    impl_serialize_as!(f64, serialize_f64);
 }
 
 impl<'de> serde_with::DeserializeAs<'de, f64> for F64 {
@@ -59,76 +110,9 @@ impl<'de> serde_with::DeserializeAs<'de, f64> for F64 {
     where
         D: serde::de::Deserializer<'de>,
     {
-        deserializer.deserialize_any(FloatVisitor::<f64>::new())
+        deserializer.deserialize_any(DoubleVisitor)
     }
 }
-
-struct FloatVisitor<T> {
-    phantom: std::marker::PhantomData<T>,
-}
-
-impl<T> FloatVisitor<T> {
-    fn new() -> Self {
-        FloatVisitor {
-            phantom: std::marker::PhantomData,
-        }
-    }
-}
-
-impl<T> serde::de::Visitor<'_> for FloatVisitor<T>
-where
-    T: FloatExt,
-{
-    type Value = T;
-
-    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        // Handle special strings, see https://protobuf.dev/programming-guides/json/.
-        match value {
-            "NaN" => Ok(T::nan()),
-            "Infinity" => Ok(T::infinity()),
-            "-Infinity" => Ok(T::neg_infinity()),
-            _ => Err(serde::de::Error::invalid_value(
-                serde::de::Unexpected::Other(value),
-                &format!(
-                    "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
-                    std::any::type_name::<T>()
-                )
-                .as_str(),
-            )),
-        }
-    }
-
-    fn visit_f64<E>(self, value: f64) -> Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        num_traits::NumCast::from(value).ok_or_else(|| {
-            serde::de::Error::invalid_value(
-                serde::de::Unexpected::Float(value),
-                // This error condition should be unreachable, since precision loss
-                // is allowed.
-                &format!("a valid {} value", std::any::type_name::<T>()).as_str(),
-            )
-        })
-    }
-
-    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str(&format!(
-            "a {}-bit floating point in ProtoJSON format",
-            std::mem::size_of::<T>() * 8 // bit size = byte size of T * 8
-        ))
-    }
-}
-
-// Trait to abstract over f32 and f64.
-trait FloatExt: num_traits::Float + std::fmt::Debug {}
-
-impl FloatExt for f32 {}
-
-impl FloatExt for f64 {}
 
 // For skipping serialization of default values of bool/numeric types.
 pub fn is_default<T>(t: &T) -> bool
@@ -184,7 +168,7 @@ mod test {
         let got = F64::serialize_as(&input, serde_json::value::Serializer)?;
         assert_eq!(got, want);
         let rt = F64::deserialize_as(got)?;
-        assert_float_eq(input, rt);
+        assert_double_eq(input, rt);
         Ok(())
     }
 
@@ -200,18 +184,24 @@ mod test {
         assert!(F64::deserialize_as(serde_json::Value::Bool(false)).is_err());
     }
 
-    fn assert_float_eq<T: FloatExt>(left: T, right: T) {
-        // Consider all NaN as equal.
-        if left.is_nan() && right.is_nan() {
-            return;
-        }
-        // Consider all infinites floats of the same sign as equal.
-        if left.is_infinite()
-            && right.is_infinite()
-            && left.is_sign_positive() == right.is_sign_positive()
-        {
-            return;
-        }
-        assert_eq!(left, right);
+    macro_rules! impl_assert_float_eq {
+        ($fn: ident, $typ: ty) => {
+            fn $fn(left: $typ, right: $typ) {
+                // Consider all NaN as equal.
+                if left.is_nan() && right.is_nan() {
+                    return;
+                }
+                // Consider all infinites floats of the same sign as equal.
+                if left.is_infinite()
+                    && right.is_infinite()
+                    && left.is_sign_positive() == right.is_sign_positive()
+                {
+                    return;
+                }
+                assert_eq!(left, right);
+            }
+        };
     }
+    impl_assert_float_eq!(assert_float_eq, f32);
+    impl_assert_float_eq!(assert_double_eq, f64);
 }
