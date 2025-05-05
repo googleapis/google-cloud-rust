@@ -146,7 +146,7 @@ mod test {
         serde_json::Value: PartialEq<T>,
     {
         let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!(got, want);
+        assert_eq!(want, got);
         let rt = F32::deserialize_as(got)?;
         assert_float_eq(input, rt);
         Ok(())
@@ -166,7 +166,7 @@ mod test {
         serde_json::Value: PartialEq<T>,
     {
         let got = F64::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!(got, want);
+        assert_eq!(want, got);
         let rt = F64::deserialize_as(got)?;
         assert_double_eq(input, rt);
         Ok(())
