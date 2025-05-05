@@ -58,7 +58,7 @@ macro_rules! impl_visitor {
                         serde::de::Unexpected::Other(value),
                         &format!(
                             "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
-                            std::any::type_name::<$t>()
+                            std::stringify!($t)
                         )
                         .as_str(),
                     )),
@@ -70,7 +70,7 @@ macro_rules! impl_visitor {
             where
                 E: serde::de::Error,
             {
-                // Casting f64 to f32 to produce the closest possible float value.
+                // This is trivial for `f64`. For `f32`, casting f64 to f32 is guaranteed to produce the closest possible float value:
                 // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
                 Ok(value as $t)
             }
