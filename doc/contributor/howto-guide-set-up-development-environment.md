@@ -220,6 +220,8 @@ env \
   cargo test --features run-integration-tests --package integration-tests --package user-guide-samples
 ```
 
+Optionally, add the feature `log-integration-tests` to the test command to log tracing information.
+
 There are (at the moment) six integration tests. All using secret manager. We
 test the OpenAPI-generated client, the OpenAPI-generated client with locational
 endpoints, and the Protobuf generated client. For each version we run the tests
