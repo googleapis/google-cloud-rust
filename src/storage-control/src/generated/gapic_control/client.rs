@@ -20,15 +20,6 @@ use crate::Result;
 
 /// Implements a client for the Storage Control API.
 ///
-/// # Example
-/// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::client::StorageControl;
-/// let client = StorageControl::builder().build().await?;
-/// // use `client` to make requests to the Storage Control API.
-/// # gax::Result::<()>::Ok(()) });
-/// ```
-///
 /// # Service Description
 ///
 /// StorageControl service includes selected control plane operations.
@@ -66,13 +57,6 @@ pub struct StorageControl {
 
 impl StorageControl {
     /// Returns a builder for [StorageControl].
-    ///
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::StorageControl;
-    /// let client = StorageControl::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
-    /// ```
     pub fn builder() -> super::builder::storage_control::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::storage_control::client::Factory)
     }

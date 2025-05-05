@@ -522,12 +522,6 @@ impl ListFoldersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [folders][crate::model::ListFoldersResponse::folders].
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
@@ -536,6 +530,12 @@ impl ListFoldersResponse {
     {
         use std::iter::Iterator;
         self.folders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1443,12 +1443,6 @@ impl ListManagedFoldersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListManagedFoldersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [managed_folders][crate::model::ListManagedFoldersResponse::managed_folders].
     pub fn set_managed_folders<T, V>(mut self, v: T) -> Self
     where
@@ -1457,6 +1451,12 @@ impl ListManagedFoldersResponse {
     {
         use std::iter::Iterator;
         self.managed_folders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListManagedFoldersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

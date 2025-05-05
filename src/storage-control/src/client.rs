@@ -366,9 +366,22 @@ impl Storage {
     /// # Parameters
     /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}` format.
     ///
-    /// # Example?
+    /// # Example
     /// ```
-    /// panic!("TODO(#1813) - write example");
+    /// # use google_cloud_storage_control::client::Storage;
+    /// async fn example(client: &Storage) -> gax::Result<()> {
+    ///     use gax::paginator::{ItemPaginator, Paginator};
+    ///     let mut folders = client
+    ///         .list_folders("projects/_/buckets/my-bucket")
+    ///         .paginator()
+    ///         .await
+    ///         .items();
+    ///     while let Some(folder) = folders.next().await {
+    ///         let folder = folder?;
+    ///         println!("  {folder:?}");
+    ///     }
+    ///     Ok(())
+    /// }
     /// ```
     pub fn list_folders(
         &self,

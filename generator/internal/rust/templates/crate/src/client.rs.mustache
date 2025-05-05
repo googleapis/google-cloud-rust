@@ -32,6 +32,7 @@ use crate::Result;
 
 /// Implements a client for the {{Codec.APITitle}}.
 ///
+{{^Codec.SkipBuilderDocs}}
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
@@ -41,6 +42,7 @@ use crate::Result;
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
+{{/Codec.SkipBuilderDocs}}
 /// # Service Description
 ///
 {{#Codec.DocLines}}
@@ -90,6 +92,7 @@ pub struct {{Codec.Name}} {
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
     /// Returns a builder for [{{Codec.Name}}].
+{{^Codec.SkipBuilderDocs}}
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -97,6 +100,7 @@ impl {{Codec.Name}} {
     /// let client = {{Codec.Name}}::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
+{{/Codec.SkipBuilderDocs}}
     pub fn builder() -> super::builder::{{Codec.ModuleName}}::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::{{Codec.ModuleName}}::client::Factory)
     }

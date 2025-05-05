@@ -20,15 +20,6 @@ use crate::Result;
 
 /// Implements a client for the Cloud Storage API.
 ///
-/// # Example
-/// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::client::Storage;
-/// let client = Storage::builder().build().await?;
-/// // use `client` to make requests to the Cloud Storage API.
-/// # gax::Result::<()>::Ok(()) });
-/// ```
-///
 /// # Service Description
 ///
 /// ## API Overview and Naming Syntax
@@ -90,13 +81,6 @@ pub struct Storage {
 
 impl Storage {
     /// Returns a builder for [Storage].
-    ///
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::Storage;
-    /// let client = Storage::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
-    /// ```
     pub fn builder() -> super::builder::storage::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::storage::client::Factory)
     }

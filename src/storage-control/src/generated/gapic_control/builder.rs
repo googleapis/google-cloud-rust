@@ -17,19 +17,6 @@
 pub mod storage_control {
     use crate::Result;
 
-    /// A builder for [StorageControl][super::super::client::StorageControl].
-    ///
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::*;
-    /// # use builder::storage_control::ClientBuilder;
-    /// # use client::StorageControl;
-    /// let builder : ClientBuilder = StorageControl::builder();
-    /// let client = builder
-    ///     .with_endpoint("https://storage.googleapis.com")
-    ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
-    /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
@@ -68,7 +55,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::create_folder][super::super::client::StorageControl::create_folder] calls.
     #[derive(Clone, Debug)]
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
@@ -146,7 +132,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::delete_folder][super::super::client::StorageControl::delete_folder] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
@@ -217,7 +202,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::get_folder][super::super::client::StorageControl::get_folder] calls.
     #[derive(Clone, Debug)]
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
@@ -288,7 +272,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::list_folders][super::super::client::StorageControl::list_folders] calls.
     #[derive(Clone, Debug)]
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
@@ -392,7 +375,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::rename_folder][super::super::client::StorageControl::rename_folder] calls.
     #[derive(Clone, Debug)]
     pub struct RenameFolder(RequestBuilder<crate::model::RenameFolderRequest>);
 
@@ -509,7 +491,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::get_storage_layout][super::super::client::StorageControl::get_storage_layout] calls.
     #[derive(Clone, Debug)]
     pub struct GetStorageLayout(RequestBuilder<crate::model::GetStorageLayoutRequest>);
 
@@ -571,7 +552,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::create_managed_folder][super::super::client::StorageControl::create_managed_folder] calls.
     #[derive(Clone, Debug)]
     pub struct CreateManagedFolder(RequestBuilder<crate::model::CreateManagedFolderRequest>);
 
@@ -646,7 +626,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::delete_managed_folder][super::super::client::StorageControl::delete_managed_folder] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteManagedFolder(RequestBuilder<crate::model::DeleteManagedFolderRequest>);
 
@@ -726,7 +705,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::get_managed_folder][super::super::client::StorageControl::get_managed_folder] calls.
     #[derive(Clone, Debug)]
     pub struct GetManagedFolder(RequestBuilder<crate::model::GetManagedFolderRequest>);
 
@@ -800,7 +778,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::list_managed_folders][super::super::client::StorageControl::list_managed_folders] calls.
     #[derive(Clone, Debug)]
     pub struct ListManagedFolders(RequestBuilder<crate::model::ListManagedFoldersRequest>);
 
@@ -889,7 +866,6 @@ pub mod storage_control {
         }
     }
 
-    /// The request builder for [StorageControl::get_operation][super::super::client::StorageControl::get_operation] calls.
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
