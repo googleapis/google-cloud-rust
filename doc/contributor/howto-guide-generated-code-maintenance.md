@@ -7,10 +7,7 @@ when the generator changes.
 
 ## Prerequisites
 
-The generator uses the protobuf compiler, `protoc`, with the `--retain_options`
-flag.
-
-Ensure that you have `protoc` installed and that its version is >= v23.0.
+The generator and its unit tests use `protoc`, the Protobuf compiler. Ensure you have `protoc >= v23.0` installed and it is found via your `$PATH`.
 
 ```bash
 protoc --version
