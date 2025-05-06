@@ -4974,6 +4974,7 @@ dependencies = [
  "bytes",
  "crc32c",
  "futures",
+ "google-cloud-aiplatform-v1",
  "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
