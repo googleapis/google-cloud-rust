@@ -25,7 +25,7 @@ _generate-protos = ["dep:tonic-build"]
 
 [dependencies]
 anyhow.workspace = true
-axum             = "0.8"
+axum.workspace   = true
 http             = "1"
 prost            = { workspace = true, default-features = true }
 serde_json       = "1"

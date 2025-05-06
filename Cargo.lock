@@ -4989,10 +4989,12 @@ name = "integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "axum",
  "bytes",
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",
+ "google-cloud-auth",
  "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
@@ -5006,6 +5008,7 @@ dependencies = [
  "google-cloud-workflows-v1",
  "mockall",
  "rand 0.9.0",
+ "reqwest",
  "secretmanager-openapi-v1",
  "serde",
  "serde_json",

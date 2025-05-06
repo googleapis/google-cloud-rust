@@ -77,7 +77,7 @@ wkt  = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace    = true
-axum                = "0.8"
+axum.workspace      = true
 bytes               = "1"
 mockall             = "0.13"
 scoped-env          = "2"

@@ -27,6 +27,7 @@ run-integration-tests = []
 bytes                 = "1"
 crc32c                = "0.6"
 futures               = "0.3"
+auth.workspace        = true
 gax                   = { workspace = true, features = ["unstable-stream"] }
 iam_v1.workspace      = true
 longrunning.workspace = true
@@ -38,8 +39,10 @@ tracing-subscriber    = { version = "0.3", optional = true }
 wkt.workspace         = true
 
 [dependencies.aiplatform]
-package = "google-cloud-aiplatform-v1"
-path    = "../../src/generated/cloud/aiplatform/v1"
+package          = "google-cloud-aiplatform-v1"
+path             = "../../src/generated/cloud/aiplatform/v1"
+default-features = false
+features         = ["endpoint_service", "job_service", "prediction_service"]
 
 [dependencies.bigquery]
 package = "google-cloud-bigquery-v2"
@@ -75,7 +78,9 @@ path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
 anyhow.workspace    = true
+axum.workspace      = true
 mockall             = "0.13"
+reqwest.workspace   = true
 serde               = { version = "1", features = ["serde_derive"] }
 serde_with          = { version = "3", features = ["base64"] }
 test-case.workspace = true

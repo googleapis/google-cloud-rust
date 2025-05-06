@@ -164,6 +164,12 @@ type pathInfoAnnotation struct {
 	HasBody       bool
 }
 
+// Returns true if the HTTP request requires a payload. This is relevant for
+// POST and PUT requests that do not have a body parameter.
+func (a *pathInfoAnnotation) RequiresContentLength() bool {
+	return a.Method == "POST" || a.Method == "PUT"
+}
+
 type operationInfo struct {
 	MetadataType       string
 	ResponseType       string
