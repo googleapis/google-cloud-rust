@@ -407,6 +407,38 @@ impl wkt::message::Message for Clustering {
     }
 }
 
+/// Options for data format adjustments.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataFormatOptions {
+    /// Optional. Output timestamp as usec int64. Default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub use_int64_timestamp: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataFormatOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [use_int64_timestamp][crate::model::DataFormatOptions::use_int64_timestamp].
+    pub fn set_use_int64_timestamp<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_int64_timestamp = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataFormatOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.DataFormatOptions"
+    }
+}
+
 /// Grants all resources of particular types in a particular dataset read access
 /// to the current dataset.
 ///
@@ -4716,6 +4748,11297 @@ impl HivePartitioningOptions {
 impl wkt::message::Message for HivePartitioningOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.HivePartitioningOptions"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Job {
+    /// Output only. The type of the resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// Output only. A hash of this resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Output only. Opaque ID field of the job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub id: std::string::String,
+
+    /// Output only. A URL that can be used to access the resource again.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub self_link: std::string::String,
+
+    /// Output only. Email address of the user who ran the job.
+    #[serde(rename = "user_email")]
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub user_email: std::string::String,
+
+    /// Required. Describes the job configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub configuration: std::option::Option<crate::model::JobConfiguration>,
+
+    /// Optional. Reference describing the unique-per-user name of the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_reference: std::option::Option<crate::model::JobReference>,
+
+    /// Output only. Information about the job, including starting time and ending
+    /// time of the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub statistics: std::option::Option<crate::model::JobStatistics>,
+
+    /// Output only. The status of this job. Examine this value when polling an
+    /// asynchronous job to see if the job is complete.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub status: std::option::Option<crate::model::JobStatus>,
+
+    /// Output only. [Full-projection-only] String representation of identity of
+    /// requesting party. Populated for both first- and third-party identities.
+    /// Only present for APIs that support third-party identities.
+    #[serde(rename = "principal_subject")]
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub principal_subject: std::string::String,
+
+    /// Output only. The reason why a Job was created.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Job {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::Job::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Job::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::Job::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::Job::self_link].
+    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.self_link = v.into();
+        self
+    }
+
+    /// Sets the value of [user_email][crate::model::Job::user_email].
+    pub fn set_user_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_email = v.into();
+        self
+    }
+
+    /// Sets the value of [configuration][crate::model::Job::configuration].
+    pub fn set_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::JobConfiguration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.configuration = v.into();
+        self
+    }
+
+    /// Sets the value of [job_reference][crate::model::Job::job_reference].
+    pub fn set_job_reference<
+        T: std::convert::Into<std::option::Option<crate::model::JobReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [statistics][crate::model::Job::statistics].
+    pub fn set_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::JobStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::Job::status].
+    pub fn set_status<T: std::convert::Into<std::option::Option<crate::model::JobStatus>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
+
+    /// Sets the value of [principal_subject][crate::model::Job::principal_subject].
+    pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.principal_subject = v.into();
+        self
+    }
+
+    /// Sets the value of [job_creation_reason][crate::model::Job::job_creation_reason].
+    pub fn set_job_creation_reason<
+        T: std::convert::Into<std::option::Option<crate::model::JobCreationReason>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_creation_reason = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Job {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.Job"
+    }
+}
+
+/// Describes format of a jobs cancellation request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CancelJobRequest {
+    /// Required. Project ID of the job to cancel
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Required. Job ID of the job to cancel
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub job_id: std::string::String,
+
+    /// The geographic location of the job. You must
+    /// [specify the
+    /// location](https://cloud.google.com/bigquery/docs/locations#specify_locations)
+    /// to run the job for the following scenarios:
+    ///
+    /// * If the location to run a job is not in the `us` or
+    ///   the `eu` multi-regional location
+    /// * If the job's location is in a single region (for example,
+    ///   `us-central1`)
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CancelJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::CancelJobRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [job_id][crate::model::CancelJobRequest::job_id].
+    pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::CancelJobRequest::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CancelJobRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.CancelJobRequest"
+    }
+}
+
+/// Describes format of a jobs cancellation response.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobCancelResponse {
+    /// The resource type of the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// The final state of the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job: std::option::Option<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobCancelResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::JobCancelResponse::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [job][crate::model::JobCancelResponse::job].
+    pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for JobCancelResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobCancelResponse"
+    }
+}
+
+/// Describes format of a jobs get request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetJobRequest {
+    /// Required. Project ID of the requested job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Required. Job ID of the requested job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub job_id: std::string::String,
+
+    /// The geographic location of the job. You must specify the location to run
+    /// the job for the following scenarios:
+    ///
+    /// * If the location to run a job is not in the `us` or
+    ///   the `eu` multi-regional location
+    /// * If the job's location is in a single region (for example,
+    ///   `us-central1`)
+    ///
+    /// For more information, see how to
+    /// [specify
+    /// locations](https://cloud.google.com/bigquery/docs/locations#specify_locations).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::GetJobRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [job_id][crate::model::GetJobRequest::job_id].
+    pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::GetJobRequest::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetJobRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GetJobRequest"
+    }
+}
+
+/// Describes format of a job insertion request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct InsertJobRequest {
+    /// Project ID of project that will be billed for the job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Jobs resource to insert.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job: std::option::Option<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InsertJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::InsertJobRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [job][crate::model::InsertJobRequest::job].
+    pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InsertJobRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.InsertJobRequest"
+    }
+}
+
+/// Describes the format of a jobs deletion request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteJobRequest {
+    /// Required. Project ID of the job for which metadata is to be deleted.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Required. Job ID of the job for which metadata is to be deleted. If this is
+    /// a parent job which has child jobs, the metadata from all child jobs will be
+    /// deleted as well. Direct deletion of the metadata of child jobs is not
+    /// allowed.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub job_id: std::string::String,
+
+    /// The geographic location of the job. Required.
+    ///
+    /// For more information, see how to
+    /// [specify
+    /// locations](https://cloud.google.com/bigquery/docs/locations#specify_locations).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::DeleteJobRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [job_id][crate::model::DeleteJobRequest::job_id].
+    pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::DeleteJobRequest::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteJobRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.DeleteJobRequest"
+    }
+}
+
+/// Describes the format of the list jobs request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListJobsRequest {
+    /// Project ID of the jobs to list.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Whether to display jobs owned by all users in the project. Default False.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub all_users: bool,
+
+    /// The maximum number of results to return in a single response page.
+    /// Leverage the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_results: std::option::Option<wkt::Int32Value>,
+
+    /// Min value for job creation time, in milliseconds since the POSIX epoch.
+    /// If set, only jobs created after or at this timestamp are returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub min_creation_time: u64,
+
+    /// Max value for job creation time, in milliseconds since the POSIX epoch.
+    /// If set, only jobs created before or at this timestamp are returned.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub max_creation_time: std::option::Option<wkt::UInt64Value>,
+
+    /// Page token, returned by a previous call, to request the next page of
+    /// results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Restrict information returned to a set of selected fields
+    pub projection: crate::model::list_jobs_request::Projection,
+
+    /// Filter for job state
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub state_filter: std::vec::Vec<crate::model::list_jobs_request::StateFilter>,
+
+    /// If set, show only child jobs of the specified parent.  Otherwise, show all
+    /// top-level jobs.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent_job_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::ListJobsRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [all_users][crate::model::ListJobsRequest::all_users].
+    pub fn set_all_users<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.all_users = v.into();
+        self
+    }
+
+    /// Sets the value of [max_results][crate::model::ListJobsRequest::max_results].
+    pub fn set_max_results<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_results = v.into();
+        self
+    }
+
+    /// Sets the value of [min_creation_time][crate::model::ListJobsRequest::min_creation_time].
+    pub fn set_min_creation_time<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+        self.min_creation_time = v.into();
+        self
+    }
+
+    /// Sets the value of [max_creation_time][crate::model::ListJobsRequest::max_creation_time].
+    pub fn set_max_creation_time<T: std::convert::Into<std::option::Option<wkt::UInt64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_creation_time = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [projection][crate::model::ListJobsRequest::projection].
+    pub fn set_projection<T: std::convert::Into<crate::model::list_jobs_request::Projection>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.projection = v.into();
+        self
+    }
+
+    /// Sets the value of [parent_job_id][crate::model::ListJobsRequest::parent_job_id].
+    pub fn set_parent_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent_job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [state_filter][crate::model::ListJobsRequest::state_filter].
+    pub fn set_state_filter<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::list_jobs_request::StateFilter>,
+    {
+        use std::iter::Iterator;
+        self.state_filter = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListJobsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ListJobsRequest"
+    }
+}
+
+/// Defines additional types related to [ListJobsRequest].
+pub mod list_jobs_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Projection is used to control what job information is returned.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Projection {
+        /// Does not include the job configuration
+        Minimal,
+        /// Includes all job data
+        Full,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Projection::value] or
+        /// [Projection::name].
+        UnknownValue(projection::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod projection {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Projection {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Minimal => std::option::Option::Some(0),
+                Self::Full => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Minimal => std::option::Option::Some("minimal"),
+                Self::Full => std::option::Option::Some("full"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Projection {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Projection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Projection {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Minimal,
+                1 => Self::Full,
+                _ => Self::UnknownValue(projection::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Projection {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "minimal" => Self::Minimal,
+                "MINIMAL" => Self::Minimal,
+                "full" => Self::Full,
+                "FULL" => Self::Full,
+                _ => Self::UnknownValue(projection::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Projection {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Minimal => serializer.serialize_i32(0),
+                Self::Full => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Projection {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Projection>::new(
+                ".google.cloud.bigquery.v2.ListJobsRequest.Projection",
+            ))
+        }
+    }
+
+    /// StateFilter allows filtration by job execution state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StateFilter {
+        /// Finished jobs
+        Done,
+        /// Pending jobs
+        Pending,
+        /// Running jobs
+        Running,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StateFilter::value] or
+        /// [StateFilter::name].
+        UnknownValue(state_filter::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state_filter {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl StateFilter {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Done => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Done => std::option::Option::Some("done"),
+                Self::Pending => std::option::Option::Some("pending"),
+                Self::Running => std::option::Option::Some("running"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for StateFilter {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StateFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StateFilter {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Done,
+                1 => Self::Pending,
+                2 => Self::Running,
+                _ => Self::UnknownValue(state_filter::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StateFilter {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "done" => Self::Done,
+                "DONE" => Self::Done,
+                "pending" => Self::Pending,
+                "PENDING" => Self::Pending,
+                "running" => Self::Running,
+                "RUNNING" => Self::Running,
+                _ => Self::UnknownValue(state_filter::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StateFilter {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Done => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StateFilter {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StateFilter>::new(
+                ".google.cloud.bigquery.v2.ListJobsRequest.StateFilter",
+            ))
+        }
+    }
+}
+
+/// ListFormatJob is a partial projection of job information returned as part
+/// of a jobs.list response.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListFormatJob {
+    /// Unique opaque ID of the job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub id: std::string::String,
+
+    /// The resource type.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// Unique opaque ID of the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_reference: std::option::Option<crate::model::JobReference>,
+
+    /// Running state of the job. When the state is DONE, errorResult can be
+    /// checked to determine whether the job succeeded or failed.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub state: std::string::String,
+
+    /// A result object that will be present only if the job has failed.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub error_result: std::option::Option<crate::model::ErrorProto>,
+
+    /// Output only. Information about the job, including starting time and ending
+    /// time of the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub statistics: std::option::Option<crate::model::JobStatistics>,
+
+    /// Required. Describes the job configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub configuration: std::option::Option<crate::model::JobConfiguration>,
+
+    /// [Full-projection-only] Describes the status of this job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub status: std::option::Option<crate::model::JobStatus>,
+
+    /// [Full-projection-only] Email address of the user who ran the job.
+    #[serde(rename = "user_email")]
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub user_email: std::string::String,
+
+    /// [Full-projection-only] String representation of identity of requesting
+    /// party. Populated for both first- and third-party identities. Only present
+    /// for APIs that support third-party identities.
+    #[serde(rename = "principal_subject")]
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub principal_subject: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFormatJob {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::ListFormatJob::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::ListFormatJob::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [job_reference][crate::model::ListFormatJob::job_reference].
+    pub fn set_job_reference<
+        T: std::convert::Into<std::option::Option<crate::model::JobReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::ListFormatJob::state].
+    pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [error_result][crate::model::ListFormatJob::error_result].
+    pub fn set_error_result<
+        T: std::convert::Into<std::option::Option<crate::model::ErrorProto>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error_result = v.into();
+        self
+    }
+
+    /// Sets the value of [statistics][crate::model::ListFormatJob::statistics].
+    pub fn set_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::JobStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [configuration][crate::model::ListFormatJob::configuration].
+    pub fn set_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::JobConfiguration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.configuration = v.into();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::ListFormatJob::status].
+    pub fn set_status<T: std::convert::Into<std::option::Option<crate::model::JobStatus>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
+
+    /// Sets the value of [user_email][crate::model::ListFormatJob::user_email].
+    pub fn set_user_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_email = v.into();
+        self
+    }
+
+    /// Sets the value of [principal_subject][crate::model::ListFormatJob::principal_subject].
+    pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.principal_subject = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFormatJob {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ListFormatJob"
+    }
+}
+
+/// JobList is the response format for a jobs.list call.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobList {
+    /// A hash of this page of results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// The resource type of the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// A token to request the next page of results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// List of jobs that were requested.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub jobs: std::vec::Vec<crate::model::ListFormatJob>,
+
+    /// A list of skipped locations that were unreachable. For more information
+    /// about BigQuery locations, see:
+    /// <https://cloud.google.com/bigquery/docs/locations>. Example: "europe-west5"
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [etag][crate::model::JobList::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::JobList::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::JobList::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [jobs][crate::model::JobList::jobs].
+    pub fn set_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ListFormatJob>,
+    {
+        use std::iter::Iterator;
+        self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::JobList::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobList"
+    }
+}
+
+/// Request object of GetQueryResults.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetQueryResultsRequest {
+    /// Required. Project ID of the query job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Required. Job ID of the query job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub job_id: std::string::String,
+
+    /// Zero-based index of the starting row.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub start_index: std::option::Option<wkt::UInt64Value>,
+
+    /// Page token, returned by a previous call, to request the next page of
+    /// results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Maximum number of results to read.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_results: std::option::Option<wkt::UInt32Value>,
+
+    /// Optional: Specifies the maximum amount of time, in milliseconds, that the
+    /// client is willing to wait for the query to complete. By default, this limit
+    /// is 10 seconds (10,000 milliseconds). If the query is complete, the
+    /// jobComplete field in the response is true. If the query has not yet
+    /// completed, jobComplete is false.
+    ///
+    /// You can request a longer timeout period in the timeoutMs field.  However,
+    /// the call is not guaranteed to wait for the specified timeout; it typically
+    /// returns after around 200 seconds (200,000 milliseconds), even if the query
+    /// is not complete.
+    ///
+    /// If jobComplete is false, you can continue to wait for the query to complete
+    /// by calling the getQueryResults method until the jobComplete field in the
+    /// getQueryResults response is true.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub timeout_ms: std::option::Option<wkt::UInt32Value>,
+
+    /// The geographic location of the job. You must specify the location to run
+    /// the job for the following scenarios:
+    ///
+    /// * If the location to run a job is not in the `us` or
+    ///   the `eu` multi-regional location
+    /// * If the job's location is in a single region (for example,
+    ///   `us-central1`)
+    ///
+    /// For more information, see how to
+    /// [specify
+    /// locations](https://cloud.google.com/bigquery/docs/locations#specify_locations).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
+
+    /// Optional. Output format adjustments.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub format_options: std::option::Option<crate::model::DataFormatOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetQueryResultsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::GetQueryResultsRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [job_id][crate::model::GetQueryResultsRequest::job_id].
+    pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [start_index][crate::model::GetQueryResultsRequest::start_index].
+    pub fn set_start_index<T: std::convert::Into<std::option::Option<wkt::UInt64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_index = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::GetQueryResultsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [max_results][crate::model::GetQueryResultsRequest::max_results].
+    pub fn set_max_results<T: std::convert::Into<std::option::Option<wkt::UInt32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_results = v.into();
+        self
+    }
+
+    /// Sets the value of [timeout_ms][crate::model::GetQueryResultsRequest::timeout_ms].
+    pub fn set_timeout_ms<T: std::convert::Into<std::option::Option<wkt::UInt32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timeout_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::GetQueryResultsRequest::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [format_options][crate::model::GetQueryResultsRequest::format_options].
+    pub fn set_format_options<
+        T: std::convert::Into<std::option::Option<crate::model::DataFormatOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format_options = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetQueryResultsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GetQueryResultsRequest"
+    }
+}
+
+/// Response object of GetQueryResults.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetQueryResultsResponse {
+    /// The resource type of the response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// A hash of this response.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// The schema of the results. Present only when the query completes
+    /// successfully.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub schema: std::option::Option<crate::model::TableSchema>,
+
+    /// Reference to the BigQuery Job that was created to run the query. This field
+    /// will be present even if the original request timed out, in which case
+    /// GetQueryResults can be used to read the results once the query has
+    /// completed. Since this API only returns the first page of results,
+    /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_reference: std::option::Option<crate::model::JobReference>,
+
+    /// The total number of rows in the complete query result set, which can be
+    /// more than the number of rows in this single page of results. Present only
+    /// when the query completes successfully.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_rows: std::option::Option<wkt::UInt64Value>,
+
+    /// A token used for paging results.  When this token is non-empty, it
+    /// indicates additional results are available.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// An object with as many results as can be contained within the maximum
+    /// permitted reply size. To get any additional rows, you can call
+    /// GetQueryResults and specify the jobReference returned above. Present only
+    /// when the query completes successfully.
+    ///
+    /// The REST-based representation of this data leverages a series of
+    /// JSON f,v objects for indicating fields and values.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub rows: std::vec::Vec<wkt::Struct>,
+
+    /// The total number of bytes processed for this query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_bytes_processed: std::option::Option<wkt::Int64Value>,
+
+    /// Whether the query has completed or not. If rows or totalRows are present,
+    /// this will always be true. If this is false, totalRows will not be
+    /// available.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_complete: std::option::Option<wkt::BoolValue>,
+
+    /// Output only. The first errors or warnings encountered during the running
+    /// of the job. The final message includes the number of errors that caused the
+    /// process to stop. Errors here do not necessarily mean that the job has
+    /// completed or was unsuccessful. For more information about error messages,
+    /// see [Error
+    /// messages](https://cloud.google.com/bigquery/docs/error-messages).
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub errors: std::vec::Vec<crate::model::ErrorProto>,
+
+    /// Whether the query result was fetched from the query cache.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cache_hit: std::option::Option<wkt::BoolValue>,
+
+    /// Output only. The number of rows affected by a DML statement. Present only
+    /// for DML statements INSERT, UPDATE or DELETE.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub num_dml_affected_rows: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetQueryResultsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::GetQueryResultsResponse::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::GetQueryResultsResponse::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [schema][crate::model::GetQueryResultsResponse::schema].
+    pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::TableSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema = v.into();
+        self
+    }
+
+    /// Sets the value of [job_reference][crate::model::GetQueryResultsResponse::job_reference].
+    pub fn set_job_reference<
+        T: std::convert::Into<std::option::Option<crate::model::JobReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [total_rows][crate::model::GetQueryResultsResponse::total_rows].
+    pub fn set_total_rows<T: std::convert::Into<std::option::Option<wkt::UInt64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::GetQueryResultsResponse::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_processed][crate::model::GetQueryResultsResponse::total_bytes_processed].
+    pub fn set_total_bytes_processed<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [job_complete][crate::model::GetQueryResultsResponse::job_complete].
+    pub fn set_job_complete<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_complete = v.into();
+        self
+    }
+
+    /// Sets the value of [cache_hit][crate::model::GetQueryResultsResponse::cache_hit].
+    pub fn set_cache_hit<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cache_hit = v.into();
+        self
+    }
+
+    /// Sets the value of [num_dml_affected_rows][crate::model::GetQueryResultsResponse::num_dml_affected_rows].
+    pub fn set_num_dml_affected_rows<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.num_dml_affected_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [rows][crate::model::GetQueryResultsResponse::rows].
+    pub fn set_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Struct>,
+    {
+        use std::iter::Iterator;
+        self.rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::GetQueryResultsResponse::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ErrorProto>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GetQueryResultsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GetQueryResultsResponse"
+    }
+}
+
+/// Request format for the query request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PostQueryRequest {
+    /// Required. Project ID of the query request.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// The query request body.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub query_request: std::option::Option<crate::model::QueryRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PostQueryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::PostQueryRequest::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [query_request][crate::model::PostQueryRequest::query_request].
+    pub fn set_query_request<
+        T: std::convert::Into<std::option::Option<crate::model::QueryRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_request = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PostQueryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.PostQueryRequest"
+    }
+}
+
+/// Describes the format of the jobs.query request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct QueryRequest {
+    /// The resource type of the request.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// Required. A query string to execute, using Google Standard SQL or legacy
+    /// SQL syntax. Example: "SELECT COUNT(f1) FROM
+    /// myProjectId.myDatasetId.myTableId".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query: std::string::String,
+
+    /// Optional. The maximum number of rows of data to return per page of
+    /// results. Setting this flag to a small value such as 1000 and then paging
+    /// through results might improve reliability when the query result set is
+    /// large. In addition to this limit, responses are also limited to 10 MB. By
+    /// default, there is no maximum row count, and only the byte limit applies.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_results: std::option::Option<wkt::UInt32Value>,
+
+    /// Optional. Specifies the default datasetId and projectId to assume for any
+    /// unqualified table names in the query. If not set, all table names in the
+    /// query string must be qualified in the format 'datasetId.tableId'.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub default_dataset: std::option::Option<crate::model::DatasetReference>,
+
+    /// Optional. Optional: Specifies the maximum amount of time, in milliseconds,
+    /// that the client is willing to wait for the query to complete. By default,
+    /// this limit is 10 seconds (10,000 milliseconds). If the query is complete,
+    /// the jobComplete field in the response is true. If the query has not yet
+    /// completed, jobComplete is false.
+    ///
+    /// You can request a longer timeout period in the timeoutMs field.  However,
+    /// the call is not guaranteed to wait for the specified timeout; it typically
+    /// returns after around 200 seconds (200,000 milliseconds), even if the query
+    /// is not complete.
+    ///
+    /// If jobComplete is false, you can continue to wait for the query to complete
+    /// by calling the getQueryResults method until the jobComplete field in the
+    /// getQueryResults response is true.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub timeout_ms: std::option::Option<wkt::UInt32Value>,
+
+    /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
+    /// BigQuery will attempt to stop a longer job, but may not always succeed in
+    /// canceling it before the job completes. For example, a job that takes more
+    /// than 60 seconds to complete has a better chance of being stopped than a job
+    /// that takes 10 seconds to complete. This timeout applies to the query even
+    /// if a job does not need to be created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub job_timeout_ms: std::option::Option<i64>,
+
+    /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_encryption_configuration:
+        std::option::Option<crate::model::EncryptionConfiguration>,
+
+    /// Optional. If set to true, BigQuery doesn't run the job. Instead, if the
+    /// query is valid, BigQuery returns statistics about the job such as how many
+    /// bytes would be processed. If the query is invalid, an error returns. The
+    /// default value is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub dry_run: bool,
+
+    /// Optional. Whether to look for the result in the query cache. The query
+    /// cache is a best-effort cache that will be flushed whenever tables in the
+    /// query are modified. The default value is true.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub use_query_cache: std::option::Option<wkt::BoolValue>,
+
+    /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
+    /// default value is true. If set to false, the query will use BigQuery's
+    /// GoogleSQL: <https://cloud.google.com/bigquery/sql-reference/> When
+    /// useLegacySql is set to false, the value of flattenResults is ignored; query
+    /// will be run as if flattenResults is false.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
+
+    /// GoogleSQL only. Set to POSITIONAL to use positional (?) query parameters
+    /// or to NAMED to use named (@myparam) query parameters in this query.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parameter_mode: std::string::String,
+
+    /// Query parameters for GoogleSQL queries.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub query_parameters: std::vec::Vec<crate::model::QueryParameter>,
+
+    /// The geographic location where the job should run.
+    /// For more information, see how to
+    /// [specify
+    /// locations](https://cloud.google.com/bigquery/docs/locations#specify_locations).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
+
+    /// Optional. Output format adjustments.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub format_options: std::option::Option<crate::model::DataFormatOptions>,
+
+    /// Optional. Connection properties which can modify the query behavior.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
+
+    /// Optional. The labels associated with this query.
+    /// Labels can be used to organize and group query jobs.
+    /// Label keys and values can be no longer than 63 characters, can only contain
+    /// lowercase letters, numeric characters, underscores and dashes.
+    /// International characters are allowed. Label keys must start with a letter
+    /// and each label in the list must have a different key.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Limits the bytes billed for this query. Queries with
+    /// bytes billed above this limit will fail (without incurring a charge).
+    /// If unspecified, the project default is used.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub maximum_bytes_billed: std::option::Option<wkt::Int64Value>,
+
+    /// Optional. A unique user provided identifier to ensure idempotent behavior
+    /// for queries. Note that this is different from the job_id. It has the
+    /// following properties:
+    ///
+    /// . It is case-sensitive, limited to up to 36 ASCII characters. A UUID is
+    ///   recommended.
+    ///
+    /// . Read only queries can ignore this token since they are nullipotent by
+    ///   definition.
+    ///
+    /// . For the purposes of idempotency ensured by the request_id, a request
+    ///   is considered duplicate of another only if they have the same request_id
+    ///   and are actually duplicates. When determining whether a request is a
+    ///   duplicate of another request, all parameters in the request that
+    ///   may affect the result are considered. For example, query,
+    ///   connection_properties, query_parameters, use_legacy_sql are parameters
+    ///   that affect the result and are considered when determining whether a
+    ///   request is a duplicate, but properties like timeout_ms don't
+    ///   affect the result and are thus not considered. Dry run query
+    ///   requests are never considered duplicate of another request.
+    ///
+    /// . When a duplicate mutating query request is detected, it returns:
+    ///   a. the results of the mutation if it completes successfully within
+    ///   the timeout.
+    ///   b. the running operation if it is still in progress at the end of the
+    ///   timeout.
+    ///
+    /// . Its lifetime is limited to 15 minutes. In other words, if two
+    ///   requests are sent with the same request_id, but more than 15 minutes
+    ///   apart, idempotency is not guaranteed.
+    ///
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    /// Optional. If true, creates a new session using a randomly generated
+    /// session_id. If false, runs query with an existing session_id passed in
+    /// ConnectionProperty, otherwise runs query in non-session mode.
+    ///
+    /// The session location will be set to QueryRequest.location if it is present,
+    /// otherwise it's set to the default location based on existing routing logic.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_session: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. If not set, jobs are always required.
+    ///
+    /// If set, the query request will follow the behavior described
+    /// JobCreationMode.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    pub job_creation_mode: crate::model::query_request::JobCreationMode,
+
+    /// Optional. The reservation that jobs.query request would use. User can
+    /// specify a reservation to execute the job.query. The expected format is
+    /// `projects/{project}/locations/{location}/reservations/{reservation}`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub reservation: std::option::Option<std::string::String>,
+
+    /// Optional. This is only supported for SELECT query. If set, the query is
+    /// allowed to write results incrementally to the temporary result table. This
+    /// may incur a performance penalty. This option cannot be used with Legacy
+    /// SQL. This feature is not yet available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub write_incremental_results: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::QueryRequest::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::QueryRequest::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [max_results][crate::model::QueryRequest::max_results].
+    pub fn set_max_results<T: std::convert::Into<std::option::Option<wkt::UInt32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_results = v.into();
+        self
+    }
+
+    /// Sets the value of [default_dataset][crate::model::QueryRequest::default_dataset].
+    pub fn set_default_dataset<
+        T: std::convert::Into<std::option::Option<crate::model::DatasetReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_dataset = v.into();
+        self
+    }
+
+    /// Sets the value of [timeout_ms][crate::model::QueryRequest::timeout_ms].
+    pub fn set_timeout_ms<T: std::convert::Into<std::option::Option<wkt::UInt32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timeout_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [job_timeout_ms][crate::model::QueryRequest::job_timeout_ms].
+    pub fn set_job_timeout_ms<T: std::convert::Into<std::option::Option<i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_timeout_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_encryption_configuration][crate::model::QueryRequest::destination_encryption_configuration].
+    pub fn set_destination_encryption_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::EncryptionConfiguration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_encryption_configuration = v.into();
+        self
+    }
+
+    /// Sets the value of [dry_run][crate::model::QueryRequest::dry_run].
+    pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dry_run = v.into();
+        self
+    }
+
+    /// Sets the value of [use_query_cache][crate::model::QueryRequest::use_query_cache].
+    pub fn set_use_query_cache<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.use_query_cache = v.into();
+        self
+    }
+
+    /// Sets the value of [use_legacy_sql][crate::model::QueryRequest::use_legacy_sql].
+    pub fn set_use_legacy_sql<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.use_legacy_sql = v.into();
+        self
+    }
+
+    /// Sets the value of [parameter_mode][crate::model::QueryRequest::parameter_mode].
+    pub fn set_parameter_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parameter_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::QueryRequest::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [format_options][crate::model::QueryRequest::format_options].
+    pub fn set_format_options<
+        T: std::convert::Into<std::option::Option<crate::model::DataFormatOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format_options = v.into();
+        self
+    }
+
+    /// Sets the value of [maximum_bytes_billed][crate::model::QueryRequest::maximum_bytes_billed].
+    pub fn set_maximum_bytes_billed<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maximum_bytes_billed = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::QueryRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [create_session][crate::model::QueryRequest::create_session].
+    pub fn set_create_session<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_session = v.into();
+        self
+    }
+
+    /// Sets the value of [job_creation_mode][crate::model::QueryRequest::job_creation_mode].
+    pub fn set_job_creation_mode<
+        T: std::convert::Into<crate::model::query_request::JobCreationMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_creation_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [reservation][crate::model::QueryRequest::reservation].
+    pub fn set_reservation<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reservation = v.into();
+        self
+    }
+
+    /// Sets the value of [write_incremental_results][crate::model::QueryRequest::write_incremental_results].
+    pub fn set_write_incremental_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.write_incremental_results = v.into();
+        self
+    }
+
+    /// Sets the value of [query_parameters][crate::model::QueryRequest::query_parameters].
+    pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryParameter>,
+    {
+        use std::iter::Iterator;
+        self.query_parameters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [connection_properties][crate::model::QueryRequest::connection_properties].
+    pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConnectionProperty>,
+    {
+        use std::iter::Iterator;
+        self.connection_properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::QueryRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.QueryRequest"
+    }
+}
+
+/// Defines additional types related to [QueryRequest].
+pub mod query_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Job Creation Mode provides different options on job creation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum JobCreationMode {
+        /// If unspecified JOB_CREATION_REQUIRED is the default.
+        Unspecified,
+        /// Default. Job creation is always required.
+        JobCreationRequired,
+        /// Job creation is optional. Returning immediate results is prioritized.
+        /// BigQuery will automatically determine if a Job needs to be created.
+        /// The conditions under which BigQuery can decide to not create a Job are
+        /// subject to change. If Job creation is required, JOB_CREATION_REQUIRED
+        /// mode should be used, which is the default.
+        JobCreationOptional,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [JobCreationMode::value] or
+        /// [JobCreationMode::name].
+        UnknownValue(job_creation_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod job_creation_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl JobCreationMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::JobCreationRequired => std::option::Option::Some(1),
+                Self::JobCreationOptional => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("JOB_CREATION_MODE_UNSPECIFIED"),
+                Self::JobCreationRequired => std::option::Option::Some("JOB_CREATION_REQUIRED"),
+                Self::JobCreationOptional => std::option::Option::Some("JOB_CREATION_OPTIONAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for JobCreationMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for JobCreationMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for JobCreationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::JobCreationRequired,
+                2 => Self::JobCreationOptional,
+                _ => Self::UnknownValue(job_creation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for JobCreationMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "JOB_CREATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "JOB_CREATION_REQUIRED" => Self::JobCreationRequired,
+                "JOB_CREATION_OPTIONAL" => Self::JobCreationOptional,
+                _ => Self::UnknownValue(job_creation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for JobCreationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::JobCreationRequired => serializer.serialize_i32(1),
+                Self::JobCreationOptional => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for JobCreationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobCreationMode>::new(
+                ".google.cloud.bigquery.v2.QueryRequest.JobCreationMode",
+            ))
+        }
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct QueryResponse {
+    /// The resource type.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// The schema of the results. Present only when the query completes
+    /// successfully.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub schema: std::option::Option<crate::model::TableSchema>,
+
+    /// Reference to the Job that was created to run the query. This field will be
+    /// present even if the original request timed out, in which case
+    /// GetQueryResults can be used to read the results once the query has
+    /// completed. Since this API only returns the first page of results,
+    /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
+    ///
+    /// If job_creation_mode was set to `JOB_CREATION_OPTIONAL` and the query
+    /// completes without creating a job, this field will be empty.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_reference: std::option::Option<crate::model::JobReference>,
+
+    /// Optional. The reason why a Job was created.
+    ///
+    /// Only relevant when a job_reference is present in the response.
+    /// If job_reference is not present it will always be unset.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
+
+    /// Auto-generated ID for the query.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query_id: std::string::String,
+
+    /// Output only. The geographic location of the query.
+    ///
+    /// For more information about BigQuery locations, see:
+    /// <https://cloud.google.com/bigquery/docs/locations>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
+
+    /// The total number of rows in the complete query result set, which can be
+    /// more than the number of rows in this single page of results.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_rows: std::option::Option<wkt::UInt64Value>,
+
+    /// A token used for paging results. A non-empty token indicates that
+    /// additional results are available. To see additional results,
+    /// query the
+    /// [`jobs.getQueryResults`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults)
+    /// method. For more information, see [Paging through table
+    /// data](https://cloud.google.com/bigquery/docs/paging-results).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// An object with as many results as can be contained within the maximum
+    /// permitted reply size. To get any additional rows, you can call
+    /// GetQueryResults and specify the jobReference returned above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub rows: std::vec::Vec<wkt::Struct>,
+
+    /// The total number of bytes processed for this query. If this query was a dry
+    /// run, this is the number of bytes that would be processed if the query were
+    /// run.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_bytes_processed: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. If the project is configured to use on-demand pricing,
+    /// then this field contains the total bytes billed for the job.
+    /// If the project is configured to use flat-rate pricing, then you are
+    /// not billed for bytes and this field is informational only.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_bytes_billed: std::option::Option<i64>,
+
+    /// Output only. Number of slot ms the user is actually billed for.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_slot_ms: std::option::Option<i64>,
+
+    /// Whether the query has completed or not. If rows or totalRows are present,
+    /// this will always be true. If this is false, totalRows will not be
+    /// available.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub job_complete: std::option::Option<wkt::BoolValue>,
+
+    /// Output only. The first errors or warnings encountered during the running of
+    /// the job. The final message includes the number of errors that caused the
+    /// process to stop. Errors here do not necessarily mean that the job has
+    /// completed or was unsuccessful. For more information about error messages,
+    /// see [Error
+    /// messages](https://cloud.google.com/bigquery/docs/error-messages).
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub errors: std::vec::Vec<crate::model::ErrorProto>,
+
+    /// Whether the query result was fetched from the query cache.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cache_hit: std::option::Option<wkt::BoolValue>,
+
+    /// Output only. The number of rows affected by a DML statement. Present only
+    /// for DML statements INSERT, UPDATE or DELETE.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub num_dml_affected_rows: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Information of the session if this job is part of one.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub session_info: std::option::Option<crate::model::SessionInfo>,
+
+    /// Output only. Detailed statistics for DML statements INSERT, UPDATE, DELETE,
+    /// MERGE or TRUNCATE.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dml_stats: std::option::Option<crate::model::DmlStats>,
+
+    /// Output only. Creation time of this query, in milliseconds since the epoch.
+    /// This field will be present on all queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub creation_time: std::option::Option<i64>,
+
+    /// Output only. Start time of this query, in milliseconds since the epoch.
+    /// This field will be present when the query job transitions from the PENDING
+    /// state to either RUNNING or DONE.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub start_time: std::option::Option<i64>,
+
+    /// Output only. End time of this query, in milliseconds since the epoch. This
+    /// field will be present whenever a query job is in the DONE state.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub end_time: std::option::Option<i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::QueryResponse::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [schema][crate::model::QueryResponse::schema].
+    pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::TableSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema = v.into();
+        self
+    }
+
+    /// Sets the value of [job_reference][crate::model::QueryResponse::job_reference].
+    pub fn set_job_reference<
+        T: std::convert::Into<std::option::Option<crate::model::JobReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [job_creation_reason][crate::model::QueryResponse::job_creation_reason].
+    pub fn set_job_creation_reason<
+        T: std::convert::Into<std::option::Option<crate::model::JobCreationReason>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_creation_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [query_id][crate::model::QueryResponse::query_id].
+    pub fn set_query_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query_id = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::QueryResponse::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [total_rows][crate::model::QueryResponse::total_rows].
+    pub fn set_total_rows<T: std::convert::Into<std::option::Option<wkt::UInt64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::QueryResponse::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_processed][crate::model::QueryResponse::total_bytes_processed].
+    pub fn set_total_bytes_processed<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_billed][crate::model::QueryResponse::total_bytes_billed].
+    pub fn set_total_bytes_billed<T: std::convert::Into<std::option::Option<i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_billed = v.into();
+        self
+    }
+
+    /// Sets the value of [total_slot_ms][crate::model::QueryResponse::total_slot_ms].
+    pub fn set_total_slot_ms<T: std::convert::Into<std::option::Option<i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_slot_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [job_complete][crate::model::QueryResponse::job_complete].
+    pub fn set_job_complete<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_complete = v.into();
+        self
+    }
+
+    /// Sets the value of [cache_hit][crate::model::QueryResponse::cache_hit].
+    pub fn set_cache_hit<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cache_hit = v.into();
+        self
+    }
+
+    /// Sets the value of [num_dml_affected_rows][crate::model::QueryResponse::num_dml_affected_rows].
+    pub fn set_num_dml_affected_rows<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.num_dml_affected_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [session_info][crate::model::QueryResponse::session_info].
+    pub fn set_session_info<
+        T: std::convert::Into<std::option::Option<crate::model::SessionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.session_info = v.into();
+        self
+    }
+
+    /// Sets the value of [dml_stats][crate::model::QueryResponse::dml_stats].
+    pub fn set_dml_stats<T: std::convert::Into<std::option::Option<crate::model::DmlStats>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dml_stats = v.into();
+        self
+    }
+
+    /// Sets the value of [creation_time][crate::model::QueryResponse::creation_time].
+    pub fn set_creation_time<T: std::convert::Into<std::option::Option<i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.creation_time = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::QueryResponse::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::QueryResponse::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
+        self.end_time = v.into();
+        self
+    }
+
+    /// Sets the value of [rows][crate::model::QueryResponse::rows].
+    pub fn set_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Struct>,
+    {
+        use std::iter::Iterator;
+        self.rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::QueryResponse::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ErrorProto>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.QueryResponse"
+    }
+}
+
+/// Properties for the destination table.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DestinationTableProperties {
+    /// Optional. Friendly name for the destination table. If the table already
+    /// exists, it should be same as the existing friendly name.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub friendly_name: std::option::Option<wkt::StringValue>,
+
+    /// Optional. The description for the destination table.
+    /// This will only be used if the destination table is newly created.
+    /// If the table already exists and a value different than the current
+    /// description is provided, the job will fail.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub description: std::option::Option<wkt::StringValue>,
+
+    /// Optional. The labels associated with this table. You can use these to
+    /// organize and group your tables. This will only be used if the destination
+    /// table is newly created. If the table already exists and labels are
+    /// different than the current labels are provided, the job will fail.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DestinationTableProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [friendly_name][crate::model::DestinationTableProperties::friendly_name].
+    pub fn set_friendly_name<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.friendly_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DestinationTableProperties::description].
+    pub fn set_description<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DestinationTableProperties::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DestinationTableProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.DestinationTableProperties"
+    }
+}
+
+/// A connection-level property to customize query behavior. Under JDBC, these
+/// correspond directly to connection properties passed to the DriverManager.
+/// Under ODBC, these correspond to properties in the connection string.
+///
+/// Currently supported connection properties:
+///
+/// * **dataset_project_id**: represents the default project for datasets that
+///   are used in the query. Setting the
+///   system variable `@@dataset_project_id` achieves the same behavior.  For
+///   more information about system variables, see:
+///   <https://cloud.google.com/bigquery/docs/reference/system-variables>
+///
+/// * **time_zone**: represents the default timezone used to run the query.
+///
+/// * **session_id**: associates the query with a given session.
+///
+/// * **query_label**: associates the query with a given job label. If set,
+///   all subsequent queries in a script or session will have this label. For the
+///   format in which a you can specify a query label, see labels
+///   in the JobConfiguration resource type:
+///   <https://cloud.google.com/bigquery/docs/reference/rest/v2/Job#jobconfiguration>
+///
+/// * **service_account**: indicates the service account to use to run a
+///   continuous query. If set, the query job uses the service account to access
+///   Google Cloud resources. Service account access is bounded by the IAM
+///   permissions that you have granted to the service account.
+///
+///
+/// Additional properties are allowed, but ignored. Specifying multiple
+/// connection properties with the same key returns an error.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ConnectionProperty {
+    /// The key of the property to set.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub key: std::string::String,
+
+    /// The value of the property to set.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConnectionProperty {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::ConnectionProperty::key].
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::ConnectionProperty::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ConnectionProperty {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ConnectionProperty"
+    }
+}
+
+/// JobConfigurationQuery configures a BigQuery query job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobConfigurationQuery {
+    /// [Required] SQL query text to execute. The useLegacySql field can be used
+    /// to indicate whether the query uses legacy SQL or GoogleSQL.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query: std::string::String,
+
+    /// Optional. Describes the table where the query results should be stored.
+    /// This property must be set for large results that exceed the maximum
+    /// response size.  For queries that produce anonymous (cached) results, this
+    /// field will be populated by BigQuery.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_table: std::option::Option<crate::model::TableReference>,
+
+    /// Optional. You can specify external table definitions, which operate as
+    /// ephemeral tables that can be queried.  These definitions are configured
+    /// using a JSON map, where the string key represents the table identifier, and
+    /// the value is the corresponding external data configuration object.
+    #[serde(rename = "tableDefinitions")]
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub external_table_definitions:
+        std::collections::HashMap<std::string::String, crate::model::ExternalDataConfiguration>,
+
+    /// Describes user-defined function resources used in the query.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub user_defined_function_resources: std::vec::Vec<crate::model::UserDefinedFunctionResource>,
+
+    /// Optional. Specifies whether the job is allowed to create new tables.
+    /// The following values are supported:
+    ///
+    /// * CREATE_IF_NEEDED: If the table does not exist, BigQuery creates the
+    ///   table.
+    /// * CREATE_NEVER: The table must already exist. If it does not,
+    ///   a 'notFound' error is returned in the job result.
+    ///
+    /// The default value is CREATE_IF_NEEDED.
+    /// Creation, truncation and append actions occur as one atomic update
+    /// upon job completion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub create_disposition: std::string::String,
+
+    /// Optional. Specifies the action that occurs if the destination table
+    /// already exists. The following values are supported:
+    ///
+    /// * WRITE_TRUNCATE: If the table already exists, BigQuery overwrites the
+    ///   data, removes the constraints, and uses the schema from the query result.
+    /// * WRITE_APPEND: If the table already exists, BigQuery appends the data to
+    ///   the table.
+    /// * WRITE_EMPTY: If the table already exists and contains data, a 'duplicate'
+    ///   error is returned in the job result.
+    ///
+    /// The default value is WRITE_EMPTY. Each action is atomic and only occurs if
+    /// BigQuery is able to complete the job successfully. Creation, truncation and
+    /// append actions occur as one atomic update upon job completion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub write_disposition: std::string::String,
+
+    /// Optional. Specifies the default dataset to use for unqualified
+    /// table names in the query. This setting does not alter behavior of
+    /// unqualified dataset names. Setting the system variable
+    /// `@@dataset_id` achieves the same behavior.  See
+    /// <https://cloud.google.com/bigquery/docs/reference/system-variables> for more
+    /// information on system variables.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub default_dataset: std::option::Option<crate::model::DatasetReference>,
+
+    /// Optional. Specifies a priority for the query. Possible values include
+    /// INTERACTIVE and BATCH. The default value is INTERACTIVE.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub priority: std::string::String,
+
+    /// Optional. If true and query uses legacy SQL dialect, allows the query
+    /// to produce arbitrarily large result tables at a slight cost in performance.
+    /// Requires destinationTable to be set.
+    /// For GoogleSQL queries, this flag is ignored and large results are
+    /// always allowed.  However, you must still set destinationTable when result
+    /// size exceeds the allowed maximum response size.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub allow_large_results: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Whether to look for the result in the query cache. The query
+    /// cache is a best-effort cache that will be flushed whenever tables in the
+    /// query are modified. Moreover, the query cache is only available when a
+    /// query does not have a destination table specified. The default value is
+    /// true.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub use_query_cache: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. If true and query uses legacy SQL dialect, flattens all nested
+    /// and repeated fields in the query results.
+    /// allowLargeResults must be true if this is set to false.
+    /// For GoogleSQL queries, this flag is ignored and results are never
+    /// flattened.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub flatten_results: std::option::Option<wkt::BoolValue>,
+
+    /// Limits the bytes billed for this job. Queries that will have
+    /// bytes billed beyond this limit will fail (without incurring a charge).
+    /// If unspecified, this will be set to your project default.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub maximum_bytes_billed: std::option::Option<wkt::Int64Value>,
+
+    /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
+    /// query. The default value is true. If set to false, the query will use
+    /// BigQuery's GoogleSQL:
+    /// <https://cloud.google.com/bigquery/sql-reference/>
+    ///
+    /// When useLegacySql is set to false, the value of flattenResults is ignored;
+    /// query will be run as if flattenResults is false.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
+
+    /// GoogleSQL only. Set to POSITIONAL to use positional (?) query parameters
+    /// or to NAMED to use named (@myparam) query parameters in this query.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parameter_mode: std::string::String,
+
+    /// Query parameters for GoogleSQL queries.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub query_parameters: std::vec::Vec<crate::model::QueryParameter>,
+
+    /// Output only. System variables for GoogleSQL queries. A system variable is
+    /// output if the variable is settable and its value differs from the system
+    /// default.
+    /// "@@" prefix is not included in the name of the System variables.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub system_variables: std::option::Option<crate::model::SystemVariables>,
+
+    /// Allows the schema of the destination table to be updated as a side effect
+    /// of the query job. Schema update options are supported in two cases:
+    /// when writeDisposition is WRITE_APPEND;
+    /// when writeDisposition is WRITE_TRUNCATE and the destination table is a
+    /// partition of a table, specified by partition decorators. For normal tables,
+    /// WRITE_TRUNCATE will always overwrite the schema.
+    /// One or more of the following values are specified:
+    ///
+    /// * ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema.
+    /// * ALLOW_FIELD_RELAXATION: allow relaxing a required field in the original
+    ///   schema to nullable.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub schema_update_options: std::vec::Vec<std::string::String>,
+
+    /// Time-based partitioning specification for the destination table. Only one
+    /// of timePartitioning and rangePartitioning should be specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub time_partitioning: std::option::Option<crate::model::TimePartitioning>,
+
+    /// Range partitioning specification for the destination table.
+    /// Only one of timePartitioning and rangePartitioning should be specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub range_partitioning: std::option::Option<crate::model::RangePartitioning>,
+
+    /// Clustering specification for the destination table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub clustering: std::option::Option<crate::model::Clustering>,
+
+    /// Custom encryption configuration (e.g., Cloud KMS keys)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_encryption_configuration:
+        std::option::Option<crate::model::EncryptionConfiguration>,
+
+    /// Options controlling the execution of scripts.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub script_options: std::option::Option<crate::model::ScriptOptions>,
+
+    /// Connection properties which can modify the query behavior.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
+
+    /// If this property is true, the job creates a new session using a randomly
+    /// generated session_id.  To continue using a created session with
+    /// subsequent queries, pass the existing session identifier as a
+    /// `ConnectionProperty` value.  The session identifier is returned as part of
+    /// the `SessionInfo` message within the query statistics.
+    ///
+    /// The new session's location will be set to `Job.JobReference.location` if it
+    /// is present, otherwise it's set to the default location based on existing
+    /// routing logic.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_session: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Whether to run the query as continuous or a regular query.
+    /// Continuous query is currently in experimental stage and not ready for
+    /// general usage.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub continuous: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. This is only supported for a SELECT query using a temporary
+    /// table. If set, the query is allowed to write results incrementally to the
+    /// temporary result table. This may incur a performance penalty. This option
+    /// cannot be used with Legacy SQL. This feature is not yet available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub write_incremental_results: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobConfigurationQuery {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [query][crate::model::JobConfigurationQuery::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_table][crate::model::JobConfigurationQuery::destination_table].
+    pub fn set_destination_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_table = v.into();
+        self
+    }
+
+    /// Sets the value of [create_disposition][crate::model::JobConfigurationQuery::create_disposition].
+    pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_disposition = v.into();
+        self
+    }
+
+    /// Sets the value of [write_disposition][crate::model::JobConfigurationQuery::write_disposition].
+    pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_disposition = v.into();
+        self
+    }
+
+    /// Sets the value of [default_dataset][crate::model::JobConfigurationQuery::default_dataset].
+    pub fn set_default_dataset<
+        T: std::convert::Into<std::option::Option<crate::model::DatasetReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_dataset = v.into();
+        self
+    }
+
+    /// Sets the value of [priority][crate::model::JobConfigurationQuery::priority].
+    pub fn set_priority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.priority = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_large_results][crate::model::JobConfigurationQuery::allow_large_results].
+    pub fn set_allow_large_results<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.allow_large_results = v.into();
+        self
+    }
+
+    /// Sets the value of [use_query_cache][crate::model::JobConfigurationQuery::use_query_cache].
+    pub fn set_use_query_cache<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.use_query_cache = v.into();
+        self
+    }
+
+    /// Sets the value of [flatten_results][crate::model::JobConfigurationQuery::flatten_results].
+    pub fn set_flatten_results<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.flatten_results = v.into();
+        self
+    }
+
+    /// Sets the value of [maximum_bytes_billed][crate::model::JobConfigurationQuery::maximum_bytes_billed].
+    pub fn set_maximum_bytes_billed<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maximum_bytes_billed = v.into();
+        self
+    }
+
+    /// Sets the value of [use_legacy_sql][crate::model::JobConfigurationQuery::use_legacy_sql].
+    pub fn set_use_legacy_sql<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.use_legacy_sql = v.into();
+        self
+    }
+
+    /// Sets the value of [parameter_mode][crate::model::JobConfigurationQuery::parameter_mode].
+    pub fn set_parameter_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parameter_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [system_variables][crate::model::JobConfigurationQuery::system_variables].
+    pub fn set_system_variables<
+        T: std::convert::Into<std::option::Option<crate::model::SystemVariables>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.system_variables = v.into();
+        self
+    }
+
+    /// Sets the value of [time_partitioning][crate::model::JobConfigurationQuery::time_partitioning].
+    pub fn set_time_partitioning<
+        T: std::convert::Into<std::option::Option<crate::model::TimePartitioning>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_partitioning = v.into();
+        self
+    }
+
+    /// Sets the value of [range_partitioning][crate::model::JobConfigurationQuery::range_partitioning].
+    pub fn set_range_partitioning<
+        T: std::convert::Into<std::option::Option<crate::model::RangePartitioning>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.range_partitioning = v.into();
+        self
+    }
+
+    /// Sets the value of [clustering][crate::model::JobConfigurationQuery::clustering].
+    pub fn set_clustering<T: std::convert::Into<std::option::Option<crate::model::Clustering>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.clustering = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_encryption_configuration][crate::model::JobConfigurationQuery::destination_encryption_configuration].
+    pub fn set_destination_encryption_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::EncryptionConfiguration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_encryption_configuration = v.into();
+        self
+    }
+
+    /// Sets the value of [script_options][crate::model::JobConfigurationQuery::script_options].
+    pub fn set_script_options<
+        T: std::convert::Into<std::option::Option<crate::model::ScriptOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.script_options = v.into();
+        self
+    }
+
+    /// Sets the value of [create_session][crate::model::JobConfigurationQuery::create_session].
+    pub fn set_create_session<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_session = v.into();
+        self
+    }
+
+    /// Sets the value of [continuous][crate::model::JobConfigurationQuery::continuous].
+    pub fn set_continuous<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.continuous = v.into();
+        self
+    }
+
+    /// Sets the value of [write_incremental_results][crate::model::JobConfigurationQuery::write_incremental_results].
+    pub fn set_write_incremental_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.write_incremental_results = v.into();
+        self
+    }
+
+    /// Sets the value of [user_defined_function_resources][crate::model::JobConfigurationQuery::user_defined_function_resources].
+    pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UserDefinedFunctionResource>,
+    {
+        use std::iter::Iterator;
+        self.user_defined_function_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [query_parameters][crate::model::JobConfigurationQuery::query_parameters].
+    pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryParameter>,
+    {
+        use std::iter::Iterator;
+        self.query_parameters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [schema_update_options][crate::model::JobConfigurationQuery::schema_update_options].
+    pub fn set_schema_update_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.schema_update_options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [connection_properties][crate::model::JobConfigurationQuery::connection_properties].
+    pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConnectionProperty>,
+    {
+        use std::iter::Iterator;
+        self.connection_properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [external_table_definitions][crate::model::JobConfigurationQuery::external_table_definitions].
+    pub fn set_external_table_definitions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ExternalDataConfiguration>,
+    {
+        use std::iter::Iterator;
+        self.external_table_definitions =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobConfigurationQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobConfigurationQuery"
+    }
+}
+
+/// Options related to script execution.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ScriptOptions {
+    /// Timeout period for each statement in a script.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub statement_timeout_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Limit on the number of bytes billed per statement. Exceeding this budget
+    /// results in an error.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub statement_byte_budget: std::option::Option<wkt::Int64Value>,
+
+    /// Determines which statement in the script represents the "key result",
+    /// used to populate the schema and query results of the script job.
+    /// Default is LAST.
+    pub key_result_statement: crate::model::script_options::KeyResultStatementKind,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScriptOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [statement_timeout_ms][crate::model::ScriptOptions::statement_timeout_ms].
+    pub fn set_statement_timeout_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.statement_timeout_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [statement_byte_budget][crate::model::ScriptOptions::statement_byte_budget].
+    pub fn set_statement_byte_budget<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.statement_byte_budget = v.into();
+        self
+    }
+
+    /// Sets the value of [key_result_statement][crate::model::ScriptOptions::key_result_statement].
+    pub fn set_key_result_statement<
+        T: std::convert::Into<crate::model::script_options::KeyResultStatementKind>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.key_result_statement = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ScriptOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ScriptOptions"
+    }
+}
+
+/// Defines additional types related to [ScriptOptions].
+pub mod script_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// KeyResultStatementKind controls how the key result is determined.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyResultStatementKind {
+        /// Default value.
+        Unspecified,
+        /// The last result determines the key result.
+        Last,
+        /// The first SELECT statement determines the key result.
+        FirstSelect,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyResultStatementKind::value] or
+        /// [KeyResultStatementKind::name].
+        UnknownValue(key_result_statement_kind::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod key_result_statement_kind {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl KeyResultStatementKind {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Last => std::option::Option::Some(1),
+                Self::FirstSelect => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("KEY_RESULT_STATEMENT_KIND_UNSPECIFIED")
+                }
+                Self::Last => std::option::Option::Some("LAST"),
+                Self::FirstSelect => std::option::Option::Some("FIRST_SELECT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for KeyResultStatementKind {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyResultStatementKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyResultStatementKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Last,
+                2 => Self::FirstSelect,
+                _ => Self::UnknownValue(key_result_statement_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyResultStatementKind {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_RESULT_STATEMENT_KIND_UNSPECIFIED" => Self::Unspecified,
+                "LAST" => Self::Last,
+                "FIRST_SELECT" => Self::FirstSelect,
+                _ => Self::UnknownValue(key_result_statement_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyResultStatementKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Last => serializer.serialize_i32(1),
+                Self::FirstSelect => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyResultStatementKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyResultStatementKind>::new(
+                ".google.cloud.bigquery.v2.ScriptOptions.KeyResultStatementKind",
+            ))
+        }
+    }
+}
+
+/// JobConfigurationLoad contains the configuration properties for loading data
+/// into a destination table.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobConfigurationLoad {
+    /// [Required] The fully-qualified URIs that point to your data in Google
+    /// Cloud.
+    /// For Google Cloud Storage URIs:
+    /// Each URI can contain one '*' wildcard character and it must come after
+    /// the 'bucket' name. Size limits related to load jobs apply to external
+    /// data sources.
+    /// For Google Cloud Bigtable URIs:
+    /// Exactly one URI can be specified and it has be a fully specified and
+    /// valid HTTPS URL for a Google Cloud Bigtable table.
+    /// For Google Cloud Datastore backups:
+    /// Exactly one URI can be specified. Also, the '*' wildcard character is not
+    /// allowed.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub source_uris: std::vec::Vec<std::string::String>,
+
+    /// Optional. Specifies how source URIs are interpreted for constructing the
+    /// file set to load. By default, source URIs are expanded against the
+    /// underlying storage. You can also specify manifest files to control how the
+    /// file set is constructed. This option is only applicable to object storage
+    /// systems.
+    pub file_set_spec_type: crate::model::FileSetSpecType,
+
+    /// Optional. The schema for the destination table. The schema can be
+    /// omitted if the destination table already exists, or if you're loading data
+    /// from Google Cloud Datastore.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub schema: std::option::Option<crate::model::TableSchema>,
+
+    /// [Required] The destination table to load the data into.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_table: std::option::Option<crate::model::TableReference>,
+
+    /// Optional. [Experimental] Properties with which to create the destination
+    /// table if it is new.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_table_properties: std::option::Option<crate::model::DestinationTableProperties>,
+
+    /// Optional. Specifies whether the job is allowed to create new tables.
+    /// The following values are supported:
+    ///
+    /// * CREATE_IF_NEEDED: If the table does not exist, BigQuery creates the
+    ///   table.
+    /// * CREATE_NEVER: The table must already exist. If it does not,
+    ///   a 'notFound' error is returned in the job result.
+    ///   The default value is CREATE_IF_NEEDED.
+    ///   Creation, truncation and append actions occur as one atomic update
+    ///   upon job completion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub create_disposition: std::string::String,
+
+    /// Optional. Specifies the action that occurs if the destination table
+    /// already exists. The following values are supported:
+    ///
+    /// * WRITE_TRUNCATE:  If the table already exists, BigQuery overwrites the
+    ///   data, removes the constraints and uses the schema from the load job.
+    /// * WRITE_APPEND: If the table already exists, BigQuery appends the data to
+    ///   the table.
+    /// * WRITE_EMPTY: If the table already exists and contains data, a 'duplicate'
+    ///   error is returned in the job result.
+    ///
+    /// The default value is WRITE_APPEND.
+    /// Each action is atomic and only occurs if BigQuery is able to complete the
+    /// job successfully.
+    /// Creation, truncation and append actions occur as one atomic update
+    /// upon job completion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub write_disposition: std::string::String,
+
+    /// Optional. Specifies a string that represents a null value in a CSV file.
+    /// For example, if you specify "\N", BigQuery interprets "\N" as a null value
+    /// when loading a CSV file.
+    /// The default value is the empty string. If you set this property to a custom
+    /// value, BigQuery throws an error if an empty string is present for all data
+    /// types except for STRING and BYTE. For STRING and BYTE columns, BigQuery
+    /// interprets the empty string as an empty value.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub null_marker: std::option::Option<wkt::StringValue>,
+
+    /// Optional. The separator character for fields in a CSV file. The separator
+    /// is interpreted as a single byte. For files encoded in ISO-8859-1, any
+    /// single character can be used as a separator. For files encoded in UTF-8,
+    /// characters represented in decimal range 1-127 (U+0001-U+007F) can be used
+    /// without any modification. UTF-8 characters encoded with multiple bytes
+    /// (i.e. U+0080 and above) will have only the first byte used for separating
+    /// fields. The remaining bytes will be treated as a part of the field.
+    /// BigQuery also supports the escape sequence "\t" (U+0009) to specify a tab
+    /// separator. The default value is comma (",", U+002C).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub field_delimiter: std::string::String,
+
+    /// Optional. The number of rows at the top of a CSV file that BigQuery will
+    /// skip when loading the data. The default value is 0. This property is useful
+    /// if you have header rows in the file that should be skipped. When autodetect
+    /// is on, the behavior is the following:
+    ///
+    /// * skipLeadingRows unspecified - Autodetect tries to detect headers in the
+    ///   first row. If they are not detected, the row is read as data. Otherwise
+    ///   data is read starting from the second row.
+    /// * skipLeadingRows is 0 - Instructs autodetect that there are no headers and
+    ///   data should be read starting from the first row.
+    /// * skipLeadingRows = N > 0 - Autodetect skips N-1 rows and tries to detect
+    ///   headers in row N. If headers are not detected, row N is just skipped.
+    ///   Otherwise row N is used to extract column names for the detected schema.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub skip_leading_rows: std::option::Option<wkt::Int32Value>,
+
+    /// Optional. The character encoding of the data.
+    /// The supported values are UTF-8, ISO-8859-1, UTF-16BE, UTF-16LE, UTF-32BE,
+    /// and UTF-32LE. The default value is UTF-8. BigQuery decodes the data after
+    /// the raw, binary data has been split using the values of the `quote` and
+    /// `fieldDelimiter` properties.
+    ///
+    /// If you don't specify an encoding, or if you specify a UTF-8 encoding when
+    /// the CSV file is not UTF-8 encoded, BigQuery attempts to convert the data to
+    /// UTF-8. Generally, your data loads successfully, but it may not match
+    /// byte-for-byte what you expect. To avoid this, specify the correct encoding
+    /// by using the `--encoding` flag.
+    ///
+    /// If BigQuery can't convert a character other than the ASCII `0` character,
+    /// BigQuery converts the character to the standard Unicode replacement
+    /// character: &#65533;.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub encoding: std::string::String,
+
+    /// Optional. The value that is used to quote data sections in a CSV file.
+    /// BigQuery converts the string to ISO-8859-1 encoding, and then uses the
+    /// first byte of the encoded string to split the data in its raw, binary
+    /// state.
+    /// The default value is a double-quote ('"').
+    /// If your data does not contain quoted sections, set the property value to an
+    /// empty string.
+    /// If your data contains quoted newline characters, you must also set the
+    /// allowQuotedNewlines property to true.
+    /// To include the specific quote character within a quoted value, precede it
+    /// with an additional matching quote character. For example, if you want to
+    /// escape the default character  ' " ', use ' "" '.
+    /// @default "
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub quote: std::option::Option<wkt::StringValue>,
+
+    /// Optional. The maximum number of bad records that BigQuery can ignore when
+    /// running the job. If the number of bad records exceeds this value, an
+    /// invalid error is returned in the job result.
+    /// The default value is 0, which requires that all records are valid.
+    /// This is only supported for CSV and NEWLINE_DELIMITED_JSON file formats.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_bad_records: std::option::Option<wkt::Int32Value>,
+
+    /// Indicates if BigQuery should allow quoted data sections that contain
+    /// newline characters in a CSV file. The default value is false.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub allow_quoted_newlines: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. The format of the data files.
+    /// For CSV files, specify "CSV". For datastore backups,
+    /// specify "DATASTORE_BACKUP". For newline-delimited JSON,
+    /// specify "NEWLINE_DELIMITED_JSON". For Avro, specify "AVRO".
+    /// For parquet, specify "PARQUET". For orc, specify "ORC".
+    /// The default value is CSV.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub source_format: std::string::String,
+
+    /// Optional. Accept rows that are missing trailing optional columns.
+    /// The missing values are treated as nulls.
+    /// If false, records with missing trailing columns are treated as bad records,
+    /// and if there are too many bad records, an invalid error is returned in the
+    /// job result.
+    /// The default value is false.
+    /// Only applicable to CSV, ignored for other formats.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub allow_jagged_rows: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Indicates if BigQuery should allow extra values that are not
+    /// represented in the table schema.
+    /// If true, the extra values are ignored.
+    /// If false, records with extra columns are treated as bad records, and if
+    /// there are too many bad records, an invalid error is returned in the job
+    /// result. The default value is false.
+    /// The sourceFormat property determines what BigQuery treats as an extra
+    /// value:
+    /// CSV: Trailing columns
+    /// JSON: Named values that don't match any column names in the table schema
+    /// Avro, Parquet, ORC: Fields in the file schema that don't exist in the
+    /// table schema.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ignore_unknown_values: std::option::Option<wkt::BoolValue>,
+
+    /// If sourceFormat is set to "DATASTORE_BACKUP", indicates which entity
+    /// properties to load into BigQuery from a Cloud Datastore backup. Property
+    /// names are case sensitive and must be top-level properties. If no properties
+    /// are specified, BigQuery loads all properties. If any named property isn't
+    /// found in the Cloud Datastore backup, an invalid error is returned in the
+    /// job result.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub projection_fields: std::vec::Vec<std::string::String>,
+
+    /// Optional. Indicates if we should automatically infer the options and
+    /// schema for CSV and JSON sources.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub autodetect: std::option::Option<wkt::BoolValue>,
+
+    /// Allows the schema of the destination table to be updated as a side effect
+    /// of the load job if a schema is autodetected or supplied in the job
+    /// configuration.
+    /// Schema update options are supported in two cases:
+    /// when writeDisposition is WRITE_APPEND;
+    /// when writeDisposition is WRITE_TRUNCATE and the destination table is a
+    /// partition of a table, specified by partition decorators. For normal tables,
+    /// WRITE_TRUNCATE will always overwrite the schema.
+    /// One or more of the following values are specified:
+    ///
+    /// * ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema.
+    /// * ALLOW_FIELD_RELAXATION: allow relaxing a required field in the original
+    ///   schema to nullable.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub schema_update_options: std::vec::Vec<std::string::String>,
+
+    /// Time-based partitioning specification for the destination table. Only one
+    /// of timePartitioning and rangePartitioning should be specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub time_partitioning: std::option::Option<crate::model::TimePartitioning>,
+
+    /// Range partitioning specification for the destination table.
+    /// Only one of timePartitioning and rangePartitioning should be specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub range_partitioning: std::option::Option<crate::model::RangePartitioning>,
+
+    /// Clustering specification for the destination table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub clustering: std::option::Option<crate::model::Clustering>,
+
+    /// Custom encryption configuration (e.g., Cloud KMS keys)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_encryption_configuration:
+        std::option::Option<crate::model::EncryptionConfiguration>,
+
+    /// Optional. If sourceFormat is set to "AVRO", indicates whether to interpret
+    /// logical types as the corresponding BigQuery data type (for example,
+    /// TIMESTAMP), instead of using the raw type (for example, INTEGER).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub use_avro_logical_types: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. The user can provide a reference file with the reader schema.
+    /// This file is only loaded if it is part of source URIs, but is not loaded
+    /// otherwise. It is enabled for the following formats: AVRO, PARQUET, ORC.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub reference_file_schema_uri: std::option::Option<wkt::StringValue>,
+
+    /// Optional. When set, configures hive partitioning support.
+    /// Not all storage formats support hive partitioning -- requesting hive
+    /// partitioning on an unsupported format will lead to an error, as will
+    /// providing an invalid specification.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub hive_partitioning_options: std::option::Option<crate::model::HivePartitioningOptions>,
+
+    /// Defines the list of possible SQL data types to which the source decimal
+    /// values are converted. This list and the precision and the scale parameters
+    /// of the decimal field determine the target type. In the order of NUMERIC,
+    /// BIGNUMERIC, and STRING, a
+    /// type is picked if it is in the specified list and if it supports the
+    /// precision and the scale. STRING supports all precision and scale values.
+    /// If none of the listed types supports the precision and the scale, the type
+    /// supporting the widest range in the specified list is picked, and if a value
+    /// exceeds the supported range when reading the data, an error will be thrown.
+    ///
+    /// Example: Suppose the value of this field is ["NUMERIC", "BIGNUMERIC"].
+    /// If (precision,scale) is:
+    ///
+    /// * (38,9) -> NUMERIC;
+    /// * (39,9) -> BIGNUMERIC (NUMERIC cannot hold 30 integer digits);
+    /// * (38,10) -> BIGNUMERIC (NUMERIC cannot hold 10 fractional digits);
+    /// * (76,38) -> BIGNUMERIC;
+    /// * (77,38) -> BIGNUMERIC (error if value exceeds supported range).
+    ///
+    /// This field cannot contain duplicate types. The order of the types in this
+    /// field is ignored. For example, ["BIGNUMERIC", "NUMERIC"] is the same as
+    /// ["NUMERIC", "BIGNUMERIC"] and NUMERIC always takes precedence over
+    /// BIGNUMERIC.
+    ///
+    /// Defaults to ["NUMERIC", "STRING"] for ORC and ["NUMERIC"] for the other
+    /// file formats.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub decimal_target_types: std::vec::Vec<crate::model::DecimalTargetType>,
+
+    /// Optional. Load option to be used together with source_format
+    /// newline-delimited JSON to indicate that a variant of JSON is being loaded.
+    /// To load newline-delimited GeoJSON, specify GEOJSON (and source_format must
+    /// be set to NEWLINE_DELIMITED_JSON).
+    pub json_extension: crate::model::JsonExtension,
+
+    /// Optional. Additional properties to set if sourceFormat is set to PARQUET.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub parquet_options: std::option::Option<crate::model::ParquetOptions>,
+
+    /// Optional. When sourceFormat is set to "CSV", this indicates whether the
+    /// embedded ASCII control characters (the first 32 characters in the
+    /// ASCII-table, from
+    /// '\x00' to '\x1F') are preserved.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub preserve_ascii_control_characters: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Connection properties which can modify the load job behavior.
+    /// Currently, only the 'session_id' connection property is supported, and is
+    /// used to resolve _SESSION appearing as the dataset id.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
+
+    /// Optional. If this property is true, the job creates a new session using a
+    /// randomly generated session_id.  To continue using a created session with
+    /// subsequent queries, pass the existing session identifier as a
+    /// `ConnectionProperty` value.  The session identifier is returned as part of
+    /// the `SessionInfo` message within the query statistics.
+    ///
+    /// The new session's location will be set to `Job.JobReference.location` if it
+    /// is present, otherwise it's set to the default location based on existing
+    /// routing logic.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_session: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Character map supported for column names in CSV/Parquet loads.
+    /// Defaults to STRICT and can be overridden by Project Config Service. Using
+    /// this option with unsupporting load formats will result in an error.
+    pub column_name_character_map: crate::model::job_configuration_load::ColumnNameCharacterMap,
+
+    /// Optional. [Experimental] Configures the load job to copy files directly to
+    /// the destination BigLake managed table, bypassing file content reading and
+    /// rewriting.
+    ///
+    /// Copying files only is supported when all the following are true:
+    ///
+    /// * `source_uris` are located in the same Cloud Storage location as the
+    ///   destination table's `storage_uri` location.
+    /// * `source_format` is `PARQUET`.
+    /// * `destination_table` is an existing BigLake managed table. The table's
+    ///   schema does not have flexible column names. The table's columns do not
+    ///   have type parameters other than precision and scale.
+    /// * No options other than the above are specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub copy_files_only: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. [Experimental] Default time zone that will apply when parsing
+    /// timestamp values that have no specific time zone.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub time_zone: std::option::Option<wkt::StringValue>,
+
+    /// Optional. A list of strings represented as SQL NULL value in a CSV file.
+    ///
+    /// null_marker and null_markers can't be set at the same time.
+    /// If null_marker is set, null_markers has to be not set.
+    /// If null_markers is set, null_marker has to be not set.
+    /// If both null_marker and null_markers are set at the same time, a user
+    /// error would be thrown.
+    /// Any strings listed in null_markers, including
+    /// empty string would be interpreted as SQL NULL. This applies to all column
+    /// types.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub null_markers: std::vec::Vec<std::string::String>,
+
+    /// Optional. Date format used for parsing DATE values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub date_format: std::option::Option<std::string::String>,
+
+    /// Optional. Date format used for parsing DATETIME values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub datetime_format: std::option::Option<std::string::String>,
+
+    /// Optional. Date format used for parsing TIME values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub time_format: std::option::Option<std::string::String>,
+
+    /// Optional. Date format used for parsing TIMESTAMP values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub timestamp_format: std::option::Option<std::string::String>,
+
+    /// Optional. Controls the strategy used to match loaded columns to the schema.
+    /// If not set, a sensible default is chosen based on how the schema is
+    /// provided. If autodetect is used, then columns are matched by name.
+    /// Otherwise, columns are matched by position. This is done to keep the
+    /// behavior backward-compatible.
+    pub source_column_match: crate::model::job_configuration_load::SourceColumnMatch,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobConfigurationLoad {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [file_set_spec_type][crate::model::JobConfigurationLoad::file_set_spec_type].
+    pub fn set_file_set_spec_type<T: std::convert::Into<crate::model::FileSetSpecType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.file_set_spec_type = v.into();
+        self
+    }
+
+    /// Sets the value of [schema][crate::model::JobConfigurationLoad::schema].
+    pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::TableSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_table][crate::model::JobConfigurationLoad::destination_table].
+    pub fn set_destination_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_table = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_table_properties][crate::model::JobConfigurationLoad::destination_table_properties].
+    pub fn set_destination_table_properties<
+        T: std::convert::Into<std::option::Option<crate::model::DestinationTableProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_table_properties = v.into();
+        self
+    }
+
+    /// Sets the value of [create_disposition][crate::model::JobConfigurationLoad::create_disposition].
+    pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_disposition = v.into();
+        self
+    }
+
+    /// Sets the value of [write_disposition][crate::model::JobConfigurationLoad::write_disposition].
+    pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_disposition = v.into();
+        self
+    }
+
+    /// Sets the value of [null_marker][crate::model::JobConfigurationLoad::null_marker].
+    pub fn set_null_marker<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.null_marker = v.into();
+        self
+    }
+
+    /// Sets the value of [field_delimiter][crate::model::JobConfigurationLoad::field_delimiter].
+    pub fn set_field_delimiter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.field_delimiter = v.into();
+        self
+    }
+
+    /// Sets the value of [skip_leading_rows][crate::model::JobConfigurationLoad::skip_leading_rows].
+    pub fn set_skip_leading_rows<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.skip_leading_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [encoding][crate::model::JobConfigurationLoad::encoding].
+    pub fn set_encoding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.encoding = v.into();
+        self
+    }
+
+    /// Sets the value of [quote][crate::model::JobConfigurationLoad::quote].
+    pub fn set_quote<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.quote = v.into();
+        self
+    }
+
+    /// Sets the value of [max_bad_records][crate::model::JobConfigurationLoad::max_bad_records].
+    pub fn set_max_bad_records<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_bad_records = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_quoted_newlines][crate::model::JobConfigurationLoad::allow_quoted_newlines].
+    pub fn set_allow_quoted_newlines<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.allow_quoted_newlines = v.into();
+        self
+    }
+
+    /// Sets the value of [source_format][crate::model::JobConfigurationLoad::source_format].
+    pub fn set_source_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_format = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_jagged_rows][crate::model::JobConfigurationLoad::allow_jagged_rows].
+    pub fn set_allow_jagged_rows<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.allow_jagged_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [ignore_unknown_values][crate::model::JobConfigurationLoad::ignore_unknown_values].
+    pub fn set_ignore_unknown_values<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ignore_unknown_values = v.into();
+        self
+    }
+
+    /// Sets the value of [autodetect][crate::model::JobConfigurationLoad::autodetect].
+    pub fn set_autodetect<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.autodetect = v.into();
+        self
+    }
+
+    /// Sets the value of [time_partitioning][crate::model::JobConfigurationLoad::time_partitioning].
+    pub fn set_time_partitioning<
+        T: std::convert::Into<std::option::Option<crate::model::TimePartitioning>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_partitioning = v.into();
+        self
+    }
+
+    /// Sets the value of [range_partitioning][crate::model::JobConfigurationLoad::range_partitioning].
+    pub fn set_range_partitioning<
+        T: std::convert::Into<std::option::Option<crate::model::RangePartitioning>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.range_partitioning = v.into();
+        self
+    }
+
+    /// Sets the value of [clustering][crate::model::JobConfigurationLoad::clustering].
+    pub fn set_clustering<T: std::convert::Into<std::option::Option<crate::model::Clustering>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.clustering = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_encryption_configuration][crate::model::JobConfigurationLoad::destination_encryption_configuration].
+    pub fn set_destination_encryption_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::EncryptionConfiguration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_encryption_configuration = v.into();
+        self
+    }
+
+    /// Sets the value of [use_avro_logical_types][crate::model::JobConfigurationLoad::use_avro_logical_types].
+    pub fn set_use_avro_logical_types<
+        T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.use_avro_logical_types = v.into();
+        self
+    }
+
+    /// Sets the value of [reference_file_schema_uri][crate::model::JobConfigurationLoad::reference_file_schema_uri].
+    pub fn set_reference_file_schema_uri<
+        T: std::convert::Into<std::option::Option<wkt::StringValue>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reference_file_schema_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [hive_partitioning_options][crate::model::JobConfigurationLoad::hive_partitioning_options].
+    pub fn set_hive_partitioning_options<
+        T: std::convert::Into<std::option::Option<crate::model::HivePartitioningOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.hive_partitioning_options = v.into();
+        self
+    }
+
+    /// Sets the value of [json_extension][crate::model::JobConfigurationLoad::json_extension].
+    pub fn set_json_extension<T: std::convert::Into<crate::model::JsonExtension>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.json_extension = v.into();
+        self
+    }
+
+    /// Sets the value of [parquet_options][crate::model::JobConfigurationLoad::parquet_options].
+    pub fn set_parquet_options<
+        T: std::convert::Into<std::option::Option<crate::model::ParquetOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parquet_options = v.into();
+        self
+    }
+
+    /// Sets the value of [preserve_ascii_control_characters][crate::model::JobConfigurationLoad::preserve_ascii_control_characters].
+    pub fn set_preserve_ascii_control_characters<
+        T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.preserve_ascii_control_characters = v.into();
+        self
+    }
+
+    /// Sets the value of [create_session][crate::model::JobConfigurationLoad::create_session].
+    pub fn set_create_session<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_session = v.into();
+        self
+    }
+
+    /// Sets the value of [column_name_character_map][crate::model::JobConfigurationLoad::column_name_character_map].
+    pub fn set_column_name_character_map<
+        T: std::convert::Into<crate::model::job_configuration_load::ColumnNameCharacterMap>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.column_name_character_map = v.into();
+        self
+    }
+
+    /// Sets the value of [copy_files_only][crate::model::JobConfigurationLoad::copy_files_only].
+    pub fn set_copy_files_only<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.copy_files_only = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::JobConfigurationLoad::time_zone].
+    pub fn set_time_zone<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_zone = v.into();
+        self
+    }
+
+    /// Sets the value of [date_format][crate::model::JobConfigurationLoad::date_format].
+    pub fn set_date_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.date_format = v.into();
+        self
+    }
+
+    /// Sets the value of [datetime_format][crate::model::JobConfigurationLoad::datetime_format].
+    pub fn set_datetime_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.datetime_format = v.into();
+        self
+    }
+
+    /// Sets the value of [time_format][crate::model::JobConfigurationLoad::time_format].
+    pub fn set_time_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_format = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_format][crate::model::JobConfigurationLoad::timestamp_format].
+    pub fn set_timestamp_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timestamp_format = v.into();
+        self
+    }
+
+    /// Sets the value of [source_column_match][crate::model::JobConfigurationLoad::source_column_match].
+    pub fn set_source_column_match<
+        T: std::convert::Into<crate::model::job_configuration_load::SourceColumnMatch>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_column_match = v.into();
+        self
+    }
+
+    /// Sets the value of [source_uris][crate::model::JobConfigurationLoad::source_uris].
+    pub fn set_source_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.source_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [projection_fields][crate::model::JobConfigurationLoad::projection_fields].
+    pub fn set_projection_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.projection_fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [schema_update_options][crate::model::JobConfigurationLoad::schema_update_options].
+    pub fn set_schema_update_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.schema_update_options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [decimal_target_types][crate::model::JobConfigurationLoad::decimal_target_types].
+    pub fn set_decimal_target_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DecimalTargetType>,
+    {
+        use std::iter::Iterator;
+        self.decimal_target_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [connection_properties][crate::model::JobConfigurationLoad::connection_properties].
+    pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConnectionProperty>,
+    {
+        use std::iter::Iterator;
+        self.connection_properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [null_markers][crate::model::JobConfigurationLoad::null_markers].
+    pub fn set_null_markers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.null_markers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobConfigurationLoad {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobConfigurationLoad"
+    }
+}
+
+/// Defines additional types related to [JobConfigurationLoad].
+pub mod job_configuration_load {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the character map used for column names.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ColumnNameCharacterMap {
+        /// Unspecified column name character map.
+        Unspecified,
+        /// Support flexible column name and reject invalid column names.
+        Strict,
+        /// Support alphanumeric + underscore characters and names must start with a
+        /// letter or underscore. Invalid column names will be normalized.
+        V1,
+        /// Support flexible column name. Invalid column names will be normalized.
+        V2,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ColumnNameCharacterMap::value] or
+        /// [ColumnNameCharacterMap::name].
+        UnknownValue(column_name_character_map::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod column_name_character_map {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ColumnNameCharacterMap {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Strict => std::option::Option::Some(1),
+                Self::V1 => std::option::Option::Some(2),
+                Self::V2 => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("COLUMN_NAME_CHARACTER_MAP_UNSPECIFIED")
+                }
+                Self::Strict => std::option::Option::Some("STRICT"),
+                Self::V1 => std::option::Option::Some("V1"),
+                Self::V2 => std::option::Option::Some("V2"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ColumnNameCharacterMap {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ColumnNameCharacterMap {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ColumnNameCharacterMap {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Strict,
+                2 => Self::V1,
+                3 => Self::V2,
+                _ => Self::UnknownValue(column_name_character_map::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ColumnNameCharacterMap {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COLUMN_NAME_CHARACTER_MAP_UNSPECIFIED" => Self::Unspecified,
+                "STRICT" => Self::Strict,
+                "V1" => Self::V1,
+                "V2" => Self::V2,
+                _ => Self::UnknownValue(column_name_character_map::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ColumnNameCharacterMap {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Strict => serializer.serialize_i32(1),
+                Self::V1 => serializer.serialize_i32(2),
+                Self::V2 => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ColumnNameCharacterMap {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ColumnNameCharacterMap>::new(
+                ".google.cloud.bigquery.v2.JobConfigurationLoad.ColumnNameCharacterMap",
+            ))
+        }
+    }
+
+    /// Indicates the strategy used to match loaded columns to the schema.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceColumnMatch {
+        /// Uses sensible defaults based on how the schema is provided. If autodetect
+        /// is used, then columns are matched by name. Otherwise, columns are matched
+        /// by position. This is done to keep the behavior backward-compatible.
+        Unspecified,
+        /// Matches by position. This assumes that the columns are ordered the same
+        /// way as the schema.
+        Position,
+        /// Matches by name. This reads the header row as column names and reorders
+        /// columns to match the field names in the schema.
+        Name,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SourceColumnMatch::value] or
+        /// [SourceColumnMatch::name].
+        UnknownValue(source_column_match::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod source_column_match {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SourceColumnMatch {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Position => std::option::Option::Some(1),
+                Self::Name => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SOURCE_COLUMN_MATCH_UNSPECIFIED"),
+                Self::Position => std::option::Option::Some("POSITION"),
+                Self::Name => std::option::Option::Some("NAME"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SourceColumnMatch {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SourceColumnMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SourceColumnMatch {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Position,
+                2 => Self::Name,
+                _ => Self::UnknownValue(source_column_match::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SourceColumnMatch {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SOURCE_COLUMN_MATCH_UNSPECIFIED" => Self::Unspecified,
+                "POSITION" => Self::Position,
+                "NAME" => Self::Name,
+                _ => Self::UnknownValue(source_column_match::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SourceColumnMatch {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Position => serializer.serialize_i32(1),
+                Self::Name => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SourceColumnMatch {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceColumnMatch>::new(
+                ".google.cloud.bigquery.v2.JobConfigurationLoad.SourceColumnMatch",
+            ))
+        }
+    }
+}
+
+/// JobConfigurationTableCopy configures a job that copies data from one table
+/// to another.
+/// For more information on copying tables, see [Copy a
+/// table](https://cloud.google.com/bigquery/docs/managing-tables#copy-table).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobConfigurationTableCopy {
+    /// [Pick one] Source table to copy.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub source_table: std::option::Option<crate::model::TableReference>,
+
+    /// [Pick one] Source tables to copy.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub source_tables: std::vec::Vec<crate::model::TableReference>,
+
+    /// [Required] The destination table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_table: std::option::Option<crate::model::TableReference>,
+
+    /// Optional. Specifies whether the job is allowed to create new tables.
+    /// The following values are supported:
+    ///
+    /// * CREATE_IF_NEEDED: If the table does not exist, BigQuery creates the
+    ///   table.
+    /// * CREATE_NEVER: The table must already exist. If it does not,
+    ///   a 'notFound' error is returned in the job result.
+    ///
+    /// The default value is CREATE_IF_NEEDED.
+    /// Creation, truncation and append actions occur as one atomic update
+    /// upon job completion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub create_disposition: std::string::String,
+
+    /// Optional. Specifies the action that occurs if the destination table
+    /// already exists. The following values are supported:
+    ///
+    /// * WRITE_TRUNCATE: If the table already exists, BigQuery overwrites the
+    ///   table data and uses the schema and table constraints from the source table.
+    /// * WRITE_APPEND: If the table already exists, BigQuery appends the data to
+    ///   the table.
+    /// * WRITE_EMPTY: If the table already exists and contains data, a 'duplicate'
+    ///   error is returned in the job result.
+    ///
+    /// The default value is WRITE_EMPTY. Each action is atomic and only occurs if
+    /// BigQuery is able to complete the job successfully. Creation, truncation and
+    /// append actions occur as one atomic update upon job completion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub write_disposition: std::string::String,
+
+    /// Custom encryption configuration (e.g., Cloud KMS keys).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_encryption_configuration:
+        std::option::Option<crate::model::EncryptionConfiguration>,
+
+    /// Optional. Supported operation types in table copy job.
+    pub operation_type: crate::model::job_configuration_table_copy::OperationType,
+
+    /// Optional. The time when the destination table expires. Expired tables will
+    /// be deleted and their storage reclaimed.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_expiration_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobConfigurationTableCopy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source_table][crate::model::JobConfigurationTableCopy::source_table].
+    pub fn set_source_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_table = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_table][crate::model::JobConfigurationTableCopy::destination_table].
+    pub fn set_destination_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_table = v.into();
+        self
+    }
+
+    /// Sets the value of [create_disposition][crate::model::JobConfigurationTableCopy::create_disposition].
+    pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_disposition = v.into();
+        self
+    }
+
+    /// Sets the value of [write_disposition][crate::model::JobConfigurationTableCopy::write_disposition].
+    pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_disposition = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_encryption_configuration][crate::model::JobConfigurationTableCopy::destination_encryption_configuration].
+    pub fn set_destination_encryption_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::EncryptionConfiguration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_encryption_configuration = v.into();
+        self
+    }
+
+    /// Sets the value of [operation_type][crate::model::JobConfigurationTableCopy::operation_type].
+    pub fn set_operation_type<
+        T: std::convert::Into<crate::model::job_configuration_table_copy::OperationType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation_type = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_expiration_time][crate::model::JobConfigurationTableCopy::destination_expiration_time].
+    pub fn set_destination_expiration_time<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_expiration_time = v.into();
+        self
+    }
+
+    /// Sets the value of [source_tables][crate::model::JobConfigurationTableCopy::source_tables].
+    pub fn set_source_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TableReference>,
+    {
+        use std::iter::Iterator;
+        self.source_tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobConfigurationTableCopy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobConfigurationTableCopy"
+    }
+}
+
+/// Defines additional types related to [JobConfigurationTableCopy].
+pub mod job_configuration_table_copy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates different operation types supported in table copy job.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OperationType {
+        /// Unspecified operation type.
+        Unspecified,
+        /// The source and destination table have the same table type.
+        Copy,
+        /// The source table type is TABLE and
+        /// the destination table type is SNAPSHOT.
+        Snapshot,
+        /// The source table type is SNAPSHOT and
+        /// the destination table type is TABLE.
+        Restore,
+        /// The source and destination table have the same table type,
+        /// but only bill for unique data.
+        Clone,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OperationType::value] or
+        /// [OperationType::name].
+        UnknownValue(operation_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod operation_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl OperationType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Copy => std::option::Option::Some(1),
+                Self::Snapshot => std::option::Option::Some(2),
+                Self::Restore => std::option::Option::Some(3),
+                Self::Clone => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPERATION_TYPE_UNSPECIFIED"),
+                Self::Copy => std::option::Option::Some("COPY"),
+                Self::Snapshot => std::option::Option::Some("SNAPSHOT"),
+                Self::Restore => std::option::Option::Some("RESTORE"),
+                Self::Clone => std::option::Option::Some("CLONE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for OperationType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OperationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OperationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Copy,
+                2 => Self::Snapshot,
+                3 => Self::Restore,
+                4 => Self::Clone,
+                _ => Self::UnknownValue(operation_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OperationType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "COPY" => Self::Copy,
+                "SNAPSHOT" => Self::Snapshot,
+                "RESTORE" => Self::Restore,
+                "CLONE" => Self::Clone,
+                _ => Self::UnknownValue(operation_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OperationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Copy => serializer.serialize_i32(1),
+                Self::Snapshot => serializer.serialize_i32(2),
+                Self::Restore => serializer.serialize_i32(3),
+                Self::Clone => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OperationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationType>::new(
+                ".google.cloud.bigquery.v2.JobConfigurationTableCopy.OperationType",
+            ))
+        }
+    }
+}
+
+/// JobConfigurationExtract configures a job that exports data from a BigQuery
+/// table into Google Cloud Storage.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobConfigurationExtract {
+    /// [Pick one] A list of fully-qualified Google Cloud Storage URIs where the
+    /// extracted table should be written.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub destination_uris: std::vec::Vec<std::string::String>,
+
+    /// Optional. Whether to print out a header row in the results.
+    /// Default is true. Not applicable when extracting models.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub print_header: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. When extracting data in CSV format, this defines the
+    /// delimiter to use between fields in the exported data.
+    /// Default is ','. Not applicable when extracting models.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub field_delimiter: std::string::String,
+
+    /// Optional. The exported file format. Possible values include CSV,
+    /// NEWLINE_DELIMITED_JSON, PARQUET, or AVRO for tables and ML_TF_SAVED_MODEL
+    /// or ML_XGBOOST_BOOSTER for models. The default value for tables is CSV.
+    /// Tables with nested or repeated fields cannot be exported as CSV. The
+    /// default value for models is ML_TF_SAVED_MODEL.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub destination_format: std::string::String,
+
+    /// Optional. The compression type to use for exported files. Possible values
+    /// include DEFLATE, GZIP, NONE, SNAPPY, and ZSTD. The default value is NONE.
+    /// Not all compression formats are support for all file formats. DEFLATE is
+    /// only supported for Avro. ZSTD is only supported for Parquet. Not applicable
+    /// when extracting models.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub compression: std::string::String,
+
+    /// Whether to use logical types when extracting to AVRO format. Not applicable
+    /// when extracting models.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub use_avro_logical_types: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Model extract options only applicable when extracting models.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub model_extract_options:
+        std::option::Option<crate::model::job_configuration_extract::ModelExtractOptions>,
+
+    /// Required. Source reference for the export.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source: std::option::Option<crate::model::job_configuration_extract::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobConfigurationExtract {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [print_header][crate::model::JobConfigurationExtract::print_header].
+    pub fn set_print_header<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.print_header = v.into();
+        self
+    }
+
+    /// Sets the value of [field_delimiter][crate::model::JobConfigurationExtract::field_delimiter].
+    pub fn set_field_delimiter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.field_delimiter = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_format][crate::model::JobConfigurationExtract::destination_format].
+    pub fn set_destination_format<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_format = v.into();
+        self
+    }
+
+    /// Sets the value of [compression][crate::model::JobConfigurationExtract::compression].
+    pub fn set_compression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.compression = v.into();
+        self
+    }
+
+    /// Sets the value of [use_avro_logical_types][crate::model::JobConfigurationExtract::use_avro_logical_types].
+    pub fn set_use_avro_logical_types<
+        T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.use_avro_logical_types = v.into();
+        self
+    }
+
+    /// Sets the value of [model_extract_options][crate::model::JobConfigurationExtract::model_extract_options].
+    pub fn set_model_extract_options<
+        T: std::convert::Into<
+                std::option::Option<crate::model::job_configuration_extract::ModelExtractOptions>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.model_extract_options = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_uris][crate::model::JobConfigurationExtract::destination_uris].
+    pub fn set_destination_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.destination_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::JobConfigurationExtract::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::job_configuration_extract::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::JobConfigurationExtract::source]
+    /// if it holds a `SourceTable`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_table(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TableReference>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::job_configuration_extract::Source::SourceTable(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [source][crate::model::JobConfigurationExtract::source]
+    /// if it holds a `SourceModel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_model(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ModelReference>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::job_configuration_extract::Source::SourceModel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::JobConfigurationExtract::source]
+    /// to hold a `SourceTable`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_source_table<
+        T: std::convert::Into<std::boxed::Box<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::job_configuration_extract::Source::SourceTable(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [source][crate::model::JobConfigurationExtract::source]
+    /// to hold a `SourceModel`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_source_model<
+        T: std::convert::Into<std::boxed::Box<crate::model::ModelReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::job_configuration_extract::Source::SourceModel(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for JobConfigurationExtract {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobConfigurationExtract"
+    }
+}
+
+/// Defines additional types related to [JobConfigurationExtract].
+pub mod job_configuration_extract {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Options related to model extraction.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ModelExtractOptions {
+        /// The 1-based ID of the trial to be exported from a hyperparameter tuning
+        /// model. If not specified, the trial with id =
+        /// [Model](https://cloud.google.com/bigquery/docs/reference/rest/v2/models#resource:-model).defaultTrialId
+        /// is exported. This field is ignored for models not trained with
+        /// hyperparameter tuning.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub trial_id: std::option::Option<wkt::Int64Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ModelExtractOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [trial_id][crate::model::job_configuration_extract::ModelExtractOptions::trial_id].
+        pub fn set_trial_id<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.trial_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ModelExtractOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.JobConfigurationExtract.ModelExtractOptions"
+        }
+    }
+
+    /// Required. Source reference for the export.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Source {
+        /// A reference to the table being exported.
+        SourceTable(std::boxed::Box<crate::model::TableReference>),
+        /// A reference to the model being exported.
+        SourceModel(std::boxed::Box<crate::model::ModelReference>),
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobConfiguration {
+    /// Output only. The type of the job. Can be QUERY, LOAD, EXTRACT, COPY or
+    /// UNKNOWN.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub job_type: std::string::String,
+
+    /// [Pick one] Configures a query job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub query: std::option::Option<crate::model::JobConfigurationQuery>,
+
+    /// [Pick one] Configures a load job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub load: std::option::Option<crate::model::JobConfigurationLoad>,
+
+    /// [Pick one] Copies a table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub copy: std::option::Option<crate::model::JobConfigurationTableCopy>,
+
+    /// [Pick one] Configures an extract job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub extract: std::option::Option<crate::model::JobConfigurationExtract>,
+
+    /// Optional. If set, don't actually run this job. A valid query will return
+    /// a mostly empty response with some processing statistics, while an invalid
+    /// query will return the same error it would if it wasn't a dry run. Behavior
+    /// of non-query jobs is undefined.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dry_run: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
+    /// BigQuery will attempt to stop a longer job, but may not always succeed in
+    /// canceling it before the job completes. For example, a job that takes more
+    /// than 60 seconds to complete has a better chance of being stopped than a job
+    /// that takes 10 seconds to complete.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub job_timeout_ms: std::option::Option<wkt::Int64Value>,
+
+    /// The labels associated with this job. You can use these to organize and
+    /// group your jobs.
+    /// Label keys and values can be no longer than 63 characters, can only contain
+    /// lowercase letters, numeric characters, underscores and dashes.
+    /// International characters are allowed. Label values are optional.  Label
+    /// keys must start with a letter and each label in the list must have a
+    /// different key.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. The reservation that job would use. User can specify a
+    /// reservation to execute the job. If reservation is not set, reservation is
+    /// determined based on the rules defined by the reservation assignments. The
+    /// expected format is
+    /// `projects/{project}/locations/{location}/reservations/{reservation}`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub reservation: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [job_type][crate::model::JobConfiguration::job_type].
+    pub fn set_job_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_type = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::JobConfiguration::query].
+    pub fn set_query<
+        T: std::convert::Into<std::option::Option<crate::model::JobConfigurationQuery>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [load][crate::model::JobConfiguration::load].
+    pub fn set_load<
+        T: std::convert::Into<std::option::Option<crate::model::JobConfigurationLoad>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load = v.into();
+        self
+    }
+
+    /// Sets the value of [copy][crate::model::JobConfiguration::copy].
+    pub fn set_copy<
+        T: std::convert::Into<std::option::Option<crate::model::JobConfigurationTableCopy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.copy = v.into();
+        self
+    }
+
+    /// Sets the value of [extract][crate::model::JobConfiguration::extract].
+    pub fn set_extract<
+        T: std::convert::Into<std::option::Option<crate::model::JobConfigurationExtract>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.extract = v.into();
+        self
+    }
+
+    /// Sets the value of [dry_run][crate::model::JobConfiguration::dry_run].
+    pub fn set_dry_run<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dry_run = v.into();
+        self
+    }
+
+    /// Sets the value of [job_timeout_ms][crate::model::JobConfiguration::job_timeout_ms].
+    pub fn set_job_timeout_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_timeout_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [reservation][crate::model::JobConfiguration::reservation].
+    pub fn set_reservation<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reservation = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::JobConfiguration::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobConfiguration {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobConfiguration"
+    }
+}
+
+/// Reason about why a Job was created from a
+/// [`jobs.query`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query)
+/// method when used with `JOB_CREATION_OPTIONAL` Job creation mode.
+///
+/// For
+/// [`jobs.insert`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert)
+/// method calls it will always be `REQUESTED`.
+///
+/// [Preview](https://cloud.google.com/products/#product-launch-stages)
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobCreationReason {
+    /// Output only. Specifies the high level reason why a Job was created.
+    pub code: crate::model::job_creation_reason::Code,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobCreationReason {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::JobCreationReason::code].
+    pub fn set_code<T: std::convert::Into<crate::model::job_creation_reason::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for JobCreationReason {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobCreationReason"
+    }
+}
+
+/// Defines additional types related to [JobCreationReason].
+pub mod job_creation_reason {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the high level reason why a job was created.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// Reason is not specified.
+        Unspecified,
+        /// Job creation was requested.
+        Requested,
+        /// The query request ran beyond a system defined timeout specified by the
+        /// [timeoutMs field in the
+        /// QueryRequest](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query#queryrequest).
+        /// As a result it was considered a long running operation for which a job
+        /// was created.
+        LongRunning,
+        /// The results from the query cannot fit in the response.
+        LargeResults,
+        /// BigQuery has determined that the query needs to be executed as a Job.
+        Other,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Requested => std::option::Option::Some(1),
+                Self::LongRunning => std::option::Option::Some(2),
+                Self::LargeResults => std::option::Option::Some(3),
+                Self::Other => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Requested => std::option::Option::Some("REQUESTED"),
+                Self::LongRunning => std::option::Option::Some("LONG_RUNNING"),
+                Self::LargeResults => std::option::Option::Some("LARGE_RESULTS"),
+                Self::Other => std::option::Option::Some("OTHER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Requested,
+                2 => Self::LongRunning,
+                3 => Self::LargeResults,
+                4 => Self::Other,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "REQUESTED" => Self::Requested,
+                "LONG_RUNNING" => Self::LongRunning,
+                "LARGE_RESULTS" => Self::LargeResults,
+                "OTHER" => Self::Other,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Requested => serializer.serialize_i32(1),
+                Self::LongRunning => serializer.serialize_i32(2),
+                Self::LargeResults => serializer.serialize_i32(3),
+                Self::Other => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.bigquery.v2.JobCreationReason.Code",
+            ))
+        }
+    }
+}
+
+/// A job reference is a fully qualified identifier for referring to a job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobReference {
+    /// Required. The ID of the project containing this job.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id: std::string::String,
+
+    /// Required. The ID of the job. The ID must contain only letters (a-z, A-Z),
+    /// numbers (0-9), underscores (_), or dashes (-). The maximum length is 1,024
+    /// characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub job_id: std::string::String,
+
+    /// Optional. The geographic location of the job. The default value is US.
+    ///
+    /// For more information about BigQuery locations, see:
+    /// <https://cloud.google.com/bigquery/docs/locations>
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub location: std::option::Option<wkt::StringValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::JobReference::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [job_id][crate::model::JobReference::job_id].
+    pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::JobReference::location].
+    pub fn set_location<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for JobReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobReference"
+    }
+}
+
+/// An operation within a stage.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExplainQueryStep {
+    /// Machine-readable operation type.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kind: std::string::String,
+
+    /// Human-readable description of the step(s).
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub substeps: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExplainQueryStep {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::ExplainQueryStep::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [substeps][crate::model::ExplainQueryStep::substeps].
+    pub fn set_substeps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.substeps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExplainQueryStep {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ExplainQueryStep"
+    }
+}
+
+/// A single stage of query execution.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExplainQueryStage {
+    /// Human-readable name for the stage.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Unique ID for the stage within the plan.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub id: std::option::Option<wkt::Int64Value>,
+
+    /// Stage start time represented as milliseconds since the epoch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub start_ms: i64,
+
+    /// Stage end time represented as milliseconds since the epoch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub end_ms: i64,
+
+    /// IDs for stages that are inputs to this stage.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    pub input_stages: std::vec::Vec<i64>,
+
+    /// Relative amount of time the average shard spent waiting to be
+    /// scheduled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub wait_ratio_avg: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the average shard spent waiting to be scheduled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub wait_ms_avg: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the slowest shard spent waiting to be
+    /// scheduled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub wait_ratio_max: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the slowest shard spent waiting to be scheduled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub wait_ms_max: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the average shard spent reading input.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub read_ratio_avg: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the average shard spent reading input.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub read_ms_avg: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the slowest shard spent reading input.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub read_ratio_max: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the slowest shard spent reading input.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub read_ms_max: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the average shard spent on CPU-bound tasks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub compute_ratio_avg: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the average shard spent on CPU-bound tasks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub compute_ms_avg: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the slowest shard spent on CPU-bound tasks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub compute_ratio_max: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the slowest shard spent on CPU-bound tasks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub compute_ms_max: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the average shard spent on writing output.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub write_ratio_avg: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the average shard spent on writing output.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub write_ms_avg: std::option::Option<wkt::Int64Value>,
+
+    /// Relative amount of time the slowest shard spent on writing output.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub write_ratio_max: std::option::Option<wkt::DoubleValue>,
+
+    /// Milliseconds the slowest shard spent on writing output.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub write_ms_max: std::option::Option<wkt::Int64Value>,
+
+    /// Total number of bytes written to shuffle.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub shuffle_output_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Total number of bytes written to shuffle and spilled to disk.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub shuffle_output_bytes_spilled: std::option::Option<wkt::Int64Value>,
+
+    /// Number of records read into the stage.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub records_read: std::option::Option<wkt::Int64Value>,
+
+    /// Number of records written by the stage.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub records_written: std::option::Option<wkt::Int64Value>,
+
+    /// Number of parallel input segments to be processed
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub parallel_inputs: std::option::Option<wkt::Int64Value>,
+
+    /// Number of parallel input segments completed.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub completed_parallel_inputs: std::option::Option<wkt::Int64Value>,
+
+    /// Current status for this stage.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub status: std::string::String,
+
+    /// List of operations within the stage in dependency order (approximately
+    /// chronological).
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub steps: std::vec::Vec<crate::model::ExplainQueryStep>,
+
+    /// Slot-milliseconds used by the stage.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub slot_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Compute mode for this stage.
+    pub compute_mode: crate::model::explain_query_stage::ComputeMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExplainQueryStage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExplainQueryStage::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::ExplainQueryStage::id].
+    pub fn set_id<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [start_ms][crate::model::ExplainQueryStage::start_ms].
+    pub fn set_start_ms<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.start_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [end_ms][crate::model::ExplainQueryStage::end_ms].
+    pub fn set_end_ms<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.end_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [wait_ratio_avg][crate::model::ExplainQueryStage::wait_ratio_avg].
+    pub fn set_wait_ratio_avg<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wait_ratio_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [wait_ms_avg][crate::model::ExplainQueryStage::wait_ms_avg].
+    pub fn set_wait_ms_avg<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wait_ms_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [wait_ratio_max][crate::model::ExplainQueryStage::wait_ratio_max].
+    pub fn set_wait_ratio_max<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wait_ratio_max = v.into();
+        self
+    }
+
+    /// Sets the value of [wait_ms_max][crate::model::ExplainQueryStage::wait_ms_max].
+    pub fn set_wait_ms_max<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wait_ms_max = v.into();
+        self
+    }
+
+    /// Sets the value of [read_ratio_avg][crate::model::ExplainQueryStage::read_ratio_avg].
+    pub fn set_read_ratio_avg<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_ratio_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [read_ms_avg][crate::model::ExplainQueryStage::read_ms_avg].
+    pub fn set_read_ms_avg<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_ms_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [read_ratio_max][crate::model::ExplainQueryStage::read_ratio_max].
+    pub fn set_read_ratio_max<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_ratio_max = v.into();
+        self
+    }
+
+    /// Sets the value of [read_ms_max][crate::model::ExplainQueryStage::read_ms_max].
+    pub fn set_read_ms_max<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_ms_max = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_ratio_avg][crate::model::ExplainQueryStage::compute_ratio_avg].
+    pub fn set_compute_ratio_avg<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_ratio_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_ms_avg][crate::model::ExplainQueryStage::compute_ms_avg].
+    pub fn set_compute_ms_avg<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_ms_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_ratio_max][crate::model::ExplainQueryStage::compute_ratio_max].
+    pub fn set_compute_ratio_max<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_ratio_max = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_ms_max][crate::model::ExplainQueryStage::compute_ms_max].
+    pub fn set_compute_ms_max<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_ms_max = v.into();
+        self
+    }
+
+    /// Sets the value of [write_ratio_avg][crate::model::ExplainQueryStage::write_ratio_avg].
+    pub fn set_write_ratio_avg<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_ratio_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [write_ms_avg][crate::model::ExplainQueryStage::write_ms_avg].
+    pub fn set_write_ms_avg<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_ms_avg = v.into();
+        self
+    }
+
+    /// Sets the value of [write_ratio_max][crate::model::ExplainQueryStage::write_ratio_max].
+    pub fn set_write_ratio_max<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_ratio_max = v.into();
+        self
+    }
+
+    /// Sets the value of [write_ms_max][crate::model::ExplainQueryStage::write_ms_max].
+    pub fn set_write_ms_max<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.write_ms_max = v.into();
+        self
+    }
+
+    /// Sets the value of [shuffle_output_bytes][crate::model::ExplainQueryStage::shuffle_output_bytes].
+    pub fn set_shuffle_output_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.shuffle_output_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [shuffle_output_bytes_spilled][crate::model::ExplainQueryStage::shuffle_output_bytes_spilled].
+    pub fn set_shuffle_output_bytes_spilled<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.shuffle_output_bytes_spilled = v.into();
+        self
+    }
+
+    /// Sets the value of [records_read][crate::model::ExplainQueryStage::records_read].
+    pub fn set_records_read<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.records_read = v.into();
+        self
+    }
+
+    /// Sets the value of [records_written][crate::model::ExplainQueryStage::records_written].
+    pub fn set_records_written<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.records_written = v.into();
+        self
+    }
+
+    /// Sets the value of [parallel_inputs][crate::model::ExplainQueryStage::parallel_inputs].
+    pub fn set_parallel_inputs<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parallel_inputs = v.into();
+        self
+    }
+
+    /// Sets the value of [completed_parallel_inputs][crate::model::ExplainQueryStage::completed_parallel_inputs].
+    pub fn set_completed_parallel_inputs<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.completed_parallel_inputs = v.into();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::ExplainQueryStage::status].
+    pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.status = v.into();
+        self
+    }
+
+    /// Sets the value of [slot_ms][crate::model::ExplainQueryStage::slot_ms].
+    pub fn set_slot_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.slot_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_mode][crate::model::ExplainQueryStage::compute_mode].
+    pub fn set_compute_mode<
+        T: std::convert::Into<crate::model::explain_query_stage::ComputeMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [input_stages][crate::model::ExplainQueryStage::input_stages].
+    pub fn set_input_stages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.input_stages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [steps][crate::model::ExplainQueryStage::steps].
+    pub fn set_steps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExplainQueryStep>,
+    {
+        use std::iter::Iterator;
+        self.steps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExplainQueryStage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ExplainQueryStage"
+    }
+}
+
+/// Defines additional types related to [ExplainQueryStage].
+pub mod explain_query_stage {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the type of compute mode.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ComputeMode {
+        /// ComputeMode type not specified.
+        Unspecified,
+        /// This stage was processed using BigQuery slots.
+        Bigquery,
+        /// This stage was processed using BI Engine compute.
+        BiEngine,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ComputeMode::value] or
+        /// [ComputeMode::name].
+        UnknownValue(compute_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod compute_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ComputeMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Bigquery => std::option::Option::Some(1),
+                Self::BiEngine => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("COMPUTE_MODE_UNSPECIFIED"),
+                Self::Bigquery => std::option::Option::Some("BIGQUERY"),
+                Self::BiEngine => std::option::Option::Some("BI_ENGINE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ComputeMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ComputeMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ComputeMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Bigquery,
+                2 => Self::BiEngine,
+                _ => Self::UnknownValue(compute_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ComputeMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COMPUTE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "BIGQUERY" => Self::Bigquery,
+                "BI_ENGINE" => Self::BiEngine,
+                _ => Self::UnknownValue(compute_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ComputeMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Bigquery => serializer.serialize_i32(1),
+                Self::BiEngine => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ComputeMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ComputeMode>::new(
+                ".google.cloud.bigquery.v2.ExplainQueryStage.ComputeMode",
+            ))
+        }
+    }
+}
+
+/// Summary of the state of query execution at a given time.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct QueryTimelineSample {
+    /// Milliseconds elapsed since the start of query execution.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub elapsed_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Cumulative slot-ms consumed by the query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_slot_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Total units of work remaining for the query. This number can be revised
+    /// (increased or decreased) while the query is running.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub pending_units: std::option::Option<wkt::Int64Value>,
+
+    /// Total parallel units of work completed by this query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub completed_units: std::option::Option<wkt::Int64Value>,
+
+    /// Total number of active workers. This does not correspond directly to
+    /// slot usage. This is the largest value observed since the last sample.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub active_units: std::option::Option<wkt::Int64Value>,
+
+    /// Units of work that can be scheduled immediately. Providing additional slots
+    /// for these units of work will accelerate the query, if no other query in
+    /// the reservation needs additional slots.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub estimated_runnable_units: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryTimelineSample {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [elapsed_ms][crate::model::QueryTimelineSample::elapsed_ms].
+    pub fn set_elapsed_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.elapsed_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [total_slot_ms][crate::model::QueryTimelineSample::total_slot_ms].
+    pub fn set_total_slot_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_slot_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [pending_units][crate::model::QueryTimelineSample::pending_units].
+    pub fn set_pending_units<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pending_units = v.into();
+        self
+    }
+
+    /// Sets the value of [completed_units][crate::model::QueryTimelineSample::completed_units].
+    pub fn set_completed_units<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.completed_units = v.into();
+        self
+    }
+
+    /// Sets the value of [active_units][crate::model::QueryTimelineSample::active_units].
+    pub fn set_active_units<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.active_units = v.into();
+        self
+    }
+
+    /// Sets the value of [estimated_runnable_units][crate::model::QueryTimelineSample::estimated_runnable_units].
+    pub fn set_estimated_runnable_units<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.estimated_runnable_units = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryTimelineSample {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.QueryTimelineSample"
+    }
+}
+
+/// The external service cost is a portion of the total cost, these costs are not
+/// additive with total_bytes_billed. Moreover, this field only track external
+/// service costs that will show up as BigQuery costs (e.g. training BigQuery
+/// ML job with google cloud CAIP or Automl Tables services), not other costs
+/// which may be accrued by running the query (e.g. reading from Bigtable or
+/// Cloud Storage). The external service costs with different billing sku (e.g.
+/// CAIP job is charged based on VM usage) are converted to BigQuery
+/// billed_bytes and slot_ms with equivalent amount of US dollars. Services may
+/// not directly correlate to these metrics, but these are the equivalents for
+/// billing purposes.
+/// Output only.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExternalServiceCost {
+    /// External service name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub external_service: std::string::String,
+
+    /// External service cost in terms of bigquery bytes processed.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub bytes_processed: std::option::Option<wkt::Int64Value>,
+
+    /// External service cost in terms of bigquery bytes billed.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub bytes_billed: std::option::Option<wkt::Int64Value>,
+
+    /// External service cost in terms of bigquery slot milliseconds.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub slot_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Non-preemptable reserved slots used for external job.
+    /// For example, reserved slots for Cloua AI Platform job are the VM usages
+    /// converted to BigQuery slot with equivalent mount of price.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub reserved_slot_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExternalServiceCost {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [external_service][crate::model::ExternalServiceCost::external_service].
+    pub fn set_external_service<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.external_service = v.into();
+        self
+    }
+
+    /// Sets the value of [bytes_processed][crate::model::ExternalServiceCost::bytes_processed].
+    pub fn set_bytes_processed<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bytes_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [bytes_billed][crate::model::ExternalServiceCost::bytes_billed].
+    pub fn set_bytes_billed<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bytes_billed = v.into();
+        self
+    }
+
+    /// Sets the value of [slot_ms][crate::model::ExternalServiceCost::slot_ms].
+    pub fn set_slot_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.slot_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [reserved_slot_count][crate::model::ExternalServiceCost::reserved_slot_count].
+    pub fn set_reserved_slot_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.reserved_slot_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExternalServiceCost {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ExternalServiceCost"
+    }
+}
+
+/// Statistics for the EXPORT DATA statement as part of Query Job. EXTRACT
+/// JOB statistics are populated in JobStatistics4.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExportDataStatistics {
+    /// Number of destination files generated in case of EXPORT DATA
+    /// statement only.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub file_count: std::option::Option<wkt::Int64Value>,
+
+    /// [Alpha] Number of destination rows generated in case of EXPORT DATA
+    /// statement only.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub row_count: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportDataStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [file_count][crate::model::ExportDataStatistics::file_count].
+    pub fn set_file_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.file_count = v.into();
+        self
+    }
+
+    /// Sets the value of [row_count][crate::model::ExportDataStatistics::row_count].
+    pub fn set_row_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.row_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExportDataStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ExportDataStatistics"
+    }
+}
+
+/// Reason why BI Engine didn't accelerate the query (or sub-query).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BiEngineReason {
+    /// Output only. High-level BI Engine reason for partial or disabled
+    /// acceleration
+    pub code: crate::model::bi_engine_reason::Code,
+
+    /// Output only. Free form human-readable reason for partial or disabled
+    /// acceleration.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BiEngineReason {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::BiEngineReason::code].
+    pub fn set_code<T: std::convert::Into<crate::model::bi_engine_reason::Code>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::BiEngineReason::message].
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BiEngineReason {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.BiEngineReason"
+    }
+}
+
+/// Defines additional types related to [BiEngineReason].
+pub mod bi_engine_reason {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the high-level reason for no/partial acceleration
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// BiEngineReason not specified.
+        Unspecified,
+        /// No reservation available for BI Engine acceleration.
+        NoReservation,
+        /// Not enough memory available for BI Engine acceleration.
+        InsufficientReservation,
+        /// This particular SQL text is not supported for acceleration by BI Engine.
+        UnsupportedSqlText,
+        /// Input too large for acceleration by BI Engine.
+        InputTooLarge,
+        /// Catch-all code for all other cases for partial or disabled acceleration.
+        OtherReason,
+        /// One or more tables were not eligible for BI Engine acceleration.
+        TableExcluded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoReservation => std::option::Option::Some(1),
+                Self::InsufficientReservation => std::option::Option::Some(2),
+                Self::UnsupportedSqlText => std::option::Option::Some(4),
+                Self::InputTooLarge => std::option::Option::Some(5),
+                Self::OtherReason => std::option::Option::Some(6),
+                Self::TableExcluded => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::NoReservation => std::option::Option::Some("NO_RESERVATION"),
+                Self::InsufficientReservation => {
+                    std::option::Option::Some("INSUFFICIENT_RESERVATION")
+                }
+                Self::UnsupportedSqlText => std::option::Option::Some("UNSUPPORTED_SQL_TEXT"),
+                Self::InputTooLarge => std::option::Option::Some("INPUT_TOO_LARGE"),
+                Self::OtherReason => std::option::Option::Some("OTHER_REASON"),
+                Self::TableExcluded => std::option::Option::Some("TABLE_EXCLUDED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoReservation,
+                2 => Self::InsufficientReservation,
+                4 => Self::UnsupportedSqlText,
+                5 => Self::InputTooLarge,
+                6 => Self::OtherReason,
+                7 => Self::TableExcluded,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "NO_RESERVATION" => Self::NoReservation,
+                "INSUFFICIENT_RESERVATION" => Self::InsufficientReservation,
+                "UNSUPPORTED_SQL_TEXT" => Self::UnsupportedSqlText,
+                "INPUT_TOO_LARGE" => Self::InputTooLarge,
+                "OTHER_REASON" => Self::OtherReason,
+                "TABLE_EXCLUDED" => Self::TableExcluded,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoReservation => serializer.serialize_i32(1),
+                Self::InsufficientReservation => serializer.serialize_i32(2),
+                Self::UnsupportedSqlText => serializer.serialize_i32(4),
+                Self::InputTooLarge => serializer.serialize_i32(5),
+                Self::OtherReason => serializer.serialize_i32(6),
+                Self::TableExcluded => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.bigquery.v2.BiEngineReason.Code",
+            ))
+        }
+    }
+}
+
+/// Statistics for a BI Engine specific query.
+/// Populated as part of JobStatistics2
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BiEngineStatistics {
+    /// Output only. Specifies which mode of BI Engine acceleration was performed
+    /// (if any).
+    pub bi_engine_mode: crate::model::bi_engine_statistics::BiEngineMode,
+
+    /// Output only. Specifies which mode of BI Engine acceleration was performed
+    /// (if any).
+    pub acceleration_mode: crate::model::bi_engine_statistics::BiEngineAccelerationMode,
+
+    /// In case of DISABLED or PARTIAL bi_engine_mode, these contain the
+    /// explanatory reasons as to why BI Engine could not accelerate.
+    /// In case the full query was accelerated, this field is not populated.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub bi_engine_reasons: std::vec::Vec<crate::model::BiEngineReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BiEngineStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bi_engine_mode][crate::model::BiEngineStatistics::bi_engine_mode].
+    pub fn set_bi_engine_mode<
+        T: std::convert::Into<crate::model::bi_engine_statistics::BiEngineMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bi_engine_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [acceleration_mode][crate::model::BiEngineStatistics::acceleration_mode].
+    pub fn set_acceleration_mode<
+        T: std::convert::Into<crate::model::bi_engine_statistics::BiEngineAccelerationMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.acceleration_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [bi_engine_reasons][crate::model::BiEngineStatistics::bi_engine_reasons].
+    pub fn set_bi_engine_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BiEngineReason>,
+    {
+        use std::iter::Iterator;
+        self.bi_engine_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BiEngineStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.BiEngineStatistics"
+    }
+}
+
+/// Defines additional types related to [BiEngineStatistics].
+pub mod bi_engine_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the type of BI Engine acceleration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BiEngineMode {
+        /// BiEngineMode type not specified.
+        AccelerationModeUnspecified,
+        /// BI Engine disabled the acceleration. bi_engine_reasons
+        /// specifies a more detailed reason.
+        Disabled,
+        /// Part of the query was accelerated using BI Engine.
+        /// See bi_engine_reasons for why parts of the query were not
+        /// accelerated.
+        Partial,
+        /// All of the query was accelerated using BI Engine.
+        Full,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BiEngineMode::value] or
+        /// [BiEngineMode::name].
+        UnknownValue(bi_engine_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod bi_engine_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BiEngineMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::AccelerationModeUnspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Partial => std::option::Option::Some(2),
+                Self::Full => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::AccelerationModeUnspecified => {
+                    std::option::Option::Some("ACCELERATION_MODE_UNSPECIFIED")
+                }
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Partial => std::option::Option::Some("PARTIAL"),
+                Self::Full => std::option::Option::Some("FULL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BiEngineMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BiEngineMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BiEngineMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::AccelerationModeUnspecified,
+                1 => Self::Disabled,
+                2 => Self::Partial,
+                3 => Self::Full,
+                _ => Self::UnknownValue(bi_engine_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BiEngineMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACCELERATION_MODE_UNSPECIFIED" => Self::AccelerationModeUnspecified,
+                "DISABLED" => Self::Disabled,
+                "PARTIAL" => Self::Partial,
+                "FULL" => Self::Full,
+                _ => Self::UnknownValue(bi_engine_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BiEngineMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::AccelerationModeUnspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Partial => serializer.serialize_i32(2),
+                Self::Full => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BiEngineMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BiEngineMode>::new(
+                ".google.cloud.bigquery.v2.BiEngineStatistics.BiEngineMode",
+            ))
+        }
+    }
+
+    /// Indicates the type of BI Engine acceleration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BiEngineAccelerationMode {
+        /// BiEngineMode type not specified.
+        Unspecified,
+        /// BI Engine acceleration was attempted but disabled. bi_engine_reasons
+        /// specifies a more detailed reason.
+        BiEngineDisabled,
+        /// Some inputs were accelerated using BI Engine.
+        /// See bi_engine_reasons for why parts of the query were not
+        /// accelerated.
+        PartialInput,
+        /// All of the query inputs were accelerated using BI Engine.
+        FullInput,
+        /// All of the query was accelerated using BI Engine.
+        FullQuery,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BiEngineAccelerationMode::value] or
+        /// [BiEngineAccelerationMode::name].
+        UnknownValue(bi_engine_acceleration_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod bi_engine_acceleration_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BiEngineAccelerationMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::BiEngineDisabled => std::option::Option::Some(1),
+                Self::PartialInput => std::option::Option::Some(2),
+                Self::FullInput => std::option::Option::Some(3),
+                Self::FullQuery => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("BI_ENGINE_ACCELERATION_MODE_UNSPECIFIED")
+                }
+                Self::BiEngineDisabled => std::option::Option::Some("BI_ENGINE_DISABLED"),
+                Self::PartialInput => std::option::Option::Some("PARTIAL_INPUT"),
+                Self::FullInput => std::option::Option::Some("FULL_INPUT"),
+                Self::FullQuery => std::option::Option::Some("FULL_QUERY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BiEngineAccelerationMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BiEngineAccelerationMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BiEngineAccelerationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::BiEngineDisabled,
+                2 => Self::PartialInput,
+                3 => Self::FullInput,
+                4 => Self::FullQuery,
+                _ => Self::UnknownValue(bi_engine_acceleration_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BiEngineAccelerationMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BI_ENGINE_ACCELERATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "BI_ENGINE_DISABLED" => Self::BiEngineDisabled,
+                "PARTIAL_INPUT" => Self::PartialInput,
+                "FULL_INPUT" => Self::FullInput,
+                "FULL_QUERY" => Self::FullQuery,
+                _ => Self::UnknownValue(bi_engine_acceleration_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BiEngineAccelerationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::BiEngineDisabled => serializer.serialize_i32(1),
+                Self::PartialInput => serializer.serialize_i32(2),
+                Self::FullInput => serializer.serialize_i32(3),
+                Self::FullQuery => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BiEngineAccelerationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<BiEngineAccelerationMode>::new(
+                    ".google.cloud.bigquery.v2.BiEngineStatistics.BiEngineAccelerationMode",
+                ),
+            )
+        }
+    }
+}
+
+/// Reason about why no search index was used in the search query (or
+/// sub-query).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IndexUnusedReason {
+    /// Specifies the high-level reason for the scenario when no search index was
+    /// used.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub code: std::option::Option<crate::model::index_unused_reason::Code>,
+
+    /// Free form human-readable reason for the scenario when no search index was
+    /// used.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub message: std::option::Option<std::string::String>,
+
+    /// Specifies the base table involved in the reason that no search index was
+    /// used.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub base_table: std::option::Option<crate::model::TableReference>,
+
+    /// Specifies the name of the unused search index, if available.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub index_name: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IndexUnusedReason {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::IndexUnusedReason::code].
+    pub fn set_code<
+        T: std::convert::Into<std::option::Option<crate::model::index_unused_reason::Code>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::IndexUnusedReason::message].
+    pub fn set_message<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message = v.into();
+        self
+    }
+
+    /// Sets the value of [base_table][crate::model::IndexUnusedReason::base_table].
+    pub fn set_base_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.base_table = v.into();
+        self
+    }
+
+    /// Sets the value of [index_name][crate::model::IndexUnusedReason::index_name].
+    pub fn set_index_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.index_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IndexUnusedReason {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.IndexUnusedReason"
+    }
+}
+
+/// Defines additional types related to [IndexUnusedReason].
+pub mod index_unused_reason {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the high-level reason for the scenario when no search index was
+    /// used.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
+        /// Code not specified.
+        Unspecified,
+        /// Indicates the search index configuration has not been created.
+        IndexConfigNotAvailable,
+        /// Indicates the search index creation has not been completed.
+        PendingIndexCreation,
+        /// Indicates the base table has been truncated (rows have been removed
+        /// from table with TRUNCATE TABLE statement) since the last time the search
+        /// index was refreshed.
+        BaseTableTruncated,
+        /// Indicates the search index configuration has been changed since the last
+        /// time the search index was refreshed.
+        IndexConfigModified,
+        /// Indicates the search query accesses data at a timestamp before the last
+        /// time the search index was refreshed.
+        TimeTravelQuery,
+        /// Indicates the usage of search index will not contribute to any pruning
+        /// improvement for the search function, e.g. when the search predicate is in
+        /// a disjunction with other non-search predicates.
+        NoPruningPower,
+        /// Indicates the search index does not cover all fields in the search
+        /// function.
+        UnindexedSearchFields,
+        /// Indicates the search index does not support the given search query
+        /// pattern.
+        UnsupportedSearchPattern,
+        /// Indicates the query has been optimized by using a materialized view.
+        OptimizedWithMaterializedView,
+        /// Indicates the query has been secured by data masking, and thus search
+        /// indexes are not applicable.
+        SecuredByDataMasking,
+        /// Indicates that the search index and the search function call do not
+        /// have the same text analyzer.
+        MismatchedTextAnalyzer,
+        /// Indicates the base table is too small (below a certain threshold).
+        /// The index does not provide noticeable search performance gains
+        /// when the base table is too small.
+        BaseTableTooSmall,
+        /// Indicates that the total size of indexed base tables in your organization
+        /// exceeds your region's limit and the index is not used in the query. To
+        /// index larger base tables, you can
+        /// <a
+        /// href="https://cloud.google.com/bigquery/docs/search-index#use_your_own_reservation">use
+        /// your own reservation</a> for index-management jobs.
+        BaseTableTooLarge,
+        /// Indicates that the estimated performance gain from using the search index
+        /// is too low for the given search query.
+        EstimatedPerformanceGainTooLow,
+        /// Indicates that search indexes can not be used for search query with
+        /// STANDARD edition.
+        NotSupportedInStandardEdition,
+        /// Indicates that an option in the search function that cannot make use of
+        /// the index has been selected.
+        IndexSuppressedByFunctionOption,
+        /// Indicates that the query was cached, and thus the search index was not
+        /// used.
+        QueryCacheHit,
+        /// The index cannot be used in the search query because it is stale.
+        StaleIndex,
+        /// Indicates an internal error that causes the search index to be unused.
+        InternalError,
+        /// Indicates that the reason search indexes cannot be used in the query is
+        /// not covered by any of the other IndexUnusedReason options.
+        OtherReason,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Code {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::IndexConfigNotAvailable => std::option::Option::Some(1),
+                Self::PendingIndexCreation => std::option::Option::Some(2),
+                Self::BaseTableTruncated => std::option::Option::Some(3),
+                Self::IndexConfigModified => std::option::Option::Some(4),
+                Self::TimeTravelQuery => std::option::Option::Some(5),
+                Self::NoPruningPower => std::option::Option::Some(6),
+                Self::UnindexedSearchFields => std::option::Option::Some(7),
+                Self::UnsupportedSearchPattern => std::option::Option::Some(8),
+                Self::OptimizedWithMaterializedView => std::option::Option::Some(9),
+                Self::SecuredByDataMasking => std::option::Option::Some(11),
+                Self::MismatchedTextAnalyzer => std::option::Option::Some(12),
+                Self::BaseTableTooSmall => std::option::Option::Some(13),
+                Self::BaseTableTooLarge => std::option::Option::Some(14),
+                Self::EstimatedPerformanceGainTooLow => std::option::Option::Some(15),
+                Self::NotSupportedInStandardEdition => std::option::Option::Some(17),
+                Self::IndexSuppressedByFunctionOption => std::option::Option::Some(18),
+                Self::QueryCacheHit => std::option::Option::Some(19),
+                Self::StaleIndex => std::option::Option::Some(20),
+                Self::InternalError => std::option::Option::Some(10),
+                Self::OtherReason => std::option::Option::Some(16),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::IndexConfigNotAvailable => {
+                    std::option::Option::Some("INDEX_CONFIG_NOT_AVAILABLE")
+                }
+                Self::PendingIndexCreation => std::option::Option::Some("PENDING_INDEX_CREATION"),
+                Self::BaseTableTruncated => std::option::Option::Some("BASE_TABLE_TRUNCATED"),
+                Self::IndexConfigModified => std::option::Option::Some("INDEX_CONFIG_MODIFIED"),
+                Self::TimeTravelQuery => std::option::Option::Some("TIME_TRAVEL_QUERY"),
+                Self::NoPruningPower => std::option::Option::Some("NO_PRUNING_POWER"),
+                Self::UnindexedSearchFields => std::option::Option::Some("UNINDEXED_SEARCH_FIELDS"),
+                Self::UnsupportedSearchPattern => {
+                    std::option::Option::Some("UNSUPPORTED_SEARCH_PATTERN")
+                }
+                Self::OptimizedWithMaterializedView => {
+                    std::option::Option::Some("OPTIMIZED_WITH_MATERIALIZED_VIEW")
+                }
+                Self::SecuredByDataMasking => std::option::Option::Some("SECURED_BY_DATA_MASKING"),
+                Self::MismatchedTextAnalyzer => {
+                    std::option::Option::Some("MISMATCHED_TEXT_ANALYZER")
+                }
+                Self::BaseTableTooSmall => std::option::Option::Some("BASE_TABLE_TOO_SMALL"),
+                Self::BaseTableTooLarge => std::option::Option::Some("BASE_TABLE_TOO_LARGE"),
+                Self::EstimatedPerformanceGainTooLow => {
+                    std::option::Option::Some("ESTIMATED_PERFORMANCE_GAIN_TOO_LOW")
+                }
+                Self::NotSupportedInStandardEdition => {
+                    std::option::Option::Some("NOT_SUPPORTED_IN_STANDARD_EDITION")
+                }
+                Self::IndexSuppressedByFunctionOption => {
+                    std::option::Option::Some("INDEX_SUPPRESSED_BY_FUNCTION_OPTION")
+                }
+                Self::QueryCacheHit => std::option::Option::Some("QUERY_CACHE_HIT"),
+                Self::StaleIndex => std::option::Option::Some("STALE_INDEX"),
+                Self::InternalError => std::option::Option::Some("INTERNAL_ERROR"),
+                Self::OtherReason => std::option::Option::Some("OTHER_REASON"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::IndexConfigNotAvailable,
+                2 => Self::PendingIndexCreation,
+                3 => Self::BaseTableTruncated,
+                4 => Self::IndexConfigModified,
+                5 => Self::TimeTravelQuery,
+                6 => Self::NoPruningPower,
+                7 => Self::UnindexedSearchFields,
+                8 => Self::UnsupportedSearchPattern,
+                9 => Self::OptimizedWithMaterializedView,
+                10 => Self::InternalError,
+                11 => Self::SecuredByDataMasking,
+                12 => Self::MismatchedTextAnalyzer,
+                13 => Self::BaseTableTooSmall,
+                14 => Self::BaseTableTooLarge,
+                15 => Self::EstimatedPerformanceGainTooLow,
+                16 => Self::OtherReason,
+                17 => Self::NotSupportedInStandardEdition,
+                18 => Self::IndexSuppressedByFunctionOption,
+                19 => Self::QueryCacheHit,
+                20 => Self::StaleIndex,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "INDEX_CONFIG_NOT_AVAILABLE" => Self::IndexConfigNotAvailable,
+                "PENDING_INDEX_CREATION" => Self::PendingIndexCreation,
+                "BASE_TABLE_TRUNCATED" => Self::BaseTableTruncated,
+                "INDEX_CONFIG_MODIFIED" => Self::IndexConfigModified,
+                "TIME_TRAVEL_QUERY" => Self::TimeTravelQuery,
+                "NO_PRUNING_POWER" => Self::NoPruningPower,
+                "UNINDEXED_SEARCH_FIELDS" => Self::UnindexedSearchFields,
+                "UNSUPPORTED_SEARCH_PATTERN" => Self::UnsupportedSearchPattern,
+                "OPTIMIZED_WITH_MATERIALIZED_VIEW" => Self::OptimizedWithMaterializedView,
+                "SECURED_BY_DATA_MASKING" => Self::SecuredByDataMasking,
+                "MISMATCHED_TEXT_ANALYZER" => Self::MismatchedTextAnalyzer,
+                "BASE_TABLE_TOO_SMALL" => Self::BaseTableTooSmall,
+                "BASE_TABLE_TOO_LARGE" => Self::BaseTableTooLarge,
+                "ESTIMATED_PERFORMANCE_GAIN_TOO_LOW" => Self::EstimatedPerformanceGainTooLow,
+                "NOT_SUPPORTED_IN_STANDARD_EDITION" => Self::NotSupportedInStandardEdition,
+                "INDEX_SUPPRESSED_BY_FUNCTION_OPTION" => Self::IndexSuppressedByFunctionOption,
+                "QUERY_CACHE_HIT" => Self::QueryCacheHit,
+                "STALE_INDEX" => Self::StaleIndex,
+                "INTERNAL_ERROR" => Self::InternalError,
+                "OTHER_REASON" => Self::OtherReason,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::IndexConfigNotAvailable => serializer.serialize_i32(1),
+                Self::PendingIndexCreation => serializer.serialize_i32(2),
+                Self::BaseTableTruncated => serializer.serialize_i32(3),
+                Self::IndexConfigModified => serializer.serialize_i32(4),
+                Self::TimeTravelQuery => serializer.serialize_i32(5),
+                Self::NoPruningPower => serializer.serialize_i32(6),
+                Self::UnindexedSearchFields => serializer.serialize_i32(7),
+                Self::UnsupportedSearchPattern => serializer.serialize_i32(8),
+                Self::OptimizedWithMaterializedView => serializer.serialize_i32(9),
+                Self::SecuredByDataMasking => serializer.serialize_i32(11),
+                Self::MismatchedTextAnalyzer => serializer.serialize_i32(12),
+                Self::BaseTableTooSmall => serializer.serialize_i32(13),
+                Self::BaseTableTooLarge => serializer.serialize_i32(14),
+                Self::EstimatedPerformanceGainTooLow => serializer.serialize_i32(15),
+                Self::NotSupportedInStandardEdition => serializer.serialize_i32(17),
+                Self::IndexSuppressedByFunctionOption => serializer.serialize_i32(18),
+                Self::QueryCacheHit => serializer.serialize_i32(19),
+                Self::StaleIndex => serializer.serialize_i32(20),
+                Self::InternalError => serializer.serialize_i32(10),
+                Self::OtherReason => serializer.serialize_i32(16),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.bigquery.v2.IndexUnusedReason.Code",
+            ))
+        }
+    }
+}
+
+/// Indicates the stored columns usage in the query.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct StoredColumnsUsage {
+    /// Specifies whether the query was accelerated with stored columns.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub is_query_accelerated: std::option::Option<bool>,
+
+    /// Specifies the base table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub base_table: std::option::Option<crate::model::TableReference>,
+
+    /// If stored columns were not used, explain why.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub stored_columns_unused_reasons:
+        std::vec::Vec<crate::model::stored_columns_usage::StoredColumnsUnusedReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StoredColumnsUsage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [is_query_accelerated][crate::model::StoredColumnsUsage::is_query_accelerated].
+    pub fn set_is_query_accelerated<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.is_query_accelerated = v.into();
+        self
+    }
+
+    /// Sets the value of [base_table][crate::model::StoredColumnsUsage::base_table].
+    pub fn set_base_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.base_table = v.into();
+        self
+    }
+
+    /// Sets the value of [stored_columns_unused_reasons][crate::model::StoredColumnsUsage::stored_columns_unused_reasons].
+    pub fn set_stored_columns_unused_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::stored_columns_usage::StoredColumnsUnusedReason>,
+    {
+        use std::iter::Iterator;
+        self.stored_columns_unused_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StoredColumnsUsage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.StoredColumnsUsage"
+    }
+}
+
+/// Defines additional types related to [StoredColumnsUsage].
+pub mod stored_columns_usage {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// If the stored column was not used, explain why.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct StoredColumnsUnusedReason {
+        /// Specifies the high-level reason for the unused scenario, each reason must
+        /// have a code associated.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub code: std::option::Option<
+            crate::model::stored_columns_usage::stored_columns_unused_reason::Code,
+        >,
+
+        /// Specifies the detailed description for the scenario.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub message: std::option::Option<std::string::String>,
+
+        /// Specifies which columns were not covered by the stored columns for the
+        /// specified code up to 20 columns. This is populated when the code is
+        /// STORED_COLUMNS_COVER_INSUFFICIENT and BASE_TABLE_HAS_CLS.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub uncovered_columns: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StoredColumnsUnusedReason {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::stored_columns_usage::StoredColumnsUnusedReason::code].
+        pub fn set_code<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::stored_columns_usage::stored_columns_unused_reason::Code,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::stored_columns_usage::StoredColumnsUnusedReason::message].
+        pub fn set_message<T: std::convert::Into<std::option::Option<std::string::String>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.message = v.into();
+            self
+        }
+
+        /// Sets the value of [uncovered_columns][crate::model::stored_columns_usage::StoredColumnsUnusedReason::uncovered_columns].
+        pub fn set_uncovered_columns<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.uncovered_columns = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for StoredColumnsUnusedReason {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.StoredColumnsUsage.StoredColumnsUnusedReason"
+        }
+    }
+
+    /// Defines additional types related to [StoredColumnsUnusedReason].
+    pub mod stored_columns_unused_reason {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Indicates the high-level reason for the scenario when stored columns
+        /// cannot be used in the query.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Default value.
+            Unspecified,
+            /// If stored columns do not fully cover the columns.
+            StoredColumnsCoverInsufficient,
+            /// If the base table has RLS (Row Level Security).
+            BaseTableHasRls,
+            /// If the base table has CLS (Column Level Security).
+            BaseTableHasCls,
+            /// If the provided prefilter is not supported.
+            UnsupportedPrefilter,
+            /// If an internal error is preventing stored columns from being used.
+            InternalError,
+            /// Indicates that the reason stored columns cannot be used in the query is
+            /// not covered by any of the other StoredColumnsUnusedReason options.
+            OtherReason,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::StoredColumnsCoverInsufficient => std::option::Option::Some(1),
+                    Self::BaseTableHasRls => std::option::Option::Some(2),
+                    Self::BaseTableHasCls => std::option::Option::Some(3),
+                    Self::UnsupportedPrefilter => std::option::Option::Some(4),
+                    Self::InternalError => std::option::Option::Some(5),
+                    Self::OtherReason => std::option::Option::Some(6),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                    Self::StoredColumnsCoverInsufficient => {
+                        std::option::Option::Some("STORED_COLUMNS_COVER_INSUFFICIENT")
+                    }
+                    Self::BaseTableHasRls => std::option::Option::Some("BASE_TABLE_HAS_RLS"),
+                    Self::BaseTableHasCls => std::option::Option::Some("BASE_TABLE_HAS_CLS"),
+                    Self::UnsupportedPrefilter => {
+                        std::option::Option::Some("UNSUPPORTED_PREFILTER")
+                    }
+                    Self::InternalError => std::option::Option::Some("INTERNAL_ERROR"),
+                    Self::OtherReason => std::option::Option::Some("OTHER_REASON"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::StoredColumnsCoverInsufficient,
+                    2 => Self::BaseTableHasRls,
+                    3 => Self::BaseTableHasCls,
+                    4 => Self::UnsupportedPrefilter,
+                    5 => Self::InternalError,
+                    6 => Self::OtherReason,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CODE_UNSPECIFIED" => Self::Unspecified,
+                    "STORED_COLUMNS_COVER_INSUFFICIENT" => Self::StoredColumnsCoverInsufficient,
+                    "BASE_TABLE_HAS_RLS" => Self::BaseTableHasRls,
+                    "BASE_TABLE_HAS_CLS" => Self::BaseTableHasCls,
+                    "UNSUPPORTED_PREFILTER" => Self::UnsupportedPrefilter,
+                    "INTERNAL_ERROR" => Self::InternalError,
+                    "OTHER_REASON" => Self::OtherReason,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::StoredColumnsCoverInsufficient => serializer.serialize_i32(1),
+                    Self::BaseTableHasRls => serializer.serialize_i32(2),
+                    Self::BaseTableHasCls => serializer.serialize_i32(3),
+                    Self::UnsupportedPrefilter => serializer.serialize_i32(4),
+                    Self::InternalError => serializer.serialize_i32(5),
+                    Self::OtherReason => serializer.serialize_i32(6),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.bigquery.v2.StoredColumnsUsage.StoredColumnsUnusedReason.Code",
+                ))
+            }
+        }
+    }
+}
+
+/// Statistics for a search query.
+/// Populated as part of JobStatistics2.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SearchStatistics {
+    /// Specifies the index usage mode for the query.
+    pub index_usage_mode: crate::model::search_statistics::IndexUsageMode,
+
+    /// When `indexUsageMode` is `UNUSED` or `PARTIALLY_USED`, this field explains
+    /// why indexes were not used in all or part of the search query. If
+    /// `indexUsageMode` is `FULLY_USED`, this field is not populated.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub index_unused_reasons: std::vec::Vec<crate::model::IndexUnusedReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [index_usage_mode][crate::model::SearchStatistics::index_usage_mode].
+    pub fn set_index_usage_mode<
+        T: std::convert::Into<crate::model::search_statistics::IndexUsageMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.index_usage_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [index_unused_reasons][crate::model::SearchStatistics::index_unused_reasons].
+    pub fn set_index_unused_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IndexUnusedReason>,
+    {
+        use std::iter::Iterator;
+        self.index_unused_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.SearchStatistics"
+    }
+}
+
+/// Defines additional types related to [SearchStatistics].
+pub mod search_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the type of search index usage in the entire search query.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IndexUsageMode {
+        /// Index usage mode not specified.
+        Unspecified,
+        /// No search indexes were used in the search query. See
+        /// [`indexUnusedReasons`]
+        /// (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason)
+        /// for detailed reasons.
+        Unused,
+        /// Part of the search query used search indexes. See [`indexUnusedReasons`]
+        /// (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason)
+        /// for why other parts of the query did not use search indexes.
+        PartiallyUsed,
+        /// The entire search query used search indexes.
+        FullyUsed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IndexUsageMode::value] or
+        /// [IndexUsageMode::name].
+        UnknownValue(index_usage_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod index_usage_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IndexUsageMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Unused => std::option::Option::Some(1),
+                Self::PartiallyUsed => std::option::Option::Some(2),
+                Self::FullyUsed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INDEX_USAGE_MODE_UNSPECIFIED"),
+                Self::Unused => std::option::Option::Some("UNUSED"),
+                Self::PartiallyUsed => std::option::Option::Some("PARTIALLY_USED"),
+                Self::FullyUsed => std::option::Option::Some("FULLY_USED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IndexUsageMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IndexUsageMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IndexUsageMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Unused,
+                2 => Self::PartiallyUsed,
+                4 => Self::FullyUsed,
+                _ => Self::UnknownValue(index_usage_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IndexUsageMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INDEX_USAGE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "UNUSED" => Self::Unused,
+                "PARTIALLY_USED" => Self::PartiallyUsed,
+                "FULLY_USED" => Self::FullyUsed,
+                _ => Self::UnknownValue(index_usage_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IndexUsageMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Unused => serializer.serialize_i32(1),
+                Self::PartiallyUsed => serializer.serialize_i32(2),
+                Self::FullyUsed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IndexUsageMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IndexUsageMode>::new(
+                ".google.cloud.bigquery.v2.SearchStatistics.IndexUsageMode",
+            ))
+        }
+    }
+}
+
+/// Statistics for a vector search query.
+/// Populated as part of JobStatistics2.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VectorSearchStatistics {
+    /// Specifies the index usage mode for the query.
+    pub index_usage_mode: crate::model::vector_search_statistics::IndexUsageMode,
+
+    /// When `indexUsageMode` is `UNUSED` or `PARTIALLY_USED`, this field explains
+    /// why indexes were not used in all or part of the vector search query. If
+    /// `indexUsageMode` is `FULLY_USED`, this field is not populated.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub index_unused_reasons: std::vec::Vec<crate::model::IndexUnusedReason>,
+
+    /// Specifies the usage of stored columns in the query when stored columns are
+    /// used in the query.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub stored_columns_usages: std::vec::Vec<crate::model::StoredColumnsUsage>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VectorSearchStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [index_usage_mode][crate::model::VectorSearchStatistics::index_usage_mode].
+    pub fn set_index_usage_mode<
+        T: std::convert::Into<crate::model::vector_search_statistics::IndexUsageMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.index_usage_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [index_unused_reasons][crate::model::VectorSearchStatistics::index_unused_reasons].
+    pub fn set_index_unused_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IndexUnusedReason>,
+    {
+        use std::iter::Iterator;
+        self.index_unused_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [stored_columns_usages][crate::model::VectorSearchStatistics::stored_columns_usages].
+    pub fn set_stored_columns_usages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StoredColumnsUsage>,
+    {
+        use std::iter::Iterator;
+        self.stored_columns_usages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VectorSearchStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.VectorSearchStatistics"
+    }
+}
+
+/// Defines additional types related to [VectorSearchStatistics].
+pub mod vector_search_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Indicates the type of vector index usage in the entire vector search query.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IndexUsageMode {
+        /// Index usage mode not specified.
+        Unspecified,
+        /// No vector indexes were used in the vector search query. See
+        /// [`indexUnusedReasons`]
+        /// (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason)
+        /// for detailed reasons.
+        Unused,
+        /// Part of the vector search query used vector indexes. See
+        /// [`indexUnusedReasons`]
+        /// (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason)
+        /// for why other parts of the query did not use vector indexes.
+        PartiallyUsed,
+        /// The entire vector search query used vector indexes.
+        FullyUsed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IndexUsageMode::value] or
+        /// [IndexUsageMode::name].
+        UnknownValue(index_usage_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod index_usage_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IndexUsageMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Unused => std::option::Option::Some(1),
+                Self::PartiallyUsed => std::option::Option::Some(2),
+                Self::FullyUsed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INDEX_USAGE_MODE_UNSPECIFIED"),
+                Self::Unused => std::option::Option::Some("UNUSED"),
+                Self::PartiallyUsed => std::option::Option::Some("PARTIALLY_USED"),
+                Self::FullyUsed => std::option::Option::Some("FULLY_USED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IndexUsageMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IndexUsageMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IndexUsageMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Unused,
+                2 => Self::PartiallyUsed,
+                4 => Self::FullyUsed,
+                _ => Self::UnknownValue(index_usage_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IndexUsageMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INDEX_USAGE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "UNUSED" => Self::Unused,
+                "PARTIALLY_USED" => Self::PartiallyUsed,
+                "FULLY_USED" => Self::FullyUsed,
+                _ => Self::UnknownValue(index_usage_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IndexUsageMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Unused => serializer.serialize_i32(1),
+                Self::PartiallyUsed => serializer.serialize_i32(2),
+                Self::FullyUsed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IndexUsageMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IndexUsageMode>::new(
+                ".google.cloud.bigquery.v2.VectorSearchStatistics.IndexUsageMode",
+            ))
+        }
+    }
+}
+
+/// Query optimization information for a QUERY job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct QueryInfo {
+    /// Output only. Information about query optimizations.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optimization_details: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [optimization_details][crate::model::QueryInfo::optimization_details].
+    pub fn set_optimization_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.optimization_details = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.QueryInfo"
+    }
+}
+
+/// Statistics for a LOAD query.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LoadQueryStatistics {
+    /// Output only. Number of source files in a LOAD query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub input_files: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of bytes of source data in a LOAD query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub input_file_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of rows imported in a LOAD query.
+    /// Note that while a LOAD query is in the running state, this value may
+    /// change.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub output_rows: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Size of the loaded data in bytes. Note that while a LOAD query
+    /// is in the running state, this value may change.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub output_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. The number of bad records encountered while processing a LOAD
+    /// query. Note that if the job has failed because of more bad records
+    /// encountered than the maximum allowed in the load job configuration, then
+    /// this number can be less than the total number of bad records present in the
+    /// input data.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub bad_records: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LoadQueryStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [input_files][crate::model::LoadQueryStatistics::input_files].
+    pub fn set_input_files<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_files = v.into();
+        self
+    }
+
+    /// Sets the value of [input_file_bytes][crate::model::LoadQueryStatistics::input_file_bytes].
+    pub fn set_input_file_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_file_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [output_rows][crate::model::LoadQueryStatistics::output_rows].
+    pub fn set_output_rows<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [output_bytes][crate::model::LoadQueryStatistics::output_bytes].
+    pub fn set_output_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [bad_records][crate::model::LoadQueryStatistics::bad_records].
+    pub fn set_bad_records<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bad_records = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LoadQueryStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.LoadQueryStatistics"
+    }
+}
+
+/// Statistics for a query job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobStatistics2 {
+    /// Output only. Describes execution plan for the query.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub query_plan: std::vec::Vec<crate::model::ExplainQueryStage>,
+
+    /// Output only. The original estimate of bytes processed for the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub estimated_bytes_processed: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Describes a timeline of job execution.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub timeline: std::vec::Vec<crate::model::QueryTimelineSample>,
+
+    /// Output only. Total number of partitions processed from all partitioned
+    /// tables referenced in the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_partitions_processed: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Total bytes processed for the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_bytes_processed: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. For dry-run jobs, totalBytesProcessed is an estimate and this
+    /// field specifies the accuracy of the estimate. Possible values can be:
+    /// UNKNOWN: accuracy of the estimate is unknown.
+    /// PRECISE: estimate is precise.
+    /// LOWER_BOUND: estimate is lower bound of what the query would cost.
+    /// UPPER_BOUND: estimate is upper bound of what the query would cost.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub total_bytes_processed_accuracy: std::string::String,
+
+    /// Output only. If the project is configured to use on-demand pricing,
+    /// then this field contains the total bytes billed for the job.
+    /// If the project is configured to use flat-rate pricing, then you are
+    /// not billed for bytes and this field is informational only.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_bytes_billed: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Billing tier for the job. This is a BigQuery-specific concept
+    /// which is not related to the Google Cloud notion of "free tier". The value
+    /// here is a measure of the query's resource consumption relative to the
+    /// amount of data scanned. For on-demand queries, the limit is 100, and all
+    /// queries within this limit are billed at the standard on-demand rates.
+    /// On-demand queries that exceed this limit will fail with a
+    /// billingTierLimitExceeded error.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub billing_tier: std::option::Option<wkt::Int32Value>,
+
+    /// Output only. Slot-milliseconds for the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_slot_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Whether the query result was fetched from the query cache.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cache_hit: std::option::Option<wkt::BoolValue>,
+
+    /// Output only. Referenced tables for the job. Queries that reference more
+    /// than 50 tables will not have a complete list.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub referenced_tables: std::vec::Vec<crate::model::TableReference>,
+
+    /// Output only. Referenced routines for the job.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub referenced_routines: std::vec::Vec<crate::model::RoutineReference>,
+
+    /// Output only. The schema of the results. Present only for successful dry
+    /// run of non-legacy SQL queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub schema: std::option::Option<crate::model::TableSchema>,
+
+    /// Output only. The number of rows affected by a DML statement. Present
+    /// only for DML statements INSERT, UPDATE or DELETE.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub num_dml_affected_rows: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Detailed statistics for DML statements INSERT, UPDATE, DELETE,
+    /// MERGE or TRUNCATE.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dml_stats: std::option::Option<crate::model::DmlStats>,
+
+    /// Output only. GoogleSQL only: list of undeclared query
+    /// parameters detected during a dry run validation.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub undeclared_query_parameters: std::vec::Vec<crate::model::QueryParameter>,
+
+    /// Output only. The type of query statement, if valid.
+    /// Possible values:
+    ///
+    /// * `SELECT`:
+    ///   [`SELECT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#select_list)
+    ///   statement.
+    /// * `ASSERT`:
+    ///   [`ASSERT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/debugging-statements#assert)
+    ///   statement.
+    /// * `INSERT`:
+    ///   [`INSERT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#insert_statement)
+    ///   statement.
+    /// * `UPDATE`:
+    ///   [`UPDATE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_statement)
+    ///   statement.
+    /// * `DELETE`:
+    ///   [`DELETE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-manipulation-language)
+    ///   statement.
+    /// * `MERGE`:
+    ///   [`MERGE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-manipulation-language)
+    ///   statement.
+    /// * `CREATE_TABLE`: [`CREATE
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_statement)
+    ///   statement, without `AS SELECT`.
+    /// * `CREATE_TABLE_AS_SELECT`: [`CREATE TABLE AS
+    ///   SELECT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_statement)
+    ///   statement.
+    /// * `CREATE_VIEW`: [`CREATE
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_view_statement)
+    ///   statement.
+    /// * `CREATE_MODEL`: [`CREATE
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-create#create_model_statement)
+    ///   statement.
+    /// * `CREATE_MATERIALIZED_VIEW`: [`CREATE MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_materialized_view_statement)
+    ///   statement.
+    /// * `CREATE_FUNCTION`: [`CREATE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_function_statement)
+    ///   statement.
+    /// * `CREATE_TABLE_FUNCTION`: [`CREATE TABLE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_function_statement)
+    ///   statement.
+    /// * `CREATE_PROCEDURE`: [`CREATE
+    ///   PROCEDURE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_procedure)
+    ///   statement.
+    /// * `CREATE_ROW_ACCESS_POLICY`: [`CREATE ROW ACCESS
+    ///   POLICY`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_row_access_policy_statement)
+    ///   statement.
+    /// * `CREATE_SCHEMA`: [`CREATE
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_schema_statement)
+    ///   statement.
+    /// * `CREATE_SNAPSHOT_TABLE`: [`CREATE SNAPSHOT
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_snapshot_table_statement)
+    ///   statement.
+    /// * `CREATE_SEARCH_INDEX`: [`CREATE SEARCH
+    ///   INDEX`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_search_index_statement)
+    ///   statement.
+    /// * `DROP_TABLE`: [`DROP
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_table_statement)
+    ///   statement.
+    /// * `DROP_EXTERNAL_TABLE`: [`DROP EXTERNAL
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_external_table_statement)
+    ///   statement.
+    /// * `DROP_VIEW`: [`DROP
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_view_statement)
+    ///   statement.
+    /// * `DROP_MODEL`: [`DROP
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-drop-model)
+    ///   statement.
+    /// * `DROP_MATERIALIZED_VIEW`: [`DROP MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_materialized_view_statement)
+    ///   statement.
+    /// * `DROP_FUNCTION` : [`DROP
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_function_statement)
+    ///   statement.
+    /// * `DROP_TABLE_FUNCTION` : [`DROP TABLE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_table_function)
+    ///   statement.
+    /// * `DROP_PROCEDURE`: [`DROP
+    ///   PROCEDURE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_procedure_statement)
+    ///   statement.
+    /// * `DROP_SEARCH_INDEX`: [`DROP SEARCH
+    ///   INDEX`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_search_index)
+    ///   statement.
+    /// * `DROP_SCHEMA`: [`DROP
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_schema_statement)
+    ///   statement.
+    /// * `DROP_SNAPSHOT_TABLE`: [`DROP SNAPSHOT
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_snapshot_table_statement)
+    ///   statement.
+    /// * `DROP_ROW_ACCESS_POLICY`: [`DROP [ALL] ROW ACCESS
+    ///   POLICY|POLICIES`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_row_access_policy_statement)
+    ///   statement.
+    /// * `ALTER_TABLE`: [`ALTER
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_table_set_options_statement)
+    ///   statement.
+    /// * `ALTER_VIEW`: [`ALTER
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_view_set_options_statement)
+    ///   statement.
+    /// * `ALTER_MATERIALIZED_VIEW`: [`ALTER MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_materialized_view_set_options_statement)
+    ///   statement.
+    /// * `ALTER_SCHEMA`: [`ALTER
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_schema_set_options_statement)
+    ///   statement.
+    /// * `SCRIPT`:
+    ///   [`SCRIPT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language).
+    /// * `TRUNCATE_TABLE`: [`TRUNCATE
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#truncate_table_statement)
+    ///   statement.
+    /// * `CREATE_EXTERNAL_TABLE`: [`CREATE EXTERNAL
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_external_table_statement)
+    ///   statement.
+    /// * `EXPORT_DATA`: [`EXPORT
+    ///   DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#export_data_statement)
+    ///   statement.
+    /// * `EXPORT_MODEL`: [`EXPORT
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-export-model)
+    ///   statement.
+    /// * `LOAD_DATA`: [`LOAD
+    ///   DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#load_data_statement)
+    ///   statement.
+    /// * `CALL`:
+    ///   [`CALL`](https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language#call)
+    ///   statement.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub statement_type: std::string::String,
+
+    /// Output only. The DDL operation performed, possibly
+    /// dependent on the pre-existence of the DDL target.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub ddl_operation_performed: std::string::String,
+
+    /// Output only. The DDL target table. Present only for
+    /// CREATE/DROP TABLE/VIEW and DROP ALL ROW ACCESS POLICIES queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ddl_target_table: std::option::Option<crate::model::TableReference>,
+
+    /// Output only. The table after rename. Present only for ALTER TABLE RENAME TO
+    /// query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ddl_destination_table: std::option::Option<crate::model::TableReference>,
+
+    /// Output only. The DDL target row access policy. Present only for
+    /// CREATE/DROP ROW ACCESS POLICY queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ddl_target_row_access_policy: std::option::Option<crate::model::RowAccessPolicyReference>,
+
+    /// Output only. The number of row access policies affected by a DDL statement.
+    /// Present only for DROP ALL ROW ACCESS POLICIES queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub ddl_affected_row_access_policy_count: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. [Beta] The DDL target routine. Present only for
+    /// CREATE/DROP FUNCTION/PROCEDURE queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ddl_target_routine: std::option::Option<crate::model::RoutineReference>,
+
+    /// Output only. The DDL target dataset. Present only for CREATE/ALTER/DROP
+    /// SCHEMA(dataset) queries.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ddl_target_dataset: std::option::Option<crate::model::DatasetReference>,
+
+    /// Output only. Statistics of a BigQuery ML training job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ml_statistics: std::option::Option<crate::model::MlStatistics>,
+
+    /// Output only. Stats for EXPORT DATA statement.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub export_data_statistics: std::option::Option<crate::model::ExportDataStatistics>,
+
+    /// Output only. Job cost breakdown as bigquery internal cost and external
+    /// service costs.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub external_service_costs: std::vec::Vec<crate::model::ExternalServiceCost>,
+
+    /// Output only. BI Engine specific Statistics.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub bi_engine_statistics: std::option::Option<crate::model::BiEngineStatistics>,
+
+    /// Output only. Statistics for a LOAD query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub load_query_statistics: std::option::Option<crate::model::LoadQueryStatistics>,
+
+    /// Output only. Referenced table for DCL statement.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dcl_target_table: std::option::Option<crate::model::TableReference>,
+
+    /// Output only. Referenced view for DCL statement.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dcl_target_view: std::option::Option<crate::model::TableReference>,
+
+    /// Output only. Referenced dataset for DCL statement.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dcl_target_dataset: std::option::Option<crate::model::DatasetReference>,
+
+    /// Output only. Search query specific statistics.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub search_statistics: std::option::Option<crate::model::SearchStatistics>,
+
+    /// Output only. Vector Search query specific statistics.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub vector_search_statistics: std::option::Option<crate::model::VectorSearchStatistics>,
+
+    /// Output only. Performance insights.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub performance_insights: std::option::Option<crate::model::PerformanceInsights>,
+
+    /// Output only. Query optimization information for a QUERY job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub query_info: std::option::Option<crate::model::QueryInfo>,
+
+    /// Output only. Statistics of a Spark procedure job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub spark_statistics: std::option::Option<crate::model::SparkStatistics>,
+
+    /// Output only. Total bytes transferred for cross-cloud queries such as Cross
+    /// Cloud Transfer and CREATE TABLE AS SELECT (CTAS).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub transferred_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Statistics of materialized views of a query job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub materialized_view_statistics: std::option::Option<crate::model::MaterializedViewStatistics>,
+
+    /// Output only. Statistics of metadata cache usage in a query for BigLake
+    /// tables.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub metadata_cache_statistics: std::option::Option<crate::model::MetadataCacheStatistics>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobStatistics2 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [estimated_bytes_processed][crate::model::JobStatistics2::estimated_bytes_processed].
+    pub fn set_estimated_bytes_processed<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.estimated_bytes_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [total_partitions_processed][crate::model::JobStatistics2::total_partitions_processed].
+    pub fn set_total_partitions_processed<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_partitions_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_processed][crate::model::JobStatistics2::total_bytes_processed].
+    pub fn set_total_bytes_processed<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_processed_accuracy][crate::model::JobStatistics2::total_bytes_processed_accuracy].
+    pub fn set_total_bytes_processed_accuracy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_processed_accuracy = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_billed][crate::model::JobStatistics2::total_bytes_billed].
+    pub fn set_total_bytes_billed<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_billed = v.into();
+        self
+    }
+
+    /// Sets the value of [billing_tier][crate::model::JobStatistics2::billing_tier].
+    pub fn set_billing_tier<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.billing_tier = v.into();
+        self
+    }
+
+    /// Sets the value of [total_slot_ms][crate::model::JobStatistics2::total_slot_ms].
+    pub fn set_total_slot_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_slot_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [cache_hit][crate::model::JobStatistics2::cache_hit].
+    pub fn set_cache_hit<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cache_hit = v.into();
+        self
+    }
+
+    /// Sets the value of [schema][crate::model::JobStatistics2::schema].
+    pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::TableSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema = v.into();
+        self
+    }
+
+    /// Sets the value of [num_dml_affected_rows][crate::model::JobStatistics2::num_dml_affected_rows].
+    pub fn set_num_dml_affected_rows<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.num_dml_affected_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [dml_stats][crate::model::JobStatistics2::dml_stats].
+    pub fn set_dml_stats<T: std::convert::Into<std::option::Option<crate::model::DmlStats>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dml_stats = v.into();
+        self
+    }
+
+    /// Sets the value of [statement_type][crate::model::JobStatistics2::statement_type].
+    pub fn set_statement_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.statement_type = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_operation_performed][crate::model::JobStatistics2::ddl_operation_performed].
+    pub fn set_ddl_operation_performed<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_operation_performed = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_target_table][crate::model::JobStatistics2::ddl_target_table].
+    pub fn set_ddl_target_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_target_table = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_destination_table][crate::model::JobStatistics2::ddl_destination_table].
+    pub fn set_ddl_destination_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_destination_table = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_target_row_access_policy][crate::model::JobStatistics2::ddl_target_row_access_policy].
+    pub fn set_ddl_target_row_access_policy<
+        T: std::convert::Into<std::option::Option<crate::model::RowAccessPolicyReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_target_row_access_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_affected_row_access_policy_count][crate::model::JobStatistics2::ddl_affected_row_access_policy_count].
+    pub fn set_ddl_affected_row_access_policy_count<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_affected_row_access_policy_count = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_target_routine][crate::model::JobStatistics2::ddl_target_routine].
+    pub fn set_ddl_target_routine<
+        T: std::convert::Into<std::option::Option<crate::model::RoutineReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_target_routine = v.into();
+        self
+    }
+
+    /// Sets the value of [ddl_target_dataset][crate::model::JobStatistics2::ddl_target_dataset].
+    pub fn set_ddl_target_dataset<
+        T: std::convert::Into<std::option::Option<crate::model::DatasetReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ddl_target_dataset = v.into();
+        self
+    }
+
+    /// Sets the value of [ml_statistics][crate::model::JobStatistics2::ml_statistics].
+    pub fn set_ml_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::MlStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ml_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [export_data_statistics][crate::model::JobStatistics2::export_data_statistics].
+    pub fn set_export_data_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::ExportDataStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.export_data_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [bi_engine_statistics][crate::model::JobStatistics2::bi_engine_statistics].
+    pub fn set_bi_engine_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::BiEngineStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bi_engine_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [load_query_statistics][crate::model::JobStatistics2::load_query_statistics].
+    pub fn set_load_query_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::LoadQueryStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_query_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [dcl_target_table][crate::model::JobStatistics2::dcl_target_table].
+    pub fn set_dcl_target_table<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dcl_target_table = v.into();
+        self
+    }
+
+    /// Sets the value of [dcl_target_view][crate::model::JobStatistics2::dcl_target_view].
+    pub fn set_dcl_target_view<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dcl_target_view = v.into();
+        self
+    }
+
+    /// Sets the value of [dcl_target_dataset][crate::model::JobStatistics2::dcl_target_dataset].
+    pub fn set_dcl_target_dataset<
+        T: std::convert::Into<std::option::Option<crate::model::DatasetReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dcl_target_dataset = v.into();
+        self
+    }
+
+    /// Sets the value of [search_statistics][crate::model::JobStatistics2::search_statistics].
+    pub fn set_search_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::SearchStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.search_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [vector_search_statistics][crate::model::JobStatistics2::vector_search_statistics].
+    pub fn set_vector_search_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::VectorSearchStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vector_search_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [performance_insights][crate::model::JobStatistics2::performance_insights].
+    pub fn set_performance_insights<
+        T: std::convert::Into<std::option::Option<crate::model::PerformanceInsights>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.performance_insights = v.into();
+        self
+    }
+
+    /// Sets the value of [query_info][crate::model::JobStatistics2::query_info].
+    pub fn set_query_info<T: std::convert::Into<std::option::Option<crate::model::QueryInfo>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_info = v.into();
+        self
+    }
+
+    /// Sets the value of [spark_statistics][crate::model::JobStatistics2::spark_statistics].
+    pub fn set_spark_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::SparkStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spark_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [transferred_bytes][crate::model::JobStatistics2::transferred_bytes].
+    pub fn set_transferred_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transferred_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [materialized_view_statistics][crate::model::JobStatistics2::materialized_view_statistics].
+    pub fn set_materialized_view_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::MaterializedViewStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.materialized_view_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata_cache_statistics][crate::model::JobStatistics2::metadata_cache_statistics].
+    pub fn set_metadata_cache_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::MetadataCacheStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata_cache_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [query_plan][crate::model::JobStatistics2::query_plan].
+    pub fn set_query_plan<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExplainQueryStage>,
+    {
+        use std::iter::Iterator;
+        self.query_plan = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [timeline][crate::model::JobStatistics2::timeline].
+    pub fn set_timeline<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryTimelineSample>,
+    {
+        use std::iter::Iterator;
+        self.timeline = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [referenced_tables][crate::model::JobStatistics2::referenced_tables].
+    pub fn set_referenced_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TableReference>,
+    {
+        use std::iter::Iterator;
+        self.referenced_tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [referenced_routines][crate::model::JobStatistics2::referenced_routines].
+    pub fn set_referenced_routines<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RoutineReference>,
+    {
+        use std::iter::Iterator;
+        self.referenced_routines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [undeclared_query_parameters][crate::model::JobStatistics2::undeclared_query_parameters].
+    pub fn set_undeclared_query_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryParameter>,
+    {
+        use std::iter::Iterator;
+        self.undeclared_query_parameters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [external_service_costs][crate::model::JobStatistics2::external_service_costs].
+    pub fn set_external_service_costs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ExternalServiceCost>,
+    {
+        use std::iter::Iterator;
+        self.external_service_costs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobStatistics2 {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobStatistics2"
+    }
+}
+
+/// Statistics for a load job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobStatistics3 {
+    /// Output only. Number of source files in a load job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub input_files: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of bytes of source data in a load job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub input_file_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of rows imported in a load job.
+    /// Note that while an import job is in the running state, this
+    /// value may change.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub output_rows: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Size of the loaded data in bytes. Note
+    /// that while a load job is in the running state, this value may change.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub output_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. The number of bad records encountered. Note that if the job
+    /// has failed because of more bad records encountered than the maximum
+    /// allowed in the load job configuration, then this number can be less than
+    /// the total number of bad records present in the input data.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub bad_records: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Describes a timeline of job execution.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub timeline: std::vec::Vec<crate::model::QueryTimelineSample>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobStatistics3 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [input_files][crate::model::JobStatistics3::input_files].
+    pub fn set_input_files<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_files = v.into();
+        self
+    }
+
+    /// Sets the value of [input_file_bytes][crate::model::JobStatistics3::input_file_bytes].
+    pub fn set_input_file_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_file_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [output_rows][crate::model::JobStatistics3::output_rows].
+    pub fn set_output_rows<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [output_bytes][crate::model::JobStatistics3::output_bytes].
+    pub fn set_output_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [bad_records][crate::model::JobStatistics3::bad_records].
+    pub fn set_bad_records<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bad_records = v.into();
+        self
+    }
+
+    /// Sets the value of [timeline][crate::model::JobStatistics3::timeline].
+    pub fn set_timeline<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryTimelineSample>,
+    {
+        use std::iter::Iterator;
+        self.timeline = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobStatistics3 {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobStatistics3"
+    }
+}
+
+/// Statistics for an extract job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobStatistics4 {
+    /// Output only. Number of files per destination URI or URI pattern
+    /// specified in the extract configuration. These values will be in the same
+    /// order as the URIs specified in the 'destinationUris' field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    pub destination_uri_file_counts: std::vec::Vec<i64>,
+
+    /// Output only. Number of user bytes extracted into the result. This is the
+    /// byte count as computed by BigQuery for billing purposes
+    /// and doesn't have any relationship with the number of actual
+    /// result bytes extracted in the desired format.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub input_bytes: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Describes a timeline of job execution.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub timeline: std::vec::Vec<crate::model::QueryTimelineSample>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobStatistics4 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [input_bytes][crate::model::JobStatistics4::input_bytes].
+    pub fn set_input_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_uri_file_counts][crate::model::JobStatistics4::destination_uri_file_counts].
+    pub fn set_destination_uri_file_counts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.destination_uri_file_counts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [timeline][crate::model::JobStatistics4::timeline].
+    pub fn set_timeline<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryTimelineSample>,
+    {
+        use std::iter::Iterator;
+        self.timeline = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobStatistics4 {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobStatistics4"
+    }
+}
+
+/// Statistics for a copy job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CopyJobStatistics {
+    /// Output only. Number of rows copied to the destination table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub copied_rows: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of logical bytes copied to the destination table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub copied_logical_bytes: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CopyJobStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [copied_rows][crate::model::CopyJobStatistics::copied_rows].
+    pub fn set_copied_rows<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.copied_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [copied_logical_bytes][crate::model::CopyJobStatistics::copied_logical_bytes].
+    pub fn set_copied_logical_bytes<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.copied_logical_bytes = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CopyJobStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.CopyJobStatistics"
+    }
+}
+
+/// Job statistics specific to a BigQuery ML training job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MlStatistics {
+    /// Output only. Maximum number of iterations specified as max_iterations in
+    /// the 'CREATE MODEL' query. The actual number of iterations may be less than
+    /// this number due to early stop.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub max_iterations: i64,
+
+    /// Results for all completed iterations.
+    /// Empty for [hyperparameter tuning
+    /// jobs](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview).
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub iteration_results: std::vec::Vec<crate::model::model::training_run::IterationResult>,
+
+    /// Output only. The type of the model that is being trained.
+    pub model_type: crate::model::model::ModelType,
+
+    /// Output only. Training type of the job.
+    pub training_type: crate::model::ml_statistics::TrainingType,
+
+    /// Output only. Trials of a [hyperparameter tuning
+    /// job](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview)
+    /// sorted by trial_id.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub hparam_trials: std::vec::Vec<crate::model::model::HparamTuningTrial>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MlStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [max_iterations][crate::model::MlStatistics::max_iterations].
+    pub fn set_max_iterations<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_iterations = v.into();
+        self
+    }
+
+    /// Sets the value of [model_type][crate::model::MlStatistics::model_type].
+    pub fn set_model_type<T: std::convert::Into<crate::model::model::ModelType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.model_type = v.into();
+        self
+    }
+
+    /// Sets the value of [training_type][crate::model::MlStatistics::training_type].
+    pub fn set_training_type<T: std::convert::Into<crate::model::ml_statistics::TrainingType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.training_type = v.into();
+        self
+    }
+
+    /// Sets the value of [iteration_results][crate::model::MlStatistics::iteration_results].
+    pub fn set_iteration_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::model::training_run::IterationResult>,
+    {
+        use std::iter::Iterator;
+        self.iteration_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [hparam_trials][crate::model::MlStatistics::hparam_trials].
+    pub fn set_hparam_trials<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::model::HparamTuningTrial>,
+    {
+        use std::iter::Iterator;
+        self.hparam_trials = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MlStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.MlStatistics"
+    }
+}
+
+/// Defines additional types related to [MlStatistics].
+pub mod ml_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Training type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TrainingType {
+        /// Unspecified training type.
+        Unspecified,
+        /// Single training with fixed parameter space.
+        SingleTraining,
+        /// [Hyperparameter tuning
+        /// training](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview).
+        HparamTuning,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TrainingType::value] or
+        /// [TrainingType::name].
+        UnknownValue(training_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod training_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TrainingType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SingleTraining => std::option::Option::Some(1),
+                Self::HparamTuning => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRAINING_TYPE_UNSPECIFIED"),
+                Self::SingleTraining => std::option::Option::Some("SINGLE_TRAINING"),
+                Self::HparamTuning => std::option::Option::Some("HPARAM_TUNING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TrainingType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TrainingType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TrainingType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SingleTraining,
+                2 => Self::HparamTuning,
+                _ => Self::UnknownValue(training_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TrainingType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRAINING_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SINGLE_TRAINING" => Self::SingleTraining,
+                "HPARAM_TUNING" => Self::HparamTuning,
+                _ => Self::UnknownValue(training_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TrainingType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SingleTraining => serializer.serialize_i32(1),
+                Self::HparamTuning => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TrainingType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrainingType>::new(
+                ".google.cloud.bigquery.v2.MlStatistics.TrainingType",
+            ))
+        }
+    }
+}
+
+/// Job statistics specific to the child job of a script.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ScriptStatistics {
+    /// Whether this child job was a statement or expression.
+    pub evaluation_kind: crate::model::script_statistics::EvaluationKind,
+
+    /// Stack trace showing the line/column/procedure name of each frame on the
+    /// stack at the point where the current evaluation happened. The leaf frame
+    /// is first, the primary script is last. Never empty.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub stack_frames: std::vec::Vec<crate::model::script_statistics::ScriptStackFrame>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScriptStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [evaluation_kind][crate::model::ScriptStatistics::evaluation_kind].
+    pub fn set_evaluation_kind<
+        T: std::convert::Into<crate::model::script_statistics::EvaluationKind>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.evaluation_kind = v.into();
+        self
+    }
+
+    /// Sets the value of [stack_frames][crate::model::ScriptStatistics::stack_frames].
+    pub fn set_stack_frames<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::script_statistics::ScriptStackFrame>,
+    {
+        use std::iter::Iterator;
+        self.stack_frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ScriptStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ScriptStatistics"
+    }
+}
+
+/// Defines additional types related to [ScriptStatistics].
+pub mod script_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the location of the statement/expression being evaluated.
+    /// Line and column numbers are defined as follows:
+    ///
+    /// - Line and column numbers start with one.  That is, line 1 column 1 denotes
+    ///   the start of the script.
+    /// - When inside a stored procedure, all line/column numbers are relative
+    ///   to the procedure body, not the script in which the procedure was defined.
+    /// - Start/end positions exclude leading/trailing comments and whitespace.
+    ///   The end position always ends with a ";", when present.
+    /// - Multi-byte Unicode characters are treated as just one column.
+    /// - If the original script (or procedure definition) contains TAB characters,
+    ///   a tab "snaps" the indentation forward to the nearest multiple of 8
+    ///   characters, plus 1. For example, a TAB on column 1, 2, 3, 4, 5, 6 , or 8
+    ///   will advance the next character to column 9.  A TAB on column 9, 10, 11,
+    ///   12, 13, 14, 15, or 16 will advance the next character to column 17.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ScriptStackFrame {
+        /// Output only. One-based start line.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub start_line: i32,
+
+        /// Output only. One-based start column.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub start_column: i32,
+
+        /// Output only. One-based end line.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub end_line: i32,
+
+        /// Output only. One-based end column.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub end_column: i32,
+
+        /// Output only. Name of the active procedure, empty if in a top-level
+        /// script.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub procedure_id: std::string::String,
+
+        /// Output only. Text of the current statement/expression.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub text: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ScriptStackFrame {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_line][crate::model::script_statistics::ScriptStackFrame::start_line].
+        pub fn set_start_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.start_line = v.into();
+            self
+        }
+
+        /// Sets the value of [start_column][crate::model::script_statistics::ScriptStackFrame::start_column].
+        pub fn set_start_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.start_column = v.into();
+            self
+        }
+
+        /// Sets the value of [end_line][crate::model::script_statistics::ScriptStackFrame::end_line].
+        pub fn set_end_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end_line = v.into();
+            self
+        }
+
+        /// Sets the value of [end_column][crate::model::script_statistics::ScriptStackFrame::end_column].
+        pub fn set_end_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end_column = v.into();
+            self
+        }
+
+        /// Sets the value of [procedure_id][crate::model::script_statistics::ScriptStackFrame::procedure_id].
+        pub fn set_procedure_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.procedure_id = v.into();
+            self
+        }
+
+        /// Sets the value of [text][crate::model::script_statistics::ScriptStackFrame::text].
+        pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.text = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ScriptStackFrame {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.ScriptStatistics.ScriptStackFrame"
+        }
+    }
+
+    /// Describes how the job is evaluated.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EvaluationKind {
+        /// Default value.
+        Unspecified,
+        /// The statement appears directly in the script.
+        Statement,
+        /// The statement evaluates an expression that appears in the script.
+        Expression,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EvaluationKind::value] or
+        /// [EvaluationKind::name].
+        UnknownValue(evaluation_kind::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod evaluation_kind {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EvaluationKind {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Statement => std::option::Option::Some(1),
+                Self::Expression => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVALUATION_KIND_UNSPECIFIED"),
+                Self::Statement => std::option::Option::Some("STATEMENT"),
+                Self::Expression => std::option::Option::Some("EXPRESSION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EvaluationKind {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EvaluationKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EvaluationKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Statement,
+                2 => Self::Expression,
+                _ => Self::UnknownValue(evaluation_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EvaluationKind {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVALUATION_KIND_UNSPECIFIED" => Self::Unspecified,
+                "STATEMENT" => Self::Statement,
+                "EXPRESSION" => Self::Expression,
+                _ => Self::UnknownValue(evaluation_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EvaluationKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Statement => serializer.serialize_i32(1),
+                Self::Expression => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EvaluationKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationKind>::new(
+                ".google.cloud.bigquery.v2.ScriptStatistics.EvaluationKind",
+            ))
+        }
+    }
+}
+
+/// Statistics for row-level security.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RowLevelSecurityStatistics {
+    /// Whether any accessed data was protected by row access policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub row_level_security_applied: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RowLevelSecurityStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [row_level_security_applied][crate::model::RowLevelSecurityStatistics::row_level_security_applied].
+    pub fn set_row_level_security_applied<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.row_level_security_applied = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RowLevelSecurityStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.RowLevelSecurityStatistics"
+    }
+}
+
+/// Statistics for data-masking.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataMaskingStatistics {
+    /// Whether any accessed data was protected by the data masking.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub data_masking_applied: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataMaskingStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_masking_applied][crate::model::DataMaskingStatistics::data_masking_applied].
+    pub fn set_data_masking_applied<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.data_masking_applied = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataMaskingStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.DataMaskingStatistics"
+    }
+}
+
+/// Statistics for a single job execution.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobStatistics {
+    /// Output only. Creation time of this job, in milliseconds since the epoch.
+    /// This field will be present on all jobs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub creation_time: i64,
+
+    /// Output only. Start time of this job, in milliseconds since the epoch.
+    /// This field will be present when the job transitions from the PENDING state
+    /// to either RUNNING or DONE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub start_time: i64,
+
+    /// Output only. End time of this job, in milliseconds since the epoch. This
+    /// field will be present whenever a job is in the DONE state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub end_time: i64,
+
+    /// Output only. Total bytes processed for the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_bytes_processed: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. [TrustedTester] Job progress (0.0 -> 1.0) for LOAD and
+    /// EXTRACT jobs.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub completion_ratio: std::option::Option<wkt::DoubleValue>,
+
+    /// Output only. Quotas which delayed this job's start time.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub quota_deferments: std::vec::Vec<std::string::String>,
+
+    /// Output only. Statistics for a query job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub query: std::option::Option<crate::model::JobStatistics2>,
+
+    /// Output only. Statistics for a load job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub load: std::option::Option<crate::model::JobStatistics3>,
+
+    /// Output only. Statistics for an extract job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub extract: std::option::Option<crate::model::JobStatistics4>,
+
+    /// Output only. Statistics for a copy job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub copy: std::option::Option<crate::model::CopyJobStatistics>,
+
+    /// Output only. Slot-milliseconds for the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub total_slot_ms: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Name of the primary reservation assigned to this job. Note
+    /// that this could be different than reservations reported in the reservation
+    /// usage field if parent reservations were used to execute this job.
+    #[serde(rename = "reservation_id")]
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub reservation_id: std::string::String,
+
+    /// Output only. Number of child jobs executed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub num_child_jobs: i64,
+
+    /// Output only. If this is a child job, specifies the job ID of the parent.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent_job_id: std::string::String,
+
+    /// Output only. If this a child job of a script, specifies information about
+    /// the context of this job within the script.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub script_statistics: std::option::Option<crate::model::ScriptStatistics>,
+
+    /// Output only. Statistics for row-level security. Present only for query and
+    /// extract jobs.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub row_level_security_statistics:
+        std::option::Option<crate::model::RowLevelSecurityStatistics>,
+
+    /// Output only. Statistics for data-masking. Present only for query and
+    /// extract jobs.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub data_masking_statistics: std::option::Option<crate::model::DataMaskingStatistics>,
+
+    /// Output only. [Alpha] Information of the multi-statement transaction if this
+    /// job is part of one.
+    ///
+    /// This property is only expected on a child job or a job that is in a
+    /// session. A script parent job is not part of the transaction started in the
+    /// script.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub transaction_info: std::option::Option<crate::model::job_statistics::TransactionInfo>,
+
+    /// Output only. Information of the session if this job is part of one.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub session_info: std::option::Option<crate::model::SessionInfo>,
+
+    /// Output only. The duration in milliseconds of the execution of the final
+    /// attempt of this job, as BigQuery may internally re-attempt to execute the
+    /// job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub final_execution_duration_ms: i64,
+
+    /// Output only. Name of edition corresponding to the reservation for this job
+    /// at the time of this update.
+    pub edition: crate::model::ReservationEdition,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [creation_time][crate::model::JobStatistics::creation_time].
+    pub fn set_creation_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.creation_time = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::JobStatistics::start_time].
+    pub fn set_start_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::JobStatistics::end_time].
+    pub fn set_end_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.end_time = v.into();
+        self
+    }
+
+    /// Sets the value of [total_bytes_processed][crate::model::JobStatistics::total_bytes_processed].
+    pub fn set_total_bytes_processed<
+        T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_bytes_processed = v.into();
+        self
+    }
+
+    /// Sets the value of [completion_ratio][crate::model::JobStatistics::completion_ratio].
+    pub fn set_completion_ratio<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.completion_ratio = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::JobStatistics::query].
+    pub fn set_query<T: std::convert::Into<std::option::Option<crate::model::JobStatistics2>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [load][crate::model::JobStatistics::load].
+    pub fn set_load<T: std::convert::Into<std::option::Option<crate::model::JobStatistics3>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load = v.into();
+        self
+    }
+
+    /// Sets the value of [extract][crate::model::JobStatistics::extract].
+    pub fn set_extract<T: std::convert::Into<std::option::Option<crate::model::JobStatistics4>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.extract = v.into();
+        self
+    }
+
+    /// Sets the value of [copy][crate::model::JobStatistics::copy].
+    pub fn set_copy<T: std::convert::Into<std::option::Option<crate::model::CopyJobStatistics>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.copy = v.into();
+        self
+    }
+
+    /// Sets the value of [total_slot_ms][crate::model::JobStatistics::total_slot_ms].
+    pub fn set_total_slot_ms<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.total_slot_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [reservation_id][crate::model::JobStatistics::reservation_id].
+    pub fn set_reservation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.reservation_id = v.into();
+        self
+    }
+
+    /// Sets the value of [num_child_jobs][crate::model::JobStatistics::num_child_jobs].
+    pub fn set_num_child_jobs<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.num_child_jobs = v.into();
+        self
+    }
+
+    /// Sets the value of [parent_job_id][crate::model::JobStatistics::parent_job_id].
+    pub fn set_parent_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent_job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [script_statistics][crate::model::JobStatistics::script_statistics].
+    pub fn set_script_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::ScriptStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.script_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [row_level_security_statistics][crate::model::JobStatistics::row_level_security_statistics].
+    pub fn set_row_level_security_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::RowLevelSecurityStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.row_level_security_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [data_masking_statistics][crate::model::JobStatistics::data_masking_statistics].
+    pub fn set_data_masking_statistics<
+        T: std::convert::Into<std::option::Option<crate::model::DataMaskingStatistics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_masking_statistics = v.into();
+        self
+    }
+
+    /// Sets the value of [transaction_info][crate::model::JobStatistics::transaction_info].
+    pub fn set_transaction_info<
+        T: std::convert::Into<std::option::Option<crate::model::job_statistics::TransactionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transaction_info = v.into();
+        self
+    }
+
+    /// Sets the value of [session_info][crate::model::JobStatistics::session_info].
+    pub fn set_session_info<
+        T: std::convert::Into<std::option::Option<crate::model::SessionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.session_info = v.into();
+        self
+    }
+
+    /// Sets the value of [final_execution_duration_ms][crate::model::JobStatistics::final_execution_duration_ms].
+    pub fn set_final_execution_duration_ms<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.final_execution_duration_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [edition][crate::model::JobStatistics::edition].
+    pub fn set_edition<T: std::convert::Into<crate::model::ReservationEdition>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.edition = v.into();
+        self
+    }
+
+    /// Sets the value of [quota_deferments][crate::model::JobStatistics::quota_deferments].
+    pub fn set_quota_deferments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.quota_deferments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobStatistics"
+    }
+}
+
+/// Defines additional types related to [JobStatistics].
+pub mod job_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// [Alpha] Information of a multi-statement transaction.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct TransactionInfo {
+        /// Output only. [Alpha] Id of the transaction.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub transaction_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TransactionInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [transaction_id][crate::model::job_statistics::TransactionInfo::transaction_id].
+        pub fn set_transaction_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.transaction_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for TransactionInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.JobStatistics.TransactionInfo"
+        }
+    }
+}
+
+/// Detailed statistics for DML statements
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DmlStats {
+    /// Output only. Number of inserted Rows. Populated by DML INSERT and MERGE
+    /// statements
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub inserted_row_count: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of deleted Rows. populated by DML DELETE, MERGE and
+    /// TRUNCATE statements.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub deleted_row_count: std::option::Option<wkt::Int64Value>,
+
+    /// Output only. Number of updated Rows. Populated by DML UPDATE and MERGE
+    /// statements.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub updated_row_count: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DmlStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [inserted_row_count][crate::model::DmlStats::inserted_row_count].
+    pub fn set_inserted_row_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.inserted_row_count = v.into();
+        self
+    }
+
+    /// Sets the value of [deleted_row_count][crate::model::DmlStats::deleted_row_count].
+    pub fn set_deleted_row_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deleted_row_count = v.into();
+        self
+    }
+
+    /// Sets the value of [updated_row_count][crate::model::DmlStats::updated_row_count].
+    pub fn set_updated_row_count<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.updated_row_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DmlStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.DmlStats"
+    }
+}
+
+/// Performance insights for the job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PerformanceInsights {
+    /// Output only. Average execution ms of previous runs. Indicates the job ran
+    /// slow compared to previous executions. To find previous executions, use
+    /// INFORMATION_SCHEMA tables and filter jobs with same query hash.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub avg_previous_execution_ms: i64,
+
+    /// Output only. Standalone query stage performance insights, for exploring
+    /// potential improvements.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub stage_performance_standalone_insights:
+        std::vec::Vec<crate::model::StagePerformanceStandaloneInsight>,
+
+    /// Output only. Query stage performance insights compared to previous runs,
+    /// for diagnosing performance regression.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub stage_performance_change_insights:
+        std::vec::Vec<crate::model::StagePerformanceChangeInsight>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PerformanceInsights {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [avg_previous_execution_ms][crate::model::PerformanceInsights::avg_previous_execution_ms].
+    pub fn set_avg_previous_execution_ms<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.avg_previous_execution_ms = v.into();
+        self
+    }
+
+    /// Sets the value of [stage_performance_standalone_insights][crate::model::PerformanceInsights::stage_performance_standalone_insights].
+    pub fn set_stage_performance_standalone_insights<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StagePerformanceStandaloneInsight>,
+    {
+        use std::iter::Iterator;
+        self.stage_performance_standalone_insights = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [stage_performance_change_insights][crate::model::PerformanceInsights::stage_performance_change_insights].
+    pub fn set_stage_performance_change_insights<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StagePerformanceChangeInsight>,
+    {
+        use std::iter::Iterator;
+        self.stage_performance_change_insights = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PerformanceInsights {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.PerformanceInsights"
+    }
+}
+
+/// Performance insights compared to the previous executions for a specific
+/// stage.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct StagePerformanceChangeInsight {
+    /// Output only. The stage id that the insight mapped to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub stage_id: i64,
+
+    /// Output only. Input data change insight of the query stage.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub input_data_change: std::option::Option<crate::model::InputDataChange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StagePerformanceChangeInsight {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [stage_id][crate::model::StagePerformanceChangeInsight::stage_id].
+    pub fn set_stage_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.stage_id = v.into();
+        self
+    }
+
+    /// Sets the value of [input_data_change][crate::model::StagePerformanceChangeInsight::input_data_change].
+    pub fn set_input_data_change<
+        T: std::convert::Into<std::option::Option<crate::model::InputDataChange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_data_change = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StagePerformanceChangeInsight {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.StagePerformanceChangeInsight"
+    }
+}
+
+/// Details about the input data change insight.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct InputDataChange {
+    /// Output only. Records read difference percentage compared to a previous run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub records_read_diff_percentage: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InputDataChange {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [records_read_diff_percentage][crate::model::InputDataChange::records_read_diff_percentage].
+    pub fn set_records_read_diff_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.records_read_diff_percentage = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InputDataChange {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.InputDataChange"
+    }
+}
+
+/// Standalone performance insights for a specific stage.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct StagePerformanceStandaloneInsight {
+    /// Output only. The stage id that the insight mapped to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub stage_id: i64,
+
+    /// Output only. True if the stage has a slot contention issue.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub slot_contention: std::option::Option<bool>,
+
+    /// Output only. True if the stage has insufficient shuffle quota.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub insufficient_shuffle_quota: std::option::Option<bool>,
+
+    /// Output only. If present, the stage had the following reasons for being
+    /// disqualified from BI Engine execution.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub bi_engine_reasons: std::vec::Vec<crate::model::BiEngineReason>,
+
+    /// Output only. High cardinality joins in the stage.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub high_cardinality_joins: std::vec::Vec<crate::model::HighCardinalityJoin>,
+
+    /// Output only. Partition skew in the stage.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub partition_skew: std::option::Option<crate::model::PartitionSkew>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StagePerformanceStandaloneInsight {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [stage_id][crate::model::StagePerformanceStandaloneInsight::stage_id].
+    pub fn set_stage_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.stage_id = v.into();
+        self
+    }
+
+    /// Sets the value of [slot_contention][crate::model::StagePerformanceStandaloneInsight::slot_contention].
+    pub fn set_slot_contention<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.slot_contention = v.into();
+        self
+    }
+
+    /// Sets the value of [insufficient_shuffle_quota][crate::model::StagePerformanceStandaloneInsight::insufficient_shuffle_quota].
+    pub fn set_insufficient_shuffle_quota<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.insufficient_shuffle_quota = v.into();
+        self
+    }
+
+    /// Sets the value of [partition_skew][crate::model::StagePerformanceStandaloneInsight::partition_skew].
+    pub fn set_partition_skew<
+        T: std::convert::Into<std::option::Option<crate::model::PartitionSkew>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partition_skew = v.into();
+        self
+    }
+
+    /// Sets the value of [bi_engine_reasons][crate::model::StagePerformanceStandaloneInsight::bi_engine_reasons].
+    pub fn set_bi_engine_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BiEngineReason>,
+    {
+        use std::iter::Iterator;
+        self.bi_engine_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [high_cardinality_joins][crate::model::StagePerformanceStandaloneInsight::high_cardinality_joins].
+    pub fn set_high_cardinality_joins<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HighCardinalityJoin>,
+    {
+        use std::iter::Iterator;
+        self.high_cardinality_joins = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StagePerformanceStandaloneInsight {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.StagePerformanceStandaloneInsight"
+    }
+}
+
+/// High cardinality join detailed information.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct HighCardinalityJoin {
+    /// Output only. Count of left input rows.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub left_rows: i64,
+
+    /// Output only. Count of right input rows.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub right_rows: i64,
+
+    /// Output only. Count of the output rows.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub output_rows: i64,
+
+    /// Output only. The index of the join operator in the ExplainQueryStep lists.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub step_index: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HighCardinalityJoin {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [left_rows][crate::model::HighCardinalityJoin::left_rows].
+    pub fn set_left_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.left_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [right_rows][crate::model::HighCardinalityJoin::right_rows].
+    pub fn set_right_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.right_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [output_rows][crate::model::HighCardinalityJoin::output_rows].
+    pub fn set_output_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.output_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [step_index][crate::model::HighCardinalityJoin::step_index].
+    pub fn set_step_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.step_index = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for HighCardinalityJoin {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.HighCardinalityJoin"
+    }
+}
+
+/// Partition skew detailed information.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PartitionSkew {
+    /// Output only. Source stages which produce skewed data.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub skew_sources: std::vec::Vec<crate::model::partition_skew::SkewSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartitionSkew {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [skew_sources][crate::model::PartitionSkew::skew_sources].
+    pub fn set_skew_sources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::partition_skew::SkewSource>,
+    {
+        use std::iter::Iterator;
+        self.skew_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PartitionSkew {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.PartitionSkew"
+    }
+}
+
+/// Defines additional types related to [PartitionSkew].
+pub mod partition_skew {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Details about source stages which produce skewed data.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SkewSource {
+        /// Output only. Stage id of the skew source stage.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub stage_id: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SkewSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [stage_id][crate::model::partition_skew::SkewSource::stage_id].
+        pub fn set_stage_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.stage_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SkewSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.PartitionSkew.SkewSource"
+        }
+    }
+}
+
+/// Statistics for a BigSpark query.
+/// Populated as part of JobStatistics2
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SparkStatistics {
+    /// Output only. Spark job ID if a Spark job is created successfully.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub spark_job_id: std::option::Option<std::string::String>,
+
+    /// Output only. Location where the Spark job is executed.
+    /// A location is selected by BigQueury for jobs configured to run in a
+    /// multi-region.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub spark_job_location: std::option::Option<std::string::String>,
+
+    /// Output only. Endpoints returned from Dataproc.
+    /// Key list:
+    ///
+    /// - history_server_endpoint: A link to Spark job UI.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub endpoints: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. Logging info is used to generate a link to Cloud Logging.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub logging_info: std::option::Option<crate::model::spark_statistics::LoggingInfo>,
+
+    /// Output only. The Cloud KMS encryption key that is used to protect the
+    /// resources created by the Spark job. If the Spark procedure uses the invoker
+    /// security mode, the Cloud KMS encryption key is either inferred from the
+    /// provided system variable,
+    /// `@@spark_proc_properties.kms_key_name`, or the default key of the BigQuery
+    /// job's project (if the CMEK organization policy is enforced). Otherwise, the
+    /// Cloud KMS key is either inferred from the Spark connection associated with
+    /// the procedure (if it is provided), or from the default key of the Spark
+    /// connection's project if the CMEK organization policy is enforced.
+    ///
+    /// Example:
+    ///
+    /// * `projects/[kms_project_id]/locations/[region]/keyRings/[key_region]/cryptoKeys/[key]`
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub kms_key_name: std::option::Option<std::string::String>,
+
+    /// Output only. The Google Cloud Storage bucket that is used as the default
+    /// file system by the Spark application. This field is only filled when the
+    /// Spark procedure uses the invoker security mode. The `gcsStagingBucket`
+    /// bucket is inferred from the `@@spark_proc_properties.staging_bucket` system
+    /// variable (if it is provided). Otherwise, BigQuery creates a default staging
+    /// bucket for the job and returns the bucket name in this field.
+    ///
+    /// Example:
+    ///
+    /// * `gs://[bucket_name]`
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub gcs_staging_bucket: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SparkStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [spark_job_id][crate::model::SparkStatistics::spark_job_id].
+    pub fn set_spark_job_id<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spark_job_id = v.into();
+        self
+    }
+
+    /// Sets the value of [spark_job_location][crate::model::SparkStatistics::spark_job_location].
+    pub fn set_spark_job_location<
+        T: std::convert::Into<std::option::Option<std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spark_job_location = v.into();
+        self
+    }
+
+    /// Sets the value of [logging_info][crate::model::SparkStatistics::logging_info].
+    pub fn set_logging_info<
+        T: std::convert::Into<std::option::Option<crate::model::spark_statistics::LoggingInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logging_info = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key_name][crate::model::SparkStatistics::kms_key_name].
+    pub fn set_kms_key_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kms_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [gcs_staging_bucket][crate::model::SparkStatistics::gcs_staging_bucket].
+    pub fn set_gcs_staging_bucket<
+        T: std::convert::Into<std::option::Option<std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gcs_staging_bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [endpoints][crate::model::SparkStatistics::endpoints].
+    pub fn set_endpoints<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.endpoints = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SparkStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.SparkStatistics"
+    }
+}
+
+/// Defines additional types related to [SparkStatistics].
+pub mod spark_statistics {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Spark job logs can be filtered by these fields in Cloud Logging.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct LoggingInfo {
+        /// Output only. Resource type used for logging.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub resource_type: std::string::String,
+
+        /// Output only. Project ID where the Spark logs were written.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub project_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LoggingInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [resource_type][crate::model::spark_statistics::LoggingInfo::resource_type].
+        pub fn set_resource_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.resource_type = v.into();
+            self
+        }
+
+        /// Sets the value of [project_id][crate::model::spark_statistics::LoggingInfo::project_id].
+        pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for LoggingInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.SparkStatistics.LoggingInfo"
+        }
+    }
+}
+
+/// Statistics of materialized views considered in a query job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MaterializedViewStatistics {
+    /// Materialized views considered for the query job. Only certain materialized
+    /// views are used. For a detailed list, see the child message.
+    ///
+    /// If many materialized views are considered, then the list might be
+    /// incomplete.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub materialized_view: std::vec::Vec<crate::model::MaterializedView>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MaterializedViewStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [materialized_view][crate::model::MaterializedViewStatistics::materialized_view].
+    pub fn set_materialized_view<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MaterializedView>,
+    {
+        use std::iter::Iterator;
+        self.materialized_view = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MaterializedViewStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.MaterializedViewStatistics"
+    }
+}
+
+/// A materialized view considered for a query job.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MaterializedView {
+    /// The candidate materialized view.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub table_reference: std::option::Option<crate::model::TableReference>,
+
+    /// Whether the materialized view is chosen for the query.
+    ///
+    /// A materialized view can be chosen to rewrite multiple parts of the same
+    /// query. If a materialized view is chosen to rewrite any part of the query,
+    /// then this field is true, even if the materialized view was not chosen to
+    /// rewrite others parts.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub chosen: std::option::Option<bool>,
+
+    /// If present, specifies a best-effort estimation of the bytes saved by using
+    /// the materialized view rather than its base tables.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub estimated_bytes_saved: std::option::Option<i64>,
+
+    /// If present, specifies the reason why the materialized view was not chosen
+    /// for the query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub rejected_reason: std::option::Option<crate::model::materialized_view::RejectedReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MaterializedView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table_reference][crate::model::MaterializedView::table_reference].
+    pub fn set_table_reference<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.table_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [chosen][crate::model::MaterializedView::chosen].
+    pub fn set_chosen<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+        self.chosen = v.into();
+        self
+    }
+
+    /// Sets the value of [estimated_bytes_saved][crate::model::MaterializedView::estimated_bytes_saved].
+    pub fn set_estimated_bytes_saved<T: std::convert::Into<std::option::Option<i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.estimated_bytes_saved = v.into();
+        self
+    }
+
+    /// Sets the value of [rejected_reason][crate::model::MaterializedView::rejected_reason].
+    pub fn set_rejected_reason<
+        T: std::convert::Into<std::option::Option<crate::model::materialized_view::RejectedReason>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rejected_reason = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MaterializedView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.MaterializedView"
+    }
+}
+
+/// Defines additional types related to [MaterializedView].
+pub mod materialized_view {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Reason why a materialized view was not chosen for a query. For more
+    /// information, see [Understand why materialized views were
+    /// rejected](https://cloud.google.com/bigquery/docs/materialized-views-use#understand-rejected).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RejectedReason {
+        /// Default unspecified value.
+        Unspecified,
+        /// View has no cached data because it has not refreshed yet.
+        NoData,
+        /// The estimated cost of the view is more expensive than another view or the
+        /// base table.
+        ///
+        /// Note: The estimate cost might not match the billed cost.
+        Cost,
+        /// View has no cached data because a base table is truncated.
+        BaseTableTruncated,
+        /// View is invalidated because of a data change in one or more base tables.
+        /// It could be any recent change if the
+        /// [`maxStaleness`](https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#Table.FIELDS.max_staleness)
+        /// option is not set for the view, or otherwise any change outside of the
+        /// staleness window.
+        BaseTableDataChange,
+        /// View is invalidated because a base table's partition expiration has
+        /// changed.
+        BaseTablePartitionExpirationChange,
+        /// View is invalidated because a base table's partition has expired.
+        BaseTableExpiredPartition,
+        /// View is invalidated because a base table has an incompatible metadata
+        /// change.
+        BaseTableIncompatibleMetadataChange,
+        /// View is invalidated because it was refreshed with a time zone other than
+        /// that of the current job.
+        TimeZone,
+        /// View is outside the time travel window.
+        OutOfTimeTravelWindow,
+        /// View is inaccessible to the user because of a fine-grained security
+        /// policy on one of its base tables.
+        BaseTableFineGrainedSecurityPolicy,
+        /// One of the view's base tables is too stale. For example, the cached
+        /// metadata of a BigLake external table needs to be updated.
+        BaseTableTooStale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RejectedReason::value] or
+        /// [RejectedReason::name].
+        UnknownValue(rejected_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod rejected_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RejectedReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoData => std::option::Option::Some(1),
+                Self::Cost => std::option::Option::Some(2),
+                Self::BaseTableTruncated => std::option::Option::Some(3),
+                Self::BaseTableDataChange => std::option::Option::Some(4),
+                Self::BaseTablePartitionExpirationChange => std::option::Option::Some(5),
+                Self::BaseTableExpiredPartition => std::option::Option::Some(6),
+                Self::BaseTableIncompatibleMetadataChange => std::option::Option::Some(7),
+                Self::TimeZone => std::option::Option::Some(8),
+                Self::OutOfTimeTravelWindow => std::option::Option::Some(9),
+                Self::BaseTableFineGrainedSecurityPolicy => std::option::Option::Some(10),
+                Self::BaseTableTooStale => std::option::Option::Some(11),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REJECTED_REASON_UNSPECIFIED"),
+                Self::NoData => std::option::Option::Some("NO_DATA"),
+                Self::Cost => std::option::Option::Some("COST"),
+                Self::BaseTableTruncated => std::option::Option::Some("BASE_TABLE_TRUNCATED"),
+                Self::BaseTableDataChange => std::option::Option::Some("BASE_TABLE_DATA_CHANGE"),
+                Self::BaseTablePartitionExpirationChange => {
+                    std::option::Option::Some("BASE_TABLE_PARTITION_EXPIRATION_CHANGE")
+                }
+                Self::BaseTableExpiredPartition => {
+                    std::option::Option::Some("BASE_TABLE_EXPIRED_PARTITION")
+                }
+                Self::BaseTableIncompatibleMetadataChange => {
+                    std::option::Option::Some("BASE_TABLE_INCOMPATIBLE_METADATA_CHANGE")
+                }
+                Self::TimeZone => std::option::Option::Some("TIME_ZONE"),
+                Self::OutOfTimeTravelWindow => {
+                    std::option::Option::Some("OUT_OF_TIME_TRAVEL_WINDOW")
+                }
+                Self::BaseTableFineGrainedSecurityPolicy => {
+                    std::option::Option::Some("BASE_TABLE_FINE_GRAINED_SECURITY_POLICY")
+                }
+                Self::BaseTableTooStale => std::option::Option::Some("BASE_TABLE_TOO_STALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RejectedReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RejectedReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RejectedReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoData,
+                2 => Self::Cost,
+                3 => Self::BaseTableTruncated,
+                4 => Self::BaseTableDataChange,
+                5 => Self::BaseTablePartitionExpirationChange,
+                6 => Self::BaseTableExpiredPartition,
+                7 => Self::BaseTableIncompatibleMetadataChange,
+                8 => Self::TimeZone,
+                9 => Self::OutOfTimeTravelWindow,
+                10 => Self::BaseTableFineGrainedSecurityPolicy,
+                11 => Self::BaseTableTooStale,
+                _ => Self::UnknownValue(rejected_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RejectedReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REJECTED_REASON_UNSPECIFIED" => Self::Unspecified,
+                "NO_DATA" => Self::NoData,
+                "COST" => Self::Cost,
+                "BASE_TABLE_TRUNCATED" => Self::BaseTableTruncated,
+                "BASE_TABLE_DATA_CHANGE" => Self::BaseTableDataChange,
+                "BASE_TABLE_PARTITION_EXPIRATION_CHANGE" => {
+                    Self::BaseTablePartitionExpirationChange
+                }
+                "BASE_TABLE_EXPIRED_PARTITION" => Self::BaseTableExpiredPartition,
+                "BASE_TABLE_INCOMPATIBLE_METADATA_CHANGE" => {
+                    Self::BaseTableIncompatibleMetadataChange
+                }
+                "TIME_ZONE" => Self::TimeZone,
+                "OUT_OF_TIME_TRAVEL_WINDOW" => Self::OutOfTimeTravelWindow,
+                "BASE_TABLE_FINE_GRAINED_SECURITY_POLICY" => {
+                    Self::BaseTableFineGrainedSecurityPolicy
+                }
+                "BASE_TABLE_TOO_STALE" => Self::BaseTableTooStale,
+                _ => Self::UnknownValue(rejected_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RejectedReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoData => serializer.serialize_i32(1),
+                Self::Cost => serializer.serialize_i32(2),
+                Self::BaseTableTruncated => serializer.serialize_i32(3),
+                Self::BaseTableDataChange => serializer.serialize_i32(4),
+                Self::BaseTablePartitionExpirationChange => serializer.serialize_i32(5),
+                Self::BaseTableExpiredPartition => serializer.serialize_i32(6),
+                Self::BaseTableIncompatibleMetadataChange => serializer.serialize_i32(7),
+                Self::TimeZone => serializer.serialize_i32(8),
+                Self::OutOfTimeTravelWindow => serializer.serialize_i32(9),
+                Self::BaseTableFineGrainedSecurityPolicy => serializer.serialize_i32(10),
+                Self::BaseTableTooStale => serializer.serialize_i32(11),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RejectedReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RejectedReason>::new(
+                ".google.cloud.bigquery.v2.MaterializedView.RejectedReason",
+            ))
+        }
+    }
+}
+
+/// Table level detail on the usage of metadata caching. Only set for Metadata
+/// caching eligible tables referenced in the query.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct TableMetadataCacheUsage {
+    /// Metadata caching eligible table referenced in the query.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub table_reference: std::option::Option<crate::model::TableReference>,
+
+    /// Reason for not using metadata caching for the table.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub unused_reason: std::option::Option<crate::model::table_metadata_cache_usage::UnusedReason>,
+
+    /// Free form human-readable reason metadata caching was unused for
+    /// the job.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub explanation: std::option::Option<std::string::String>,
+
+    /// Duration since last refresh as of this job for managed tables (indicates
+    /// metadata cache staleness as seen by this job).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub staleness: std::option::Option<wkt::Duration>,
+
+    /// [Table
+    /// type](https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#Table.FIELDS.type).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub table_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TableMetadataCacheUsage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table_reference][crate::model::TableMetadataCacheUsage::table_reference].
+    pub fn set_table_reference<
+        T: std::convert::Into<std::option::Option<crate::model::TableReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.table_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [unused_reason][crate::model::TableMetadataCacheUsage::unused_reason].
+    pub fn set_unused_reason<
+        T: std::convert::Into<
+                std::option::Option<crate::model::table_metadata_cache_usage::UnusedReason>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.unused_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [explanation][crate::model::TableMetadataCacheUsage::explanation].
+    pub fn set_explanation<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.explanation = v.into();
+        self
+    }
+
+    /// Sets the value of [staleness][crate::model::TableMetadataCacheUsage::staleness].
+    pub fn set_staleness<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.staleness = v.into();
+        self
+    }
+
+    /// Sets the value of [table_type][crate::model::TableMetadataCacheUsage::table_type].
+    pub fn set_table_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TableMetadataCacheUsage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.TableMetadataCacheUsage"
+    }
+}
+
+/// Defines additional types related to [TableMetadataCacheUsage].
+pub mod table_metadata_cache_usage {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Reasons for not using metadata caching.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum UnusedReason {
+        /// Unused reasons not specified.
+        Unspecified,
+        /// Metadata cache was outside the table's maxStaleness.
+        ExceededMaxStaleness,
+        /// Metadata caching feature is not enabled. [Update BigLake tables]
+        /// (/bigquery/docs/create-cloud-storage-table-biglake#update-biglake-tables)
+        /// to enable the metadata caching.
+        MetadataCachingNotEnabled,
+        /// Other unknown reason.
+        OtherReason,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [UnusedReason::value] or
+        /// [UnusedReason::name].
+        UnknownValue(unused_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod unused_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl UnusedReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ExceededMaxStaleness => std::option::Option::Some(1),
+                Self::MetadataCachingNotEnabled => std::option::Option::Some(3),
+                Self::OtherReason => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("UNUSED_REASON_UNSPECIFIED"),
+                Self::ExceededMaxStaleness => std::option::Option::Some("EXCEEDED_MAX_STALENESS"),
+                Self::MetadataCachingNotEnabled => {
+                    std::option::Option::Some("METADATA_CACHING_NOT_ENABLED")
+                }
+                Self::OtherReason => std::option::Option::Some("OTHER_REASON"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for UnusedReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for UnusedReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for UnusedReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ExceededMaxStaleness,
+                2 => Self::OtherReason,
+                3 => Self::MetadataCachingNotEnabled,
+                _ => Self::UnknownValue(unused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for UnusedReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNUSED_REASON_UNSPECIFIED" => Self::Unspecified,
+                "EXCEEDED_MAX_STALENESS" => Self::ExceededMaxStaleness,
+                "METADATA_CACHING_NOT_ENABLED" => Self::MetadataCachingNotEnabled,
+                "OTHER_REASON" => Self::OtherReason,
+                _ => Self::UnknownValue(unused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for UnusedReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ExceededMaxStaleness => serializer.serialize_i32(1),
+                Self::MetadataCachingNotEnabled => serializer.serialize_i32(3),
+                Self::OtherReason => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UnusedReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<UnusedReason>::new(
+                ".google.cloud.bigquery.v2.TableMetadataCacheUsage.UnusedReason",
+            ))
+        }
+    }
+}
+
+/// Statistics for metadata caching in queried tables.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MetadataCacheStatistics {
+    /// Set for the Metadata caching eligible tables referenced in the query.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub table_metadata_cache_usage: std::vec::Vec<crate::model::TableMetadataCacheUsage>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MetadataCacheStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table_metadata_cache_usage][crate::model::MetadataCacheStatistics::table_metadata_cache_usage].
+    pub fn set_table_metadata_cache_usage<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TableMetadataCacheUsage>,
+    {
+        use std::iter::Iterator;
+        self.table_metadata_cache_usage = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MetadataCacheStatistics {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.MetadataCacheStatistics"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct JobStatus {
+    /// Output only. Final error result of the job. If present, indicates that the
+    /// job has completed and was unsuccessful.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub error_result: std::option::Option<crate::model::ErrorProto>,
+
+    /// Output only. The first errors encountered during the running of the job.
+    /// The final message includes the number of errors that caused the process to
+    /// stop. Errors here do not necessarily mean that the job has not completed or
+    /// was unsuccessful.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub errors: std::vec::Vec<crate::model::ErrorProto>,
+
+    /// Output only. Running state of the job.  Valid states include 'PENDING',
+    /// 'RUNNING', and 'DONE'.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub state: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JobStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error_result][crate::model::JobStatus::error_result].
+    pub fn set_error_result<
+        T: std::convert::Into<std::option::Option<crate::model::ErrorProto>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error_result = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::JobStatus::state].
+    pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::JobStatus::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ErrorProto>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JobStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.JobStatus"
     }
 }
 
@@ -19041,6 +30364,38 @@ impl wkt::message::Message for RowAccessPolicyReference {
     }
 }
 
+/// [Preview] Information related to sessions.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SessionInfo {
+    /// Output only. The id of the session.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub session_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SessionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session_id][crate::model::SessionInfo::session_id].
+    pub fn set_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SessionInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.SessionInfo"
+    }
+}
+
 /// The data type of a variable such as a function argument.
 /// Examples include:
 ///
@@ -23430,6 +34785,147 @@ impl<'de> serde::de::Deserialize<'de> for FileSetSpecType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileSetSpecType>::new(
             ".google.cloud.bigquery.v2.FileSetSpecType",
+        ))
+    }
+}
+
+/// The type of editions.
+/// Different features and behaviors are provided to different editions
+/// Capacity commitments and reservations are linked to editions.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ReservationEdition {
+    /// Default value, which will be treated as ENTERPRISE.
+    Unspecified,
+    /// Standard edition.
+    Standard,
+    /// Enterprise edition.
+    Enterprise,
+    /// Enterprise Plus edition.
+    EnterprisePlus,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ReservationEdition::value] or
+    /// [ReservationEdition::name].
+    UnknownValue(reservation_edition::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod reservation_edition {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ReservationEdition {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Standard => std::option::Option::Some(1),
+            Self::Enterprise => std::option::Option::Some(2),
+            Self::EnterprisePlus => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("RESERVATION_EDITION_UNSPECIFIED"),
+            Self::Standard => std::option::Option::Some("STANDARD"),
+            Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
+            Self::EnterprisePlus => std::option::Option::Some("ENTERPRISE_PLUS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ReservationEdition {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ReservationEdition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ReservationEdition {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Standard,
+            2 => Self::Enterprise,
+            3 => Self::EnterprisePlus,
+            _ => Self::UnknownValue(reservation_edition::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ReservationEdition {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "RESERVATION_EDITION_UNSPECIFIED" => Self::Unspecified,
+            "STANDARD" => Self::Standard,
+            "ENTERPRISE" => Self::Enterprise,
+            "ENTERPRISE_PLUS" => Self::EnterprisePlus,
+            _ => Self::UnknownValue(reservation_edition::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ReservationEdition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Standard => serializer.serialize_i32(1),
+            Self::Enterprise => serializer.serialize_i32(2),
+            Self::EnterprisePlus => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ReservationEdition {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReservationEdition>::new(
+            ".google.cloud.bigquery.v2.ReservationEdition",
         ))
     }
 }

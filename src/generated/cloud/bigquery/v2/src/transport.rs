@@ -233,6 +233,271 @@ impl super::stub::DatasetService for DatasetService {
     }
 }
 
+/// Implements [JobService](super::stub::JobService) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct JobService {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for JobService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("JobService")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl JobService {
+    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::JobService for JobService {
+    async fn cancel_job(
+        &self,
+        req: crate::model::CancelJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::JobCancelResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!(
+                    "/bigquery/v2/projects/{}/jobs/{}/cancel",
+                    req.project_id, req.job_id
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("location", &req.location)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_job(
+        &self,
+        req: crate::model::GetJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Job>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!(
+                    "/bigquery/v2/projects/{}/jobs/{}",
+                    req.project_id, req.job_id
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("location", &req.location)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn insert_job(
+        &self,
+        req: crate::model::InsertJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Job>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/bigquery/v2/projects/{}/jobs", req.project_id),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.job), options).await
+    }
+
+    async fn delete_job(
+        &self,
+        req: crate::model::DeleteJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::DELETE,
+                format!(
+                    "/bigquery/v2/projects/{}/jobs/{}/delete",
+                    req.project_id, req.job_id
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("location", &req.location)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn list_jobs(
+        &self,
+        req: crate::model::ListJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::JobList>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/bigquery/v2/projects/{}/jobs", req.project_id),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("allUsers", &req.all_users)]);
+        let builder = req
+            .max_results
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "maxResults")
+            });
+        let builder = builder.query(&[("minCreationTime", &req.min_creation_time)]);
+        let builder = req
+            .max_creation_time
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "maxCreationTime")
+            });
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = builder.query(&[("projection", &req.projection)]);
+        let builder = req
+            .state_filter
+            .iter()
+            .fold(builder, |builder, p| builder.query(&[("stateFilter", p)]));
+        let builder = builder.query(&[("parentJobId", &req.parent_job_id)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_query_results(
+        &self,
+        req: crate::model::GetQueryResultsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GetQueryResultsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!(
+                    "/bigquery/v2/projects/{}/queries/{}",
+                    req.project_id, req.job_id
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .start_index
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "startIndex")
+            });
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = req
+            .max_results
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "maxResults")
+            });
+        let builder = req
+            .timeout_ms
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "timeoutMs")
+            });
+        let builder = builder.query(&[("location", &req.location)]);
+        let builder = req
+            .format_options
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "formatOptions")
+            });
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn query(
+        &self,
+        req: crate::model::PostQueryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/bigquery/v2/projects/{}/queries", req.project_id),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(req.query_request), options)
+            .await
+    }
+}
+
 /// Implements [ModelService](super::stub::ModelService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelService {

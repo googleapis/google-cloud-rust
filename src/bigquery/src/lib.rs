@@ -23,3 +23,5 @@
 //! [BigQuery].
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
+
+pub mod client;

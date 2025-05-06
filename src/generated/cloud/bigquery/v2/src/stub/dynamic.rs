@@ -127,6 +127,119 @@ impl<T: super::DatasetService> DatasetService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::JobService].
+#[async_trait::async_trait]
+pub trait JobService: std::fmt::Debug + Send + Sync {
+    async fn cancel_job(
+        &self,
+        req: crate::model::CancelJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::JobCancelResponse>>;
+
+    async fn get_job(
+        &self,
+        req: crate::model::GetJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
+
+    async fn insert_job(
+        &self,
+        req: crate::model::InsertJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
+
+    async fn delete_job(
+        &self,
+        req: crate::model::DeleteJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_jobs(
+        &self,
+        req: crate::model::ListJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::JobList>>;
+
+    async fn get_query_results(
+        &self,
+        req: crate::model::GetQueryResultsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GetQueryResultsResponse>>;
+
+    async fn query(
+        &self,
+        req: crate::model::PostQueryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryResponse>>;
+}
+
+/// All implementations of [super::JobService] also implement [JobService].
+#[async_trait::async_trait]
+impl<T: super::JobService> JobService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_job(
+        &self,
+        req: crate::model::CancelJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::JobCancelResponse>> {
+        T::cancel_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_job(
+        &self,
+        req: crate::model::GetJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
+        T::get_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert_job(
+        &self,
+        req: crate::model::InsertJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
+        T::insert_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_job(
+        &self,
+        req: crate::model::DeleteJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_jobs(
+        &self,
+        req: crate::model::ListJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::JobList>> {
+        T::list_jobs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_query_results(
+        &self,
+        req: crate::model::GetQueryResultsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GetQueryResultsResponse>> {
+        T::get_query_results(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn query(
+        &self,
+        req: crate::model::PostQueryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryResponse>> {
+        T::query(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::ModelService].
 #[async_trait::async_trait]
 pub trait ModelService: std::fmt::Debug + Send + Sync {

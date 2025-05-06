@@ -101,6 +101,92 @@ where
     }
 }
 
+/// Implements a [JobService](super::stub::JobService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct JobService<T>
+where
+    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> JobService<T>
+where
+    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::JobService for JobService<T>
+where
+    T: super::stub::JobService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn cancel_job(
+        &self,
+        req: crate::model::CancelJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::JobCancelResponse>> {
+        self.inner.cancel_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_job(
+        &self,
+        req: crate::model::GetJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Job>> {
+        self.inner.get_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn insert_job(
+        &self,
+        req: crate::model::InsertJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Job>> {
+        self.inner.insert_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_job(
+        &self,
+        req: crate::model::DeleteJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_jobs(
+        &self,
+        req: crate::model::ListJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::JobList>> {
+        self.inner.list_jobs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_query_results(
+        &self,
+        req: crate::model::GetQueryResultsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GetQueryResultsResponse>> {
+        self.inner.get_query_results(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn query(
+        &self,
+        req: crate::model::PostQueryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryResponse>> {
+        self.inner.query(req, options).await
+    }
+}
+
 /// Implements a [ModelService](super::stub::ModelService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ModelService<T>

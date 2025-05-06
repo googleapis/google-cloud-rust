@@ -16,8 +16,27 @@ use crate::Result;
 use gax::error::Error;
 use rand::{Rng, distr::Alphanumeric};
 
+pub async fn run_query(builder: bigquery::client::ClientBuilder) -> Result<()> {
+    let project_id = crate::project_id()?;
+    let client = builder.build().await?;
+
+    let mut query = client
+        .start_query(project_id.as_str(), "SELECT 17 as foo".to_string())
+        .await?;
+
+    query.wait().await?;
+
+    assert!(query.completed);
+    assert_eq!(query.cached_rows.len(), 1);
+
+    let rows = query.cached_rows;
+    println!("read rows: {:?}", rows);
+
+    Ok(())
+}
+
 pub async fn dataset_admin(
-    builder: bigquery::builder::dataset_service::ClientBuilder,
+    builder: bigquery_admin::builder::dataset_service::ClientBuilder,
 ) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
@@ -44,9 +63,9 @@ pub async fn dataset_admin(
     let create = client
         .insert_dataset(&project_id)
         .set_dataset(
-            bigquery::model::Dataset::new()
+            bigquery_admin::model::Dataset::new()
                 .set_dataset_reference(
-                    bigquery::model::DatasetReference::new().set_dataset_id(&dataset_id),
+                    bigquery_admin::model::DatasetReference::new().set_dataset_id(&dataset_id),
                 )
                 .set_labels([("integration-test", "true")]),
         )
@@ -72,7 +91,7 @@ pub async fn dataset_admin(
 }
 
 async fn cleanup_stale_datasets(
-    client: &bigquery::client::DatasetService,
+    client: &bigquery_admin::client::DatasetService,
     project_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
