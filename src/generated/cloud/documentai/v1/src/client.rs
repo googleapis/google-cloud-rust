@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Document AI API.
 ///
@@ -61,11 +60,11 @@ use std::sync::Arc;
 ///
 /// `DocumentProcessorService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DocumentProcessorService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DocumentProcessorService {
-    inner: Arc<dyn super::stub::dynamic::DocumentProcessorService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DocumentProcessorService>,
 }
 
 impl DocumentProcessorService {
@@ -92,7 +91,7 @@ impl DocumentProcessorService {
         T: super::stub::DocumentProcessorService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -103,11 +102,11 @@ impl DocumentProcessorService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DocumentProcessorService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DocumentProcessorService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

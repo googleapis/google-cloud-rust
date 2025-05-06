@@ -16,7 +16,6 @@
 
 pub mod app_connectors_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AppConnectorsService][super::super::client::AppConnectorsService].
     ///
@@ -49,7 +48,7 @@ pub mod app_connectors_service {
     /// Common implementation for [super::super::client::AppConnectorsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod app_connectors_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod app_connectors_service {
 
     impl ListAppConnectors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -164,7 +163,7 @@ pub mod app_connectors_service {
 
     impl GetAppConnector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -211,7 +210,7 @@ pub mod app_connectors_service {
 
     impl CreateAppConnector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -331,7 +330,7 @@ pub mod app_connectors_service {
 
     impl UpdateAppConnector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -448,7 +447,7 @@ pub mod app_connectors_service {
 
     impl DeleteAppConnector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -548,7 +547,7 @@ pub mod app_connectors_service {
 
     impl ReportStatus {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -659,7 +658,7 @@ pub mod app_connectors_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -740,7 +739,7 @@ pub mod app_connectors_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -785,7 +784,7 @@ pub mod app_connectors_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -852,7 +851,7 @@ pub mod app_connectors_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -908,7 +907,7 @@ pub mod app_connectors_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -971,7 +970,7 @@ pub mod app_connectors_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1052,7 +1051,7 @@ pub mod app_connectors_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1100,7 +1099,7 @@ pub mod app_connectors_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1148,7 +1147,7 @@ pub mod app_connectors_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

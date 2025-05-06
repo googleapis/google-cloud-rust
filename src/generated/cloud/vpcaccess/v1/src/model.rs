@@ -131,6 +131,17 @@ impl Connector {
         self
     }
 
+    /// Sets the value of [connected_projects][crate::model::Connector::connected_projects].
+    pub fn set_connected_projects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.connected_projects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [subnet][crate::model::Connector::subnet].
     pub fn set_subnet<
         T: std::convert::Into<std::option::Option<crate::model::connector::Subnet>>,
@@ -157,17 +168,6 @@ impl Connector {
     /// Sets the value of [max_instances][crate::model::Connector::max_instances].
     pub fn set_max_instances<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instances = v.into();
-        self
-    }
-
-    /// Sets the value of [connected_projects][crate::model::Connector::connected_projects].
-    pub fn set_connected_projects<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.connected_projects = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -547,12 +547,6 @@ impl ListConnectorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connectors][crate::model::ListConnectorsResponse::connectors].
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
@@ -561,6 +555,12 @@ impl ListConnectorsResponse {
     {
         use std::iter::Iterator;
         self.connectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

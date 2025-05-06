@@ -137,12 +137,6 @@ impl ListJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -151,6 +145,12 @@ impl ListJobsResponse {
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -741,30 +741,6 @@ impl Job {
         })
     }
 
-    /// The value of [target][crate::model::Job::target]
-    /// if it holds a `AppEngineHttpTarget`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn app_engine_http_target(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineHttpTarget>> {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::job::Target::AppEngineHttpTarget(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [target][crate::model::Job::target]
-    /// if it holds a `HttpTarget`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn http_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpTarget>> {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::job::Target::HttpTarget(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target][crate::model::Job::target]
     /// to hold a `PubsubTarget`.
     ///
@@ -776,6 +752,19 @@ impl Job {
     ) -> Self {
         self.target = std::option::Option::Some(crate::model::job::Target::PubsubTarget(v.into()));
         self
+    }
+
+    /// The value of [target][crate::model::Job::target]
+    /// if it holds a `AppEngineHttpTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn app_engine_http_target(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineHttpTarget>> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::job::Target::AppEngineHttpTarget(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::Job::target]
@@ -792,6 +781,17 @@ impl Job {
         self.target =
             std::option::Option::Some(crate::model::job::Target::AppEngineHttpTarget(v.into()));
         self
+    }
+
+    /// The value of [target][crate::model::Job::target]
+    /// if it holds a `HttpTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn http_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpTarget>> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::job::Target::HttpTarget(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::Job::target]
@@ -1251,12 +1251,6 @@ impl HttpTarget {
         self
     }
 
-    /// Sets the value of [body][crate::model::HttpTarget::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::HttpTarget::headers].
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
@@ -1266,6 +1260,12 @@ impl HttpTarget {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::HttpTarget::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 
@@ -1296,19 +1296,6 @@ impl HttpTarget {
         })
     }
 
-    /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
-    /// if it holds a `OidcToken`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
-        #[allow(unreachable_patterns)]
-        self.authorization_header.as_ref().and_then(|v| match v {
-            crate::model::http_target::AuthorizationHeader::OidcToken(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header]
     /// to hold a `OauthToken`.
     ///
@@ -1322,6 +1309,19 @@ impl HttpTarget {
             crate::model::http_target::AuthorizationHeader::OauthToken(v.into()),
         );
         self
+    }
+
+    /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
+    /// if it holds a `OidcToken`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
+        #[allow(unreachable_patterns)]
+        self.authorization_header.as_ref().and_then(|v| match v {
+            crate::model::http_target::AuthorizationHeader::OidcToken(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header]
@@ -1503,12 +1503,6 @@ impl AppEngineHttpTarget {
         self
     }
 
-    /// Sets the value of [body][crate::model::AppEngineHttpTarget::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::AppEngineHttpTarget::headers].
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
@@ -1518,6 +1512,12 @@ impl AppEngineHttpTarget {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::AppEngineHttpTarget::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 }

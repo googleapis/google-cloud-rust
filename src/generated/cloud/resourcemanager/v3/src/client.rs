@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Resource Manager API.
 ///
@@ -60,11 +59,11 @@ use std::sync::Arc;
 ///
 /// `Folders` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Folders` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Folders {
-    inner: Arc<dyn super::stub::dynamic::Folders>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Folders>,
 }
 
 impl Folders {
@@ -89,7 +88,7 @@ impl Folders {
         T: super::stub::Folders + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -100,11 +99,11 @@ impl Folders {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Folders>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Folders>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -416,11 +415,11 @@ impl Folders {
 ///
 /// `Organizations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Organizations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Organizations {
-    inner: Arc<dyn super::stub::dynamic::Organizations>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Organizations>,
 }
 
 impl Organizations {
@@ -445,7 +444,7 @@ impl Organizations {
         T: super::stub::Organizations + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -456,11 +455,11 @@ impl Organizations {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Organizations>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Organizations>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -588,11 +587,11 @@ impl Organizations {
 ///
 /// `Projects` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Projects` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Projects {
-    inner: Arc<dyn super::stub::dynamic::Projects>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Projects>,
 }
 
 impl Projects {
@@ -617,7 +616,7 @@ impl Projects {
         T: super::stub::Projects + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -628,11 +627,11 @@ impl Projects {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Projects>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -962,11 +961,11 @@ impl Projects {
 ///
 /// `TagBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagBindings` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagBindings {
-    inner: Arc<dyn super::stub::dynamic::TagBindings>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagBindings>,
 }
 
 impl TagBindings {
@@ -991,7 +990,7 @@ impl TagBindings {
         T: super::stub::TagBindings + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1002,11 +1001,11 @@ impl TagBindings {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagBindings>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1126,11 +1125,11 @@ impl TagBindings {
 ///
 /// `TagHolds` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagHolds` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagHolds {
-    inner: Arc<dyn super::stub::dynamic::TagHolds>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagHolds>,
 }
 
 impl TagHolds {
@@ -1155,7 +1154,7 @@ impl TagHolds {
         T: super::stub::TagHolds + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1166,11 +1165,11 @@ impl TagHolds {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagHolds>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagHolds>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1282,11 +1281,11 @@ impl TagHolds {
 ///
 /// `TagKeys` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagKeys` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagKeys {
-    inner: Arc<dyn super::stub::dynamic::TagKeys>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagKeys>,
 }
 
 impl TagKeys {
@@ -1311,7 +1310,7 @@ impl TagKeys {
         T: super::stub::TagKeys + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1322,11 +1321,11 @@ impl TagKeys {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagKeys>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1509,11 +1508,11 @@ impl TagKeys {
 ///
 /// `TagValues` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagValues` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagValues {
-    inner: Arc<dyn super::stub::dynamic::TagValues>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagValues>,
 }
 
 impl TagValues {
@@ -1538,7 +1537,7 @@ impl TagValues {
         T: super::stub::TagValues + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1549,11 +1548,11 @@ impl TagValues {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagValues>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagValues>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

@@ -460,6 +460,18 @@ impl ManagementServer {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ManagementServer::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::ManagementServer::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -518,6 +530,17 @@ impl ManagementServer {
         self
     }
 
+    /// Sets the value of [networks][crate::model::ManagementServer::networks].
+    pub fn set_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkConfig>,
+    {
+        use std::iter::Iterator;
+        self.networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::ManagementServer::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -544,6 +567,17 @@ impl ManagementServer {
         self
     }
 
+    /// Sets the value of [ba_proxy_uri][crate::model::ManagementServer::ba_proxy_uri].
+    pub fn set_ba_proxy_uri<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ba_proxy_uri = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [satisfies_pzs][crate::model::ManagementServer::satisfies_pzs].
     pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
         mut self,
@@ -556,40 +590,6 @@ impl ManagementServer {
     /// Sets the value of [satisfies_pzi][crate::model::ManagementServer::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [networks][crate::model::ManagementServer::networks].
-    pub fn set_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
-    {
-        use std::iter::Iterator;
-        self.networks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [ba_proxy_uri][crate::model::ManagementServer::ba_proxy_uri].
-    pub fn set_ba_proxy_uri<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ba_proxy_uri = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ManagementServer::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1019,12 +1019,6 @@ impl ListManagementServersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListManagementServersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [management_servers][crate::model::ListManagementServersResponse::management_servers].
     pub fn set_management_servers<T, V>(mut self, v: T) -> Self
     where
@@ -1033,6 +1027,12 @@ impl ListManagementServersResponse {
     {
         use std::iter::Iterator;
         self.management_servers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListManagementServersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1576,6 +1576,18 @@ impl BackupPlan {
         self
     }
 
+    /// Sets the value of [labels][crate::model::BackupPlan::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::BackupPlan::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1591,6 +1603,17 @@ impl BackupPlan {
         v: T,
     ) -> Self {
         self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_rules][crate::model::BackupPlan::backup_rules].
+    pub fn set_backup_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupRule>,
+    {
+        use std::iter::Iterator;
+        self.backup_rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1627,29 +1650,6 @@ impl BackupPlan {
         v: T,
     ) -> Self {
         self.backup_vault_service_account = v.into();
-        self
-    }
-
-    /// Sets the value of [backup_rules][crate::model::BackupPlan::backup_rules].
-    pub fn set_backup_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupRule>,
-    {
-        use std::iter::Iterator;
-        self.backup_rules = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::BackupPlan::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2036,34 +2036,6 @@ impl StandardSchedule {
         self
     }
 
-    /// Sets the value of [week_day_of_month][crate::model::StandardSchedule::week_day_of_month].
-    pub fn set_week_day_of_month<
-        T: std::convert::Into<std::option::Option<crate::model::WeekDayOfMonth>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.week_day_of_month = v.into();
-        self
-    }
-
-    /// Sets the value of [backup_window][crate::model::StandardSchedule::backup_window].
-    pub fn set_backup_window<
-        T: std::convert::Into<std::option::Option<crate::model::BackupWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_window = v.into();
-        self
-    }
-
-    /// Sets the value of [time_zone][crate::model::StandardSchedule::time_zone].
-    pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.time_zone = v.into();
-        self
-    }
-
     /// Sets the value of [days_of_week][crate::model::StandardSchedule::days_of_week].
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
@@ -2086,6 +2058,17 @@ impl StandardSchedule {
         self
     }
 
+    /// Sets the value of [week_day_of_month][crate::model::StandardSchedule::week_day_of_month].
+    pub fn set_week_day_of_month<
+        T: std::convert::Into<std::option::Option<crate::model::WeekDayOfMonth>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.week_day_of_month = v.into();
+        self
+    }
+
     /// Sets the value of [months][crate::model::StandardSchedule::months].
     pub fn set_months<T, V>(mut self, v: T) -> Self
     where
@@ -2094,6 +2077,23 @@ impl StandardSchedule {
     {
         use std::iter::Iterator;
         self.months = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [backup_window][crate::model::StandardSchedule::backup_window].
+    pub fn set_backup_window<
+        T: std::convert::Into<std::option::Option<crate::model::BackupWindow>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_window = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::StandardSchedule::time_zone].
+    pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.time_zone = v.into();
         self
     }
 }
@@ -2733,12 +2733,6 @@ impl ListBackupPlansResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_plans][crate::model::ListBackupPlansResponse::backup_plans].
     pub fn set_backup_plans<T, V>(mut self, v: T) -> Self
     where
@@ -2747,6 +2741,12 @@ impl ListBackupPlansResponse {
     {
         use std::iter::Iterator;
         self.backup_plans = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2982,12 +2982,6 @@ impl BackupPlanAssociation {
         self
     }
 
-    /// Sets the value of [data_source][crate::model::BackupPlanAssociation::data_source].
-    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.data_source = v.into();
-        self
-    }
-
     /// Sets the value of [rules_config_info][crate::model::BackupPlanAssociation::rules_config_info].
     pub fn set_rules_config_info<T, V>(mut self, v: T) -> Self
     where
@@ -2996,6 +2990,12 @@ impl BackupPlanAssociation {
     {
         use std::iter::Iterator;
         self.rules_config_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::BackupPlanAssociation::data_source].
+    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_source = v.into();
         self
     }
 }
@@ -3573,12 +3573,6 @@ impl ListBackupPlanAssociationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupPlanAssociationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_plan_associations][crate::model::ListBackupPlanAssociationsResponse::backup_plan_associations].
     pub fn set_backup_plan_associations<T, V>(mut self, v: T) -> Self
     where
@@ -3587,6 +3581,12 @@ impl ListBackupPlanAssociationsResponse {
     {
         use std::iter::Iterator;
         self.backup_plan_associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPlanAssociationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3885,6 +3885,18 @@ impl BackupVault {
         self
     }
 
+    /// Sets the value of [labels][crate::model::BackupVault::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::BackupVault::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3971,29 +3983,6 @@ impl BackupVault {
         self
     }
 
-    /// Sets the value of [access_restriction][crate::model::BackupVault::access_restriction].
-    pub fn set_access_restriction<
-        T: std::convert::Into<crate::model::backup_vault::AccessRestriction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_restriction = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::BackupVault::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::BackupVault::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -4003,6 +3992,17 @@ impl BackupVault {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [access_restriction][crate::model::BackupVault::access_restriction].
+    pub fn set_access_restriction<
+        T: std::convert::Into<crate::model::backup_vault::AccessRestriction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.access_restriction = v.into();
         self
     }
 }
@@ -4399,6 +4399,18 @@ impl DataSource {
         self
     }
 
+    /// Sets the value of [labels][crate::model::DataSource::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::DataSource::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -4464,18 +4476,6 @@ impl DataSource {
         self
     }
 
-    /// Sets the value of [labels][crate::model::DataSource::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [source_resource][crate::model::DataSource::source_resource].
     ///
     /// Note that all the setters affecting `source_resource` are mutually
@@ -4505,22 +4505,6 @@ impl DataSource {
         })
     }
 
-    /// The value of [source_resource][crate::model::DataSource::source_resource]
-    /// if it holds a `DataSourceBackupApplianceApplication`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn data_source_backup_appliance_application(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DataSourceBackupApplianceApplication>>
-    {
-        #[allow(unreachable_patterns)]
-        self.source_resource.as_ref().and_then(|v| match v {
-            crate::model::data_source::SourceResource::DataSourceBackupApplianceApplication(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_resource][crate::model::DataSource::source_resource]
     /// to hold a `DataSourceGcpResource`.
     ///
@@ -4536,6 +4520,22 @@ impl DataSource {
             crate::model::data_source::SourceResource::DataSourceGcpResource(v.into()),
         );
         self
+    }
+
+    /// The value of [source_resource][crate::model::DataSource::source_resource]
+    /// if it holds a `DataSourceBackupApplianceApplication`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_source_backup_appliance_application(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataSourceBackupApplianceApplication>>
+    {
+        #[allow(unreachable_patterns)]
+        self.source_resource.as_ref().and_then(|v| match v {
+            crate::model::data_source::SourceResource::DataSourceBackupApplianceApplication(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_resource][crate::model::DataSource::source_resource]
@@ -4825,21 +4825,6 @@ impl BackupConfigInfo {
         })
     }
 
-    /// The value of [backup_config][crate::model::BackupConfigInfo::backup_config]
-    /// if it holds a `BackupApplianceBackupConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn backup_appliance_backup_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceBackupConfig>> {
-        #[allow(unreachable_patterns)]
-        self.backup_config.as_ref().and_then(|v| match v {
-            crate::model::backup_config_info::BackupConfig::BackupApplianceBackupConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [backup_config][crate::model::BackupConfigInfo::backup_config]
     /// to hold a `GcpBackupConfig`.
     ///
@@ -4855,6 +4840,21 @@ impl BackupConfigInfo {
             crate::model::backup_config_info::BackupConfig::GcpBackupConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [backup_config][crate::model::BackupConfigInfo::backup_config]
+    /// if it holds a `BackupApplianceBackupConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backup_appliance_backup_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceBackupConfig>> {
+        #[allow(unreachable_patterns)]
+        self.backup_config.as_ref().and_then(|v| match v {
+            crate::model::backup_config_info::BackupConfig::BackupApplianceBackupConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backup_config][crate::model::BackupConfigInfo::backup_config]
@@ -5576,6 +5576,18 @@ impl BackupApplianceLockInfo {
         })
     }
 
+    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
+    /// to hold a `JobName`.
+    ///
+    /// Note that all the setters affecting `lock_source` are
+    /// mutually exclusive.
+    pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.lock_source = std::option::Option::Some(
+            crate::model::backup_appliance_lock_info::LockSource::JobName(v.into()),
+        );
+        self
+    }
+
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `BackupImage`, `None` if the field is not set or
     /// holds a different branch.
@@ -5589,6 +5601,18 @@ impl BackupApplianceLockInfo {
         })
     }
 
+    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
+    /// to hold a `BackupImage`.
+    ///
+    /// Note that all the setters affecting `lock_source` are
+    /// mutually exclusive.
+    pub fn set_backup_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.lock_source = std::option::Option::Some(
+            crate::model::backup_appliance_lock_info::LockSource::BackupImage(v.into()),
+        );
+        self
+    }
+
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `SlaId`, `None` if the field is not set or
     /// holds a different branch.
@@ -5600,30 +5624,6 @@ impl BackupApplianceLockInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
-    /// to hold a `JobName`.
-    ///
-    /// Note that all the setters affecting `lock_source` are
-    /// mutually exclusive.
-    pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.lock_source = std::option::Option::Some(
-            crate::model::backup_appliance_lock_info::LockSource::JobName(v.into()),
-        );
-        self
-    }
-
-    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
-    /// to hold a `BackupImage`.
-    ///
-    /// Note that all the setters affecting `lock_source` are
-    /// mutually exclusive.
-    pub fn set_backup_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.lock_source = std::option::Option::Some(
-            crate::model::backup_appliance_lock_info::LockSource::BackupImage(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
@@ -5727,21 +5727,6 @@ impl BackupLock {
         })
     }
 
-    /// The value of [client_lock_info][crate::model::BackupLock::client_lock_info]
-    /// if it holds a `ServiceLockInfo`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn service_lock_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ServiceLockInfo>> {
-        #[allow(unreachable_patterns)]
-        self.client_lock_info.as_ref().and_then(|v| match v {
-            crate::model::backup_lock::ClientLockInfo::ServiceLockInfo(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [client_lock_info][crate::model::BackupLock::client_lock_info]
     /// to hold a `BackupApplianceLockInfo`.
     ///
@@ -5757,6 +5742,21 @@ impl BackupLock {
             crate::model::backup_lock::ClientLockInfo::BackupApplianceLockInfo(v.into()),
         );
         self
+    }
+
+    /// The value of [client_lock_info][crate::model::BackupLock::client_lock_info]
+    /// if it holds a `ServiceLockInfo`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_lock_info(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ServiceLockInfo>> {
+        #[allow(unreachable_patterns)]
+        self.client_lock_info.as_ref().and_then(|v| match v {
+            crate::model::backup_lock::ClientLockInfo::ServiceLockInfo(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [client_lock_info][crate::model::BackupLock::client_lock_info]
@@ -5921,6 +5921,18 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Backup::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
     pub fn set_enforced_retention_end_time<
         T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
@@ -5965,21 +5977,6 @@ impl Backup {
         self
     }
 
-    /// Sets the value of [backup_type][crate::model::Backup::backup_type].
-    pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_type = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_size_bytes][crate::model::Backup::resource_size_bytes].
-    pub fn set_resource_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.resource_size_bytes = v.into();
-        self
-    }
-
     /// Sets the value of [service_locks][crate::model::Backup::service_locks].
     pub fn set_service_locks<T, V>(mut self, v: T) -> Self
     where
@@ -6002,15 +5999,18 @@ impl Backup {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Backup::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [backup_type][crate::model::Backup::backup_type].
+    pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_type = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_size_bytes][crate::model::Backup::resource_size_bytes].
+    pub fn set_resource_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.resource_size_bytes = v.into();
         self
     }
 
@@ -6043,21 +6043,6 @@ impl Backup {
         })
     }
 
-    /// The value of [backup_properties][crate::model::Backup::backup_properties]
-    /// if it holds a `BackupApplianceBackupProperties`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn backup_appliance_backup_properties(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceBackupProperties>> {
-        #[allow(unreachable_patterns)]
-        self.backup_properties.as_ref().and_then(|v| match v {
-            crate::model::backup::BackupProperties::BackupApplianceBackupProperties(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
     /// to hold a `ComputeInstanceBackupProperties`.
     ///
@@ -6073,6 +6058,21 @@ impl Backup {
             crate::model::backup::BackupProperties::ComputeInstanceBackupProperties(v.into()),
         );
         self
+    }
+
+    /// The value of [backup_properties][crate::model::Backup::backup_properties]
+    /// if it holds a `BackupApplianceBackupProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backup_appliance_backup_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceBackupProperties>> {
+        #[allow(unreachable_patterns)]
+        self.backup_properties.as_ref().and_then(|v| match v {
+            crate::model::backup::BackupProperties::BackupApplianceBackupProperties(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
@@ -6714,12 +6714,6 @@ impl ListBackupVaultsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupVaultsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_vaults][crate::model::ListBackupVaultsResponse::backup_vaults].
     pub fn set_backup_vaults<T, V>(mut self, v: T) -> Self
     where
@@ -6728,6 +6722,12 @@ impl ListBackupVaultsResponse {
     {
         use std::iter::Iterator;
         self.backup_vaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupVaultsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6875,12 +6875,6 @@ impl FetchUsableBackupVaultsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchUsableBackupVaultsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_vaults][crate::model::FetchUsableBackupVaultsResponse::backup_vaults].
     pub fn set_backup_vaults<T, V>(mut self, v: T) -> Self
     where
@@ -6889,6 +6883,12 @@ impl FetchUsableBackupVaultsResponse {
     {
         use std::iter::Iterator;
         self.backup_vaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchUsableBackupVaultsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7287,12 +7287,6 @@ impl ListDataSourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_sources][crate::model::ListDataSourcesResponse::data_sources].
     pub fn set_data_sources<T, V>(mut self, v: T) -> Self
     where
@@ -7301,6 +7295,12 @@ impl ListDataSourcesResponse {
     {
         use std::iter::Iterator;
         self.data_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7575,12 +7575,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -7589,6 +7583,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8380,6 +8380,28 @@ impl ComputeInstanceBackupProperties {
         self
     }
 
+    /// Sets the value of [network_interface][crate::model::ComputeInstanceBackupProperties::network_interface].
+    pub fn set_network_interface<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkInterface>,
+    {
+        use std::iter::Iterator;
+        self.network_interface = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [disk][crate::model::ComputeInstanceBackupProperties::disk].
+    pub fn set_disk<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AttachedDisk>,
+    {
+        use std::iter::Iterator;
+        self.disk = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [metadata][crate::model::ComputeInstanceBackupProperties::metadata].
     pub fn set_metadata<T: std::convert::Into<std::option::Option<crate::model::Metadata>>>(
         mut self,
@@ -8389,12 +8411,34 @@ impl ComputeInstanceBackupProperties {
         self
     }
 
+    /// Sets the value of [service_account][crate::model::ComputeInstanceBackupProperties::service_account].
+    pub fn set_service_account<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ServiceAccount>,
+    {
+        use std::iter::Iterator;
+        self.service_account = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [scheduling][crate::model::ComputeInstanceBackupProperties::scheduling].
     pub fn set_scheduling<T: std::convert::Into<std::option::Option<crate::model::Scheduling>>>(
         mut self,
         v: T,
     ) -> Self {
         self.scheduling = v.into();
+        self
+    }
+
+    /// Sets the value of [guest_accelerator][crate::model::ComputeInstanceBackupProperties::guest_accelerator].
+    pub fn set_guest_accelerator<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AcceleratorConfig>,
+    {
+        use std::iter::Iterator;
+        self.guest_accelerator = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8424,50 +8468,6 @@ impl ComputeInstanceBackupProperties {
         v: T,
     ) -> Self {
         self.source_instance = v.into();
-        self
-    }
-
-    /// Sets the value of [network_interface][crate::model::ComputeInstanceBackupProperties::network_interface].
-    pub fn set_network_interface<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkInterface>,
-    {
-        use std::iter::Iterator;
-        self.network_interface = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [disk][crate::model::ComputeInstanceBackupProperties::disk].
-    pub fn set_disk<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedDisk>,
-    {
-        use std::iter::Iterator;
-        self.disk = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [service_account][crate::model::ComputeInstanceBackupProperties::service_account].
-    pub fn set_service_account<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServiceAccount>,
-    {
-        use std::iter::Iterator;
-        self.service_account = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [guest_accelerator][crate::model::ComputeInstanceBackupProperties::guest_accelerator].
-    pub fn set_guest_accelerator<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>,
-    {
-        use std::iter::Iterator;
-        self.guest_accelerator = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8685,6 +8685,17 @@ impl ComputeInstanceRestoreProperties {
         self
     }
 
+    /// Sets the value of [disks][crate::model::ComputeInstanceRestoreProperties::disks].
+    pub fn set_disks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AttachedDisk>,
+    {
+        use std::iter::Iterator;
+        self.disks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [display_device][crate::model::ComputeInstanceRestoreProperties::display_device].
     pub fn set_display_device<
         T: std::convert::Into<std::option::Option<crate::model::DisplayDevice>>,
@@ -8693,6 +8704,17 @@ impl ComputeInstanceRestoreProperties {
         v: T,
     ) -> Self {
         self.display_device = v.into();
+        self
+    }
+
+    /// Sets the value of [guest_accelerators][crate::model::ComputeInstanceRestoreProperties::guest_accelerators].
+    pub fn set_guest_accelerators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AcceleratorConfig>,
+    {
+        use std::iter::Iterator;
+        self.guest_accelerators = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8727,6 +8749,18 @@ impl ComputeInstanceRestoreProperties {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ComputeInstanceRestoreProperties::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [machine_type][crate::model::ComputeInstanceRestoreProperties::machine_type].
     pub fn set_machine_type<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
@@ -8751,6 +8785,17 @@ impl ComputeInstanceRestoreProperties {
         v: T,
     ) -> Self {
         self.min_cpu_platform = v.into();
+        self
+    }
+
+    /// Sets the value of [network_interfaces][crate::model::ComputeInstanceRestoreProperties::network_interfaces].
+    pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkInterface>,
+    {
+        use std::iter::Iterator;
+        self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8791,57 +8836,6 @@ impl ComputeInstanceRestoreProperties {
         self
     }
 
-    /// Sets the value of [scheduling][crate::model::ComputeInstanceRestoreProperties::scheduling].
-    pub fn set_scheduling<T: std::convert::Into<std::option::Option<crate::model::Scheduling>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scheduling = v.into();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::ComputeInstanceRestoreProperties::tags].
-    pub fn set_tags<T: std::convert::Into<std::option::Option<crate::model::Tags>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tags = v.into();
-        self
-    }
-
-    /// Sets the value of [disks][crate::model::ComputeInstanceRestoreProperties::disks].
-    pub fn set_disks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedDisk>,
-    {
-        use std::iter::Iterator;
-        self.disks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [guest_accelerators][crate::model::ComputeInstanceRestoreProperties::guest_accelerators].
-    pub fn set_guest_accelerators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>,
-    {
-        use std::iter::Iterator;
-        self.guest_accelerators = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [network_interfaces][crate::model::ComputeInstanceRestoreProperties::network_interfaces].
-    pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkInterface>,
-    {
-        use std::iter::Iterator;
-        self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [resource_policies][crate::model::ComputeInstanceRestoreProperties::resource_policies].
     pub fn set_resource_policies<T, V>(mut self, v: T) -> Self
     where
@@ -8850,6 +8844,15 @@ impl ComputeInstanceRestoreProperties {
     {
         use std::iter::Iterator;
         self.resource_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [scheduling][crate::model::ComputeInstanceRestoreProperties::scheduling].
+    pub fn set_scheduling<T: std::convert::Into<std::option::Option<crate::model::Scheduling>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scheduling = v.into();
         self
     }
 
@@ -8864,15 +8867,12 @@ impl ComputeInstanceRestoreProperties {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ComputeInstanceRestoreProperties::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [tags][crate::model::ComputeInstanceRestoreProperties::tags].
+    pub fn set_tags<T: std::convert::Into<std::option::Option<crate::model::Tags>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tags = v.into();
         self
     }
 }
@@ -9423,6 +9423,17 @@ impl CustomerEncryptionKey {
         })
     }
 
+    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
+    /// to hold a `RawKey`.
+    ///
+    /// Note that all the setters affecting `key` are
+    /// mutually exclusive.
+    pub fn set_raw_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key =
+            std::option::Option::Some(crate::model::customer_encryption_key::Key::RawKey(v.into()));
+        self
+    }
+
     /// The value of [key][crate::model::CustomerEncryptionKey::key]
     /// if it holds a `RsaEncryptedKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -9434,30 +9445,6 @@ impl CustomerEncryptionKey {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [key][crate::model::CustomerEncryptionKey::key]
-    /// if it holds a `KmsKeyName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn kms_key_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.key.as_ref().and_then(|v| match v {
-            crate::model::customer_encryption_key::Key::KmsKeyName(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
-    /// to hold a `RawKey`.
-    ///
-    /// Note that all the setters affecting `key` are
-    /// mutually exclusive.
-    pub fn set_raw_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.key =
-            std::option::Option::Some(crate::model::customer_encryption_key::Key::RawKey(v.into()));
-        self
     }
 
     /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
@@ -9473,6 +9460,19 @@ impl CustomerEncryptionKey {
             crate::model::customer_encryption_key::Key::RsaEncryptedKey(v.into()),
         );
         self
+    }
+
+    /// The value of [key][crate::model::CustomerEncryptionKey::key]
+    /// if it holds a `KmsKeyName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn kms_key_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.key.as_ref().and_then(|v| match v {
+            crate::model::customer_encryption_key::Key::KmsKeyName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
@@ -9752,6 +9752,39 @@ impl NetworkInterface {
         self
     }
 
+    /// Sets the value of [access_configs][crate::model::NetworkInterface::access_configs].
+    pub fn set_access_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AccessConfig>,
+    {
+        use std::iter::Iterator;
+        self.access_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ipv6_access_configs][crate::model::NetworkInterface::ipv6_access_configs].
+    pub fn set_ipv6_access_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AccessConfig>,
+    {
+        use std::iter::Iterator;
+        self.ipv6_access_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [alias_ip_ranges][crate::model::NetworkInterface::alias_ip_ranges].
+    pub fn set_alias_ip_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AliasIpRange>,
+    {
+        use std::iter::Iterator;
+        self.alias_ip_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [stack_type][crate::model::NetworkInterface::stack_type].
     pub fn set_stack_type<
         T: std::convert::Into<std::option::Option<crate::model::network_interface::StackType>>,
@@ -9802,39 +9835,6 @@ impl NetworkInterface {
         v: T,
     ) -> Self {
         self.network_attachment = v.into();
-        self
-    }
-
-    /// Sets the value of [access_configs][crate::model::NetworkInterface::access_configs].
-    pub fn set_access_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessConfig>,
-    {
-        use std::iter::Iterator;
-        self.access_configs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [ipv6_access_configs][crate::model::NetworkInterface::ipv6_access_configs].
-    pub fn set_ipv6_access_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessConfig>,
-    {
-        use std::iter::Iterator;
-        self.ipv6_access_configs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [alias_ip_ranges][crate::model::NetworkInterface::alias_ip_ranges].
-    pub fn set_alias_ip_ranges<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AliasIpRange>,
-    {
-        use std::iter::Iterator;
-        self.alias_ip_ranges = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -11222,6 +11222,17 @@ impl Scheduling {
         self
     }
 
+    /// Sets the value of [node_affinities][crate::model::Scheduling::node_affinities].
+    pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::scheduling::NodeAffinity>,
+    {
+        use std::iter::Iterator;
+        self.node_affinities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [min_node_cpus][crate::model::Scheduling::min_node_cpus].
     pub fn set_min_node_cpus<T: std::convert::Into<std::option::Option<i32>>>(
         mut self,
@@ -11263,17 +11274,6 @@ impl Scheduling {
         v: T,
     ) -> Self {
         self.local_ssd_recovery_timeout = v.into();
-        self
-    }
-
-    /// Sets the value of [node_affinities][crate::model::Scheduling::node_affinities].
-    pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::scheduling::NodeAffinity>,
-    {
-        use std::iter::Iterator;
-        self.node_affinities = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -12214,6 +12214,17 @@ impl AttachedDisk {
         self
     }
 
+    /// Sets the value of [license][crate::model::AttachedDisk::license].
+    pub fn set_license<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.license = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [disk_interface][crate::model::AttachedDisk::disk_interface].
     pub fn set_disk_interface<
         T: std::convert::Into<std::option::Option<crate::model::attached_disk::DiskInterface>>,
@@ -12222,6 +12233,17 @@ impl AttachedDisk {
         v: T,
     ) -> Self {
         self.disk_interface = v.into();
+        self
+    }
+
+    /// Sets the value of [guest_os_feature][crate::model::AttachedDisk::guest_os_feature].
+    pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GuestOsFeature>,
+    {
+        use std::iter::Iterator;
+        self.guest_os_feature = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -12273,28 +12295,6 @@ impl AttachedDisk {
         v: T,
     ) -> Self {
         self.r#type = v.into();
-        self
-    }
-
-    /// Sets the value of [license][crate::model::AttachedDisk::license].
-    pub fn set_license<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.license = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [guest_os_feature][crate::model::AttachedDisk::guest_os_feature].
-    pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GuestOsFeature>,
-    {
-        use std::iter::Iterator;
-        self.guest_os_feature = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

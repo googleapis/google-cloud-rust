@@ -134,6 +134,17 @@ impl ReplicationCycle {
         self
     }
 
+    /// Sets the value of [steps][crate::model::ReplicationCycle::steps].
+    pub fn set_steps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CycleStep>,
+    {
+        use std::iter::Iterator;
+        self.steps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::ReplicationCycle::state].
     pub fn set_state<T: std::convert::Into<crate::model::replication_cycle::State>>(
         mut self,
@@ -149,17 +160,6 @@ impl ReplicationCycle {
         v: T,
     ) -> Self {
         self.error = v.into();
-        self
-    }
-
-    /// Sets the value of [steps][crate::model::ReplicationCycle::steps].
-    pub fn set_steps<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CycleStep>,
-    {
-        use std::iter::Iterator;
-        self.steps = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -394,32 +394,6 @@ impl CycleStep {
         })
     }
 
-    /// The value of [step][crate::model::CycleStep::step]
-    /// if it holds a `Replicating`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn replicating(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicatingStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::cycle_step::Step::Replicating(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [step][crate::model::CycleStep::step]
-    /// if it holds a `PostProcessing`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn post_processing(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostProcessingStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::cycle_step::Step::PostProcessing(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [step][crate::model::CycleStep::step]
     /// to hold a `InitializingReplication`.
     ///
@@ -437,6 +411,19 @@ impl CycleStep {
         self
     }
 
+    /// The value of [step][crate::model::CycleStep::step]
+    /// if it holds a `Replicating`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn replicating(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicatingStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::cycle_step::Step::Replicating(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [step][crate::model::CycleStep::step]
     /// to hold a `Replicating`.
     ///
@@ -451,6 +438,19 @@ impl CycleStep {
         self.step =
             std::option::Option::Some(crate::model::cycle_step::Step::Replicating(v.into()));
         self
+    }
+
+    /// The value of [step][crate::model::CycleStep::step]
+    /// if it holds a `PostProcessing`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn post_processing(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostProcessingStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::cycle_step::Step::PostProcessing(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [step][crate::model::CycleStep::step]
@@ -853,12 +853,15 @@ impl MigratingVm {
         self
     }
 
-    /// Sets the value of [error][crate::model::MigratingVm::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
+    /// Sets the value of [labels][crate::model::MigratingVm::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -873,6 +876,15 @@ impl MigratingVm {
         self
     }
 
+    /// Sets the value of [error][crate::model::MigratingVm::error].
+    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error = v.into();
+        self
+    }
+
     /// Sets the value of [recent_cutover_jobs][crate::model::MigratingVm::recent_cutover_jobs].
     pub fn set_recent_cutover_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -881,18 +893,6 @@ impl MigratingVm {
     {
         use std::iter::Iterator;
         self.recent_cutover_jobs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::MigratingVm::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1647,34 +1647,6 @@ impl CloneStep {
         })
     }
 
-    /// The value of [step][crate::model::CloneStep::step]
-    /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn preparing_vm_disks(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PreparingVMDisksStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::clone_step::Step::PreparingVmDisks(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [step][crate::model::CloneStep::step]
-    /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn instantiating_migrated_vm(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InstantiatingMigratedVMStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::clone_step::Step::InstantiatingMigratedVm(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [step][crate::model::CloneStep::step]
     /// to hold a `AdaptingOs`.
     ///
@@ -1686,6 +1658,19 @@ impl CloneStep {
     ) -> Self {
         self.step = std::option::Option::Some(crate::model::clone_step::Step::AdaptingOs(v.into()));
         self
+    }
+
+    /// The value of [step][crate::model::CloneStep::step]
+    /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn preparing_vm_disks(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PreparingVMDisksStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::clone_step::Step::PreparingVmDisks(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [step][crate::model::CloneStep::step]
@@ -1702,6 +1687,21 @@ impl CloneStep {
         self.step =
             std::option::Option::Some(crate::model::clone_step::Step::PreparingVmDisks(v.into()));
         self
+    }
+
+    /// The value of [step][crate::model::CloneStep::step]
+    /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn instantiating_migrated_vm(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InstantiatingMigratedVMStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::clone_step::Step::InstantiatingMigratedVm(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [step][crate::model::CloneStep::step]
@@ -2254,62 +2254,6 @@ impl CutoverStep {
         })
     }
 
-    /// The value of [step][crate::model::CutoverStep::step]
-    /// if it holds a `ShuttingDownSourceVm`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn shutting_down_source_vm(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ShuttingDownSourceVMStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::cutover_step::Step::ShuttingDownSourceVm(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [step][crate::model::CutoverStep::step]
-    /// if it holds a `FinalSync`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn final_sync(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicationCycle>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::cutover_step::Step::FinalSync(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [step][crate::model::CutoverStep::step]
-    /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn preparing_vm_disks(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PreparingVMDisksStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::cutover_step::Step::PreparingVmDisks(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [step][crate::model::CutoverStep::step]
-    /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn instantiating_migrated_vm(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InstantiatingMigratedVMStep>> {
-        #[allow(unreachable_patterns)]
-        self.step.as_ref().and_then(|v| match v {
-            crate::model::cutover_step::Step::InstantiatingMigratedVm(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [step][crate::model::CutoverStep::step]
     /// to hold a `PreviousReplicationCycle`.
     ///
@@ -2325,6 +2269,21 @@ impl CutoverStep {
             crate::model::cutover_step::Step::PreviousReplicationCycle(v.into()),
         );
         self
+    }
+
+    /// The value of [step][crate::model::CutoverStep::step]
+    /// if it holds a `ShuttingDownSourceVm`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn shutting_down_source_vm(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ShuttingDownSourceVMStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::cutover_step::Step::ShuttingDownSourceVm(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [step][crate::model::CutoverStep::step]
@@ -2344,6 +2303,19 @@ impl CutoverStep {
         self
     }
 
+    /// The value of [step][crate::model::CutoverStep::step]
+    /// if it holds a `FinalSync`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn final_sync(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicationCycle>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::cutover_step::Step::FinalSync(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [step][crate::model::CutoverStep::step]
     /// to hold a `FinalSync`.
     ///
@@ -2360,6 +2332,19 @@ impl CutoverStep {
         self
     }
 
+    /// The value of [step][crate::model::CutoverStep::step]
+    /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn preparing_vm_disks(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PreparingVMDisksStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::cutover_step::Step::PreparingVmDisks(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [step][crate::model::CutoverStep::step]
     /// to hold a `PreparingVmDisks`.
     ///
@@ -2374,6 +2359,21 @@ impl CutoverStep {
         self.step =
             std::option::Option::Some(crate::model::cutover_step::Step::PreparingVmDisks(v.into()));
         self
+    }
+
+    /// The value of [step][crate::model::CutoverStep::step]
+    /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn instantiating_migrated_vm(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InstantiatingMigratedVMStep>> {
+        #[allow(unreachable_patterns)]
+        self.step.as_ref().and_then(|v| match v {
+            crate::model::cutover_step::Step::InstantiatingMigratedVm(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [step][crate::model::CutoverStep::step]
@@ -2682,12 +2682,6 @@ impl ListCloneJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCloneJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clone_jobs][crate::model::ListCloneJobsResponse::clone_jobs].
     pub fn set_clone_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -2696,6 +2690,12 @@ impl ListCloneJobsResponse {
     {
         use std::iter::Iterator;
         self.clone_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCloneJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2826,12 +2826,6 @@ impl Source {
         self
     }
 
-    /// Sets the value of [description][crate::model::Source::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Source::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -2841,6 +2835,12 @@ impl Source {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Source::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
         self
     }
 
@@ -2871,17 +2871,6 @@ impl Source {
         })
     }
 
-    /// The value of [source_details][crate::model::Source::source_details]
-    /// if it holds a `Aws`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsSourceDetails>> {
-        #[allow(unreachable_patterns)]
-        self.source_details.as_ref().and_then(|v| match v {
-            crate::model::source::SourceDetails::Aws(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_details][crate::model::Source::source_details]
     /// to hold a `Vmware`.
     ///
@@ -2894,6 +2883,17 @@ impl Source {
         self.source_details =
             std::option::Option::Some(crate::model::source::SourceDetails::Vmware(v.into()));
         self
+    }
+
+    /// The value of [source_details][crate::model::Source::source_details]
+    /// if it holds a `Aws`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsSourceDetails>> {
+        #[allow(unreachable_patterns)]
+        self.source_details.as_ref().and_then(|v| match v {
+            crate::model::source::SourceDetails::Aws(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_details][crate::model::Source::source_details]
@@ -3074,12 +3074,6 @@ impl AwsSourceDetails {
         self
     }
 
-    /// Sets the value of [public_ip][crate::model::AwsSourceDetails::public_ip].
-    pub fn set_public_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.public_ip = v.into();
-        self
-    }
-
     /// Sets the value of [inventory_tag_list][crate::model::AwsSourceDetails::inventory_tag_list].
     pub fn set_inventory_tag_list<T, V>(mut self, v: T) -> Self
     where
@@ -3112,6 +3106,12 @@ impl AwsSourceDetails {
         use std::iter::Iterator;
         self.migration_resources_user_tags =
             v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [public_ip][crate::model::AwsSourceDetails::public_ip].
+    pub fn set_public_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.public_ip = v.into();
         self
     }
 
@@ -4233,12 +4233,6 @@ impl ListSourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [sources][crate::model::ListSourcesResponse::sources].
     pub fn set_sources<T, V>(mut self, v: T) -> Self
     where
@@ -4247,6 +4241,12 @@ impl ListSourcesResponse {
     {
         use std::iter::Iterator;
         self.sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5169,6 +5169,29 @@ impl AwsVmDetails {
         self
     }
 
+    /// Sets the value of [security_groups][crate::model::AwsVmDetails::security_groups].
+    pub fn set_security_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AwsSecurityGroup>,
+    {
+        use std::iter::Iterator;
+        self.security_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::AwsVmDetails::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [zone][crate::model::AwsVmDetails::zone].
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -5192,29 +5215,6 @@ impl AwsVmDetails {
         v: T,
     ) -> Self {
         self.architecture = v.into();
-        self
-    }
-
-    /// Sets the value of [security_groups][crate::model::AwsVmDetails::security_groups].
-    pub fn set_security_groups<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsSecurityGroup>,
-    {
-        use std::iter::Iterator;
-        self.security_groups = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::AwsVmDetails::tags].
-    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5970,19 +5970,6 @@ impl FetchInventoryResponse {
         })
     }
 
-    /// The value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
-    /// if it holds a `AwsVms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aws_vms(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsVmsDetails>> {
-        #[allow(unreachable_patterns)]
-        self.source_vms.as_ref().and_then(|v| match v {
-            crate::model::fetch_inventory_response::SourceVms::AwsVms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
     /// to hold a `VmwareVms`.
     ///
@@ -5998,6 +5985,19 @@ impl FetchInventoryResponse {
             crate::model::fetch_inventory_response::SourceVms::VmwareVms(v.into()),
         );
         self
+    }
+
+    /// The value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
+    /// if it holds a `AwsVms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aws_vms(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsVmsDetails>> {
+        #[allow(unreachable_patterns)]
+        self.source_vms.as_ref().and_then(|v| match v {
+            crate::model::fetch_inventory_response::SourceVms::AwsVms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
@@ -6812,12 +6812,6 @@ impl ListUtilizationReportsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUtilizationReportsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [utilization_reports][crate::model::ListUtilizationReportsResponse::utilization_reports].
     pub fn set_utilization_reports<T, V>(mut self, v: T) -> Self
     where
@@ -6826,6 +6820,12 @@ impl ListUtilizationReportsResponse {
     {
         use std::iter::Iterator;
         self.utilization_reports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUtilizationReportsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7075,12 +7075,6 @@ impl ListDatacenterConnectorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatacenterConnectorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [datacenter_connectors][crate::model::ListDatacenterConnectorsResponse::datacenter_connectors].
     pub fn set_datacenter_connectors<T, V>(mut self, v: T) -> Self
     where
@@ -7089,6 +7083,12 @@ impl ListDatacenterConnectorsResponse {
     {
         use std::iter::Iterator;
         self.datacenter_connectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatacenterConnectorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7574,6 +7574,28 @@ impl ComputeEngineTargetDefaults {
         self
     }
 
+    /// Sets the value of [network_tags][crate::model::ComputeEngineTargetDefaults::network_tags].
+    pub fn set_network_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.network_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [network_interfaces][crate::model::ComputeEngineTargetDefaults::network_interfaces].
+    pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkInterface>,
+    {
+        use std::iter::Iterator;
+        self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::ComputeEngineTargetDefaults::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -7586,6 +7608,18 @@ impl ComputeEngineTargetDefaults {
         v: T,
     ) -> Self {
         self.disk_type = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ComputeEngineTargetDefaults::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -7635,31 +7669,15 @@ impl ComputeEngineTargetDefaults {
         self
     }
 
-    /// Sets the value of [hostname][crate::model::ComputeEngineTargetDefaults::hostname].
-    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.hostname = v.into();
-        self
-    }
-
-    /// Sets the value of [network_tags][crate::model::ComputeEngineTargetDefaults::network_tags].
-    pub fn set_network_tags<T, V>(mut self, v: T) -> Self
+    /// Sets the value of [metadata][crate::model::ComputeEngineTargetDefaults::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
-        T: std::iter::IntoIterator<Item = V>,
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
         V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
-        self.network_tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [network_interfaces][crate::model::ComputeEngineTargetDefaults::network_interfaces].
-    pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkInterface>,
-    {
-        use std::iter::Iterator;
-        self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -7674,27 +7692,9 @@ impl ComputeEngineTargetDefaults {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ComputeEngineTargetDefaults::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::ComputeEngineTargetDefaults::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [hostname][crate::model::ComputeEngineTargetDefaults::hostname].
+    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.hostname = v.into();
         self
     }
 }
@@ -7824,6 +7824,28 @@ impl ComputeEngineTargetDetails {
         self
     }
 
+    /// Sets the value of [network_tags][crate::model::ComputeEngineTargetDetails::network_tags].
+    pub fn set_network_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.network_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [network_interfaces][crate::model::ComputeEngineTargetDetails::network_interfaces].
+    pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkInterface>,
+    {
+        use std::iter::Iterator;
+        self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::ComputeEngineTargetDetails::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -7836,6 +7858,18 @@ impl ComputeEngineTargetDetails {
         v: T,
     ) -> Self {
         self.disk_type = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ComputeEngineTargetDetails::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -7885,31 +7919,15 @@ impl ComputeEngineTargetDetails {
         self
     }
 
-    /// Sets the value of [hostname][crate::model::ComputeEngineTargetDetails::hostname].
-    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.hostname = v.into();
-        self
-    }
-
-    /// Sets the value of [network_tags][crate::model::ComputeEngineTargetDetails::network_tags].
-    pub fn set_network_tags<T, V>(mut self, v: T) -> Self
+    /// Sets the value of [metadata][crate::model::ComputeEngineTargetDetails::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
-        T: std::iter::IntoIterator<Item = V>,
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
         V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
-        self.network_tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [network_interfaces][crate::model::ComputeEngineTargetDetails::network_interfaces].
-    pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkInterface>,
-    {
-        use std::iter::Iterator;
-        self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -7924,27 +7942,9 @@ impl ComputeEngineTargetDetails {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ComputeEngineTargetDetails::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::ComputeEngineTargetDetails::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [hostname][crate::model::ComputeEngineTargetDetails::hostname].
+    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.hostname = v.into();
         self
     }
 }
@@ -8471,12 +8471,6 @@ impl ComputeScheduling {
         self
     }
 
-    /// Sets the value of [min_node_cpus][crate::model::ComputeScheduling::min_node_cpus].
-    pub fn set_min_node_cpus<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.min_node_cpus = v.into();
-        self
-    }
-
     /// Sets the value of [node_affinities][crate::model::ComputeScheduling::node_affinities].
     pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
     where
@@ -8485,6 +8479,12 @@ impl ComputeScheduling {
     {
         use std::iter::Iterator;
         self.node_affinities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [min_node_cpus][crate::model::ComputeScheduling::min_node_cpus].
+    pub fn set_min_node_cpus<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.min_node_cpus = v.into();
         self
     }
 }
@@ -9009,12 +9009,6 @@ impl ListMigratingVmsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMigratingVmsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [migrating_vms][crate::model::ListMigratingVmsResponse::migrating_vms].
     pub fn set_migrating_vms<T, V>(mut self, v: T) -> Self
     where
@@ -9023,6 +9017,12 @@ impl ListMigratingVmsResponse {
     {
         use std::iter::Iterator;
         self.migrating_vms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMigratingVmsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -9642,12 +9642,6 @@ impl ListTargetProjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTargetProjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [target_projects][crate::model::ListTargetProjectsResponse::target_projects].
     pub fn set_target_projects<T, V>(mut self, v: T) -> Self
     where
@@ -9656,6 +9650,12 @@ impl ListTargetProjectsResponse {
     {
         use std::iter::Iterator;
         self.target_projects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTargetProjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -10089,12 +10089,6 @@ impl ListGroupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [groups][crate::model::ListGroupsResponse::groups].
     pub fn set_groups<T, V>(mut self, v: T) -> Self
     where
@@ -10103,6 +10097,12 @@ impl ListGroupsResponse {
     {
         use std::iter::Iterator;
         self.groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -10741,12 +10741,6 @@ impl ListCutoverJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCutoverJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cutover_jobs][crate::model::ListCutoverJobsResponse::cutover_jobs].
     pub fn set_cutover_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -10755,6 +10749,12 @@ impl ListCutoverJobsResponse {
     {
         use std::iter::Iterator;
         self.cutover_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCutoverJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -10994,15 +10994,6 @@ impl MigrationError {
         self
     }
 
-    /// Sets the value of [error_time][crate::model::MigrationError::error_time].
-    pub fn set_error_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error_time = v.into();
-        self
-    }
-
     /// Sets the value of [help_links][crate::model::MigrationError::help_links].
     pub fn set_help_links<T, V>(mut self, v: T) -> Self
     where
@@ -11011,6 +11002,15 @@ impl MigrationError {
     {
         use std::iter::Iterator;
         self.help_links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error_time][crate::model::MigrationError::error_time].
+    pub fn set_error_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error_time = v.into();
         self
     }
 }
@@ -11506,12 +11506,6 @@ impl ListReplicationCyclesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReplicationCyclesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [replication_cycles][crate::model::ListReplicationCyclesResponse::replication_cycles].
     pub fn set_replication_cycles<T, V>(mut self, v: T) -> Self
     where
@@ -11520,6 +11514,12 @@ impl ListReplicationCyclesResponse {
     {
         use std::iter::Iterator;
         self.replication_cycles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReplicationCyclesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

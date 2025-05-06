@@ -537,28 +537,6 @@ impl RepoSource {
         })
     }
 
-    /// The value of [revision][crate::model::RepoSource::revision]
-    /// if it holds a `TagName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn tag_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.revision.as_ref().and_then(|v| match v {
-            crate::model::repo_source::Revision::TagName(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [revision][crate::model::RepoSource::revision]
-    /// if it holds a `CommitSha`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.revision.as_ref().and_then(|v| match v {
-            crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [revision][crate::model::RepoSource::revision]
     /// to hold a `BranchName`.
     ///
@@ -570,6 +548,17 @@ impl RepoSource {
         self
     }
 
+    /// The value of [revision][crate::model::RepoSource::revision]
+    /// if it holds a `TagName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tag_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.revision.as_ref().and_then(|v| match v {
+            crate::model::repo_source::Revision::TagName(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [revision][crate::model::RepoSource::revision]
     /// to hold a `TagName`.
     ///
@@ -579,6 +568,17 @@ impl RepoSource {
         self.revision =
             std::option::Option::Some(crate::model::repo_source::Revision::TagName(v.into()));
         self
+    }
+
+    /// The value of [revision][crate::model::RepoSource::revision]
+    /// if it holds a `CommitSha`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.revision.as_ref().and_then(|v| match v {
+            crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [revision][crate::model::RepoSource::revision]
@@ -729,41 +729,6 @@ impl Source {
         })
     }
 
-    /// The value of [source][crate::model::Source::source]
-    /// if it holds a `RepoSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn repo_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::source::Source::RepoSource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source][crate::model::Source::source]
-    /// if it holds a `GitSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::source::Source::GitSource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source][crate::model::Source::source]
-    /// if it holds a `StorageSourceManifest`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn storage_source_manifest(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSourceManifest>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::source::Source::StorageSourceManifest(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::Source::source]
     /// to hold a `StorageSource`.
     ///
@@ -780,6 +745,17 @@ impl Source {
         self
     }
 
+    /// The value of [source][crate::model::Source::source]
+    /// if it holds a `RepoSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn repo_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source::Source::RepoSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source][crate::model::Source::source]
     /// to hold a `RepoSource`.
     ///
@@ -793,6 +769,17 @@ impl Source {
         self
     }
 
+    /// The value of [source][crate::model::Source::source]
+    /// if it holds a `GitSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source::Source::GitSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source][crate::model::Source::source]
     /// to hold a `GitSource`.
     ///
@@ -804,6 +791,19 @@ impl Source {
     ) -> Self {
         self.source = std::option::Option::Some(crate::model::source::Source::GitSource(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::Source::source]
+    /// if it holds a `StorageSourceManifest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn storage_source_manifest(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSourceManifest>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source::Source::StorageSourceManifest(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::Source::source]
@@ -1299,6 +1299,28 @@ impl BuildStep {
         self
     }
 
+    /// Sets the value of [env][crate::model::BuildStep::env].
+    pub fn set_env<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.env = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [args][crate::model::BuildStep::args].
+    pub fn set_args<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.args = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [dir][crate::model::BuildStep::dir].
     pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dir = v.into();
@@ -1311,9 +1333,42 @@ impl BuildStep {
         self
     }
 
+    /// Sets the value of [wait_for][crate::model::BuildStep::wait_for].
+    pub fn set_wait_for<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.wait_for = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [entrypoint][crate::model::BuildStep::entrypoint].
     pub fn set_entrypoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entrypoint = v.into();
+        self
+    }
+
+    /// Sets the value of [secret_env][crate::model::BuildStep::secret_env].
+    pub fn set_secret_env<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.secret_env = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [volumes][crate::model::BuildStep::volumes].
+    pub fn set_volumes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Volume>,
+    {
+        use std::iter::Iterator;
+        self.volumes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1362,6 +1417,17 @@ impl BuildStep {
         self
     }
 
+    /// Sets the value of [allow_exit_codes][crate::model::BuildStep::allow_exit_codes].
+    pub fn set_allow_exit_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.allow_exit_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [script][crate::model::BuildStep::script].
     pub fn set_script<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.script = v.into();
@@ -1374,72 +1440,6 @@ impl BuildStep {
         v: T,
     ) -> Self {
         self.automap_substitutions = v.into();
-        self
-    }
-
-    /// Sets the value of [env][crate::model::BuildStep::env].
-    pub fn set_env<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.env = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [args][crate::model::BuildStep::args].
-    pub fn set_args<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.args = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [wait_for][crate::model::BuildStep::wait_for].
-    pub fn set_wait_for<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.wait_for = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [secret_env][crate::model::BuildStep::secret_env].
-    pub fn set_secret_env<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.secret_env = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [volumes][crate::model::BuildStep::volumes].
-    pub fn set_volumes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
-    {
-        use std::iter::Iterator;
-        self.volumes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [allow_exit_codes][crate::model::BuildStep::allow_exit_codes].
-    pub fn set_allow_exit_codes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.allow_exit_codes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1566,32 +1566,6 @@ impl Results {
         std::default::Default::default()
     }
 
-    /// Sets the value of [artifact_manifest][crate::model::Results::artifact_manifest].
-    pub fn set_artifact_manifest<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.artifact_manifest = v.into();
-        self
-    }
-
-    /// Sets the value of [num_artifacts][crate::model::Results::num_artifacts].
-    pub fn set_num_artifacts<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.num_artifacts = v.into();
-        self
-    }
-
-    /// Sets the value of [artifact_timing][crate::model::Results::artifact_timing].
-    pub fn set_artifact_timing<
-        T: std::convert::Into<std::option::Option<crate::model::TimeSpan>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.artifact_timing = v.into();
-        self
-    }
-
     /// Sets the value of [images][crate::model::Results::images].
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
@@ -1614,6 +1588,21 @@ impl Results {
         self
     }
 
+    /// Sets the value of [artifact_manifest][crate::model::Results::artifact_manifest].
+    pub fn set_artifact_manifest<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_manifest = v.into();
+        self
+    }
+
+    /// Sets the value of [num_artifacts][crate::model::Results::num_artifacts].
+    pub fn set_num_artifacts<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.num_artifacts = v.into();
+        self
+    }
+
     /// Sets the value of [build_step_outputs][crate::model::Results::build_step_outputs].
     pub fn set_build_step_outputs<T, V>(mut self, v: T) -> Self
     where
@@ -1622,6 +1611,17 @@ impl Results {
     {
         use std::iter::Iterator;
         self.build_step_outputs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [artifact_timing][crate::model::Results::artifact_timing].
+    pub fn set_artifact_timing<
+        T: std::convert::Into<std::option::Option<crate::model::TimeSpan>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_timing = v.into();
         self
     }
 
@@ -1969,6 +1969,17 @@ impl Build {
         self
     }
 
+    /// Sets the value of [steps][crate::model::Build::steps].
+    pub fn set_steps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BuildStep>,
+    {
+        use std::iter::Iterator;
+        self.steps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [results][crate::model::Build::results].
     pub fn set_results<T: std::convert::Into<std::option::Option<crate::model::Results>>>(
         mut self,
@@ -2011,6 +2022,17 @@ impl Build {
         v: T,
     ) -> Self {
         self.timeout = v.into();
+        self
+    }
+
+    /// Sets the value of [images][crate::model::Build::images].
+    pub fn set_images<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.images = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2073,6 +2095,52 @@ impl Build {
         self
     }
 
+    /// Sets the value of [substitutions][crate::model::Build::substitutions].
+    pub fn set_substitutions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.substitutions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Build::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [secrets][crate::model::Build::secrets].
+    pub fn set_secrets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Secret>,
+    {
+        use std::iter::Iterator;
+        self.secrets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [timing][crate::model::Build::timing].
+    pub fn set_timing<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::TimeSpan>,
+    {
+        use std::iter::Iterator;
+        self.timing = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [approval][crate::model::Build::approval].
     pub fn set_approval<T: std::convert::Into<std::option::Option<crate::model::BuildApproval>>>(
         mut self,
@@ -2099,6 +2167,17 @@ impl Build {
         self
     }
 
+    /// Sets the value of [warnings][crate::model::Build::warnings].
+    pub fn set_warnings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::build::Warning>,
+    {
+        use std::iter::Iterator;
+        self.warnings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [git_config][crate::model::Build::git_config].
     pub fn set_git_config<T: std::convert::Into<std::option::Option<crate::model::GitConfig>>>(
         mut self,
@@ -2119,61 +2198,6 @@ impl Build {
         self
     }
 
-    /// Sets the value of [steps][crate::model::Build::steps].
-    pub fn set_steps<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BuildStep>,
-    {
-        use std::iter::Iterator;
-        self.steps = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [images][crate::model::Build::images].
-    pub fn set_images<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.images = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::Build::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [secrets][crate::model::Build::secrets].
-    pub fn set_secrets<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Secret>,
-    {
-        use std::iter::Iterator;
-        self.secrets = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [warnings][crate::model::Build::warnings].
-    pub fn set_warnings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::build::Warning>,
-    {
-        use std::iter::Iterator;
-        self.warnings = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [dependencies][crate::model::Build::dependencies].
     pub fn set_dependencies<T, V>(mut self, v: T) -> Self
     where
@@ -2182,30 +2206,6 @@ impl Build {
     {
         use std::iter::Iterator;
         self.dependencies = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [substitutions][crate::model::Build::substitutions].
-    pub fn set_substitutions<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.substitutions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [timing][crate::model::Build::timing].
-    pub fn set_timing<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::TimeSpan>,
-    {
-        use std::iter::Iterator;
-        self.timing = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2854,6 +2854,16 @@ impl Dependency {
         })
     }
 
+    /// Sets the value of [dep][crate::model::Dependency::dep]
+    /// to hold a `Empty`.
+    ///
+    /// Note that all the setters affecting `dep` are
+    /// mutually exclusive.
+    pub fn set_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dep = std::option::Option::Some(crate::model::dependency::Dep::Empty(v.into()));
+        self
+    }
+
     /// The value of [dep][crate::model::Dependency::dep]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -2865,16 +2875,6 @@ impl Dependency {
             crate::model::dependency::Dep::GitSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dep][crate::model::Dependency::dep]
-    /// to hold a `Empty`.
-    ///
-    /// Note that all the setters affecting `dep` are
-    /// mutually exclusive.
-    pub fn set_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.dep = std::option::Option::Some(crate::model::dependency::Dep::Empty(v.into()));
-        self
     }
 
     /// Sets the value of [dep][crate::model::Dependency::dep]
@@ -3032,6 +3032,18 @@ pub mod dependency {
             })
         }
 
+        /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
+        /// to hold a `Url`.
+        ///
+        /// Note that all the setters affecting `repotype` are
+        /// mutually exclusive.
+        pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.repotype = std::option::Option::Some(
+                crate::model::dependency::git_source_repository::Repotype::Url(v.into()),
+            );
+            self
+        }
+
         /// The value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
         /// if it holds a `DeveloperConnect`, `None` if the field is not set or
         /// holds a different branch.
@@ -3043,18 +3055,6 @@ pub mod dependency {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
-        /// to hold a `Url`.
-        ///
-        /// Note that all the setters affecting `repotype` are
-        /// mutually exclusive.
-        pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.repotype = std::option::Option::Some(
-                crate::model::dependency::git_source_repository::Repotype::Url(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
@@ -3275,17 +3275,6 @@ impl Artifacts {
         std::default::Default::default()
     }
 
-    /// Sets the value of [objects][crate::model::Artifacts::objects].
-    pub fn set_objects<
-        T: std::convert::Into<std::option::Option<crate::model::artifacts::ArtifactObjects>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.objects = v.into();
-        self
-    }
-
     /// Sets the value of [images][crate::model::Artifacts::images].
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
@@ -3294,6 +3283,17 @@ impl Artifacts {
     {
         use std::iter::Iterator;
         self.images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [objects][crate::model::Artifacts::objects].
+    pub fn set_objects<
+        T: std::convert::Into<std::option::Option<crate::model::artifacts::ArtifactObjects>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.objects = v.into();
         self
     }
 
@@ -3392,15 +3392,6 @@ pub mod artifacts {
             self
         }
 
-        /// Sets the value of [timing][crate::model::artifacts::ArtifactObjects::timing].
-        pub fn set_timing<T: std::convert::Into<std::option::Option<crate::model::TimeSpan>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.timing = v.into();
-            self
-        }
-
         /// Sets the value of [paths][crate::model::artifacts::ArtifactObjects::paths].
         pub fn set_paths<T, V>(mut self, v: T) -> Self
         where
@@ -3409,6 +3400,15 @@ pub mod artifacts {
         {
             use std::iter::Iterator;
             self.paths = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [timing][crate::model::artifacts::ArtifactObjects::timing].
+        pub fn set_timing<T: std::convert::Into<std::option::Option<crate::model::TimeSpan>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.timing = v.into();
             self
         }
     }
@@ -4557,12 +4557,6 @@ impl ListBuildsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBuildsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [builds][crate::model::ListBuildsResponse::builds].
     pub fn set_builds<T, V>(mut self, v: T) -> Self
     where
@@ -4571,6 +4565,12 @@ impl ListBuildsResponse {
     {
         use std::iter::Iterator;
         self.builds = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBuildsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5843,6 +5843,17 @@ impl BuildTrigger {
         self
     }
 
+    /// Sets the value of [tags][crate::model::BuildTrigger::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [trigger_template][crate::model::BuildTrigger::trigger_template].
     pub fn set_trigger_template<
         T: std::convert::Into<std::option::Option<crate::model::RepoSource>>,
@@ -5902,6 +5913,40 @@ impl BuildTrigger {
         self
     }
 
+    /// Sets the value of [substitutions][crate::model::BuildTrigger::substitutions].
+    pub fn set_substitutions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.substitutions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [ignored_files][crate::model::BuildTrigger::ignored_files].
+    pub fn set_ignored_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ignored_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [included_files][crate::model::BuildTrigger::included_files].
+    pub fn set_included_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.included_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [filter][crate::model::BuildTrigger::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -5936,51 +5981,6 @@ impl BuildTrigger {
         self
     }
 
-    /// Sets the value of [tags][crate::model::BuildTrigger::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [ignored_files][crate::model::BuildTrigger::ignored_files].
-    pub fn set_ignored_files<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ignored_files = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [included_files][crate::model::BuildTrigger::included_files].
-    pub fn set_included_files<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.included_files = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [substitutions][crate::model::BuildTrigger::substitutions].
-    pub fn set_substitutions<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.substitutions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [build_template][crate::model::BuildTrigger::build_template].
     ///
     /// Note that all the setters affecting `build_template` are mutually
@@ -6008,43 +6008,6 @@ impl BuildTrigger {
         })
     }
 
-    /// The value of [build_template][crate::model::BuildTrigger::build_template]
-    /// if it holds a `Build`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::Build>> {
-        #[allow(unreachable_patterns)]
-        self.build_template.as_ref().and_then(|v| match v {
-            crate::model::build_trigger::BuildTemplate::Build(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [build_template][crate::model::BuildTrigger::build_template]
-    /// if it holds a `Filename`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn filename(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.build_template.as_ref().and_then(|v| match v {
-            crate::model::build_trigger::BuildTemplate::Filename(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [build_template][crate::model::BuildTrigger::build_template]
-    /// if it holds a `GitFileSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn git_file_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitFileSource>> {
-        #[allow(unreachable_patterns)]
-        self.build_template.as_ref().and_then(|v| match v {
-            crate::model::build_trigger::BuildTemplate::GitFileSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [build_template][crate::model::BuildTrigger::build_template]
     /// to hold a `Autodetect`.
     ///
@@ -6055,6 +6018,17 @@ impl BuildTrigger {
             crate::model::build_trigger::BuildTemplate::Autodetect(v.into()),
         );
         self
+    }
+
+    /// The value of [build_template][crate::model::BuildTrigger::build_template]
+    /// if it holds a `Build`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::Build>> {
+        #[allow(unreachable_patterns)]
+        self.build_template.as_ref().and_then(|v| match v {
+            crate::model::build_trigger::BuildTemplate::Build(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [build_template][crate::model::BuildTrigger::build_template]
@@ -6071,6 +6045,17 @@ impl BuildTrigger {
         self
     }
 
+    /// The value of [build_template][crate::model::BuildTrigger::build_template]
+    /// if it holds a `Filename`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn filename(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.build_template.as_ref().and_then(|v| match v {
+            crate::model::build_trigger::BuildTemplate::Filename(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [build_template][crate::model::BuildTrigger::build_template]
     /// to hold a `Filename`.
     ///
@@ -6081,6 +6066,21 @@ impl BuildTrigger {
             crate::model::build_trigger::BuildTemplate::Filename(v.into()),
         );
         self
+    }
+
+    /// The value of [build_template][crate::model::BuildTrigger::build_template]
+    /// if it holds a `GitFileSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn git_file_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GitFileSource>> {
+        #[allow(unreachable_patterns)]
+        self.build_template.as_ref().and_then(|v| match v {
+            crate::model::build_trigger::BuildTemplate::GitFileSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [build_template][crate::model::BuildTrigger::build_template]
@@ -6211,17 +6211,6 @@ impl RepositoryEventConfig {
         })
     }
 
-    /// The value of [filter][crate::model::RepositoryEventConfig::filter]
-    /// if it holds a `Push`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
-        #[allow(unreachable_patterns)]
-        self.filter.as_ref().and_then(|v| match v {
-            crate::model::repository_event_config::Filter::Push(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [filter][crate::model::RepositoryEventConfig::filter]
     /// to hold a `PullRequest`.
     ///
@@ -6237,6 +6226,17 @@ impl RepositoryEventConfig {
             crate::model::repository_event_config::Filter::PullRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [filter][crate::model::RepositoryEventConfig::filter]
+    /// if it holds a `Push`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::repository_event_config::Filter::Push(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [filter][crate::model::RepositoryEventConfig::filter]
@@ -6503,17 +6503,6 @@ impl GitHubEventsConfig {
         })
     }
 
-    /// The value of [event][crate::model::GitHubEventsConfig::event]
-    /// if it holds a `Push`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
-        #[allow(unreachable_patterns)]
-        self.event.as_ref().and_then(|v| match v {
-            crate::model::git_hub_events_config::Event::Push(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [event][crate::model::GitHubEventsConfig::event]
     /// to hold a `PullRequest`.
     ///
@@ -6529,6 +6518,17 @@ impl GitHubEventsConfig {
             crate::model::git_hub_events_config::Event::PullRequest(v.into()),
         );
         self
+    }
+
+    /// The value of [event][crate::model::GitHubEventsConfig::event]
+    /// if it holds a `Push`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
+        #[allow(unreachable_patterns)]
+        self.event.as_ref().and_then(|v| match v {
+            crate::model::git_hub_events_config::Event::Push(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [event][crate::model::GitHubEventsConfig::event]
@@ -7346,17 +7346,6 @@ impl PushFilter {
         })
     }
 
-    /// The value of [git_ref][crate::model::PushFilter::git_ref]
-    /// if it holds a `Tag`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn tag(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.git_ref.as_ref().and_then(|v| match v {
-            crate::model::push_filter::GitRef::Tag(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [git_ref][crate::model::PushFilter::git_ref]
     /// to hold a `Branch`.
     ///
@@ -7366,6 +7355,17 @@ impl PushFilter {
         self.git_ref =
             std::option::Option::Some(crate::model::push_filter::GitRef::Branch(v.into()));
         self
+    }
+
+    /// The value of [git_ref][crate::model::PushFilter::git_ref]
+    /// if it holds a `Tag`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tag(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.git_ref.as_ref().and_then(|v| match v {
+            crate::model::push_filter::GitRef::Tag(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [git_ref][crate::model::PushFilter::git_ref]
@@ -7604,12 +7604,6 @@ impl ListBuildTriggersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBuildTriggersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [triggers][crate::model::ListBuildTriggersResponse::triggers].
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
@@ -7618,6 +7612,12 @@ impl ListBuildTriggersResponse {
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBuildTriggersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7878,6 +7878,17 @@ impl BuildOptions {
         std::default::Default::default()
     }
 
+    /// Sets the value of [source_provenance_hash][crate::model::BuildOptions::source_provenance_hash].
+    pub fn set_source_provenance_hash<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::hash::HashType>,
+    {
+        use std::iter::Iterator;
+        self.source_provenance_hash = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [requested_verify_option][crate::model::BuildOptions::requested_verify_option].
     pub fn set_requested_verify_option<
         T: std::convert::Into<crate::model::build_options::VerifyOption>,
@@ -7965,34 +7976,6 @@ impl BuildOptions {
         self
     }
 
-    /// Sets the value of [default_logs_bucket_behavior][crate::model::BuildOptions::default_logs_bucket_behavior].
-    pub fn set_default_logs_bucket_behavior<
-        T: std::convert::Into<crate::model::build_options::DefaultLogsBucketBehavior>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_logs_bucket_behavior = v.into();
-        self
-    }
-
-    /// Sets the value of [enable_structured_logging][crate::model::BuildOptions::enable_structured_logging].
-    pub fn set_enable_structured_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_structured_logging = v.into();
-        self
-    }
-
-    /// Sets the value of [source_provenance_hash][crate::model::BuildOptions::source_provenance_hash].
-    pub fn set_source_provenance_hash<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::hash::HashType>,
-    {
-        use std::iter::Iterator;
-        self.source_provenance_hash = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [env][crate::model::BuildOptions::env].
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
@@ -8023,6 +8006,23 @@ impl BuildOptions {
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [default_logs_bucket_behavior][crate::model::BuildOptions::default_logs_bucket_behavior].
+    pub fn set_default_logs_bucket_behavior<
+        T: std::convert::Into<crate::model::build_options::DefaultLogsBucketBehavior>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_logs_bucket_behavior = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_structured_logging][crate::model::BuildOptions::enable_structured_logging].
+    pub fn set_enable_structured_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_structured_logging = v.into();
         self
     }
 }
@@ -9330,6 +9330,18 @@ impl WorkerPool {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::WorkerPool::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::WorkerPool::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -9369,18 +9381,6 @@ impl WorkerPool {
     /// Sets the value of [etag][crate::model::WorkerPool::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [annotations][crate::model::WorkerPool::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -10344,12 +10344,6 @@ impl ListWorkerPoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkerPoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [worker_pools][crate::model::ListWorkerPoolsResponse::worker_pools].
     pub fn set_worker_pools<T, V>(mut self, v: T) -> Self
     where
@@ -10358,6 +10352,12 @@ impl ListWorkerPoolsResponse {
     {
         use std::iter::Iterator;
         self.worker_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkerPoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

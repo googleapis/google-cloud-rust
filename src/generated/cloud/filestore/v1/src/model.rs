@@ -98,24 +98,6 @@ impl NetworkConfig {
         self
     }
 
-    /// Sets the value of [reserved_ip_range][crate::model::NetworkConfig::reserved_ip_range].
-    pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reserved_ip_range = v.into();
-        self
-    }
-
-    /// Sets the value of [connect_mode][crate::model::NetworkConfig::connect_mode].
-    pub fn set_connect_mode<T: std::convert::Into<crate::model::network_config::ConnectMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connect_mode = v.into();
-        self
-    }
-
     /// Sets the value of [modes][crate::model::NetworkConfig::modes].
     pub fn set_modes<T, V>(mut self, v: T) -> Self
     where
@@ -127,6 +109,15 @@ impl NetworkConfig {
         self
     }
 
+    /// Sets the value of [reserved_ip_range][crate::model::NetworkConfig::reserved_ip_range].
+    pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reserved_ip_range = v.into();
+        self
+    }
+
     /// Sets the value of [ip_addresses][crate::model::NetworkConfig::ip_addresses].
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
@@ -135,6 +126,15 @@ impl NetworkConfig {
     {
         use std::iter::Iterator;
         self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [connect_mode][crate::model::NetworkConfig::connect_mode].
+    pub fn set_connect_mode<T: std::convert::Into<crate::model::network_config::ConnectMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connect_mode = v.into();
         self
     }
 }
@@ -587,6 +587,17 @@ impl NfsExportOptions {
         std::default::Default::default()
     }
 
+    /// Sets the value of [ip_ranges][crate::model::NfsExportOptions::ip_ranges].
+    pub fn set_ip_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ip_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [access_mode][crate::model::NfsExportOptions::access_mode].
     pub fn set_access_mode<T: std::convert::Into<crate::model::nfs_export_options::AccessMode>>(
         mut self,
@@ -614,17 +625,6 @@ impl NfsExportOptions {
     /// Sets the value of [anon_gid][crate::model::NfsExportOptions::anon_gid].
     pub fn set_anon_gid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.anon_gid = v.into();
-        self
-    }
-
-    /// Sets the value of [ip_ranges][crate::model::NfsExportOptions::ip_ranges].
-    pub fn set_ip_ranges<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ip_ranges = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -946,6 +946,17 @@ impl ReplicaConfig {
         self
     }
 
+    /// Sets the value of [state_reasons][crate::model::ReplicaConfig::state_reasons].
+    pub fn set_state_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::replica_config::StateReason>,
+    {
+        use std::iter::Iterator;
+        self.state_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [peer_instance][crate::model::ReplicaConfig::peer_instance].
     pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_instance = v.into();
@@ -958,17 +969,6 @@ impl ReplicaConfig {
         v: T,
     ) -> Self {
         self.last_active_sync_time = v.into();
-        self
-    }
-
-    /// Sets the value of [state_reasons][crate::model::ReplicaConfig::state_reasons].
-    pub fn set_state_reasons<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::replica_config::StateReason>,
-    {
-        use std::iter::Iterator;
-        self.state_reasons = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1615,6 +1615,40 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [file_shares][crate::model::Instance::file_shares].
+    pub fn set_file_shares<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FileShareConfig>,
+    {
+        use std::iter::Iterator;
+        self.file_shares = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [networks][crate::model::Instance::networks].
+    pub fn set_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkConfig>,
+    {
+        use std::iter::Iterator;
+        self.networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Instance::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -1642,6 +1676,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [suspension_reasons][crate::model::Instance::suspension_reasons].
+    pub fn set_suspension_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::instance::SuspensionReason>,
+    {
+        use std::iter::Iterator;
+        self.suspension_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [replication][crate::model::Instance::replication].
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::Replication>>,
@@ -1650,6 +1695,18 @@ impl Instance {
         v: T,
     ) -> Self {
         self.replication = v.into();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Instance::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1702,63 +1759,6 @@ impl Instance {
         v: T,
     ) -> Self {
         self.deletion_protection_reason = v.into();
-        self
-    }
-
-    /// Sets the value of [file_shares][crate::model::Instance::file_shares].
-    pub fn set_file_shares<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FileShareConfig>,
-    {
-        use std::iter::Iterator;
-        self.file_shares = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [networks][crate::model::Instance::networks].
-    pub fn set_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
-    {
-        use std::iter::Iterator;
-        self.networks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [suspension_reasons][crate::model::Instance::suspension_reasons].
-    pub fn set_suspension_reasons<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::SuspensionReason>,
-    {
-        use std::iter::Iterator;
-        self.suspension_reasons = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::Instance::tags].
-    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1896,21 +1896,6 @@ pub mod instance {
             })
         }
 
-        /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
-        /// if it holds a `FixedIops`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn fixed_iops(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
-            #[allow(unreachable_patterns)]
-            self.mode.as_ref().and_then(|v| match v {
-                crate::model::instance::performance_config::Mode::FixedIops(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
         /// to hold a `IopsPerTb`.
         ///
@@ -1926,6 +1911,21 @@ pub mod instance {
                 crate::model::instance::performance_config::Mode::IopsPerTb(v.into()),
             );
             self
+        }
+
+        /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// if it holds a `FixedIops`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn fixed_iops(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::instance::performance_config::Mode::FixedIops(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
@@ -3161,12 +3161,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -3175,6 +3169,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3293,12 +3293,6 @@ impl Snapshot {
         self
     }
 
-    /// Sets the value of [filesystem_used_bytes][crate::model::Snapshot::filesystem_used_bytes].
-    pub fn set_filesystem_used_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.filesystem_used_bytes = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Snapshot::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -3308,6 +3302,12 @@ impl Snapshot {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [filesystem_used_bytes][crate::model::Snapshot::filesystem_used_bytes].
+    pub fn set_filesystem_used_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.filesystem_used_bytes = v.into();
         self
     }
 
@@ -3764,12 +3764,6 @@ impl ListSnapshotsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
@@ -3778,6 +3772,12 @@ impl ListSnapshotsResponse {
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3939,6 +3939,18 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Backup::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [capacity_gb][crate::model::Backup::capacity_gb].
     pub fn set_capacity_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gb = v.into();
@@ -4002,27 +4014,6 @@ impl Backup {
         self
     }
 
-    /// Sets the value of [file_system_protocol][crate::model::Backup::file_system_protocol].
-    pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.file_system_protocol = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Backup::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [tags][crate::model::Backup::tags].
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
@@ -4032,6 +4023,15 @@ impl Backup {
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [file_system_protocol][crate::model::Backup::file_system_protocol].
+    pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.file_system_protocol = v.into();
         self
     }
 }
@@ -4543,12 +4543,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -4557,6 +4551,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

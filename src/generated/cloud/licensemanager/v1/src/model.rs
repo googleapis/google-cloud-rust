@@ -153,15 +153,6 @@ impl Configuration {
         self
     }
 
-    /// Sets the value of [state][crate::model::Configuration::state].
-    pub fn set_state<T: std::convert::Into<crate::model::configuration::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Configuration::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -171,6 +162,15 @@ impl Configuration {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Configuration::state].
+    pub fn set_state<T: std::convert::Into<crate::model::configuration::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
         self
     }
 }
@@ -823,6 +823,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Instance::state].
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -832,6 +844,18 @@ impl Instance {
     /// Sets the value of [region][crate::model::Instance::region].
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
+        self
+    }
+
+    /// Sets the value of [product_activation][crate::model::Instance::product_activation].
+    pub fn set_product_activation<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ActivationState>,
+    {
+        use std::iter::Iterator;
+        self.product_activation = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -850,30 +874,6 @@ impl Instance {
         v: T,
     ) -> Self {
         self.compute_instance = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [product_activation][crate::model::Instance::product_activation].
-    pub fn set_product_activation<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::ActivationState>,
-    {
-        use std::iter::Iterator;
-        self.product_activation = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1202,12 +1202,6 @@ impl ListConfigurationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConfigurationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [configurations][crate::model::ListConfigurationsResponse::configurations].
     pub fn set_configurations<T, V>(mut self, v: T) -> Self
     where
@@ -1216,6 +1210,12 @@ impl ListConfigurationsResponse {
     {
         use std::iter::Iterator;
         self.configurations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConfigurationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1595,12 +1595,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -1609,6 +1603,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2068,12 +2068,6 @@ impl AggregateUsageResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::AggregateUsageResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [usages][crate::model::AggregateUsageResponse::usages].
     pub fn set_usages<T, V>(mut self, v: T) -> Self
     where
@@ -2082,6 +2076,12 @@ impl AggregateUsageResponse {
     {
         use std::iter::Iterator;
         self.usages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::AggregateUsageResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2217,12 +2217,6 @@ impl ListProductsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [products][crate::model::ListProductsResponse::products].
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
@@ -2231,6 +2225,12 @@ impl ListProductsResponse {
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

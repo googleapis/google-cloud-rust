@@ -103,6 +103,16 @@ impl Document {
         })
     }
 
+    /// Sets the value of [source][crate::model::Document::source]
+    /// to hold a `Content`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
+        self
+    }
+
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `GcsContentUri`, `None` if the field is not set or
     /// holds a different branch.
@@ -112,16 +122,6 @@ impl Document {
             crate::model::document::Source::GcsContentUri(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
-        self
     }
 
     /// Sets the value of [source][crate::model::Document::source]
@@ -404,12 +404,15 @@ impl Entity {
         self
     }
 
-    /// Sets the value of [sentiment][crate::model::Entity::sentiment].
-    pub fn set_sentiment<T: std::convert::Into<std::option::Option<crate::model::Sentiment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sentiment = v.into();
+    /// Sets the value of [metadata][crate::model::Entity::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -424,15 +427,12 @@ impl Entity {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::Entity::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [sentiment][crate::model::Entity::sentiment].
+    pub fn set_sentiment<T: std::convert::Into<std::option::Option<crate::model::Sentiment>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sentiment = v.into();
         self
     }
 }
@@ -698,11 +698,13 @@ pub struct Sentiment {
     /// the absolute magnitude of sentiment regardless of score (positive or
     /// negative).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub magnitude: f32,
 
     /// Sentiment score between -1.0 (negative sentiment) and 1.0
     /// (positive sentiment).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -760,6 +762,7 @@ pub struct EntityMention {
     /// The score shows the probability of the entity mention being the entity
     /// type. The score is in (0, 1] range.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub probability: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1009,12 +1012,14 @@ pub struct ClassificationCategory {
     /// The classifier's confidence of the category. Number represents how certain
     /// the classifier is that this category represents the given text.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Optional. The classifier's severity of the category. This is only present
     /// when the ModerateTextRequest.ModelVersion is set to MODEL_VERSION_2, and
     /// the corresponding category has a severity score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub severity: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1150,12 +1155,6 @@ impl AnalyzeSentimentResponse {
         self
     }
 
-    /// Sets the value of [language_supported][crate::model::AnalyzeSentimentResponse::language_supported].
-    pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.language_supported = v.into();
-        self
-    }
-
     /// Sets the value of [sentences][crate::model::AnalyzeSentimentResponse::sentences].
     pub fn set_sentences<T, V>(mut self, v: T) -> Self
     where
@@ -1164,6 +1163,12 @@ impl AnalyzeSentimentResponse {
     {
         use std::iter::Iterator;
         self.sentences = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_supported][crate::model::AnalyzeSentimentResponse::language_supported].
+    pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.language_supported = v.into();
         self
     }
 }
@@ -1252,6 +1257,17 @@ impl AnalyzeEntitiesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [entities][crate::model::AnalyzeEntitiesResponse::entities].
+    pub fn set_entities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Entity>,
+    {
+        use std::iter::Iterator;
+        self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [language_code][crate::model::AnalyzeEntitiesResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -1261,17 +1277,6 @@ impl AnalyzeEntitiesResponse {
     /// Sets the value of [language_supported][crate::model::AnalyzeEntitiesResponse::language_supported].
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
-        self
-    }
-
-    /// Sets the value of [entities][crate::model::AnalyzeEntitiesResponse::entities].
-    pub fn set_entities<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Entity>,
-    {
-        use std::iter::Iterator;
-        self.entities = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1348,6 +1353,17 @@ impl ClassifyTextResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [categories][crate::model::ClassifyTextResponse::categories].
+    pub fn set_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClassificationCategory>,
+    {
+        use std::iter::Iterator;
+        self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [language_code][crate::model::ClassifyTextResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -1357,17 +1373,6 @@ impl ClassifyTextResponse {
     /// Sets the value of [language_supported][crate::model::ClassifyTextResponse::language_supported].
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
-        self
-    }
-
-    /// Sets the value of [categories][crate::model::ClassifyTextResponse::categories].
-    pub fn set_categories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClassificationCategory>,
-    {
-        use std::iter::Iterator;
-        self.categories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1600,6 +1605,17 @@ impl ModerateTextResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [moderation_categories][crate::model::ModerateTextResponse::moderation_categories].
+    pub fn set_moderation_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClassificationCategory>,
+    {
+        use std::iter::Iterator;
+        self.moderation_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [language_code][crate::model::ModerateTextResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -1609,17 +1625,6 @@ impl ModerateTextResponse {
     /// Sets the value of [language_supported][crate::model::ModerateTextResponse::language_supported].
     pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.language_supported = v.into();
-        self
-    }
-
-    /// Sets the value of [moderation_categories][crate::model::ModerateTextResponse::moderation_categories].
-    pub fn set_moderation_categories<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClassificationCategory>,
-    {
-        use std::iter::Iterator;
-        self.moderation_categories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1821,29 +1826,6 @@ impl AnnotateTextResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
-    pub fn set_document_sentiment<
-        T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_sentiment = v.into();
-        self
-    }
-
-    /// Sets the value of [language_code][crate::model::AnnotateTextResponse::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
-    /// Sets the value of [language_supported][crate::model::AnnotateTextResponse::language_supported].
-    pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.language_supported = v.into();
-        self
-    }
-
     /// Sets the value of [sentences][crate::model::AnnotateTextResponse::sentences].
     pub fn set_sentences<T, V>(mut self, v: T) -> Self
     where
@@ -1866,6 +1848,23 @@ impl AnnotateTextResponse {
         self
     }
 
+    /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
+    pub fn set_document_sentiment<
+        T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.document_sentiment = v.into();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::AnnotateTextResponse::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+
     /// Sets the value of [categories][crate::model::AnnotateTextResponse::categories].
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
@@ -1885,6 +1884,12 @@ impl AnnotateTextResponse {
     {
         use std::iter::Iterator;
         self.moderation_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_supported][crate::model::AnnotateTextResponse::language_supported].
+    pub fn set_language_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.language_supported = v.into();
         self
     }
 }

@@ -42,6 +42,16 @@ mod driver {
             .map_err(report)
     }
 
+    #[test_case(bigquery::client::DatasetService::builder().with_retry_policy(retry_policy()).with_tracing(); "with retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_bigquery(
+        builder: bigquery::builder::dataset_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::bigquery::dataset_admin(builder)
+            .await
+            .map_err(report)
+    }
+
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
     #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
     #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
@@ -95,6 +105,26 @@ mod driver {
         builder: ta::builder::telco_automation::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::error_details::run(builder)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_check_code_for_http(
+        builder: wf::builder::workflows::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::error_details::check_code_for_http(builder)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(storage::client::Storage::builder().with_tracing(); "with tracing enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_check_code_for_grpc(
+        builder: storage::client::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::error_details::check_code_for_grpc(builder)
             .await
             .map_err(report)
     }

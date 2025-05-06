@@ -16,7 +16,6 @@
 
 pub mod policy_bindings {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PolicyBindings][super::super::client::PolicyBindings].
     ///
@@ -49,7 +48,7 @@ pub mod policy_bindings {
     /// Common implementation for [super::super::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod policy_bindings {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod policy_bindings {
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
     impl CreatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -184,7 +187,9 @@ pub mod policy_bindings {
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
     impl GetPolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -232,7 +237,9 @@ pub mod policy_bindings {
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
     impl UpdatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -337,7 +344,9 @@ pub mod policy_bindings {
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
     impl DeletePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,7 +441,9 @@ pub mod policy_bindings {
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
     impl ListPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -515,7 +526,9 @@ pub mod policy_bindings {
     );
 
     impl SearchTargetPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,7 +613,9 @@ pub mod policy_bindings {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +659,6 @@ pub mod policy_bindings {
 
 pub mod principal_access_boundary_policies {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PrincipalAccessBoundaryPolicies][super::super::client::PrincipalAccessBoundaryPolicies].
     ///
@@ -677,7 +691,7 @@ pub mod principal_access_boundary_policies {
     /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -687,7 +701,7 @@ pub mod principal_access_boundary_policies {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self {
                 stub,
@@ -705,7 +719,7 @@ pub mod principal_access_boundary_policies {
 
     impl CreatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -828,7 +842,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetPrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -880,7 +894,7 @@ pub mod principal_access_boundary_policies {
 
     impl UpdatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -993,7 +1007,7 @@ pub mod principal_access_boundary_policies {
 
     impl DeletePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1098,7 +1112,7 @@ pub mod principal_access_boundary_policies {
 
     impl ListPrincipalAccessBoundaryPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1181,7 +1195,7 @@ pub mod principal_access_boundary_policies {
 
     impl SearchPrincipalAccessBoundaryPolicyBindings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1264,7 +1278,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

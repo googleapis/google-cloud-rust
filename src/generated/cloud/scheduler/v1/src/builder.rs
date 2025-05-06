@@ -16,7 +16,6 @@
 
 pub mod cloud_scheduler {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudScheduler][super::super::client::CloudScheduler].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_scheduler {
     /// Common implementation for [super::super::client::CloudScheduler] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_scheduler {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_scheduler {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +147,9 @@ pub mod cloud_scheduler {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +194,9 @@ pub mod cloud_scheduler {
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -242,7 +249,9 @@ pub mod cloud_scheduler {
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +305,9 @@ pub mod cloud_scheduler {
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,7 +352,9 @@ pub mod cloud_scheduler {
     pub struct PauseJob(RequestBuilder<crate::model::PauseJobRequest>);
 
     impl PauseJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -386,7 +399,9 @@ pub mod cloud_scheduler {
     pub struct ResumeJob(RequestBuilder<crate::model::ResumeJobRequest>);
 
     impl ResumeJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -431,7 +446,9 @@ pub mod cloud_scheduler {
     pub struct RunJob(RequestBuilder<crate::model::RunJobRequest>);
 
     impl RunJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -476,7 +493,9 @@ pub mod cloud_scheduler {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -555,7 +574,9 @@ pub mod cloud_scheduler {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

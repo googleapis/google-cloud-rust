@@ -32,14 +32,14 @@ working with values introduced after the library release.
 ## Prerequisites
 
 This guide does not make any calls to Google Cloud services. You can run the
-examples without having a project or account in Google Cloud. The guide will
-use the client library for [Secret Manager]. The same principles apply to any
-other enumeration in any other client library.
+examples without having a project or account in Google Cloud. The guide will use
+the client library for [Secret Manager]. The same principles apply to any other
+enumeration in any other client library.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:secretmanager}}
@@ -93,7 +93,8 @@ case, consider using the [`wildcard_enum_match_arm`] clippy warning:
 {{#include ../samples/tests/enums.rs:match_with_warnings}}
 ```
 
-You may also consider the (currently unstable) [`non_exhaustive_omitted_patterns`] lint.
+You may also consider the (currently unstable)
+[`non_exhaustive_omitted_patterns`] lint.
 
 [secret manager]: https://cloud.google.com/secret-manager
 [wildcard pattern]: https://doc.rust-lang.org/reference/patterns.html#wildcard-pattern

@@ -115,12 +115,6 @@ impl ListConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
@@ -129,6 +123,12 @@ impl ListConnectionsResponse {
     {
         use std::iter::Iterator;
         self.connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -382,28 +382,6 @@ impl Payload {
         })
     }
 
-    /// The value of [kind][crate::model::Payload::kind]
-    /// if it holds a `StreamInfo`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn stream_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamInfo>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::payload::Kind::StreamInfo(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Payload::kind]
-    /// if it holds a `Action`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn action(&self) -> std::option::Option<&crate::model::Action> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::payload::Kind::Action(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [kind][crate::model::Payload::kind]
     /// to hold a `HttpRequest`.
     ///
@@ -417,6 +395,17 @@ impl Payload {
         self
     }
 
+    /// The value of [kind][crate::model::Payload::kind]
+    /// if it holds a `StreamInfo`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn stream_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamInfo>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::payload::Kind::StreamInfo(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Payload::kind]
     /// to hold a `StreamInfo`.
     ///
@@ -428,6 +417,17 @@ impl Payload {
     ) -> Self {
         self.kind = std::option::Option::Some(crate::model::payload::Kind::StreamInfo(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::Payload::kind]
+    /// if it holds a `Action`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn action(&self) -> std::option::Option<&crate::model::Action> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::payload::Kind::Action(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::Payload::kind]
@@ -661,12 +661,6 @@ impl HttpRequest {
         self
     }
 
-    /// Sets the value of [body][crate::model::HttpRequest::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::HttpRequest::headers].
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
@@ -675,6 +669,12 @@ impl HttpRequest {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::HttpRequest::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 }
@@ -854,12 +854,6 @@ impl HttpResponse {
         self
     }
 
-    /// Sets the value of [content_length][crate::model::HttpResponse::content_length].
-    pub fn set_content_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.content_length = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::HttpResponse::headers].
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
@@ -868,6 +862,12 @@ impl HttpResponse {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [content_length][crate::model::HttpResponse::content_length].
+    pub fn set_content_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.content_length = v.into();
         self
     }
 }

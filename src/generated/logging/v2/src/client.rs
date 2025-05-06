@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Logging API.
 ///
@@ -58,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `LoggingServiceV2` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LoggingServiceV2` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LoggingServiceV2 {
-    inner: Arc<dyn super::stub::dynamic::LoggingServiceV2>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>,
 }
 
 impl LoggingServiceV2 {
@@ -89,7 +88,7 @@ impl LoggingServiceV2 {
         T: super::stub::LoggingServiceV2 + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -100,11 +99,11 @@ impl LoggingServiceV2 {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::LoggingServiceV2>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -244,11 +243,11 @@ impl LoggingServiceV2 {
 ///
 /// `ConfigServiceV2` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConfigServiceV2` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ConfigServiceV2 {
-    inner: Arc<dyn super::stub::dynamic::ConfigServiceV2>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>,
 }
 
 impl ConfigServiceV2 {
@@ -275,7 +274,7 @@ impl ConfigServiceV2 {
         T: super::stub::ConfigServiceV2 + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -286,11 +285,11 @@ impl ConfigServiceV2 {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ConfigServiceV2>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -802,11 +801,11 @@ impl ConfigServiceV2 {
 ///
 /// `MetricsServiceV2` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetricsServiceV2` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct MetricsServiceV2 {
-    inner: Arc<dyn super::stub::dynamic::MetricsServiceV2>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>,
 }
 
 impl MetricsServiceV2 {
@@ -833,7 +832,7 @@ impl MetricsServiceV2 {
         T: super::stub::MetricsServiceV2 + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -844,11 +843,11 @@ impl MetricsServiceV2 {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::MetricsServiceV2>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

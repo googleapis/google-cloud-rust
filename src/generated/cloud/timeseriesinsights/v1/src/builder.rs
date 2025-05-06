@@ -16,7 +16,6 @@
 
 pub mod timeseries_insights_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TimeseriesInsightsController][super::super::client::TimeseriesInsightsController].
     ///
@@ -49,7 +48,7 @@ pub mod timeseries_insights_controller {
     /// Common implementation for [super::super::client::TimeseriesInsightsController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod timeseries_insights_controller {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod timeseries_insights_controller {
 
     impl ListDataSets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -149,7 +148,7 @@ pub mod timeseries_insights_controller {
 
     impl CreateDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -207,7 +206,7 @@ pub mod timeseries_insights_controller {
 
     impl DeleteDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -254,7 +253,7 @@ pub mod timeseries_insights_controller {
 
     impl AppendEvents {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -279,14 +278,6 @@ pub mod timeseries_insights_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.dataset = v.into();
-            self
-        }
-
         /// Sets the value of [events][crate::model::AppendEventsRequest::events].
         pub fn set_events<T, V>(mut self, v: T) -> Self
         where
@@ -295,6 +286,14 @@ pub mod timeseries_insights_controller {
         {
             use std::iter::Iterator;
             self.0.request.events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dataset = v.into();
             self
         }
     }
@@ -312,7 +311,7 @@ pub mod timeseries_insights_controller {
 
     impl QueryDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -411,7 +410,7 @@ pub mod timeseries_insights_controller {
 
     impl EvaluateSlice {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -441,6 +440,19 @@ pub mod timeseries_insights_controller {
         /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
+            self
+        }
+
+        /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::PinnedDimension>,
+        {
+            use std::iter::Iterator;
+            self.0.request.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -474,19 +486,6 @@ pub mod timeseries_insights_controller {
             self.0.request.forecast_params = v.into();
             self
         }
-
-        /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::PinnedDimension>,
-        {
-            use std::iter::Iterator;
-            self.0.request.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -502,7 +501,7 @@ pub mod timeseries_insights_controller {
 
     impl EvaluateTimeseries {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

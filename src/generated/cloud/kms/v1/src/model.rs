@@ -365,12 +365,6 @@ impl ListKeyHandlesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListKeyHandlesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [key_handles][crate::model::ListKeyHandlesResponse::key_handles].
     pub fn set_key_handles<T, V>(mut self, v: T) -> Self
     where
@@ -379,6 +373,12 @@ impl ListKeyHandlesResponse {
     {
         use std::iter::Iterator;
         self.key_handles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListKeyHandlesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -928,6 +928,17 @@ impl ListEkmConnectionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [ekm_connections][crate::model::ListEkmConnectionsResponse::ekm_connections].
+    pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EkmConnection>,
+    {
+        use std::iter::Iterator;
+        self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListEkmConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -937,17 +948,6 @@ impl ListEkmConnectionsResponse {
     /// Sets the value of [total_size][crate::model::ListEkmConnectionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [ekm_connections][crate::model::ListEkmConnectionsResponse::ekm_connections].
-    pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EkmConnection>,
-    {
-        use std::iter::Iterator;
-        self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1330,6 +1330,17 @@ impl Certificate {
         self
     }
 
+    /// Sets the value of [subject_alternative_dns_names][crate::model::Certificate::subject_alternative_dns_names].
+    pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.subject_alternative_dns_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [not_before_time][crate::model::Certificate::not_before_time].
     pub fn set_not_before_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1360,17 +1371,6 @@ impl Certificate {
         v: T,
     ) -> Self {
         self.sha256_fingerprint = v.into();
-        self
-    }
-
-    /// Sets the value of [subject_alternative_dns_names][crate::model::Certificate::subject_alternative_dns_names].
-    pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.subject_alternative_dns_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1476,6 +1476,17 @@ impl EkmConnection {
         self
     }
 
+    /// Sets the value of [service_resolvers][crate::model::EkmConnection::service_resolvers].
+    pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>,
+    {
+        use std::iter::Iterator;
+        self.service_resolvers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::EkmConnection::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -1499,17 +1510,6 @@ impl EkmConnection {
         v: T,
     ) -> Self {
         self.crypto_space_path = v.into();
-        self
-    }
-
-    /// Sets the value of [service_resolvers][crate::model::EkmConnection::service_resolvers].
-    pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>,
-    {
-        use std::iter::Iterator;
-        self.service_resolvers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2188,6 +2188,18 @@ impl CryptoKey {
         self
     }
 
+    /// Sets the value of [labels][crate::model::CryptoKey::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [import_only][crate::model::CryptoKey::import_only].
     pub fn set_import_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.import_only = v.into();
@@ -2222,18 +2234,6 @@ impl CryptoKey {
         v: T,
     ) -> Self {
         self.key_access_justifications_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::CryptoKey::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5659,6 +5659,17 @@ impl ListKeyRingsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [key_rings][crate::model::ListKeyRingsResponse::key_rings].
+    pub fn set_key_rings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::KeyRing>,
+    {
+        use std::iter::Iterator;
+        self.key_rings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListKeyRingsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5668,17 +5679,6 @@ impl ListKeyRingsResponse {
     /// Sets the value of [total_size][crate::model::ListKeyRingsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [key_rings][crate::model::ListKeyRingsResponse::key_rings].
-    pub fn set_key_rings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::KeyRing>,
-    {
-        use std::iter::Iterator;
-        self.key_rings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5742,6 +5742,17 @@ impl ListCryptoKeysResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
+    pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CryptoKey>,
+    {
+        use std::iter::Iterator;
+        self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5751,17 +5762,6 @@ impl ListCryptoKeysResponse {
     /// Sets the value of [total_size][crate::model::ListCryptoKeysResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
-    pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CryptoKey>,
-    {
-        use std::iter::Iterator;
-        self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5826,6 +5826,17 @@ impl ListCryptoKeyVersionsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [crypto_key_versions][crate::model::ListCryptoKeyVersionsResponse::crypto_key_versions].
+    pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        use std::iter::Iterator;
+        self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeyVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5835,17 +5846,6 @@ impl ListCryptoKeyVersionsResponse {
     /// Sets the value of [total_size][crate::model::ListCryptoKeyVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_key_versions][crate::model::ListCryptoKeyVersionsResponse::crypto_key_versions].
-    pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CryptoKeyVersion>,
-    {
-        use std::iter::Iterator;
-        self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5909,6 +5909,17 @@ impl ListImportJobsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [import_jobs][crate::model::ListImportJobsResponse::import_jobs].
+    pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ImportJob>,
+    {
+        use std::iter::Iterator;
+        self.import_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListImportJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5918,17 +5929,6 @@ impl ListImportJobsResponse {
     /// Sets the value of [total_size][crate::model::ListImportJobsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [import_jobs][crate::model::ListImportJobsResponse::import_jobs].
-    pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImportJob>,
-    {
-        use std::iter::Iterator;
-        self.import_jobs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9512,6 +9512,16 @@ impl Digest {
         })
     }
 
+    /// Sets the value of [digest][crate::model::Digest::digest]
+    /// to hold a `Sha256`.
+    ///
+    /// Note that all the setters affecting `digest` are
+    /// mutually exclusive.
+    pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
+        self
+    }
+
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha384`, `None` if the field is not set or
     /// holds a different branch.
@@ -9523,6 +9533,16 @@ impl Digest {
         })
     }
 
+    /// Sets the value of [digest][crate::model::Digest::digest]
+    /// to hold a `Sha384`.
+    ///
+    /// Note that all the setters affecting `digest` are
+    /// mutually exclusive.
+    pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
+        self
+    }
+
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha512`, `None` if the field is not set or
     /// holds a different branch.
@@ -9532,26 +9552,6 @@ impl Digest {
             crate::model::digest::Digest::Sha512(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha256`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
-        self
-    }
-
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha384`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
-        self
     }
 
     /// Sets the value of [digest][crate::model::Digest::digest]

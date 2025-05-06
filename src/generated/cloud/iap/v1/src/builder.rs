@@ -16,7 +16,6 @@
 
 pub mod identity_aware_proxy_admin_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IdentityAwareProxyAdminService][super::super::client::IdentityAwareProxyAdminService].
     ///
@@ -49,7 +48,7 @@ pub mod identity_aware_proxy_admin_service {
     /// Common implementation for [super::super::client::IdentityAwareProxyAdminService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod identity_aware_proxy_admin_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -142,7 +141,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -198,7 +197,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -261,7 +260,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl GetIapSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -308,7 +307,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl UpdateIapSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -372,7 +371,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl ValidateIapAttributeExpression {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -430,7 +429,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl ListTunnelDestGroups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -507,7 +506,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl CreateTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -578,7 +577,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl GetTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -628,7 +627,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl DeleteTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -678,7 +677,7 @@ pub mod identity_aware_proxy_admin_service {
 
     impl UpdateTunnelDestGroup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -739,7 +738,6 @@ pub mod identity_aware_proxy_admin_service {
 
 pub mod identity_aware_proxy_o_auth_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [IdentityAwareProxyOAuthService][super::super::client::IdentityAwareProxyOAuthService].
     ///
@@ -772,7 +770,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// Common implementation for [super::super::client::IdentityAwareProxyOAuthService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -782,7 +780,7 @@ pub mod identity_aware_proxy_o_auth_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self {
                 stub,
@@ -798,7 +796,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl ListBrands {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -845,7 +843,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl CreateBrand {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -903,7 +901,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl GetBrand {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -952,7 +950,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl CreateIdentityAwareProxyClient {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1017,7 +1015,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl ListIdentityAwareProxyClients {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1098,7 +1096,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl GetIdentityAwareProxyClient {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1150,7 +1148,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl ResetIdentityAwareProxyClientSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1202,7 +1200,7 @@ pub mod identity_aware_proxy_o_auth_service {
 
     impl DeleteIdentityAwareProxyClient {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

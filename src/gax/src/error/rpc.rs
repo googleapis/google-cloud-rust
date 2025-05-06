@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 /// The [Status] type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs. Each
 /// [Status] message contains three pieces of data: error code, error message,
-///  and error details.
+/// and error details.
 ///
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
@@ -27,30 +27,21 @@ use serde::{Deserialize, Serialize};
 #[non_exhaustive]
 pub struct Status {
     /// The status code.
-    ///
-    /// When using a HTTP transport this is the HTTP status code. When using
-    /// gRPC, this is one of the values enumerated in [Code].
-    pub code: i32,
+    pub code: Code,
 
     /// A developer-facing error message, which should be in English. Any
     /// user-facing error message should be localized and sent in the
-    /// [Status] `details` field, or localized by the client.
+    /// [Status] `details` field.
     pub message: String,
 
-    /// The underlying `google.rpc.Status.code`, as a string.
-    ///
-    /// When serialized over JSON, status messages include both the HTTP status
-    /// code (in the `code` field), and the status [Code] as a string.
-    pub status: Option<String>,
-
-    /// A list of messages that carry the error details.  There is a common set
+    /// A list of messages that carry the error details. There is a common set
     /// of message types for APIs to use.
     pub details: Vec<StatusDetails>,
 }
 
 impl Status {
     /// Sets the value for [code][Status::code].
-    pub fn set_code<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_code<T: Into<Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -58,12 +49,6 @@ impl Status {
     /// Sets the value for [message][Status::message].
     pub fn set_message<T: Into<String>>(mut self, v: T) -> Self {
         self.message = v.into();
-        self
-    }
-
-    /// Sets the value for [status][Status::status].
-    pub fn set_status<T: Into<String>>(mut self, v: T) -> Self {
-        self.status = Some(v.into());
         self
     }
 
@@ -165,15 +150,15 @@ pub enum Code {
     ///
     /// Service implementors can use the following guidelines to decide
     /// between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`:
-    ///  (a) Use `UNAVAILABLE` if the client can retry just the failing call.
-    ///  (b) Use `ABORTED` if the client should retry at a higher level. For
-    ///      example, when a client-specified test-and-set fails, indicating the
-    ///      client should restart a read-modify-write sequence.
-    ///  (c) Use `FAILED_PRECONDITION` if the client should not retry until
-    ///      the system state has been explicitly fixed. For example, if an "rmdir"
-    ///      fails because the directory is non-empty, `FAILED_PRECONDITION`
-    ///      should be returned since the client should not retry unless
-    ///      the files are deleted from the directory.
+    /// 1. Use `UNAVAILABLE` if the client can retry just the failing call.
+    /// 1. Use `ABORTED` if the client should retry at a higher level. For
+    ///    example, when a client-specified test-and-set fails, indicating the
+    ///    client should restart a read-modify-write sequence.
+    /// 1. Use `FAILED_PRECONDITION` if the client should not retry until
+    ///    the system state has been explicitly fixed. For example, if an "rmdir"
+    ///    fails because the directory is non-empty, `FAILED_PRECONDITION`
+    ///    should be returned since the client should not retry unless
+    ///    the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
     FailedPrecondition = 9,
@@ -185,6 +170,7 @@ pub enum Code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 409 Conflict
+    ///
     /// HTTP Mapping: 400 Bad Request
     Aborted = 10,
 
@@ -243,6 +229,30 @@ pub enum Code {
     Unauthenticated = 16,
 }
 
+impl Code {
+    pub fn name(&self) -> &str {
+        match self {
+            Code::Ok => "OK",
+            Code::Cancelled => "CANCELLED",
+            Code::Unknown => "UNKNOWN",
+            Code::InvalidArgument => "INVALID_ARGUMENT",
+            Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
+            Code::NotFound => "NOT_FOUND",
+            Code::AlreadyExists => "ALREADY_EXISTS",
+            Code::PermissionDenied => "PERMISSION_DENIED",
+            Code::ResourceExhausted => "RESOURCE_EXHAUSTED",
+            Code::FailedPrecondition => "FAILED_PRECONDITION",
+            Code::Aborted => "ABORTED",
+            Code::OutOfRange => "OUT_OF_RANGE",
+            Code::Unimplemented => "UNIMPLEMENTED",
+            Code::Internal => "INTERNAL",
+            Code::Unavailable => "UNAVAILABLE",
+            Code::DataLoss => "DATA_LOSS",
+            Code::Unauthenticated => "UNAUTHENTICATED",
+        }
+    }
+}
+
 impl Default for Code {
     fn default() -> Self {
         Self::Unknown
@@ -276,26 +286,13 @@ impl std::convert::From<i32> for Code {
 
 impl std::convert::From<Code> for String {
     fn from(value: Code) -> String {
-        match value {
-            Code::Ok => "OK",
-            Code::Cancelled => "CANCELLED",
-            Code::Unknown => "UNKNOWN",
-            Code::InvalidArgument => "INVALID_ARGUMENT",
-            Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
-            Code::NotFound => "NOT_FOUND",
-            Code::AlreadyExists => "ALREADY_EXISTS",
-            Code::PermissionDenied => "PERMISSION_DENIED",
-            Code::ResourceExhausted => "RESOURCE_EXHAUSTED",
-            Code::FailedPrecondition => "FAILED_PRECONDITION",
-            Code::Aborted => "ABORTED",
-            Code::OutOfRange => "OUT_OF_RANGE",
-            Code::Unimplemented => "UNIMPLEMENTED",
-            Code::Internal => "INTERNAL",
-            Code::Unavailable => "UNAVAILABLE",
-            Code::DataLoss => "DATA_LOSS",
-            Code::Unauthenticated => "UNAUTHENTICATED",
-        }
-        .to_string()
+        value.name().to_string()
+    }
+}
+
+impl std::fmt::Display for Code {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.name())
     }
 }
 
@@ -344,27 +341,45 @@ impl<'de> Deserialize<'de> for Code {
 }
 
 /// A helper class to deserialized wrapped Status messages.
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize)]
 struct ErrorWrapper {
-    error: Status,
+    error: WrapperStatus,
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Deserialize)]
+#[serde(default)]
+#[non_exhaustive]
+struct WrapperStatus {
+    pub code: i32,
+    pub message: String,
+    pub status: Option<String>,
+    pub details: Vec<StatusDetails>,
 }
 
 impl TryFrom<&bytes::Bytes> for Status {
     type Error = Error;
 
     fn try_from(value: &bytes::Bytes) -> Result<Self, Self::Error> {
-        serde_json::from_slice::<ErrorWrapper>(value)
+        let wrapper = serde_json::from_slice::<ErrorWrapper>(value)
             .map(|w| w.error)
-            .map_err(Error::serde)
+            .map_err(Error::serde)?;
+        let code = match wrapper.status.as_deref().map(Code::try_from) {
+            Some(Ok(code)) => code,
+            Some(Err(_)) | None => Code::Unknown,
+        };
+        Ok(Status {
+            code,
+            message: wrapper.message,
+            details: wrapper.details,
+        })
     }
 }
 
 impl From<rpc::model::Status> for Status {
     fn from(value: rpc::model::Status) -> Self {
         Self {
-            code: value.code,
+            code: value.code.into(),
             message: value.message,
-            status: Some(String::from(Code::from(value.code))),
             details: value.details.into_iter().map(StatusDetails::from).collect(),
         }
     }
@@ -451,25 +466,21 @@ mod test {
     #[test]
     fn status_basic_setters() {
         let got = Status::default()
-            .set_code(Code::Unimplemented as i32)
-            .set_message("test-message")
-            .set_status(Code::Unimplemented);
+            .set_code(Code::Unimplemented)
+            .set_message("test-message");
         let want = Status {
-            code: Code::Unimplemented as i32,
+            code: Code::Unimplemented,
             message: "test-message".into(),
-            status: Some(String::from(Code::Unimplemented)),
             ..Default::default()
         };
         assert_eq!(got, want);
 
         let got = Status::default()
-            .set_code(12)
-            .set_message("test-message")
-            .set_status("UNIMPLEMENTED");
+            .set_code(Code::Unimplemented as i32)
+            .set_message("test-message");
         let want = Status {
-            code: 12,
+            code: Code::Unimplemented,
             message: "test-message".into(),
-            status: Some(String::from("UNIMPLEMENTED")),
             ..Default::default()
         };
         assert_eq!(got, want);
@@ -503,9 +514,8 @@ mod test {
     fn serialization_all_variants() {
         let status =
             Status {
-                code: 12,
+                code: Code::Unimplemented,
                 message: "test".to_string(),
-                status: Some("UNIMPLEMENTED".to_string()),
 
                 details: vec![
                     StatusDetails::BadRequest(BadRequest::default().set_field_violations(
@@ -569,9 +579,8 @@ mod test {
         //     fields appear.
         let got = serde_json::to_value(&status).unwrap();
         let want = json!({
-            "code": 12,
+            "code": Code::Unimplemented,
             "message": "test",
-            "status": "UNIMPLEMENTED",
             "details": [
                 {"@type": "type.googleapis.com/google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
                 {"@type": "type.googleapis.com/google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
@@ -591,7 +600,7 @@ mod test {
     #[test]
     fn deserialization_all_variants() {
         let json = json!({
-            "code": 20,
+            "code": Code::Unknown as i32,
             "message": "test",
             "details": [
                 {"@type": "type.googleapis.com/google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
@@ -608,9 +617,8 @@ mod test {
         });
         let got: Status = serde_json::from_value(json).unwrap();
         let want = Status {
-            code: 20,
+            code: Code::Unknown,
             message: "test".to_string(),
-            status: None,
             details: vec![
                 StatusDetails::BadRequest(BadRequest::default().set_field_violations(
                     vec![rpc::model::bad_request::FieldViolation::default()
@@ -675,9 +683,8 @@ mod test {
             .set_code(Code::Unavailable as i32)
             .set_message("try-again");
         let got = Status::from(input);
-        assert_eq!(got.code, Code::Unavailable as i32);
+        assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
-        assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
     }
 
     #[test_case(
@@ -718,9 +725,8 @@ mod test {
             .set_details(vec![wkt::Any::try_from(&detail).unwrap()]);
 
         let status = Status::from(input);
-        assert_eq!(status.code, Code::Unavailable as i32);
+        assert_eq!(status.code, Code::Unavailable);
         assert_eq!(status.message, "try-again");
-        assert_eq!(status.status.as_deref(), Some("UNAVAILABLE"));
 
         let got = status.details.first();
         assert_eq!(got, Some(&want));
@@ -734,9 +740,8 @@ mod test {
             .set_message("try-again")
             .set_details(vec![any.clone()]);
         let got = Status::from(input);
-        assert_eq!(got.code, Code::Unavailable as i32);
+        assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
-        assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
 
         let got = got.details.first();
         let want = StatusDetails::Other(any);
@@ -746,12 +751,12 @@ mod test {
     // This is a sample string received from production. It is useful to
     // validate the serialization helpers.
     const SAMPLE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n";
+    const INVALID_CODE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"NOT-A-VALID-CODE\"\n  }\n}\n";
 
     // The corresponding status message.
     fn sample_status() -> Status {
         Status {
-            code: 400,
-            status: Some("INVALID_ARGUMENT".to_string()),
+            code: Code::InvalidArgument,
             message: "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
                 .into(),
             details: [].into(),
@@ -762,7 +767,7 @@ mod test {
     fn deserialize_status() {
         let got = serde_json::from_slice::<ErrorWrapper>(SAMPLE_PAYLOAD).unwrap();
         let want = ErrorWrapper {
-            error: Status {
+            error: WrapperStatus {
                 code: 400,
                 status: Some("INVALID_ARGUMENT".to_string()),
                 message:
@@ -789,6 +794,9 @@ mod test {
         assert!(got.is_err());
         let err = got.err().unwrap();
         assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+
+        let got = Status::try_from(&bytes::Bytes::from_static(INVALID_CODE_PAYLOAD))?;
+        assert_eq!(got.code, Code::Unknown);
         Ok(())
     }
 
@@ -820,6 +828,8 @@ mod test {
         let code = Code::try_from(input)?;
         let output = String::from(code);
         assert_eq!(output.as_str(), input.to_string());
+        assert_eq!(&format!("{code}"), input);
+        assert_eq!(code.name(), input);
         Ok(())
     }
 

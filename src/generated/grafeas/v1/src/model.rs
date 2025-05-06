@@ -791,6 +791,17 @@ impl ComplianceNote {
         self
     }
 
+    /// Sets the value of [version][crate::model::ComplianceNote::version].
+    pub fn set_version<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ComplianceVersion>,
+    {
+        use std::iter::Iterator;
+        self.version = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [rationale][crate::model::ComplianceNote::rationale].
     pub fn set_rationale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rationale = v.into();
@@ -806,17 +817,6 @@ impl ComplianceNote {
     /// Sets the value of [scan_instructions][crate::model::ComplianceNote::scan_instructions].
     pub fn set_scan_instructions<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.scan_instructions = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::ComplianceNote::version].
-    pub fn set_version<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ComplianceVersion>,
-    {
-        use std::iter::Iterator;
-        self.version = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1057,6 +1057,17 @@ impl ComplianceOccurrence {
         std::default::Default::default()
     }
 
+    /// Sets the value of [non_compliant_files][crate::model::ComplianceOccurrence::non_compliant_files].
+    pub fn set_non_compliant_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NonCompliantFile>,
+    {
+        use std::iter::Iterator;
+        self.non_compliant_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [non_compliance_reason][crate::model::ComplianceOccurrence::non_compliance_reason].
     pub fn set_non_compliance_reason<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1074,17 +1085,6 @@ impl ComplianceOccurrence {
         v: T,
     ) -> Self {
         self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [non_compliant_files][crate::model::ComplianceOccurrence::non_compliant_files].
-    pub fn set_non_compliant_files<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NonCompliantFile>,
-    {
-        use std::iter::Iterator;
-        self.non_compliant_files = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1156,12 +1156,15 @@ impl wkt::message::Message for NonCompliantFile {
 pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub base_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub exploitability_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -2099,12 +2102,15 @@ pub mod cvs_sv_3 {
 pub struct Cvss {
     /// The base score is a function of the base metric scores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub base_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub exploitability_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -3308,15 +3314,6 @@ impl DeploymentOccurrence {
         self
     }
 
-    /// Sets the value of [platform][crate::model::DeploymentOccurrence::platform].
-    pub fn set_platform<T: std::convert::Into<crate::model::deployment_occurrence::Platform>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform = v.into();
-        self
-    }
-
     /// Sets the value of [resource_uri][crate::model::DeploymentOccurrence::resource_uri].
     pub fn set_resource_uri<T, V>(mut self, v: T) -> Self
     where
@@ -3325,6 +3322,15 @@ impl DeploymentOccurrence {
     {
         use std::iter::Iterator;
         self.resource_uri = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [platform][crate::model::DeploymentOccurrence::platform].
+    pub fn set_platform<T: std::convert::Into<crate::model::deployment_occurrence::Platform>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.platform = v.into();
         self
     }
 }
@@ -3609,6 +3615,17 @@ impl DiscoveryOccurrence {
         self
     }
 
+    /// Sets the value of [analysis_error][crate::model::DiscoveryOccurrence::analysis_error].
+    pub fn set_analysis_error<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.analysis_error = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [analysis_status_error][crate::model::DiscoveryOccurrence::analysis_status_error].
     pub fn set_analysis_status_error<
         T: std::convert::Into<std::option::Option<rpc::model::Status>>,
@@ -3665,17 +3682,6 @@ impl DiscoveryOccurrence {
         v: T,
     ) -> Self {
         self.vulnerability_attestation = v.into();
-        self
-    }
-
-    /// Sets the value of [analysis_error][crate::model::DiscoveryOccurrence::analysis_error].
-    pub fn set_analysis_error<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
-    {
-        use std::iter::Iterator;
-        self.analysis_error = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4732,132 +4738,6 @@ impl Occurrence {
         })
     }
 
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Build`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Build(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Image`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Image(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Package`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn package(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PackageOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Package(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Deployment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deployment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Deployment(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Discovery`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn discovery(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Discovery(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Attestation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn attestation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AttestationOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Attestation(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Upgrade`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn upgrade(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Upgrade(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `Compliance`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn compliance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ComplianceOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::Compliance(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `DsseAttestation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dsse_attestation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DSSEAttestationOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::DsseAttestation(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::Occurrence::details]
-    /// if it holds a `SbomReference`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sbom_reference(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SBOMReferenceOccurrence>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::occurrence::Details::SbomReference(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [details][crate::model::Occurrence::details]
     /// to hold a `Vulnerability`.
     ///
@@ -4874,6 +4754,17 @@ impl Occurrence {
         self
     }
 
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Build`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Build(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::Occurrence::details]
     /// to hold a `Build`.
     ///
@@ -4886,6 +4777,17 @@ impl Occurrence {
         self.details =
             std::option::Option::Some(crate::model::occurrence::Details::Build(v.into()));
         self
+    }
+
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Image`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Image(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::Occurrence::details]
@@ -4902,6 +4804,19 @@ impl Occurrence {
         self
     }
 
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Package`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn package(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PackageOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Package(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::Occurrence::details]
     /// to hold a `Package`.
     ///
@@ -4914,6 +4829,19 @@ impl Occurrence {
         self.details =
             std::option::Option::Some(crate::model::occurrence::Details::Package(v.into()));
         self
+    }
+
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Deployment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deployment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Deployment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::Occurrence::details]
@@ -4932,6 +4860,19 @@ impl Occurrence {
         self
     }
 
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Discovery`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn discovery(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Discovery(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::Occurrence::details]
     /// to hold a `Discovery`.
     ///
@@ -4946,6 +4887,19 @@ impl Occurrence {
         self.details =
             std::option::Option::Some(crate::model::occurrence::Details::Discovery(v.into()));
         self
+    }
+
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Attestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AttestationOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Attestation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::Occurrence::details]
@@ -4964,6 +4918,19 @@ impl Occurrence {
         self
     }
 
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Upgrade`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn upgrade(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Upgrade(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::Occurrence::details]
     /// to hold a `Upgrade`.
     ///
@@ -4976,6 +4943,19 @@ impl Occurrence {
         self.details =
             std::option::Option::Some(crate::model::occurrence::Details::Upgrade(v.into()));
         self
+    }
+
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Compliance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn compliance(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ComplianceOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Compliance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::Occurrence::details]
@@ -4994,6 +4974,19 @@ impl Occurrence {
         self
     }
 
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `DsseAttestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dsse_attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DSSEAttestationOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::DsseAttestation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::Occurrence::details]
     /// to hold a `DsseAttestation`.
     ///
@@ -5008,6 +5001,19 @@ impl Occurrence {
         self.details =
             std::option::Option::Some(crate::model::occurrence::Details::DsseAttestation(v.into()));
         self
+    }
+
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `SbomReference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sbom_reference(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SBOMReferenceOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::SbomReference(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::Occurrence::details]
@@ -5158,6 +5164,17 @@ impl Note {
         self
     }
 
+    /// Sets the value of [related_url][crate::model::Note::related_url].
+    pub fn set_related_url<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RelatedUrl>,
+    {
+        use std::iter::Iterator;
+        self.related_url = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [expiration_time][crate::model::Note::expiration_time].
     pub fn set_expiration_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -5182,17 +5199,6 @@ impl Note {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [related_url][crate::model::Note::related_url].
-    pub fn set_related_url<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RelatedUrl>,
-    {
-        use std::iter::Iterator;
-        self.related_url = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5232,139 +5238,6 @@ impl Note {
         })
     }
 
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Build`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Build(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Image`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Image(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Package`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn package(&self) -> std::option::Option<&std::boxed::Box<crate::model::PackageNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Package(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Deployment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn deployment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Deployment(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Discovery`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn discovery(&self) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Discovery(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Attestation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn attestation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AttestationNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Attestation(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Upgrade`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn upgrade(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Upgrade(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `Compliance`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn compliance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ComplianceNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::Compliance(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `DsseAttestation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dsse_attestation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DSSEAttestationNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::DsseAttestation(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `VulnerabilityAssessment`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn vulnerability_assessment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VulnerabilityAssessmentNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::VulnerabilityAssessment(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::Note::r#type]
-    /// if it holds a `SbomReference`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sbom_reference(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SBOMReferenceNote>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::note::Type::SbomReference(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `Vulnerability`.
     ///
@@ -5380,6 +5253,17 @@ impl Note {
         self
     }
 
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Build`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Build(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `Build`.
     ///
@@ -5391,6 +5275,17 @@ impl Note {
     ) -> Self {
         self.r#type = std::option::Option::Some(crate::model::note::Type::Build(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Image`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Image(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::Note::r#type]
@@ -5406,6 +5301,17 @@ impl Note {
         self
     }
 
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Package`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn package(&self) -> std::option::Option<&std::boxed::Box<crate::model::PackageNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Package(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `Package`.
     ///
@@ -5417,6 +5323,19 @@ impl Note {
     ) -> Self {
         self.r#type = std::option::Option::Some(crate::model::note::Type::Package(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Deployment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deployment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Deployment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::Note::r#type]
@@ -5432,6 +5351,17 @@ impl Note {
         self
     }
 
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Discovery`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn discovery(&self) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Discovery(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `Discovery`.
     ///
@@ -5443,6 +5373,19 @@ impl Note {
     ) -> Self {
         self.r#type = std::option::Option::Some(crate::model::note::Type::Discovery(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Attestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AttestationNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Attestation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::Note::r#type]
@@ -5460,6 +5403,17 @@ impl Note {
         self
     }
 
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Upgrade`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn upgrade(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Upgrade(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `Upgrade`.
     ///
@@ -5473,6 +5427,19 @@ impl Note {
         self
     }
 
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Compliance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn compliance(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ComplianceNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Compliance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `Compliance`.
     ///
@@ -5484,6 +5451,19 @@ impl Note {
     ) -> Self {
         self.r#type = std::option::Option::Some(crate::model::note::Type::Compliance(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `DsseAttestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dsse_attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DSSEAttestationNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::DsseAttestation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::Note::r#type]
@@ -5502,6 +5482,19 @@ impl Note {
         self
     }
 
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `VulnerabilityAssessment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vulnerability_assessment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VulnerabilityAssessmentNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::VulnerabilityAssessment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [r#type][crate::model::Note::r#type]
     /// to hold a `VulnerabilityAssessment`.
     ///
@@ -5516,6 +5509,19 @@ impl Note {
         self.r#type =
             std::option::Option::Some(crate::model::note::Type::VulnerabilityAssessment(v.into()));
         self
+    }
+
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `SbomReference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sbom_reference(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SBOMReferenceNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::SbomReference(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::Note::r#type]
@@ -5699,12 +5705,6 @@ impl ListOccurrencesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOccurrencesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [occurrences][crate::model::ListOccurrencesResponse::occurrences].
     pub fn set_occurrences<T, V>(mut self, v: T) -> Self
     where
@@ -5713,6 +5713,12 @@ impl ListOccurrencesResponse {
     {
         use std::iter::Iterator;
         self.occurrences = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOccurrencesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6030,12 +6036,6 @@ impl ListNotesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNotesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [notes][crate::model::ListNotesResponse::notes].
     pub fn set_notes<T, V>(mut self, v: T) -> Self
     where
@@ -6044,6 +6044,12 @@ impl ListNotesResponse {
     {
         use std::iter::Iterator;
         self.notes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNotesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6302,12 +6308,6 @@ impl ListNoteOccurrencesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNoteOccurrencesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [occurrences][crate::model::ListNoteOccurrencesResponse::occurrences].
     pub fn set_occurrences<T, V>(mut self, v: T) -> Self
     where
@@ -6316,6 +6316,12 @@ impl ListNoteOccurrencesResponse {
     {
         use std::iter::Iterator;
         self.occurrences = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNoteOccurrencesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6591,12 +6597,6 @@ impl Fingerprint {
         self
     }
 
-    /// Sets the value of [v2_name][crate::model::Fingerprint::v2_name].
-    pub fn set_v2_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.v2_name = v.into();
-        self
-    }
-
     /// Sets the value of [v2_blob][crate::model::Fingerprint::v2_blob].
     pub fn set_v2_blob<T, V>(mut self, v: T) -> Self
     where
@@ -6605,6 +6605,12 @@ impl Fingerprint {
     {
         use std::iter::Iterator;
         self.v2_blob = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [v2_name][crate::model::Fingerprint::v2_name].
+    pub fn set_v2_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.v2_name = v.into();
         self
     }
 }
@@ -6721,15 +6727,6 @@ impl ImageOccurrence {
         self
     }
 
-    /// Sets the value of [base_resource_url][crate::model::ImageOccurrence::base_resource_url].
-    pub fn set_base_resource_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.base_resource_url = v.into();
-        self
-    }
-
     /// Sets the value of [layer_info][crate::model::ImageOccurrence::layer_info].
     pub fn set_layer_info<T, V>(mut self, v: T) -> Self
     where
@@ -6738,6 +6735,15 @@ impl ImageOccurrence {
     {
         use std::iter::Iterator;
         self.layer_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [base_resource_url][crate::model::ImageOccurrence::base_resource_url].
+    pub fn set_base_resource_url<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.base_resource_url = v.into();
         self
     }
 }
@@ -7147,12 +7153,6 @@ impl InTotoStatement {
         self
     }
 
-    /// Sets the value of [predicate_type][crate::model::InTotoStatement::predicate_type].
-    pub fn set_predicate_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.predicate_type = v.into();
-        self
-    }
-
     /// Sets the value of [subject][crate::model::InTotoStatement::subject].
     pub fn set_subject<T, V>(mut self, v: T) -> Self
     where
@@ -7161,6 +7161,12 @@ impl InTotoStatement {
     {
         use std::iter::Iterator;
         self.subject = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [predicate_type][crate::model::InTotoStatement::predicate_type].
+    pub fn set_predicate_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.predicate_type = v.into();
         self
     }
 
@@ -7193,36 +7199,6 @@ impl InTotoStatement {
         })
     }
 
-    /// The value of [predicate][crate::model::InTotoStatement::predicate]
-    /// if it holds a `SlsaProvenance`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn slsa_provenance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SlsaProvenance>> {
-        #[allow(unreachable_patterns)]
-        self.predicate.as_ref().and_then(|v| match v {
-            crate::model::in_toto_statement::Predicate::SlsaProvenance(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [predicate][crate::model::InTotoStatement::predicate]
-    /// if it holds a `SlsaProvenanceZeroTwo`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn slsa_provenance_zero_two(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SlsaProvenanceZeroTwo>> {
-        #[allow(unreachable_patterns)]
-        self.predicate.as_ref().and_then(|v| match v {
-            crate::model::in_toto_statement::Predicate::SlsaProvenanceZeroTwo(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [predicate][crate::model::InTotoStatement::predicate]
     /// to hold a `Provenance`.
     ///
@@ -7240,6 +7216,21 @@ impl InTotoStatement {
         self
     }
 
+    /// The value of [predicate][crate::model::InTotoStatement::predicate]
+    /// if it holds a `SlsaProvenance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn slsa_provenance(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SlsaProvenance>> {
+        #[allow(unreachable_patterns)]
+        self.predicate.as_ref().and_then(|v| match v {
+            crate::model::in_toto_statement::Predicate::SlsaProvenance(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [predicate][crate::model::InTotoStatement::predicate]
     /// to hold a `SlsaProvenance`.
     ///
@@ -7255,6 +7246,21 @@ impl InTotoStatement {
             crate::model::in_toto_statement::Predicate::SlsaProvenance(v.into()),
         );
         self
+    }
+
+    /// The value of [predicate][crate::model::InTotoStatement::predicate]
+    /// if it holds a `SlsaProvenanceZeroTwo`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn slsa_provenance_zero_two(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SlsaProvenanceZeroTwo>> {
+        #[allow(unreachable_patterns)]
+        self.predicate.as_ref().and_then(|v| match v {
+            crate::model::in_toto_statement::Predicate::SlsaProvenanceZeroTwo(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [predicate][crate::model::InTotoStatement::predicate]
@@ -7380,6 +7386,17 @@ impl InTotoSlsaProvenanceV1 {
         self
     }
 
+    /// Sets the value of [subject][crate::model::InTotoSlsaProvenanceV1::subject].
+    pub fn set_subject<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Subject>,
+    {
+        use std::iter::Iterator;
+        self.subject = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [predicate_type][crate::model::InTotoSlsaProvenanceV1::predicate_type].
     pub fn set_predicate_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predicate_type = v.into();
@@ -7396,17 +7413,6 @@ impl InTotoSlsaProvenanceV1 {
         v: T,
     ) -> Self {
         self.predicate = v.into();
-        self
-    }
-
-    /// Sets the value of [subject][crate::model::InTotoSlsaProvenanceV1::subject].
-    pub fn set_subject<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Subject>,
-    {
-        use std::iter::Iterator;
-        self.subject = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7596,6 +7602,18 @@ pub mod in_toto_slsa_provenance_v_1 {
             self
         }
 
+        /// Sets the value of [digest][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::digest].
+        pub fn set_digest<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.digest = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [content][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::content].
         pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.content = v.into();
@@ -7614,18 +7632,6 @@ pub mod in_toto_slsa_provenance_v_1 {
         /// Sets the value of [media_type][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::media_type].
         pub fn set_media_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.media_type = v.into();
-            self
-        }
-
-        /// Sets the value of [digest][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::digest].
-        pub fn set_digest<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.digest = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7749,17 +7755,6 @@ pub mod in_toto_slsa_provenance_v_1 {
             self
         }
 
-        /// Sets the value of [builder_dependencies][crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder::builder_dependencies].
-        pub fn set_builder_dependencies<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor>,
-        {
-            use std::iter::Iterator;
-            self.builder_dependencies = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [version][crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder::version].
         pub fn set_version<T, K, V>(mut self, v: T) -> Self
         where
@@ -7769,6 +7764,17 @@ pub mod in_toto_slsa_provenance_v_1 {
         {
             use std::iter::Iterator;
             self.version = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [builder_dependencies][crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder::builder_dependencies].
+        pub fn set_builder_dependencies<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor>,
+        {
+            use std::iter::Iterator;
+            self.builder_dependencies = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -8055,6 +8061,17 @@ impl PackageNote {
         self
     }
 
+    /// Sets the value of [distribution][crate::model::PackageNote::distribution].
+    pub fn set_distribution<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Distribution>,
+    {
+        use std::iter::Iterator;
+        self.distribution = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [package_type][crate::model::PackageNote::package_type].
     pub fn set_package_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_type = v.into();
@@ -8109,17 +8126,6 @@ impl PackageNote {
         v: T,
     ) -> Self {
         self.license = v.into();
-        self
-    }
-
-    /// Sets the value of [distribution][crate::model::PackageNote::distribution].
-    pub fn set_distribution<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Distribution>,
-    {
-        use std::iter::Iterator;
-        self.distribution = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8194,6 +8200,17 @@ impl PackageOccurrence {
         self
     }
 
+    /// Sets the value of [location][crate::model::PackageOccurrence::location].
+    pub fn set_location<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Location>,
+    {
+        use std::iter::Iterator;
+        self.location = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [package_type][crate::model::PackageOccurrence::package_type].
     pub fn set_package_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_type = v.into();
@@ -8230,17 +8247,6 @@ impl PackageOccurrence {
         v: T,
     ) -> Self {
         self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::PackageOccurrence::location].
-    pub fn set_location<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Location>,
-    {
-        use std::iter::Iterator;
-        self.location = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8571,6 +8577,28 @@ impl BuildProvenance {
         self
     }
 
+    /// Sets the value of [commands][crate::model::BuildProvenance::commands].
+    pub fn set_commands<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Command>,
+    {
+        use std::iter::Iterator;
+        self.commands = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [built_artifacts][crate::model::BuildProvenance::built_artifacts].
+    pub fn set_built_artifacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Artifact>,
+    {
+        use std::iter::Iterator;
+        self.built_artifacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::BuildProvenance::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -8627,34 +8655,6 @@ impl BuildProvenance {
         self
     }
 
-    /// Sets the value of [builder_version][crate::model::BuildProvenance::builder_version].
-    pub fn set_builder_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.builder_version = v.into();
-        self
-    }
-
-    /// Sets the value of [commands][crate::model::BuildProvenance::commands].
-    pub fn set_commands<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Command>,
-    {
-        use std::iter::Iterator;
-        self.commands = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [built_artifacts][crate::model::BuildProvenance::built_artifacts].
-    pub fn set_built_artifacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Artifact>,
-    {
-        use std::iter::Iterator;
-        self.built_artifacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [build_options][crate::model::BuildProvenance::build_options].
     pub fn set_build_options<T, K, V>(mut self, v: T) -> Self
     where
@@ -8664,6 +8664,12 @@ impl BuildProvenance {
     {
         use std::iter::Iterator;
         self.build_options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [builder_version][crate::model::BuildProvenance::builder_version].
+    pub fn set_builder_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.builder_version = v.into();
         self
     }
 }
@@ -8725,6 +8731,18 @@ impl Source {
         self
     }
 
+    /// Sets the value of [file_hashes][crate::model::Source::file_hashes].
+    pub fn set_file_hashes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::FileHashes>,
+    {
+        use std::iter::Iterator;
+        self.file_hashes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [context][crate::model::Source::context].
     pub fn set_context<T: std::convert::Into<std::option::Option<crate::model::SourceContext>>>(
         mut self,
@@ -8742,18 +8760,6 @@ impl Source {
     {
         use std::iter::Iterator;
         self.additional_contexts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [file_hashes][crate::model::Source::file_hashes].
-    pub fn set_file_hashes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::FileHashes>,
-    {
-        use std::iter::Iterator;
-        self.file_hashes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -8894,18 +8900,6 @@ impl Command {
         self
     }
 
-    /// Sets the value of [dir][crate::model::Command::dir].
-    pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.dir = v.into();
-        self
-    }
-
-    /// Sets the value of [id][crate::model::Command::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
-        self
-    }
-
     /// Sets the value of [env][crate::model::Command::env].
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
@@ -8925,6 +8919,18 @@ impl Command {
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dir][crate::model::Command::dir].
+    pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dir = v.into();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::Command::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
         self
     }
 
@@ -9072,30 +9078,6 @@ impl SourceContext {
         })
     }
 
-    /// The value of [context][crate::model::SourceContext::context]
-    /// if it holds a `Gerrit`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gerrit(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GerritSourceContext>> {
-        #[allow(unreachable_patterns)]
-        self.context.as_ref().and_then(|v| match v {
-            crate::model::source_context::Context::Gerrit(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [context][crate::model::SourceContext::context]
-    /// if it holds a `Git`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn git(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSourceContext>> {
-        #[allow(unreachable_patterns)]
-        self.context.as_ref().and_then(|v| match v {
-            crate::model::source_context::Context::Git(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [context][crate::model::SourceContext::context]
     /// to hold a `CloudRepo`.
     ///
@@ -9112,6 +9094,19 @@ impl SourceContext {
         self
     }
 
+    /// The value of [context][crate::model::SourceContext::context]
+    /// if it holds a `Gerrit`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gerrit(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GerritSourceContext>> {
+        #[allow(unreachable_patterns)]
+        self.context.as_ref().and_then(|v| match v {
+            crate::model::source_context::Context::Gerrit(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [context][crate::model::SourceContext::context]
     /// to hold a `Gerrit`.
     ///
@@ -9124,6 +9119,17 @@ impl SourceContext {
         self.context =
             std::option::Option::Some(crate::model::source_context::Context::Gerrit(v.into()));
         self
+    }
+
+    /// The value of [context][crate::model::SourceContext::context]
+    /// if it holds a `Git`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn git(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSourceContext>> {
+        #[allow(unreachable_patterns)]
+        self.context.as_ref().and_then(|v| match v {
+            crate::model::source_context::Context::Git(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [context][crate::model::SourceContext::context]
@@ -9417,6 +9423,18 @@ impl CloudRepoSourceContext {
         })
     }
 
+    /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision]
+    /// to hold a `RevisionId`.
+    ///
+    /// Note that all the setters affecting `revision` are
+    /// mutually exclusive.
+    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision = std::option::Option::Some(
+            crate::model::cloud_repo_source_context::Revision::RevisionId(v.into()),
+        );
+        self
+    }
+
     /// The value of [revision][crate::model::CloudRepoSourceContext::revision]
     /// if it holds a `AliasContext`, `None` if the field is not set or
     /// holds a different branch.
@@ -9430,18 +9448,6 @@ impl CloudRepoSourceContext {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision]
-    /// to hold a `RevisionId`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision = std::option::Option::Some(
-            crate::model::cloud_repo_source_context::Revision::RevisionId(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision]
@@ -9553,6 +9559,18 @@ impl GerritSourceContext {
         })
     }
 
+    /// Sets the value of [revision][crate::model::GerritSourceContext::revision]
+    /// to hold a `RevisionId`.
+    ///
+    /// Note that all the setters affecting `revision` are
+    /// mutually exclusive.
+    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision = std::option::Option::Some(
+            crate::model::gerrit_source_context::Revision::RevisionId(v.into()),
+        );
+        self
+    }
+
     /// The value of [revision][crate::model::GerritSourceContext::revision]
     /// if it holds a `AliasContext`, `None` if the field is not set or
     /// holds a different branch.
@@ -9566,18 +9584,6 @@ impl GerritSourceContext {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [revision][crate::model::GerritSourceContext::revision]
-    /// to hold a `RevisionId`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision = std::option::Option::Some(
-            crate::model::gerrit_source_context::Revision::RevisionId(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [revision][crate::model::GerritSourceContext::revision]
@@ -9708,17 +9714,6 @@ impl RepoId {
         })
     }
 
-    /// The value of [id][crate::model::RepoId::id]
-    /// if it holds a `Uid`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn uid(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.id.as_ref().and_then(|v| match v {
-            crate::model::repo_id::Id::Uid(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [id][crate::model::RepoId::id]
     /// to hold a `ProjectRepoId`.
     ///
@@ -9732,6 +9727,17 @@ impl RepoId {
     ) -> Self {
         self.id = std::option::Option::Some(crate::model::repo_id::Id::ProjectRepoId(v.into()));
         self
+    }
+
+    /// The value of [id][crate::model::RepoId::id]
+    /// if it holds a `Uid`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn uid(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.id.as_ref().and_then(|v| match v {
+            crate::model::repo_id::Id::Uid(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [id][crate::model::RepoId::id]
@@ -9971,17 +9977,6 @@ impl SbomReferenceIntotoPayload {
         self
     }
 
-    /// Sets the value of [predicate][crate::model::SbomReferenceIntotoPayload::predicate].
-    pub fn set_predicate<
-        T: std::convert::Into<std::option::Option<crate::model::SbomReferenceIntotoPredicate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.predicate = v.into();
-        self
-    }
-
     /// Sets the value of [subject][crate::model::SbomReferenceIntotoPayload::subject].
     pub fn set_subject<T, V>(mut self, v: T) -> Self
     where
@@ -9990,6 +9985,17 @@ impl SbomReferenceIntotoPayload {
     {
         use std::iter::Iterator;
         self.subject = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [predicate][crate::model::SbomReferenceIntotoPayload::predicate].
+    pub fn set_predicate<
+        T: std::convert::Into<std::option::Option<crate::model::SbomReferenceIntotoPredicate>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.predicate = v.into();
         self
     }
 }
@@ -10763,12 +10769,6 @@ pub mod slsa_provenance_zero_two {
             self
         }
 
-        /// Sets the value of [entry_point][crate::model::slsa_provenance_zero_two::SlsaConfigSource::entry_point].
-        pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.entry_point = v.into();
-            self
-        }
-
         /// Sets the value of [digest][crate::model::slsa_provenance_zero_two::SlsaConfigSource::digest].
         pub fn set_digest<T, K, V>(mut self, v: T) -> Self
         where
@@ -10778,6 +10778,12 @@ pub mod slsa_provenance_zero_two {
         {
             use std::iter::Iterator;
             self.digest = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [entry_point][crate::model::slsa_provenance_zero_two::SlsaConfigSource::entry_point].
+        pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.entry_point = v.into();
             self
         }
     }
@@ -10973,17 +10979,6 @@ impl UpgradeNote {
         self
     }
 
-    /// Sets the value of [windows_update][crate::model::UpgradeNote::windows_update].
-    pub fn set_windows_update<
-        T: std::convert::Into<std::option::Option<crate::model::WindowsUpdate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.windows_update = v.into();
-        self
-    }
-
     /// Sets the value of [distributions][crate::model::UpgradeNote::distributions].
     pub fn set_distributions<T, V>(mut self, v: T) -> Self
     where
@@ -10992,6 +10987,17 @@ impl UpgradeNote {
     {
         use std::iter::Iterator;
         self.distributions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [windows_update][crate::model::UpgradeNote::windows_update].
+    pub fn set_windows_update<
+        T: std::convert::Into<std::option::Option<crate::model::WindowsUpdate>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.windows_update = v.into();
         self
     }
 }
@@ -11145,23 +11151,6 @@ impl WindowsUpdate {
         self
     }
 
-    /// Sets the value of [support_url][crate::model::WindowsUpdate::support_url].
-    pub fn set_support_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.support_url = v.into();
-        self
-    }
-
-    /// Sets the value of [last_published_timestamp][crate::model::WindowsUpdate::last_published_timestamp].
-    pub fn set_last_published_timestamp<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_published_timestamp = v.into();
-        self
-    }
-
     /// Sets the value of [categories][crate::model::WindowsUpdate::categories].
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
@@ -11181,6 +11170,23 @@ impl WindowsUpdate {
     {
         use std::iter::Iterator;
         self.kb_article_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [support_url][crate::model::WindowsUpdate::support_url].
+    pub fn set_support_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.support_url = v.into();
+        self
+    }
+
+    /// Sets the value of [last_published_timestamp][crate::model::WindowsUpdate::last_published_timestamp].
+    pub fn set_last_published_timestamp<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_published_timestamp = v.into();
         self
     }
 }
@@ -11764,6 +11770,17 @@ pub mod vulnerability_assessment_note {
             self
         }
 
+        /// Sets the value of [related_uris][crate::model::vulnerability_assessment_note::Assessment::related_uris].
+        pub fn set_related_uris<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::RelatedUrl>,
+        {
+            use std::iter::Iterator;
+            self.related_uris = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [state][crate::model::vulnerability_assessment_note::Assessment::state].
         pub fn set_state<
             T: std::convert::Into<crate::model::vulnerability_assessment_note::assessment::State>,
@@ -11772,6 +11789,17 @@ pub mod vulnerability_assessment_note {
             v: T,
         ) -> Self {
             self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [impacts][crate::model::vulnerability_assessment_note::Assessment::impacts].
+        pub fn set_impacts<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.impacts = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -11787,28 +11815,6 @@ pub mod vulnerability_assessment_note {
             v: T,
         ) -> Self {
             self.justification = v.into();
-            self
-        }
-
-        /// Sets the value of [related_uris][crate::model::vulnerability_assessment_note::Assessment::related_uris].
-        pub fn set_related_uris<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::RelatedUrl>,
-        {
-            use std::iter::Iterator;
-            self.related_uris = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [impacts][crate::model::vulnerability_assessment_note::Assessment::impacts].
-        pub fn set_impacts<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.impacts = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -12453,6 +12459,7 @@ pub struct VulnerabilityNote {
     /// The CVSS score of this vulnerability. CVSS score is on a scale of 0 - 10
     /// where 0 indicates low severity and 10 indicates high severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub cvss_score: f32,
 
     /// The note provider assigned severity of this vulnerability.
@@ -12507,12 +12514,34 @@ impl VulnerabilityNote {
         self
     }
 
+    /// Sets the value of [details][crate::model::VulnerabilityNote::details].
+    pub fn set_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::vulnerability_note::Detail>,
+    {
+        use std::iter::Iterator;
+        self.details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cvss_v3][crate::model::VulnerabilityNote::cvss_v3].
     pub fn set_cvss_v3<T: std::convert::Into<std::option::Option<crate::model::CVSSv3>>>(
         mut self,
         v: T,
     ) -> Self {
         self.cvss_v3 = v.into();
+        self
+    }
+
+    /// Sets the value of [windows_details][crate::model::VulnerabilityNote::windows_details].
+    pub fn set_windows_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::vulnerability_note::WindowsDetail>,
+    {
+        use std::iter::Iterator;
+        self.windows_details = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -12540,28 +12569,6 @@ impl VulnerabilityNote {
         v: T,
     ) -> Self {
         self.cvss_v2 = v.into();
-        self
-    }
-
-    /// Sets the value of [details][crate::model::VulnerabilityNote::details].
-    pub fn set_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vulnerability_note::Detail>,
-    {
-        use std::iter::Iterator;
-        self.details = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [windows_details][crate::model::VulnerabilityNote::windows_details].
-    pub fn set_windows_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vulnerability_note::WindowsDetail>,
-    {
-        use std::iter::Iterator;
-        self.windows_details = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -12940,6 +12947,7 @@ pub struct VulnerabilityOccurrence {
     /// scale of 0 - 10 where 0 indicates low severity and 10 indicates high
     /// severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub cvss_score: f32,
 
     /// The cvss v3 score for the vulnerability.
@@ -13030,6 +13038,17 @@ impl VulnerabilityOccurrence {
         self
     }
 
+    /// Sets the value of [package_issue][crate::model::VulnerabilityOccurrence::package_issue].
+    pub fn set_package_issue<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::vulnerability_occurrence::PackageIssue>,
+    {
+        use std::iter::Iterator;
+        self.package_issue = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [short_description][crate::model::VulnerabilityOccurrence::short_description].
     pub fn set_short_description<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13045,6 +13064,17 @@ impl VulnerabilityOccurrence {
         v: T,
     ) -> Self {
         self.long_description = v.into();
+        self
+    }
+
+    /// Sets the value of [related_urls][crate::model::VulnerabilityOccurrence::related_urls].
+    pub fn set_related_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RelatedUrl>,
+    {
+        use std::iter::Iterator;
+        self.related_urls = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -13097,28 +13127,6 @@ impl VulnerabilityOccurrence {
     /// Sets the value of [extra_details][crate::model::VulnerabilityOccurrence::extra_details].
     pub fn set_extra_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extra_details = v.into();
-        self
-    }
-
-    /// Sets the value of [package_issue][crate::model::VulnerabilityOccurrence::package_issue].
-    pub fn set_package_issue<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vulnerability_occurrence::PackageIssue>,
-    {
-        use std::iter::Iterator;
-        self.package_issue = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [related_urls][crate::model::VulnerabilityOccurrence::related_urls].
-    pub fn set_related_urls<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RelatedUrl>,
-    {
-        use std::iter::Iterator;
-        self.related_urls = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13374,6 +13382,17 @@ pub mod vulnerability_occurrence {
             self
         }
 
+        /// Sets the value of [related_uris][crate::model::vulnerability_occurrence::VexAssessment::related_uris].
+        pub fn set_related_uris<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::RelatedUrl>,
+        {
+            use std::iter::Iterator;
+            self.related_uris = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [note_name][crate::model::vulnerability_occurrence::VexAssessment::note_name].
         pub fn set_note_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.note_name = v.into();
@@ -13388,32 +13407,6 @@ pub mod vulnerability_occurrence {
             v: T,
         ) -> Self {
             self.state = v.into();
-            self
-        }
-
-        /// Sets the value of [justification][crate::model::vulnerability_occurrence::VexAssessment::justification].
-        pub fn set_justification<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::vulnerability_assessment_note::assessment::Justification,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.justification = v.into();
-            self
-        }
-
-        /// Sets the value of [related_uris][crate::model::vulnerability_occurrence::VexAssessment::related_uris].
-        pub fn set_related_uris<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::RelatedUrl>,
-        {
-            use std::iter::Iterator;
-            self.related_uris = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -13438,6 +13431,21 @@ pub mod vulnerability_occurrence {
         {
             use std::iter::Iterator;
             self.remediations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [justification][crate::model::vulnerability_occurrence::VexAssessment::justification].
+        pub fn set_justification<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::vulnerability_assessment_note::assessment::Justification,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.justification = v.into();
             self
         }
     }

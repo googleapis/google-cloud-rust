@@ -16,7 +16,6 @@
 
 pub mod policies {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Policies][super::super::client::Policies].
     ///
@@ -49,7 +48,7 @@ pub mod policies {
     /// Common implementation for [super::super::client::Policies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Policies>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod policies {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod policies {
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +143,7 @@ pub mod policies {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +188,7 @@ pub mod policies {
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -289,7 +288,7 @@ pub mod policies {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -375,7 +374,7 @@ pub mod policies {
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -464,7 +463,7 @@ pub mod policies {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

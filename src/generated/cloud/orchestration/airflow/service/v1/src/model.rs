@@ -190,12 +190,6 @@ impl ListEnvironmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [environments][crate::model::ListEnvironmentsResponse::environments].
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
@@ -204,6 +198,12 @@ impl ListEnvironmentsResponse {
     {
         use std::iter::Iterator;
         self.environments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -806,6 +806,17 @@ impl PollAirflowCommandResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [output][crate::model::PollAirflowCommandResponse::output].
+    pub fn set_output<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::poll_airflow_command_response::Line>,
+    {
+        use std::iter::Iterator;
+        self.output = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [output_end][crate::model::PollAirflowCommandResponse::output_end].
     pub fn set_output_end<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.output_end = v.into();
@@ -822,17 +833,6 @@ impl PollAirflowCommandResponse {
         v: T,
     ) -> Self {
         self.exit_info = v.into();
-        self
-    }
-
-    /// Sets the value of [output][crate::model::PollAirflowCommandResponse::output].
-    pub fn set_output<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::poll_airflow_command_response::Line>,
-    {
-        use std::iter::Iterator;
-        self.output = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1426,12 +1426,6 @@ impl ListUserWorkloadsSecretsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUserWorkloadsSecretsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [user_workloads_secrets][crate::model::ListUserWorkloadsSecretsResponse::user_workloads_secrets].
     pub fn set_user_workloads_secrets<T, V>(mut self, v: T) -> Self
     where
@@ -1440,6 +1434,12 @@ impl ListUserWorkloadsSecretsResponse {
     {
         use std::iter::Iterator;
         self.user_workloads_secrets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUserWorkloadsSecretsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1546,12 +1546,6 @@ impl ListUserWorkloadsConfigMapsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUserWorkloadsConfigMapsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [user_workloads_config_maps][crate::model::ListUserWorkloadsConfigMapsResponse::user_workloads_config_maps].
     pub fn set_user_workloads_config_maps<T, V>(mut self, v: T) -> Self
     where
@@ -1560,6 +1554,12 @@ impl ListUserWorkloadsConfigMapsResponse {
     {
         use std::iter::Iterator;
         self.user_workloads_config_maps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUserWorkloadsConfigMapsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1676,12 +1676,6 @@ impl ListWorkloadsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workloads][crate::model::ListWorkloadsResponse::workloads].
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
@@ -1690,6 +1684,12 @@ impl ListWorkloadsResponse {
     {
         use std::iter::Iterator;
         self.workloads = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3602,40 +3602,6 @@ impl SoftwareConfig {
         self
     }
 
-    /// Sets the value of [python_version][crate::model::SoftwareConfig::python_version].
-    pub fn set_python_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.python_version = v.into();
-        self
-    }
-
-    /// Sets the value of [scheduler_count][crate::model::SoftwareConfig::scheduler_count].
-    pub fn set_scheduler_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.scheduler_count = v.into();
-        self
-    }
-
-    /// Sets the value of [cloud_data_lineage_integration][crate::model::SoftwareConfig::cloud_data_lineage_integration].
-    pub fn set_cloud_data_lineage_integration<
-        T: std::convert::Into<std::option::Option<crate::model::CloudDataLineageIntegration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_data_lineage_integration = v.into();
-        self
-    }
-
-    /// Sets the value of [web_server_plugins_mode][crate::model::SoftwareConfig::web_server_plugins_mode].
-    pub fn set_web_server_plugins_mode<
-        T: std::convert::Into<crate::model::software_config::WebServerPluginsMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.web_server_plugins_mode = v.into();
-        self
-    }
-
     /// Sets the value of [airflow_config_overrides][crate::model::SoftwareConfig::airflow_config_overrides].
     pub fn set_airflow_config_overrides<T, K, V>(mut self, v: T) -> Self
     where
@@ -3669,6 +3635,40 @@ impl SoftwareConfig {
     {
         use std::iter::Iterator;
         self.env_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [python_version][crate::model::SoftwareConfig::python_version].
+    pub fn set_python_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.python_version = v.into();
+        self
+    }
+
+    /// Sets the value of [scheduler_count][crate::model::SoftwareConfig::scheduler_count].
+    pub fn set_scheduler_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.scheduler_count = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_data_lineage_integration][crate::model::SoftwareConfig::cloud_data_lineage_integration].
+    pub fn set_cloud_data_lineage_integration<
+        T: std::convert::Into<std::option::Option<crate::model::CloudDataLineageIntegration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_data_lineage_integration = v.into();
+        self
+    }
+
+    /// Sets the value of [web_server_plugins_mode][crate::model::SoftwareConfig::web_server_plugins_mode].
+    pub fn set_web_server_plugins_mode<
+        T: std::convert::Into<crate::model::software_config::WebServerPluginsMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.web_server_plugins_mode = v.into();
         self
     }
 }
@@ -3888,19 +3888,6 @@ impl IPAllocationPolicy {
         })
     }
 
-    /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
-    /// if it holds a `ClusterIpv4CidrBlock`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.cluster_ip_allocation.as_ref().and_then(|v| match v {
-            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
     /// to hold a `ClusterSecondaryRangeName`.
     ///
@@ -3916,6 +3903,19 @@ impl IPAllocationPolicy {
             ),
         );
         self
+    }
+
+    /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
+    /// if it holds a `ClusterIpv4CidrBlock`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.cluster_ip_allocation.as_ref().and_then(|v| match v {
+            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
@@ -3960,19 +3960,6 @@ impl IPAllocationPolicy {
         })
     }
 
-    /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
-    /// if it holds a `ServicesIpv4CidrBlock`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.services_ip_allocation.as_ref().and_then(|v| match v {
-            crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
     /// to hold a `ServicesSecondaryRangeName`.
     ///
@@ -3988,6 +3975,19 @@ impl IPAllocationPolicy {
             ),
         );
         self
+    }
+
+    /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
+    /// if it holds a `ServicesIpv4CidrBlock`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.services_ip_allocation.as_ref().and_then(|v| match v {
+            crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
@@ -4268,9 +4268,31 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [oauth_scopes][crate::model::NodeConfig::oauth_scopes].
+    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::NodeConfig::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::NodeConfig::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4306,28 +4328,6 @@ impl NodeConfig {
         v: T,
     ) -> Self {
         self.composer_internal_ipv4_cidr_block = v.into();
-        self
-    }
-
-    /// Sets the value of [oauth_scopes][crate::model::NodeConfig::oauth_scopes].
-    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::NodeConfig::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4909,16 +4909,19 @@ pub mod workloads_config {
     pub struct SchedulerResource {
         /// Optional. CPU request and limit for a single Airflow scheduler replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow scheduler
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow scheduler
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         /// Optional. The number of schedulers.
@@ -4973,14 +4976,17 @@ pub mod workloads_config {
     pub struct WebServerResource {
         /// Optional. CPU request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5025,16 +5031,19 @@ pub mod workloads_config {
     pub struct WorkerResource {
         /// Optional. CPU request and limit for a single Airflow worker replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow worker
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow worker
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         /// Optional. Minimum number of workers for autoscaling.
@@ -5103,11 +5112,13 @@ pub mod workloads_config {
 
         /// Optional. CPU request and limit for a single Airflow triggerer replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow triggerer
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5156,16 +5167,19 @@ pub mod workloads_config {
         /// Optional. CPU request and limit for a single Airflow DAG processor
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow DAG
         /// processor replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow DAG
         /// processor replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         /// Optional. The number of DAG processors. If not provided or set to 0, a
@@ -5573,6 +5587,18 @@ impl Environment {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Environment::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [satisfies_pzs][crate::model::Environment::satisfies_pzs].
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
@@ -5593,18 +5619,6 @@ impl Environment {
         v: T,
     ) -> Self {
         self.storage_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Environment::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6567,12 +6581,6 @@ impl ListImageVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListImageVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [image_versions][crate::model::ListImageVersionsResponse::image_versions].
     pub fn set_image_versions<T, V>(mut self, v: T) -> Self
     where
@@ -6581,6 +6589,12 @@ impl ListImageVersionsResponse {
     {
         use std::iter::Iterator;
         self.image_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListImageVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6662,6 +6676,17 @@ impl ImageVersion {
         self
     }
 
+    /// Sets the value of [supported_python_versions][crate::model::ImageVersion::supported_python_versions].
+    pub fn set_supported_python_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.supported_python_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [release_date][crate::model::ImageVersion::release_date].
     pub fn set_release_date<T: std::convert::Into<std::option::Option<gtype::model::Date>>>(
         mut self,
@@ -6680,17 +6705,6 @@ impl ImageVersion {
     /// Sets the value of [upgrade_disabled][crate::model::ImageVersion::upgrade_disabled].
     pub fn set_upgrade_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.upgrade_disabled = v.into();
-        self
-    }
-
-    /// Sets the value of [supported_python_versions][crate::model::ImageVersion::supported_python_versions].
-    pub fn set_supported_python_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.supported_python_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

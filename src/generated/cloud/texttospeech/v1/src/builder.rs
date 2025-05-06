@@ -16,7 +16,6 @@
 
 pub mod text_to_speech {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TextToSpeech][super::super::client::TextToSpeech].
     ///
@@ -49,7 +48,7 @@ pub mod text_to_speech {
     /// Common implementation for [super::super::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod text_to_speech {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod text_to_speech {
     pub struct ListVoices(RequestBuilder<crate::model::ListVoicesRequest>);
 
     impl ListVoices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,7 +118,9 @@ pub mod text_to_speech {
     pub struct SynthesizeSpeech(RequestBuilder<crate::model::SynthesizeSpeechRequest>);
 
     impl SynthesizeSpeech {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -199,7 +204,9 @@ pub mod text_to_speech {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,7 +285,9 @@ pub mod text_to_speech {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,7 +331,6 @@ pub mod text_to_speech {
 
 pub mod text_to_speech_long_audio_synthesize {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TextToSpeechLongAudioSynthesize][super::super::client::TextToSpeechLongAudioSynthesize].
     ///
@@ -355,7 +363,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// Common implementation for [super::super::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -365,7 +373,7 @@ pub mod text_to_speech_long_audio_synthesize {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self {
                 stub,
@@ -381,7 +389,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     impl SynthesizeLongAudio {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -513,7 +521,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -594,7 +602,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod migration_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [MigrationService][super::super::client::MigrationService].
     ///
@@ -49,7 +48,7 @@ pub mod migration_service {
     /// Common implementation for [super::super::client::MigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MigrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod migration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +75,9 @@ pub mod migration_service {
     );
 
     impl CreateMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,7 +138,9 @@ pub mod migration_service {
     pub struct GetMigrationWorkflow(RequestBuilder<crate::model::GetMigrationWorkflowRequest>);
 
     impl GetMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +194,9 @@ pub mod migration_service {
     pub struct ListMigrationWorkflows(RequestBuilder<crate::model::ListMigrationWorkflowsRequest>);
 
     impl ListMigrationWorkflows {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -274,7 +281,9 @@ pub mod migration_service {
     );
 
     impl DeleteMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,7 +331,9 @@ pub mod migration_service {
     pub struct StartMigrationWorkflow(RequestBuilder<crate::model::StartMigrationWorkflowRequest>);
 
     impl StartMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -370,7 +381,9 @@ pub mod migration_service {
     pub struct GetMigrationSubtask(RequestBuilder<crate::model::GetMigrationSubtaskRequest>);
 
     impl GetMigrationSubtask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -424,7 +437,9 @@ pub mod migration_service {
     pub struct ListMigrationSubtasks(RequestBuilder<crate::model::ListMigrationSubtasksRequest>);
 
     impl ListMigrationSubtasks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

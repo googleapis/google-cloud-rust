@@ -220,12 +220,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -245,6 +239,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.failed_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -506,12 +506,6 @@ impl ListClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -531,6 +525,12 @@ impl ListClustersResponse {
     {
         use std::iter::Iterator;
         self.failed_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1382,12 +1382,6 @@ impl ListAppProfilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAppProfilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [app_profiles][crate::model::ListAppProfilesResponse::app_profiles].
     pub fn set_app_profiles<T, V>(mut self, v: T) -> Self
     where
@@ -1396,6 +1390,12 @@ impl ListAppProfilesResponse {
     {
         use std::iter::Iterator;
         self.app_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAppProfilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1678,12 +1678,6 @@ impl ListHotTabletsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHotTabletsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [hot_tablets][crate::model::ListHotTabletsResponse::hot_tablets].
     pub fn set_hot_tablets<T, V>(mut self, v: T) -> Self
     where
@@ -1692,6 +1686,12 @@ impl ListHotTabletsResponse {
     {
         use std::iter::Iterator;
         self.hot_tablets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHotTabletsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1955,12 +1955,6 @@ impl ListLogicalViewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLogicalViewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [logical_views][crate::model::ListLogicalViewsResponse::logical_views].
     pub fn set_logical_views<T, V>(mut self, v: T) -> Self
     where
@@ -1969,6 +1963,12 @@ impl ListLogicalViewsResponse {
     {
         use std::iter::Iterator;
         self.logical_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogicalViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2401,12 +2401,6 @@ impl ListMaterializedViewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMaterializedViewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [materialized_views][crate::model::ListMaterializedViewsResponse::materialized_views].
     pub fn set_materialized_views<T, V>(mut self, v: T) -> Self
     where
@@ -2415,6 +2409,12 @@ impl ListMaterializedViewsResponse {
     {
         use std::iter::Iterator;
         self.materialized_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMaterializedViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3173,6 +3173,18 @@ impl DropRowRangeRequest {
         })
     }
 
+    /// Sets the value of [target][crate::model::DropRowRangeRequest::target]
+    /// to hold a `RowKeyPrefix`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    pub fn set_row_key_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::drop_row_range_request::Target::RowKeyPrefix(v.into()),
+        );
+        self
+    }
+
     /// The value of [target][crate::model::DropRowRangeRequest::target]
     /// if it holds a `DeleteAllDataFromTable`, `None` if the field is not set or
     /// holds a different branch.
@@ -3184,18 +3196,6 @@ impl DropRowRangeRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target][crate::model::DropRowRangeRequest::target]
-    /// to hold a `RowKeyPrefix`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_row_key_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::drop_row_range_request::Target::RowKeyPrefix(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [target][crate::model::DropRowRangeRequest::target]
@@ -3337,12 +3337,6 @@ impl ListTablesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTablesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [tables][crate::model::ListTablesResponse::tables].
     pub fn set_tables<T, V>(mut self, v: T) -> Self
     where
@@ -3351,6 +3345,12 @@ impl ListTablesResponse {
     {
         use std::iter::Iterator;
         self.tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTablesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3733,12 +3733,6 @@ impl ModifyColumnFamiliesRequest {
         self
     }
 
-    /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
-    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.ignore_warnings = v.into();
-        self
-    }
-
     /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
     pub fn set_modifications<T, V>(mut self, v: T) -> Self
     where
@@ -3747,6 +3741,12 @@ impl ModifyColumnFamiliesRequest {
     {
         use std::iter::Iterator;
         self.modifications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_warnings = v.into();
         self
     }
 }
@@ -3838,32 +3838,6 @@ pub mod modify_column_families_request {
             })
         }
 
-        /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
-        /// if it holds a `Update`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn update(&self) -> std::option::Option<&std::boxed::Box<crate::model::ColumnFamily>> {
-            #[allow(unreachable_patterns)]
-            self.r#mod.as_ref().and_then(|v| match v {
-                crate::model::modify_column_families_request::modification::Mod::Update(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
-        /// if it holds a `Drop`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn drop(&self) -> std::option::Option<&bool> {
-            #[allow(unreachable_patterns)]
-            self.r#mod.as_ref().and_then(|v| match v {
-                crate::model::modify_column_families_request::modification::Mod::Drop(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
         /// to hold a `Create`.
         ///
@@ -3879,6 +3853,19 @@ pub mod modify_column_families_request {
             self
         }
 
+        /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
+        /// if it holds a `Update`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn update(&self) -> std::option::Option<&std::boxed::Box<crate::model::ColumnFamily>> {
+            #[allow(unreachable_patterns)]
+            self.r#mod.as_ref().and_then(|v| match v {
+                crate::model::modify_column_families_request::modification::Mod::Update(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
         /// to hold a `Update`.
         ///
@@ -3892,6 +3879,19 @@ pub mod modify_column_families_request {
                 crate::model::modify_column_families_request::modification::Mod::Update(v.into()),
             );
             self
+        }
+
+        /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
+        /// if it holds a `Drop`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn drop(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.r#mod.as_ref().and_then(|v| match v {
+                crate::model::modify_column_families_request::modification::Mod::Drop(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
@@ -4088,21 +4088,6 @@ impl CheckConsistencyRequest {
         })
     }
 
-    /// The value of [mode][crate::model::CheckConsistencyRequest::mode]
-    /// if it holds a `DataBoostReadLocalWrites`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn data_boost_read_local_writes(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DataBoostReadLocalWrites>> {
-        #[allow(unreachable_patterns)]
-        self.mode.as_ref().and_then(|v| match v {
-            crate::model::check_consistency_request::Mode::DataBoostReadLocalWrites(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode]
     /// to hold a `StandardReadRemoteWrites`.
     ///
@@ -4118,6 +4103,21 @@ impl CheckConsistencyRequest {
             crate::model::check_consistency_request::Mode::StandardReadRemoteWrites(v.into()),
         );
         self
+    }
+
+    /// The value of [mode][crate::model::CheckConsistencyRequest::mode]
+    /// if it holds a `DataBoostReadLocalWrites`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_boost_read_local_writes(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataBoostReadLocalWrites>> {
+        #[allow(unreachable_patterns)]
+        self.mode.as_ref().and_then(|v| match v {
+            crate::model::check_consistency_request::Mode::DataBoostReadLocalWrites(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode]
@@ -4481,12 +4481,6 @@ impl ListSnapshotsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
@@ -4495,6 +4489,12 @@ impl ListSnapshotsResponse {
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5138,12 +5138,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -5152,6 +5146,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5569,12 +5569,6 @@ impl ListAuthorizedViewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAuthorizedViewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [authorized_views][crate::model::ListAuthorizedViewsResponse::authorized_views].
     pub fn set_authorized_views<T, V>(mut self, v: T) -> Self
     where
@@ -5583,6 +5577,12 @@ impl ListAuthorizedViewsResponse {
     {
         use std::iter::Iterator;
         self.authorized_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthorizedViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5999,6 +5999,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -6023,18 +6035,6 @@ impl Instance {
         v: T,
     ) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -7106,22 +7106,6 @@ impl AppProfile {
         })
     }
 
-    /// The value of [routing_policy][crate::model::AppProfile::routing_policy]
-    /// if it holds a `SingleClusterRouting`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn single_cluster_routing(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::SingleClusterRouting>>
-    {
-        #[allow(unreachable_patterns)]
-        self.routing_policy.as_ref().and_then(|v| match v {
-            crate::model::app_profile::RoutingPolicy::SingleClusterRouting(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [routing_policy][crate::model::AppProfile::routing_policy]
     /// to hold a `MultiClusterRoutingUseAny`.
     ///
@@ -7137,6 +7121,22 @@ impl AppProfile {
             crate::model::app_profile::RoutingPolicy::MultiClusterRoutingUseAny(v.into()),
         );
         self
+    }
+
+    /// The value of [routing_policy][crate::model::AppProfile::routing_policy]
+    /// if it holds a `SingleClusterRouting`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn single_cluster_routing(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::SingleClusterRouting>>
+    {
+        #[allow(unreachable_patterns)]
+        self.routing_policy.as_ref().and_then(|v| match v {
+            crate::model::app_profile::RoutingPolicy::SingleClusterRouting(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [routing_policy][crate::model::AppProfile::routing_policy]
@@ -7182,37 +7182,6 @@ impl AppProfile {
         })
     }
 
-    /// The value of [isolation][crate::model::AppProfile::isolation]
-    /// if it holds a `StandardIsolation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn standard_isolation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::StandardIsolation>> {
-        #[allow(unreachable_patterns)]
-        self.isolation.as_ref().and_then(|v| match v {
-            crate::model::app_profile::Isolation::StandardIsolation(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [isolation][crate::model::AppProfile::isolation]
-    /// if it holds a `DataBoostIsolationReadOnly`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn data_boost_isolation_read_only(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::DataBoostIsolationReadOnly>>
-    {
-        #[allow(unreachable_patterns)]
-        self.isolation.as_ref().and_then(|v| match v {
-            crate::model::app_profile::Isolation::DataBoostIsolationReadOnly(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [isolation][crate::model::AppProfile::isolation]
     /// to hold a `Priority`.
     ///
@@ -7226,6 +7195,21 @@ impl AppProfile {
         self.isolation =
             std::option::Option::Some(crate::model::app_profile::Isolation::Priority(v.into()));
         self
+    }
+
+    /// The value of [isolation][crate::model::AppProfile::isolation]
+    /// if it holds a `StandardIsolation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn standard_isolation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::StandardIsolation>> {
+        #[allow(unreachable_patterns)]
+        self.isolation.as_ref().and_then(|v| match v {
+            crate::model::app_profile::Isolation::StandardIsolation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [isolation][crate::model::AppProfile::isolation]
@@ -7243,6 +7227,22 @@ impl AppProfile {
             crate::model::app_profile::Isolation::StandardIsolation(v.into()),
         );
         self
+    }
+
+    /// The value of [isolation][crate::model::AppProfile::isolation]
+    /// if it holds a `DataBoostIsolationReadOnly`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_boost_isolation_read_only(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::DataBoostIsolationReadOnly>>
+    {
+        #[allow(unreachable_patterns)]
+        self.isolation.as_ref().and_then(|v| match v {
+            crate::model::app_profile::Isolation::DataBoostIsolationReadOnly(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [isolation][crate::model::AppProfile::isolation]
@@ -7915,6 +7915,7 @@ pub struct HotTablet {
     /// by the node to serve the tablet, from 0% (tablet was not interacted with)
     /// to 100% (the node spent all cycles serving the hot tablet).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub node_cpu_usage_percent: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8370,6 +8371,30 @@ impl Table {
         self
     }
 
+    /// Sets the value of [cluster_states][crate::model::Table::cluster_states].
+    pub fn set_cluster_states<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::table::ClusterState>,
+    {
+        use std::iter::Iterator;
+        self.cluster_states = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [column_families][crate::model::Table::column_families].
+    pub fn set_column_families<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ColumnFamily>,
+    {
+        use std::iter::Iterator;
+        self.column_families = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [granularity][crate::model::Table::granularity].
     pub fn set_granularity<T: std::convert::Into<crate::model::table::TimestampGranularity>>(
         mut self,
@@ -8415,30 +8440,6 @@ impl Table {
         v: T,
     ) -> Self {
         self.row_key_schema = v.into();
-        self
-    }
-
-    /// Sets the value of [cluster_states][crate::model::Table::cluster_states].
-    pub fn set_cluster_states<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::table::ClusterState>,
-    {
-        use std::iter::Iterator;
-        self.cluster_states = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [column_families][crate::model::Table::column_families].
-    pub fn set_column_families<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::ColumnFamily>,
-    {
-        use std::iter::Iterator;
-        self.column_families = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -9554,41 +9555,6 @@ impl GcRule {
         })
     }
 
-    /// The value of [rule][crate::model::GcRule::rule]
-    /// if it holds a `MaxAge`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn max_age(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.rule.as_ref().and_then(|v| match v {
-            crate::model::gc_rule::Rule::MaxAge(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [rule][crate::model::GcRule::rule]
-    /// if it holds a `Intersection`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn intersection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Intersection>> {
-        #[allow(unreachable_patterns)]
-        self.rule.as_ref().and_then(|v| match v {
-            crate::model::gc_rule::Rule::Intersection(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [rule][crate::model::GcRule::rule]
-    /// if it holds a `Union`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn union(&self) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Union>> {
-        #[allow(unreachable_patterns)]
-        self.rule.as_ref().and_then(|v| match v {
-            crate::model::gc_rule::Rule::Union(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [rule][crate::model::GcRule::rule]
     /// to hold a `MaxNumVersions`.
     ///
@@ -9598,6 +9564,17 @@ impl GcRule {
         self.rule =
             std::option::Option::Some(crate::model::gc_rule::Rule::MaxNumVersions(v.into()));
         self
+    }
+
+    /// The value of [rule][crate::model::GcRule::rule]
+    /// if it holds a `MaxAge`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn max_age(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::gc_rule::Rule::MaxAge(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [rule][crate::model::GcRule::rule]
@@ -9613,6 +9590,19 @@ impl GcRule {
         self
     }
 
+    /// The value of [rule][crate::model::GcRule::rule]
+    /// if it holds a `Intersection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn intersection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Intersection>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::gc_rule::Rule::Intersection(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [rule][crate::model::GcRule::rule]
     /// to hold a `Intersection`.
     ///
@@ -9626,6 +9616,17 @@ impl GcRule {
     ) -> Self {
         self.rule = std::option::Option::Some(crate::model::gc_rule::Rule::Intersection(v.into()));
         self
+    }
+
+    /// The value of [rule][crate::model::GcRule::rule]
+    /// if it holds a `Union`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn union(&self) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Union>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::gc_rule::Rule::Union(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [rule][crate::model::GcRule::rule]
@@ -10823,139 +10824,6 @@ impl Type {
         })
     }
 
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `StringType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::String>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::StringType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `Int64Type`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int64_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Int64>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::Int64Type(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `Float32Type`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn float32_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Float32>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::Float32Type(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `Float64Type`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn float64_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Float64>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::Float64Type(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `BoolType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bool_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Bool>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::BoolType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `TimestampType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn timestamp_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::TimestampType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `DateType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn date_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Date>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::DateType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `AggregateType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn aggregate_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Aggregate>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::AggregateType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `StructType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn struct_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Struct>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::StructType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `ArrayType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn array_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Array>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::ArrayType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [kind][crate::model::Type::kind]
-    /// if it holds a `MapType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn map_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Map>> {
-        #[allow(unreachable_patterns)]
-        self.kind.as_ref().and_then(|v| match v {
-            crate::model::r#type::Kind::MapType(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `BytesType`.
     ///
@@ -10967,6 +10835,19 @@ impl Type {
     ) -> Self {
         self.kind = std::option::Option::Some(crate::model::r#type::Kind::BytesType(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `StringType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::String>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::StringType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::Type::kind]
@@ -10982,6 +10863,17 @@ impl Type {
         self
     }
 
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `Int64Type`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int64_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Int64>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::Int64Type(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `Int64Type`.
     ///
@@ -10993,6 +10885,19 @@ impl Type {
     ) -> Self {
         self.kind = std::option::Option::Some(crate::model::r#type::Kind::Int64Type(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `Float32Type`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn float32_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Float32>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::Float32Type(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::Type::kind]
@@ -11010,6 +10915,19 @@ impl Type {
         self
     }
 
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `Float64Type`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn float64_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Float64>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::Float64Type(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `Float64Type`.
     ///
@@ -11025,6 +10943,17 @@ impl Type {
         self
     }
 
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `BoolType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bool_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Bool>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::BoolType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `BoolType`.
     ///
@@ -11036,6 +10965,19 @@ impl Type {
     ) -> Self {
         self.kind = std::option::Option::Some(crate::model::r#type::Kind::BoolType(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `TimestampType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn timestamp_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::TimestampType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::Type::kind]
@@ -11053,6 +10995,17 @@ impl Type {
         self
     }
 
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `DateType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn date_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Date>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::DateType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `DateType`.
     ///
@@ -11064,6 +11017,19 @@ impl Type {
     ) -> Self {
         self.kind = std::option::Option::Some(crate::model::r#type::Kind::DateType(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `AggregateType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn aggregate_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Aggregate>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::AggregateType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::Type::kind]
@@ -11081,6 +11047,19 @@ impl Type {
         self
     }
 
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `StructType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn struct_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Struct>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::StructType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `StructType`.
     ///
@@ -11094,6 +11073,17 @@ impl Type {
         self
     }
 
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `ArrayType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn array_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Array>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::ArrayType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [kind][crate::model::Type::kind]
     /// to hold a `ArrayType`.
     ///
@@ -11105,6 +11095,17 @@ impl Type {
     ) -> Self {
         self.kind = std::option::Option::Some(crate::model::r#type::Kind::ArrayType(v.into()));
         self
+    }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `MapType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn map_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Map>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::MapType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [kind][crate::model::Type::kind]
@@ -11388,23 +11389,6 @@ pub mod r#type {
                 })
             }
 
-            /// The value of [encoding][crate::model::r#type::string::Encoding::encoding]
-            /// if it holds a `Utf8Bytes`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn utf8_bytes(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.encoding.as_ref().and_then(|v| match v {
-                    crate::model::r#type::string::encoding::Encoding::Utf8Bytes(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [encoding][crate::model::r#type::string::Encoding::encoding]
             /// to hold a `Utf8Raw`.
             ///
@@ -11423,6 +11407,23 @@ pub mod r#type {
                     crate::model::r#type::string::encoding::Encoding::Utf8Raw(v.into()),
                 );
                 self
+            }
+
+            /// The value of [encoding][crate::model::r#type::string::Encoding::encoding]
+            /// if it holds a `Utf8Bytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn utf8_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::string::encoding::Encoding::Utf8Bytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [encoding][crate::model::r#type::string::Encoding::encoding]
@@ -11623,23 +11624,6 @@ pub mod r#type {
                 })
             }
 
-            /// The value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
-            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn ordered_code_bytes(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.encoding.as_ref().and_then(|v| match v {
-                    crate::model::r#type::int_64::encoding::Encoding::OrderedCodeBytes(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
             /// to hold a `BigEndianBytes`.
             ///
@@ -11657,6 +11641,23 @@ pub mod r#type {
                     crate::model::r#type::int_64::encoding::Encoding::BigEndianBytes(v.into()),
                 );
                 self
+            }
+
+            /// The value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
+            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn ordered_code_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::int_64::encoding::Encoding::OrderedCodeBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
@@ -12040,17 +12041,6 @@ pub mod r#type {
             std::default::Default::default()
         }
 
-        /// Sets the value of [encoding][crate::model::r#type::Struct::encoding].
-        pub fn set_encoding<
-            T: std::convert::Into<std::option::Option<crate::model::r#type::r#struct::Encoding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.encoding = v.into();
-            self
-        }
-
         /// Sets the value of [fields][crate::model::r#type::Struct::fields].
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
@@ -12059,6 +12049,17 @@ pub mod r#type {
         {
             use std::iter::Iterator;
             self.fields = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [encoding][crate::model::r#type::Struct::encoding].
+        pub fn set_encoding<
+            T: std::convert::Into<std::option::Option<crate::model::r#type::r#struct::Encoding>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.encoding = v.into();
             self
         }
     }
@@ -12178,40 +12179,6 @@ pub mod r#type {
                 })
             }
 
-            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
-            /// if it holds a `DelimitedBytes`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn delimited_bytes(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.encoding.as_ref().and_then(|v| match v {
-                    crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
-            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn ordered_code_bytes(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.encoding.as_ref().and_then(|v| match v {
-                    crate::model::r#type::r#struct::encoding::Encoding::OrderedCodeBytes(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
             /// to hold a `Singleton`.
             ///
@@ -12231,6 +12198,23 @@ pub mod r#type {
                 self
             }
 
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `DelimitedBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn delimited_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
             /// to hold a `DelimitedBytes`.
             ///
@@ -12248,6 +12232,23 @@ pub mod r#type {
                     crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v.into()),
                 );
                 self
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn ordered_code_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::OrderedCodeBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
@@ -12617,49 +12618,6 @@ pub mod r#type {
             })
         }
 
-        /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
-        /// if it holds a `HllppUniqueCount`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn hllpp_unique_count(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.aggregator.as_ref().and_then(|v| match v {
-                crate::model::r#type::aggregate::Aggregator::HllppUniqueCount(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
-        /// if it holds a `Max`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn max(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Max>> {
-            #[allow(unreachable_patterns)]
-            self.aggregator.as_ref().and_then(|v| match v {
-                crate::model::r#type::aggregate::Aggregator::Max(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
-        /// if it holds a `Min`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn min(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Min>> {
-            #[allow(unreachable_patterns)]
-            self.aggregator.as_ref().and_then(|v| match v {
-                crate::model::r#type::aggregate::Aggregator::Min(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [aggregator][crate::model::r#type::Aggregate::aggregator]
         /// to hold a `Sum`.
         ///
@@ -12675,6 +12633,23 @@ pub mod r#type {
                 crate::model::r#type::aggregate::Aggregator::Sum(v.into()),
             );
             self
+        }
+
+        /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
+        /// if it holds a `HllppUniqueCount`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn hllpp_unique_count(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.aggregator.as_ref().and_then(|v| match v {
+                crate::model::r#type::aggregate::Aggregator::HllppUniqueCount(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [aggregator][crate::model::r#type::Aggregate::aggregator]
@@ -12698,6 +12673,19 @@ pub mod r#type {
             self
         }
 
+        /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
+        /// if it holds a `Max`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn max(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Max>> {
+            #[allow(unreachable_patterns)]
+            self.aggregator.as_ref().and_then(|v| match v {
+                crate::model::r#type::aggregate::Aggregator::Max(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [aggregator][crate::model::r#type::Aggregate::aggregator]
         /// to hold a `Max`.
         ///
@@ -12713,6 +12701,19 @@ pub mod r#type {
                 crate::model::r#type::aggregate::Aggregator::Max(v.into()),
             );
             self
+        }
+
+        /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
+        /// if it holds a `Min`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn min(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Min>> {
+            #[allow(unreachable_patterns)]
+            self.aggregator.as_ref().and_then(|v| match v {
+                crate::model::r#type::aggregate::Aggregator::Min(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [aggregator][crate::model::r#type::Aggregate::aggregator]

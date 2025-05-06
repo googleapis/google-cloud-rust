@@ -437,12 +437,6 @@ impl Policy {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [bindings][crate::model::Policy::bindings].
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -462,6 +456,12 @@ impl Policy {
     {
         use std::iter::Iterator;
         self.audit_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Policy::etag].
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -557,15 +557,6 @@ impl Binding {
         self
     }
 
-    /// Sets the value of [condition][crate::model::Binding::condition].
-    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition = v.into();
-        self
-    }
-
     /// Sets the value of [members][crate::model::Binding::members].
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
@@ -574,6 +565,15 @@ impl Binding {
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::Binding::condition].
+    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.condition = v.into();
         self
     }
 }

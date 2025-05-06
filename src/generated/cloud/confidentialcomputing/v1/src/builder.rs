@@ -16,7 +16,6 @@
 
 pub mod confidential_computing {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ConfidentialComputing][super::super::client::ConfidentialComputing].
     ///
@@ -49,7 +48,7 @@ pub mod confidential_computing {
     /// Common implementation for [super::super::client::ConfidentialComputing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod confidential_computing {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod confidential_computing {
 
     impl CreateChallenge {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -133,7 +132,7 @@ pub mod confidential_computing {
 
     impl VerifyAttestation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -273,7 +272,7 @@ pub mod confidential_computing {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -354,7 +353,7 @@ pub mod confidential_computing {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

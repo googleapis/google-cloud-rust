@@ -109,8 +109,7 @@ mod test {
                     assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
                     let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
                     let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled as i32);
-                    assert_eq!(status.status.as_deref(), Some("CANCELLED"));
+                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled);
                     break;
                 },
                 _ = interval.tick() => { },
@@ -182,8 +181,7 @@ mod test {
                     assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
                     let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
                     let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled as i32);
-                    assert_eq!(status.status.as_deref(), Some("CANCELLED"));
+                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled);
                     break;
                 },
                 _ = interval.tick() => { },

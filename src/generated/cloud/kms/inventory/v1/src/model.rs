@@ -119,12 +119,6 @@ impl ListCryptoKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
     pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
     where
@@ -133,6 +127,12 @@ impl ListCryptoKeysResponse {
     {
         use std::iter::Iterator;
         self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -439,12 +439,6 @@ impl SearchProtectedResourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchProtectedResourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [protected_resources][crate::model::SearchProtectedResourcesResponse::protected_resources].
     pub fn set_protected_resources<T, V>(mut self, v: T) -> Self
     where
@@ -453,6 +447,12 @@ impl SearchProtectedResourcesResponse {
     {
         use std::iter::Iterator;
         self.protected_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchProtectedResourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -584,21 +584,24 @@ impl ProtectedResource {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ProtectedResource::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [crypto_key_version][crate::model::ProtectedResource::crypto_key_version].
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.crypto_key_version = v.into();
-        self
-    }
-
-    /// Sets the value of [create_time][crate::model::ProtectedResource::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
         self
     }
 
@@ -613,15 +616,12 @@ impl ProtectedResource {
         self
     }
 
-    /// Sets the value of [labels][crate::model::ProtectedResource::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [create_time][crate::model::ProtectedResource::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
         self
     }
 }

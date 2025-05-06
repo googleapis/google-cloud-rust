@@ -16,7 +16,6 @@
 
 pub mod connection_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ConnectionService][super::super::client::ConnectionService].
     ///
@@ -49,7 +48,7 @@ pub mod connection_service {
     /// Common implementation for [super::super::client::ConnectionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConnectionService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod connection_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod connection_service {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

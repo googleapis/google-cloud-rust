@@ -16,7 +16,6 @@
 
 pub mod alloy_db_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AlloyDBAdmin][super::super::client::AlloyDBAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod alloy_db_admin {
     /// Common implementation for [super::super::client::AlloyDBAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod alloy_db_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod alloy_db_admin {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod alloy_db_admin {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -207,7 +212,9 @@ pub mod alloy_db_admin {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -320,7 +327,9 @@ pub mod alloy_db_admin {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,7 +441,9 @@ pub mod alloy_db_admin {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -536,7 +547,9 @@ pub mod alloy_db_admin {
     pub struct PromoteCluster(RequestBuilder<crate::model::PromoteClusterRequest>);
 
     impl PromoteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -636,7 +649,9 @@ pub mod alloy_db_admin {
     pub struct SwitchoverCluster(RequestBuilder<crate::model::SwitchoverClusterRequest>);
 
     impl SwitchoverCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -733,7 +748,9 @@ pub mod alloy_db_admin {
     pub struct RestoreCluster(RequestBuilder<crate::model::RestoreClusterRequest>);
 
     impl RestoreCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -888,7 +905,9 @@ pub mod alloy_db_admin {
     pub struct CreateSecondaryCluster(RequestBuilder<crate::model::CreateSecondaryClusterRequest>);
 
     impl CreateSecondaryCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1004,7 +1023,9 @@ pub mod alloy_db_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1088,7 +1109,9 @@ pub mod alloy_db_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1139,7 +1162,9 @@ pub mod alloy_db_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1255,7 +1280,9 @@ pub mod alloy_db_admin {
     );
 
     impl CreateSecondaryInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1372,7 +1399,9 @@ pub mod alloy_db_admin {
     pub struct BatchCreateInstances(RequestBuilder<crate::model::BatchCreateInstancesRequest>);
 
     impl BatchCreateInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1478,7 +1507,9 @@ pub mod alloy_db_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1591,7 +1622,9 @@ pub mod alloy_db_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1689,7 +1722,9 @@ pub mod alloy_db_admin {
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1787,7 +1822,9 @@ pub mod alloy_db_admin {
     pub struct InjectFault(RequestBuilder<crate::model::InjectFaultRequest>);
 
     impl InjectFault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1893,7 +1930,9 @@ pub mod alloy_db_admin {
     pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
 
     impl RestartInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1999,7 +2038,9 @@ pub mod alloy_db_admin {
     pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2092,7 +2133,9 @@ pub mod alloy_db_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2176,7 +2219,9 @@ pub mod alloy_db_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2221,7 +2266,9 @@ pub mod alloy_db_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2334,7 +2381,9 @@ pub mod alloy_db_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2446,7 +2495,9 @@ pub mod alloy_db_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2546,7 +2597,9 @@ pub mod alloy_db_admin {
     );
 
     impl ListSupportedDatabaseFlags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2625,7 +2678,9 @@ pub mod alloy_db_admin {
     );
 
     impl GenerateClientCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2700,7 +2755,9 @@ pub mod alloy_db_admin {
     pub struct GetConnectionInfo(RequestBuilder<crate::model::GetConnectionInfoRequest>);
 
     impl GetConnectionInfo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2754,7 +2811,9 @@ pub mod alloy_db_admin {
     pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2838,7 +2897,9 @@ pub mod alloy_db_admin {
     pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2883,7 +2944,9 @@ pub mod alloy_db_admin {
     pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2956,7 +3019,9 @@ pub mod alloy_db_admin {
     pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3028,7 +3093,9 @@ pub mod alloy_db_admin {
     pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3085,7 +3152,9 @@ pub mod alloy_db_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3163,7 +3232,9 @@ pub mod alloy_db_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3242,7 +3313,9 @@ pub mod alloy_db_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3285,7 +3358,9 @@ pub mod alloy_db_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3364,7 +3439,9 @@ pub mod alloy_db_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3410,7 +3487,9 @@ pub mod alloy_db_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3456,7 +3535,9 @@ pub mod alloy_db_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

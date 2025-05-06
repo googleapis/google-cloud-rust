@@ -61,7 +61,7 @@ jobs:
         run: |
           pip install -r ci/requirements.txt
           git ls-files -z -- '*.md' ':!:**/testdata/**' ':!:**/generated/**' | \
-            xargs -0 -r -P "$(nproc)" -n 50 mdformat
+            xargs -0 mdformat
       - name: Format YAML Files
         run: |
           go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0

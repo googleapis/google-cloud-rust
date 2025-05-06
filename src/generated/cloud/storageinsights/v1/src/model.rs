@@ -134,12 +134,6 @@ impl ListReportConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReportConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [report_configs][crate::model::ListReportConfigsResponse::report_configs].
     pub fn set_report_configs<T, V>(mut self, v: T) -> Self
     where
@@ -148,6 +142,12 @@ impl ListReportConfigsResponse {
     {
         use std::iter::Iterator;
         self.report_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReportConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -522,6 +522,18 @@ impl ReportDetail {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ReportDetail::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [target_datetime][crate::model::ReportDetail::target_datetime].
     pub fn set_target_datetime<
         T: std::convert::Into<std::option::Option<gtype::model::DateTime>>,
@@ -541,18 +553,6 @@ impl ReportDetail {
         v: T,
     ) -> Self {
         self.report_metrics = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ReportDetail::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -702,12 +702,6 @@ impl ListReportDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReportDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [report_details][crate::model::ListReportDetailsResponse::report_details].
     pub fn set_report_details<T, V>(mut self, v: T) -> Self
     where
@@ -716,6 +710,12 @@ impl ListReportDetailsResponse {
     {
         use std::iter::Iterator;
         self.report_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReportDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1504,12 +1504,6 @@ impl ReportConfig {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::ReportConfig::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::ReportConfig::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -1519,6 +1513,12 @@ impl ReportConfig {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ReportConfig::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 
@@ -1549,21 +1549,6 @@ impl ReportConfig {
         })
     }
 
-    /// The value of [report_format][crate::model::ReportConfig::report_format]
-    /// if it holds a `ParquetOptions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn parquet_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ParquetOptions>> {
-        #[allow(unreachable_patterns)]
-        self.report_format.as_ref().and_then(|v| match v {
-            crate::model::report_config::ReportFormat::ParquetOptions(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [report_format][crate::model::ReportConfig::report_format]
     /// to hold a `CsvOptions`.
     ///
@@ -1577,6 +1562,21 @@ impl ReportConfig {
             crate::model::report_config::ReportFormat::CsvOptions(v.into()),
         );
         self
+    }
+
+    /// The value of [report_format][crate::model::ReportConfig::report_format]
+    /// if it holds a `ParquetOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn parquet_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ParquetOptions>> {
+        #[allow(unreachable_patterns)]
+        self.report_format.as_ref().and_then(|v| match v {
+            crate::model::report_config::ReportFormat::ParquetOptions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [report_format][crate::model::ReportConfig::report_format]

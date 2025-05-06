@@ -739,6 +739,17 @@ impl PolicyController {
         self
     }
 
+    /// Sets the value of [exemptable_namespaces][crate::model::PolicyController::exemptable_namespaces].
+    pub fn set_exemptable_namespaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exemptable_namespaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [referential_rules_enabled][crate::model::PolicyController::referential_rules_enabled].
     pub fn set_referential_rules_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.referential_rules_enabled = v.into();
@@ -748,17 +759,6 @@ impl PolicyController {
     /// Sets the value of [log_denies_enabled][crate::model::PolicyController::log_denies_enabled].
     pub fn set_log_denies_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.log_denies_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [exemptable_namespaces][crate::model::PolicyController::exemptable_namespaces].
-    pub fn set_exemptable_namespaces<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.exemptable_namespaces = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1125,6 +1125,17 @@ impl ConfigSyncState {
         self
     }
 
+    /// Sets the value of [errors][crate::model::ConfigSyncState::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ConfigSyncError>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [rootsync_crd][crate::model::ConfigSyncState::rootsync_crd].
     pub fn set_rootsync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(
         mut self,
@@ -1149,17 +1160,6 @@ impl ConfigSyncState {
         v: T,
     ) -> Self {
         self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [errors][crate::model::ConfigSyncState::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigSyncError>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

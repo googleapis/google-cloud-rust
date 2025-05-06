@@ -438,12 +438,6 @@ impl ListServiceAccountsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceAccountsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [accounts][crate::model::ListServiceAccountsResponse::accounts].
     pub fn set_accounts<T, V>(mut self, v: T) -> Self
     where
@@ -452,6 +446,12 @@ impl ListServiceAccountsResponse {
     {
         use std::iter::Iterator;
         self.accounts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceAccountsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1742,6 +1742,17 @@ impl Role {
         self
     }
 
+    /// Sets the value of [included_permissions][crate::model::Role::included_permissions].
+    pub fn set_included_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.included_permissions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [stage][crate::model::Role::stage].
     pub fn set_stage<T: std::convert::Into<crate::model::role::RoleLaunchStage>>(
         mut self,
@@ -1760,17 +1771,6 @@ impl Role {
     /// Sets the value of [deleted][crate::model::Role::deleted].
     pub fn set_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deleted = v.into();
-        self
-    }
-
-    /// Sets the value of [included_permissions][crate::model::Role::included_permissions].
-    pub fn set_included_permissions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.included_permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2037,12 +2037,6 @@ impl QueryGrantableRolesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::QueryGrantableRolesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [roles][crate::model::QueryGrantableRolesResponse::roles].
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
@@ -2051,6 +2045,12 @@ impl QueryGrantableRolesResponse {
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryGrantableRolesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2205,12 +2205,6 @@ impl ListRolesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRolesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [roles][crate::model::ListRolesResponse::roles].
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
@@ -2219,6 +2213,12 @@ impl ListRolesResponse {
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRolesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3081,12 +3081,6 @@ impl QueryTestablePermissionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::QueryTestablePermissionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [permissions][crate::model::QueryTestablePermissionsResponse::permissions].
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
@@ -3095,6 +3089,12 @@ impl QueryTestablePermissionsResponse {
     {
         use std::iter::Iterator;
         self.permissions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryTestablePermissionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

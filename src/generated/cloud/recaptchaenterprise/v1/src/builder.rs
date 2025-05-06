@@ -16,7 +16,6 @@
 
 pub mod recaptcha_enterprise_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RecaptchaEnterpriseService][super::super::client::RecaptchaEnterpriseService].
     ///
@@ -49,7 +48,7 @@ pub mod recaptcha_enterprise_service {
     /// Common implementation for [super::super::client::RecaptchaEnterpriseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod recaptcha_enterprise_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod recaptcha_enterprise_service {
 
     impl CreateAssessment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -136,7 +135,7 @@ pub mod recaptcha_enterprise_service {
 
     impl AnnotateAssessment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -181,6 +180,17 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
+        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
+        pub fn set_reasons<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+        {
+            use std::iter::Iterator;
+            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [account_id][crate::model::AnnotateAssessmentRequest::account_id].
         pub fn set_account_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.account_id = v.into();
@@ -203,17 +213,6 @@ pub mod recaptcha_enterprise_service {
             self.0.request.transaction_event = v.into();
             self
         }
-
-        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
-        pub fn set_reasons<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
-        {
-            use std::iter::Iterator;
-            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -229,7 +228,7 @@ pub mod recaptcha_enterprise_service {
 
     impl CreateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -284,7 +283,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -360,7 +359,7 @@ pub mod recaptcha_enterprise_service {
 
     impl RetrieveLegacySecretKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -410,7 +409,7 @@ pub mod recaptcha_enterprise_service {
 
     impl GetKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -457,7 +456,7 @@ pub mod recaptcha_enterprise_service {
 
     impl UpdateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -513,7 +512,7 @@ pub mod recaptcha_enterprise_service {
 
     impl DeleteKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -560,7 +559,7 @@ pub mod recaptcha_enterprise_service {
 
     impl MigrateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -613,7 +612,7 @@ pub mod recaptcha_enterprise_service {
 
     impl AddIpOverride {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -671,7 +670,7 @@ pub mod recaptcha_enterprise_service {
 
     impl RemoveIpOverride {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -732,7 +731,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListIpOverrides {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -806,7 +805,7 @@ pub mod recaptcha_enterprise_service {
 
     impl GetMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -853,7 +852,7 @@ pub mod recaptcha_enterprise_service {
 
     impl CreateFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -914,7 +913,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListFirewallPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -991,7 +990,7 @@ pub mod recaptcha_enterprise_service {
 
     impl GetFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1041,7 +1040,7 @@ pub mod recaptcha_enterprise_service {
 
     impl UpdateFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1103,7 +1102,7 @@ pub mod recaptcha_enterprise_service {
 
     impl DeleteFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1155,7 +1154,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ReorderFirewallPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1220,7 +1219,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListRelatedAccountGroups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1301,7 +1300,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListRelatedAccountGroupMemberships {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1384,7 +1383,7 @@ pub mod recaptcha_enterprise_service {
 
     impl SearchRelatedAccountGroupMemberships {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

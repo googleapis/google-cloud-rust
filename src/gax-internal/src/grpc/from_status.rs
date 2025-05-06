@@ -18,9 +18,8 @@ fn to_gax_status(status: tonic::Status) -> rpc::Status {
     let code = rpc::Code::from(status.code() as i32);
     // TODO(#1699) - also convert the details
     rpc::Status::default()
-        .set_code(code as i32)
+        .set_code(code)
         .set_message(status.message())
-        .set_status(String::from(code))
 }
 
 pub fn to_gax_error(status: tonic::Status) -> gax::error::Error {
@@ -51,9 +50,8 @@ mod test {
     #[test_case(tonic::Code::Unauthenticated, rpc::Code::Unauthenticated)]
     fn check_code(input: tonic::Code, want: rpc::Code) {
         let got = to_gax_status(tonic::Status::new(input, "test-only"));
-        assert_eq!(got.code, want as i32);
+        assert_eq!(got.code, want);
         assert_eq!(&got.message, "test-only");
-        assert_eq!(got.status, Some(String::from(rpc::Code::from(got.code))))
     }
 
     #[test]
@@ -63,8 +61,7 @@ mod test {
         assert_eq!(got.kind(), gax::error::ErrorKind::Rpc);
         let svc = got.as_inner::<gax::error::ServiceError>().unwrap();
         let got = svc.status().clone();
-        assert_eq!(got.code, rpc::Code::InvalidArgument as i32);
+        assert_eq!(got.code, rpc::Code::InvalidArgument);
         assert_eq!(&got.message, "test-only");
-        assert_eq!(got.status.as_deref(), Some("INVALID_ARGUMENT"));
     }
 }

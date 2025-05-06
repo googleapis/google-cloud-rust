@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Network Connectivity API.
 ///
@@ -58,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `CrossNetworkAutomationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CrossNetworkAutomationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CrossNetworkAutomationService {
-    inner: Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>,
 }
 
 impl CrossNetworkAutomationService {
@@ -89,7 +88,7 @@ impl CrossNetworkAutomationService {
         T: super::stub::CrossNetworkAutomationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -100,11 +99,11 @@ impl CrossNetworkAutomationService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -561,11 +560,11 @@ impl CrossNetworkAutomationService {
 ///
 /// `HubService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `HubService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct HubService {
-    inner: Arc<dyn super::stub::dynamic::HubService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::HubService>,
 }
 
 impl HubService {
@@ -590,7 +589,7 @@ impl HubService {
         T: super::stub::HubService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -601,11 +600,11 @@ impl HubService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::HubService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::HubService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1063,11 +1062,11 @@ impl HubService {
 ///
 /// `PolicyBasedRoutingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyBasedRoutingService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBasedRoutingService {
-    inner: Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>,
 }
 
 impl PolicyBasedRoutingService {
@@ -1094,7 +1093,7 @@ impl PolicyBasedRoutingService {
         T: super::stub::PolicyBasedRoutingService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1105,11 +1104,11 @@ impl PolicyBasedRoutingService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

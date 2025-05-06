@@ -16,7 +16,6 @@
 
 pub mod net_app {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NetApp][super::super::client::NetApp].
     ///
@@ -49,7 +48,7 @@ pub mod net_app {
     /// Common implementation for [super::super::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetApp>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod net_app {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod net_app {
     pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
     impl ListStoragePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +158,7 @@ pub mod net_app {
     pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
     impl CreateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,7 +263,7 @@ pub mod net_app {
     pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
 
     impl GetStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +308,7 @@ pub mod net_app {
     pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
     impl UpdateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -409,7 +408,7 @@ pub mod net_app {
     pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
     impl DeleteStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -494,7 +493,7 @@ pub mod net_app {
     );
 
     impl ValidateDirectoryService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -588,7 +587,7 @@ pub mod net_app {
     );
 
     impl SwitchActiveReplicaZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -674,7 +673,7 @@ pub mod net_app {
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -758,7 +757,7 @@ pub mod net_app {
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -803,7 +802,7 @@ pub mod net_app {
     pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
 
     impl CreateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -904,7 +903,7 @@ pub mod net_app {
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1000,7 +999,7 @@ pub mod net_app {
     pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
 
     impl DeleteVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1086,7 +1085,7 @@ pub mod net_app {
     pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
 
     impl RevertVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1176,7 +1175,7 @@ pub mod net_app {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1260,7 +1259,7 @@ pub mod net_app {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1305,7 +1304,7 @@ pub mod net_app {
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1407,7 +1406,7 @@ pub mod net_app {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1487,7 +1486,7 @@ pub mod net_app {
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1584,7 +1583,7 @@ pub mod net_app {
     pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
 
     impl ListActiveDirectories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1671,7 +1670,7 @@ pub mod net_app {
     pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
 
     impl GetActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1719,7 +1718,7 @@ pub mod net_app {
     pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
 
     impl CreateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1825,7 +1824,7 @@ pub mod net_app {
     pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
 
     impl UpdateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1926,7 +1925,7 @@ pub mod net_app {
     pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
 
     impl DeleteActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2009,7 +2008,7 @@ pub mod net_app {
     pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
     impl ListKmsConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2093,7 +2092,7 @@ pub mod net_app {
     pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
     impl CreateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2195,7 +2194,7 @@ pub mod net_app {
     pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
 
     impl GetKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2240,7 +2239,7 @@ pub mod net_app {
     pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
     impl UpdateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2337,7 +2336,7 @@ pub mod net_app {
     pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
 
     impl EncryptVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2420,7 +2419,7 @@ pub mod net_app {
     pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
     impl VerifyKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2465,7 +2464,7 @@ pub mod net_app {
     pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
     impl DeleteKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2545,7 +2544,7 @@ pub mod net_app {
     pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
 
     impl ListReplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2632,7 +2631,7 @@ pub mod net_app {
     pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
 
     impl GetReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2677,7 +2676,7 @@ pub mod net_app {
     pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
 
     impl CreateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2782,7 +2781,7 @@ pub mod net_app {
     pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
 
     impl DeleteReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2865,7 +2864,7 @@ pub mod net_app {
     pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
 
     impl UpdateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2965,7 +2964,7 @@ pub mod net_app {
     pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
 
     impl StopReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3054,7 +3053,7 @@ pub mod net_app {
     pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
 
     impl ResumeReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3142,7 +3141,7 @@ pub mod net_app {
     );
 
     impl ReverseReplicationDirection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3228,7 +3227,7 @@ pub mod net_app {
     pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
 
     impl EstablishPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3317,14 +3316,6 @@ pub mod net_app {
             self
         }
 
-        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.peer_volume_name = v.into();
-            self
-        }
-
         /// Sets the value of [peer_ip_addresses][crate::model::EstablishPeeringRequest::peer_ip_addresses].
         pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
         where
@@ -3333,6 +3324,14 @@ pub mod net_app {
         {
             use std::iter::Iterator;
             self.0.request.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_volume_name = v.into();
             self
         }
     }
@@ -3349,7 +3348,7 @@ pub mod net_app {
     pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
 
     impl SyncReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3432,7 +3431,7 @@ pub mod net_app {
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3537,7 +3536,7 @@ pub mod net_app {
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3582,7 +3581,7 @@ pub mod net_app {
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3669,7 +3668,7 @@ pub mod net_app {
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3769,7 +3768,7 @@ pub mod net_app {
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3852,7 +3851,7 @@ pub mod net_app {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3953,7 +3952,7 @@ pub mod net_app {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3998,7 +3997,7 @@ pub mod net_app {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4082,7 +4081,7 @@ pub mod net_app {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4162,7 +4161,7 @@ pub mod net_app {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4258,7 +4257,7 @@ pub mod net_app {
     pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
 
     impl CreateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4363,7 +4362,7 @@ pub mod net_app {
     pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
     impl GetBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4408,7 +4407,7 @@ pub mod net_app {
     pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
 
     impl ListBackupPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4495,7 +4494,7 @@ pub mod net_app {
     pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
 
     impl UpdateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4595,7 +4594,7 @@ pub mod net_app {
     pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
 
     impl DeleteBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4678,7 +4677,7 @@ pub mod net_app {
     pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
     impl ListQuotaRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4762,7 +4761,7 @@ pub mod net_app {
     pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
     impl GetQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4807,7 +4806,7 @@ pub mod net_app {
     pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
     impl CreateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4909,7 +4908,7 @@ pub mod net_app {
     pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
     impl UpdateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5004,7 +5003,7 @@ pub mod net_app {
     pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
     impl DeleteQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5084,7 +5083,7 @@ pub mod net_app {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5163,7 +5162,7 @@ pub mod net_app {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5206,7 +5205,7 @@ pub mod net_app {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5285,7 +5284,7 @@ pub mod net_app {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5331,7 +5330,7 @@ pub mod net_app {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5377,7 +5376,7 @@ pub mod net_app {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -144,12 +144,6 @@ impl ListAppGatewaysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAppGatewaysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [app_gateways][crate::model::ListAppGatewaysResponse::app_gateways].
     pub fn set_app_gateways<T, V>(mut self, v: T) -> Self
     where
@@ -158,6 +152,12 @@ impl ListAppGatewaysResponse {
     {
         use std::iter::Iterator;
         self.app_gateways = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAppGatewaysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -472,6 +472,18 @@ impl AppGateway {
         self
     }
 
+    /// Sets the value of [labels][crate::model::AppGateway::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::AppGateway::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -508,15 +520,6 @@ impl AppGateway {
         self
     }
 
-    /// Sets the value of [host_type][crate::model::AppGateway::host_type].
-    pub fn set_host_type<T: std::convert::Into<crate::model::app_gateway::HostType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.host_type = v.into();
-        self
-    }
-
     /// Sets the value of [allocated_connections][crate::model::AppGateway::allocated_connections].
     pub fn set_allocated_connections<T, V>(mut self, v: T) -> Self
     where
@@ -528,15 +531,12 @@ impl AppGateway {
         self
     }
 
-    /// Sets the value of [labels][crate::model::AppGateway::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [host_type][crate::model::AppGateway::host_type].
+    pub fn set_host_type<T: std::convert::Into<crate::model::app_gateway::HostType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.host_type = v.into();
         self
     }
 }

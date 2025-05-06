@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Managed Service for Microsoft Active Directory API.
 ///
@@ -90,11 +89,11 @@ use std::sync::Arc;
 ///
 /// `ManagedIdentitiesService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ManagedIdentitiesService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ManagedIdentitiesService {
-    inner: Arc<dyn super::stub::dynamic::ManagedIdentitiesService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ManagedIdentitiesService>,
 }
 
 impl ManagedIdentitiesService {
@@ -121,7 +120,7 @@ impl ManagedIdentitiesService {
         T: super::stub::ManagedIdentitiesService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -132,11 +131,11 @@ impl ManagedIdentitiesService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ManagedIdentitiesService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ManagedIdentitiesService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

@@ -309,12 +309,6 @@ pub mod span {
             std::default::Default::default()
         }
 
-        /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
-        pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_attributes_count = v.into();
-            self
-        }
-
         /// Sets the value of [attribute_map][crate::model::span::Attributes::attribute_map].
         pub fn set_attribute_map<T, K, V>(mut self, v: T) -> Self
         where
@@ -324,6 +318,12 @@ pub mod span {
         {
             use std::iter::Iterator;
             self.attribute_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
+        pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_attributes_count = v.into();
             self
         }
     }
@@ -397,22 +397,6 @@ pub mod span {
             })
         }
 
-        /// The value of [value][crate::model::span::TimeEvent::value]
-        /// if it holds a `MessageEvent`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn message_event(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>>
-        {
-            #[allow(unreachable_patterns)]
-            self.value.as_ref().and_then(|v| match v {
-                crate::model::span::time_event::Value::MessageEvent(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [value][crate::model::span::TimeEvent::value]
         /// to hold a `Annotation`.
         ///
@@ -428,6 +412,22 @@ pub mod span {
                 crate::model::span::time_event::Value::Annotation(v.into()),
             );
             self
+        }
+
+        /// The value of [value][crate::model::span::TimeEvent::value]
+        /// if it holds a `MessageEvent`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn message_event(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>>
+        {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::span::time_event::Value::MessageEvent(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [value][crate::model::span::TimeEvent::value]
@@ -772,6 +772,17 @@ pub mod span {
             std::default::Default::default()
         }
 
+        /// Sets the value of [time_event][crate::model::span::TimeEvents::time_event].
+        pub fn set_time_event<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::span::TimeEvent>,
+        {
+            use std::iter::Iterator;
+            self.time_event = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [dropped_annotations_count][crate::model::span::TimeEvents::dropped_annotations_count].
         pub fn set_dropped_annotations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_annotations_count = v.into();
@@ -784,17 +795,6 @@ pub mod span {
             v: T,
         ) -> Self {
             self.dropped_message_events_count = v.into();
-            self
-        }
-
-        /// Sets the value of [time_event][crate::model::span::TimeEvents::time_event].
-        pub fn set_time_event<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::span::TimeEvent>,
-        {
-            use std::iter::Iterator;
-            self.time_event = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1046,12 +1046,6 @@ pub mod span {
             std::default::Default::default()
         }
 
-        /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
-        pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_links_count = v.into();
-            self
-        }
-
         /// Sets the value of [link][crate::model::span::Links::link].
         pub fn set_link<T, V>(mut self, v: T) -> Self
         where
@@ -1060,6 +1054,12 @@ pub mod span {
         {
             use std::iter::Iterator;
             self.link = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
+        pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_links_count = v.into();
             self
         }
     }
@@ -1280,28 +1280,6 @@ impl AttributeValue {
         })
     }
 
-    /// The value of [value][crate::model::AttributeValue::value]
-    /// if it holds a `IntValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_value::Value::IntValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::AttributeValue::value]
-    /// if it holds a `BoolValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bool_value(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::attribute_value::Value::BoolValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::AttributeValue::value]
     /// to hold a `StringValue`.
     ///
@@ -1318,6 +1296,17 @@ impl AttributeValue {
         self
     }
 
+    /// The value of [value][crate::model::AttributeValue::value]
+    /// if it holds a `IntValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_value::Value::IntValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::AttributeValue::value]
     /// to hold a `IntValue`.
     ///
@@ -1327,6 +1316,17 @@ impl AttributeValue {
         self.value =
             std::option::Option::Some(crate::model::attribute_value::Value::IntValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::AttributeValue::value]
+    /// if it holds a `BoolValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::attribute_value::Value::BoolValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::AttributeValue::value]
@@ -1575,12 +1575,6 @@ pub mod stack_trace {
             std::default::Default::default()
         }
 
-        /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
-        pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_frames_count = v.into();
-            self
-        }
-
         /// Sets the value of [frame][crate::model::stack_trace::StackFrames::frame].
         pub fn set_frame<T, V>(mut self, v: T) -> Self
         where
@@ -1589,6 +1583,12 @@ pub mod stack_trace {
         {
             use std::iter::Iterator;
             self.frame = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
+        pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_frames_count = v.into();
             self
         }
     }

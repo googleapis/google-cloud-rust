@@ -352,12 +352,6 @@ impl ListBucketsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [buckets][crate::model::ListBucketsResponse::buckets].
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
@@ -366,6 +360,12 @@ impl ListBucketsResponse {
     {
         use std::iter::Iterator;
         self.buckets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBucketsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -614,6 +614,17 @@ impl ComposeObjectRequest {
         self
     }
 
+    /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
+    pub fn set_source_objects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
+    {
+        use std::iter::Iterator;
+        self.source_objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [destination_predefined_acl][crate::model::ComposeObjectRequest::destination_predefined_acl].
     pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -666,17 +677,6 @@ impl ComposeObjectRequest {
         v: T,
     ) -> Self {
         self.object_checksums = v.into();
-        self
-    }
-
-    /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
-    pub fn set_source_objects<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
-    {
-        use std::iter::Iterator;
-        self.source_objects = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2906,6 +2906,28 @@ impl Bucket {
         self
     }
 
+    /// Sets the value of [acl][crate::model::Bucket::acl].
+    pub fn set_acl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BucketAccessControl>,
+    {
+        use std::iter::Iterator;
+        self.acl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [default_object_acl][crate::model::Bucket::default_object_acl].
+    pub fn set_default_object_acl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ObjectAccessControl>,
+    {
+        use std::iter::Iterator;
+        self.default_object_acl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [lifecycle][crate::model::Bucket::lifecycle].
     pub fn set_lifecycle<
         T: std::convert::Into<std::option::Option<crate::model::bucket::Lifecycle>>,
@@ -2926,6 +2948,17 @@ impl Bucket {
         self
     }
 
+    /// Sets the value of [cors][crate::model::Bucket::cors].
+    pub fn set_cors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::bucket::Cors>,
+    {
+        use std::iter::Iterator;
+        self.cors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [update_time][crate::model::Bucket::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2938,6 +2971,18 @@ impl Bucket {
     /// Sets the value of [default_event_based_hold][crate::model::Bucket::default_event_based_hold].
     pub fn set_default_event_based_hold<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_event_based_hold = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Bucket::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -3076,51 +3121,6 @@ impl Bucket {
         self.soft_delete_policy = v.into();
         self
     }
-
-    /// Sets the value of [acl][crate::model::Bucket::acl].
-    pub fn set_acl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BucketAccessControl>,
-    {
-        use std::iter::Iterator;
-        self.acl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [default_object_acl][crate::model::Bucket::default_object_acl].
-    pub fn set_default_object_acl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectAccessControl>,
-    {
-        use std::iter::Iterator;
-        self.default_object_acl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [cors][crate::model::Bucket::cors].
-    pub fn set_cors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::bucket::Cors>,
-    {
-        use std::iter::Iterator;
-        self.cors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Bucket::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Bucket {
@@ -3208,12 +3208,6 @@ pub mod bucket {
             std::default::Default::default()
         }
 
-        /// Sets the value of [max_age_seconds][crate::model::bucket::Cors::max_age_seconds].
-        pub fn set_max_age_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.max_age_seconds = v.into();
-            self
-        }
-
         /// Sets the value of [origin][crate::model::bucket::Cors::origin].
         pub fn set_origin<T, V>(mut self, v: T) -> Self
         where
@@ -3244,6 +3238,12 @@ pub mod bucket {
         {
             use std::iter::Iterator;
             self.response_header = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [max_age_seconds][crate::model::bucket::Cors::max_age_seconds].
+        pub fn set_max_age_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_age_seconds = v.into();
             self
         }
     }
@@ -3675,6 +3675,17 @@ pub mod bucket {
                     self
                 }
 
+                /// Sets the value of [matches_storage_class][crate::model::bucket::lifecycle::rule::Condition::matches_storage_class].
+                pub fn set_matches_storage_class<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<std::string::String>,
+                {
+                    use std::iter::Iterator;
+                    self.matches_storage_class = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
                 /// Sets the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
                 pub fn set_days_since_custom_time<
                     T: std::convert::Into<std::option::Option<i32>>,
@@ -3716,17 +3727,6 @@ pub mod bucket {
                     v: T,
                 ) -> Self {
                     self.noncurrent_time_before = v.into();
-                    self
-                }
-
-                /// Sets the value of [matches_storage_class][crate::model::bucket::lifecycle::rule::Condition::matches_storage_class].
-                pub fn set_matches_storage_class<T, V>(mut self, v: T) -> Self
-                where
-                    T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
-                {
-                    use std::iter::Iterator;
-                    self.matches_storage_class = v.into_iter().map(|i| i.into()).collect();
                     self
                 }
 
@@ -4689,6 +4689,17 @@ impl Object {
         self
     }
 
+    /// Sets the value of [acl][crate::model::Object::acl].
+    pub fn set_acl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ObjectAccessControl>,
+    {
+        use std::iter::Iterator;
+        self.acl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [content_language][crate::model::Object::content_language].
     pub fn set_content_language<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -4789,6 +4800,18 @@ impl Object {
         self
     }
 
+    /// Sets the value of [metadata][crate::model::Object::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [event_based_hold][crate::model::Object::event_based_hold].
     pub fn set_event_based_hold<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
@@ -4842,29 +4865,6 @@ impl Object {
         v: T,
     ) -> Self {
         self.hard_delete_time = v.into();
-        self
-    }
-
-    /// Sets the value of [acl][crate::model::Object::acl].
-    pub fn set_acl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectAccessControl>,
-    {
-        use std::iter::Iterator;
-        self.acl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::Object::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5047,12 +5047,6 @@ impl ListObjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListObjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [objects][crate::model::ListObjectsResponse::objects].
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
@@ -5072,6 +5066,12 @@ impl ListObjectsResponse {
     {
         use std::iter::Iterator;
         self.prefixes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListObjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -106,6 +106,17 @@ impl AnnotateVideoRequest {
         self
     }
 
+    /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
+    pub fn set_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Feature>,
+    {
+        use std::iter::Iterator;
+        self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
     pub fn set_video_context<
         T: std::convert::Into<std::option::Option<crate::model::VideoContext>>,
@@ -126,17 +137,6 @@ impl AnnotateVideoRequest {
     /// Sets the value of [location_id][crate::model::AnnotateVideoRequest::location_id].
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
-        self
-    }
-
-    /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
-    pub fn set_features<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Feature>,
-    {
-        use std::iter::Iterator;
-        self.features = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -199,6 +199,17 @@ pub struct VideoContext {
 impl VideoContext {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [segments][crate::model::VideoContext::segments].
+    pub fn set_segments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VideoSegment>,
+    {
+        use std::iter::Iterator;
+        self.segments = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
@@ -288,17 +299,6 @@ impl VideoContext {
         self.object_tracking_config = v.into();
         self
     }
-
-    /// Sets the value of [segments][crate::model::VideoContext::segments].
-    pub fn set_segments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VideoSegment>,
-    {
-        use std::iter::Iterator;
-        self.segments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for VideoContext {
@@ -337,6 +337,7 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub frame_confidence_threshold: f32,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -346,6 +347,7 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub video_confidence_threshold: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -640,12 +642,6 @@ impl TextDetectionConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [model][crate::model::TextDetectionConfig::model].
-    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.model = v.into();
-        self
-    }
-
     /// Sets the value of [language_hints][crate::model::TextDetectionConfig::language_hints].
     pub fn set_language_hints<T, V>(mut self, v: T) -> Self
     where
@@ -654,6 +650,12 @@ impl TextDetectionConfig {
     {
         use std::iter::Iterator;
         self.language_hints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [model][crate::model::TextDetectionConfig::model].
+    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model = v.into();
         self
     }
 }
@@ -726,6 +728,7 @@ pub struct LabelSegment {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -772,6 +775,7 @@ pub struct LabelFrame {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -906,12 +910,6 @@ impl LabelAnnotation {
         self
     }
 
-    /// Sets the value of [version][crate::model::LabelAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [category_entities][crate::model::LabelAnnotation::category_entities].
     pub fn set_category_entities<T, V>(mut self, v: T) -> Self
     where
@@ -942,6 +940,12 @@ impl LabelAnnotation {
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::LabelAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -1025,12 +1029,6 @@ impl ExplicitContentAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [version][crate::model::ExplicitContentAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [frames][crate::model::ExplicitContentAnnotation::frames].
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
@@ -1039,6 +1037,12 @@ impl ExplicitContentAnnotation {
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::ExplicitContentAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -1059,18 +1063,22 @@ impl wkt::message::Message for ExplicitContentAnnotation {
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub left: f32,
 
     /// Top Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub top: f32,
 
     /// Right X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub right: f32,
 
     /// Bottom Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub bottom: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1141,6 +1149,17 @@ impl FaceDetectionAnnotation {
         std::default::Default::default()
     }
 
+    /// Sets the value of [tracks][crate::model::FaceDetectionAnnotation::tracks].
+    pub fn set_tracks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Track>,
+    {
+        use std::iter::Iterator;
+        self.tracks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [thumbnail][crate::model::FaceDetectionAnnotation::thumbnail].
     pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
@@ -1150,17 +1169,6 @@ impl FaceDetectionAnnotation {
     /// Sets the value of [version][crate::model::FaceDetectionAnnotation::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [tracks][crate::model::FaceDetectionAnnotation::tracks].
-    pub fn set_tracks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Track>,
-    {
-        use std::iter::Iterator;
-        self.tracks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1194,12 +1202,6 @@ impl PersonDetectionAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [version][crate::model::PersonDetectionAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [tracks][crate::model::PersonDetectionAnnotation::tracks].
     pub fn set_tracks<T, V>(mut self, v: T) -> Self
     where
@@ -1208,6 +1210,12 @@ impl PersonDetectionAnnotation {
     {
         use std::iter::Iterator;
         self.tracks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::PersonDetectionAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -1280,15 +1288,6 @@ impl FaceFrame {
         std::default::Default::default()
     }
 
-    /// Sets the value of [time_offset][crate::model::FaceFrame::time_offset].
-    pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_offset = v.into();
-        self
-    }
-
     /// Sets the value of [normalized_bounding_boxes][crate::model::FaceFrame::normalized_bounding_boxes].
     pub fn set_normalized_bounding_boxes<T, V>(mut self, v: T) -> Self
     where
@@ -1297,6 +1296,15 @@ impl FaceFrame {
     {
         use std::iter::Iterator;
         self.normalized_bounding_boxes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [time_offset][crate::model::FaceFrame::time_offset].
+    pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_offset = v.into();
         self
     }
 }
@@ -1474,6 +1482,7 @@ pub struct Track {
 
     /// Optional. The confidence score of the tracked object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1491,12 +1500,6 @@ impl Track {
         v: T,
     ) -> Self {
         self.segment = v.into();
-        self
-    }
-
-    /// Sets the value of [confidence][crate::model::Track::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
         self
     }
 
@@ -1521,6 +1524,12 @@ impl Track {
         self.attributes = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [confidence][crate::model::Track::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Track {
@@ -1542,6 +1551,7 @@ pub struct DetectedAttribute {
 
     /// Detected attribute confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Text value of the detection result. For example, the value for "HairColor"
@@ -1601,6 +1611,7 @@ pub struct DetectedLandmark {
 
     /// The confidence score of the detected landmark. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1755,26 +1766,6 @@ impl VideoAnnotationResults {
         self
     }
 
-    /// Sets the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
-    pub fn set_explicit_annotation<
-        T: std::convert::Into<std::option::Option<crate::model::ExplicitContentAnnotation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.explicit_annotation = v.into();
-        self
-    }
-
-    /// Sets the value of [error][crate::model::VideoAnnotationResults::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
-        self
-    }
-
     /// Sets the value of [segment_label_annotations][crate::model::VideoAnnotationResults::segment_label_annotations].
     pub fn set_segment_label_annotations<T, V>(mut self, v: T) -> Self
     where
@@ -1864,6 +1855,17 @@ impl VideoAnnotationResults {
         self
     }
 
+    /// Sets the value of [explicit_annotation][crate::model::VideoAnnotationResults::explicit_annotation].
+    pub fn set_explicit_annotation<
+        T: std::convert::Into<std::option::Option<crate::model::ExplicitContentAnnotation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.explicit_annotation = v.into();
+        self
+    }
+
     /// Sets the value of [speech_transcriptions][crate::model::VideoAnnotationResults::speech_transcriptions].
     pub fn set_speech_transcriptions<T, V>(mut self, v: T) -> Self
     where
@@ -1916,6 +1918,15 @@ impl VideoAnnotationResults {
     {
         use std::iter::Iterator;
         self.person_detection_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::VideoAnnotationResults::error].
+    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error = v.into();
         self
     }
 }
@@ -2194,9 +2205,31 @@ impl SpeechTranscriptionConfig {
         self
     }
 
+    /// Sets the value of [speech_contexts][crate::model::SpeechTranscriptionConfig::speech_contexts].
+    pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpeechContext>,
+    {
+        use std::iter::Iterator;
+        self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [enable_automatic_punctuation][crate::model::SpeechTranscriptionConfig::enable_automatic_punctuation].
     pub fn set_enable_automatic_punctuation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_automatic_punctuation = v.into();
+        self
+    }
+
+    /// Sets the value of [audio_tracks][crate::model::SpeechTranscriptionConfig::audio_tracks].
+    pub fn set_audio_tracks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.audio_tracks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2215,28 +2248,6 @@ impl SpeechTranscriptionConfig {
     /// Sets the value of [enable_word_confidence][crate::model::SpeechTranscriptionConfig::enable_word_confidence].
     pub fn set_enable_word_confidence<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_word_confidence = v.into();
-        self
-    }
-
-    /// Sets the value of [speech_contexts][crate::model::SpeechTranscriptionConfig::speech_contexts].
-    pub fn set_speech_contexts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpeechContext>,
-    {
-        use std::iter::Iterator;
-        self.speech_contexts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [audio_tracks][crate::model::SpeechTranscriptionConfig::audio_tracks].
-    pub fn set_audio_tracks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.audio_tracks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2318,12 +2329,6 @@ impl SpeechTranscription {
         std::default::Default::default()
     }
 
-    /// Sets the value of [language_code][crate::model::SpeechTranscription::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
     /// Sets the value of [alternatives][crate::model::SpeechTranscription::alternatives].
     pub fn set_alternatives<T, V>(mut self, v: T) -> Self
     where
@@ -2332,6 +2337,12 @@ impl SpeechTranscription {
     {
         use std::iter::Iterator;
         self.alternatives = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::SpeechTranscription::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
         self
     }
 }
@@ -2359,6 +2370,7 @@ pub struct SpeechRecognitionAlternative {
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Output only. A list of word-specific information for each recognized word.
@@ -2439,6 +2451,7 @@ pub struct WordInfo {
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Output only. A distinct integer value is assigned for every speaker within
@@ -2510,10 +2523,12 @@ impl wkt::message::Message for WordInfo {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2610,6 +2625,7 @@ pub struct TextSegment {
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Information related to the frames where OCR detected text appears.
@@ -2745,12 +2761,6 @@ impl TextAnnotation {
         self
     }
 
-    /// Sets the value of [version][crate::model::TextAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [segments][crate::model::TextAnnotation::segments].
     pub fn set_segments<T, V>(mut self, v: T) -> Self
     where
@@ -2759,6 +2769,12 @@ impl TextAnnotation {
     {
         use std::iter::Iterator;
         self.segments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::TextAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 }
@@ -2832,6 +2848,7 @@ pub struct ObjectTrackingAnnotation {
 
     /// Object category's labeling confidence of this track.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Information corresponding to all frames where this object track appears.
@@ -2874,12 +2891,6 @@ impl ObjectTrackingAnnotation {
         self
     }
 
-    /// Sets the value of [version][crate::model::ObjectTrackingAnnotation::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
     /// Sets the value of [frames][crate::model::ObjectTrackingAnnotation::frames].
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
@@ -2888,6 +2899,12 @@ impl ObjectTrackingAnnotation {
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::ObjectTrackingAnnotation::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
         self
     }
 
@@ -2920,19 +2937,6 @@ impl ObjectTrackingAnnotation {
         })
     }
 
-    /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
-    /// if it holds a `TrackId`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn track_id(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.track_info.as_ref().and_then(|v| match v {
-            crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
     /// to hold a `Segment`.
     ///
@@ -2946,6 +2950,19 @@ impl ObjectTrackingAnnotation {
             crate::model::object_tracking_annotation::TrackInfo::Segment(v.into()),
         );
         self
+    }
+
+    /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
+    /// if it holds a `TrackId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn track_id(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.track_info.as_ref().and_then(|v| match v {
+            crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]

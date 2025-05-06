@@ -16,7 +16,6 @@
 
 pub mod speech {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Speech][super::super::client::Speech].
     ///
@@ -49,7 +48,7 @@ pub mod speech {
     /// Common implementation for [super::super::client::Speech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Speech>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod speech {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod speech {
     pub struct CreateRecognizer(RequestBuilder<crate::model::CreateRecognizerRequest>);
 
     impl CreateRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -181,7 +180,7 @@ pub mod speech {
     pub struct ListRecognizers(RequestBuilder<crate::model::ListRecognizersRequest>);
 
     impl ListRecognizers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -259,7 +258,7 @@ pub mod speech {
     pub struct GetRecognizer(RequestBuilder<crate::model::GetRecognizerRequest>);
 
     impl GetRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -304,7 +303,7 @@ pub mod speech {
     pub struct UpdateRecognizer(RequestBuilder<crate::model::UpdateRecognizerRequest>);
 
     impl UpdateRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -408,7 +407,7 @@ pub mod speech {
     pub struct DeleteRecognizer(RequestBuilder<crate::model::DeleteRecognizerRequest>);
 
     impl DeleteRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,7 +511,7 @@ pub mod speech {
     pub struct UndeleteRecognizer(RequestBuilder<crate::model::UndeleteRecognizerRequest>);
 
     impl UndeleteRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -610,7 +609,7 @@ pub mod speech {
     pub struct Recognize(RequestBuilder<crate::model::RecognizeRequest>);
 
     impl Recognize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -705,7 +704,7 @@ pub mod speech {
     pub struct BatchRecognize(RequestBuilder<crate::model::BatchRecognizeRequest>);
 
     impl BatchRecognize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -796,6 +795,17 @@ pub mod speech {
             self
         }
 
+        /// Sets the value of [files][crate::model::BatchRecognizeRequest::files].
+        pub fn set_files<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>,
+        {
+            use std::iter::Iterator;
+            self.0.request.files = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
         pub fn set_recognition_output_config<
             T: Into<std::option::Option<crate::model::RecognitionOutputConfig>>,
@@ -817,17 +827,6 @@ pub mod speech {
             self.0.request.processing_strategy = v.into();
             self
         }
-
-        /// Sets the value of [files][crate::model::BatchRecognizeRequest::files].
-        pub fn set_files<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>,
-        {
-            use std::iter::Iterator;
-            self.0.request.files = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -842,7 +841,7 @@ pub mod speech {
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -887,7 +886,7 @@ pub mod speech {
     pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
 
     impl UpdateConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -944,7 +943,7 @@ pub mod speech {
     pub struct CreateCustomClass(RequestBuilder<crate::model::CreateCustomClassRequest>);
 
     impl CreateCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1053,7 +1052,7 @@ pub mod speech {
     pub struct ListCustomClasses(RequestBuilder<crate::model::ListCustomClassesRequest>);
 
     impl ListCustomClasses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,7 +1133,7 @@ pub mod speech {
     pub struct GetCustomClass(RequestBuilder<crate::model::GetCustomClassRequest>);
 
     impl GetCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1179,7 +1178,7 @@ pub mod speech {
     pub struct UpdateCustomClass(RequestBuilder<crate::model::UpdateCustomClassRequest>);
 
     impl UpdateCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1283,7 +1282,7 @@ pub mod speech {
     pub struct DeleteCustomClass(RequestBuilder<crate::model::DeleteCustomClassRequest>);
 
     impl DeleteCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1387,7 +1386,7 @@ pub mod speech {
     pub struct UndeleteCustomClass(RequestBuilder<crate::model::UndeleteCustomClassRequest>);
 
     impl UndeleteCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1485,7 +1484,7 @@ pub mod speech {
     pub struct CreatePhraseSet(RequestBuilder<crate::model::CreatePhraseSetRequest>);
 
     impl CreatePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1591,7 +1590,7 @@ pub mod speech {
     pub struct ListPhraseSets(RequestBuilder<crate::model::ListPhraseSetsRequest>);
 
     impl ListPhraseSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1669,7 +1668,7 @@ pub mod speech {
     pub struct GetPhraseSet(RequestBuilder<crate::model::GetPhraseSetRequest>);
 
     impl GetPhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1714,7 +1713,7 @@ pub mod speech {
     pub struct UpdatePhraseSet(RequestBuilder<crate::model::UpdatePhraseSetRequest>);
 
     impl UpdatePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1815,7 +1814,7 @@ pub mod speech {
     pub struct DeletePhraseSet(RequestBuilder<crate::model::DeletePhraseSetRequest>);
 
     impl DeletePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1916,7 +1915,7 @@ pub mod speech {
     pub struct UndeletePhraseSet(RequestBuilder<crate::model::UndeletePhraseSetRequest>);
 
     impl UndeletePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2014,7 +2013,7 @@ pub mod speech {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2093,7 +2092,7 @@ pub mod speech {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2136,7 +2135,7 @@ pub mod speech {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2215,7 +2214,7 @@ pub mod speech {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2261,7 +2260,7 @@ pub mod speech {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2307,7 +2306,7 @@ pub mod speech {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

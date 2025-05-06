@@ -342,12 +342,6 @@ impl ListDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -356,6 +350,12 @@ impl ListDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -615,6 +615,17 @@ impl Deployment {
         self
     }
 
+    /// Sets the value of [oauth_scopes][crate::model::Deployment::oauth_scopes].
+    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [add_ons][crate::model::Deployment::add_ons].
     pub fn set_add_ons<T: std::convert::Into<std::option::Option<crate::model::AddOns>>>(
         mut self,
@@ -627,17 +638,6 @@ impl Deployment {
     /// Sets the value of [etag][crate::model::Deployment::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [oauth_scopes][crate::model::Deployment::oauth_scopes].
-    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

@@ -171,6 +171,18 @@ impl Service {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Service::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [network][crate::model::Service::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -303,18 +315,6 @@ impl Service {
         v: T,
     ) -> Self {
         self.scaling_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Service::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1064,6 +1064,18 @@ impl HiveMetastoreConfig {
         self
     }
 
+    /// Sets the value of [config_overrides][crate::model::HiveMetastoreConfig::config_overrides].
+    pub fn set_config_overrides<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.config_overrides = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [kerberos_config][crate::model::HiveMetastoreConfig::kerberos_config].
     pub fn set_kerberos_config<
         T: std::convert::Into<std::option::Option<crate::model::KerberosConfig>>,
@@ -1083,18 +1095,6 @@ impl HiveMetastoreConfig {
         v: T,
     ) -> Self {
         self.endpoint_protocol = v.into();
-        self
-    }
-
-    /// Sets the value of [config_overrides][crate::model::HiveMetastoreConfig::config_overrides].
-    pub fn set_config_overrides<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.config_overrides = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1467,17 +1467,6 @@ impl AuxiliaryVersionConfig {
         self
     }
 
-    /// Sets the value of [network_config][crate::model::AuxiliaryVersionConfig::network_config].
-    pub fn set_network_config<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_config = v.into();
-        self
-    }
-
     /// Sets the value of [config_overrides][crate::model::AuxiliaryVersionConfig::config_overrides].
     pub fn set_config_overrides<T, K, V>(mut self, v: T) -> Self
     where
@@ -1487,6 +1476,17 @@ impl AuxiliaryVersionConfig {
     {
         use std::iter::Iterator;
         self.config_overrides = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network_config][crate::model::AuxiliaryVersionConfig::network_config].
+    pub fn set_network_config<
+        T: std::convert::Into<std::option::Option<crate::model::NetworkConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_config = v.into();
         self
     }
 }
@@ -3378,19 +3378,6 @@ impl ScalingConfig {
         })
     }
 
-    /// The value of [scaling_model][crate::model::ScalingConfig::scaling_model]
-    /// if it holds a `ScalingFactor`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn scaling_factor(&self) -> std::option::Option<&f32> {
-        #[allow(unreachable_patterns)]
-        self.scaling_model.as_ref().and_then(|v| match v {
-            crate::model::scaling_config::ScalingModel::ScalingFactor(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [scaling_model][crate::model::ScalingConfig::scaling_model]
     /// to hold a `InstanceSize`.
     ///
@@ -3404,6 +3391,19 @@ impl ScalingConfig {
             crate::model::scaling_config::ScalingModel::InstanceSize(v.into()),
         );
         self
+    }
+
+    /// The value of [scaling_model][crate::model::ScalingConfig::scaling_model]
+    /// if it holds a `ScalingFactor`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn scaling_factor(&self) -> std::option::Option<&f32> {
+        #[allow(unreachable_patterns)]
+        self.scaling_model.as_ref().and_then(|v| match v {
+            crate::model::scaling_config::ScalingModel::ScalingFactor(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [scaling_model][crate::model::ScalingConfig::scaling_model]
@@ -3722,12 +3722,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -3736,6 +3730,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4159,12 +4159,6 @@ impl ListMetadataImportsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMetadataImportsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [metadata_imports][crate::model::ListMetadataImportsResponse::metadata_imports].
     pub fn set_metadata_imports<T, V>(mut self, v: T) -> Self
     where
@@ -4173,6 +4167,12 @@ impl ListMetadataImportsResponse {
     {
         use std::iter::Iterator;
         self.metadata_imports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMetadataImportsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4544,12 +4544,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -4558,6 +4552,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5754,9 +5754,33 @@ impl Federation {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Federation::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [version][crate::model::Federation::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [backend_metastores][crate::model::Federation::backend_metastores].
+    pub fn set_backend_metastores<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<i32>,
+        V: std::convert::Into<crate::model::BackendMetastore>,
+    {
+        use std::iter::Iterator;
+        self.backend_metastores = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5784,30 +5808,6 @@ impl Federation {
     /// Sets the value of [uid][crate::model::Federation::uid].
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Federation::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [backend_metastores][crate::model::Federation::backend_metastores].
-    pub fn set_backend_metastores<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<i32>,
-        V: std::convert::Into<crate::model::BackendMetastore>,
-    {
-        use std::iter::Iterator;
-        self.backend_metastores = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6284,12 +6284,6 @@ impl ListFederationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFederationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [federations][crate::model::ListFederationsResponse::federations].
     pub fn set_federations<T, V>(mut self, v: T) -> Self
     where
@@ -6298,6 +6292,12 @@ impl ListFederationsResponse {
     {
         use std::iter::Iterator;
         self.federations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFederationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

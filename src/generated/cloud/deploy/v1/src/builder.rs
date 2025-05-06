@@ -16,7 +16,6 @@
 
 pub mod cloud_deploy {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudDeploy][super::super::client::CloudDeploy].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_deploy {
     /// Common implementation for [super::super::client::CloudDeploy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_deploy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_deploy {
     pub struct ListDeliveryPipelines(RequestBuilder<crate::model::ListDeliveryPipelinesRequest>);
 
     impl ListDeliveryPipelines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +162,9 @@ pub mod cloud_deploy {
     pub struct GetDeliveryPipeline(RequestBuilder<crate::model::GetDeliveryPipelineRequest>);
 
     impl GetDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -207,7 +212,9 @@ pub mod cloud_deploy {
     pub struct CreateDeliveryPipeline(RequestBuilder<crate::model::CreateDeliveryPipelineRequest>);
 
     impl CreateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -327,7 +334,9 @@ pub mod cloud_deploy {
     pub struct UpdateDeliveryPipeline(RequestBuilder<crate::model::UpdateDeliveryPipelineRequest>);
 
     impl UpdateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -448,7 +457,9 @@ pub mod cloud_deploy {
     pub struct DeleteDeliveryPipeline(RequestBuilder<crate::model::DeleteDeliveryPipelineRequest>);
 
     impl DeleteDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -561,7 +572,9 @@ pub mod cloud_deploy {
     pub struct ListTargets(RequestBuilder<crate::model::ListTargetsRequest>);
 
     impl ListTargets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,7 +658,9 @@ pub mod cloud_deploy {
     pub struct RollbackTarget(RequestBuilder<crate::model::RollbackTargetRequest>);
 
     impl RollbackTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -746,7 +761,9 @@ pub mod cloud_deploy {
     pub struct GetTarget(RequestBuilder<crate::model::GetTargetRequest>);
 
     impl GetTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -791,7 +808,9 @@ pub mod cloud_deploy {
     pub struct CreateTarget(RequestBuilder<crate::model::CreateTargetRequest>);
 
     impl CreateTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -904,7 +923,9 @@ pub mod cloud_deploy {
     pub struct UpdateTarget(RequestBuilder<crate::model::UpdateTargetRequest>);
 
     impl UpdateTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1018,7 +1039,9 @@ pub mod cloud_deploy {
     pub struct DeleteTarget(RequestBuilder<crate::model::DeleteTargetRequest>);
 
     impl DeleteTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1122,7 +1145,9 @@ pub mod cloud_deploy {
     pub struct ListCustomTargetTypes(RequestBuilder<crate::model::ListCustomTargetTypesRequest>);
 
     impl ListCustomTargetTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1209,7 +1234,9 @@ pub mod cloud_deploy {
     pub struct GetCustomTargetType(RequestBuilder<crate::model::GetCustomTargetTypeRequest>);
 
     impl GetCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1257,7 +1284,9 @@ pub mod cloud_deploy {
     pub struct CreateCustomTargetType(RequestBuilder<crate::model::CreateCustomTargetTypeRequest>);
 
     impl CreateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1377,7 +1406,9 @@ pub mod cloud_deploy {
     pub struct UpdateCustomTargetType(RequestBuilder<crate::model::UpdateCustomTargetTypeRequest>);
 
     impl UpdateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1498,7 +1529,9 @@ pub mod cloud_deploy {
     pub struct DeleteCustomTargetType(RequestBuilder<crate::model::DeleteCustomTargetTypeRequest>);
 
     impl DeleteCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1605,7 +1638,9 @@ pub mod cloud_deploy {
     pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
 
     impl ListReleases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1689,7 +1724,9 @@ pub mod cloud_deploy {
     pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
 
     impl GetRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1734,7 +1771,9 @@ pub mod cloud_deploy {
     pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
 
     impl CreateRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1858,7 +1897,9 @@ pub mod cloud_deploy {
     pub struct AbandonRelease(RequestBuilder<crate::model::AbandonReleaseRequest>);
 
     impl AbandonRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1903,7 +1944,9 @@ pub mod cloud_deploy {
     pub struct CreateDeployPolicy(RequestBuilder<crate::model::CreateDeployPolicyRequest>);
 
     impl CreateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2020,7 +2063,9 @@ pub mod cloud_deploy {
     pub struct UpdateDeployPolicy(RequestBuilder<crate::model::UpdateDeployPolicyRequest>);
 
     impl UpdateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2138,7 +2183,9 @@ pub mod cloud_deploy {
     pub struct DeleteDeployPolicy(RequestBuilder<crate::model::DeleteDeployPolicyRequest>);
 
     impl DeleteDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2245,7 +2292,9 @@ pub mod cloud_deploy {
     pub struct ListDeployPolicies(RequestBuilder<crate::model::ListDeployPoliciesRequest>);
 
     impl ListDeployPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2332,7 +2381,9 @@ pub mod cloud_deploy {
     pub struct GetDeployPolicy(RequestBuilder<crate::model::GetDeployPolicyRequest>);
 
     impl GetDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2377,7 +2428,9 @@ pub mod cloud_deploy {
     pub struct ApproveRollout(RequestBuilder<crate::model::ApproveRolloutRequest>);
 
     impl ApproveRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2441,7 +2494,9 @@ pub mod cloud_deploy {
     pub struct AdvanceRollout(RequestBuilder<crate::model::AdvanceRolloutRequest>);
 
     impl AdvanceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2505,7 +2560,9 @@ pub mod cloud_deploy {
     pub struct CancelRollout(RequestBuilder<crate::model::CancelRolloutRequest>);
 
     impl CancelRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2561,7 +2618,9 @@ pub mod cloud_deploy {
     pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
 
     impl ListRollouts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2645,7 +2704,9 @@ pub mod cloud_deploy {
     pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
 
     impl GetRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2690,7 +2751,9 @@ pub mod cloud_deploy {
     pub struct CreateRollout(RequestBuilder<crate::model::CreateRolloutRequest>);
 
     impl CreateRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2790,12 +2853,6 @@ pub mod cloud_deploy {
             self
         }
 
-        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
-        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.starting_phase_id = v.into();
-            self
-        }
-
         /// Sets the value of [override_deploy_policy][crate::model::CreateRolloutRequest::override_deploy_policy].
         pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
         where
@@ -2804,6 +2861,12 @@ pub mod cloud_deploy {
         {
             use std::iter::Iterator;
             self.0.request.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
+        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.starting_phase_id = v.into();
             self
         }
     }
@@ -2820,7 +2883,9 @@ pub mod cloud_deploy {
     pub struct IgnoreJob(RequestBuilder<crate::model::IgnoreJobRequest>);
 
     impl IgnoreJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2892,7 +2957,9 @@ pub mod cloud_deploy {
     pub struct RetryJob(RequestBuilder<crate::model::RetryJobRequest>);
 
     impl RetryJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2964,7 +3031,9 @@ pub mod cloud_deploy {
     pub struct ListJobRuns(RequestBuilder<crate::model::ListJobRunsRequest>);
 
     impl ListJobRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3048,7 +3117,9 @@ pub mod cloud_deploy {
     pub struct GetJobRun(RequestBuilder<crate::model::GetJobRunRequest>);
 
     impl GetJobRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3093,7 +3164,9 @@ pub mod cloud_deploy {
     pub struct TerminateJobRun(RequestBuilder<crate::model::TerminateJobRunRequest>);
 
     impl TerminateJobRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3149,7 +3222,9 @@ pub mod cloud_deploy {
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3194,7 +3269,9 @@ pub mod cloud_deploy {
     pub struct CreateAutomation(RequestBuilder<crate::model::CreateAutomationRequest>);
 
     impl CreateAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3311,7 +3388,9 @@ pub mod cloud_deploy {
     pub struct UpdateAutomation(RequestBuilder<crate::model::UpdateAutomationRequest>);
 
     impl UpdateAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3429,7 +3508,9 @@ pub mod cloud_deploy {
     pub struct DeleteAutomation(RequestBuilder<crate::model::DeleteAutomationRequest>);
 
     impl DeleteAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3536,7 +3617,9 @@ pub mod cloud_deploy {
     pub struct GetAutomation(RequestBuilder<crate::model::GetAutomationRequest>);
 
     impl GetAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3581,7 +3664,9 @@ pub mod cloud_deploy {
     pub struct ListAutomations(RequestBuilder<crate::model::ListAutomationsRequest>);
 
     impl ListAutomations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3665,7 +3750,9 @@ pub mod cloud_deploy {
     pub struct GetAutomationRun(RequestBuilder<crate::model::GetAutomationRunRequest>);
 
     impl GetAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3713,7 +3800,9 @@ pub mod cloud_deploy {
     pub struct ListAutomationRuns(RequestBuilder<crate::model::ListAutomationRunsRequest>);
 
     impl ListAutomationRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3800,7 +3889,9 @@ pub mod cloud_deploy {
     pub struct CancelAutomationRun(RequestBuilder<crate::model::CancelAutomationRunRequest>);
 
     impl CancelAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3848,7 +3939,9 @@ pub mod cloud_deploy {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3927,7 +4020,9 @@ pub mod cloud_deploy {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3970,7 +4065,9 @@ pub mod cloud_deploy {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4035,7 +4132,9 @@ pub mod cloud_deploy {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4089,7 +4188,9 @@ pub mod cloud_deploy {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4150,7 +4251,9 @@ pub mod cloud_deploy {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4229,7 +4332,9 @@ pub mod cloud_deploy {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4275,7 +4380,9 @@ pub mod cloud_deploy {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4321,7 +4428,9 @@ pub mod cloud_deploy {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

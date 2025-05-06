@@ -16,7 +16,6 @@
 
 pub mod profiler_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ProfilerService][super::super::client::ProfilerService].
     ///
@@ -49,7 +48,7 @@ pub mod profiler_service {
     /// Common implementation for [super::super::client::ProfilerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod profiler_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod profiler_service {
     pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
 
     impl CreateProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,7 +138,9 @@ pub mod profiler_service {
     pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
 
     impl CreateOfflineProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,7 +195,9 @@ pub mod profiler_service {
     pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
 
     impl UpdateProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -243,7 +250,6 @@ pub mod profiler_service {
 
 pub mod export_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ExportService][super::super::client::ExportService].
     ///
@@ -276,7 +282,7 @@ pub mod export_service {
     /// Common implementation for [super::super::client::ExportService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ExportService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -285,7 +291,9 @@ pub mod export_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ExportService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -299,7 +307,9 @@ pub mod export_service {
     pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
 
     impl ListProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ExportService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

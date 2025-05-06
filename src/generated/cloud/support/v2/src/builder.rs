@@ -16,7 +16,6 @@
 
 pub mod case_attachment_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CaseAttachmentService][super::super::client::CaseAttachmentService].
     ///
@@ -49,7 +48,7 @@ pub mod case_attachment_service {
     /// Common implementation for [super::super::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod case_attachment_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod case_attachment_service {
 
     impl ListAttachments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -146,7 +145,6 @@ pub mod case_attachment_service {
 
 pub mod case_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CaseService][super::super::client::CaseService].
     ///
@@ -179,7 +177,7 @@ pub mod case_service {
     /// Common implementation for [super::super::client::CaseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CaseService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -188,7 +186,9 @@ pub mod case_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -202,7 +202,9 @@ pub mod case_service {
     pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
 
     impl GetCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -247,7 +249,9 @@ pub mod case_service {
     pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
 
     impl ListCases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -325,7 +329,9 @@ pub mod case_service {
     pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
 
     impl SearchCases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -401,7 +407,9 @@ pub mod case_service {
     pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
 
     impl CreateCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -454,7 +462,9 @@ pub mod case_service {
     pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
 
     impl UpdateCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -508,7 +518,9 @@ pub mod case_service {
     pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
 
     impl EscalateCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -562,7 +574,9 @@ pub mod case_service {
     pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
 
     impl CloseCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -609,7 +623,9 @@ pub mod case_service {
     );
 
     impl SearchCaseClassifications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -682,7 +698,6 @@ pub mod case_service {
 
 pub mod comment_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CommentService][super::super::client::CommentService].
     ///
@@ -715,7 +730,7 @@ pub mod comment_service {
     /// Common implementation for [super::super::client::CommentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CommentService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -724,7 +739,9 @@ pub mod comment_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -738,7 +755,9 @@ pub mod comment_service {
     pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
 
     impl ListComments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -810,7 +829,9 @@ pub mod comment_service {
     pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
 
     impl CreateComment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

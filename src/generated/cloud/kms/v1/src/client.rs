@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
@@ -80,11 +79,11 @@ use std::sync::Arc;
 ///
 /// `Autokey` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Autokey` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Autokey {
-    inner: Arc<dyn super::stub::dynamic::Autokey>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Autokey>,
 }
 
 impl Autokey {
@@ -109,7 +108,7 @@ impl Autokey {
         T: super::stub::Autokey + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -120,11 +119,11 @@ impl Autokey {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Autokey>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -299,11 +298,11 @@ impl Autokey {
 ///
 /// `AutokeyAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AutokeyAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AutokeyAdmin {
-    inner: Arc<dyn super::stub::dynamic::AutokeyAdmin>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>,
 }
 
 impl AutokeyAdmin {
@@ -328,7 +327,7 @@ impl AutokeyAdmin {
         T: super::stub::AutokeyAdmin + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -339,11 +338,11 @@ impl AutokeyAdmin {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -511,11 +510,11 @@ impl AutokeyAdmin {
 ///
 /// `EkmService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EkmService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct EkmService {
-    inner: Arc<dyn super::stub::dynamic::EkmService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EkmService>,
 }
 
 impl EkmService {
@@ -540,7 +539,7 @@ impl EkmService {
         T: super::stub::EkmService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -551,11 +550,11 @@ impl EkmService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EkmService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -775,11 +774,11 @@ impl EkmService {
 ///
 /// `KeyManagementService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `KeyManagementService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct KeyManagementService {
-    inner: Arc<dyn super::stub::dynamic::KeyManagementService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>,
 }
 
 impl KeyManagementService {
@@ -806,7 +805,7 @@ impl KeyManagementService {
         T: super::stub::KeyManagementService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -817,11 +816,11 @@ impl KeyManagementService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::KeyManagementService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

@@ -159,12 +159,34 @@ impl Event {
         self
     }
 
+    /// Sets the value of [event_impacts][crate::model::Event::event_impacts].
+    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventImpact>,
+    {
+        use std::iter::Iterator;
+        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [relevance][crate::model::Event::relevance].
     pub fn set_relevance<T: std::convert::Into<crate::model::event::Relevance>>(
         mut self,
         v: T,
     ) -> Self {
         self.relevance = v.into();
+        self
+    }
+
+    /// Sets the value of [updates][crate::model::Event::updates].
+    pub fn set_updates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventUpdate>,
+    {
+        use std::iter::Iterator;
+        self.updates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -207,28 +229,6 @@ impl Event {
         v: T,
     ) -> Self {
         self.next_update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [event_impacts][crate::model::Event::event_impacts].
-    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventImpact>,
-    {
-        use std::iter::Iterator;
-        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [updates][crate::model::Event::updates].
-    pub fn set_updates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventUpdate>,
-    {
-        use std::iter::Iterator;
-        self.updates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1111,6 +1111,28 @@ impl OrganizationEvent {
         self
     }
 
+    /// Sets the value of [event_impacts][crate::model::OrganizationEvent::event_impacts].
+    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventImpact>,
+    {
+        use std::iter::Iterator;
+        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [updates][crate::model::OrganizationEvent::updates].
+    pub fn set_updates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventUpdate>,
+    {
+        use std::iter::Iterator;
+        self.updates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [parent_event][crate::model::OrganizationEvent::parent_event].
     pub fn set_parent_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_event = v.into();
@@ -1150,28 +1172,6 @@ impl OrganizationEvent {
         v: T,
     ) -> Self {
         self.next_update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [event_impacts][crate::model::OrganizationEvent::event_impacts].
-    pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventImpact>,
-    {
-        use std::iter::Iterator;
-        self.event_impacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [updates][crate::model::OrganizationEvent::updates].
-    pub fn set_updates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventUpdate>,
-    {
-        use std::iter::Iterator;
-        self.updates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2002,6 +2002,17 @@ impl OrganizationImpact {
         self
     }
 
+    /// Sets the value of [events][crate::model::OrganizationImpact::events].
+    pub fn set_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [asset][crate::model::OrganizationImpact::asset].
     pub fn set_asset<T: std::convert::Into<std::option::Option<crate::model::Asset>>>(
         mut self,
@@ -2017,17 +2028,6 @@ impl OrganizationImpact {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [events][crate::model::OrganizationImpact::events].
-    pub fn set_events<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.events = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2215,12 +2215,6 @@ impl ListEventsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [events][crate::model::ListEventsResponse::events].
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
@@ -2229,6 +2223,12 @@ impl ListEventsResponse {
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEventsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2441,12 +2441,6 @@ impl ListOrganizationEventsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrganizationEventsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [organization_events][crate::model::ListOrganizationEventsResponse::organization_events].
     pub fn set_organization_events<T, V>(mut self, v: T) -> Self
     where
@@ -2455,6 +2449,12 @@ impl ListOrganizationEventsResponse {
     {
         use std::iter::Iterator;
         self.organization_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrganizationEventsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2660,12 +2660,6 @@ impl ListOrganizationImpactsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrganizationImpactsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [organization_impacts][crate::model::ListOrganizationImpactsResponse::organization_impacts].
     pub fn set_organization_impacts<T, V>(mut self, v: T) -> Self
     where
@@ -2674,6 +2668,12 @@ impl ListOrganizationImpactsResponse {
     {
         use std::iter::Iterator;
         self.organization_impacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrganizationImpactsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

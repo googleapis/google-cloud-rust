@@ -36,8 +36,8 @@ More specifically, the functionality offered by these libraries include:
 - The libraries convert pagination APIs into streams.
 - The libraries convert long-running operations into an asynchronous function
   that simply returns the final outcome of the long-running operation.
-  Applications that need more fine-grained control over the request can still
-  do so.
+  Applications that need more fine-grained control over the request can still do
+  so.
 - The application can define retry policies for all RPCs in a client and
   override the policies for specific requests.
 - The libraries support best practices such as exponential backoff on retries
@@ -75,7 +75,7 @@ hand-crafted code. The main directories are:
 - `guide/samples`: the code samples for the user guide. In general, we want the
   code samples to be at least compiled
 
-[^required]: unfortunately some required parameters are not that easy to detect,
-    it is possible to create some requests with missing required parameters.
+[^required]: unfortunately some required parameters are not that easy to detect, it is
+    possible to create some requests with missing required parameters.
 
 [tokio]: https://tokio.rs

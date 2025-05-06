@@ -16,7 +16,6 @@
 
 pub mod os_config_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [OsConfigService][super::super::client::OsConfigService].
     ///
@@ -49,7 +48,7 @@ pub mod os_config_service {
     /// Common implementation for [super::super::client::OsConfigService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod os_config_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod os_config_service {
     pub struct ExecutePatchJob(RequestBuilder<crate::model::ExecutePatchJobRequest>);
 
     impl ExecutePatchJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -172,7 +175,9 @@ pub mod os_config_service {
     pub struct GetPatchJob(RequestBuilder<crate::model::GetPatchJobRequest>);
 
     impl GetPatchJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -217,7 +222,9 @@ pub mod os_config_service {
     pub struct CancelPatchJob(RequestBuilder<crate::model::CancelPatchJobRequest>);
 
     impl CancelPatchJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -262,7 +269,9 @@ pub mod os_config_service {
     pub struct ListPatchJobs(RequestBuilder<crate::model::ListPatchJobsRequest>);
 
     impl ListPatchJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -342,7 +351,9 @@ pub mod os_config_service {
     );
 
     impl ListPatchJobInstanceDetails {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -425,7 +436,9 @@ pub mod os_config_service {
     pub struct CreatePatchDeployment(RequestBuilder<crate::model::CreatePatchDeploymentRequest>);
 
     impl CreatePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -492,7 +505,9 @@ pub mod os_config_service {
     pub struct GetPatchDeployment(RequestBuilder<crate::model::GetPatchDeploymentRequest>);
 
     impl GetPatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -540,7 +555,9 @@ pub mod os_config_service {
     pub struct ListPatchDeployments(RequestBuilder<crate::model::ListPatchDeploymentsRequest>);
 
     impl ListPatchDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -615,7 +632,9 @@ pub mod os_config_service {
     pub struct DeletePatchDeployment(RequestBuilder<crate::model::DeletePatchDeploymentRequest>);
 
     impl DeletePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -663,7 +682,9 @@ pub mod os_config_service {
     pub struct UpdatePatchDeployment(RequestBuilder<crate::model::UpdatePatchDeploymentRequest>);
 
     impl UpdatePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -723,7 +744,9 @@ pub mod os_config_service {
     pub struct PausePatchDeployment(RequestBuilder<crate::model::PausePatchDeploymentRequest>);
 
     impl PausePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -771,7 +794,9 @@ pub mod os_config_service {
     pub struct ResumePatchDeployment(RequestBuilder<crate::model::ResumePatchDeploymentRequest>);
 
     impl ResumePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -819,7 +844,9 @@ pub mod os_config_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -865,7 +892,9 @@ pub mod os_config_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -909,7 +938,6 @@ pub mod os_config_service {
 
 pub mod os_config_zonal_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [OsConfigZonalService][super::super::client::OsConfigZonalService].
     ///
@@ -942,7 +970,7 @@ pub mod os_config_zonal_service {
     /// Common implementation for [super::super::client::OsConfigZonalService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -952,7 +980,7 @@ pub mod os_config_zonal_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self {
                 stub,
@@ -970,7 +998,7 @@ pub mod os_config_zonal_service {
 
     impl CreateOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1086,7 +1114,7 @@ pub mod os_config_zonal_service {
 
     impl UpdateOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1193,7 +1221,7 @@ pub mod os_config_zonal_service {
 
     impl GetOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1245,7 +1273,7 @@ pub mod os_config_zonal_service {
 
     impl ListOSPolicyAssignments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1326,7 +1354,7 @@ pub mod os_config_zonal_service {
 
     impl ListOSPolicyAssignmentRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1407,7 +1435,7 @@ pub mod os_config_zonal_service {
 
     impl DeleteOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1498,7 +1526,7 @@ pub mod os_config_zonal_service {
 
     impl GetOSPolicyAssignmentReport {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1550,7 +1578,7 @@ pub mod os_config_zonal_service {
 
     impl ListOSPolicyAssignmentReports {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1635,7 +1663,7 @@ pub mod os_config_zonal_service {
 
     impl GetInventory {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1688,7 +1716,7 @@ pub mod os_config_zonal_service {
 
     impl ListInventories {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1774,7 +1802,7 @@ pub mod os_config_zonal_service {
 
     impl GetVulnerabilityReport {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1826,7 +1854,7 @@ pub mod os_config_zonal_service {
 
     impl ListVulnerabilityReports {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1911,7 +1939,7 @@ pub mod os_config_zonal_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1959,7 +1987,7 @@ pub mod os_config_zonal_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

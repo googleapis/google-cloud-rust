@@ -138,6 +138,18 @@ impl AutonomousDatabase {
         self
     }
 
+    /// Sets the value of [labels][crate::model::AutonomousDatabase::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [network][crate::model::AutonomousDatabase::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -156,18 +168,6 @@ impl AutonomousDatabase {
         v: T,
     ) -> Self {
         self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::AutonomousDatabase::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -191,6 +191,7 @@ pub struct AutonomousDatabaseProperties {
 
     /// Optional. The number of compute servers for the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub compute_count: f32,
 
     /// Optional. The number of CPU cores to be made available to the database.
@@ -421,6 +422,7 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The storage space used by automatic backups of Autonomous
     /// Database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub total_auto_backup_storage_size_gbs: f32,
 
     /// Output only. The long term backup schedule of the Autonomous Database.
@@ -556,6 +558,17 @@ impl AutonomousDatabaseProperties {
         self
     }
 
+    /// Sets the value of [customer_contacts][crate::model::AutonomousDatabaseProperties::customer_contacts].
+    pub fn set_customer_contacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CustomerContact>,
+    {
+        use std::iter::Iterator;
+        self.customer_contacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [secret_id][crate::model::AutonomousDatabaseProperties::secret_id].
     pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
@@ -649,6 +662,17 @@ impl AutonomousDatabaseProperties {
         v: T,
     ) -> Self {
         self.autonomous_container_database_id = v.into();
+        self
+    }
+
+    /// Sets the value of [available_upgrade_versions][crate::model::AutonomousDatabaseProperties::available_upgrade_versions].
+    pub fn set_available_upgrade_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.available_upgrade_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -781,6 +805,17 @@ impl AutonomousDatabaseProperties {
         self
     }
 
+    /// Sets the value of [peer_db_ids][crate::model::AutonomousDatabaseProperties::peer_db_ids].
+    pub fn set_peer_db_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.peer_db_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [permission_level][crate::model::AutonomousDatabaseProperties::permission_level].
     pub fn set_permission_level<
         T: std::convert::Into<crate::model::autonomous_database_properties::PermissionLevel>,
@@ -832,12 +867,34 @@ impl AutonomousDatabaseProperties {
         self
     }
 
+    /// Sets the value of [scheduled_operation_details][crate::model::AutonomousDatabaseProperties::scheduled_operation_details].
+    pub fn set_scheduled_operation_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ScheduledOperationDetails>,
+    {
+        use std::iter::Iterator;
+        self.scheduled_operation_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [sql_web_developer_url][crate::model::AutonomousDatabaseProperties::sql_web_developer_url].
     pub fn set_sql_web_developer_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.sql_web_developer_url = v.into();
+        self
+    }
+
+    /// Sets the value of [supported_clone_regions][crate::model::AutonomousDatabaseProperties::supported_clone_regions].
+    pub fn set_supported_clone_regions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.supported_clone_regions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -890,61 +947,6 @@ impl AutonomousDatabaseProperties {
         v: T,
     ) -> Self {
         self.maintenance_end_time = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_contacts][crate::model::AutonomousDatabaseProperties::customer_contacts].
-    pub fn set_customer_contacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomerContact>,
-    {
-        use std::iter::Iterator;
-        self.customer_contacts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [available_upgrade_versions][crate::model::AutonomousDatabaseProperties::available_upgrade_versions].
-    pub fn set_available_upgrade_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.available_upgrade_versions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [peer_db_ids][crate::model::AutonomousDatabaseProperties::peer_db_ids].
-    pub fn set_peer_db_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.peer_db_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [scheduled_operation_details][crate::model::AutonomousDatabaseProperties::scheduled_operation_details].
-    pub fn set_scheduled_operation_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ScheduledOperationDetails>,
-    {
-        use std::iter::Iterator;
-        self.scheduled_operation_details = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [supported_clone_regions][crate::model::AutonomousDatabaseProperties::supported_clone_regions].
-    pub fn set_supported_clone_regions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.supported_clone_regions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4236,6 +4238,7 @@ pub struct AutonomousDatabaseBackupProperties {
 
     /// Output only. The quantity of data in the database, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub database_size_tb: f32,
 
     /// Output only. A valid Oracle Database version for Autonomous Database.
@@ -4286,6 +4289,7 @@ pub struct AutonomousDatabaseBackupProperties {
 
     /// Output only. The backup size in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub size_tb: f32,
 
     /// Output only. Timestamp until when the backup will be available.
@@ -6098,15 +6102,6 @@ impl CloudExadataInfrastructure {
         self
     }
 
-    /// Sets the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::CloudExadataInfrastructure::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -6116,6 +6111,15 @@ impl CloudExadataInfrastructure {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::CloudExadataInfrastructure::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
         self
     }
 }
@@ -6432,6 +6436,17 @@ impl CloudExadataInfrastructureProperties {
         self
     }
 
+    /// Sets the value of [customer_contacts][crate::model::CloudExadataInfrastructureProperties::customer_contacts].
+    pub fn set_customer_contacts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CustomerContact>,
+    {
+        use std::iter::Iterator;
+        self.customer_contacts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [monthly_storage_server_version][crate::model::CloudExadataInfrastructureProperties::monthly_storage_server_version].
     pub fn set_monthly_storage_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6447,17 +6462,6 @@ impl CloudExadataInfrastructureProperties {
         v: T,
     ) -> Self {
         self.monthly_db_server_version = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_contacts][crate::model::CloudExadataInfrastructureProperties::customer_contacts].
-    pub fn set_customer_contacts<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomerContact>,
-    {
-        use std::iter::Iterator;
-        self.customer_contacts = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6717,38 +6721,6 @@ impl MaintenanceWindow {
         self
     }
 
-    /// Sets the value of [lead_time_week][crate::model::MaintenanceWindow::lead_time_week].
-    pub fn set_lead_time_week<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.lead_time_week = v.into();
-        self
-    }
-
-    /// Sets the value of [patching_mode][crate::model::MaintenanceWindow::patching_mode].
-    pub fn set_patching_mode<
-        T: std::convert::Into<crate::model::maintenance_window::PatchingMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.patching_mode = v.into();
-        self
-    }
-
-    /// Sets the value of [custom_action_timeout_mins][crate::model::MaintenanceWindow::custom_action_timeout_mins].
-    pub fn set_custom_action_timeout_mins<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.custom_action_timeout_mins = v.into();
-        self
-    }
-
-    /// Sets the value of [is_custom_action_timeout_enabled][crate::model::MaintenanceWindow::is_custom_action_timeout_enabled].
-    pub fn set_is_custom_action_timeout_enabled<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.is_custom_action_timeout_enabled = v.into();
-        self
-    }
-
     /// Sets the value of [months][crate::model::MaintenanceWindow::months].
     pub fn set_months<T, V>(mut self, v: T) -> Self
     where
@@ -6790,6 +6762,38 @@ impl MaintenanceWindow {
     {
         use std::iter::Iterator;
         self.hours_of_day = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [lead_time_week][crate::model::MaintenanceWindow::lead_time_week].
+    pub fn set_lead_time_week<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.lead_time_week = v.into();
+        self
+    }
+
+    /// Sets the value of [patching_mode][crate::model::MaintenanceWindow::patching_mode].
+    pub fn set_patching_mode<
+        T: std::convert::Into<crate::model::maintenance_window::PatchingMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.patching_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_action_timeout_mins][crate::model::MaintenanceWindow::custom_action_timeout_mins].
+    pub fn set_custom_action_timeout_mins<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.custom_action_timeout_mins = v.into();
+        self
+    }
+
+    /// Sets the value of [is_custom_action_timeout_enabled][crate::model::MaintenanceWindow::is_custom_action_timeout_enabled].
+    pub fn set_is_custom_action_timeout_enabled<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.is_custom_action_timeout_enabled = v.into();
         self
     }
 }
@@ -7237,12 +7241,6 @@ impl ListCloudExadataInfrastructuresResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCloudExadataInfrastructuresResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cloud_exadata_infrastructures][crate::model::ListCloudExadataInfrastructuresResponse::cloud_exadata_infrastructures].
     pub fn set_cloud_exadata_infrastructures<T, V>(mut self, v: T) -> Self
     where
@@ -7251,6 +7249,12 @@ impl ListCloudExadataInfrastructuresResponse {
     {
         use std::iter::Iterator;
         self.cloud_exadata_infrastructures = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCloudExadataInfrastructuresResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7541,12 +7545,6 @@ impl ListCloudVmClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCloudVmClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cloud_vm_clusters][crate::model::ListCloudVmClustersResponse::cloud_vm_clusters].
     pub fn set_cloud_vm_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -7555,6 +7553,12 @@ impl ListCloudVmClustersResponse {
     {
         use std::iter::Iterator;
         self.cloud_vm_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCloudVmClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7833,12 +7837,6 @@ impl ListEntitlementsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEntitlementsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [entitlements][crate::model::ListEntitlementsResponse::entitlements].
     pub fn set_entitlements<T, V>(mut self, v: T) -> Self
     where
@@ -7847,6 +7845,12 @@ impl ListEntitlementsResponse {
     {
         use std::iter::Iterator;
         self.entitlements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEntitlementsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7949,12 +7953,6 @@ impl ListDbServersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDbServersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [db_servers][crate::model::ListDbServersResponse::db_servers].
     pub fn set_db_servers<T, V>(mut self, v: T) -> Self
     where
@@ -7963,6 +7961,12 @@ impl ListDbServersResponse {
     {
         use std::iter::Iterator;
         self.db_servers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDbServersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8065,12 +8069,6 @@ impl ListDbNodesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDbNodesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [db_nodes][crate::model::ListDbNodesResponse::db_nodes].
     pub fn set_db_nodes<T, V>(mut self, v: T) -> Self
     where
@@ -8079,6 +8077,12 @@ impl ListDbNodesResponse {
     {
         use std::iter::Iterator;
         self.db_nodes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDbNodesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8182,12 +8186,6 @@ impl ListGiVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGiVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [gi_versions][crate::model::ListGiVersionsResponse::gi_versions].
     pub fn set_gi_versions<T, V>(mut self, v: T) -> Self
     where
@@ -8196,6 +8194,12 @@ impl ListGiVersionsResponse {
     {
         use std::iter::Iterator;
         self.gi_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGiVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8298,12 +8302,6 @@ impl ListDbSystemShapesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDbSystemShapesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [db_system_shapes][crate::model::ListDbSystemShapesResponse::db_system_shapes].
     pub fn set_db_system_shapes<T, V>(mut self, v: T) -> Self
     where
@@ -8312,6 +8310,12 @@ impl ListDbSystemShapesResponse {
     {
         use std::iter::Iterator;
         self.db_system_shapes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDbSystemShapesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8549,12 +8553,6 @@ impl ListAutonomousDatabasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [autonomous_databases][crate::model::ListAutonomousDatabasesResponse::autonomous_databases].
     pub fn set_autonomous_databases<T, V>(mut self, v: T) -> Self
     where
@@ -8563,6 +8561,12 @@ impl ListAutonomousDatabasesResponse {
     {
         use std::iter::Iterator;
         self.autonomous_databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9073,12 +9077,6 @@ impl ListAutonomousDbVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAutonomousDbVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [autonomous_db_versions][crate::model::ListAutonomousDbVersionsResponse::autonomous_db_versions].
     pub fn set_autonomous_db_versions<T, V>(mut self, v: T) -> Self
     where
@@ -9087,6 +9085,12 @@ impl ListAutonomousDbVersionsResponse {
     {
         use std::iter::Iterator;
         self.autonomous_db_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutonomousDbVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9203,12 +9207,6 @@ impl ListAutonomousDatabaseCharacterSetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabaseCharacterSetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [autonomous_database_character_sets][crate::model::ListAutonomousDatabaseCharacterSetsResponse::autonomous_database_character_sets].
     pub fn set_autonomous_database_character_sets<T, V>(mut self, v: T) -> Self
     where
@@ -9217,6 +9215,12 @@ impl ListAutonomousDatabaseCharacterSetsResponse {
     {
         use std::iter::Iterator;
         self.autonomous_database_character_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabaseCharacterSetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9335,12 +9339,6 @@ impl ListAutonomousDatabaseBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabaseBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [autonomous_database_backups][crate::model::ListAutonomousDatabaseBackupsResponse::autonomous_database_backups].
     pub fn set_autonomous_database_backups<T, V>(mut self, v: T) -> Self
     where
@@ -9349,6 +9347,12 @@ impl ListAutonomousDatabaseBackupsResponse {
     {
         use std::iter::Iterator;
         self.autonomous_database_backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutonomousDatabaseBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9472,6 +9476,18 @@ impl CloudVmCluster {
         self
     }
 
+    /// Sets the value of [labels][crate::model::CloudVmCluster::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::CloudVmCluster::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -9499,18 +9515,6 @@ impl CloudVmCluster {
     /// Sets the value of [network][crate::model::CloudVmCluster::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::CloudVmCluster::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -9556,6 +9560,7 @@ pub struct CloudVmClusterProperties {
 
     /// Optional. OCPU count per VM. Minimum is 0.1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub ocpu_count: f32,
 
     /// Optional. Memory allocated in GBs.
@@ -9698,6 +9703,17 @@ impl CloudVmClusterProperties {
         self
     }
 
+    /// Sets the value of [ssh_public_keys][crate::model::CloudVmClusterProperties::ssh_public_keys].
+    pub fn set_ssh_public_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ssh_public_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [node_count][crate::model::CloudVmClusterProperties::node_count].
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
@@ -9831,6 +9847,17 @@ impl CloudVmClusterProperties {
         self
     }
 
+    /// Sets the value of [scan_ip_ids][crate::model::CloudVmClusterProperties::scan_ip_ids].
+    pub fn set_scan_ip_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scan_ip_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [scan_dns_record_id][crate::model::CloudVmClusterProperties::scan_dns_record_id].
     pub fn set_scan_dns_record_id<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9843,6 +9870,17 @@ impl CloudVmClusterProperties {
     /// Sets the value of [oci_url][crate::model::CloudVmClusterProperties::oci_url].
     pub fn set_oci_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oci_url = v.into();
+        self
+    }
+
+    /// Sets the value of [db_server_ocids][crate::model::CloudVmClusterProperties::db_server_ocids].
+    pub fn set_db_server_ocids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.db_server_ocids = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -9861,39 +9899,6 @@ impl CloudVmClusterProperties {
     /// Sets the value of [cluster_name][crate::model::CloudVmClusterProperties::cluster_name].
     pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_name = v.into();
-        self
-    }
-
-    /// Sets the value of [ssh_public_keys][crate::model::CloudVmClusterProperties::ssh_public_keys].
-    pub fn set_ssh_public_keys<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ssh_public_keys = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [scan_ip_ids][crate::model::CloudVmClusterProperties::scan_ip_ids].
-    pub fn set_scan_ip_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.scan_ip_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [db_server_ocids][crate::model::CloudVmClusterProperties::db_server_ocids].
-    pub fn set_db_server_ocids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.db_server_ocids = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

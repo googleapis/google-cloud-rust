@@ -16,7 +16,6 @@
 
 pub mod reachability_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ReachabilityService][super::super::client::ReachabilityService].
     ///
@@ -49,7 +48,7 @@ pub mod reachability_service {
     /// Common implementation for [super::super::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod reachability_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod reachability_service {
     pub struct ListConnectivityTests(RequestBuilder<crate::model::ListConnectivityTestsRequest>);
 
     impl ListConnectivityTests {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +162,9 @@ pub mod reachability_service {
     pub struct GetConnectivityTest(RequestBuilder<crate::model::GetConnectivityTestRequest>);
 
     impl GetConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -207,7 +212,9 @@ pub mod reachability_service {
     pub struct CreateConnectivityTest(RequestBuilder<crate::model::CreateConnectivityTestRequest>);
 
     impl CreateConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -313,7 +320,9 @@ pub mod reachability_service {
     pub struct UpdateConnectivityTest(RequestBuilder<crate::model::UpdateConnectivityTestRequest>);
 
     impl UpdateConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -414,7 +423,9 @@ pub mod reachability_service {
     pub struct RerunConnectivityTest(RequestBuilder<crate::model::RerunConnectivityTestRequest>);
 
     impl RerunConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -501,7 +512,9 @@ pub mod reachability_service {
     pub struct DeleteConnectivityTest(RequestBuilder<crate::model::DeleteConnectivityTestRequest>);
 
     impl DeleteConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -584,7 +597,9 @@ pub mod reachability_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -663,7 +678,9 @@ pub mod reachability_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -706,7 +723,9 @@ pub mod reachability_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -771,7 +790,9 @@ pub mod reachability_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -825,7 +846,9 @@ pub mod reachability_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -886,7 +909,9 @@ pub mod reachability_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -965,7 +990,9 @@ pub mod reachability_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1011,7 +1038,9 @@ pub mod reachability_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1057,7 +1086,9 @@ pub mod reachability_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1101,7 +1132,6 @@ pub mod reachability_service {
 
 pub mod vpc_flow_logs_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VpcFlowLogsService][super::super::client::VpcFlowLogsService].
     ///
@@ -1134,7 +1164,7 @@ pub mod vpc_flow_logs_service {
     /// Common implementation for [super::super::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1143,7 +1173,9 @@ pub mod vpc_flow_logs_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1157,7 +1189,9 @@ pub mod vpc_flow_logs_service {
     pub struct ListVpcFlowLogsConfigs(RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>);
 
     impl ListVpcFlowLogsConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1246,7 +1280,9 @@ pub mod vpc_flow_logs_service {
     pub struct GetVpcFlowLogsConfig(RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>);
 
     impl GetVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1296,7 +1332,9 @@ pub mod vpc_flow_logs_service {
     );
 
     impl CreateVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1406,7 +1444,9 @@ pub mod vpc_flow_logs_service {
     );
 
     impl UpdateVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1511,7 +1551,9 @@ pub mod vpc_flow_logs_service {
     );
 
     impl DeleteVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1594,7 +1636,9 @@ pub mod vpc_flow_logs_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1673,7 +1717,9 @@ pub mod vpc_flow_logs_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1716,7 +1762,9 @@ pub mod vpc_flow_logs_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1781,7 +1829,9 @@ pub mod vpc_flow_logs_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1835,7 +1885,9 @@ pub mod vpc_flow_logs_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,7 +1948,9 @@ pub mod vpc_flow_logs_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1975,7 +2029,9 @@ pub mod vpc_flow_logs_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2021,7 +2077,9 @@ pub mod vpc_flow_logs_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2067,7 +2125,9 @@ pub mod vpc_flow_logs_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

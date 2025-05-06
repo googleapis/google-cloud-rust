@@ -16,7 +16,6 @@
 
 pub mod data_migration_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataMigrationService][super::super::client::DataMigrationService].
     ///
@@ -49,7 +48,7 @@ pub mod data_migration_service {
     /// Common implementation for [super::super::client::DataMigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod data_migration_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod data_migration_service {
 
     impl ListMigrationJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -164,7 +163,7 @@ pub mod data_migration_service {
 
     impl GetMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -211,7 +210,7 @@ pub mod data_migration_service {
 
     impl CreateMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -324,7 +323,7 @@ pub mod data_migration_service {
 
     impl UpdateMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -432,7 +431,7 @@ pub mod data_migration_service {
 
     impl DeleteMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -529,7 +528,7 @@ pub mod data_migration_service {
 
     impl StartMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -621,7 +620,7 @@ pub mod data_migration_service {
 
     impl StopMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -707,7 +706,7 @@ pub mod data_migration_service {
 
     impl ResumeMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -793,7 +792,7 @@ pub mod data_migration_service {
 
     impl PromoteMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -879,7 +878,7 @@ pub mod data_migration_service {
 
     impl VerifyMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -983,7 +982,7 @@ pub mod data_migration_service {
 
     impl RestartMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1075,7 +1074,7 @@ pub mod data_migration_service {
 
     impl GenerateSshScript {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1181,7 +1180,7 @@ pub mod data_migration_service {
 
     impl GenerateTcpProxyScript {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1259,7 +1258,7 @@ pub mod data_migration_service {
 
     impl ListConnectionProfiles {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1350,7 +1349,7 @@ pub mod data_migration_service {
 
     impl GetConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1402,7 +1401,7 @@ pub mod data_migration_service {
 
     impl CreateConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1532,7 +1531,7 @@ pub mod data_migration_service {
 
     impl UpdateConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1657,7 +1656,7 @@ pub mod data_migration_service {
 
     impl DeleteConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1756,7 +1755,7 @@ pub mod data_migration_service {
 
     impl CreatePrivateConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1878,7 +1877,7 @@ pub mod data_migration_service {
 
     impl GetPrivateConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1928,7 +1927,7 @@ pub mod data_migration_service {
 
     impl ListPrivateConnections {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2021,7 +2020,7 @@ pub mod data_migration_service {
 
     impl DeletePrivateConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2112,7 +2111,7 @@ pub mod data_migration_service {
 
     impl GetConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2164,7 +2163,7 @@ pub mod data_migration_service {
 
     impl ListConversionWorkspaces {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2251,7 +2250,7 @@ pub mod data_migration_service {
 
     impl CreateConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2369,7 +2368,7 @@ pub mod data_migration_service {
 
     impl UpdateConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2482,7 +2481,7 @@ pub mod data_migration_service {
 
     impl DeleteConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2579,7 +2578,7 @@ pub mod data_migration_service {
 
     impl CreateMappingRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2654,7 +2653,7 @@ pub mod data_migration_service {
 
     impl DeleteMappingRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2710,7 +2709,7 @@ pub mod data_migration_service {
 
     impl ListMappingRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2787,7 +2786,7 @@ pub mod data_migration_service {
 
     impl GetMappingRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2836,7 +2835,7 @@ pub mod data_migration_service {
 
     impl SeedConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2969,7 +2968,7 @@ pub mod data_migration_service {
 
     impl ImportMappingRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3055,14 +3054,6 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_auto_commit<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.auto_commit = v.into();
-            self
-        }
-
         /// Sets the value of [rules_files][crate::model::ImportMappingRulesRequest::rules_files].
         ///
         /// This is a **required** field for requests.
@@ -3073,6 +3064,14 @@ pub mod data_migration_service {
         {
             use std::iter::Iterator;
             self.0.request.rules_files = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_auto_commit<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.auto_commit = v.into();
             self
         }
     }
@@ -3092,7 +3091,7 @@ pub mod data_migration_service {
 
     impl ConvertConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3199,7 +3198,7 @@ pub mod data_migration_service {
 
     impl CommitConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3296,7 +3295,7 @@ pub mod data_migration_service {
 
     impl RollbackConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3387,7 +3386,7 @@ pub mod data_migration_service {
 
     impl ApplyConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3523,7 +3522,7 @@ pub mod data_migration_service {
 
     impl DescribeDatabaseEntities {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3637,7 +3636,7 @@ pub mod data_migration_service {
 
     impl SearchBackgroundJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3710,7 +3709,7 @@ pub mod data_migration_service {
 
     impl DescribeConversionWorkspaceRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3768,7 +3767,7 @@ pub mod data_migration_service {
 
     impl FetchStaticIps {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3827,7 +3826,7 @@ pub mod data_migration_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3908,7 +3907,7 @@ pub mod data_migration_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3953,7 +3952,7 @@ pub mod data_migration_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4020,7 +4019,7 @@ pub mod data_migration_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4076,7 +4075,7 @@ pub mod data_migration_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4139,7 +4138,7 @@ pub mod data_migration_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4220,7 +4219,7 @@ pub mod data_migration_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4268,7 +4267,7 @@ pub mod data_migration_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4316,7 +4315,7 @@ pub mod data_migration_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

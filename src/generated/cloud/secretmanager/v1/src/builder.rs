@@ -16,7 +16,6 @@
 
 pub mod secret_manager_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SecretManagerService][super::super::client::SecretManagerService].
     ///
@@ -49,7 +48,7 @@ pub mod secret_manager_service {
     /// Common implementation for [super::super::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod secret_manager_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod secret_manager_service {
 
     impl ListSecrets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -155,7 +154,7 @@ pub mod secret_manager_service {
 
     impl CreateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -221,7 +220,7 @@ pub mod secret_manager_service {
 
     impl AddSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -282,7 +281,7 @@ pub mod secret_manager_service {
 
     impl GetSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -329,7 +328,7 @@ pub mod secret_manager_service {
 
     impl UpdateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -390,7 +389,7 @@ pub mod secret_manager_service {
 
     impl DeleteSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -443,7 +442,7 @@ pub mod secret_manager_service {
 
     impl ListSecretVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -526,7 +525,7 @@ pub mod secret_manager_service {
 
     impl GetSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -576,7 +575,7 @@ pub mod secret_manager_service {
 
     impl AccessSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -626,7 +625,7 @@ pub mod secret_manager_service {
 
     impl DisableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -682,7 +681,7 @@ pub mod secret_manager_service {
 
     impl EnableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -738,7 +737,7 @@ pub mod secret_manager_service {
 
     impl DestroySecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -794,7 +793,7 @@ pub mod secret_manager_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -861,7 +860,7 @@ pub mod secret_manager_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -917,7 +916,7 @@ pub mod secret_manager_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -980,7 +979,7 @@ pub mod secret_manager_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1061,7 +1060,7 @@ pub mod secret_manager_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

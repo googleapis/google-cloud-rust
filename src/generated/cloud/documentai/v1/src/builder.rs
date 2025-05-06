@@ -16,7 +16,6 @@
 
 pub mod document_processor_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DocumentProcessorService][super::super::client::DocumentProcessorService].
     ///
@@ -49,7 +48,7 @@ pub mod document_processor_service {
     /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod document_processor_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod document_processor_service {
 
     impl ProcessDocument {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -132,12 +131,6 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
-        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.imageless_mode = v.into();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::ProcessRequest::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -146,6 +139,12 @@ pub mod document_processor_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
+        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.imageless_mode = v.into();
             self
         }
 
@@ -220,7 +219,7 @@ pub mod document_processor_service {
 
     impl BatchProcessDocuments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -356,7 +355,7 @@ pub mod document_processor_service {
 
     impl FetchProcessorTypes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -406,7 +405,7 @@ pub mod document_processor_service {
 
     impl ListProcessorTypes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -483,7 +482,7 @@ pub mod document_processor_service {
 
     impl GetProcessorType {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -533,7 +532,7 @@ pub mod document_processor_service {
 
     impl ListProcessors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -607,7 +606,7 @@ pub mod document_processor_service {
 
     impl GetProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -654,7 +653,7 @@ pub mod document_processor_service {
 
     impl TrainProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -829,7 +828,7 @@ pub mod document_processor_service {
 
     impl GetProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -879,7 +878,7 @@ pub mod document_processor_service {
 
     impl ListProcessorVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -956,7 +955,7 @@ pub mod document_processor_service {
 
     impl DeleteProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1044,7 +1043,7 @@ pub mod document_processor_service {
 
     impl DeployProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1139,7 +1138,7 @@ pub mod document_processor_service {
 
     impl UndeployProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1232,7 +1231,7 @@ pub mod document_processor_service {
 
     impl CreateProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1290,7 +1289,7 @@ pub mod document_processor_service {
 
     impl DeleteProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1372,7 +1371,7 @@ pub mod document_processor_service {
 
     impl EnableProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1460,7 +1459,7 @@ pub mod document_processor_service {
 
     impl DisableProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1555,7 +1554,7 @@ pub mod document_processor_service {
 
     impl SetDefaultProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1656,7 +1655,7 @@ pub mod document_processor_service {
 
     impl ReviewDocument {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1799,7 +1798,7 @@ pub mod document_processor_service {
 
     impl EvaluateProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1903,7 +1902,7 @@ pub mod document_processor_service {
 
     impl GetEvaluation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1950,7 +1949,7 @@ pub mod document_processor_service {
 
     impl ListEvaluations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2024,7 +2023,7 @@ pub mod document_processor_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2105,7 +2104,7 @@ pub mod document_processor_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2150,7 +2149,7 @@ pub mod document_processor_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2231,7 +2230,7 @@ pub mod document_processor_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2279,7 +2278,7 @@ pub mod document_processor_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

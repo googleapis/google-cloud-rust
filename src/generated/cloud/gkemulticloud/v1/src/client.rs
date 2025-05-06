@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the GKE Multi-Cloud API.
 ///
@@ -60,11 +59,11 @@ use std::sync::Arc;
 ///
 /// `AttachedClusters` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AttachedClusters` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AttachedClusters {
-    inner: Arc<dyn super::stub::dynamic::AttachedClusters>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AttachedClusters>,
 }
 
 impl AttachedClusters {
@@ -91,7 +90,7 @@ impl AttachedClusters {
         T: super::stub::AttachedClusters + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -102,11 +101,11 @@ impl AttachedClusters {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AttachedClusters>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::AttachedClusters>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -372,11 +371,11 @@ impl AttachedClusters {
 ///
 /// `AwsClusters` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AwsClusters` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AwsClusters {
-    inner: Arc<dyn super::stub::dynamic::AwsClusters>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AwsClusters>,
 }
 
 impl AwsClusters {
@@ -401,7 +400,7 @@ impl AwsClusters {
         T: super::stub::AwsClusters + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -412,11 +411,11 @@ impl AwsClusters {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AwsClusters>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::AwsClusters>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -797,11 +796,11 @@ impl AwsClusters {
 ///
 /// `AzureClusters` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AzureClusters` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AzureClusters {
-    inner: Arc<dyn super::stub::dynamic::AzureClusters>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AzureClusters>,
 }
 
 impl AzureClusters {
@@ -826,7 +825,7 @@ impl AzureClusters {
         T: super::stub::AzureClusters + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -837,11 +836,11 @@ impl AzureClusters {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AzureClusters>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::AzureClusters>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

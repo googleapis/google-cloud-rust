@@ -16,7 +16,6 @@
 
 pub mod cluster_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ClusterManager][super::super::client::ClusterManager].
     ///
@@ -49,7 +48,7 @@ pub mod cluster_manager {
     /// Common implementation for [super::super::client::ClusterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cluster_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cluster_manager {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -129,7 +132,9 @@ pub mod cluster_manager {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -193,7 +198,9 @@ pub mod cluster_manager {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -261,7 +268,9 @@ pub mod cluster_manager {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -336,7 +345,9 @@ pub mod cluster_manager {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -407,6 +418,17 @@ pub mod cluster_manager {
         /// Sets the value of [name][crate::model::UpdateNodePoolRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -565,6 +587,17 @@ pub mod cluster_manager {
             self
         }
 
+        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
+        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AcceleratorConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [machine_type][crate::model::UpdateNodePoolRequest::machine_type].
         pub fn set_machine_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.machine_type = v.into();
@@ -616,28 +649,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
-        pub fn set_locations<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
-        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AcceleratorConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [storage_pools][crate::model::UpdateNodePoolRequest::storage_pools].
         pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
         where
@@ -662,7 +673,9 @@ pub mod cluster_manager {
     pub struct SetNodePoolAutoscaling(RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>);
 
     impl SetNodePoolAutoscaling {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -747,7 +760,9 @@ pub mod cluster_manager {
     pub struct SetLoggingService(RequestBuilder<crate::model::SetLoggingServiceRequest>);
 
     impl SetLoggingService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -822,7 +837,9 @@ pub mod cluster_manager {
     pub struct SetMonitoringService(RequestBuilder<crate::model::SetMonitoringServiceRequest>);
 
     impl SetMonitoringService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -897,7 +914,9 @@ pub mod cluster_manager {
     pub struct SetAddonsConfig(RequestBuilder<crate::model::SetAddonsConfigRequest>);
 
     impl SetAddonsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -972,7 +991,9 @@ pub mod cluster_manager {
     pub struct SetLocations(RequestBuilder<crate::model::SetLocationsRequest>);
 
     impl SetLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1017,12 +1038,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
         ///
         /// This is a **required** field for requests.
@@ -1033,6 +1048,12 @@ pub mod cluster_manager {
         {
             use std::iter::Iterator;
             self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
             self
         }
     }
@@ -1049,7 +1070,9 @@ pub mod cluster_manager {
     pub struct UpdateMaster(RequestBuilder<crate::model::UpdateMasterRequest>);
 
     impl UpdateMaster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1121,7 +1144,9 @@ pub mod cluster_manager {
     pub struct SetMasterAuth(RequestBuilder<crate::model::SetMasterAuthRequest>);
 
     impl SetMasterAuth {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1207,7 +1232,9 @@ pub mod cluster_manager {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1271,7 +1298,9 @@ pub mod cluster_manager {
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1328,7 +1357,9 @@ pub mod cluster_manager {
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1392,7 +1423,9 @@ pub mod cluster_manager {
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1456,7 +1489,9 @@ pub mod cluster_manager {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1513,7 +1548,9 @@ pub mod cluster_manager {
     pub struct GetJSONWebKeys(RequestBuilder<crate::model::GetJSONWebKeysRequest>);
 
     impl GetJSONWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1556,7 +1593,9 @@ pub mod cluster_manager {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,7 +1659,9 @@ pub mod cluster_manager {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1691,7 +1732,9 @@ pub mod cluster_manager {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1766,7 +1809,9 @@ pub mod cluster_manager {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1839,7 +1884,9 @@ pub mod cluster_manager {
     );
 
     impl CompleteNodePoolUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1887,7 +1934,9 @@ pub mod cluster_manager {
     );
 
     impl RollbackNodePoolUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1967,7 +2016,9 @@ pub mod cluster_manager {
     pub struct SetNodePoolManagement(RequestBuilder<crate::model::SetNodePoolManagementRequest>);
 
     impl SetNodePoolManagement {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2052,7 +2103,9 @@ pub mod cluster_manager {
     pub struct SetLabels(RequestBuilder<crate::model::SetLabelsRequest>);
 
     impl SetLabels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2097,20 +2150,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.label_fingerprint = v.into();
-            self
-        }
-
-        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
         ///
         /// This is a **required** field for requests.
@@ -2122,6 +2161,20 @@ pub mod cluster_manager {
         {
             self.0.request.resource_labels =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.label_fingerprint = v.into();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
             self
         }
     }
@@ -2138,7 +2191,9 @@ pub mod cluster_manager {
     pub struct SetLegacyAbac(RequestBuilder<crate::model::SetLegacyAbacRequest>);
 
     impl SetLegacyAbac {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2210,7 +2265,9 @@ pub mod cluster_manager {
     pub struct StartIPRotation(RequestBuilder<crate::model::StartIPRotationRequest>);
 
     impl StartIPRotation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2280,7 +2337,9 @@ pub mod cluster_manager {
     pub struct CompleteIPRotation(RequestBuilder<crate::model::CompleteIPRotationRequest>);
 
     impl CompleteIPRotation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2347,7 +2406,9 @@ pub mod cluster_manager {
     pub struct SetNodePoolSize(RequestBuilder<crate::model::SetNodePoolSizeRequest>);
 
     impl SetNodePoolSize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2426,7 +2487,9 @@ pub mod cluster_manager {
     pub struct SetNetworkPolicy(RequestBuilder<crate::model::SetNetworkPolicyRequest>);
 
     impl SetNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2504,7 +2567,9 @@ pub mod cluster_manager {
     pub struct SetMaintenancePolicy(RequestBuilder<crate::model::SetMaintenancePolicyRequest>);
 
     impl SetMaintenancePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2587,7 +2652,9 @@ pub mod cluster_manager {
     pub struct ListUsableSubnetworks(RequestBuilder<crate::model::ListUsableSubnetworksRequest>);
 
     impl ListUsableSubnetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2668,7 +2735,9 @@ pub mod cluster_manager {
     );
 
     impl CheckAutopilotCompatibility {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

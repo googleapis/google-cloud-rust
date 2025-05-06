@@ -405,6 +405,18 @@ impl UniversalActionExtensionPoint {
         })
     }
 
+    /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
+    /// to hold a `OpenLink`.
+    ///
+    /// Note that all the setters affecting `action_type` are
+    /// mutually exclusive.
+    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action_type = std::option::Option::Some(
+            crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
+        );
+        self
+    }
+
     /// The value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
     /// if it holds a `RunFunction`, `None` if the field is not set or
     /// holds a different branch.
@@ -416,18 +428,6 @@ impl UniversalActionExtensionPoint {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
-    /// to hold a `OpenLink`.
-    ///
-    /// Note that all the setters affecting `action_type` are
-    /// mutually exclusive.
-    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action_type = std::option::Option::Some(
-            crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
@@ -578,17 +578,6 @@ impl CommonAddOnManifest {
         self
     }
 
-    /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
-    pub fn set_open_link_url_prefixes<
-        T: std::convert::Into<std::option::Option<wkt::ListValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.open_link_url_prefixes = v.into();
-        self
-    }
-
     /// Sets the value of [universal_actions][crate::model::CommonAddOnManifest::universal_actions].
     pub fn set_universal_actions<T, V>(mut self, v: T) -> Self
     where
@@ -597,6 +586,17 @@ impl CommonAddOnManifest {
     {
         use std::iter::Iterator;
         self.universal_actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    pub fn set_open_link_url_prefixes<
+        T: std::convert::Into<std::option::Option<wkt::ListValue>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.open_link_url_prefixes = v.into();
         self
     }
 }

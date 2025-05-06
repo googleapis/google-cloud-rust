@@ -16,7 +16,6 @@
 
 pub mod dataset_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DatasetService][super::super::client::DatasetService].
     ///
@@ -49,7 +48,7 @@ pub mod dataset_service {
     /// Common implementation for [super::super::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatasetService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dataset_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod dataset_service {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -140,7 +143,9 @@ pub mod dataset_service {
     pub struct InsertDataset(RequestBuilder<crate::model::InsertDatasetRequest>);
 
     impl InsertDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,7 +207,9 @@ pub mod dataset_service {
     pub struct PatchDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl PatchDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,7 +293,9 @@ pub mod dataset_service {
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl UpdateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -370,7 +379,9 @@ pub mod dataset_service {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -429,7 +440,9 @@ pub mod dataset_service {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -501,7 +514,9 @@ pub mod dataset_service {
     pub struct UndeleteDataset(RequestBuilder<crate::model::UndeleteDatasetRequest>);
 
     impl UndeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -561,7 +576,6 @@ pub mod dataset_service {
 
 pub mod model_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ModelService][super::super::client::ModelService].
     ///
@@ -594,7 +608,7 @@ pub mod model_service {
     /// Common implementation for [super::super::client::ModelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ModelService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -603,7 +617,9 @@ pub mod model_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -617,7 +633,9 @@ pub mod model_service {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -678,7 +696,9 @@ pub mod model_service {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -746,7 +766,9 @@ pub mod model_service {
     pub struct PatchModel(RequestBuilder<crate::model::PatchModelRequest>);
 
     impl PatchModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -818,7 +840,9 @@ pub mod model_service {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -877,7 +901,6 @@ pub mod model_service {
 
 pub mod project_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ProjectService][super::super::client::ProjectService].
     ///
@@ -910,7 +933,7 @@ pub mod project_service {
     /// Common implementation for [super::super::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProjectService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -919,7 +942,9 @@ pub mod project_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -933,7 +958,9 @@ pub mod project_service {
     pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
 
     impl GetServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,7 +1006,6 @@ pub mod project_service {
 
 pub mod routine_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RoutineService][super::super::client::RoutineService].
     ///
@@ -1012,7 +1038,7 @@ pub mod routine_service {
     /// Common implementation for [super::super::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RoutineService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1021,7 +1047,9 @@ pub mod routine_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1035,7 +1063,9 @@ pub mod routine_service {
     pub struct GetRoutine(RequestBuilder<crate::model::GetRoutineRequest>);
 
     impl GetRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1096,7 +1126,9 @@ pub mod routine_service {
     pub struct InsertRoutine(RequestBuilder<crate::model::InsertRoutineRequest>);
 
     impl InsertRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1160,7 +1192,9 @@ pub mod routine_service {
     pub struct UpdateRoutine(RequestBuilder<crate::model::UpdateRoutineRequest>);
 
     impl UpdateRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1232,7 +1266,9 @@ pub mod routine_service {
     pub struct DeleteRoutine(RequestBuilder<crate::model::DeleteRoutineRequest>);
 
     impl DeleteRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1293,7 +1329,9 @@ pub mod routine_service {
     pub struct ListRoutines(RequestBuilder<crate::model::ListRoutinesRequest>);
 
     impl ListRoutines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1365,7 +1403,6 @@ pub mod routine_service {
 
 pub mod row_access_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RowAccessPolicyService][super::super::client::RowAccessPolicyService].
     ///
@@ -1398,7 +1435,7 @@ pub mod row_access_policy_service {
     /// Common implementation for [super::super::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1408,7 +1445,7 @@ pub mod row_access_policy_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self {
                 stub,
@@ -1424,7 +1461,7 @@ pub mod row_access_policy_service {
 
     impl ListRowAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1517,7 +1554,7 @@ pub mod row_access_policy_service {
 
     impl GetRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1591,7 +1628,7 @@ pub mod row_access_policy_service {
 
     impl CreateRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1670,7 +1707,7 @@ pub mod row_access_policy_service {
 
     impl UpdateRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1757,7 +1794,7 @@ pub mod row_access_policy_service {
 
     impl DeleteRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1839,7 +1876,7 @@ pub mod row_access_policy_service {
 
     impl BatchDeleteRowAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1891,12 +1928,6 @@ pub mod row_access_policy_service {
             self
         }
 
-        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
-            self
-        }
-
         /// Sets the value of [policy_ids][crate::model::BatchDeleteRowAccessPoliciesRequest::policy_ids].
         ///
         /// This is a **required** field for requests.
@@ -1907,6 +1938,12 @@ pub mod row_access_policy_service {
         {
             use std::iter::Iterator;
             self.0.request.policy_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
             self
         }
     }
@@ -1921,7 +1958,6 @@ pub mod row_access_policy_service {
 
 pub mod table_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TableService][super::super::client::TableService].
     ///
@@ -1954,7 +1990,7 @@ pub mod table_service {
     /// Common implementation for [super::super::client::TableService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TableService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1963,7 +1999,9 @@ pub mod table_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1977,7 +2015,9 @@ pub mod table_service {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2053,7 +2093,9 @@ pub mod table_service {
     pub struct InsertTable(RequestBuilder<crate::model::InsertTableRequest>);
 
     impl InsertTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2117,7 +2159,9 @@ pub mod table_service {
     pub struct PatchTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl PatchTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2198,7 +2242,9 @@ pub mod table_service {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2279,7 +2325,9 @@ pub mod table_service {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2340,7 +2388,9 @@ pub mod table_service {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

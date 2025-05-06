@@ -16,7 +16,6 @@
 
 pub mod api_keys {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ApiKeys][super::super::client::ApiKeys].
     ///
@@ -49,7 +48,7 @@ pub mod api_keys {
     /// Common implementation for [super::super::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiKeys>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod api_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod api_keys {
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -166,7 +165,7 @@ pub mod api_keys {
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,7 +243,7 @@ pub mod api_keys {
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -289,7 +288,7 @@ pub mod api_keys {
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
     impl GetKeyString {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -334,7 +333,7 @@ pub mod api_keys {
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -423,7 +422,7 @@ pub mod api_keys {
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -509,7 +508,7 @@ pub mod api_keys {
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
     impl UndeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -589,7 +588,7 @@ pub mod api_keys {
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
     impl LookupKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -634,7 +633,7 @@ pub mod api_keys {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

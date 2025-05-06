@@ -377,6 +377,7 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 	if tz, ok := descriptorpbToTypez[typez]; ok {
 		field.Typez = tz
 	}
+	field.Repeated = in.Label != nil && *in.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED
 
 	switch typez {
 	case descriptorpb.FieldDescriptorProto_TYPE_GROUP:
@@ -386,14 +387,14 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 		// Repeated fields are not optional, they can be empty, but always have
 		// presence.
 		field.Optional = !field.Repeated
-		if message, ok := state.MessageByID[field.TypezID]; ok {
+		if message, ok := state.MessageByID[field.TypezID]; ok && message.IsMap {
 			// Map fields appear as repeated in Protobuf. This is confusing,
 			// as they typically are represented by a single `map<k, v>`-like
 			// datatype. Protobuf leaks the wire-representation of maps, i.e.,
 			// repeated pairs.
-			if message.IsMap {
-				field.Repeated = false
-			}
+			field.Map = true
+			field.Repeated = false
+			field.Optional = false
 		}
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
 		field.TypezID = in.GetTypeName()
@@ -420,7 +421,6 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 	default:
 		slog.Warn("found undefined field", "field", in.GetName())
 	}
-
 }
 
 func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *api.Service {
@@ -503,7 +503,6 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 			JSONName:      mf.GetJsonName(),
 			Deprecated:    mf.GetOptions().GetDeprecated(),
 			Optional:      isProtoOptional,
-			Repeated:      mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
 			IsOneOf:       mf.OneofIndex != nil && !isProtoOptional,
 			AutoPopulated: protobufIsAutoPopulated(mf),
 			Behavior:      protobufFieldBehavior(mf),

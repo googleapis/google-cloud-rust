@@ -16,7 +16,6 @@
 
 pub mod model_armor {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ModelArmor][super::super::client::ModelArmor].
     ///
@@ -49,7 +48,7 @@ pub mod model_armor {
     /// Common implementation for [super::super::client::ModelArmor] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod model_armor {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod model_armor {
     pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
 
     impl ListTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod model_armor {
     pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
 
     impl GetTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod model_armor {
     pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
 
     impl CreateTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -271,7 +278,9 @@ pub mod model_armor {
     pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
 
     impl UpdateTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -336,7 +345,9 @@ pub mod model_armor {
     pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
 
     impl DeleteTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -387,7 +398,9 @@ pub mod model_armor {
     pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
 
     impl GetFloorSetting {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,7 +445,9 @@ pub mod model_armor {
     pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
 
     impl UpdateFloorSetting {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -492,7 +507,9 @@ pub mod model_armor {
     pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
 
     impl SanitizeUserPrompt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -551,7 +568,9 @@ pub mod model_armor {
     pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
 
     impl SanitizeModelResponse {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -616,7 +635,9 @@ pub mod model_armor {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -695,7 +716,9 @@ pub mod model_armor {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

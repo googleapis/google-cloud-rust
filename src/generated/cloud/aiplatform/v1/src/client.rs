@@ -52,41 +52,6 @@
     feature = "vizier_service",
 ))]
 use crate::Result;
-#[cfg(any(
-    feature = "dataset_service",
-    feature = "deployment_resource_pool_service",
-    feature = "endpoint_service",
-    feature = "evaluation_service",
-    feature = "feature_online_store_admin_service",
-    feature = "feature_online_store_service",
-    feature = "feature_registry_service",
-    feature = "featurestore_online_serving_service",
-    feature = "featurestore_service",
-    feature = "gen_ai_cache_service",
-    feature = "gen_ai_tuning_service",
-    feature = "index_endpoint_service",
-    feature = "index_service",
-    feature = "job_service",
-    feature = "llm_utility_service",
-    feature = "match_service",
-    feature = "metadata_service",
-    feature = "migration_service",
-    feature = "model_garden_service",
-    feature = "model_service",
-    feature = "notebook_service",
-    feature = "persistent_resource_service",
-    feature = "pipeline_service",
-    feature = "prediction_service",
-    feature = "reasoning_engine_execution_service",
-    feature = "reasoning_engine_service",
-    feature = "schedule_service",
-    feature = "specialist_pool_service",
-    feature = "tensorboard_service",
-    feature = "vertex_rag_data_service",
-    feature = "vertex_rag_service",
-    feature = "vizier_service",
-))]
-use std::sync::Arc;
 
 /// Implements a client for the Vertex AI API.
 ///
@@ -127,13 +92,13 @@ use std::sync::Arc;
 ///
 /// `DatasetService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DatasetService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "dataset_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "dataset_service")))]
 #[derive(Clone, Debug)]
 pub struct DatasetService {
-    inner: Arc<dyn super::stub::dynamic::DatasetService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DatasetService>,
 }
 
 #[cfg(feature = "dataset_service")]
@@ -159,7 +124,7 @@ impl DatasetService {
         T: super::stub::DatasetService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -170,11 +135,11 @@ impl DatasetService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DatasetService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DatasetService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -590,13 +555,13 @@ impl DatasetService {
 ///
 /// `DeploymentResourcePoolService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DeploymentResourcePoolService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "deployment_resource_pool_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "deployment_resource_pool_service")))]
 #[derive(Clone, Debug)]
 pub struct DeploymentResourcePoolService {
-    inner: Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>,
 }
 
 #[cfg(feature = "deployment_resource_pool_service")]
@@ -624,7 +589,7 @@ impl DeploymentResourcePoolService {
         T: super::stub::DeploymentResourcePoolService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -635,11 +600,11 @@ impl DeploymentResourcePoolService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -905,13 +870,13 @@ impl DeploymentResourcePoolService {
 ///
 /// `EndpointService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EndpointService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "endpoint_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "endpoint_service")))]
 #[derive(Clone, Debug)]
 pub struct EndpointService {
-    inner: Arc<dyn super::stub::dynamic::EndpointService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EndpointService>,
 }
 
 #[cfg(feature = "endpoint_service")]
@@ -939,7 +904,7 @@ impl EndpointService {
         T: super::stub::EndpointService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -950,11 +915,11 @@ impl EndpointService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EndpointService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::EndpointService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1265,13 +1230,13 @@ impl EndpointService {
 ///
 /// `EvaluationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EvaluationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "evaluation_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "evaluation_service")))]
 #[derive(Clone, Debug)]
 pub struct EvaluationService {
-    inner: Arc<dyn super::stub::dynamic::EvaluationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EvaluationService>,
 }
 
 #[cfg(feature = "evaluation_service")]
@@ -1299,7 +1264,7 @@ impl EvaluationService {
         T: super::stub::EvaluationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1310,11 +1275,11 @@ impl EvaluationService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EvaluationService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::EvaluationService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1492,13 +1457,13 @@ impl EvaluationService {
 ///
 /// `FeatureOnlineStoreAdminService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreAdminService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "feature_online_store_admin_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_admin_service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreAdminService {
-    inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>,
 }
 
 #[cfg(feature = "feature_online_store_admin_service")]
@@ -1526,7 +1491,7 @@ impl FeatureOnlineStoreAdminService {
         T: super::stub::FeatureOnlineStoreAdminService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1537,11 +1502,11 @@ impl FeatureOnlineStoreAdminService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -1911,13 +1876,13 @@ impl FeatureOnlineStoreAdminService {
 ///
 /// `FeatureOnlineStoreService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "feature_online_store_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreService {
-    inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>,
 }
 
 #[cfg(feature = "feature_online_store_service")]
@@ -1945,7 +1910,7 @@ impl FeatureOnlineStoreService {
         T: super::stub::FeatureOnlineStoreService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -1956,11 +1921,11 @@ impl FeatureOnlineStoreService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -2149,13 +2114,13 @@ impl FeatureOnlineStoreService {
 ///
 /// `FeatureRegistryService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeatureRegistryService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "feature_registry_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "feature_registry_service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureRegistryService {
-    inner: Arc<dyn super::stub::dynamic::FeatureRegistryService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeatureRegistryService>,
 }
 
 #[cfg(feature = "feature_registry_service")]
@@ -2183,7 +2148,7 @@ impl FeatureRegistryService {
         T: super::stub::FeatureRegistryService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -2194,11 +2159,11 @@ impl FeatureRegistryService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::FeatureRegistryService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::FeatureRegistryService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -2535,13 +2500,13 @@ impl FeatureRegistryService {
 ///
 /// `FeaturestoreOnlineServingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreOnlineServingService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "featurestore_online_serving_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "featurestore_online_serving_service")))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreOnlineServingService {
-    inner: Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>,
 }
 
 #[cfg(feature = "featurestore_online_serving_service")]
@@ -2569,7 +2534,7 @@ impl FeaturestoreOnlineServingService {
         T: super::stub::FeaturestoreOnlineServingService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -2580,11 +2545,11 @@ impl FeaturestoreOnlineServingService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -2786,13 +2751,13 @@ impl FeaturestoreOnlineServingService {
 ///
 /// `FeaturestoreService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "featurestore_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "featurestore_service")))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreService {
-    inner: Arc<dyn super::stub::dynamic::FeaturestoreService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeaturestoreService>,
 }
 
 #[cfg(feature = "featurestore_service")]
@@ -2820,7 +2785,7 @@ impl FeaturestoreService {
         T: super::stub::FeaturestoreService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -2831,11 +2796,11 @@ impl FeaturestoreService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::FeaturestoreService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::FeaturestoreService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -3347,13 +3312,13 @@ impl FeaturestoreService {
 ///
 /// `GenAiCacheService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GenAiCacheService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "gen_ai_cache_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_cache_service")))]
 #[derive(Clone, Debug)]
 pub struct GenAiCacheService {
-    inner: Arc<dyn super::stub::dynamic::GenAiCacheService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::GenAiCacheService>,
 }
 
 #[cfg(feature = "gen_ai_cache_service")]
@@ -3381,7 +3346,7 @@ impl GenAiCacheService {
         T: super::stub::GenAiCacheService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -3392,11 +3357,11 @@ impl GenAiCacheService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::GenAiCacheService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::GenAiCacheService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -3610,13 +3575,13 @@ impl GenAiCacheService {
 ///
 /// `GenAiTuningService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GenAiTuningService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "gen_ai_tuning_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_tuning_service")))]
 #[derive(Clone, Debug)]
 pub struct GenAiTuningService {
-    inner: Arc<dyn super::stub::dynamic::GenAiTuningService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::GenAiTuningService>,
 }
 
 #[cfg(feature = "gen_ai_tuning_service")]
@@ -3644,7 +3609,7 @@ impl GenAiTuningService {
         T: super::stub::GenAiTuningService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -3655,11 +3620,11 @@ impl GenAiTuningService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::GenAiTuningService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::GenAiTuningService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -3899,13 +3864,13 @@ impl GenAiTuningService {
 ///
 /// `IndexEndpointService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IndexEndpointService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "index_endpoint_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "index_endpoint_service")))]
 #[derive(Clone, Debug)]
 pub struct IndexEndpointService {
-    inner: Arc<dyn super::stub::dynamic::IndexEndpointService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::IndexEndpointService>,
 }
 
 #[cfg(feature = "index_endpoint_service")]
@@ -3933,7 +3898,7 @@ impl IndexEndpointService {
         T: super::stub::IndexEndpointService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -3944,11 +3909,11 @@ impl IndexEndpointService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::IndexEndpointService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::IndexEndpointService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -4241,13 +4206,13 @@ impl IndexEndpointService {
 ///
 /// `IndexService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IndexService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "index_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "index_service")))]
 #[derive(Clone, Debug)]
 pub struct IndexService {
-    inner: Arc<dyn super::stub::dynamic::IndexService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::IndexService>,
 }
 
 #[cfg(feature = "index_service")]
@@ -4273,7 +4238,7 @@ impl IndexService {
         T: super::stub::IndexService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -4284,11 +4249,11 @@ impl IndexService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::IndexService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::IndexService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -4546,13 +4511,13 @@ impl IndexService {
 ///
 /// `JobService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `JobService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "job_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "job_service")))]
 #[derive(Clone, Debug)]
 pub struct JobService {
-    inner: Arc<dyn super::stub::dynamic::JobService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::JobService>,
 }
 
 #[cfg(feature = "job_service")]
@@ -4578,7 +4543,7 @@ impl JobService {
         T: super::stub::JobService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -4589,11 +4554,11 @@ impl JobService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::JobService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -5210,13 +5175,13 @@ impl JobService {
 ///
 /// `LlmUtilityService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LlmUtilityService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "llm_utility_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "llm_utility_service")))]
 #[derive(Clone, Debug)]
 pub struct LlmUtilityService {
-    inner: Arc<dyn super::stub::dynamic::LlmUtilityService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::LlmUtilityService>,
 }
 
 #[cfg(feature = "llm_utility_service")]
@@ -5244,7 +5209,7 @@ impl LlmUtilityService {
         T: super::stub::LlmUtilityService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -5255,11 +5220,11 @@ impl LlmUtilityService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::LlmUtilityService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::LlmUtilityService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -5446,13 +5411,13 @@ impl LlmUtilityService {
 ///
 /// `MatchService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MatchService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "match_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "match_service")))]
 #[derive(Clone, Debug)]
 pub struct MatchService {
-    inner: Arc<dyn super::stub::dynamic::MatchService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::MatchService>,
 }
 
 #[cfg(feature = "match_service")]
@@ -5478,7 +5443,7 @@ impl MatchService {
         T: super::stub::MatchService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -5489,11 +5454,11 @@ impl MatchService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::MatchService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MatchService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -5675,13 +5640,13 @@ impl MatchService {
 ///
 /// `MetadataService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetadataService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "metadata_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "metadata_service")))]
 #[derive(Clone, Debug)]
 pub struct MetadataService {
-    inner: Arc<dyn super::stub::dynamic::MetadataService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::MetadataService>,
 }
 
 #[cfg(feature = "metadata_service")]
@@ -5709,7 +5674,7 @@ impl MetadataService {
         T: super::stub::MetadataService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -5720,11 +5685,11 @@ impl MetadataService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::MetadataService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MetadataService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -6274,13 +6239,13 @@ impl MetadataService {
 ///
 /// `MigrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MigrationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "migration_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "migration_service")))]
 #[derive(Clone, Debug)]
 pub struct MigrationService {
-    inner: Arc<dyn super::stub::dynamic::MigrationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
 #[cfg(feature = "migration_service")]
@@ -6308,7 +6273,7 @@ impl MigrationService {
         T: super::stub::MigrationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -6319,11 +6284,11 @@ impl MigrationService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::MigrationService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MigrationService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -6522,13 +6487,13 @@ impl MigrationService {
 ///
 /// `ModelGardenService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelGardenService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "model_garden_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "model_garden_service")))]
 #[derive(Clone, Debug)]
 pub struct ModelGardenService {
-    inner: Arc<dyn super::stub::dynamic::ModelGardenService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ModelGardenService>,
 }
 
 #[cfg(feature = "model_garden_service")]
@@ -6556,7 +6521,7 @@ impl ModelGardenService {
         T: super::stub::ModelGardenService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -6567,11 +6532,11 @@ impl ModelGardenService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ModelGardenService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ModelGardenService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -6748,13 +6713,13 @@ impl ModelGardenService {
 ///
 /// `ModelService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "model_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "model_service")))]
 #[derive(Clone, Debug)]
 pub struct ModelService {
-    inner: Arc<dyn super::stub::dynamic::ModelService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ModelService>,
 }
 
 #[cfg(feature = "model_service")]
@@ -6780,7 +6745,7 @@ impl ModelService {
         T: super::stub::ModelService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -6791,11 +6756,11 @@ impl ModelService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ModelService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -7215,13 +7180,13 @@ impl ModelService {
 ///
 /// `NotebookService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `NotebookService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "notebook_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "notebook_service")))]
 #[derive(Clone, Debug)]
 pub struct NotebookService {
-    inner: Arc<dyn super::stub::dynamic::NotebookService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::NotebookService>,
 }
 
 #[cfg(feature = "notebook_service")]
@@ -7249,7 +7214,7 @@ impl NotebookService {
         T: super::stub::NotebookService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -7260,11 +7225,11 @@ impl NotebookService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::NotebookService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::NotebookService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -7666,13 +7631,13 @@ impl NotebookService {
 ///
 /// `PersistentResourceService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PersistentResourceService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "persistent_resource_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "persistent_resource_service")))]
 #[derive(Clone, Debug)]
 pub struct PersistentResourceService {
-    inner: Arc<dyn super::stub::dynamic::PersistentResourceService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PersistentResourceService>,
 }
 
 #[cfg(feature = "persistent_resource_service")]
@@ -7700,7 +7665,7 @@ impl PersistentResourceService {
         T: super::stub::PersistentResourceService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -7711,11 +7676,11 @@ impl PersistentResourceService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PersistentResourceService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PersistentResourceService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -7989,13 +7954,13 @@ impl PersistentResourceService {
 ///
 /// `PipelineService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PipelineService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "pipeline_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "pipeline_service")))]
 #[derive(Clone, Debug)]
 pub struct PipelineService {
-    inner: Arc<dyn super::stub::dynamic::PipelineService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PipelineService>,
 }
 
 #[cfg(feature = "pipeline_service")]
@@ -8023,7 +7988,7 @@ impl PipelineService {
         T: super::stub::PipelineService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -8034,11 +7999,11 @@ impl PipelineService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PipelineService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PipelineService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -8397,13 +8362,13 @@ impl PipelineService {
 ///
 /// `PredictionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PredictionService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "prediction_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "prediction_service")))]
 #[derive(Clone, Debug)]
 pub struct PredictionService {
-    inner: Arc<dyn super::stub::dynamic::PredictionService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PredictionService>,
 }
 
 #[cfg(feature = "prediction_service")]
@@ -8431,7 +8396,7 @@ impl PredictionService {
         T: super::stub::PredictionService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -8442,11 +8407,11 @@ impl PredictionService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PredictionService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PredictionService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -8697,13 +8662,13 @@ impl PredictionService {
 ///
 /// `ReasoningEngineExecutionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineExecutionService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "reasoning_engine_execution_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_execution_service")))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineExecutionService {
-    inner: Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>,
 }
 
 #[cfg(feature = "reasoning_engine_execution_service")]
@@ -8731,7 +8696,7 @@ impl ReasoningEngineExecutionService {
         T: super::stub::ReasoningEngineExecutionService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -8742,11 +8707,11 @@ impl ReasoningEngineExecutionService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -8927,13 +8892,13 @@ impl ReasoningEngineExecutionService {
 ///
 /// `ReasoningEngineService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "reasoning_engine_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_service")))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineService {
-    inner: Arc<dyn super::stub::dynamic::ReasoningEngineService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReasoningEngineService>,
 }
 
 #[cfg(feature = "reasoning_engine_service")]
@@ -8961,7 +8926,7 @@ impl ReasoningEngineService {
         T: super::stub::ReasoningEngineService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -8972,11 +8937,11 @@ impl ReasoningEngineService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ReasoningEngineService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ReasoningEngineService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -9220,13 +9185,13 @@ impl ReasoningEngineService {
 ///
 /// `ScheduleService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ScheduleService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "schedule_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "schedule_service")))]
 #[derive(Clone, Debug)]
 pub struct ScheduleService {
-    inner: Arc<dyn super::stub::dynamic::ScheduleService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ScheduleService>,
 }
 
 #[cfg(feature = "schedule_service")]
@@ -9254,7 +9219,7 @@ impl ScheduleService {
         T: super::stub::ScheduleService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -9265,11 +9230,11 @@ impl ScheduleService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ScheduleService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ScheduleService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -9535,13 +9500,13 @@ impl ScheduleService {
 ///
 /// `SpecialistPoolService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SpecialistPoolService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "specialist_pool_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "specialist_pool_service")))]
 #[derive(Clone, Debug)]
 pub struct SpecialistPoolService {
-    inner: Arc<dyn super::stub::dynamic::SpecialistPoolService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::SpecialistPoolService>,
 }
 
 #[cfg(feature = "specialist_pool_service")]
@@ -9569,7 +9534,7 @@ impl SpecialistPoolService {
         T: super::stub::SpecialistPoolService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -9580,11 +9545,11 @@ impl SpecialistPoolService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::SpecialistPoolService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SpecialistPoolService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -9827,13 +9792,13 @@ impl SpecialistPoolService {
 ///
 /// `TensorboardService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TensorboardService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "tensorboard_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "tensorboard_service")))]
 #[derive(Clone, Debug)]
 pub struct TensorboardService {
-    inner: Arc<dyn super::stub::dynamic::TensorboardService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TensorboardService>,
 }
 
 #[cfg(feature = "tensorboard_service")]
@@ -9861,7 +9826,7 @@ impl TensorboardService {
         T: super::stub::TensorboardService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -9872,11 +9837,11 @@ impl TensorboardService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TensorboardService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TensorboardService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -10382,13 +10347,13 @@ impl TensorboardService {
 ///
 /// `VertexRagDataService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VertexRagDataService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "vertex_rag_data_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_data_service")))]
 #[derive(Clone, Debug)]
 pub struct VertexRagDataService {
-    inner: Arc<dyn super::stub::dynamic::VertexRagDataService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::VertexRagDataService>,
 }
 
 #[cfg(feature = "vertex_rag_data_service")]
@@ -10416,7 +10381,7 @@ impl VertexRagDataService {
         T: super::stub::VertexRagDataService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -10427,11 +10392,11 @@ impl VertexRagDataService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::VertexRagDataService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::VertexRagDataService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -10739,13 +10704,13 @@ impl VertexRagDataService {
 ///
 /// `VertexRagService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VertexRagService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "vertex_rag_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_service")))]
 #[derive(Clone, Debug)]
 pub struct VertexRagService {
-    inner: Arc<dyn super::stub::dynamic::VertexRagService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::VertexRagService>,
 }
 
 #[cfg(feature = "vertex_rag_service")]
@@ -10773,7 +10738,7 @@ impl VertexRagService {
         T: super::stub::VertexRagService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -10784,11 +10749,11 @@ impl VertexRagService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::VertexRagService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::VertexRagService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -10990,13 +10955,13 @@ impl VertexRagService {
 ///
 /// `VizierService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VizierService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "vizier_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "vizier_service")))]
 #[derive(Clone, Debug)]
 pub struct VizierService {
-    inner: Arc<dyn super::stub::dynamic::VizierService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::VizierService>,
 }
 
 #[cfg(feature = "vizier_service")]
@@ -11022,7 +10987,7 @@ impl VizierService {
         T: super::stub::VizierService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -11033,11 +10998,11 @@ impl VizierService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::VizierService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::VizierService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

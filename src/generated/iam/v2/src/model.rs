@@ -134,15 +134,6 @@ impl DenyRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of [denial_condition][crate::model::DenyRule::denial_condition].
-    pub fn set_denial_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.denial_condition = v.into();
-        self
-    }
-
     /// Sets the value of [denied_principals][crate::model::DenyRule::denied_principals].
     pub fn set_denied_principals<T, V>(mut self, v: T) -> Self
     where
@@ -184,6 +175,15 @@ impl DenyRule {
     {
         use std::iter::Iterator;
         self.exception_permissions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [denial_condition][crate::model::DenyRule::denial_condition].
+    pub fn set_denial_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.denial_condition = v.into();
         self
     }
 }
@@ -297,6 +297,18 @@ impl Policy {
         self
     }
 
+    /// Sets the value of [annotations][crate::model::Policy::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Policy::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -330,15 +342,6 @@ impl Policy {
         self
     }
 
-    /// Sets the value of [managing_authority][crate::model::Policy::managing_authority].
-    pub fn set_managing_authority<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.managing_authority = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::Policy::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -350,15 +353,12 @@ impl Policy {
         self
     }
 
-    /// Sets the value of [annotations][crate::model::Policy::annotations].
-    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [managing_authority][crate::model::Policy::managing_authority].
+    pub fn set_managing_authority<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.managing_authority = v.into();
         self
     }
 }
@@ -547,12 +547,6 @@ impl ListPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [policies][crate::model::ListPoliciesResponse::policies].
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
@@ -561,6 +555,12 @@ impl ListPoliciesResponse {
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -112,6 +112,18 @@ impl OrchestrationCluster {
         self
     }
 
+    /// Sets the value of [labels][crate::model::OrchestrationCluster::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [tna_version][crate::model::OrchestrationCluster::tna_version].
     pub fn set_tna_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tna_version = v.into();
@@ -124,18 +136,6 @@ impl OrchestrationCluster {
         v: T,
     ) -> Self {
         self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::OrchestrationCluster::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -383,6 +383,18 @@ impl EdgeSlm {
         self
     }
 
+    /// Sets the value of [labels][crate::model::EdgeSlm::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [tna_version][crate::model::EdgeSlm::tna_version].
     pub fn set_tna_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tna_version = v.into();
@@ -403,18 +415,6 @@ impl EdgeSlm {
         v: T,
     ) -> Self {
         self.workload_cluster_type = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::EdgeSlm::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -848,6 +848,29 @@ impl Blueprint {
         self
     }
 
+    /// Sets the value of [files][crate::model::Blueprint::files].
+    pub fn set_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::File>,
+    {
+        use std::iter::Iterator;
+        self.files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Blueprint::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Blueprint::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -884,29 +907,6 @@ impl Blueprint {
     /// Sets the value of [rollback_support][crate::model::Blueprint::rollback_support].
     pub fn set_rollback_support<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rollback_support = v.into();
-        self
-    }
-
-    /// Sets the value of [files][crate::model::Blueprint::files].
-    pub fn set_files<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::File>,
-    {
-        use std::iter::Iterator;
-        self.files = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Blueprint::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1298,6 +1298,29 @@ impl Deployment {
         self
     }
 
+    /// Sets the value of [files][crate::model::Deployment::files].
+    pub fn set_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::File>,
+    {
+        use std::iter::Iterator;
+        self.files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Deployment::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Deployment::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1343,29 +1366,6 @@ impl Deployment {
     /// Sets the value of [rollback_support][crate::model::Deployment::rollback_support].
     pub fn set_rollback_support<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rollback_support = v.into();
-        self
-    }
-
-    /// Sets the value of [files][crate::model::Deployment::files].
-    pub fn set_files<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::File>,
-    {
-        use std::iter::Iterator;
-        self.files = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Deployment::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1580,15 +1580,6 @@ impl HydratedDeployment {
         self
     }
 
-    /// Sets the value of [workload_cluster][crate::model::HydratedDeployment::workload_cluster].
-    pub fn set_workload_cluster<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workload_cluster = v.into();
-        self
-    }
-
     /// Sets the value of [files][crate::model::HydratedDeployment::files].
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
@@ -1597,6 +1588,15 @@ impl HydratedDeployment {
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [workload_cluster][crate::model::HydratedDeployment::workload_cluster].
+    pub fn set_workload_cluster<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workload_cluster = v.into();
         self
     }
 }
@@ -1847,12 +1847,6 @@ impl ListOrchestrationClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOrchestrationClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [orchestration_clusters][crate::model::ListOrchestrationClustersResponse::orchestration_clusters].
     pub fn set_orchestration_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -1861,6 +1855,12 @@ impl ListOrchestrationClustersResponse {
     {
         use std::iter::Iterator;
         self.orchestration_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrchestrationClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2166,12 +2166,6 @@ impl ListEdgeSlmsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEdgeSlmsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [edge_slms][crate::model::ListEdgeSlmsResponse::edge_slms].
     pub fn set_edge_slms<T, V>(mut self, v: T) -> Self
     where
@@ -2180,6 +2174,12 @@ impl ListEdgeSlmsResponse {
     {
         use std::iter::Iterator;
         self.edge_slms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEdgeSlmsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2658,12 +2658,6 @@ impl ListBlueprintsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBlueprintsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [blueprints][crate::model::ListBlueprintsResponse::blueprints].
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
@@ -2672,6 +2666,12 @@ impl ListBlueprintsResponse {
     {
         use std::iter::Iterator;
         self.blueprints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBlueprintsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2870,12 +2870,6 @@ impl ListBlueprintRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBlueprintRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [blueprints][crate::model::ListBlueprintRevisionsResponse::blueprints].
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
@@ -2884,6 +2878,12 @@ impl ListBlueprintRevisionsResponse {
     {
         use std::iter::Iterator;
         self.blueprints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBlueprintRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3005,12 +3005,6 @@ impl SearchBlueprintRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchBlueprintRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [blueprints][crate::model::SearchBlueprintRevisionsResponse::blueprints].
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
@@ -3019,6 +3013,12 @@ impl SearchBlueprintRevisionsResponse {
     {
         use std::iter::Iterator;
         self.blueprints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchBlueprintRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3176,12 +3176,6 @@ impl ListPublicBlueprintsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPublicBlueprintsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [public_blueprints][crate::model::ListPublicBlueprintsResponse::public_blueprints].
     pub fn set_public_blueprints<T, V>(mut self, v: T) -> Self
     where
@@ -3190,6 +3184,12 @@ impl ListPublicBlueprintsResponse {
     {
         use std::iter::Iterator;
         self.public_blueprints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPublicBlueprintsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3522,12 +3522,6 @@ impl ListDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -3536,6 +3530,12 @@ impl ListDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3637,12 +3637,6 @@ impl ListDeploymentRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeploymentRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::ListDeploymentRevisionsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -3651,6 +3645,12 @@ impl ListDeploymentRevisionsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3773,12 +3773,6 @@ impl SearchDeploymentRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::SearchDeploymentRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::SearchDeploymentRevisionsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -3787,6 +3781,12 @@ impl SearchDeploymentRevisionsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchDeploymentRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4248,12 +4248,6 @@ impl ListHydratedDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHydratedDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [hydrated_deployments][crate::model::ListHydratedDeploymentsResponse::hydrated_deployments].
     pub fn set_hydrated_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -4262,6 +4256,12 @@ impl ListHydratedDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.hydrated_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHydratedDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4418,21 +4418,6 @@ impl ManagementConfig {
         })
     }
 
-    /// The value of [oneof_config][crate::model::ManagementConfig::oneof_config]
-    /// if it holds a `FullManagementConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn full_management_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FullManagementConfig>> {
-        #[allow(unreachable_patterns)]
-        self.oneof_config.as_ref().and_then(|v| match v {
-            crate::model::management_config::OneofConfig::FullManagementConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [oneof_config][crate::model::ManagementConfig::oneof_config]
     /// to hold a `StandardManagementConfig`.
     ///
@@ -4448,6 +4433,21 @@ impl ManagementConfig {
             crate::model::management_config::OneofConfig::StandardManagementConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [oneof_config][crate::model::ManagementConfig::oneof_config]
+    /// if it holds a `FullManagementConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn full_management_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FullManagementConfig>> {
+        #[allow(unreachable_patterns)]
+        self.oneof_config.as_ref().and_then(|v| match v {
+            crate::model::management_config::OneofConfig::FullManagementConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [oneof_config][crate::model::ManagementConfig::oneof_config]

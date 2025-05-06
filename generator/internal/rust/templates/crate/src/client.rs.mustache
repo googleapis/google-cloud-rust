@@ -27,10 +27,6 @@ limitations under the License.
 #[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use crate::Result;
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
-use std::sync::Arc;
 {{/Codec.HasServices}}
 {{#Codec.Services}}
 
@@ -75,8 +71,8 @@ use std::sync::Arc;
 ///
 /// `{{Codec.Name}}` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `{{Codec.Name}}` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 {{#Codec.PerServiceFeatures}}
 #[cfg(feature = "{{Codec.ModuleName}}")]
 #[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
@@ -86,7 +82,7 @@ use std::sync::Arc;
 #[deprecated]
 {{/Deprecated}}
 pub struct {{Codec.Name}} {
-    inner: Arc<dyn super::stub::dynamic::{{Codec.Name}}>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::{{Codec.Name}}>,
 }
 
 {{#Codec.PerServiceFeatures}}
@@ -111,7 +107,7 @@ impl {{Codec.Name}} {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::{{Codec.Name}} + 'static {
-        Self { inner: Arc::new(stub) }
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -119,11 +115,11 @@ impl {{Codec.Name}} {
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<std::sync::Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {

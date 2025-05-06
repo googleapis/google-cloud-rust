@@ -226,12 +226,6 @@ impl ListDataAccessLabelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataAccessLabelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_access_labels][crate::model::ListDataAccessLabelsResponse::data_access_labels].
     pub fn set_data_access_labels<T, V>(mut self, v: T) -> Self
     where
@@ -240,6 +234,12 @@ impl ListDataAccessLabelsResponse {
     {
         use std::iter::Iterator;
         self.data_access_labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataAccessLabelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -551,6 +551,17 @@ impl ListDataAccessScopesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [data_access_scopes][crate::model::ListDataAccessScopesResponse::data_access_scopes].
+    pub fn set_data_access_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataAccessScope>,
+    {
+        use std::iter::Iterator;
+        self.data_access_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [global_data_access_scope_granted][crate::model::ListDataAccessScopesResponse::global_data_access_scope_granted].
     pub fn set_global_data_access_scope_granted<
         T: std::convert::Into<std::option::Option<bool>>,
@@ -565,17 +576,6 @@ impl ListDataAccessScopesResponse {
     /// Sets the value of [next_page_token][crate::model::ListDataAccessScopesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [data_access_scopes][crate::model::ListDataAccessScopesResponse::data_access_scopes].
-    pub fn set_data_access_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessScope>,
-    {
-        use std::iter::Iterator;
-        self.data_access_scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -934,6 +934,28 @@ impl DataAccessScope {
         self
     }
 
+    /// Sets the value of [allowed_data_access_labels][crate::model::DataAccessScope::allowed_data_access_labels].
+    pub fn set_allowed_data_access_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataAccessLabelReference>,
+    {
+        use std::iter::Iterator;
+        self.allowed_data_access_labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [denied_data_access_labels][crate::model::DataAccessScope::denied_data_access_labels].
+    pub fn set_denied_data_access_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataAccessLabelReference>,
+    {
+        use std::iter::Iterator;
+        self.denied_data_access_labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::DataAccessScope::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -979,28 +1001,6 @@ impl DataAccessScope {
     /// Sets the value of [allow_all][crate::model::DataAccessScope::allow_all].
     pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all = v.into();
-        self
-    }
-
-    /// Sets the value of [allowed_data_access_labels][crate::model::DataAccessScope::allowed_data_access_labels].
-    pub fn set_allowed_data_access_labels<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessLabelReference>,
-    {
-        use std::iter::Iterator;
-        self.allowed_data_access_labels = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [denied_data_access_labels][crate::model::DataAccessScope::denied_data_access_labels].
-    pub fn set_denied_data_access_labels<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessLabelReference>,
-    {
-        use std::iter::Iterator;
-        self.denied_data_access_labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1071,47 +1071,6 @@ impl DataAccessLabelReference {
         })
     }
 
-    /// The value of [label][crate::model::DataAccessLabelReference::label]
-    /// if it holds a `LogType`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn log_type(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::LogType(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [label][crate::model::DataAccessLabelReference::label]
-    /// if it holds a `AssetNamespace`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn asset_namespace(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::AssetNamespace(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [label][crate::model::DataAccessLabelReference::label]
-    /// if it holds a `IngestionLabel`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ingestion_label(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IngestionLabel>> {
-        #[allow(unreachable_patterns)]
-        self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::IngestionLabel(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
     /// to hold a `DataAccessLabel`.
     ///
@@ -1127,6 +1086,19 @@ impl DataAccessLabelReference {
         self
     }
 
+    /// The value of [label][crate::model::DataAccessLabelReference::label]
+    /// if it holds a `LogType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn log_type(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.label.as_ref().and_then(|v| match v {
+            crate::model::data_access_label_reference::Label::LogType(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
     /// to hold a `LogType`.
     ///
@@ -1139,6 +1111,19 @@ impl DataAccessLabelReference {
         self
     }
 
+    /// The value of [label][crate::model::DataAccessLabelReference::label]
+    /// if it holds a `AssetNamespace`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn asset_namespace(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.label.as_ref().and_then(|v| match v {
+            crate::model::data_access_label_reference::Label::AssetNamespace(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
     /// to hold a `AssetNamespace`.
     ///
@@ -1149,6 +1134,21 @@ impl DataAccessLabelReference {
             crate::model::data_access_label_reference::Label::AssetNamespace(v.into()),
         );
         self
+    }
+
+    /// The value of [label][crate::model::DataAccessLabelReference::label]
+    /// if it holds a `IngestionLabel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ingestion_label(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IngestionLabel>> {
+        #[allow(unreachable_patterns)]
+        self.label.as_ref().and_then(|v| match v {
+            crate::model::data_access_label_reference::Label::IngestionLabel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
@@ -1274,6 +1274,7 @@ pub struct Watchlist {
     /// in this watchlist.
     /// The default is 1.0 if it is not specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub multiplying_factor: f32,
 
     /// Required. Mechanism to populate entities in the watchlist.
@@ -1723,12 +1724,6 @@ impl ListWatchlistsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWatchlistsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [watchlists][crate::model::ListWatchlistsResponse::watchlists].
     pub fn set_watchlists<T, V>(mut self, v: T) -> Self
     where
@@ -1737,6 +1732,12 @@ impl ListWatchlistsResponse {
     {
         use std::iter::Iterator;
         self.watchlists = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWatchlistsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2208,12 +2209,6 @@ impl ListReferenceListsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReferenceListsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [reference_lists][crate::model::ListReferenceListsResponse::reference_lists].
     pub fn set_reference_lists<T, V>(mut self, v: T) -> Self
     where
@@ -2222,6 +2217,12 @@ impl ListReferenceListsResponse {
     {
         use std::iter::Iterator;
         self.reference_lists = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReferenceListsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2461,6 +2462,28 @@ impl ReferenceList {
         self
     }
 
+    /// Sets the value of [entries][crate::model::ReferenceList::entries].
+    pub fn set_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReferenceListEntry>,
+    {
+        use std::iter::Iterator;
+        self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::ReferenceList::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [syntax_type][crate::model::ReferenceList::syntax_type].
     pub fn set_syntax_type<T: std::convert::Into<crate::model::ReferenceListSyntaxType>>(
         mut self,
@@ -2482,28 +2505,6 @@ impl ReferenceList {
         v: T,
     ) -> Self {
         self.scope_info = v.into();
-        self
-    }
-
-    /// Sets the value of [entries][crate::model::ReferenceList::entries].
-    pub fn set_entries<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReferenceListEntry>,
-    {
-        use std::iter::Iterator;
-        self.entries = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [rules][crate::model::ReferenceList::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2703,6 +2704,18 @@ impl Rule {
         self
     }
 
+    /// Sets the value of [metadata][crate::model::Rule::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Rule::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2736,36 +2749,6 @@ impl Rule {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Rule::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [scope][crate::model::Rule::scope].
-    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.scope = v.into();
-        self
-    }
-
-    /// Sets the value of [near_real_time_live_rule_eligible][crate::model::Rule::near_real_time_live_rule_eligible].
-    pub fn set_near_real_time_live_rule_eligible<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.near_real_time_live_rule_eligible = v.into();
-        self
-    }
-
-    /// Sets the value of [inputs_used][crate::model::Rule::inputs_used].
-    pub fn set_inputs_used<T: std::convert::Into<std::option::Option<crate::model::InputsUsed>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.inputs_used = v.into();
-        self
-    }
-
     /// Sets the value of [reference_lists][crate::model::Rule::reference_lists].
     pub fn set_reference_lists<T, V>(mut self, v: T) -> Self
     where
@@ -2788,6 +2771,18 @@ impl Rule {
         self
     }
 
+    /// Sets the value of [etag][crate::model::Rule::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::Rule::scope].
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = v.into();
+        self
+    }
+
     /// Sets the value of [compilation_diagnostics][crate::model::Rule::compilation_diagnostics].
     pub fn set_compilation_diagnostics<T, V>(mut self, v: T) -> Self
     where
@@ -2799,15 +2794,21 @@ impl Rule {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::Rule::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [near_real_time_live_rule_eligible][crate::model::Rule::near_real_time_live_rule_eligible].
+    pub fn set_near_real_time_live_rule_eligible<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.near_real_time_live_rule_eligible = v.into();
+        self
+    }
+
+    /// Sets the value of [inputs_used][crate::model::Rule::inputs_used].
+    pub fn set_inputs_used<T: std::convert::Into<std::option::Option<crate::model::InputsUsed>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.inputs_used = v.into();
         self
     }
 }
@@ -3085,17 +3086,6 @@ impl RuleDeployment {
         self
     }
 
-    /// Sets the value of [last_alert_status_change_time][crate::model::RuleDeployment::last_alert_status_change_time].
-    pub fn set_last_alert_status_change_time<
-        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_alert_status_change_time = v.into();
-        self
-    }
-
     /// Sets the value of [producer_rules][crate::model::RuleDeployment::producer_rules].
     pub fn set_producer_rules<T, V>(mut self, v: T) -> Self
     where
@@ -3115,6 +3105,17 @@ impl RuleDeployment {
     {
         use std::iter::Iterator;
         self.consumer_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [last_alert_status_change_time][crate::model::RuleDeployment::last_alert_status_change_time].
+    pub fn set_last_alert_status_change_time<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_alert_status_change_time = v.into();
         self
     }
 }
@@ -3301,6 +3302,7 @@ pub struct Retrohunt {
     /// Output only. Percent progress of the retrohunt towards completion, from
     /// 0.00 to 100.00.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub progress_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3711,12 +3713,6 @@ impl ListRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::ListRulesResponse::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -3725,6 +3721,12 @@ impl ListRulesResponse {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3947,12 +3949,6 @@ impl ListRuleRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuleRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::ListRuleRevisionsResponse::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -3961,6 +3957,12 @@ impl ListRuleRevisionsResponse {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuleRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4163,12 +4165,6 @@ impl ListRetrohuntsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRetrohuntsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [retrohunts][crate::model::ListRetrohuntsResponse::retrohunts].
     pub fn set_retrohunts<T, V>(mut self, v: T) -> Self
     where
@@ -4177,6 +4173,12 @@ impl ListRetrohuntsResponse {
     {
         use std::iter::Iterator;
         self.retrohunts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRetrohuntsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4333,12 +4335,6 @@ impl ListRuleDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRuleDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rule_deployments][crate::model::ListRuleDeploymentsResponse::rule_deployments].
     pub fn set_rule_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -4347,6 +4343,12 @@ impl ListRuleDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.rule_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuleDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4752,6 +4754,7 @@ pub struct RetrohuntMetadata {
 
     /// Percent progress of the retrohunt towards completion, from 0.00 to 100.00.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub progress_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

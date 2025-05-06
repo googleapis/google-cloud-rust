@@ -16,7 +16,6 @@
 
 pub mod contact_center_insights {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ContactCenterInsights][super::super::client::ContactCenterInsights].
     ///
@@ -49,7 +48,7 @@ pub mod contact_center_insights {
     /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod contact_center_insights {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod contact_center_insights {
 
     impl CreateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -142,7 +141,7 @@ pub mod contact_center_insights {
 
     impl UploadConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -268,7 +267,7 @@ pub mod contact_center_insights {
 
     impl UpdateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -330,7 +329,7 @@ pub mod contact_center_insights {
 
     impl GetConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -383,7 +382,7 @@ pub mod contact_center_insights {
 
     impl ListConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -478,7 +477,7 @@ pub mod contact_center_insights {
 
     impl DeleteConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -534,7 +533,7 @@ pub mod contact_center_insights {
 
     impl CreateAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -633,7 +632,7 @@ pub mod contact_center_insights {
 
     impl GetAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -680,7 +679,7 @@ pub mod contact_center_insights {
 
     impl ListAnalyses {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -760,7 +759,7 @@ pub mod contact_center_insights {
 
     impl DeleteAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -809,7 +808,7 @@ pub mod contact_center_insights {
 
     impl BulkAnalyzeConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -931,7 +930,7 @@ pub mod contact_center_insights {
 
     impl BulkDeleteConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1042,7 +1041,7 @@ pub mod contact_center_insights {
 
     impl IngestConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1234,7 +1233,7 @@ pub mod contact_center_insights {
 
     impl ExportInsightsData {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1383,7 +1382,7 @@ pub mod contact_center_insights {
 
     impl CreateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1483,7 +1482,7 @@ pub mod contact_center_insights {
 
     impl UpdateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1545,7 +1544,7 @@ pub mod contact_center_insights {
 
     impl GetIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1592,7 +1591,7 @@ pub mod contact_center_insights {
 
     impl ListIssueModels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1639,7 +1638,7 @@ pub mod contact_center_insights {
 
     impl DeleteIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1726,7 +1725,7 @@ pub mod contact_center_insights {
 
     impl DeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1819,7 +1818,7 @@ pub mod contact_center_insights {
 
     impl UndeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1912,7 +1911,7 @@ pub mod contact_center_insights {
 
     impl ExportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2036,7 +2035,7 @@ pub mod contact_center_insights {
 
     impl ImportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2164,7 +2163,7 @@ pub mod contact_center_insights {
 
     impl GetIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2211,7 +2210,7 @@ pub mod contact_center_insights {
 
     impl ListIssues {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2258,7 +2257,7 @@ pub mod contact_center_insights {
 
     impl UpdateIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2317,7 +2316,7 @@ pub mod contact_center_insights {
 
     impl DeleteIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2366,7 +2365,7 @@ pub mod contact_center_insights {
 
     impl CalculateIssueModelStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2416,7 +2415,7 @@ pub mod contact_center_insights {
 
     impl CreatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2477,7 +2476,7 @@ pub mod contact_center_insights {
 
     impl GetPhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2527,7 +2526,7 @@ pub mod contact_center_insights {
 
     impl ListPhraseMatchers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2610,7 +2609,7 @@ pub mod contact_center_insights {
 
     impl DeletePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2660,7 +2659,7 @@ pub mod contact_center_insights {
 
     impl UpdatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2722,7 +2721,7 @@ pub mod contact_center_insights {
 
     impl CalculateStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2775,7 +2774,7 @@ pub mod contact_center_insights {
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2822,7 +2821,7 @@ pub mod contact_center_insights {
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2883,7 +2882,7 @@ pub mod contact_center_insights {
 
     impl CreateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2944,7 +2943,7 @@ pub mod contact_center_insights {
 
     impl GetAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2991,7 +2990,7 @@ pub mod contact_center_insights {
 
     impl ListAnalysisRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3068,7 +3067,7 @@ pub mod contact_center_insights {
 
     impl UpdateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3130,7 +3129,7 @@ pub mod contact_center_insights {
 
     impl DeleteAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3180,7 +3179,7 @@ pub mod contact_center_insights {
 
     impl GetEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3232,7 +3231,7 @@ pub mod contact_center_insights {
 
     impl InitializeEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3328,7 +3327,7 @@ pub mod contact_center_insights {
 
     impl CreateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3383,7 +3382,7 @@ pub mod contact_center_insights {
 
     impl GetView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3430,7 +3429,7 @@ pub mod contact_center_insights {
 
     impl ListViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3504,7 +3503,7 @@ pub mod contact_center_insights {
 
     impl UpdateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3560,7 +3559,7 @@ pub mod contact_center_insights {
 
     impl DeleteView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3607,7 +3606,7 @@ pub mod contact_center_insights {
 
     impl QueryMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3700,15 +3699,6 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
-            self
-        }
-
         /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
@@ -3717,6 +3707,15 @@ pub mod contact_center_insights {
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.measure_mask = v.into();
             self
         }
     }
@@ -3734,7 +3733,7 @@ pub mod contact_center_insights {
 
     impl CreateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3801,7 +3800,7 @@ pub mod contact_center_insights {
 
     impl GetQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3848,7 +3847,7 @@ pub mod contact_center_insights {
 
     impl UpdateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3912,7 +3911,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3962,7 +3961,7 @@ pub mod contact_center_insights {
 
     impl ListQaQuestions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4036,7 +4035,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4103,7 +4102,7 @@ pub mod contact_center_insights {
 
     impl GetQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4150,7 +4149,7 @@ pub mod contact_center_insights {
 
     impl UpdateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4214,7 +4213,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4270,7 +4269,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecards {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4349,7 +4348,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4418,7 +4417,7 @@ pub mod contact_center_insights {
 
     impl GetQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4470,7 +4469,7 @@ pub mod contact_center_insights {
 
     impl TuneQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4579,7 +4578,7 @@ pub mod contact_center_insights {
 
     impl DeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4631,7 +4630,7 @@ pub mod contact_center_insights {
 
     impl UndeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4683,7 +4682,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4741,7 +4740,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecardRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4826,7 +4825,7 @@ pub mod contact_center_insights {
 
     impl CreateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4893,7 +4892,7 @@ pub mod contact_center_insights {
 
     impl ListFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4976,7 +4975,7 @@ pub mod contact_center_insights {
 
     impl GetFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5026,7 +5025,7 @@ pub mod contact_center_insights {
 
     impl UpdateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5090,7 +5089,7 @@ pub mod contact_center_insights {
 
     impl DeleteFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5140,7 +5139,7 @@ pub mod contact_center_insights {
 
     impl ListAllFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5225,7 +5224,7 @@ pub mod contact_center_insights {
 
     impl BulkUploadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5357,7 +5356,7 @@ pub mod contact_center_insights {
 
     impl BulkDownloadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5523,7 +5522,7 @@ pub mod contact_center_insights {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5604,7 +5603,7 @@ pub mod contact_center_insights {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5652,7 +5651,7 @@ pub mod contact_center_insights {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -283,6 +283,28 @@ impl CertificateAuthority {
         self
     }
 
+    /// Sets the value of [pem_ca_certificates][crate::model::CertificateAuthority::pem_ca_certificates].
+    pub fn set_pem_ca_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pem_ca_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ca_certificate_descriptions][crate::model::CertificateAuthority::ca_certificate_descriptions].
+    pub fn set_ca_certificate_descriptions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CertificateDescription>,
+    {
+        use std::iter::Iterator;
+        self.ca_certificate_descriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [gcs_bucket][crate::model::CertificateAuthority::gcs_bucket].
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_bucket = v.into();
@@ -333,28 +355,6 @@ impl CertificateAuthority {
         v: T,
     ) -> Self {
         self.expire_time = v.into();
-        self
-    }
-
-    /// Sets the value of [pem_ca_certificates][crate::model::CertificateAuthority::pem_ca_certificates].
-    pub fn set_pem_ca_certificates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.pem_ca_certificates = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [ca_certificate_descriptions][crate::model::CertificateAuthority::ca_certificate_descriptions].
-    pub fn set_ca_certificate_descriptions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertificateDescription>,
-    {
-        use std::iter::Iterator;
-        self.ca_certificate_descriptions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -498,21 +498,6 @@ pub mod certificate_authority {
             })
         }
 
-        /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
-        /// if it holds a `Algorithm`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn algorithm(
-            &self,
-        ) -> std::option::Option<&crate::model::certificate_authority::SignHashAlgorithm> {
-            #[allow(unreachable_patterns)]
-            self.key_version.as_ref().and_then(|v| match v {
-                crate::model::certificate_authority::key_version_spec::KeyVersion::Algorithm(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
         /// to hold a `CloudKmsKeyVersion`.
         ///
@@ -528,6 +513,21 @@ pub mod certificate_authority {
                 )
             );
             self
+        }
+
+        /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
+        /// if it holds a `Algorithm`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn algorithm(
+            &self,
+        ) -> std::option::Option<&crate::model::certificate_authority::SignHashAlgorithm> {
+            #[allow(unreachable_patterns)]
+            self.key_version.as_ref().and_then(|v| match v {
+                crate::model::certificate_authority::key_version_spec::KeyVersion::Algorithm(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
@@ -1571,6 +1571,17 @@ pub mod ca_pool {
             std::default::Default::default()
         }
 
+        /// Sets the value of [allowed_key_types][crate::model::ca_pool::IssuancePolicy::allowed_key_types].
+        pub fn set_allowed_key_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ca_pool::issuance_policy::AllowedKeyType>,
+        {
+            use std::iter::Iterator;
+            self.allowed_key_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
         pub fn set_maximum_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -1623,17 +1634,6 @@ pub mod ca_pool {
             v: T,
         ) -> Self {
             self.passthrough_extensions = v.into();
-            self
-        }
-
-        /// Sets the value of [allowed_key_types][crate::model::ca_pool::IssuancePolicy::allowed_key_types].
-        pub fn set_allowed_key_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ca_pool::issuance_policy::AllowedKeyType>,
-        {
-            use std::iter::Iterator;
-            self.allowed_key_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1715,23 +1715,6 @@ pub mod ca_pool {
                 })
             }
 
-            /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
-            /// if it holds a `EllipticCurve`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn elliptic_curve(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.key_type.as_ref().and_then(|v| match v {
-                    crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::EllipticCurve(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
             /// to hold a `Rsa`.
             ///
@@ -1753,6 +1736,23 @@ pub mod ca_pool {
                     ),
                 );
                 self
+            }
+
+            /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
+            /// if it holds a `EllipticCurve`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn elliptic_curve(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.key_type.as_ref().and_then(|v| match v {
+                    crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::EllipticCurve(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
@@ -2357,6 +2357,17 @@ impl CertificateRevocationList {
         self
     }
 
+    /// Sets the value of [revoked_certificates][crate::model::CertificateRevocationList::revoked_certificates].
+    pub fn set_revoked_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::certificate_revocation_list::RevokedCertificate>,
+    {
+        use std::iter::Iterator;
+        self.revoked_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [pem_crl][crate::model::CertificateRevocationList::pem_crl].
     pub fn set_pem_crl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_crl = v.into();
@@ -2399,17 +2410,6 @@ impl CertificateRevocationList {
     /// Sets the value of [revision_id][crate::model::CertificateRevocationList::revision_id].
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
-        self
-    }
-
-    /// Sets the value of [revoked_certificates][crate::model::CertificateRevocationList::revoked_certificates].
-    pub fn set_revoked_certificates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::certificate_revocation_list::RevokedCertificate>,
-    {
-        use std::iter::Iterator;
-        self.revoked_certificates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2832,6 +2832,17 @@ impl Certificate {
         self
     }
 
+    /// Sets the value of [pem_certificate_chain][crate::model::Certificate::pem_certificate_chain].
+    pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pem_certificate_chain = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Certificate::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2847,17 +2858,6 @@ impl Certificate {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [pem_certificate_chain][crate::model::Certificate::pem_certificate_chain].
-    pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.pem_certificate_chain = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2898,17 +2898,6 @@ impl Certificate {
         })
     }
 
-    /// The value of [certificate_config][crate::model::Certificate::certificate_config]
-    /// if it holds a `Config`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateConfig>> {
-        #[allow(unreachable_patterns)]
-        self.certificate_config.as_ref().and_then(|v| match v {
-            crate::model::certificate::CertificateConfig::Config(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config]
     /// to hold a `PemCsr`.
     ///
@@ -2919,6 +2908,17 @@ impl Certificate {
             crate::model::certificate::CertificateConfig::PemCsr(v.into()),
         );
         self
+    }
+
+    /// The value of [certificate_config][crate::model::Certificate::certificate_config]
+    /// if it holds a `Config`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateConfig>> {
+        #[allow(unreachable_patterns)]
+        self.certificate_config.as_ref().and_then(|v| match v {
+            crate::model::certificate::CertificateConfig::Config(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config]
@@ -3311,17 +3311,6 @@ impl X509Parameters {
         self
     }
 
-    /// Sets the value of [name_constraints][crate::model::X509Parameters::name_constraints].
-    pub fn set_name_constraints<
-        T: std::convert::Into<std::option::Option<crate::model::x_509_parameters::NameConstraints>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.name_constraints = v.into();
-        self
-    }
-
     /// Sets the value of [policy_ids][crate::model::X509Parameters::policy_ids].
     pub fn set_policy_ids<T, V>(mut self, v: T) -> Self
     where
@@ -3341,6 +3330,17 @@ impl X509Parameters {
     {
         use std::iter::Iterator;
         self.aia_ocsp_servers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [name_constraints][crate::model::X509Parameters::name_constraints].
+    pub fn set_name_constraints<
+        T: std::convert::Into<std::option::Option<crate::model::x_509_parameters::NameConstraints>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.name_constraints = v.into();
         self
     }
 
@@ -3650,6 +3650,21 @@ impl SubordinateConfig {
         })
     }
 
+    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
+    /// to hold a `CertificateAuthority`.
+    ///
+    /// Note that all the setters affecting `subordinate_config` are
+    /// mutually exclusive.
+    pub fn set_certificate_authority<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subordinate_config = std::option::Option::Some(
+            crate::model::subordinate_config::SubordinateConfig::CertificateAuthority(v.into()),
+        );
+        self
+    }
+
     /// The value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
     /// if it holds a `PemIssuerChain`, `None` if the field is not set or
     /// holds a different branch.
@@ -3665,21 +3680,6 @@ impl SubordinateConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
-    /// to hold a `CertificateAuthority`.
-    ///
-    /// Note that all the setters affecting `subordinate_config` are
-    /// mutually exclusive.
-    pub fn set_certificate_authority<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subordinate_config = std::option::Option::Some(
-            crate::model::subordinate_config::SubordinateConfig::CertificateAuthority(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
@@ -4273,19 +4273,6 @@ impl CertificateDescription {
         self
     }
 
-    /// Sets the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
-    pub fn set_cert_fingerprint<
-        T: std::convert::Into<
-                std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cert_fingerprint = v.into();
-        self
-    }
-
     /// Sets the value of [crl_distribution_points][crate::model::CertificateDescription::crl_distribution_points].
     pub fn set_crl_distribution_points<T, V>(mut self, v: T) -> Self
     where
@@ -4305,6 +4292,19 @@ impl CertificateDescription {
     {
         use std::iter::Iterator;
         self.aia_issuing_certificate_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
+    pub fn set_cert_fingerprint<
+        T: std::convert::Into<
+                std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cert_fingerprint = v.into();
         self
     }
 }
@@ -5788,12 +5788,6 @@ impl ListCertificatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificates][crate::model::ListCertificatesResponse::certificates].
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
@@ -5802,6 +5796,12 @@ impl ListCertificatesResponse {
     {
         use std::iter::Iterator;
         self.certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6560,12 +6560,6 @@ impl ListCertificateAuthoritiesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateAuthoritiesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_authorities][crate::model::ListCertificateAuthoritiesResponse::certificate_authorities].
     pub fn set_certificate_authorities<T, V>(mut self, v: T) -> Self
     where
@@ -6574,6 +6568,12 @@ impl ListCertificateAuthoritiesResponse {
     {
         use std::iter::Iterator;
         self.certificate_authorities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateAuthoritiesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7395,12 +7395,6 @@ impl ListCaPoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCaPoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [ca_pools][crate::model::ListCaPoolsResponse::ca_pools].
     pub fn set_ca_pools<T, V>(mut self, v: T) -> Self
     where
@@ -7409,6 +7403,12 @@ impl ListCaPoolsResponse {
     {
         use std::iter::Iterator;
         self.ca_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCaPoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7613,12 +7613,6 @@ impl ListCertificateRevocationListsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateRevocationListsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_revocation_lists][crate::model::ListCertificateRevocationListsResponse::certificate_revocation_lists].
     pub fn set_certificate_revocation_lists<T, V>(mut self, v: T) -> Self
     where
@@ -7627,6 +7621,12 @@ impl ListCertificateRevocationListsResponse {
     {
         use std::iter::Iterator;
         self.certificate_revocation_lists = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateRevocationListsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8064,12 +8064,6 @@ impl ListCertificateTemplatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCertificateTemplatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificate_templates][crate::model::ListCertificateTemplatesResponse::certificate_templates].
     pub fn set_certificate_templates<T, V>(mut self, v: T) -> Self
     where
@@ -8078,6 +8072,12 @@ impl ListCertificateTemplatesResponse {
     {
         use std::iter::Iterator;
         self.certificate_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCertificateTemplatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

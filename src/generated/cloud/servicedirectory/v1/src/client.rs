@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Service Directory API.
 ///
@@ -58,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `LookupService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LookupService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LookupService {
-    inner: Arc<dyn super::stub::dynamic::LookupService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::LookupService>,
 }
 
 impl LookupService {
@@ -87,7 +86,7 @@ impl LookupService {
         T: super::stub::LookupService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -98,11 +97,11 @@ impl LookupService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::LookupService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::LookupService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -207,11 +206,11 @@ impl LookupService {
 ///
 /// `RegistrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RegistrationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct RegistrationService {
-    inner: Arc<dyn super::stub::dynamic::RegistrationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegistrationService>,
 }
 
 impl RegistrationService {
@@ -238,7 +237,7 @@ impl RegistrationService {
         T: super::stub::RegistrationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -249,11 +248,11 @@ impl RegistrationService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::RegistrationService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::RegistrationService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

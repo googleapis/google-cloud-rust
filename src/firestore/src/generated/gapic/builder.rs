@@ -16,7 +16,6 @@
 
 pub mod firestore {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Firestore][super::super::client::Firestore].
     ///
@@ -49,7 +48,7 @@ pub mod firestore {
     /// Common implementation for [super::super::client::Firestore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Firestore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod firestore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod firestore {
     pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
 
     impl GetDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -163,7 +166,9 @@ pub mod firestore {
     pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
 
     impl ListDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -299,7 +304,9 @@ pub mod firestore {
     pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
 
     impl UpdateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,7 +381,9 @@ pub mod firestore {
     pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
 
     impl DeleteDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -428,7 +437,9 @@ pub mod firestore {
     pub struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
 
     impl BeginTransaction {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -485,7 +496,9 @@ pub mod firestore {
     pub struct Commit(RequestBuilder<crate::model::CommitRequest>);
 
     impl Commit {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -517,12 +530,6 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.transaction = v.into();
-            self
-        }
-
         /// Sets the value of [writes][crate::model::CommitRequest::writes].
         pub fn set_writes<T, V>(mut self, v: T) -> Self
         where
@@ -531,6 +538,12 @@ pub mod firestore {
         {
             use std::iter::Iterator;
             self.0.request.writes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.transaction = v.into();
             self
         }
     }
@@ -547,7 +560,9 @@ pub mod firestore {
     pub struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
 
     impl Rollback {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,7 +615,9 @@ pub mod firestore {
     pub struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
 
     impl PartitionQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -732,7 +749,9 @@ pub mod firestore {
     pub struct ListCollectionIds(RequestBuilder<crate::model::ListCollectionIdsRequest>);
 
     impl ListCollectionIds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -819,7 +838,9 @@ pub mod firestore {
     pub struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
 
     impl BatchWrite {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -886,7 +907,9 @@ pub mod firestore {
     pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
 
     impl CreateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

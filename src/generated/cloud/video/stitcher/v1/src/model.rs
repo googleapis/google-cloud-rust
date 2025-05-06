@@ -387,32 +387,6 @@ impl CdnKey {
         })
     }
 
-    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn akamai_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
-        #[allow(unreachable_patterns)]
-        self.cdn_key_config.as_ref().and_then(|v| match v {
-            crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// if it holds a `MediaCdnKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn media_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
-        #[allow(unreachable_patterns)]
-        self.cdn_key_config.as_ref().and_then(|v| match v {
-            crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// to hold a `GoogleCdnKey`.
     ///
@@ -429,6 +403,19 @@ impl CdnKey {
         self
     }
 
+    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
+    /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn akamai_cdn_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
+        #[allow(unreachable_patterns)]
+        self.cdn_key_config.as_ref().and_then(|v| match v {
+            crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// to hold a `AkamaiCdnKey`.
     ///
@@ -443,6 +430,19 @@ impl CdnKey {
         self.cdn_key_config =
             std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v.into()));
         self
+    }
+
+    /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
+    /// if it holds a `MediaCdnKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn media_cdn_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
+        #[allow(unreachable_patterns)]
+        self.cdn_key_config.as_ref().and_then(|v| match v {
+            crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
@@ -1009,34 +1009,6 @@ impl Companion {
         })
     }
 
-    /// The value of [ad_resource][crate::model::Companion::ad_resource]
-    /// if it holds a `StaticAdResource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn static_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
-        #[allow(unreachable_patterns)]
-        self.ad_resource.as_ref().and_then(|v| match v {
-            crate::model::companion::AdResource::StaticAdResource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [ad_resource][crate::model::Companion::ad_resource]
-    /// if it holds a `HtmlAdResource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn html_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
-        #[allow(unreachable_patterns)]
-        self.ad_resource.as_ref().and_then(|v| match v {
-            crate::model::companion::AdResource::HtmlAdResource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
     /// to hold a `IframeAdResource`.
     ///
@@ -1054,6 +1026,21 @@ impl Companion {
         self
     }
 
+    /// The value of [ad_resource][crate::model::Companion::ad_resource]
+    /// if it holds a `StaticAdResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn static_ad_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
+        #[allow(unreachable_patterns)]
+        self.ad_resource.as_ref().and_then(|v| match v {
+            crate::model::companion::AdResource::StaticAdResource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
     /// to hold a `StaticAdResource`.
     ///
@@ -1069,6 +1056,19 @@ impl Companion {
             crate::model::companion::AdResource::StaticAdResource(v.into()),
         );
         self
+    }
+
+    /// The value of [ad_resource][crate::model::Companion::ad_resource]
+    /// if it holds a `HtmlAdResource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn html_ad_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
+        #[allow(unreachable_patterns)]
+        self.ad_resource.as_ref().and_then(|v| match v {
+            crate::model::companion::AdResource::HtmlAdResource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
@@ -2326,6 +2326,18 @@ impl VodSession {
         self
     }
 
+    /// Sets the value of [ad_tag_macro_map][crate::model::VodSession::ad_tag_macro_map].
+    pub fn set_ad_tag_macro_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ad_tag_macro_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [manifest_options][crate::model::VodSession::manifest_options].
     pub fn set_manifest_options<
         T: std::convert::Into<std::option::Option<crate::model::ManifestOptions>>,
@@ -2366,18 +2378,6 @@ impl VodSession {
     /// Sets the value of [vod_config][crate::model::VodSession::vod_config].
     pub fn set_vod_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vod_config = v.into();
-        self
-    }
-
-    /// Sets the value of [ad_tag_macro_map][crate::model::VodSession::ad_tag_macro_map].
-    pub fn set_ad_tag_macro_map<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ad_tag_macro_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2463,17 +2463,6 @@ impl Interstitials {
         std::default::Default::default()
     }
 
-    /// Sets the value of [session_content][crate::model::Interstitials::session_content].
-    pub fn set_session_content<
-        T: std::convert::Into<std::option::Option<crate::model::VodSessionContent>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.session_content = v.into();
-        self
-    }
-
     /// Sets the value of [ad_breaks][crate::model::Interstitials::ad_breaks].
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
@@ -2482,6 +2471,17 @@ impl Interstitials {
     {
         use std::iter::Iterator;
         self.ad_breaks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [session_content][crate::model::Interstitials::session_content].
+    pub fn set_session_content<
+        T: std::convert::Into<std::option::Option<crate::model::VodSessionContent>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.session_content = v.into();
         self
     }
 }
@@ -2628,24 +2628,6 @@ impl VodSessionAdBreak {
         std::default::Default::default()
     }
 
-    /// Sets the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
-    pub fn set_end_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end_time_offset = v.into();
-        self
-    }
-
-    /// Sets the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
-    pub fn set_start_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time_offset = v.into();
-        self
-    }
-
     /// Sets the value of [progress_events][crate::model::VodSessionAdBreak::progress_events].
     pub fn set_progress_events<T, V>(mut self, v: T) -> Self
     where
@@ -2665,6 +2647,24 @@ impl VodSessionAdBreak {
     {
         use std::iter::Iterator;
         self.ads = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
+    pub fn set_end_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time_offset = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
+    pub fn set_start_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time_offset = v.into();
         self
     }
 }
@@ -2746,6 +2746,18 @@ impl LiveSession {
         self
     }
 
+    /// Sets the value of [ad_tag_macros][crate::model::LiveSession::ad_tag_macros].
+    pub fn set_ad_tag_macros<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ad_tag_macros = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [manifest_options][crate::model::LiveSession::manifest_options].
     pub fn set_manifest_options<
         T: std::convert::Into<std::option::Option<crate::model::ManifestOptions>>,
@@ -2780,18 +2792,6 @@ impl LiveSession {
         v: T,
     ) -> Self {
         self.ad_tracking = v.into();
-        self
-    }
-
-    /// Sets the value of [ad_tag_macros][crate::model::LiveSession::ad_tag_macros].
-    pub fn set_ad_tag_macros<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.ad_tag_macros = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2885,15 +2885,6 @@ impl ManifestOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [bitrate_order][crate::model::ManifestOptions::bitrate_order].
-    pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bitrate_order = v.into();
-        self
-    }
-
     /// Sets the value of [include_renditions][crate::model::ManifestOptions::include_renditions].
     pub fn set_include_renditions<T, V>(mut self, v: T) -> Self
     where
@@ -2902,6 +2893,15 @@ impl ManifestOptions {
     {
         use std::iter::Iterator;
         self.include_renditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [bitrate_order][crate::model::ManifestOptions::bitrate_order].
+    pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.bitrate_order = v.into();
         self
     }
 }
@@ -3499,12 +3499,6 @@ impl ListCdnKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCdnKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [cdn_keys][crate::model::ListCdnKeysResponse::cdn_keys].
     pub fn set_cdn_keys<T, V>(mut self, v: T) -> Self
     where
@@ -3513,6 +3507,12 @@ impl ListCdnKeysResponse {
     {
         use std::iter::Iterator;
         self.cdn_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCdnKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3819,12 +3819,6 @@ impl ListVodStitchDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVodStitchDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vod_stitch_details][crate::model::ListVodStitchDetailsResponse::vod_stitch_details].
     pub fn set_vod_stitch_details<T, V>(mut self, v: T) -> Self
     where
@@ -3833,6 +3827,12 @@ impl ListVodStitchDetailsResponse {
     {
         use std::iter::Iterator;
         self.vod_stitch_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVodStitchDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3967,12 +3967,6 @@ impl ListVodAdTagDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVodAdTagDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vod_ad_tag_details][crate::model::ListVodAdTagDetailsResponse::vod_ad_tag_details].
     pub fn set_vod_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
@@ -3981,6 +3975,12 @@ impl ListVodAdTagDetailsResponse {
     {
         use std::iter::Iterator;
         self.vod_ad_tag_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVodAdTagDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4115,12 +4115,6 @@ impl ListLiveAdTagDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLiveAdTagDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [live_ad_tag_details][crate::model::ListLiveAdTagDetailsResponse::live_ad_tag_details].
     pub fn set_live_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
@@ -4129,6 +4123,12 @@ impl ListLiveAdTagDetailsResponse {
     {
         use std::iter::Iterator;
         self.live_ad_tag_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLiveAdTagDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4401,12 +4401,6 @@ impl ListSlatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSlatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [slates][crate::model::ListSlatesResponse::slates].
     pub fn set_slates<T, V>(mut self, v: T) -> Self
     where
@@ -4415,6 +4409,12 @@ impl ListSlatesResponse {
     {
         use std::iter::Iterator;
         self.slates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSlatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4793,12 +4793,6 @@ impl ListLiveConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLiveConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [live_configs][crate::model::ListLiveConfigsResponse::live_configs].
     pub fn set_live_configs<T, V>(mut self, v: T) -> Self
     where
@@ -4807,6 +4801,12 @@ impl ListLiveConfigsResponse {
     {
         use std::iter::Iterator;
         self.live_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLiveConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5142,12 +5142,6 @@ impl ListVodConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVodConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vod_configs][crate::model::ListVodConfigsResponse::vod_configs].
     pub fn set_vod_configs<T, V>(mut self, v: T) -> Self
     where
@@ -5156,6 +5150,12 @@ impl ListVodConfigsResponse {
     {
         use std::iter::Iterator;
         self.vod_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVodConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

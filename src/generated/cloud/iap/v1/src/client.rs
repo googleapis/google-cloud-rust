@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-use std::sync::Arc;
 
 /// Implements a client for the Cloud Identity-Aware Proxy API.
 ///
@@ -58,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `IdentityAwareProxyAdminService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IdentityAwareProxyAdminService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct IdentityAwareProxyAdminService {
-    inner: Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>,
 }
 
 impl IdentityAwareProxyAdminService {
@@ -89,7 +88,7 @@ impl IdentityAwareProxyAdminService {
         T: super::stub::IdentityAwareProxyAdminService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -100,11 +99,11 @@ impl IdentityAwareProxyAdminService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
@@ -290,11 +289,11 @@ impl IdentityAwareProxyAdminService {
 ///
 /// `IdentityAwareProxyOAuthService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IdentityAwareProxyOAuthService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct IdentityAwareProxyOAuthService {
-    inner: Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>,
 }
 
 impl IdentityAwareProxyOAuthService {
@@ -321,7 +320,7 @@ impl IdentityAwareProxyOAuthService {
         T: super::stub::IdentityAwareProxyOAuthService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
@@ -332,11 +331,11 @@ impl IdentityAwareProxyOAuthService {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(

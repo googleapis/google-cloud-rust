@@ -16,7 +16,6 @@
 
 pub mod domains {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Domains][super::super::client::Domains].
     ///
@@ -49,7 +48,7 @@ pub mod domains {
     /// Common implementation for [super::super::client::Domains] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Domains>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod domains {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod domains {
     pub struct SearchDomains(RequestBuilder<crate::model::SearchDomainsRequest>);
 
     impl SearchDomains {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -127,7 +126,7 @@ pub mod domains {
     );
 
     impl RetrieveRegisterParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -183,7 +182,7 @@ pub mod domains {
     pub struct RegisterDomain(RequestBuilder<crate::model::RegisterDomainRequest>);
 
     impl RegisterDomain {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,23 +263,6 @@ pub mod domains {
             self
         }
 
-        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [domain_notices][crate::model::RegisterDomainRequest::domain_notices].
         pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
         where
@@ -302,6 +284,23 @@ pub mod domains {
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.yearly_price = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -318,7 +317,7 @@ pub mod domains {
     );
 
     impl RetrieveTransferParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,7 +373,7 @@ pub mod domains {
     pub struct TransferDomain(RequestBuilder<crate::model::TransferDomainRequest>);
 
     impl TransferDomain {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -455,6 +454,17 @@ pub mod domains {
             self
         }
 
+        /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
+        pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ContactNotice>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
         ///
         /// This is a **required** field for requests.
@@ -482,17 +492,6 @@ pub mod domains {
             self.0.request.validate_only = v.into();
             self
         }
-
-        /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
-        pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ContactNotice>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -507,7 +506,7 @@ pub mod domains {
     pub struct ListRegistrations(RequestBuilder<crate::model::ListRegistrationsRequest>);
 
     impl ListRegistrations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -588,7 +587,7 @@ pub mod domains {
     pub struct GetRegistration(RequestBuilder<crate::model::GetRegistrationRequest>);
 
     impl GetRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -633,7 +632,7 @@ pub mod domains {
     pub struct UpdateRegistration(RequestBuilder<crate::model::UpdateRegistrationRequest>);
 
     impl UpdateRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -733,7 +732,7 @@ pub mod domains {
     );
 
     impl ConfigureManagementSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -841,7 +840,7 @@ pub mod domains {
     pub struct ConfigureDnsSettings(RequestBuilder<crate::model::ConfigureDnsSettingsRequest>);
 
     impl ConfigureDnsSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -955,7 +954,7 @@ pub mod domains {
     );
 
     impl ConfigureContactSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1048,12 +1047,6 @@ pub mod domains {
             self
         }
 
-        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [contact_notices][crate::model::ConfigureContactSettingsRequest::contact_notices].
         pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
         where
@@ -1062,6 +1055,12 @@ pub mod domains {
         {
             use std::iter::Iterator;
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
@@ -1078,7 +1077,7 @@ pub mod domains {
     pub struct ExportRegistration(RequestBuilder<crate::model::ExportRegistrationRequest>);
 
     impl ExportRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1164,7 +1163,7 @@ pub mod domains {
     pub struct DeleteRegistration(RequestBuilder<crate::model::DeleteRegistrationRequest>);
 
     impl DeleteRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1249,7 +1248,7 @@ pub mod domains {
     );
 
     impl RetrieveAuthorizationCode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1297,7 +1296,7 @@ pub mod domains {
     pub struct ResetAuthorizationCode(RequestBuilder<crate::model::ResetAuthorizationCodeRequest>);
 
     impl ResetAuthorizationCode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1345,7 +1344,7 @@ pub mod domains {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,7 +1423,7 @@ pub mod domains {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
