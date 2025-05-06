@@ -129,7 +129,6 @@ macro_rules! impl_message {
     };
 }
 
-impl_message!(DoubleValue);
 impl_message!(Int32Value);
 impl_message!(UInt32Value);
 impl_message!(BoolValue);
@@ -267,6 +266,43 @@ impl crate::message::MessageSerializer<FloatValue> for FloatValueSerializer {
     }
 }
 
+impl crate::message::Message for DoubleValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.DoubleValue"
+    }
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self>
+    where
+        Self: Sized + serde::ser::Serialize,
+    {
+        DoubleValueSerializer
+    }
+}
+
+struct DoubleValueSerializer;
+
+impl crate::message::MessageSerializer<DoubleValue> for DoubleValueSerializer {
+    fn serialize_to_map(
+        &self,
+        message: &DoubleValue,
+    ) -> Result<crate::message::Map, crate::AnyError> {
+        let value = crate::internal::F64::serialize_as(message, serde_json::value::Serializer)
+            .map_err(crate::AnyError::ser)?;
+        encode_value::<DoubleValue>(value)
+    }
+
+    fn deserialize_from_map(
+        &self,
+        map: &crate::message::Map,
+    ) -> Result<DoubleValue, crate::AnyError> {
+        let value = map
+            .get("value")
+            .ok_or_else(crate::message::missing_value_field)?;
+        crate::internal::F64::deserialize_as(value).map_err(crate::AnyError::deser)
+    }
+}
+
 impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.BytesValue"
@@ -365,6 +401,31 @@ mod test {
         });
         assert_eq!(got, want);
         let output = any.try_into_message::<FloatValue>()?;
+        // Using assert_eq does not work with NaN, as they are not considered equal,
+        // use total_cmp instead.
+        assert!(
+            output.total_cmp(&input) == std::cmp::Ordering::Equal,
+            "expected: {input}, got: {output}"
+        );
+        Ok(())
+    }
+
+    #[test_case(f64::INFINITY as DoubleValue, "Infinity")]
+    #[test_case(f64::NEG_INFINITY as DoubleValue, "-Infinity")]
+    #[test_case(f64::NAN as DoubleValue, "NaN")]
+    #[test_case(9876.5 as DoubleValue, 9876.5)]
+    fn test_wrapper_double<V>(input: DoubleValue, value: V) -> Result
+    where
+        V: serde::ser::Serialize,
+    {
+        let any = Any::try_from(&input)?;
+        let got = serde_json::to_value(&any)?;
+        let want = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.DoubleValue",
+            "value": value,
+        });
+        assert_eq!(got, want);
+        let output = any.try_into_message::<DoubleValue>()?;
         // Using assert_eq does not work with NaN, as they are not considered equal,
         // use total_cmp instead.
         assert!(
